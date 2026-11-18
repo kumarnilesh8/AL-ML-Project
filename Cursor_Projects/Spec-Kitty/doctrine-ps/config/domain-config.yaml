@@ -1,0 +1,50 @@
+schema_version: "1"
+domains:
+  - id: engineering
+    label: Engineering
+    description: Software engineering practices, architecture, and technical standards.
+    color: blue
+  - id: security
+    label: Security
+    description: Application security, threat modelling, and compliance controls.
+    color: red
+  - id: communications
+    label: Communications
+    description: Stakeholder communication, reporting, and documentation standards.
+    color: petrol
+  - id: policy
+    label: Policy
+    description: Organizational policies, decision frameworks, and engagement guardrails.
+    color: amber
+  - id: devops
+    label: DevOps
+    description: CI/CD pipelines, deployment, and infrastructure automation.
+    color: blue
+  - id: quality
+    label: Quality
+    description: Testing strategies, quality gates, and defect management.
+    color: green
+  - id: architecture
+    label: Architecture
+    description: System design patterns, integration strategies, and structural decisions.
+    color: petrol
+  - id: research
+    label: Research
+    description: Technical investigation, proof-of-concept work, and knowledge synthesis.
+    color: purple
+  - id: tooling
+    label: Tooling
+    description: Developer tools, IDE configuration, and productivity infrastructure.
+    color: amber
+  - id: delivery
+    label: Delivery
+    description: Project delivery, sprint management, and release coordination.
+    color: green
+  - id: brand-alignment
+    label: Brand Alignment
+    description: Brand consistency, visual identity, and communication style standards.
+    color: amber
+  - id: design
+    label: Design
+    description: UX/UI design, interaction patterns, and product experience standards.
+    color: purple

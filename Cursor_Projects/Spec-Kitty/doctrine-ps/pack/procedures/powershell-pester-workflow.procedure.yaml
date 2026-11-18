@@ -1,0 +1,119 @@
+schema_version: "1.0"
+id: powershell-pester-workflow
+name: PowerShell Pester Workflow
+purpose: >
+  Author and execute Pester tests for PowerShell modules and scripts following a
+  gated workflow. Covers environment verification, test structure authoring, local
+  execution, build.ps1 integration, and coverage assessment. Conforms to
+  powershell-conventions Describe/It structure.
+entry_condition: >
+  A PowerShell module or script exists (or is being authored) that requires test
+  coverage. The target code is structured per powershell-conventions (Verb-Noun
+  functions, Public/Private split for modules). Pester 5.x availability has not
+  yet been confirmed in the current environment.
+exit_condition: >
+  All target functions have at least one Describe block with passing It assertions.
+  Tests execute successfully via Invoke-Pester and via build.ps1 -Task Test. Test
+  failures are resolved or documented as known issues with rationale. Coverage
+  report is generated when the engagement charter requires it.
+steps:
+  - title: Verify Pester 5.x availability
+    actor: agent
+    description: >
+      Confirm Pester 5.x is installed and loaded:
+
+        Get-Module Pester -ListAvailable | Select-Object Version
+
+      If missing or below 5.0.0, install:
+
+        Install-Module Pester -Scope CurrentUser -Force -MinimumVersion 5.0.0
+
+      If the environment restricts module installation (e.g. locked-down CI image),
+      document the constraint and escalate to the infrastructure owner. Do not
+      proceed with Pester 3.x syntax — the assertion API is incompatible.
+
+  - title: Structure Describe/It blocks
+    actor: agent
+    description: >
+      Create or extend test files under Tests/. Naming convention:
+      <FunctionName>.Tests.ps1 or <ModuleName>.Tests.ps1.
+
+      Each Describe covers one function or script. Use Context blocks for logical
+      sub-groupings (happy path, edge cases, error conditions). Each It block tests
+      one behaviour and uses Should assertions (-Be, -BeExactly, -Throw, -HaveCount).
+
+      Follow the powershell-conventions Pester Describe/It pattern. Use BeforeAll
+      for shared setup that does not change between tests; use BeforeEach for
+      per-test isolation. Do not rely on test execution order.
+
+      For private module functions and private-scope injection, consult the pester
+      toolguide (pester.toolguide.yaml) COMMON PITFALLS — it documents the correct
+      scope-injection pattern and the failure mode when it is omitted.
+
+  - title: Execute tests locally
+    actor: agent
+    description: >
+      Run the test suite from the module or project root:
+
+        Invoke-Pester -Path ./Tests -Output Detailed
+
+      Review output for failures. For each failure: determine whether the test
+      expectation is wrong or the implementation has a defect. Fix the root cause,
+      not the assertion. Re-run until FailedCount is 0.
+
+      For CI-compatible output:
+
+        Invoke-Pester -Path ./Tests -Output CI
+
+  - title: Wire build.ps1 Test task
+    actor: agent
+    description: >
+      Ensure the build.ps1 task runner includes a Test task that invokes Pester and
+      exits non-zero on failure:
+
+        'Test' {
+            $config = New-PesterConfiguration
+            $config.Run.Path = './Tests'
+            $config.Run.Exit = $true
+            $config.Output.Verbosity = 'Detailed'
+            Invoke-Pester -Configuration $config
+        }
+
+      Document the command in the module README or build.ps1 header comment:
+      ./build.ps1 -Task Test.
+
+  - title: Assess coverage (when required)
+    actor: agent
+    description: >
+      When the engagement charter requires coverage reporting, configure Pester
+      code coverage:
+
+        $config = New-PesterConfiguration
+        $config.CodeCoverage.Enabled = $true
+        $config.CodeCoverage.Path = @('./Public', './Private')
+        $config.CodeCoverage.OutputFormat = 'JaCoCo'
+        $config.CodeCoverage.OutputPath = './coverage.xml'
+        Invoke-Pester -Configuration $config
+
+      Review the coverage report. Flag uncovered functions for additional test
+      authoring. Coverage thresholds are engagement-specific; do not invent a
+      threshold without charter guidance.
+
+anti_patterns:
+  - name: Pester pitfalls (see toolguide)
+    description: >
+      For the canonical list of Pester pitfalls — Pester 3.x syntax, order-dependent
+      tests, and missing scope injection — see pester.toolguide.yaml COMMON PITFALLS.
+      Those rules are authoritative in the toolguide; this procedure does not restate them.
+
+  - name: Testing without build.ps1 integration
+    description: >
+      Tests pass locally via Invoke-Pester but build.ps1 Test is not wired.
+      Automation and CI rely on the task runner; an unwired Test task means
+      regressions surface only when someone remembers to run Pester manually.
+
+notes: >
+  Full CI pipeline integration (JUnit XML publishing, SonarQube coverage upload)
+  belongs in the CI/AppSec pipeline managed by the DevOps specialist. This
+  procedure covers the author-side workflow up to local execution and build.ps1
+  integration.

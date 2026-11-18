@@ -1,6 +1,4 @@
-Cursor_Projects/PreBuild_MCP/Generate_Documents-mcp/Office-Word-MCP-Server/
-Anthropic_Claude_Api_Key.txt
-Open_Api_Key.txt
-Cursor_Projects/PreBuild_MCP/
-*.zip
 *Api_Key*.txt
+*.zip
+Cursor_Projects/PreBuild_MCP/
+Cursor_Projects/RFO-IsDB/

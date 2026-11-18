@@ -1,0 +1,35 @@
+schema_version: "1.0"
+id: google-cloud-mcp
+tool: google-cloud-mcp
+title: Google Cloud MCP — SQLX Data Model Server
+guide_path: toolguides/google-cloud-mcp.md
+summary: >
+  SCOPE: Datamodel knowledge ONLY. This server is the authoritative source for
+  querying the ABACUS360 data model structure — entities, fields, domains, and
+  domain values — and for reading chapters of the SQLX technical manual. It does
+  NOT cover SQLX code generation, validation, optimization, or debugging. Those
+  workflows belong to sqlx-mcp; see that toolguide for SQLX authoring tasks.
+  When in doubt: if the question is "what does this entity/field look like in the
+  data model?" use google-cloud-mcp. If the question is "how do I write or fix
+  this SQLX statement?" use sqlx-mcp.
+  MCP server connecting Cursor to the Regnology SQLX data model backend via a
+  gcloud Cloud Run proxy. GCP project: dmm-01, region: europe-west1. Tools:
+  query_datamodel_definitions (SELECT queries against SQLX entities, fields,
+  domains, domain values) and get_sqlx_manual_chapter (chapters 0-31 of the
+  SQLX technical manual). Agent sqlx-specialist-simon and datamodel-darren both
+  depend on this server for schema resolution.
+  Session setup (each session): run gcloud run services proxy sqlx-mcp
+  --region=europe-west1 --project=dmm-01 --port=8080 in a dedicated terminal
+  and keep it running. Cursor config: add data-model-definitions entry to
+  ~/.cursor/mcp.json with url http://localhost:8080/mcp and type http.
+  One-time setup: install gcloud CLI, install google-cloud-cli-cloud-run-proxy
+  component, authenticate with gcloud auth login using @regnology.net account,
+  and ensure roles/run.invoker is granted on project dmm-01. The gcloud proxy
+  setup pattern is generic and reusable across GCloud-backed tools; see the
+  gcloud-proxy-setup procedure for the step-by-step flow.
+  Common pitfalls: if MCP shows disconnected, the proxy terminal was closed;
+  if /sse returns 404, use /mcp endpoint with type http (not sse).
+commands:
+  - query_datamodel_definitions
+  - get_sqlx_manual_chapter
+last_updated: "2026-05-22"

@@ -1,0 +1,5674 @@
+WEBVTT
+
+1
+00:01:03.880 --> 00:01:07.169
+Webinar Specialist: Hi everyone, good evening. Asha calling from
+
+2
+00:01:09.730 --> 00:01:12.759
+Webinar Specialist: Asha from TechSet Support Team. Am I audible to everyone?
+
+3
+00:01:17.230 --> 00:01:21.200
+Webinar Specialist: Confirm me, am I… am I audible to everyone?
+
+4
+00:01:23.350 --> 00:01:24.170
+Webinar Specialist: Okay.
+
+5
+00:01:25.100 --> 00:01:28.550
+Webinar Specialist: Thank you. Thank you for the confirmation. So…
+
+6
+00:01:30.120 --> 00:01:34.619
+Webinar Specialist: Just let me know if you have any queries related to the Canvas platform.
+
+7
+00:01:37.590 --> 00:01:44.820
+Webinar Specialist: Maybe we can discuss now, whatever the queries you have related to the Canvas platform. So, please let me know.
+
+8
+00:01:45.010 --> 00:01:46.849
+Webinar Specialist: Yes, Nagundra, please go ahead.
+
+9
+00:01:51.360 --> 00:01:59.800
+Webinar Specialist: Maybe you can unmute yourself. I hope, like, everyone can unmute yourself. So… Sure, sure.
+
+10
+00:01:59.820 --> 00:02:03.720
+Webinar Specialist: It's already been granted. Sure, they can unmute themselves.
+
+11
+00:02:04.010 --> 00:02:09.099
+Webinar Specialist: Okay, thanks, Ashwini. Nagendra, can you please check now, like, you're able to unmute yourself?
+
+12
+00:02:13.600 --> 00:02:15.440
+Webinar Specialist: Let me just try unmuting you.
+
+13
+00:02:18.490 --> 00:02:19.649
+Webinar Specialist: Yes, Nagindro.
+
+14
+00:02:21.500 --> 00:02:23.460
+Nagendra H K: Not able to hear me or Shop?
+
+15
+00:02:23.910 --> 00:02:25.510
+Webinar Specialist: Yes, Nagendra, you're audible.
+
+16
+00:02:25.510 --> 00:02:33.020
+Nagendra H K: Okay, I have a couple of questions. So, first one is, on the aquarium environment.
+
+17
+00:02:33.420 --> 00:02:38.499
+Nagendra H K: The advanced stop is, like, QA, right? So it needs higher version of Python.
+
+18
+00:02:38.860 --> 00:02:47.580
+Nagendra H K: I mean, unable to… Factors, some of those advanced topics.
+
+19
+00:02:47.580 --> 00:02:50.360
+Webinar Specialist: Nagitra, one second, one second.
+
+20
+00:02:50.760 --> 00:02:52.070
+Webinar Specialist: Your voice is breaking for me.
+
+21
+00:02:52.070 --> 00:02:52.710
+Nagendra H K: I don't think.
+
+22
+00:02:54.930 --> 00:02:56.720
+Webinar Specialist: Your voice is not so audible.
+
+23
+00:02:56.720 --> 00:02:57.330
+Nagendra H K: Not so pleased.
+
+24
+00:02:57.330 --> 00:02:58.659
+Webinar Specialist: Are your voice is breaking.
+
+25
+00:03:00.670 --> 00:03:01.879
+Nagendra H K: Are you able to hear me?
+
+26
+00:03:03.080 --> 00:03:03.550
+Webinar Specialist: No, it's true.
+
+27
+00:03:03.550 --> 00:03:04.719
+Nagendra H K: Are you able to hear me?
+
+28
+00:03:05.710 --> 00:03:07.100
+Webinar Specialist: No, it's still breaking.
+
+29
+00:03:09.320 --> 00:03:12.769
+Nagendra H K: Okay, okay. You know, someone else can…
+
+30
+00:03:12.980 --> 00:03:17.800
+Nagendra H K: pause their questions, maybe I'll try after some kind of… yeah.
+
+31
+00:03:25.430 --> 00:03:26.990
+Nagendra H K: Hello, are you able to hear me?
+
+32
+00:03:28.040 --> 00:03:31.629
+Webinar Specialist: Yes, Nagandra, maybe you can try now? Let me check.
+
+33
+00:03:33.600 --> 00:03:34.739
+Nagendra H K: Are you able to hear me?
+
+34
+00:03:36.140 --> 00:03:39.140
+Webinar Specialist: Yes, Nagendra, you're audible now, can you please go ahead?
+
+35
+00:03:40.300 --> 00:03:50.500
+Nagendra H K: Okay, okay, the first question is on the care environment, the Python version. The advanced topics like QA, it doesn't work because of Python
+
+36
+00:03:50.670 --> 00:03:54.160
+Nagendra H K: Version being an older version on Macarium.
+
+37
+00:03:54.900 --> 00:04:00.260
+Nagendra H K: So, I'm sure it would be, you know, others might also have similar issues.
+
+38
+00:04:00.790 --> 00:04:03.220
+Nagendra H K: It will not be specific to me.
+
+39
+00:04:04.070 --> 00:04:05.920
+Webinar Specialist: Okay, so Nagandra.
+
+40
+00:04:05.920 --> 00:04:06.620
+Nagendra H K: The gutters 1?
+
+41
+00:04:06.620 --> 00:04:07.630
+Webinar Specialist: feedback?
+
+42
+00:04:08.150 --> 00:04:10.560
+Webinar Specialist: Okay, yeah, yeah, just completed, yeah.
+
+43
+00:04:12.650 --> 00:04:15.900
+Nagendra H K: Yeah, second question on the top-up. So…
+
+44
+00:04:16.690 --> 00:04:23.780
+Nagendra H K: We've been… I've been trying to… practice, little bit complex.
+
+45
+00:04:24.020 --> 00:04:29.460
+Nagendra H K: examples, and so on, right? Also, what has been taught in the classes.
+
+46
+00:04:29.580 --> 00:04:35.739
+Nagendra H K: So, a lot of examples are not, try examples, right? So, real case scenarios,
+
+47
+00:04:36.090 --> 00:04:41.090
+Nagendra H K: That requires a good amount of, APA calls.
+
+48
+00:04:41.480 --> 00:04:45.399
+Nagendra H K: So, it becomes a problem, right? So every, you know, and then…
+
+49
+00:04:45.590 --> 00:04:50.589
+Nagendra H K: Sending request, it takes a couple of days to get, 25 cents.
+
+50
+00:04:50.860 --> 00:04:54.400
+Nagendra H K: It's really painful, so it would be really…
+
+51
+00:04:54.550 --> 00:04:58.830
+Nagendra H K: I would appreciate if you can cope with at least, $5.
+
+52
+00:04:59.060 --> 00:05:01.619
+Nagendra H K: And then one shot, which will help us to…
+
+53
+00:05:01.820 --> 00:05:06.140
+Nagendra H K: Probably complete, you know, complex examples.
+
+54
+00:05:06.830 --> 00:05:09.489
+Nagendra H K: And, really upskill ourselves.
+
+55
+00:05:11.710 --> 00:05:15.489
+Webinar Specialist: Okay, okay. Nagandra, first thing, am I audible right to you?
+
+56
+00:05:17.460 --> 00:05:19.110
+Nagendra H K: Yes, I am repeated.
+
+57
+00:05:19.700 --> 00:05:30.479
+Webinar Specialist: Okay, so regarding your first query, like, the Python version, we already checked with the relevant team, like, Vicarium team only I can see. We already checked with them. The version is already set.
+
+58
+00:05:31.050 --> 00:05:38.750
+Webinar Specialist: Okay? And, like, we're running another sections as well, but, when it comes to QAI, we didn't face any issues.
+
+59
+00:05:38.860 --> 00:05:43.340
+Webinar Specialist: Maybe, like, if you're facing any issues, like, what I can suggest you is.
+
+60
+00:05:43.580 --> 00:05:51.400
+Webinar Specialist: If you can help us with the relevant screenshot of it, we can, like, connect with the Wakarium team to check with the issue, like, from the backend.
+
+61
+00:05:54.260 --> 00:05:55.940
+Nagendra H K: Sure. Yeah, like, really…
+
+62
+00:05:55.940 --> 00:06:03.459
+Webinar Specialist: You are the screenshot for that, yes. Yeah. And, for the second query, like, when it comes to the API key.
+
+63
+00:06:03.570 --> 00:06:14.570
+Webinar Specialist: From week 7 onwards, the API key is available under, like, our vocarium Labs. Maybe if you check for a few of the weeks, we have already provided $5.
+
+64
+00:06:14.730 --> 00:06:27.170
+Webinar Specialist: And one more thing I can say, by default, it is already set from the backend itself. Few of the, like, week's assignment, it is set to $0.25, and for few weeks, it is already set to $0.5.
+
+65
+00:06:28.440 --> 00:06:34.670
+Webinar Specialist: Okay, and if in case it is going to exhaust, I can suggest you please reach out to our support team.
+
+66
+00:06:35.020 --> 00:06:38.239
+Webinar Specialist: For sure, like, we will just help you in increasing Get Nagindra.
+
+67
+00:06:39.320 --> 00:06:43.810
+Webinar Specialist: But $0.5 also, it is already present in few of the weeks.
+
+68
+00:06:45.950 --> 00:06:48.609
+Nagendra H K: Okay, okay, I appreciate it. Thank you.
+
+69
+00:06:48.990 --> 00:06:49.810
+Webinar Specialist: Okay.
+
+70
+00:06:54.100 --> 00:06:59.320
+Webinar Specialist: And yes, others, if you have any queries, please let me know.
+
+71
+00:07:21.800 --> 00:07:30.310
+Nagendra H K: Another request, See, there is an assignment with a deadline, submission deadline of 27th April.
+
+72
+00:07:30.570 --> 00:07:36.979
+Nagendra H K: In fact, clearly, we have not… much, examples,
+
+73
+00:07:37.300 --> 00:07:40.889
+Nagendra H K: Of our practice in the sessions also.
+
+74
+00:07:41.260 --> 00:07:43.700
+Nagendra H K: There are upcoming events also.
+
+75
+00:07:43.990 --> 00:07:52.660
+Nagendra H K: targeting to cover that. It would be really helpful. Yesterday, also, someone was, requesting for such extension. Maybe, you know.
+
+76
+00:07:53.070 --> 00:07:55.489
+Nagendra H K: Across the board, if it could…
+
+77
+00:07:55.620 --> 00:07:59.579
+Nagendra H K: Help us to extend by at least, one or two weeks.
+
+78
+00:07:59.910 --> 00:08:02.890
+Nagendra H K: On the cutoff data, it would be really helpful.
+
+79
+00:08:03.940 --> 00:08:13.420
+Webinar Specialist: Sure, this I can help you. Maybe I will just extend the due date for the assignment for 10 more days. I think that is feasible, right? 10 more days?
+
+80
+00:08:14.500 --> 00:08:17.000
+Nagendra H K: Yes, that should be feasible. Thanks a lot.
+
+81
+00:08:17.580 --> 00:08:23.919
+Webinar Specialist: Okay, then. Maybe I'll just change the due date, and I'll be sharing an announcement, with everyone.
+
+82
+00:08:25.180 --> 00:08:25.630
+Nagendra H K: So…
+
+83
+00:08:25.630 --> 00:08:29.149
+Webinar Specialist: Once it is done, like, once it is updated. Yeah, sure. Thank you, Nagandra.
+
+84
+00:08:31.250 --> 00:08:32.710
+Webinar Specialist: Yes, Arun?
+
+85
+00:08:33.419 --> 00:08:46.429
+Arun Kumar R V: Yeah, same problem.25 and 0.5, how does it make difference? API key, you are updating, I'm running a program, I get exhausted, then I mail it.
+
+86
+00:08:46.559 --> 00:08:49.269
+Arun Kumar R V: After 48 hours, you'll be responding.
+
+87
+00:08:49.659 --> 00:08:52.549
+Arun Kumar R V: Then, this 401 what I'll be doing.
+
+88
+00:08:53.459 --> 00:08:58.039
+Arun Kumar R V: Can't you have a proper thing? I have to go back every time, is it?
+
+89
+00:08:58.619 --> 00:09:01.279
+Arun Kumar R V: For $25.25, is it?
+
+90
+00:09:01.819 --> 00:09:03.009
+Arun Kumar R V: What do you feed?
+
+91
+00:09:03.629 --> 00:09:08.179
+Arun Kumar R V: Every time I have to approach you, which I made, for $0.25, is it?
+
+92
+00:09:10.000 --> 00:09:12.630
+Webinar Specialist: Correct. I don't see, like, I…
+
+93
+00:09:13.130 --> 00:09:21.430
+Arun Kumar R V: See, hello, you are connecting max of rupees, and you are going to distribute . How much? How much it comes? 20 rupees.
+
+94
+00:09:22.780 --> 00:09:27.109
+Arun Kumar R V: I have to pay you for every 20-20 rupees, is it? That's with me?
+
+95
+00:09:27.340 --> 00:09:28.519
+Arun Kumar R V: What do you think?
+
+96
+00:09:29.150 --> 00:09:35.999
+Webinar Specialist: Okay, so, Arun, like, as I'm… like, as I told you, even for few weeks, we already provided 0.5.
+
+97
+00:09:36.000 --> 00:09:38.450
+Arun Kumar R V: Quantify, done twice.
+
+98
+00:09:38.830 --> 00:09:41.010
+Arun Kumar R V: That is more than why business…
+
+99
+00:09:41.540 --> 00:09:44.810
+Arun Kumar R V: For 20 rupees, I have to keep sending you mail, is it?
+
+100
+00:09:45.490 --> 00:09:47.829
+Webinar Specialist: No, $0.5 is already provided.
+
+101
+00:09:47.830 --> 00:09:50.899
+Arun Kumar R V: $25 is how much? How much you tell me in rupees?
+
+102
+00:09:52.030 --> 00:09:54.200
+Arun Kumar R V: How much it is? 45 rupees.
+
+103
+00:09:54.900 --> 00:09:57.640
+Arun Kumar R V: You're thinking you are not a great job, is it?
+
+104
+00:09:59.170 --> 00:10:01.709
+Arun Kumar R V: He's asking for $5.
+
+105
+00:10:02.440 --> 00:10:04.270
+Arun Kumar R V: How much you have collected from us?
+
+106
+00:10:04.540 --> 00:10:05.540
+Arun Kumar R V: Monique.
+
+107
+00:10:07.680 --> 00:10:12.509
+Arun Kumar R V: What is 0.5? Can you convert it into rupees?
+
+108
+00:10:16.230 --> 00:10:20.969
+Arun Kumar R V: He is asking $5, you're telling you 0.5, 0.25, like that.
+
+109
+00:10:21.990 --> 00:10:23.889
+Arun Kumar R V: Is it the answer you're giving?
+
+110
+00:10:26.690 --> 00:10:28.079
+Webinar Specialist: See, I don't like…
+
+111
+00:10:28.080 --> 00:10:33.629
+Arun Kumar R V: $5, what is preventing you to put $5? When he's asking? It's the Nagitra is asking you,
+
+112
+00:10:33.840 --> 00:10:37.289
+Arun Kumar R V: What is preventing you from putting $5 each?
+
+113
+00:10:37.480 --> 00:10:39.829
+Arun Kumar R V: How much? 500 hours? 500 rupees.
+
+114
+00:10:41.880 --> 00:10:43.719
+Webinar Specialist: I can understand your frustration here.
+
+115
+00:10:43.720 --> 00:10:54.970
+Arun Kumar R V: By default, like it is… I'm running a program, suddenly the dollar sign gets exhausted, I have to mail you, you will respond after 481, what is it going on?
+
+116
+00:10:55.200 --> 00:11:03.969
+Arun Kumar R V: This is 3 times I've done it. I have frustrated. Then I have paid my 500 rupees, and I'm using my ATK. This is not what you need, is it?
+
+117
+00:11:04.180 --> 00:11:12.390
+Arun Kumar R V: Everybody should… you're frustrating and pushing them to buy their own API key, is it? Is it your policy?
+
+118
+00:11:12.700 --> 00:11:14.050
+Arun Kumar R V: Can't you find them?
+
+119
+00:11:14.230 --> 00:11:17.309
+Arun Kumar R V: That, Mr. Nagitra, what do you ask for?
+
+120
+00:11:17.890 --> 00:11:19.410
+Arun Kumar R V: Just $5.
+
+121
+00:11:23.000 --> 00:11:25.809
+Webinar Specialist: Arun, I can say by default, it is already set for all.
+
+122
+00:11:25.810 --> 00:11:27.309
+Arun Kumar R V: And the laps to 0.5.
+
+123
+00:11:27.310 --> 00:11:30.389
+Webinar Specialist: But yes, like, I can understand.
+
+124
+00:11:30.390 --> 00:11:32.480
+Arun Kumar R V: So I can understand your frustration.
+
+125
+00:11:32.480 --> 00:11:32.960
+Webinar Specialist: we…
+
+126
+00:11:32.960 --> 00:11:39.180
+Arun Kumar R V: Please, please, please hear me. You have asked to put our universes? Please hear me.
+
+127
+00:11:39.650 --> 00:11:54.320
+Arun Kumar R V: $5.25, by the way, it is your convenience, not our convenience. We are not finding it very convenient. You form your policies for the convenience of the people who are attending it, not your convenience.
+
+128
+00:11:56.080 --> 00:11:58.019
+Arun Kumar R V: Alon, let me take this feedback.
+
+129
+00:11:58.020 --> 00:12:00.599
+Webinar Specialist: with the relevant team. Let me check with…
+
+130
+00:12:00.600 --> 00:12:11.949
+Arun Kumar R V: I have given feedback enough, it is not that you're not knowing. Don't tell me that this is the first… I'm raising, nobody has raised. On mail, it said I have raised. You check up with my mail.
+
+131
+00:12:12.460 --> 00:12:16.359
+Arun Kumar R V: What do you have done for that? You check with my details of my mail.
+
+132
+00:12:16.490 --> 00:12:18.519
+Arun Kumar R V: I've given you the explanation.
+
+133
+00:12:18.830 --> 00:12:20.840
+Arun Kumar R V: Not that I'm praising today.
+
+134
+00:12:21.690 --> 00:12:25.360
+Arun Kumar R V: Three times I did it, then I got frustrated, I bought my own thing.
+
+135
+00:12:25.360 --> 00:12:26.090
+Diptoshree Sengupta: question.
+
+136
+00:12:26.090 --> 00:12:26.630
+Arun Kumar R V: Then…
+
+137
+00:12:32.010 --> 00:12:37.600
+Webinar Specialist: Aaron, maybe if you could allow me at least, like, 24 to 48 hours, I will check with the team, I will check with the team.
+
+138
+00:12:37.600 --> 00:12:52.890
+Arun Kumar R V: Because you're not acted, as per my mail, you're not acted. Just, you gave another, 20 rupees, and you just like a, this thing. You've thrown biscuit to a dog. You're given one more biscuit, that's all.
+
+139
+00:12:54.620 --> 00:12:56.580
+Nagendra H K: Shouldn't I agree.
+
+140
+00:12:56.580 --> 00:12:57.170
+Arun Kumar R V: to me.
+
+141
+00:12:57.170 --> 00:13:02.650
+Nagendra H K: You know, Asher, I know these things have been very frustrating, actually, right?
+
+142
+00:13:02.650 --> 00:13:03.300
+Arun Kumar R V: Hi, everybody!
+
+143
+00:13:03.300 --> 00:13:03.760
+Nagendra H K: your life.
+
+144
+00:13:03.760 --> 00:13:04.460
+Arun Kumar R V: this show.
+
+145
+00:13:04.460 --> 00:13:04.979
+Nagendra H K: in my eye.
+
+146
+00:13:04.980 --> 00:13:22.160
+Arun Kumar R V: Don't talk like that. Otherwise, switch off. Don't come that as if you are solving problem for us. You know very well what is the problem. I have given the maye. You have not done anything. This is happening from last two months. I'm the first fellow who raised the issue.
+
+147
+00:13:23.120 --> 00:13:26.750
+Arun Kumar R V: Everybody is facing this as if you were not aware of the problem.
+
+148
+00:13:27.580 --> 00:13:28.940
+Arun Kumar R V: Don't tell me all those.
+
+149
+00:13:29.080 --> 00:13:29.720
+Diptoshree Sengupta: Okay.
+
+150
+00:13:30.630 --> 00:13:32.920
+Arun Kumar R V: Qo, please tell me, what is your solution?
+
+151
+00:13:34.110 --> 00:13:44.410
+Webinar Specialist: Maybe, Arun, as I told you, just allow me other, like, another 24 to 48 hours. I will check with the 11 team, maybe is it possible to extend, the credits for the 11?
+
+152
+00:13:44.410 --> 00:13:52.830
+Arun Kumar R V: You have to do it. It is not possible. It is not even this thing. We are not able to work on this thing. Otherwise, refund your money.
+
+153
+00:13:53.380 --> 00:14:01.829
+Arun Kumar R V: It is not yours, this thing. We are not able to… once you have joined, we are giving our time and money for that.
+
+154
+00:14:03.500 --> 00:14:05.010
+Arun Kumar R V: It is not possibility.
+
+155
+00:14:05.980 --> 00:14:07.550
+Webinar Specialist: Sharon, maybe…
+
+156
+00:14:07.550 --> 00:14:15.430
+Arun Kumar R V: 25 dollars is not enough. Any layman will know, your team is not aware of, don't tell me almost this.
+
+157
+00:14:15.960 --> 00:14:16.480
+Arun Kumar R V: Oh.
+
+158
+00:14:16.480 --> 00:14:18.500
+Webinar Specialist: Sorry to interrupt, Asha and Arun.
+
+159
+00:14:18.500 --> 00:14:19.500
+Arun Kumar R V: I don't…
+
+160
+00:14:19.500 --> 00:14:22.710
+Webinar Specialist: I have already spoke to this, so we are…
+
+161
+00:14:22.710 --> 00:14:34.050
+Arun Kumar R V: I'm sure every batch, you are facing this, and you are following this way. Frustrating people, pushing them to buy their own APAK, this is your policy. Nothing else.
+
+162
+00:14:34.190 --> 00:14:38.570
+Arun Kumar R V: Don't tell me that this is… something has come out, out of blue.
+
+163
+00:14:38.900 --> 00:14:40.830
+Arun Kumar R V: I've mailed 3 times.
+
+164
+00:14:41.210 --> 00:14:44.219
+Arun Kumar R V: You checked my mail, I checked, she said, what you have done?
+
+165
+00:14:44.540 --> 00:14:56.789
+Arun Kumar R V: I'm asking you a question, what you have done? Now I'll see, I'll do all those, blah blah, nothing, it is not a, this thing. All those blah blah. Everybody, I know everybody in our group, all are telling you.
+
+166
+00:14:57.330 --> 00:15:02.569
+Arun Kumar R V: You have not acted for this thing. Don't tell me your backend does not know this problem.
+
+167
+00:15:06.970 --> 00:15:09.579
+Webinar Specialist: We will increase, okay, we already checked.
+
+168
+00:15:09.580 --> 00:15:13.479
+Arun Kumar R V: No, no, another $25, is it? You will increase.
+
+169
+00:15:13.480 --> 00:15:13.800
+Webinar Specialist: Nope.
+
+170
+00:15:13.800 --> 00:15:15.879
+Arun Kumar R V: Another point over time.
+
+171
+00:15:15.880 --> 00:15:16.680
+Webinar Specialist: I mean, crystal.
+
+172
+00:15:16.680 --> 00:15:17.490
+Arun Kumar R V: Everybody's…
+
+173
+00:15:17.490 --> 00:15:18.420
+Webinar Specialist: $5.
+
+174
+00:15:18.420 --> 00:15:19.189
+Arun Kumar R V: I don't want to.
+
+175
+00:15:19.190 --> 00:15:19.639
+Webinar Specialist: Right on.
+
+176
+00:15:19.640 --> 00:15:28.859
+Arun Kumar R V: Your .25, I don't want your charity. When I can pay more than a knack for the course, can't I pay 100 rupees?
+
+177
+00:15:29.770 --> 00:15:38.520
+Arun Kumar R V: I don't want to say, if you do it, do it properly, don't do it. Tell it clearly, we are not going to, give you the API key.
+
+178
+00:15:39.060 --> 00:15:43.989
+Webinar Specialist: Arun, that is what we are informing. We will increase it to $0.5, okay? Please don'.
+
+179
+00:15:43.990 --> 00:15:45.360
+Arun Kumar R V: Don't worry, we will increase it to…
+
+180
+00:15:45.360 --> 00:15:45.980
+Webinar Specialist: 2.52.
+
+181
+00:15:45.980 --> 00:15:51.789
+Arun Kumar R V: What is the… what is the feeling? I… one biscuit I was giving, I'll give you two with two biscuits. What, you're playing with us?
+
+182
+00:15:52.590 --> 00:15:56.479
+Arun Kumar R V: I was giving only one biscuit earlier, I'll give you two biscuits.
+
+183
+00:15:56.810 --> 00:15:58.640
+Arun Kumar R V: This is what you're telling, is it?
+
+184
+00:15:59.240 --> 00:16:00.089
+Arun Kumar R V: No, totally.
+
+185
+00:16:00.090 --> 00:16:02.099
+Webinar Specialist: We increased to $5. Sasha, I have.
+
+186
+00:16:02.100 --> 00:16:03.140
+Arun Kumar R V: just full.
+
+187
+00:16:03.140 --> 00:16:05.770
+Webinar Specialist: We can increase to $5. That can be done.
+
+188
+00:16:05.770 --> 00:16:20.529
+Arun Kumar R V: When we're working on a project, we are, spending some other, this thing, we'll come and working on a project. Now we find that where API key is not enough, suddenly that error starts coming in.
+
+189
+00:16:21.330 --> 00:16:22.969
+Arun Kumar R V: How frustrating it is.
+
+190
+00:16:25.100 --> 00:16:27.609
+Arun Kumar R V: If you want to tell me, I will pay you.
+
+191
+00:16:29.430 --> 00:16:30.550
+Arun Kumar R V: pay for that.
+
+192
+00:16:31.280 --> 00:16:32.720
+Arun Kumar R V: Okay, fine, thank you.
+
+193
+00:16:43.300 --> 00:16:50.340
+Webinar Specialist: Thank you, Aaron. Like, as informed, like, we will be extending it. Please don't worry. We will extend it, the API key feature.
+
+194
+00:16:51.540 --> 00:16:55.400
+Webinar Specialist: And yes, others, please let me know if there are any other…
+
+195
+00:16:55.400 --> 00:16:56.360
+Nagendra H K: Good luck.
+
+196
+00:16:56.470 --> 00:16:59.620
+Nagendra H K: It's extended for everyone, not just our own place.
+
+197
+00:17:00.640 --> 00:17:03.449
+Webinar Specialist: Yes, yes, we will just make it available for everyone.
+
+198
+00:17:38.940 --> 00:17:41.330
+Webinar Specialist: Are there any ADA queries?
+
+199
+00:18:41.450 --> 00:18:45.049
+Ramesh Nanavare: Hello, excuse me, this side, Ramesh here. Can I ask you?
+
+200
+00:18:45.490 --> 00:18:46.910
+Webinar Specialist: Yes, Ramesh, please.
+
+201
+00:18:48.390 --> 00:18:55.969
+Ramesh Nanavare: We have a graded mini-project on a monthly basis, so all the projects are mandatory to run on the Karim.
+
+202
+00:18:57.040 --> 00:19:02.139
+Webinar Specialist: No, you can use, like, your external labs as well to complete the graded assignments.
+
+203
+00:19:02.710 --> 00:19:09.970
+Ramesh Nanavare: Okay, and one more question here for on… related to Wokarium. While we run on the… any codes on Vocarium?
+
+204
+00:19:10.090 --> 00:19:15.559
+Ramesh Nanavare: So there is no provision of codes, copying from my lab to Okarim.
+
+205
+00:19:16.800 --> 00:19:25.810
+Ramesh Nanavare: Because that vocarim will have to type manually, one by one, workforce here. It takes too long time to practice on vocarim also.
+
+206
+00:19:30.250 --> 00:19:31.370
+Webinar Specialist: Okay.
+
+207
+00:19:32.290 --> 00:19:36.159
+Ramesh Nanavare: There is no provision of copy-pasting. Since codes are very heavy.
+
+208
+00:19:36.280 --> 00:19:41.360
+Ramesh Nanavare: very long codes, which generally, in voqarim, we have to type manually.
+
+209
+00:19:41.500 --> 00:19:45.419
+Ramesh Nanavare: Is there any provision to directly… we can upload my text file
+
+210
+00:19:45.970 --> 00:19:50.810
+Ramesh Nanavare: In vocarium, so we can run and check, practice their vocarium.
+
+211
+00:19:51.320 --> 00:19:57.699
+Webinar Specialist: Yes, Ramesh, like, you have the option to upload the files, but not the text files, but I can say IPONV files.
+
+212
+00:19:57.950 --> 00:20:02.470
+Webinar Specialist: You can just directly upload it into Vacarium, and then, like, you can use it.
+
+213
+00:20:03.770 --> 00:20:11.519
+Ramesh Nanavare: So, I did, last week, my fine, trying to upload on the Karim, not allowing me to upload, fine.
+
+214
+00:20:11.650 --> 00:20:17.139
+Ramesh Nanavare: Since might be the external data not allowing to upload on the program.
+
+215
+00:20:17.650 --> 00:20:31.170
+Webinar Specialist: No, no, no, we can upload the other files as well. Maybe if you just right-click on the work folder, there is an option, like, upload. Using that, you can upload the files, like, either dataset files or, any IPUNV files, you can upload it.
+
+216
+00:20:31.320 --> 00:20:32.450
+Webinar Specialist: Ramesh.
+
+217
+00:20:33.600 --> 00:20:37.020
+Ramesh Nanavare: Okay, let me try, if any… in case any error, I'll just reach out.
+
+218
+00:20:37.420 --> 00:20:39.610
+Webinar Specialist: Sure, sure, please. You can just try it.
+
+219
+00:20:47.690 --> 00:20:49.429
+Suman Saha: Hello, this is Suman.
+
+220
+00:20:49.830 --> 00:20:50.910
+Webinar Specialist: Yes, woman.
+
+221
+00:20:50.910 --> 00:21:06.760
+Suman Saha: Just, feedback from my side. So, in couple of graded assignments, I have seen that the instruction is not very much clear. I mean, sometimes we're expecting that the code ends, or data will be in Vocarium, but later we found that it's not.
+
+222
+00:21:06.760 --> 00:21:14.440
+Suman Saha: So, my suggestion or request is to please make the instructions here in the graded assignment.
+
+223
+00:21:16.040 --> 00:21:19.830
+Webinar Specialist: Like, this is regarding the problem statement you're talking about, Sumit?
+
+224
+00:21:19.830 --> 00:21:20.280
+Suman Saha: atheist.
+
+225
+00:21:20.280 --> 00:21:21.130
+Webinar Specialist: Instructions.
+
+226
+00:21:21.130 --> 00:21:22.779
+Suman Saha: Right, right, right, right.
+
+227
+00:21:23.600 --> 00:21:24.889
+Webinar Specialist: Okay.
+
+228
+00:21:31.400 --> 00:21:43.950
+Webinar Specialist: Suman, like, hope, like, all the instructions related to graded assignments has been already been providing, but still, if you feel the instructions are not very clear, I can just check with the content team on this, Suman.
+
+229
+00:21:43.950 --> 00:21:45.090
+Suman Saha: Thank you, thank you, Will.
+
+230
+00:21:45.350 --> 00:21:45.940
+Webinar Specialist: Okay.
+
+231
+00:21:47.210 --> 00:21:55.800
+Webinar Specialist: Maybe if it is possible, just for an example, can you please help me with any of the, like, week assignment, Suman, here?
+
+232
+00:21:55.800 --> 00:22:07.660
+Suman Saha: I think it's a fast assignment, and yeah, fast assignment, we were, at least for me, I was, I was expecting, as per the instruction, I was expecting something
+
+233
+00:22:07.660 --> 00:22:16.260
+Suman Saha: some code hints or something in the workarium, but I mean, it was not very much clear for me, at least. I am not sure about others.
+
+234
+00:22:16.530 --> 00:22:22.940
+Suman Saha: Yeah, so that's a feedback, if possible, just to make the inspection clear.
+
+235
+00:22:23.560 --> 00:22:27.949
+Webinar Specialist: So, you are expe… like, you are expecting any of the code to be available.
+
+236
+00:22:27.950 --> 00:22:28.450
+Suman Saha: redeemer.
+
+237
+00:22:28.450 --> 00:22:29.160
+Webinar Specialist: Eddie.
+
+238
+00:22:29.160 --> 00:22:40.390
+Suman Saha: Right, right. Not the complete code, but as per the instruction, actually, the notification that we were getting in email and, your, emeritas.
+
+239
+00:22:40.580 --> 00:22:41.560
+Purusharth Chauhan: Classroom notation.
+
+240
+00:22:41.560 --> 00:22:45.889
+Suman Saha: That was something, I mean, it seems there are,
+
+241
+00:22:46.190 --> 00:22:49.820
+Suman Saha: Some, some, hands or something, supposed to be there.
+
+242
+00:22:50.350 --> 00:22:58.390
+Suman Saha: I mean, it's okay if it's not there, but just… I mean, I was in a wrong impression that I can expect something there.
+
+243
+00:22:58.820 --> 00:22:59.560
+Suman Saha: So.
+
+244
+00:23:00.940 --> 00:23:11.719
+Webinar Specialist: But, Suman, for graded assignments, you're not providing any of the code. We only provide the relevant data sets and the instructions, like, which will be available under Modules tab.
+
+245
+00:23:11.880 --> 00:23:16.879
+Webinar Specialist: And when it comes to the coding part, participants only should start from the beginning.
+
+246
+00:23:16.880 --> 00:23:21.520
+Suman Saha: Okay, okay, yeah, so this is the clear inspection that I, yeah.
+
+247
+00:23:21.670 --> 00:23:24.529
+Suman Saha: This kind of instruction I was looking for. Yeah, that was helpful.
+
+248
+00:23:25.080 --> 00:23:26.300
+Webinar Specialist: Okay, Suman.
+
+249
+00:23:26.300 --> 00:23:26.880
+Suman Saha: Thank you.
+
+250
+00:23:59.100 --> 00:24:01.560
+Webinar Specialist: And yes, are there any other queries?
+
+251
+00:24:21.100 --> 00:24:26.039
+Webinar Specialist: I'll wait for a few more minutes. If you have any queries, please let me know.
+
+252
+00:27:02.240 --> 00:27:06.899
+Webinar Specialist: If there are no queries, can we start with the session? S or no, maybe?
+
+253
+00:27:42.230 --> 00:27:50.339
+Webinar Specialist: Hi, Jitindra. Over to you, you can start the session, Jitindra. Most of the queries has been already taken. You can start the session.
+
+254
+00:27:50.950 --> 00:27:53.690
+Jitendra K: Alright, thank you. Thanks, Ashun. Yeah.
+
+255
+00:27:54.560 --> 00:28:03.520
+Jitendra K: Hi guys, good evening. I hope your queries have been resolved, and whatever complaints that you have related to session contents and…
+
+256
+00:28:03.680 --> 00:28:09.929
+Jitendra K: the LMSX… LLM access, I hope you have a speaker tout, and then… It has been resolved.
+
+257
+00:28:11.970 --> 00:28:16.110
+Jitendra K: So, shall we consider this as yes, and then can we proceed with the session?
+
+258
+00:28:23.440 --> 00:28:24.639
+Jitendra K: Alright, great.
+
+259
+00:28:25.290 --> 00:28:37.629
+Jitendra K: Okay, so welcome again. So, we will start with the new topic for today, which is called MCP, and this is a part of memory and knowledge retrieval in AI Agent, and today we are going to discuss about MCP Model Context Protocol.
+
+260
+00:28:38.210 --> 00:28:40.729
+Jitendra K: And this is the core of,
+
+261
+00:28:41.010 --> 00:28:54.399
+Jitendra K: every modern-day LLM architecture, MCP, without MCP, I don't think so you can achieve any better results. So we'll talk about what is MCP, what are the roadmaps, and how to utilize MCP with
+
+262
+00:28:54.680 --> 00:28:57.600
+Jitendra K: Some walkthrough sessions on the coding aspects.
+
+263
+00:28:57.980 --> 00:29:04.020
+Jitendra K: So, first and foremost thing, Over the next few hours, we are going to cover
+
+264
+00:29:04.380 --> 00:29:09.230
+Jitendra K: far beyond the MCB tutorial. It's not just a Hello World program.
+
+265
+00:29:09.370 --> 00:29:16.199
+Jitendra K: It is going to be deep-prived, we are going to dissect MCP at a protocol level, understand exactly how JSON RPC
+
+266
+00:29:16.470 --> 00:29:21.790
+Jitendra K: 2.0 message flow between hosts and clients and servers has been established.
+
+267
+00:29:22.240 --> 00:29:26.450
+Jitendra K: We look at the transport layer, which is basically the TTL,
+
+268
+00:29:26.560 --> 00:29:30.569
+Jitendra K: the security modules and the three core primitives that make MCP.
+
+269
+00:29:31.460 --> 00:29:32.430
+Jitendra K: work.
+
+270
+00:29:35.700 --> 00:29:41.079
+Jitendra K: Then we move on to the… Slightly more advanced topic.
+
+271
+00:29:41.360 --> 00:29:48.900
+Jitendra K: which is FastMCP. FastMCP we will utilize as one of the building blocks for developing the modern-day
+
+272
+00:29:49.010 --> 00:29:55.210
+Jitendra K: Systems, and we'll try to target some real-world production-grade servers with proper typing.
+
+273
+00:29:55.360 --> 00:29:58.330
+Jitendra K: Asynchronous support, authentication, and vulnerability.
+
+274
+00:29:59.860 --> 00:30:02.819
+Jitendra K: Now, first and the foremost thing, YMCP?
+
+275
+00:30:03.660 --> 00:30:05.630
+Jitendra K: Why does it matter right now?
+
+276
+00:30:06.500 --> 00:30:11.159
+Jitendra K: So, do you have any answer for that? Do you think that why… what is the purpose of MCP?
+
+277
+00:30:25.050 --> 00:30:27.770
+Jitendra K: uniform framework, okay?
+
+278
+00:30:31.270 --> 00:30:33.249
+Jitendra K: But it's a protocol, it's not a framework.
+
+279
+00:30:45.810 --> 00:30:48.020
+Jitendra K: connecting external DB.
+
+280
+00:30:49.420 --> 00:30:52.350
+Jitendra K: So, route the request to write server agent.
+
+281
+00:31:01.690 --> 00:31:07.289
+Jitendra K: Okay, first and foremost thing, we need to understand what are the benefits of MCP.
+
+282
+00:31:08.750 --> 00:31:10.569
+Jitendra K: And why it is so powerful.
+
+283
+00:31:11.150 --> 00:31:16.909
+Jitendra K: So MCP is a model context protocol. It's an open standard design.
+
+284
+00:31:17.630 --> 00:31:21.229
+Jitendra K: It's a design, not a pro… not a framework, not a…
+
+285
+00:31:21.680 --> 00:31:27.070
+Jitendra K: tool. It's a design to solve… it's a protocol standard to solve the connections.
+
+286
+00:31:27.400 --> 00:31:29.909
+Jitendra K: With external data application and services.
+
+287
+00:31:30.470 --> 00:31:38.370
+Jitendra K: So, we have already know that LLMs are quite powerful, LLMs are good with Giving you the…
+
+288
+00:31:39.160 --> 00:31:44.919
+Jitendra K: answers in a human layman format, but when we are using rack pipeline, we have to connect data.
+
+289
+00:31:45.100 --> 00:31:49.040
+Jitendra K: Internally and externally, using APIs and databases.
+
+290
+00:31:49.430 --> 00:31:54.869
+Jitendra K: So it's act like a bridge, allowing AI model to move static knowledge and become a dynamic agent.
+
+291
+00:31:55.190 --> 00:32:00.209
+Jitendra K: That can retrieve current information and take action, making it more accurate, useful, and automated.
+
+292
+00:32:00.550 --> 00:32:06.920
+Jitendra K: So MCP create a kind of a standardized way, two-way communications or connection for an AI application.
+
+293
+00:32:07.130 --> 00:32:11.530
+Jitendra K: First, it allows LLM to easily connect with various data sources and tools.
+
+294
+00:32:11.810 --> 00:32:16.900
+Jitendra K: And MCP builds on existing concepts like tool use and function calling.
+
+295
+00:32:17.690 --> 00:32:25.760
+Jitendra K: So, these are the two important parameters that you are using for setting up the context. In the today's… in yesterday's tutorial, we talked about context, right?
+
+296
+00:32:26.910 --> 00:32:30.559
+Jitendra K: So, when you're setting up the contacts, you require tool calling.
+
+297
+00:32:30.800 --> 00:32:34.869
+Jitendra K: As well as, some standardized way of setting up the context.
+
+298
+00:32:35.230 --> 00:32:41.839
+Jitendra K: So this is where you need to have custom connection for each new AI model and external system.
+
+299
+00:32:42.170 --> 00:32:49.189
+Jitendra K: So it enables LLM to use current real-world data, perform actions, and access specific features not included in their original training.
+
+300
+00:32:49.570 --> 00:32:52.259
+Jitendra K: So, MCP have 3 components. In fact.
+
+301
+00:32:53.550 --> 00:32:58.639
+Jitendra K: three components, which is MCP host, MCP client and MCP Server.
+
+302
+00:32:59.020 --> 00:33:04.620
+Jitendra K: So, MCP host is the… LLM, which contained within the MCP host.
+
+303
+00:33:04.870 --> 00:33:08.049
+Jitendra K: So an AI application or involvement, such as AI Power.
+
+304
+00:33:08.320 --> 00:33:11.929
+Jitendra K: Integrated Development Involvement or conversational AI system.
+
+305
+00:33:12.160 --> 00:33:17.860
+Jitendra K: And this is typically the user interaction point, where MCP hosts use LLM to process requests.
+
+306
+00:33:17.960 --> 00:33:21.999
+Jitendra K: That may require external data or tools. Then you have got MCP Client.
+
+307
+00:33:22.270 --> 00:33:25.650
+Jitendra K: which is located within the MCP host itself.
+
+308
+00:33:25.870 --> 00:33:31.420
+Jitendra K: That will help the LLM and MCP server to communicate with each other. It translates the LLM request
+
+309
+00:33:32.820 --> 00:33:36.080
+Jitendra K: for the MCP and convert MCP reply for the LLM.
+
+310
+00:33:36.620 --> 00:33:40.030
+Jitendra K: Similarly, I've got MCP Server, which is external services.
+
+311
+00:33:40.210 --> 00:33:44.689
+Jitendra K: that provide context or capability to the LLM, and it helps by connecting.
+
+312
+00:33:44.920 --> 00:33:54.010
+Jitendra K: two external systems, like database, web services, translating the responses into a format which can be utilized by LLM to generate a response.
+
+313
+00:33:54.330 --> 00:33:56.879
+Jitendra K: That means he required a transportation layer.
+
+314
+00:33:57.840 --> 00:33:59.829
+Jitendra K: So, transportation layer use.
+
+315
+00:34:00.030 --> 00:34:10.800
+Jitendra K: JSON RPC 2.0 message communication protocol between the client and the server, and it used standard input-output STDIU, which worked well for local resources.
+
+316
+00:34:11.230 --> 00:34:14.389
+Jitendra K: That means you can host your MCP model in local as well.
+
+317
+00:34:14.780 --> 00:34:20.969
+Jitendra K: make it synchronous message transmission, or you can go with servers and events, SSC protocol.
+
+318
+00:34:21.230 --> 00:34:28.049
+Jitendra K: which are preferred for local resources, allowing efficient, real-time data streaming with an MCP server.
+
+319
+00:34:29.219 --> 00:34:38.019
+Jitendra K: So, MCP… It stands for Model Context Protocol, so the core of this protocol is to perform
+
+320
+00:34:39.010 --> 00:34:41.449
+Jitendra K: And act like a USB-C for AI.
+
+321
+00:34:42.449 --> 00:34:47.260
+Jitendra K: So when you say USB-C for AI, that means it's a universal… port.
+
+322
+00:34:47.610 --> 00:34:55.760
+Jitendra K: That you're using in your devices day-to-day to transfer data to connect to… charging points.
+
+323
+00:34:55.909 --> 00:35:04.839
+Jitendra K: to use for any other purposes, right? So MCP is an open source standard that defines how the AI application talks to external system.
+
+324
+00:35:05.080 --> 00:35:07.940
+Jitendra K: So you can think of this as a USB-C.
+
+325
+00:35:08.480 --> 00:35:13.399
+Jitendra K: a universal connector that lets any AI agent a cistern.
+
+326
+00:35:14.230 --> 00:35:18.090
+Jitendra K: Plug into any data sources or tool that implement a protocol.
+
+327
+00:35:18.490 --> 00:35:24.780
+Jitendra K: So before MCP, There are different types of… standards.
+
+328
+00:35:25.150 --> 00:35:29.419
+Jitendra K: And MCP has been launched by Anthropic in the year 2024. In fact.
+
+329
+00:35:29.670 --> 00:35:35.769
+Jitendra K: Q4 of 2024, that means it's very new, relatively one and a half year old only.
+
+330
+00:35:36.220 --> 00:35:41.720
+Jitendra K: So before MTP, if you wanted Claude to read your database, you just wrote a custom integration.
+
+331
+00:35:41.930 --> 00:35:48.479
+Jitendra K: If you want GPT-4 to search your Jira tickets, details on the top of it, you wrote another connector.
+
+332
+00:35:48.710 --> 00:35:52.730
+Jitendra K: So every model tool's combination requires its own connector.
+
+333
+00:35:53.240 --> 00:35:59.589
+Jitendra K: And you need to write it. There's no governance, there's no unique, universal way of connecting.
+
+334
+00:35:59.850 --> 00:36:13.790
+Jitendra K: to anything. If you would like to connect to your Gmail, you need to write your own connector. If you would like to connect to your Slack channel, you need to write your own connector. If you want to consume Bloomberg API, you need to write your own connector. So all these things are scattered, right?
+
+335
+00:36:13.900 --> 00:36:20.490
+Jitendra K: As that creates a vulnerability? Let's say if I'm… making a website, Bloomberg website.
+
+336
+00:36:20.660 --> 00:36:27.190
+Jitendra K: By myself, and then maybe add some bots, or some… Box, or maybe…
+
+337
+00:36:27.450 --> 00:36:35.580
+Jitendra K: some attacks on the top of that website, and it's a vulnerable website, right? If I'm creating… I cannot hire a domain, but I can get similar, sort of.
+
+338
+00:36:36.330 --> 00:36:38.210
+Jitendra K: Domain as well.
+
+339
+00:36:38.830 --> 00:36:41.389
+Jitendra K: So what if somebody prior to a…
+
+340
+00:36:41.780 --> 00:36:46.189
+Jitendra K: attached to that API, and then call Bloomberg Services.
+
+341
+00:36:46.440 --> 00:36:49.930
+Jitendra K: But it's not authenticate, right? That might… that means it is vulnerable.
+
+342
+00:36:50.240 --> 00:36:55.340
+Jitendra K: So that means MCP create a kind of a standard way to interface.
+
+343
+00:36:55.870 --> 00:37:02.320
+Jitendra K: So there are three properties that makes AMCP fundamentally different from what came before. First, it is standardized.
+
+344
+00:37:02.800 --> 00:37:08.270
+Jitendra K: So there's one protocol specification, one set of software development kit, one way to define tools.
+
+345
+00:37:08.500 --> 00:37:16.499
+Jitendra K: You build your server once, and it works with plot, ChatGPT, Cursor, VS Code, or any other MCP-compatible host.
+
+346
+00:37:17.330 --> 00:37:19.690
+Jitendra K: Second is, it is bi-directional.
+
+347
+00:37:19.890 --> 00:37:23.850
+Jitendra K: This is not one-way data feed. MCPU is JSON RPC.
+
+348
+00:37:24.090 --> 00:37:29.030
+Jitendra K: Which means the client can send requests to the server, the server can send notification back.
+
+349
+00:37:29.350 --> 00:37:36.570
+Jitendra K: And there's a proper request-response lifecycle with error handling. And this is a full duplex communication protocol.
+
+350
+00:37:36.900 --> 00:37:38.530
+Jitendra K: Third is a security.
+
+351
+00:37:39.030 --> 00:37:54.430
+Jitendra K: That has been built into the specification. The specification defines client consents requirement. The host must get user approval before executing any tool, and it defines trust boundaries. Server cannot directly access the LLM.
+
+352
+00:37:54.750 --> 00:38:01.299
+Jitendra K: to define data privacy requirement, and this is not an afterthought, it's a core specification of MCP.
+
+353
+00:38:03.020 --> 00:38:08.020
+Jitendra K: So basically, MCP is powerful in terms of integration.
+
+354
+00:38:09.140 --> 00:38:13.959
+Jitendra K: So before MCP, you have… Each… for each connection, a required connector.
+
+355
+00:38:14.150 --> 00:38:20.690
+Jitendra K: So let's say if I'm consuming 3 LLM, 5 tool, I require 15 connections. Each of them are vendor-specific and brittle.
+
+356
+00:38:21.100 --> 00:38:26.060
+Jitendra K: There's no schema-defined or authentication standard set as a part of my communication.
+
+357
+00:38:26.410 --> 00:38:32.569
+Jitendra K: It could be a duplicate effort for a team across. When I'm using one connector, I may require
+
+358
+00:38:32.830 --> 00:38:34.609
+Jitendra K: Other team to develop the same.
+
+359
+00:38:35.780 --> 00:38:38.269
+Jitendra K: And it is hard to audit or secure.
+
+360
+00:38:39.210 --> 00:38:41.090
+Jitendra K: So the core idea here is…
+
+361
+00:38:41.660 --> 00:38:49.260
+Jitendra K: Suppose you have 3 LLM providers, Claude, GPT, and Gemini, and 5 tools your organization use. Maybe a database, a file system.
+
+362
+00:38:49.510 --> 00:38:53.590
+Jitendra K: a Jira tracker, a Slack, or an internal API.
+
+363
+00:38:53.840 --> 00:38:59.589
+Jitendra K: So, without MCP, you need 15 custom connectors. 3 model, 5 tools. 3 into 5.
+
+364
+00:39:00.010 --> 00:39:02.769
+Jitendra K: Each one is vendor-specific, because Jira will not…
+
+365
+00:39:03.160 --> 00:39:05.929
+Jitendra K: We'll have their own connection criterias.
+
+366
+00:39:06.160 --> 00:39:08.309
+Jitendra K: They have their own process.
+
+367
+00:39:09.390 --> 00:39:17.440
+Jitendra K: your API that is internally, let's say a Tableau server, Power BI UI, you might have an internal connection, right?
+
+368
+00:39:20.560 --> 00:39:22.389
+Jitendra K: So, each vendor is a specific?
+
+369
+00:39:23.220 --> 00:39:29.130
+Jitendra K: Use different authentication mechanisms, different data formats, different error handling techniques.
+
+370
+00:39:29.340 --> 00:39:34.549
+Jitendra K: So when any tool changes its API, you fix Attended these three places.
+
+371
+00:39:34.670 --> 00:39:36.589
+Jitendra K: So this is an N cross n problem.
+
+372
+00:39:38.380 --> 00:39:46.550
+Jitendra K: Today is the same problem that software industry faced with database driver before ODBC. You might have heard about ODBC, JDBC connectors, right?
+
+373
+00:39:46.920 --> 00:39:51.610
+Jitendra K: So with Drivers before standardization is pullers.
+
+374
+00:39:51.890 --> 00:39:58.230
+Jitendra K: you might have to struggle. With payment processor before Stripe, abstraction layer, you might have to struggle.
+
+375
+00:39:58.570 --> 00:40:03.479
+Jitendra K: The solution is always the same. Insert a standard protocol layer, and work it seamlessly.
+
+376
+00:40:03.820 --> 00:40:05.550
+Jitendra K: So, with RMCP, you have…
+
+377
+00:40:06.410 --> 00:40:11.680
+Jitendra K: build 5 MCP servers, 1 per tool, and 3 MCP client, 1 per model host.
+
+378
+00:40:12.170 --> 00:40:14.949
+Jitendra K: And this is A total integration.
+
+379
+00:40:15.580 --> 00:40:16.909
+Jitendra K: Instead of 15.
+
+380
+00:40:17.190 --> 00:40:21.110
+Jitendra K: But most importantly, each server and client is independent.
+
+381
+00:40:21.530 --> 00:40:27.839
+Jitendra K: So when you apply Jira API changes, you update one server. When you apply or accommodate a new LLM,
+
+382
+00:40:28.890 --> 00:40:33.940
+Jitendra K: That has been… Coming along to you as a design change, you add one client.
+
+383
+00:40:34.430 --> 00:40:37.360
+Jitendra K: Right? So this is the power of MCP.
+
+384
+00:40:39.950 --> 00:40:45.590
+Jitendra K: So this is not your typical before MCP, OpenAI also tried to solve this problem.
+
+385
+00:40:46.280 --> 00:40:51.640
+Jitendra K: With a ChatGPT plugin in 2023, but those are very vendor-locked.
+
+386
+00:40:51.820 --> 00:40:54.710
+Jitendra K: They will work only with ChatGPT models.
+
+387
+00:40:55.050 --> 00:41:01.360
+Jitendra K: Function calling… That you are going to implement cannot reuse in another LLM model.
+
+388
+00:41:02.210 --> 00:41:10.760
+Jitendra K: So the core idea here is, if you are using MCP, it creates a… standard way of…
+
+389
+00:41:10.890 --> 00:41:12.440
+Jitendra K: Creating your host.
+
+390
+00:41:13.270 --> 00:41:22.570
+Jitendra K: So let's try to deep dive into the MCP architecture. So let me walk you through this architecture diagram. So there are three layers, and understand the separation between them is critical.
+
+391
+00:41:23.120 --> 00:41:26.490
+Jitendra K: So, on the left side, you have… you have host.
+
+392
+00:41:26.750 --> 00:41:29.610
+Jitendra K: And this is the application the end user interacts with.
+
+393
+00:41:30.720 --> 00:41:38.439
+Jitendra K: So, what is your end users? It could be a cloud desktop, it could be a cursor, it could be a VS Code with an AI extension.
+
+394
+00:41:38.650 --> 00:41:40.870
+Jitendra K: Or your own custom application.
+
+395
+00:41:41.640 --> 00:41:46.290
+Jitendra K: The host contains the orchestration, logic, and the LLM integration.
+
+396
+00:41:47.990 --> 00:41:53.180
+Jitendra K: So this is crucial that host… your host will manage multiple MCP client.
+
+397
+00:41:53.580 --> 00:41:56.330
+Jitendra K: That's why it is host, right? Hosting the clients.
+
+398
+00:41:56.760 --> 00:42:01.359
+Jitendra K: So each MCP server, or each MCP client, live inside the host process.
+
+399
+00:42:02.010 --> 00:42:06.550
+Jitendra K: So a client has strict one-to-one relationship with single MCP server.
+
+400
+00:42:07.580 --> 00:42:09.760
+Jitendra K: It is not going to have one-to-many.
+
+401
+00:42:10.320 --> 00:42:14.580
+Jitendra K: It will have a strict one-to-one relationship with a single MTP server.
+
+402
+00:42:14.840 --> 00:42:22.049
+Jitendra K: So if a host needs to talk to 5 different tools, It creates 5 blank instances.
+
+403
+00:42:22.520 --> 00:42:27.709
+Jitendra K: Each client handled the… Messages via JSON RPC protocol.
+
+404
+00:42:28.080 --> 00:42:31.120
+Jitendra K: And transport negotiation capabilities.
+
+405
+00:42:31.600 --> 00:42:35.200
+Jitendra K: And it will have a session management for its peer service as well.
+
+406
+00:42:35.730 --> 00:42:44.449
+Jitendra K: On the right, you can see MCP servers. Each server expose capabilities Tool, resources, and prompts.
+
+407
+00:42:44.900 --> 00:42:48.500
+Jitendra K: So I can able to use, and multiple use if I need.
+
+408
+00:42:48.690 --> 00:42:53.230
+Jitendra K: So if a host needs to talk to 5 different protocols, it creates 5 different instances.
+
+409
+00:42:54.660 --> 00:43:01.349
+Jitendra K: A server can connect to databases, API, file systems, SaaS platforms, anything that you required.
+
+410
+00:43:01.590 --> 00:43:07.290
+Jitendra K: So server handle input validation, execute functions, and return structure results as well.
+
+411
+00:43:08.260 --> 00:43:15.560
+Jitendra K: Now, there are key rules that you need to follow. First, client-to-server establishment is always one-to-one.
+
+412
+00:43:16.240 --> 00:43:19.339
+Jitendra K: A client will never talk to multiple servers.
+
+413
+00:43:19.820 --> 00:43:24.079
+Jitendra K: That means it is one-to-one dedicated connection. Second.
+
+414
+00:43:24.250 --> 00:43:28.949
+Jitendra K: the management layer. The hosts manage the number of clients, end clients.
+
+415
+00:43:29.390 --> 00:43:31.279
+Jitendra K: The host will manage all your client.
+
+416
+00:43:32.020 --> 00:43:35.200
+Jitendra K: Third, the client is one.
+
+417
+00:43:35.330 --> 00:43:40.880
+Jitendra K: That convert user requests into a… Protocol, JSON RPC message format.
+
+418
+00:43:41.370 --> 00:43:45.109
+Jitendra K: So, client will convert it, it's not host… sorry, it's not server.
+
+419
+00:43:47.580 --> 00:43:51.260
+Jitendra K: The fourth point is, the server never directly accessed the LLM.
+
+420
+00:43:51.400 --> 00:43:53.669
+Jitendra K: All communication goes through the client.
+
+421
+00:43:54.240 --> 00:43:56.109
+Jitendra K: That means it becomes secure now.
+
+422
+00:43:57.050 --> 00:43:58.330
+Jitendra K: and auditable.
+
+423
+00:43:58.950 --> 00:44:03.469
+Jitendra K: Fifth, the server has no knowledge of which LLM is being used.
+
+424
+00:44:03.670 --> 00:44:08.050
+Jitendra K: We just received JSON RPC request and return JSON RPC response.
+
+425
+00:44:08.260 --> 00:44:10.229
+Jitendra K: That is, it is encrypted as well.
+
+426
+00:44:10.500 --> 00:44:15.939
+Jitendra K: So this separation is deliberate. It creates a clean trust boundary. The server does not need to know
+
+427
+00:44:16.290 --> 00:44:21.889
+Jitendra K: or care about the LLM configurations. So LLM does not get directly access to external system.
+
+428
+00:44:22.000 --> 00:44:26.309
+Jitendra K: And the host just sit in the middle, mediating and enforcing conservances.
+
+429
+00:44:27.950 --> 00:44:30.430
+Jitendra K: That means you're going to use…
+
+430
+00:44:31.210 --> 00:44:33.900
+Jitendra K: a secure way of connecting the LLM.
+
+431
+00:44:35.380 --> 00:44:36.200
+Jitendra K: Right?
+
+432
+00:44:37.430 --> 00:44:45.150
+Jitendra K: Now, the core component of MCP, as I mentioned, the host, the client, and the server.
+
+433
+00:44:45.560 --> 00:44:48.379
+Jitendra K: So the host is our outermost container.
+
+434
+00:44:48.560 --> 00:44:52.859
+Jitendra K: it received user input, manage the LLM conversations.
+
+435
+00:44:53.050 --> 00:44:56.199
+Jitendra K: and decide when to engage MCP client.
+
+436
+00:44:57.220 --> 00:45:07.819
+Jitendra K: So, for example, I can use Cloud Desktop, which is an anthropic consumer application. The cursor, the AI Power IDs, like BD… sorry, Visual Studios, right?
+
+437
+00:45:08.000 --> 00:45:13.410
+Jitendra K: And a platform like IBM BEAI and Microsoft Copilot Studio.
+
+438
+00:45:13.550 --> 00:45:17.129
+Jitendra K: If you're building your own agentic application. Your application is the host.
+
+439
+00:45:18.600 --> 00:45:22.700
+Jitendra K: The client is a protocol handler that lives inside the host.
+
+440
+00:45:23.470 --> 00:45:28.199
+Jitendra K: So the job, the client job, Is to convert high-level requests.
+
+441
+00:45:28.670 --> 00:45:33.520
+Jitendra K: maybe… The request could be, call this particular tool with these arguments.
+
+442
+00:45:34.120 --> 00:45:48.219
+Jitendra K: And then execute a properly formatted JSON RPC 2.0 message, send them over the transportation layer, and parse the response. It also handled capability negotiation during initialization. So when a client connects to a server.
+
+443
+00:45:48.480 --> 00:45:53.680
+Jitendra K: They exchange capability objects that describe what each site supports.
+
+444
+00:45:54.870 --> 00:46:00.689
+Jitendra K: Then the client managed a transport lifecycle, connecting, reconnecting, and gracefully shut down as well.
+
+445
+00:46:02.020 --> 00:46:04.950
+Jitendra K: So the server is where your business logic lives.
+
+446
+00:46:05.220 --> 00:46:14.029
+Jitendra K: It registered tools, resources, prompts, And also handle incoming requests in a format of the JSON RPC.
+
+447
+00:46:14.460 --> 00:46:17.959
+Jitendra K: A server can run… As a local subprocess.
+
+448
+00:46:18.740 --> 00:46:21.910
+Jitendra K: Which has been launched by the host and communicating over.
+
+449
+00:46:22.080 --> 00:46:25.050
+Jitendra K: Standard input-output protocols.
+
+450
+00:46:25.230 --> 00:46:27.589
+Jitendra K: Or a remote HTTP service as well.
+
+451
+00:46:27.700 --> 00:46:29.690
+Jitendra K: If you're hosting this into cloud.
+
+452
+00:46:30.130 --> 00:46:36.200
+Jitendra K: So, server will validate all the input against the schema, JSON schema, before executing any function.
+
+453
+00:46:36.850 --> 00:46:43.530
+Jitendra K: So basically what it does is, it returns secured content, text, images, or binary data in a standard format.
+
+454
+00:46:44.560 --> 00:46:48.240
+Jitendra K: Now, this is the core architecture of MCP.
+
+455
+00:46:49.600 --> 00:46:54.430
+Jitendra K: So before we move on to the JSON RPC 2.0 wire protocol, is there any question?
+
+456
+00:46:54.700 --> 00:46:58.970
+Jitendra K: Okay, I can see. So the number of calls for an agent or aggregate logic is possible.
+
+457
+00:46:59.860 --> 00:47:02.479
+Jitendra K: And number of calls for end client.
+
+458
+00:47:02.810 --> 00:47:06.899
+Jitendra K: There is no aggregator logic. Each client is independent, as I mentioned.
+
+459
+00:47:07.340 --> 00:47:09.899
+Jitendra K: Why, why we should aggregate the logic?
+
+460
+00:47:10.910 --> 00:47:15.790
+Jitendra K: If we give… MCP server to bring… yeah, that's correct.
+
+461
+00:47:17.610 --> 00:47:22.730
+Jitendra K: Okay, so let's move on to the JSON RPC wire protocol details.
+
+462
+00:47:23.930 --> 00:47:27.589
+Jitendra K: RLLM… one second, let me read this.
+
+463
+00:47:29.250 --> 00:47:38.110
+Jitendra K: No, it's not. It will just use the response message format and return the Tool response, that's it.
+
+464
+00:47:43.190 --> 00:47:44.440
+Jitendra K: How can it be?
+
+465
+00:47:46.020 --> 00:47:54.430
+Jitendra K: CanRM itself not switch to a different client and call them on other after this? How can it be? Can you write… show me a prompt for that?
+
+466
+00:47:55.560 --> 00:47:56.760
+Jitendra K: Show me the prompt.
+
+467
+00:48:03.760 --> 00:48:06.000
+Jitendra K: Well, that is a guardrail impact, right?
+
+468
+00:48:06.330 --> 00:48:10.110
+Jitendra K: If you're writing such prompt, the guardrail should be able to remove this.
+
+469
+00:48:10.350 --> 00:48:11.970
+Jitendra K: That is called prompt injection.
+
+470
+00:48:21.370 --> 00:48:24.949
+Jitendra K: Okay, so let's move on to a JSON RPC 2.0 wire protocol.
+
+471
+00:48:25.230 --> 00:48:32.460
+Jitendra K: So, every single message in the MCP is a JSON RPC 2.0 message. So, understand this format is essential for debugging.
+
+472
+00:48:32.870 --> 00:48:36.459
+Jitendra K: So there are 3 types of messages. The first message is a request.
+
+473
+00:48:36.790 --> 00:48:38.540
+Jitendra K: Second is the response.
+
+474
+00:48:38.850 --> 00:48:40.419
+Jitendra K: Third is the notification.
+
+475
+00:48:41.080 --> 00:48:48.129
+Jitendra K: So, a request is a message that explicit, or sorry, extracts a response It has 4 feet.
+
+476
+00:48:48.770 --> 00:48:50.740
+Jitendra K: The first field is the version.
+
+477
+00:48:50.960 --> 00:48:53.119
+Jitendra K: JSON RPC 2.0.
+
+478
+00:48:54.290 --> 00:49:00.430
+Jitendra K: So, it can have an ID, any string or number that uniquely identifies this request, a method.
+
+479
+00:49:01.290 --> 00:49:13.379
+Jitendra K: that you require to operate, and the operation to perform, like, pool calling, database calling, etc, and the parameters. So let's say I'm saying the parameter name is the weather API.
+
+480
+00:49:13.650 --> 00:49:21.080
+Jitendra K: get weather API. And then I'm following… feeding the arguments, the city Singapore or city Bangalore.
+
+481
+00:49:21.770 --> 00:49:27.750
+Jitendra K: Right? So this is where I'm just… keeping… the unique proportion.
+
+482
+00:49:28.210 --> 00:49:29.080
+Jitendra K: to track.
+
+483
+00:49:29.220 --> 00:49:30.289
+Jitendra K: on the ID.
+
+484
+00:49:30.560 --> 00:49:32.520
+Jitendra K: Like, how many requests I have signed.
+
+485
+00:49:32.660 --> 00:49:33.470
+Jitendra K: Right?
+
+486
+00:49:33.820 --> 00:49:35.900
+Jitendra K: So, response is a reply.
+
+487
+00:49:36.440 --> 00:49:41.019
+Jitendra K: A response is a reply, similar to what you're… when you're hitting a GetWeather API.
+
+488
+00:49:41.140 --> 00:49:42.870
+Jitendra K: in HTTPS.
+
+489
+00:49:43.090 --> 00:49:51.730
+Jitendra K: You will get some response, right? So, response will reply to the request. It has JSON RPC, the same field. You can see the field is there.
+
+490
+00:49:53.290 --> 00:49:55.920
+Jitendra K: The same field for the request, it is answering.
+
+491
+00:49:56.200 --> 00:50:02.909
+Jitendra K: And either a resulted field, or an error field, if it is a failure in the API 404402.
+
+492
+00:50:03.170 --> 00:50:07.839
+Jitendra K: it will collect it. That means you need to write an exception to handle it gracefully.
+
+493
+00:50:08.340 --> 00:50:11.290
+Jitendra K: So in this example, the result has been…
+
+494
+00:50:11.970 --> 00:50:15.519
+Jitendra K: propagated, and the API has been working.
+
+495
+00:50:15.820 --> 00:50:18.009
+Jitendra K: And it generates a response as well.
+
+496
+00:50:19.230 --> 00:50:27.200
+Jitendra K: So the result container con… Sorry, the result contains… contains a content array, With a text object.
+
+497
+00:50:27.810 --> 00:50:33.760
+Jitendra K: And this is our standard MCP content format. The content array contains… Text.
+
+498
+00:50:33.910 --> 00:50:35.040
+Jitendra K: Images.
+
+499
+00:50:35.230 --> 00:50:36.810
+Jitendra K: Or even media types.
+
+500
+00:50:37.440 --> 00:50:42.910
+Jitendra K: Which would be a mix of images and, text.
+
+501
+00:50:43.500 --> 00:50:48.549
+Jitendra K: Now, the notification message is important. That does not contain any response, you can see.
+
+502
+00:50:50.090 --> 00:50:53.499
+Jitendra K: So, it has no field ID either.
+
+503
+00:50:54.030 --> 00:50:58.540
+Jitendra K: So this is just to distinguish it from a request.
+
+504
+00:50:58.740 --> 00:51:01.820
+Jitendra K: The notifications are used for progress updates.
+
+505
+00:51:02.020 --> 00:51:04.379
+Jitendra K: That means you are going to perform a logging.
+
+506
+00:51:04.570 --> 00:51:09.619
+Jitendra K: and a state change event. So this example just show a progress notification.
+
+507
+00:51:09.820 --> 00:51:14.690
+Jitendra K: With a token and current progress and total, Tokens which have been consumed.
+
+508
+00:51:15.640 --> 00:51:23.259
+Jitendra K: Now, the question could be, why JSON RPC specifically? We can do this with the help of other protocols as well.
+
+509
+00:51:24.090 --> 00:51:26.589
+Jitendra K: What is the reason behind JSON RPC?
+
+510
+00:51:27.350 --> 00:51:32.400
+Jitendra K: So, first and the foremost reason is, It is transportation layer agnostic.
+
+511
+00:51:32.960 --> 00:51:35.489
+Jitendra K: That means fusset transport agnostic?
+
+512
+00:51:35.590 --> 00:51:40.729
+Jitendra K: The same message format worked for our STDIO. That means if you're running in local.
+
+513
+00:51:41.180 --> 00:51:46.980
+Jitendra K: The same message protocol can be triggered via HTTP. The same thing can work via WebSocket.
+
+514
+00:51:47.180 --> 00:51:50.270
+Jitendra K: Or any other transportation medium that you can think of.
+
+515
+00:51:50.570 --> 00:51:54.990
+Jitendra K: Second is, it is proven at scale. The language server protocol
+
+516
+00:51:55.130 --> 00:51:59.619
+Jitendra K: Has been used… using it for years in every major code editors.
+
+517
+00:51:59.940 --> 00:52:03.560
+Jitendra K: Third, and the most important criteria, is it is stateless.
+
+518
+00:52:04.090 --> 00:52:05.479
+Jitendra K: At a message level.
+
+519
+00:52:06.020 --> 00:52:08.489
+Jitendra K: Each message is self-contained.
+
+520
+00:52:09.580 --> 00:52:11.490
+Jitendra K: Fourth is built-in errors.
+
+521
+00:52:11.600 --> 00:52:13.159
+Jitendra K: That means you have…
+
+522
+00:52:14.030 --> 00:52:19.430
+Jitendra K: Exception handlers, built-in exception handlers, and a data field for detailed error information that you can track.
+
+523
+00:52:19.720 --> 00:52:25.890
+Jitendra K: So when you're debugging the MCP issue, the first thing you should do is look at a raw JSON RPC message.
+
+524
+00:52:26.070 --> 00:52:31.989
+Jitendra K: The MCP Inspector tool, there's a tool called MCP Inspector, will help you to
+
+525
+00:52:32.520 --> 00:52:40.230
+Jitendra K: See the real-time logs that you'll save, that'll save your hours of… Debugging, you know, minutes.
+
+526
+00:52:42.910 --> 00:52:48.829
+Jitendra K: Now, the most important criteria is how this whole lifecycle works.
+
+527
+00:52:49.080 --> 00:52:55.640
+Jitendra K: From message, to parsing, to response, to errors… Right? And to consume.
+
+528
+00:52:56.920 --> 00:53:02.149
+Jitendra K: So, step one is the initialization. So when a client connects to a server.
+
+529
+00:53:03.080 --> 00:53:06.289
+Jitendra K: The first message is always an initialized request.
+
+530
+00:53:06.830 --> 00:53:09.850
+Jitendra K: So basically, the client sent its protocol version.
+
+531
+00:53:10.510 --> 00:53:11.610
+Jitendra K: Another handshake.
+
+532
+00:53:11.990 --> 00:53:18.499
+Jitendra K: Also introduces capabilities… capabilities, not capabilities, capabilities, what features support.
+
+533
+00:53:18.830 --> 00:53:22.339
+Jitendra K: And this is client information, including name and version.
+
+534
+00:53:22.800 --> 00:53:26.889
+Jitendra K: And this is mandatory, you cannot skip it. So, initialization step required.
+
+535
+00:53:27.980 --> 00:53:29.130
+Jitendra K: Three things.
+
+536
+00:53:29.290 --> 00:53:35.970
+Jitendra K: The perversion protocol, the protocol version, the capabilities, And what feature it supports.
+
+537
+00:53:37.330 --> 00:53:42.609
+Jitendra K: Step number two is negotiate. The server should respond with its own protocol version as well.
+
+538
+00:53:44.670 --> 00:53:49.190
+Jitendra K: Also, it should introduce its capabilities and its server information.
+
+539
+00:53:49.680 --> 00:53:53.980
+Jitendra K: So the capability object is where the server declares what it supports.
+
+540
+00:53:54.220 --> 00:53:57.719
+Jitendra K: Does it have tools? Does it have resources? Does it have prompts?
+
+541
+00:53:58.750 --> 00:54:02.490
+Jitendra K: Right? So the response is how the client discovers what the server can do.
+
+542
+00:54:03.090 --> 00:54:05.779
+Jitendra K: Step number 3 is again initialized.
+
+543
+00:54:06.470 --> 00:54:11.330
+Jitendra K: So after receiving the server response, the client sent an initialized notification.
+
+544
+00:54:11.560 --> 00:54:16.579
+Jitendra K: And this is a notification, not a request. No response is expected from the server.
+
+545
+00:54:16.950 --> 00:54:20.830
+Jitendra K: So it signals that the client has processed the server capabilities.
+
+546
+00:54:21.080 --> 00:54:25.950
+Jitendra K: And it is ready to operate. That means it's a kind of a warm handshake after it has been established.
+
+547
+00:54:26.850 --> 00:54:29.590
+Jitendra K: After this notification, the server is active.
+
+548
+00:54:30.100 --> 00:54:32.070
+Jitendra K: Step number 4 is to operate.
+
+549
+00:54:32.200 --> 00:54:36.469
+Jitendra K: Now, the client can send tools, lists to discover available tools.
+
+550
+00:54:36.730 --> 00:54:47.899
+Jitendra K: tools and call to execute them. That means you require the sources to read and fetch the data. You might have to access prompts to get the prompt templates.
+
+551
+00:54:48.400 --> 00:54:59.340
+Jitendra K: Or maybe required a database connection to be established to read the data. And this is the main phase of the session, where all the actual works happen, depending upon the intent of the query.
+
+552
+00:55:00.720 --> 00:55:04.729
+Jitendra K: Remember, we talked about the last diagram in the last tutorial?
+
+553
+00:55:05.070 --> 00:55:06.770
+Jitendra K: Let me show you again.
+
+554
+00:55:14.100 --> 00:55:18.069
+Jitendra K: Yeah, so now this is a puzzle, right? This is a part of a puzzle.
+
+555
+00:55:18.320 --> 00:55:19.989
+Jitendra K: That we understand.
+
+556
+00:55:20.120 --> 00:55:26.490
+Jitendra K: Today, now. That when we talk about this… MCP tool.
+
+557
+00:55:28.180 --> 00:55:31.170
+Jitendra K: It is a part of your context engineering.
+
+558
+00:55:32.190 --> 00:55:39.120
+Jitendra K: Right? And this context engineering will help you to retrieve not argument.
+
+559
+00:55:42.710 --> 00:55:43.550
+Jitendra K: Right?
+
+560
+00:55:43.960 --> 00:55:45.820
+Jitendra K: So that is what we are doing here.
+
+561
+00:55:47.390 --> 00:55:52.950
+Jitendra K: Now, the fifth step is shut down. When the session ends, the client performs a graceful closure.
+
+562
+00:55:53.220 --> 00:55:59.060
+Jitendra K: Either by sending a close notification, or disconnecting the transport layer by TTL command.
+
+563
+00:55:59.620 --> 00:56:02.450
+Jitendra K: And the server should clean up the resources.
+
+564
+00:56:02.950 --> 00:56:04.830
+Jitendra K: It'll locate during the session.
+
+565
+00:56:06.290 --> 00:56:10.130
+Jitendra K: So basically, the initialized requests include a protocol version.
+
+566
+00:56:10.350 --> 00:56:14.919
+Jitendra K: for the latest table specification. It also includes capabilities, objects.
+
+567
+00:56:15.230 --> 00:56:17.330
+Jitendra K: Remember the word capability objects.
+
+568
+00:56:17.610 --> 00:56:28.289
+Jitendra K: Where the client declares what it supports, like root listing with change notification, and it includes client information with application name and the version. And the server will simply responds.
+
+569
+00:56:28.850 --> 00:56:33.199
+Jitendra K: And mirrors this structure with their own capabilities and server information.
+
+570
+00:56:33.960 --> 00:56:43.799
+Jitendra K: So the handshake will ensure that both sides agree on what they need to do before the work begins. So there's no attacks, there's no vulnerable scenarios.
+
+571
+00:56:44.020 --> 00:56:44.790
+Jitendra K: Right?
+
+572
+00:56:47.350 --> 00:56:49.309
+Jitendra K: Now, the transportation layer.
+
+573
+00:56:49.750 --> 00:56:54.319
+Jitendra K: let's try to deep dive into it. Now let's talk about how message actually get from
+
+574
+00:56:54.680 --> 00:57:00.210
+Jitendra K: Client to server. The first transportation layer is, we will discuss, is STDIO.
+
+575
+00:57:00.410 --> 00:57:05.850
+Jitendra K: Then we'll talk about HTTPS, and if WebSocket is there, we can also discuss that.
+
+576
+00:57:06.780 --> 00:57:11.169
+Jitendra K: Let's try to look into the STDIO, which is standard input-output Streams.
+
+577
+00:57:11.920 --> 00:57:16.320
+Jitendra K: So the host launched the MCP server as a child subprocess.
+
+578
+00:57:17.210 --> 00:57:21.240
+Jitendra K: Let's say I have a script, which is pythserver.py.
+
+579
+00:57:22.480 --> 00:57:25.749
+Jitendra K: Right, so I will launch the script, From the command line.
+
+580
+00:57:26.130 --> 00:57:30.450
+Jitendra K: So, message from the client will go through this server STDIN.
+
+581
+00:57:30.910 --> 00:57:32.779
+Jitendra K: Matches on the server, come back.
+
+582
+00:57:33.690 --> 00:57:35.450
+Jitendra K: on STD output.
+
+583
+00:57:35.950 --> 00:57:38.070
+Jitendra K: So that means the server has 3D…
+
+584
+00:57:38.420 --> 00:57:41.939
+Jitendra K: input-output is working. The server STD error
+
+585
+00:57:42.180 --> 00:57:45.400
+Jitendra K: It's also reserved for logging any diagnostic information.
+
+586
+00:57:46.560 --> 00:57:55.989
+Jitendra K: So this is our default transportation layer for local development, and it is good for cloud development integration, CDI, cloud develop… desktop integration.
+
+587
+00:57:56.640 --> 00:58:00.869
+Jitendra K: Today is simple, reliable, and does not require any networking.
+
+588
+00:58:01.170 --> 00:58:04.150
+Jitendra K: The host has full control over the server lifecycle.
+
+589
+00:58:04.500 --> 00:58:07.660
+Jitendra K: It's start, monitor, and kill when it is done.
+
+590
+00:58:08.150 --> 00:58:16.100
+Jitendra K: And you can simply use your Cloud desktop configuration as an MCP server object, define each server with a command.
+
+591
+00:58:16.300 --> 00:58:20.099
+Jitendra K: An argument, an optionally environmental variable, if you would like to change.
+
+592
+00:58:22.180 --> 00:58:26.660
+Jitendra K: So, similarly, if I move on to the remote servers, maybe…
+
+593
+00:58:31.010 --> 00:58:33.469
+Jitendra K: Okay, let me check some questions.
+
+594
+00:58:34.830 --> 00:58:41.340
+Jitendra K: The demo I show you is, okay, good, JSON RPC, and yeah, we'll talk about this as well.
+
+595
+00:58:41.490 --> 00:58:44.909
+Jitendra K: In Langraph, Langchain, they will add method to…
+
+596
+00:58:45.780 --> 00:58:51.830
+Jitendra K: add tools to LLM, which probably convert into a system from describing a tool, and from…
+
+597
+00:58:53.140 --> 00:58:57.650
+Jitendra K: Yeah, we are not talking about vulnerability scenarios, right? So let's be specific.
+
+598
+00:58:58.050 --> 00:59:00.800
+Jitendra K: I'm assuming that you don't know much about MCP.
+
+599
+00:59:01.470 --> 00:59:04.470
+Jitendra K: Right now. So let's try to first go through the…
+
+600
+00:59:06.480 --> 00:59:09.590
+Jitendra K: Basics, and then we'll talk about vulnerability.
+
+601
+00:59:09.750 --> 00:59:11.990
+Jitendra K: And how to overturn this vulnerability.
+
+602
+00:59:13.860 --> 00:59:19.990
+Jitendra K: In typical customer implementation, say, for Wang, what is the kind of server configuration required for host and server?
+
+603
+00:59:20.200 --> 00:59:22.569
+Jitendra K: So let's say you're hosting a web app.
+
+604
+00:59:22.720 --> 00:59:25.480
+Jitendra K: As your bots, right? Banking bots.
+
+605
+00:59:25.910 --> 00:59:32.170
+Jitendra K: So, it depends upon what kind of tools that you require to… Generate the answers.
+
+606
+00:59:33.030 --> 00:59:40.660
+Jitendra K: It could be… Any APIs, it could be your databases, it could be your applications, etc. It depends, right?
+
+607
+00:59:40.870 --> 00:59:46.779
+Jitendra K: When you're using a banking server, it has to be your tools that you're using, internally or externally, to generate a response.
+
+608
+00:59:48.130 --> 00:59:59.760
+Jitendra K: Alright, let's talk about how messages actually get from client to server. And the first transportation that we have discussed is STDIO. Now, what we're going to do is, we are going to talk about streamable HTTP protocol.
+
+609
+01:00:00.650 --> 01:00:06.500
+Jitendra K: And streamable HTTP is a production transport from remote MCP server.
+
+610
+01:00:07.190 --> 01:00:17.279
+Jitendra K: So, this has been introduced in the year 2025. A specific revision has been made, and now it is recommended approach for any server that need to access over the network.
+
+611
+01:00:18.960 --> 01:00:20.700
+Jitendra K: So basically, here's the flow.
+
+612
+01:00:21.250 --> 01:00:25.450
+Jitendra K: the client sends HTTPOST requests to the server endpoints.
+
+613
+01:00:26.210 --> 01:00:31.419
+Jitendra K: The request body is a JSON RPC message, just like we have seen in SCDIO.
+
+614
+01:00:32.050 --> 01:00:38.730
+Jitendra K: The server can respond in two ways, either with a regular HTTP response, which contains the JSON RPC results.
+
+615
+01:00:39.080 --> 01:00:44.250
+Jitendra K: or with the SSE. Servers, Servers and event streams.
+
+616
+01:00:44.740 --> 01:00:49.449
+Jitendra K: For long-running operation, where the server need to send multiple messages back.
+
+617
+01:00:50.200 --> 01:00:52.369
+Jitendra K: Now, here, one thing you can notice here.
+
+618
+01:00:53.060 --> 01:00:55.769
+Jitendra K: that MCP session ID header.
+
+619
+01:00:56.350 --> 01:01:01.589
+Jitendra K: So this is a streamable HTTP support session. The client and server can maintain
+
+620
+01:01:01.860 --> 01:01:06.519
+Jitendra K: states across multiple requests. And this is useful for operation.
+
+621
+01:01:06.820 --> 01:01:15.639
+Jitendra K: That spanned multiple messages, like, Paginations, or multiple-step workflows in the multi-agent orchestration.
+
+622
+01:01:18.550 --> 01:01:25.760
+Jitendra K: So basically, this will give you a stateless… sorry, stateful session, load balancer.
+
+623
+01:01:27.820 --> 01:01:28.640
+Jitendra K: Right?
+
+624
+01:01:28.960 --> 01:01:38.999
+Jitendra K: So, the older SSC-only transport, where the client connects via long-lived SSC connection for bidirectional communication. Now, with the updated version.
+
+625
+01:01:39.270 --> 01:01:41.770
+Jitendra K: Which has happened in 2025.
+
+626
+01:01:42.180 --> 01:01:47.369
+Jitendra K: you can able to go with it. Now, there are several challenges. One of the challenges is
+
+627
+01:01:47.640 --> 01:01:49.870
+Jitendra K: You need to look for scaling.
+
+628
+01:01:50.790 --> 01:01:55.029
+Jitendra K: That means if you have more number of users, how can you scale it up?
+
+629
+01:01:55.800 --> 01:02:00.220
+Jitendra K: There's no standard metadiscovery tools that have been supported by this.
+
+630
+01:02:01.000 --> 01:02:03.569
+Jitendra K: And the session management may have some gaps.
+
+631
+01:02:03.980 --> 01:02:09.240
+Jitendra K: If one session becomes long stale, right, in terms of response, then how will you manage it?
+
+632
+01:02:09.690 --> 01:02:13.759
+Jitendra K: What order will you manage it? Right? That is also a challenge.
+
+633
+01:02:14.280 --> 01:02:22.029
+Jitendra K: So that is something which is ongoing, where you can see a new amount of release, where these things will get fixed.
+
+634
+01:02:22.230 --> 01:02:24.529
+Jitendra K: Or you can create your own custom ways.
+
+635
+01:02:24.910 --> 01:02:27.629
+Jitendra K: To manage these things internally.
+
+636
+01:02:32.550 --> 01:02:36.929
+Jitendra K: Alright, now we'll move on to the second topic, which is called MCP primitives.
+
+637
+01:02:37.300 --> 01:02:41.320
+Jitendra K: So we have covered the architecture, the wire protocol, and the transportation layer.
+
+638
+01:02:41.510 --> 01:02:45.990
+Jitendra K: Now, let's look at the why… what actually MCP lets you do.
+
+639
+01:02:46.150 --> 01:02:47.719
+Jitendra K: So there are 3 primitives.
+
+640
+01:02:47.990 --> 01:02:51.379
+Jitendra K: Three types of capabilities that a server can expose.
+
+641
+01:02:51.800 --> 01:02:56.140
+Jitendra K: Which include your tools, resources?
+
+642
+01:02:57.190 --> 01:02:58.640
+Jitendra K: and prompts.
+
+643
+01:03:00.070 --> 01:03:01.410
+Jitendra K: So what are tools?
+
+644
+01:03:02.930 --> 01:03:09.000
+Jitendra K: So tools are functions, right? Decorators that we have utilized in our last, last tutorials.
+
+645
+01:03:09.170 --> 01:03:12.509
+Jitendra K: the tools or functions that our LLM can invoke.
+
+646
+01:03:14.850 --> 01:03:20.460
+Jitendra K: Right, so let's say for this example, I'm using… some…
+
+647
+01:03:20.890 --> 01:03:25.059
+Jitendra K: tool, which is calling the Get Weather API.
+
+648
+01:03:25.270 --> 01:03:30.039
+Jitendra K: And the description of this tool is to call that API, get current weather for the city.
+
+649
+01:03:30.660 --> 01:03:32.610
+Jitendra K: Then put a schema as an object.
+
+650
+01:03:32.790 --> 01:03:37.809
+Jitendra K: where I'm passing certain properties, the type of message, string.
+
+651
+01:03:38.030 --> 01:03:40.639
+Jitendra K: Description, it should contain a city name.
+
+652
+01:03:40.820 --> 01:03:44.790
+Jitendra K: The unit that I can expect as a response should be in…
+
+653
+01:03:45.180 --> 01:03:49.480
+Jitendra K: Celsius or Fahrenheit, either of the two, or both of the two.
+
+654
+01:03:50.320 --> 01:03:53.520
+Jitendra K: And there's a mandatory field, which is city, that I need to pass.
+
+655
+01:03:54.780 --> 01:03:56.960
+Jitendra K: And this is a tool definition, right?
+
+656
+01:03:57.100 --> 01:04:00.070
+Jitendra K: So basically, tools are the function that LLM can involve.
+
+657
+01:04:00.960 --> 01:04:08.280
+Jitendra K: So the LLM will decide when to call a tool based on the conversational context. So, it depends upon your router.
+
+658
+01:04:09.090 --> 01:04:16.250
+Jitendra K: Right? It depends upon your query intent. The user does not explicitly say that call the weather API and give me the temperature.
+
+659
+01:04:16.930 --> 01:04:21.539
+Jitendra K: They say, what is the weather in Bangalore, and then a little decide to call this IPA.
+
+660
+01:04:23.490 --> 01:04:26.180
+Jitendra K: The first LLM sends a tool list.
+
+661
+01:04:26.590 --> 01:04:29.310
+Jitendra K: Request to discover what tools are available.
+
+662
+01:04:29.450 --> 01:04:34.619
+Jitendra K: And then the server responds with an array of tool definition. Each container name
+
+663
+01:04:34.770 --> 01:04:37.750
+Jitendra K: A description, and an input schema.
+
+664
+01:04:38.300 --> 01:04:41.119
+Jitendra K: So here, LLM will send the…
+
+665
+01:04:42.390 --> 01:04:45.570
+Jitendra K: We'll only observe the name of these tools.
+
+666
+01:04:46.630 --> 01:04:47.470
+Jitendra K: Right?
+
+667
+01:04:47.740 --> 01:04:50.499
+Jitendra K: So LLM will not discover by themselves.
+
+668
+01:04:50.620 --> 01:04:52.870
+Jitendra K: So it has to be registered inside here.
+
+669
+01:04:52.980 --> 01:04:53.770
+Jitendra K: Lying.
+
+670
+01:04:54.770 --> 01:05:02.959
+Jitendra K: Then an LLM reads schemas and description to understand what each tool does and what argument it needs. So when the LLM decides to call a tool.
+
+671
+01:05:03.170 --> 01:05:06.070
+Jitendra K: It constructs the argument according to the schema.
+
+672
+01:05:06.660 --> 01:05:09.450
+Jitendra K: And the client sends a tool called request.
+
+673
+01:05:09.760 --> 01:05:11.829
+Jitendra K: So, server validate the argument.
+
+674
+01:05:12.140 --> 01:05:15.220
+Jitendra K: Against the schema, execute the function.
+
+675
+01:05:15.530 --> 01:05:25.430
+Jitendra K: And it returns a result containing an array. So the content includes multimodal responses as well, maybe images, Text.
+
+676
+01:05:25.800 --> 01:05:27.070
+Jitendra K: It could be a…
+
+677
+01:05:27.330 --> 01:05:33.690
+Jitendra K: long strings as well, and then the LLM will incorporate these results into response to the user.
+
+678
+01:05:35.390 --> 01:05:39.259
+Jitendra K: Right? So if you look into this simple schema.
+
+679
+01:05:39.610 --> 01:05:43.849
+Jitendra K: There are different fields. First is a type, property.
+
+680
+01:05:45.250 --> 01:05:47.990
+Jitendra K: And, the result which is required.
+
+681
+01:05:48.540 --> 01:05:49.889
+Jitendra K: in my query.
+
+682
+01:05:50.770 --> 01:05:54.950
+Jitendra K: And this is where this critical security note, you can see at the bottom.
+
+683
+01:05:55.710 --> 01:06:00.170
+Jitendra K: Tool represent arbitrary code execution and must be treated with caution.
+
+684
+01:06:03.200 --> 01:06:10.900
+Jitendra K: Right? So when an LLM calls a tool, it can read files, it can read query, database, and make HTTP requests.
+
+685
+01:06:11.260 --> 01:06:14.200
+Jitendra K: modify data. Anything the tool function does.
+
+686
+01:06:14.650 --> 01:06:20.040
+Jitendra K: This is why MCP specification required explicit user consents before any tool execution.
+
+687
+01:06:20.380 --> 01:06:24.269
+Jitendra K: Never trust tool description from the untrusted server.
+
+688
+01:06:25.090 --> 01:06:30.760
+Jitendra K: They could be crafted to trick LLM into performing unintended action. I think this is…
+
+689
+01:06:31.280 --> 01:06:37.360
+Jitendra K: Where, I think the earlier query that has been asked, So it required user consensus.
+
+690
+01:06:37.780 --> 01:06:39.770
+Jitendra K: That's why MCP is vulnerable.
+
+691
+01:06:39.990 --> 01:06:46.050
+Jitendra K: And there's a lot of… Scenarios which leads to… Disruption of that.
+
+692
+01:06:49.360 --> 01:07:02.039
+Jitendra K: The second is the resource management, the application control data. So resource is a second primitive, and they work fundamentally different from tools. So, resource are a data surface. They're an application
+
+693
+01:07:02.560 --> 01:07:04.420
+Jitendra K: Not the LLM controls.
+
+694
+01:07:05.570 --> 01:07:11.510
+Jitendra K: Right? So resource are data surfaces that the application control, not the LLM will control it.
+
+695
+01:07:11.880 --> 01:07:16.520
+Jitendra K: So the host will decide when to attach a resource to a conversational context.
+
+696
+01:07:17.060 --> 01:07:20.300
+Jitendra K: So think of this as if tools are API endpoints.
+
+697
+01:07:21.140 --> 01:07:25.600
+Jitendra K: the AI can call, resource or data files, the application can attach.
+
+698
+01:07:27.180 --> 01:07:33.800
+Jitendra K: So a resource might be a configuration file, a user profile, a document, or a result of a database query.
+
+699
+01:07:34.070 --> 01:07:38.339
+Jitendra K: The application read the resource and include it in the context of the LLM.
+
+700
+01:07:39.160 --> 01:07:43.319
+Jitendra K: So, resource can use URI patterns for identification.
+
+701
+01:07:44.300 --> 01:07:46.160
+Jitendra K: So what are the URI patterns?
+
+702
+01:07:46.410 --> 01:07:48.920
+Jitendra K: that may have fixed URIs, like.
+
+703
+01:07:49.750 --> 01:07:55.709
+Jitendra K: App setting, or schema, or database design, or dynamic resource templates with the parameters.
+
+704
+01:07:57.470 --> 01:08:02.819
+Jitendra K: Right, so the response format… Includes a contacts array.
+
+705
+01:08:03.050 --> 01:08:07.050
+Jitendra K: Where each item has a URI and a MIME type.
+
+706
+01:08:09.190 --> 01:08:15.430
+Jitendra K: So it could be a blob, it could be images, it could be a compressed file, it could be a base64 encoded blobs, etc.
+
+707
+01:08:16.740 --> 01:08:20.109
+Jitendra K: So the key distinction from tools is resource are safe.
+
+708
+01:08:20.370 --> 01:08:21.649
+Jitendra K: They are read-only.
+
+709
+01:08:22.050 --> 01:08:27.110
+Jitendra K: And I have no side effects. Reading a resource does not change anything in the external system.
+
+710
+01:08:27.300 --> 01:08:30.250
+Jitendra K: This makes them appropriate for context.
+
+711
+01:08:30.520 --> 01:08:35.009
+Jitendra K: Where you want to provide information without risking unintended actions.
+
+712
+01:08:36.470 --> 01:08:41.120
+Jitendra K: So when you should use resource instead of a tool? That's a good… that's a question, right?
+
+713
+01:08:41.560 --> 01:08:45.580
+Jitendra K: So use resources when application knows what data is needed.
+
+714
+01:08:45.979 --> 01:08:51.310
+Jitendra K: What configuration that you required? What reference document that you might need to take care of.
+
+715
+01:08:52.040 --> 01:08:58.130
+Jitendra K: So use tool when LLM need to decide what data to fetch based on a conversation, because they're external.
+
+716
+01:08:58.270 --> 01:08:59.829
+Jitendra K: Resources are internal.
+
+717
+01:09:02.460 --> 01:09:08.009
+Jitendra K: Is it clear now, in terms of… The two primitives?
+
+718
+01:09:09.529 --> 01:09:12.359
+Jitendra K: I will take a pause and see if there's any query.
+
+719
+01:09:26.510 --> 01:09:31.589
+Jitendra K: Yes, your policy internal is a resource, yes. It's not a database.
+
+720
+01:09:32.569 --> 01:09:37.650
+Jitendra K: Is there any security mechanism to protect MCP client from malicious MCP server?
+
+721
+01:09:38.420 --> 01:09:47.460
+Jitendra K: You need to use standard network protocols to secure the connection when you're establishing it, and you should have user consensus when you're calling a tool.
+
+722
+01:09:47.630 --> 01:09:53.910
+Jitendra K: So these two are definitely… required in a production grid MCP deployment.
+
+723
+01:09:54.780 --> 01:09:58.150
+Jitendra K: So if you're not making any changes in underlying data sources.
+
+724
+01:09:58.500 --> 01:10:01.870
+Jitendra K: Yes, I mean, those are static files, PDFs.
+
+725
+01:10:02.420 --> 01:10:03.910
+Jitendra K: There are resources.
+
+726
+01:10:08.110 --> 01:10:15.640
+Jitendra K: to verify tool description. So you need to use the authentic way, right, to connect with MCP Server. Don't go with,
+
+727
+01:10:15.810 --> 01:10:19.560
+Jitendra K: Unauthorized, malicious contents.
+
+728
+01:10:20.660 --> 01:10:22.540
+Jitendra K: And self-discovery tools.
+
+729
+01:10:29.370 --> 01:10:31.070
+Jitendra K: What kind of access token?
+
+730
+01:10:52.310 --> 01:10:55.600
+Jitendra K: But how will the tool return the… token.
+
+731
+01:10:56.860 --> 01:11:00.859
+Jitendra K: It is not a… it's a third-party tool, right? They're not bound to return any…
+
+732
+01:11:04.020 --> 01:11:05.350
+Jitendra K: Tokens to you.
+
+733
+01:11:08.950 --> 01:11:11.729
+Jitendra K: If you're using Enterprise Tools, then it will have…
+
+734
+01:11:14.010 --> 01:11:17.570
+Jitendra K: How does a server tool make use of resources that host and attach?
+
+735
+01:11:18.750 --> 01:11:24.450
+Jitendra K: How does the server tool make use of resources at all? So that is the whole idea of context.
+
+736
+01:11:24.890 --> 01:11:29.629
+Jitendra K: So if you're fulfilling the contacts that are required to get this data, this policy.
+
+737
+01:11:29.980 --> 01:11:32.779
+Jitendra K: That means you are discovering the resources.
+
+738
+01:11:33.530 --> 01:11:37.749
+Jitendra K: Third-party tool can be from GitHub and reliable resources.
+
+739
+01:11:38.820 --> 01:11:41.289
+Jitendra K: Yeah, GitHub is a reliable resource, yes.
+
+740
+01:11:41.500 --> 01:11:48.560
+Jitendra K: third-party tool… you can integrate as well. Let's say Slack, Gmails, or even…
+
+741
+01:11:48.870 --> 01:11:53.750
+Jitendra K: Your network logs from certain tools that you're dealing with.
+
+742
+01:12:01.770 --> 01:12:05.189
+Jitendra K: The third-party tools you need to get from authorized sources.
+
+743
+01:12:07.470 --> 01:12:11.229
+Jitendra K: Alright, let's move on to the third primitive, which is prompts.
+
+744
+01:12:11.550 --> 01:12:17.829
+Jitendra K: So prompts are the third part, third primitive, and they completely control the model triangle.
+
+745
+01:12:18.500 --> 01:12:21.750
+Jitendra K: That means prompts are reusable templates.
+
+746
+01:12:22.390 --> 01:12:26.970
+Jitendra K: Or workflows that are invoked by the user, not by the LLM, not by the application.
+
+747
+01:12:27.910 --> 01:12:30.590
+Jitendra K: Right, so prompt definition should include a name.
+
+748
+01:12:33.330 --> 01:12:38.699
+Jitendra K: So, for this example, I'm saying code reviewer tool. It's not a tool, by the way, it's a prompt.
+
+749
+01:12:39.410 --> 01:12:45.079
+Jitendra K: So I'm describing review code for a box, and… Create a style issue.
+
+750
+01:12:45.470 --> 01:12:47.800
+Jitendra K: Call out these style issues.
+
+751
+01:12:48.050 --> 01:12:49.759
+Jitendra K: The arguments or language?
+
+752
+01:12:50.570 --> 01:12:56.820
+Jitendra K: which is mandatory to pass. The code Type is mandatory to pass.
+
+753
+01:12:57.260 --> 01:13:01.030
+Jitendra K: And the prompt is, review this Python code for bugs.
+
+754
+01:13:01.830 --> 01:13:03.010
+Jitendra K: Simple quote.
+
+755
+01:13:03.540 --> 01:13:05.860
+Jitendra K: Adding two numbers, return A plus B.
+
+756
+01:13:07.460 --> 01:13:15.229
+Jitendra K: So the prompt definition includes a name, a description, and an array of argument the user must provide. When a user invokes a prompt.
+
+757
+01:13:15.650 --> 01:13:19.440
+Jitendra K: The client signs a prompt GAT request.
+
+758
+01:13:19.560 --> 01:13:21.269
+Jitendra K: With the argument values.
+
+759
+01:13:21.680 --> 01:13:26.169
+Jitendra K: And the server will return a message array. Remember these data structures.
+
+760
+01:13:26.880 --> 01:13:31.559
+Jitendra K: So, client signs up prompt GAT request with the argument value.
+
+761
+01:13:31.810 --> 01:13:33.669
+Jitendra K: In the form of a dictionary.
+
+762
+01:13:33.970 --> 01:13:39.220
+Jitendra K: And the server returned a message array, a sequence of pre-constructed messages.
+
+763
+01:13:39.360 --> 01:13:43.569
+Jitendra K: that the hosts inject into the conversation. So there are two written formats.
+
+764
+01:13:43.820 --> 01:13:49.769
+Jitendra K: You can simply return strings, which become a single user message, or you can return a list of message object.
+
+765
+01:13:50.210 --> 01:13:55.180
+Jitendra K: User message and assistant message to create a multi-ten conversational template as well.
+
+766
+01:13:55.410 --> 01:13:58.730
+Jitendra K: So the multi-turn format is powerful for complex workflow.
+
+767
+01:13:58.830 --> 01:14:01.189
+Jitendra K: For example, you're writing a code debugging.
+
+768
+01:14:01.650 --> 01:14:02.540
+Jitendra K: Agent.
+
+769
+01:14:03.030 --> 01:14:08.559
+Jitendra K: Right, so when you're debugging errors, prompt might start with the user presenting the error.
+
+770
+01:14:09.120 --> 01:14:15.719
+Jitendra K: then have the assistant message, like, let me analyze this, which primes the LLM to take a structured debugging approach.
+
+771
+01:14:17.070 --> 01:14:22.090
+Jitendra K: And then, it will decide which tool to be called to debug this.
+
+772
+01:14:22.240 --> 01:14:29.010
+Jitendra K: So the control model is now complete, tools are model control, LLM decide when to use, resources are application-driven.
+
+773
+01:14:29.350 --> 01:14:31.689
+Jitendra K: The host decides when to attach them.
+
+774
+01:14:31.930 --> 01:14:35.690
+Jitendra K: And the prompts are user-controlled. The human explicitly invokes them.
+
+775
+01:14:36.800 --> 01:14:38.680
+Jitendra K: Now, if you look into this table.
+
+776
+01:14:39.500 --> 01:14:43.149
+Jitendra K: Who controls what, you can get the clear picture.
+
+777
+01:14:44.060 --> 01:14:45.979
+Jitendra K: Now, which is more vulnerable here?
+
+778
+01:14:47.630 --> 01:14:49.880
+Jitendra K: If I have to ask you which is more vulnerable.
+
+779
+01:14:55.900 --> 01:14:58.710
+Jitendra K: Resources, why? Why resources?
+
+780
+01:15:01.140 --> 01:15:02.110
+Jitendra K: tool.
+
+781
+01:15:06.000 --> 01:15:08.790
+Jitendra K: So, MCP is a… kind of a plumbing.
+
+782
+01:15:08.920 --> 01:15:10.400
+Jitendra K: machines, right?
+
+783
+01:15:10.900 --> 01:15:15.410
+Jitendra K: So, when you talk about, the…
+
+784
+01:15:16.210 --> 01:15:20.039
+Jitendra K: connections, SAMCP versus RAG versus function calling.
+
+785
+01:15:20.650 --> 01:15:28.490
+Jitendra K: So that means, if I have to just explain to you, MCP is a bi-direction protocol to support both reading data and executing actions.
+
+786
+01:15:29.370 --> 01:15:38.290
+Jitendra K: by maintaining a stateful session across multiple interactions. It's an open standard, not tied to any vendor. It provides dynamic discovery.
+
+787
+01:15:38.960 --> 01:15:45.030
+Jitendra K: The LLM can query what tools are available at runtime. RAG is a pattern, not a protocol.
+
+788
+01:15:45.650 --> 01:15:52.740
+Jitendra K: So it is one-directional. You retrieve information and inject into a prompt. Those are stateless, each query is independent.
+
+789
+01:15:53.170 --> 01:16:00.779
+Jitendra K: It does not execute action, it only read. And retrieve configuration is typically set At a build time.
+
+790
+01:16:01.080 --> 01:16:03.430
+Jitendra K: Not during a discovery mode.
+
+791
+01:16:04.110 --> 01:16:06.200
+Jitendra K: Function calling, on the other hand.
+
+792
+01:16:08.080 --> 01:16:11.999
+Jitendra K: Function calling is a concept which has been implemented by OpenAI.
+
+793
+01:16:12.810 --> 01:16:17.989
+Jitendra K: Google another, and it is closure to MCP tool, but it is very vendor-specific.
+
+794
+01:16:18.590 --> 01:16:23.189
+Jitendra K: Each provider has their own format, their own SDK, their own behaviors.
+
+795
+01:16:23.540 --> 01:16:30.750
+Jitendra K: It is one-directional, that means you can get call and response stateless, and limiting to executing predefined function.
+
+796
+01:16:31.290 --> 01:16:35.899
+Jitendra K: But they are vendor-specific. That means if you change your model, you need to change all the connections.
+
+797
+01:16:38.160 --> 01:16:41.279
+Jitendra K: That means MCP is a kind of a universal way.
+
+798
+01:16:41.900 --> 01:16:43.490
+Jitendra K: To manage all this.
+
+799
+01:16:45.630 --> 01:16:53.879
+Jitendra K: Which include the orchestration process, which will help you to manage tools, Shashin states, and data access.
+
+800
+01:16:55.020 --> 01:17:02.690
+Jitendra K: Right, so MCP is like a plumbing machine, RAG is like a knowledge layer, and function calling is a sub-site of what MCP tools provide.
+
+801
+01:17:03.160 --> 01:17:05.370
+Jitendra K: So think of MCP as a superset.
+
+802
+01:17:05.610 --> 01:17:11.870
+Jitendra K: That include tool execution, data access, and prompt management in a single standardized protocol.
+
+803
+01:17:20.270 --> 01:17:24.319
+Jitendra K: Though… Security in MCP is not optional.
+
+804
+01:17:29.890 --> 01:17:37.489
+Jitendra K: That means security in MCP is not optional, that means it has been baked into the specification. The security model rests on four pillars.
+
+805
+01:17:38.150 --> 01:17:40.619
+Jitendra K: The first is user concerns.
+
+806
+01:17:42.430 --> 01:17:51.059
+Jitendra K: That means the specification required that hosts obtain explicit user consents before invoking any tool. No silent side effects.
+
+807
+01:17:51.540 --> 01:17:54.690
+Jitendra K: The user must know what tool is being called.
+
+808
+01:17:54.860 --> 01:17:57.549
+Jitendra K: And with what argument before execution happened?
+
+809
+01:17:57.870 --> 01:18:01.059
+Jitendra K: And this is a must-level requirement in the specification.
+
+810
+01:18:01.630 --> 01:18:06.800
+Jitendra K: Second is the data privacy. Server must not expose data to unauthorized client.
+
+811
+01:18:07.330 --> 01:18:12.570
+Jitendra K: Access must be scoped. A server should only expose the minimal data needed for this.
+
+812
+01:18:12.900 --> 01:18:13.810
+Jitendra K: function.
+
+813
+01:18:14.410 --> 01:18:19.019
+Jitendra K: So if a server has access to database, it should not expose all tables to the client.
+
+814
+01:18:19.720 --> 01:18:24.970
+Jitendra K: Third is the tool safety. All input tools must be validated against JSON schema.
+
+815
+01:18:25.390 --> 01:18:30.399
+Jitendra K: before you execute. That means you should use something called rate limit.
+
+816
+01:18:31.200 --> 01:18:36.589
+Jitendra K: Rate limit is required for production deployment. Server should implement timeouts to prevent
+
+817
+01:18:36.870 --> 01:18:44.660
+Jitendra K: Runaway or token consumptions unauthorized, sorry, in a, in a… In a high-frequency manner.
+
+818
+01:18:45.280 --> 01:18:51.750
+Jitendra K: Fourth is your LLM control. When a server requests the LLM to generate contents via sampling capability.
+
+819
+01:18:52.190 --> 01:18:54.949
+Jitendra K: There must be control on what a model can do.
+
+820
+01:18:55.200 --> 01:18:57.180
+Jitendra K: That should be a part of your audits.
+
+821
+01:18:59.550 --> 01:19:04.279
+Jitendra K: So in the year 2025, in the month of April, I think, just a year before.
+
+822
+01:19:04.480 --> 01:19:10.020
+Jitendra K: Security researcher published an analysis of MCP attack surface. That is not pretty.
+
+823
+01:19:10.390 --> 01:19:16.850
+Jitendra K: There was a phenomena called prompt injection via tool description. An attacker crafted a tool description.
+
+824
+01:19:17.250 --> 01:19:22.329
+Jitendra K: that will read by the LLM, cricket for performing an interaction.
+
+825
+01:19:22.440 --> 01:19:30.510
+Jitendra K: Tool permission escalation, combining multiple, you know, silent-looking tools for Extrafiltrate data.
+
+826
+01:19:30.660 --> 01:19:37.460
+Jitendra K: So basically, there's a malicious server history, a tool with same name, and a trust tool, can lead to these kind of attacks.
+
+827
+01:19:37.740 --> 01:19:39.730
+Jitendra K: So, in the early 2026,
+
+828
+01:19:39.870 --> 01:19:50.320
+Jitendra K: There was a hacker known document, a real-world instances of GitHub token leaks, and RCE vulnerability as well in MCP Server. They are not theoretical risks, they are practical risks.
+
+829
+01:19:50.660 --> 01:19:56.229
+Jitendra K: The practical takeaway is treat every MCP server as an untrusted until review.
+
+830
+01:19:57.820 --> 01:20:00.480
+Jitendra K: Apply the principle of least privilege.
+
+831
+01:20:01.120 --> 01:20:04.819
+Jitendra K: Expose only the tools and scope which is needed only.
+
+832
+01:20:05.110 --> 01:20:09.429
+Jitendra K: And review the server code before enabling an environment with secrets.
+
+833
+01:20:10.060 --> 01:20:14.519
+Jitendra K: And also implement the audit logging for every tool which has been called in production.
+
+834
+01:20:15.290 --> 01:20:18.659
+Jitendra K: And that is how you can make your MCP secure.
+
+835
+01:20:19.820 --> 01:20:22.470
+Jitendra K: Foolproof, poor production ready.
+
+836
+01:20:22.740 --> 01:20:23.810
+Jitendra K: consumption.
+
+837
+01:20:34.750 --> 01:20:40.289
+Jitendra K: live database, like, one would work with MCP, not RAG, because it has no stateless.
+
+838
+01:20:41.760 --> 01:20:46.360
+Jitendra K: live database like Mongo, but where is your MongoDB situated?
+
+839
+01:20:47.230 --> 01:20:52.429
+Jitendra K: I hope it is within your resources, right? This is your automation resource, why it should be…
+
+840
+01:20:53.330 --> 01:20:54.820
+Jitendra K: a tool call.
+
+841
+01:20:58.110 --> 01:21:05.890
+Jitendra K: Okay, well, okay, you're asking live database, like Mongo would work with MCP, not RAD, because it is… yes.
+
+842
+01:21:06.100 --> 01:21:09.809
+Jitendra K: So your rag will use the MCP server, so there's no…
+
+843
+01:21:10.210 --> 01:21:13.970
+Jitendra K: So again, going back to the same diagram, your RAG will use the MCP server.
+
+844
+01:21:18.780 --> 01:21:20.599
+Jitendra K: To establish this connection.
+
+845
+01:21:21.630 --> 01:21:30.050
+Jitendra K: How about this analogy MCP's full workspace, like, is the library and function calling the button? Yeah, that's a valid analogy.
+
+846
+01:21:32.740 --> 01:21:39.679
+Jitendra K: I think MCP is mandated to be using collaboration with API management platform, and it will require security determination. Yes, that's correct.
+
+847
+01:21:40.120 --> 01:21:45.860
+Jitendra K: You need to use MCP along with your security protocol that has been set up by your organization. Yes, that's correct.
+
+848
+01:21:46.210 --> 01:21:52.139
+Jitendra K: That means your organization will restrict some websites, some white domain websites, some black domain website.
+
+849
+01:21:52.680 --> 01:21:54.959
+Jitendra K: Right, so you have to follow that convention.
+
+850
+01:22:00.960 --> 01:22:03.599
+Jitendra K: Alright, any other question before we move on?
+
+851
+01:22:06.140 --> 01:22:10.669
+Jitendra K: Yeah, that's correct. So, for cybersecurity, that's one of the pressing issues.
+
+852
+01:22:11.900 --> 01:22:15.120
+Jitendra K: And, definitely there would be workaround soon.
+
+853
+01:22:17.420 --> 01:22:19.310
+Jitendra K: Okay, now we'll go to the…
+
+854
+01:22:19.550 --> 01:22:22.850
+Jitendra K: the most important topic for today, which is called Fast MCP.
+
+855
+01:22:23.460 --> 01:22:29.849
+Jitendra K: So, fast MCP… Has been launched, officially.
+
+856
+01:22:30.660 --> 01:22:33.169
+Jitendra K: as a Python SDK in 2024.
+
+857
+01:22:34.480 --> 01:22:39.640
+Jitendra K: So FastMCP is a framework that makes MCP Server feel naturally in Python.
+
+858
+01:22:40.640 --> 01:22:45.400
+Jitendra K: So it handles all… Protocol complexities.
+
+859
+01:22:46.080 --> 01:22:56.860
+Jitendra K: Which include your JSON parsing, RPC serialization, transportation management, and capability negotiation, and even schema generation. So you can focus only on your business logic.
+
+860
+01:22:57.840 --> 01:23:05.029
+Jitendra K: So, Fast MCP has been created by Jeremy Loven, The founder of Perfect.
+
+861
+01:23:05.490 --> 01:23:09.289
+Jitendra K: Which many of you probably know as a workflow orchestration platform.
+
+862
+01:23:09.650 --> 01:23:16.060
+Jitendra K: So, fast MCP 1.0, was so good that it was incorporated directly into the official MCP.
+
+863
+01:23:16.520 --> 01:23:18.770
+Jitendra K: Python SDK in 2024.
+
+864
+01:23:19.790 --> 01:23:27.230
+Jitendra K: As a standalone project, continually evolved independently, and today fast time to be powered approximately
+
+865
+01:23:27.520 --> 01:23:31.809
+Jitendra K: 70% of all MCP servers across all programming languages.
+
+866
+01:23:32.840 --> 01:23:40.160
+Jitendra K: The current version of MCP, Fast MCP, I think it is something around 3.2 or something, let me check.
+
+867
+01:24:06.700 --> 01:24:08.400
+Jitendra K: 3.2.4.
+
+868
+01:24:08.910 --> 01:24:14.310
+Jitendra K: So, it is downloaded over… Let me check how many people have downloaded this.
+
+869
+01:24:17.270 --> 01:24:19.109
+Jitendra K: Yeah, it's close to a million.
+
+870
+01:24:20.970 --> 01:24:24.499
+Jitendra K: 100,000… Download per day.
+
+871
+01:24:36.340 --> 01:24:39.510
+Jitendra K: It has been released, the latest version has been released.
+
+872
+01:24:40.000 --> 01:24:44.130
+Jitendra K: Five days before itself, and this is the release history.
+
+873
+01:24:47.900 --> 01:24:49.530
+Jitendra K: 24 onwards…
+
+874
+01:24:51.140 --> 01:24:57.310
+Jitendra K: Okay, so this is FastMCP, and if you would like to read about it, you can go here and then read.
+
+875
+01:24:57.960 --> 01:25:01.279
+Jitendra K: the quick installation, API specifications, and stuff.
+
+876
+01:25:01.820 --> 01:25:07.170
+Jitendra K: So… Let me talk about… What is FastMCP, and why FastMCP?
+
+877
+01:25:09.630 --> 01:25:11.229
+Jitendra K: So, fast MCP…
+
+878
+01:25:15.000 --> 01:25:16.720
+Jitendra K: is an interface.
+
+879
+01:25:17.030 --> 01:25:20.399
+Jitendra K: That you are going to use, along with MCP protocol, in Python.
+
+880
+01:25:21.950 --> 01:25:24.810
+Jitendra K: So, the core idea of Fast MCP is…
+
+881
+01:25:25.800 --> 01:25:33.589
+Jitendra K: you can use a decorator-based API, to register… This as a tool.
+
+882
+01:25:33.890 --> 01:25:43.610
+Jitendra K: And you can develop Five times faster as compared to Developing your own MCP server, and client.
+
+883
+01:25:44.070 --> 01:25:45.179
+Jitendra K: From the scratch.
+
+884
+01:25:46.030 --> 01:25:51.270
+Jitendra K: Second is, it is type-safe. Every parameter type you declare in your function signature.
+
+885
+01:25:51.410 --> 01:25:54.950
+Jitendra K: is automatically converted to a corresponding JSON schemas.
+
+886
+01:25:55.430 --> 01:26:01.240
+Jitendra K: using Pyntic V2 handlers, all validation, which means you can get
+
+887
+01:26:01.510 --> 01:26:05.660
+Jitendra K: Free input validation with detail, error detail. Sorry, error messages.
+
+888
+01:26:06.280 --> 01:26:11.250
+Jitendra K: Third, it supports multiple transportate, transport out of the box.
+
+889
+01:26:12.200 --> 01:26:20.710
+Jitendra K: So it supports multiple transport out of the box, including STDIO, HTTPS, SSE protocol, WebSocket.
+
+890
+01:26:21.000 --> 01:26:25.020
+Jitendra K: So, you know not to write any transport code, you just need to reuse it.
+
+891
+01:26:25.720 --> 01:26:30.269
+Jitendra K: Fourth is, it is enterprise-grade. That means it is using odd token
+
+892
+01:26:30.890 --> 01:26:33.069
+Jitendra K: which has been discovered by Google.
+
+893
+01:26:33.710 --> 01:26:38.370
+Jitendra K: It will also create your BRR tokens, I think this is the question.
+
+894
+01:26:38.580 --> 01:26:40.420
+Jitendra K: That you have asked earlier.
+
+895
+01:26:40.600 --> 01:26:46.170
+Jitendra K: It is also using a BR token, using GitHub, Azure, authentications, etc.
+
+896
+01:26:46.330 --> 01:26:53.220
+Jitendra K: And per tool authorization scopes, and it is not something you have to created by your own.
+
+897
+01:26:56.670 --> 01:27:01.999
+Jitendra K: So if you would like to go for documentation, of this protocol.
+
+898
+01:27:03.530 --> 01:27:08.139
+Jitendra K: you need to go to this website, GoFast.com, and it will give you all the
+
+899
+01:27:08.780 --> 01:27:13.020
+Jitendra K: require commercials that you need to use, just like a Python package.
+
+900
+01:27:13.760 --> 01:27:19.609
+Jitendra K: You don't have to worry too much about security protocol, etc, because it has been already coded.
+
+901
+01:27:20.950 --> 01:27:22.560
+Jitendra K: Just need to reuse it.
+
+902
+01:27:23.350 --> 01:27:24.620
+Jitendra K: As you progress.
+
+903
+01:27:33.310 --> 01:27:37.599
+Jitendra K: So, we will see, some live demo now.
+
+904
+01:27:37.770 --> 01:27:44.540
+Jitendra K: The first and foremost thing, how to install, we are going to use FastMCP, as well as we will develop our own without FastMCP.
+
+905
+01:27:45.190 --> 01:27:51.349
+Jitendra K: So this will be slightly technical demos, so make sure that you're attentive, and then we are going to use it.
+
+906
+01:27:51.590 --> 01:27:56.480
+Jitendra K: So, how to install FastMCP? You need to write pip install FastMCP.
+
+907
+01:27:56.710 --> 01:28:02.030
+Jitendra K: And then… include your tools, which is MCP Inspector, along with it.
+
+908
+01:28:02.360 --> 01:28:06.750
+Jitendra K: So this will give you an UI where you can be able to inspect the audit logs, etc.
+
+909
+01:28:07.880 --> 01:28:11.579
+Jitendra K: So when you're building the fast MCP, you need to create a server script.
+
+910
+01:28:12.370 --> 01:28:13.990
+Jitendra K: So let's go line by line.
+
+911
+01:28:16.030 --> 01:28:19.890
+Jitendra K: So, in this slide, If you study carefully.
+
+912
+01:28:20.560 --> 01:28:23.540
+Jitendra K: Here you can see that every pattern is a small example.
+
+913
+01:28:24.000 --> 01:28:27.150
+Jitendra K: So, line number one, we import fast MCP.
+
+914
+01:28:27.420 --> 01:28:29.370
+Jitendra K: from the Fast MCB package.
+
+915
+01:28:29.780 --> 01:28:33.480
+Jitendra K: And that is the only import you need from a basic server-side configuration.
+
+916
+01:28:34.230 --> 01:28:39.039
+Jitendra K: Now, in line number 3, we create a server instance with a name weather server.
+
+917
+01:28:39.530 --> 01:28:41.800
+Jitendra K: The name is used in the server.
+
+918
+01:28:41.950 --> 01:28:47.180
+Jitendra K: information that GATT Or signed to a client during initialization.
+
+919
+01:28:47.720 --> 01:28:49.319
+Jitendra K: Using a descriptive name.
+
+920
+01:28:50.410 --> 01:28:55.110
+Jitendra K: Now, in line number 5 to 14, this… until this line.
+
+921
+01:28:55.840 --> 01:28:58.289
+Jitendra K: What I'm doing is, I'm registering a tool.
+
+922
+01:28:58.530 --> 01:28:59.890
+Jitendra K: As a decorator.
+
+923
+01:29:00.100 --> 01:29:07.250
+Jitendra K: So, MCP tool, either it is a decorator, editor at mcp.tool.
+
+924
+01:29:07.900 --> 01:29:10.980
+Jitendra K: So this decorator register gets weather as a tool.
+
+925
+01:29:11.720 --> 01:29:16.720
+Jitendra K: And then, let me break down what happened automatically. The function name becomes the tool name.
+
+926
+01:29:18.870 --> 01:29:21.349
+Jitendra K: The docker string becomes the tool description.
+
+927
+01:29:22.180 --> 01:29:27.909
+Jitendra K: And this is important because LLM read this description to decide When to call the tool.
+
+928
+01:29:28.080 --> 01:29:32.510
+Jitendra K: And then I have got several type hints, like city, string.
+
+929
+01:29:32.710 --> 01:29:36.150
+Jitendra K: unit should be string, become the JSON schema property.
+
+930
+01:29:36.770 --> 01:29:42.160
+Jitendra K: The default value unit is string, which is Celsius, make the parameter optional in the schema.
+
+931
+01:29:42.750 --> 01:29:44.889
+Jitendra K: And the return type annotates.
+
+932
+01:29:45.000 --> 01:29:49.420
+Jitendra K: which is, again, string, that will tell Fast MCP what tools should return.
+
+933
+01:29:50.410 --> 01:29:54.640
+Jitendra K: In the argument section, in this line.
+
+934
+01:29:56.500 --> 01:29:58.989
+Jitendra K: I'm using a doc string which has also been parsed.
+
+935
+01:29:59.610 --> 01:30:05.770
+Jitendra K: So, each argument description becomes the description field in the JSON schema property. This is how the LLM understands
+
+936
+01:30:06.090 --> 01:30:07.990
+Jitendra K: What each parameter means.
+
+937
+01:30:10.070 --> 01:30:12.769
+Jitendra K: That means it will write a description carefully.
+
+938
+01:30:13.220 --> 01:30:16.419
+Jitendra K: They are your API documentation for the LLM.
+
+939
+01:30:17.060 --> 01:30:20.730
+Jitendra K: Right? Just like an API documentation for your LLM models.
+
+940
+01:30:21.200 --> 01:30:23.930
+Jitendra K: And then followed by a resource, decorator.
+
+941
+01:30:24.260 --> 01:30:27.480
+Jitendra K: Which will register a read-only data endpoints.
+
+942
+01:30:27.670 --> 01:30:29.120
+Jitendra K: So this is our URI.
+
+943
+01:30:32.950 --> 01:30:38.729
+Jitendra K: is what client used to read the resource. The function returns a string, past MCP handle.
+
+944
+01:30:38.930 --> 01:30:42.740
+Jitendra K: serialization to proper MCP content format.
+
+945
+01:30:43.140 --> 01:30:45.390
+Jitendra K: And then, I'm having a decorator
+
+946
+01:30:45.950 --> 01:30:48.450
+Jitendra K: Which register as a reusable prompt template.
+
+947
+01:30:56.150 --> 01:30:59.020
+Jitendra K: Let me first copy this, I think there's some…
+
+948
+01:31:01.010 --> 01:31:03.189
+Jitendra K: Part of the core is not visible?
+
+949
+01:31:18.620 --> 01:31:20.180
+Jitendra K: Alright, so this is my prompt.
+
+950
+01:31:20.920 --> 01:31:27.040
+Jitendra K: So inside the prompt decorator, I'm registering a user Rearable prompt template.
+
+951
+01:31:27.540 --> 01:31:32.110
+Jitendra K: So I'm using this argument city, which become a required parameter.
+
+952
+01:31:33.200 --> 01:31:37.570
+Jitendra K: When a user invokes this prompt, they provide a city and a function return the prompt text.
+
+953
+01:31:38.600 --> 01:31:44.589
+Jitendra K: Now, during MCP run, in the main boilerport expression, in the main function.
+
+954
+01:31:45.130 --> 01:31:50.579
+Jitendra K: I started a server by default, it used the STDIO transportation layer.
+
+955
+01:31:51.130 --> 01:31:55.439
+Jitendra K: So what it does is it reads the JSON RPC message from STDIN,
+
+956
+01:31:55.720 --> 01:32:02.649
+Jitendra K: and writing output to STD out. This is what Cloud desktop expect when it launches a server as a process.
+
+957
+01:32:03.370 --> 01:32:08.540
+Jitendra K: So, 3D curator, 1 run call, that's a complete MCP server with a tool, resource, and a prompt.
+
+958
+01:32:09.110 --> 01:32:12.720
+Jitendra K: No boilerplate, no JSON RPC handling, no schema writing.
+
+959
+01:32:13.030 --> 01:32:16.320
+Jitendra K: past times if you generate everything from your Python code itself.
+
+960
+01:32:18.620 --> 01:32:20.880
+Jitendra K: So this is the power of FastMCP.
+
+961
+01:32:24.680 --> 01:32:27.389
+Jitendra K: Now, let's take the deep dive into MCP tool.
+
+962
+01:32:34.910 --> 01:32:43.409
+Jitendra K: So, if I'm going to use fast MCP, to create MCP tool, This example shows…
+
+963
+01:32:43.650 --> 01:32:45.590
+Jitendra K: A kind of a database query.
+
+964
+01:32:46.690 --> 01:32:49.920
+Jitendra K: Or a query tool that returns a pigantic base model.
+
+965
+01:32:52.910 --> 01:32:56.450
+Jitendra K: So, this is a production pattern you should use everywhere.
+
+966
+01:32:56.620 --> 01:33:05.979
+Jitendra K: So, by definition, for… sorry, by defining, you return a base model, you get a decent response with guarantee field names and types and validation.
+
+967
+01:33:06.560 --> 01:33:09.049
+Jitendra K: And also, you can see the property of the function.
+
+968
+01:33:09.160 --> 01:33:11.130
+Jitendra K: The function is asynchronous.
+
+969
+01:33:13.370 --> 01:33:17.620
+Jitendra K: So I'm writing asynchronous… query database function.
+
+970
+01:33:17.760 --> 01:33:22.820
+Jitendra K: So fast MCP can handle both synchronous and asynchronous functions seamlessly.
+
+971
+01:33:23.480 --> 01:33:27.369
+Jitendra K: For any tool that does input-output, database query.
+
+972
+01:33:28.380 --> 01:33:34.550
+Jitendra K: HTTP request, file read, you should use asynchronous. This will ensure that your server
+
+973
+01:33:34.910 --> 01:33:38.230
+Jitendra K: Does not block while waiting for the external operation.
+
+974
+01:33:40.020 --> 01:33:42.600
+Jitendra K: Right, so here also I'm passing the type hint.
+
+975
+01:33:48.550 --> 01:33:50.770
+Jitendra K: With a default of… 10.
+
+976
+01:33:51.840 --> 01:33:53.340
+Jitendra K: In terms of rate limit.
+
+977
+01:33:55.440 --> 01:34:01.249
+Jitendra K: Right? And then FastMC convert Python type system to a JSON schema automatically.
+
+978
+01:34:01.590 --> 01:34:05.490
+Jitendra K: So here I'm following by DockerString, which is a Google-style format.
+
+979
+01:34:06.080 --> 01:34:08.209
+Jitendra K: The first line is a tool description.
+
+980
+01:34:10.050 --> 01:34:12.909
+Jitendra K: This argument section has also been given.
+
+981
+01:34:13.860 --> 01:34:17.910
+Jitendra K: Where each parameter name A description has been provided.
+
+982
+01:34:18.620 --> 01:34:24.229
+Jitendra K: And then, I'm using pyreantic validation response, or pyreantic validation
+
+983
+01:34:25.040 --> 01:34:28.939
+Jitendra K: happen before the function executes. So if a client sends a string.
+
+984
+01:34:29.270 --> 01:34:35.810
+Jitendra K: where an integer is expected, or omit a required field, first MCP returns a proper JSON RPC error.
+
+985
+01:34:42.740 --> 01:34:51.199
+Jitendra K: So we'll take some more examples, so, to understand all this, but let's try to deep dive into the resource now, how to create a resource using FastMCP.
+
+986
+01:34:52.120 --> 01:34:58.330
+Jitendra K: So this is the… code, simple code, to create a resource using FastMCP.
+
+987
+01:34:59.020 --> 01:35:03.869
+Jitendra K: So, sorry, FastMCP, sorry, resource under FastMCP.
+
+988
+01:35:04.050 --> 01:35:06.119
+Jitendra K: So the resource has 3 main patterns.
+
+989
+01:35:06.370 --> 01:35:07.400
+Jitendra K: The static.
+
+990
+01:35:09.240 --> 01:35:11.500
+Jitendra K: The dynamic, and the binary.
+
+991
+01:35:12.560 --> 01:35:15.130
+Jitendra K: So the static resource has a fixed URI.
+
+992
+01:35:18.380 --> 01:35:21.300
+Jitendra K: That means they always return the same type of data.
+
+993
+01:35:21.790 --> 01:35:27.399
+Jitendra K: Use for configurations, and use… you can use this pattern for configuration.
+
+994
+01:35:27.880 --> 01:35:34.780
+Jitendra K: schemas, or document, or any of the data does not… that does not change per request. That means you can manage static data.
+
+995
+01:35:36.750 --> 01:35:39.070
+Jitendra K: Dynamic URI will be required.
+
+996
+01:35:41.590 --> 01:35:43.329
+Jitendra K: With a function signature.
+
+997
+01:35:43.840 --> 01:35:48.510
+Jitendra K: Let's say I'm… Looking for myself as a user.
+
+998
+01:35:48.940 --> 01:35:54.320
+Jitendra K: And then, I would like to change this user, right, at some point of time.
+
+999
+01:35:54.850 --> 01:36:02.519
+Jitendra K: That means it will extract my user ID, and it will create a parameterized data access to it. If I change it to something else, it will.
+
+1000
+01:36:02.740 --> 01:36:06.330
+Jitendra K: Gave me a particular… Data related to that user.
+
+1001
+01:36:07.770 --> 01:36:13.520
+Jitendra K: It can be a binary resource, that means I can select or set an explicit MIME type.
+
+1002
+01:36:16.030 --> 01:36:20.489
+Jitendra K: Which could be an application, a page, PDF file, PNG,
+
+1003
+01:36:20.800 --> 01:36:26.530
+Jitendra K: So this function will return bytes which fast MCP encode as a base64 blob.
+
+1004
+01:36:26.770 --> 01:36:28.049
+Jitendra K: in the response.
+
+1005
+01:36:28.330 --> 01:36:33.280
+Jitendra K: So you can use this for document images or any non-text data related queries.
+
+1006
+01:36:33.770 --> 01:36:36.830
+Jitendra K: So, all these patterns support asynchronous calls.
+
+1007
+01:36:41.600 --> 01:36:48.439
+Jitendra K: So just net… you just need to add asynchronous definition and use await or input-output operation.
+
+1008
+01:36:50.470 --> 01:36:53.090
+Jitendra K: Right, so when a client call resources.
+
+1009
+01:36:53.310 --> 01:36:55.920
+Jitendra K: past MCP return all the registered sources.
+
+1010
+01:36:56.290 --> 01:36:58.679
+Jitendra K: within their respective URIs.
+
+1011
+01:37:02.010 --> 01:37:03.929
+Jitendra K: And dynamic resource template.
+
+1012
+01:37:04.740 --> 01:37:07.470
+Jitendra K: will know or include.
+
+1013
+01:37:08.350 --> 01:37:09.940
+Jitendra K: Parameter which is unlabel.
+
+1014
+01:37:10.400 --> 01:37:14.490
+Jitendra K: So, one design principle… For all your needs.
+
+1015
+01:37:20.960 --> 01:37:25.409
+Jitendra K: Now we'll move on to the prompt. Maybe we'll move on to some slightly…
+
+1016
+01:37:29.170 --> 01:37:31.560
+Jitendra K: On the user configuration side as well.
+
+1017
+01:37:32.080 --> 01:37:34.899
+Jitendra K: So, when we talk about prompt, which has been handled by user.
+
+1018
+01:37:35.170 --> 01:37:39.300
+Jitendra K: So prompt are the most underutilized primitive in MCP.
+
+1019
+01:37:40.480 --> 01:37:45.370
+Jitendra K: So I think because people do not understand the power of multi-turn templates.
+
+1020
+01:37:49.320 --> 01:37:52.880
+Jitendra K: So again, when you're registering your prompt, you have to use decorator.
+
+1021
+01:37:53.280 --> 01:37:57.159
+Jitendra K: A function decorator with adderate MCP dot prompt.
+
+1022
+01:37:57.820 --> 01:38:02.810
+Jitendra K: That's a single… that will return a string. The string becomes a single user message.
+
+1023
+01:38:03.140 --> 01:38:05.119
+Jitendra K: So let's say I'm doing a code review.
+
+1024
+01:38:05.860 --> 01:38:11.680
+Jitendra K: So, code review takes a language and a code, and returns a formatted review request with a specific
+
+1025
+01:38:12.330 --> 01:38:18.369
+Jitendra K: chat categories. So when I either invoke this prompt, it creates a structured starting point for the conversation.
+
+1026
+01:38:18.500 --> 01:38:23.480
+Jitendra K: Because code debugging is a… iterative process.
+
+1027
+01:38:23.620 --> 01:38:26.750
+Jitendra K: You cannot generate an answer at once.
+
+1028
+01:38:27.060 --> 01:38:28.569
+Jitendra K: You need to follow…
+
+1029
+01:38:29.110 --> 01:38:35.779
+Jitendra K: the convention, let's say you're debugging a code, you have to go maybe line by line, explain to your agent that
+
+1030
+01:38:36.330 --> 01:38:43.320
+Jitendra K: You're running this code in your local, and this is what you're getting as a… Exception.
+
+1031
+01:38:43.570 --> 01:38:49.060
+Jitendra K: And then again, you rerun it with a modified version, and then you again end up into an exception, right?
+
+1032
+01:38:49.190 --> 01:38:54.220
+Jitendra K: So all this required a kind of a deep drive in the form of a…
+
+1033
+01:38:57.940 --> 01:39:02.830
+Jitendra K: multi-turn templates, right? So code review takes… A kind of an…
+
+1034
+01:39:04.100 --> 01:39:10.479
+Jitendra K: Example that takes a language and code and written a formatted review request with a specific check category.
+
+1035
+01:39:11.980 --> 01:39:15.770
+Jitendra K: So here we are registering a tool, sorry, we are registering a prompt.
+
+1036
+01:39:16.670 --> 01:39:17.850
+Jitendra K: So, again.
+
+1037
+01:39:17.960 --> 01:39:25.589
+Jitendra K: I'm writing a prompt that checks for bugs, logical errors, performance issues, security vulnerability, and style and readability.
+
+1038
+01:39:26.220 --> 01:39:30.470
+Jitendra K: And this is where I'm just… Registering this prompt.
+
+1039
+01:39:31.220 --> 01:39:33.879
+Jitendra K: on my… MCP Server.
+
+1040
+01:39:35.590 --> 01:39:38.030
+Jitendra K: Now, this prompt I can reuse.
+
+1041
+01:39:38.190 --> 01:39:41.510
+Jitendra K: Any point of time, when I'm calling this code assistant.
+
+1042
+01:39:42.760 --> 01:39:44.120
+Jitendra K: Any point of time.
+
+1043
+01:39:44.230 --> 01:39:46.640
+Jitendra K: Right, so it will still perform the same activity.
+
+1044
+01:39:54.090 --> 01:40:01.410
+Jitendra K: Now, let me talk about the asynchronous await and these functions, which we are going to use in our live examples.
+
+1045
+01:40:01.860 --> 01:40:05.040
+Jitendra K: So it is important that you should understand each of them.
+
+1046
+01:40:05.990 --> 01:40:14.169
+Jitendra K: So, asynchronous supports in FastMCP is… To make external calls.
+
+1047
+01:40:14.980 --> 01:40:21.420
+Jitendra K: So this example shows a tool that fetched multiple URLs concurrently.
+
+1048
+01:40:23.330 --> 01:40:25.280
+Jitendra K: It use HTTP request.
+
+1049
+01:40:26.530 --> 01:40:30.769
+Jitendra K: which is an asynchronous HTTP library, and asynchronous gather.
+
+1050
+01:40:31.000 --> 01:40:34.689
+Jitendra K: to send all the requests in parallel. So without asynchronous.
+
+1051
+01:40:35.190 --> 01:40:39.789
+Jitendra K: Fetching 5 URL will take 5 times longer
+
+1052
+01:40:40.020 --> 01:40:42.699
+Jitendra K: Because each request would block the next.
+
+1053
+01:40:44.960 --> 01:40:51.500
+Jitendra K: So the pattern is, you need to create an asynchronous HTTP, client request.
+
+1054
+01:40:54.690 --> 01:40:56.959
+Jitendra K: Now, what about synchronous request?
+
+1055
+01:41:01.020 --> 01:41:07.230
+Jitendra K: So, fast MCP handles them, too, as well. If your decorator or… Just a regular function.
+
+1056
+01:41:07.660 --> 01:41:14.640
+Jitendra K: So, fast MCP automatically adapt this as a thread executor. That means it will invoke a thread, ID to it.
+
+1057
+01:41:15.040 --> 01:41:18.350
+Jitendra K: That means the synchronous pool run in a thread pool.
+
+1058
+01:41:18.560 --> 01:41:20.610
+Jitendra K: And does not block the event loop.
+
+1059
+01:41:22.130 --> 01:41:28.099
+Jitendra K: So I'm adding a time.sleep, This means that a synchronous port run in a thread pool.
+
+1060
+01:41:28.880 --> 01:41:35.239
+Jitendra K: And does not block the event loop, and then time.sleep, in the example, would block a thread, not the entire server.
+
+1061
+01:41:39.630 --> 01:41:45.580
+Jitendra K: So the best practice that you should use when writing and using asynchronous protocol is…
+
+1062
+01:41:46.140 --> 01:41:51.510
+Jitendra K: Use HTTP instead of request. Request is it's synchronous only.
+
+1063
+01:41:52.880 --> 01:41:58.810
+Jitendra K: Use input-output file, for concrete operation. Never call…
+
+1064
+01:42:01.060 --> 01:42:03.679
+Jitendra K: I.O. directly in an asynchronous function.
+
+1065
+01:42:04.230 --> 01:42:06.410
+Jitendra K: You can use await for loop.
+
+1066
+01:42:06.760 --> 01:42:08.359
+Jitendra K: That you are going to execute.
+
+1067
+01:42:08.810 --> 01:42:15.080
+Jitendra K: So the performance difference matters here. A synchronous server handles 10 tools called sequentially.
+
+1068
+01:42:16.600 --> 01:42:22.520
+Jitendra K: An asynchronous server handle them concurrently, make them once… One of the perfect choice.
+
+1069
+01:42:22.920 --> 01:42:30.420
+Jitendra K: In an agentic AI workflow, where the LLM call is happening with multiple tools, This will…
+
+1070
+01:42:31.340 --> 01:42:33.759
+Jitendra K: Definitely going to create a lot of…
+
+1071
+01:42:35.270 --> 01:42:37.889
+Jitendra K: Latency is issue in your app.
+
+1072
+01:42:38.510 --> 01:42:43.550
+Jitendra K: To make sure that If you would like to avoid sluggish experience for your user.
+
+1073
+01:42:44.230 --> 01:42:46.769
+Jitendra K: Use these best practices to write.
+
+1074
+01:42:55.930 --> 01:42:57.730
+Jitendra K: So, any question on this point?
+
+1075
+01:43:24.650 --> 01:43:30.709
+Jitendra K: So it's like we are feeding a system prompt to LLM using MCP prompt. Yes, we are registering a prompt template.
+
+1076
+01:43:34.350 --> 01:43:39.059
+Jitendra K: That means you're registering your system prompts inside the MCP server.
+
+1077
+01:43:39.370 --> 01:43:42.059
+Jitendra K: Not a user prompt. User prompt will…
+
+1078
+01:43:42.940 --> 01:43:45.969
+Jitendra K: Drive the argument to the system prompt.
+
+1079
+01:43:47.810 --> 01:43:54.469
+Jitendra K: So when you're registering, you're… application, Under MCP.
+
+1080
+01:43:55.010 --> 01:43:58.310
+Jitendra K: You're registering the prompts as well. Templates of prompts.
+
+1081
+01:44:12.060 --> 01:44:16.649
+Jitendra K: Alright, Laun, let me talk about the type, safety, and schema generation part of MCP.
+
+1082
+01:44:17.170 --> 01:44:21.580
+Jitendra K: And this shows the full power of FastMCP Type 2 schema conversion.
+
+1083
+01:44:22.420 --> 01:44:29.169
+Jitendra K: So here, I'm defining a pydentic function. So I'm defining a task using a pedantic model with a field constraint.
+
+1084
+01:44:29.480 --> 01:44:33.050
+Jitendra K: The constraint that I'm putting is minimum length and maximum length.
+
+1085
+01:44:34.840 --> 01:44:39.350
+Jitendra K: And a default factory, I will come into this part, why default factory.
+
+1086
+01:44:39.870 --> 01:44:43.560
+Jitendra K: So… I'm using a Python enumeration.
+
+1087
+01:44:44.760 --> 01:44:49.859
+Jitendra K: for priority values. So when you use a task as a tool parameter.
+
+1088
+01:44:50.400 --> 01:44:54.370
+Jitendra K: Past MCB generate a nested JSON schema with all the constraints preserved.
+
+1089
+01:44:54.990 --> 01:44:57.099
+Jitendra K: So, look at a generated response.
+
+1090
+01:45:01.750 --> 01:45:03.580
+Jitendra K: So this is the generated response.
+
+1091
+01:45:04.210 --> 01:45:08.250
+Jitendra K: So the title field has minimum 1 and maximum 200.
+
+1092
+01:45:09.080 --> 01:45:11.859
+Jitendra K: Length, directly from the field constraint.
+
+1093
+01:45:12.140 --> 01:45:16.429
+Jitendra K: Priority is enumerated with 3 allowed values, and it is having a default.
+
+1094
+01:45:17.250 --> 01:45:20.950
+Jitendra K: Tag is an array of a string with a default empty list.
+
+1095
+01:45:21.230 --> 01:45:24.860
+Jitendra K: So, type mapping table on the… on your right.
+
+1096
+01:45:25.700 --> 01:45:27.119
+Jitendra K: You can see here.
+
+1097
+01:45:27.420 --> 01:45:30.970
+Jitendra K: is following the conventional. That means I'm forcing
+
+1098
+01:45:31.790 --> 01:45:41.669
+Jitendra K: the type, safety, and schema generation using Fast MCPS will. That means I can define what format of response that I'm expecting from this with the help of
+
+1099
+01:45:42.370 --> 01:45:50.000
+Jitendra K: these type safety and schema generation mechanism, and I can register this as a pedantic dictionaries or JSONS responses.
+
+1100
+01:45:55.620 --> 01:46:03.580
+Jitendra K: Now, with type safety and schema generation, there's also a requirement for a context object manipulation.
+
+1101
+01:46:04.230 --> 01:46:06.000
+Jitendra K: Now, what is context object?
+
+1102
+01:46:08.090 --> 01:46:12.740
+Jitendra K: So basically, a context object is an optional dependency injection parameter.
+
+1103
+01:46:13.250 --> 01:46:14.500
+Jitendra K: It's an optional.
+
+1104
+01:46:14.670 --> 01:46:18.700
+Jitendra K: that give your tool function access to MCP protocol features.
+
+1105
+01:46:19.820 --> 01:46:23.650
+Jitendra K: To use it, you need to use add a CTX.
+
+1106
+01:46:26.470 --> 01:46:34.069
+Jitendra K: So if you say CTX, PassMC will detect this type hint and automatically inject the context object, which are
+
+1107
+01:46:34.570 --> 01:46:41.489
+Jitendra K: used by… That is excluded from the context from the tool's JSON schema.
+
+1108
+01:46:41.940 --> 01:46:47.429
+Jitendra K: And the LLM will never see it as a parameter to fill in. So context provides 5 main capability.
+
+1109
+01:46:48.430 --> 01:46:52.930
+Jitendra K: It will send log notification through MCP Server, a protocol to the host.
+
+1110
+01:46:53.050 --> 01:46:56.880
+Jitendra K: Which can we display them to the user, or write them to the log?
+
+1111
+01:46:57.270 --> 01:46:59.670
+Jitendra K: You can see the progress reporting as well.
+
+1112
+01:46:59.780 --> 01:47:03.440
+Jitendra K: That means, if the tool is fetching some data, you can see
+
+1113
+01:47:04.050 --> 01:47:06.150
+Jitendra K: Line by line, what is happening?
+
+1114
+01:47:06.360 --> 01:47:07.669
+Jitendra K: At each step.
+
+1115
+01:47:07.990 --> 01:47:11.160
+Jitendra K: If they end up into exception, you can debug it as well.
+
+1116
+01:47:11.500 --> 01:47:15.970
+Jitendra K: If something is unusual with your tool calling, you can terminate that as well.
+
+1117
+01:47:17.390 --> 01:47:24.690
+Jitendra K: You can request a metadata CTX. Metadata CTX gives you a unique identifier for current request.
+
+1118
+01:47:24.890 --> 01:47:28.050
+Jitendra K: And it's really useful for correlations and log entries.
+
+1119
+01:47:30.850 --> 01:47:40.929
+Jitendra K: So this is optional, as I mentioned. You can automatically, create… sorry, you can optionally create this along with past MCP.
+
+1120
+01:47:41.190 --> 01:47:42.520
+Jitendra K: interventions.
+
+1121
+01:47:43.790 --> 01:47:47.870
+Jitendra K: Now, we have talked about the host, Now, what about a client?
+
+1122
+01:47:51.290 --> 01:47:53.130
+Jitendra K: What about building the clients?
+
+1123
+01:47:55.170 --> 01:48:01.789
+Jitendra K: So, fast MCP is not just for server, it provides a complete client library as well for connecting to any MCP server.
+
+1124
+01:48:02.350 --> 01:48:04.940
+Jitendra K: So when you're writing a client class.
+
+1125
+01:48:06.450 --> 01:48:09.910
+Jitendra K: You have to use an asynchronous context manager pattern.
+
+1126
+01:48:11.730 --> 01:48:15.080
+Jitendra K: You created with asynchronous, with client.
+
+1127
+01:48:15.380 --> 01:48:18.449
+Jitendra K: This whole code, you can wrap it as server.
+
+1128
+01:48:18.880 --> 01:48:20.749
+Jitendra K: PY as a client.
+
+1129
+01:48:20.980 --> 01:48:25.299
+Jitendra K: So, fast MCP automatically detect that server.py is a file path.
+
+1130
+01:48:25.710 --> 01:48:32.960
+Jitendra K: launch it as a sub-process, and connect via STDIO, or… HTTPS, Streamable APIs.
+
+1131
+01:48:33.340 --> 01:48:37.310
+Jitendra K: So transportation detect… transportation mechanical detection is automatic.
+
+1132
+01:48:38.210 --> 01:48:43.019
+Jitendra K: So once connected, the client provides a method that mirrors the MCP protocol.
+
+1133
+01:48:43.210 --> 01:48:45.430
+Jitendra K: That includes a list of available tools.
+
+1134
+01:48:45.870 --> 01:48:47.370
+Jitendra K: With a given name.
+
+1135
+01:48:48.050 --> 01:48:53.649
+Jitendra K: With their given signatures, we have created Docker strings, their capabilities.
+
+1136
+01:48:54.490 --> 01:48:56.880
+Jitendra K: So that is called capacity negotiations.
+
+1137
+01:48:57.420 --> 01:49:00.510
+Jitendra K: And then… You can also…
+
+1138
+01:49:04.770 --> 01:49:09.339
+Jitendra K: So, once connected, the client methods, We'll also give you…
+
+1139
+01:49:10.540 --> 01:49:15.629
+Jitendra K: a method called getPrompt to retrieve a prompt template with a fill-in argument.
+
+1140
+01:49:16.100 --> 01:49:19.960
+Jitendra K: The lifecycle is managed automatically. When you enter the asynchronous block.
+
+1141
+01:49:21.440 --> 01:49:26.410
+Jitendra K: the Client Connect performs the initialization, handshake, and negotiation capability.
+
+1142
+01:49:26.680 --> 01:49:30.870
+Jitendra K: When you exit this block, it performs graceful shutdown.
+
+1143
+01:49:31.340 --> 01:49:34.679
+Jitendra K: If the server crashes, the context manager handles the cleanup.
+
+1144
+01:49:36.050 --> 01:49:38.480
+Jitendra K: Now there comes the very important point.
+
+1145
+01:49:39.170 --> 01:49:40.780
+Jitendra K: Can I authenticate?
+
+1146
+01:49:41.490 --> 01:49:48.049
+Jitendra K: Using past MCP. So for authentication, you can pass or token configuration.
+
+1147
+01:49:49.020 --> 01:49:55.480
+Jitendra K: when creating the client. You can use your burea tokens, auth tokens, and custom auth handlers, which are supportive.
+
+1148
+01:49:55.880 --> 01:49:58.400
+Jitendra K: Based upon your organization criterias.
+
+1149
+01:49:59.980 --> 01:50:01.949
+Jitendra K: So, when should you use client?
+
+1150
+01:50:02.660 --> 01:50:06.329
+Jitendra K: So you need to use it for testing your server programmatically.
+
+1151
+01:50:06.800 --> 01:50:11.310
+Jitendra K: You can write your own PyTest that creates a client, connect to your servers.
+
+1152
+01:50:11.680 --> 01:50:14.670
+Jitendra K: Call tools and assert on the result.
+
+1153
+01:50:24.450 --> 01:50:30.340
+Jitendra K: Okay, now what we can do is, let's take a break now of 20 minutes. So once we come back.
+
+1154
+01:50:30.750 --> 01:50:35.120
+Jitendra K: Then we are going to go with some bigger example. I mean, we have…
+
+1155
+01:50:35.340 --> 01:50:38.560
+Jitendra K: Some good example to demonstrate for today.
+
+1156
+01:50:38.820 --> 01:50:43.179
+Jitendra K: And this is going to be a very coding-extensive exercise. That means we have…
+
+1157
+01:50:43.990 --> 01:50:48.789
+Jitendra K: A lot of things to… a lot of tools to be registered, a lot of documents to be registered, etc.
+
+1158
+01:50:49.090 --> 01:50:53.980
+Jitendra K: And then, we'll see how we can able to manage all these things by setting it up.
+
+1159
+01:50:54.930 --> 01:51:01.880
+Jitendra K: So let's take a quick break of 20 minutes, and once we come back, Then we'll start with…
+
+1160
+01:51:02.030 --> 01:51:04.510
+Jitendra K: the core demos.
+
+1161
+01:51:05.360 --> 01:51:07.410
+Jitendra K: Yeah, let me share the PPT.
+
+1162
+01:51:11.620 --> 01:51:14.099
+Jitendra K: Yeah, you have access to it now.
+
+1163
+01:51:23.980 --> 01:51:27.680
+Jitendra K: Alright, so let's take a quick 25-minute break, and then we'll come back.
+
+1164
+01:51:27.920 --> 01:51:28.870
+Jitendra K: On time.
+
+1165
+01:51:36.840 --> 01:51:39.429
+Jitendra K: Okay, 20 is enough, then go for 20.
+
+1166
+02:11:36.600 --> 02:11:39.050
+Jitendra K: Alright guys, I hope, you're back.
+
+1167
+02:11:39.620 --> 02:11:41.310
+Jitendra K: Can we have a quick confirmation?
+
+1168
+02:11:55.600 --> 02:11:59.239
+Jitendra K: Okay, thank you. So, we'll start with the coding exercise now.
+
+1169
+02:12:00.490 --> 02:12:03.959
+Jitendra K: So let me first, go to my first port.
+
+1170
+02:12:54.090 --> 02:12:55.840
+Jitendra K: Okay, I will use this.
+
+1171
+02:15:49.310 --> 02:15:54.399
+Jitendra K: So I'm just installing the Windows kit, just because I'm going to use this as a tool.
+
+1172
+02:16:30.650 --> 02:16:32.660
+Jitendra K: Okay, so this has been installed.
+
+1173
+02:16:33.049 --> 02:16:43.790
+Jitendra K: Now I will go to my… Terminal… It's 3.19119.
+
+1174
+02:16:44.930 --> 02:16:46.450
+Jitendra K: And…
+
+1175
+02:22:44.670 --> 02:22:50.200
+Jitendra K: I will go to the code, in a detailed manner, but first let me run and demonstrate this.
+
+1176
+02:25:31.870 --> 02:25:36.770
+Jitendra K: I think it is an issue with the… version of FastMCP Client.
+
+1177
+02:25:37.570 --> 02:25:42.579
+Jitendra K: Because… It does not require sub-process to be implemented.
+
+1178
+02:26:28.010 --> 02:26:33.709
+Jitendra K: Yeah, I have to reinstall, maybe… maybe modify the test file.
+
+1179
+02:26:34.580 --> 02:26:36.940
+Jitendra K: You can see that this is allowing this…
+
+1180
+02:26:37.260 --> 02:26:43.010
+Jitendra K: 3.0 to have direct access instead of creating a sub-process. So I've created a sub-process here.
+
+1181
+02:26:43.450 --> 02:26:45.930
+Jitendra K: And that's the reason it is failing.
+
+1182
+02:26:46.330 --> 02:26:48.710
+Jitendra K: Which is oas.subprocess.
+
+1183
+02:26:49.270 --> 02:26:51.919
+Jitendra K: So I will… Change the script.
+
+1184
+02:31:26.000 --> 02:31:28.319
+Jitendra K: Let me just use the fixed code.
+
+1185
+02:34:15.410 --> 02:34:19.709
+Jitendra K: Okay, so I think there's a keyword mismatch here, which I have to fix.
+
+1186
+02:34:21.060 --> 02:34:25.180
+Jitendra K: Because I don't know why it is not retrieving IBM data.
+
+1187
+02:34:43.290 --> 02:34:46.030
+Jitendra K: Oh, so I'll forward ADHPI issue.
+
+1188
+02:34:47.510 --> 02:34:52.000
+Jitendra K: 2. Company Overview from Alpha Vantage.
+
+1189
+02:34:52.610 --> 02:34:55.309
+Jitendra K: That means I have to register with something else.
+
+1190
+02:36:05.380 --> 02:36:08.039
+Jitendra K: Okay, this is limited features, so…
+
+1191
+02:36:09.190 --> 02:36:15.019
+Jitendra K: the two threads are running, which is also concrete. Yeah, I think this works really well.
+
+1192
+02:36:15.250 --> 02:36:20.470
+Jitendra K: The only issue with the company profile I'm not able to capture because of the Alpha Vantage issue.
+
+1193
+02:36:21.090 --> 02:36:23.510
+Jitendra K: So, I will explain this code.
+
+1194
+02:36:34.430 --> 02:36:38.340
+Jitendra K: So basically, what we did is, we have created the script.
+
+1195
+02:36:38.920 --> 02:36:43.740
+Jitendra K: Which comprise of several folders. Now, let me go one by one.
+
+1196
+02:36:44.250 --> 02:36:47.719
+Jitendra K: So you have got client, you have got server.
+
+1197
+02:36:48.180 --> 02:36:48.980
+Jitendra K: Right?
+
+1198
+02:36:49.590 --> 02:36:51.700
+Jitendra K: So basically, this is your client code.
+
+1199
+02:36:52.250 --> 02:36:54.209
+Jitendra K: Which is having the test stripped.
+
+1200
+02:36:54.580 --> 02:36:57.519
+Jitendra K: Integration script with each tools.
+
+1201
+02:36:57.770 --> 02:37:01.039
+Jitendra K: Some middlewares where I'm going to use some guardrails.
+
+1202
+02:37:01.280 --> 02:37:08.479
+Jitendra K: And schema management, and the prompt registry, using this. And the resources, servers… sorry, resources file is this.
+
+1203
+02:37:08.690 --> 02:37:16.260
+Jitendra K: So, in every client code, you are going to have these things, which include your prompt, resources, and tool management.
+
+1204
+02:37:16.470 --> 02:37:23.299
+Jitendra K: Alright, so I will rather use a tool name as it is, so I'm using AlphaVantage tool, so I'm just managing it as.
+
+1205
+02:37:23.710 --> 02:37:29.960
+Jitendra K: So basically, if I have to just show you the… Flow of this whole pipeline.
+
+1206
+02:37:34.970 --> 02:37:36.620
+Jitendra K: So this is how it looks like.
+
+1207
+02:37:39.650 --> 02:37:41.440
+Jitendra K: So this is your face.
+
+1208
+02:37:41.590 --> 02:37:42.649
+Jitendra K: Of the code.
+
+1209
+02:37:43.040 --> 02:37:50.020
+Jitendra K: So, in the first phase, I'm going to start with… Financial server.
+
+1210
+02:37:51.630 --> 02:37:55.699
+Jitendra K: I'm going to spin up the client, MCP server, open asynchronous block.
+
+1211
+02:37:56.460 --> 02:38:04.840
+Jitendra K: So FastMC will fire a Lifespan context manager, and it creates Alpha Vantage with my API key that I've passed on.
+
+1212
+02:38:05.020 --> 02:38:10.259
+Jitendra K: and connect to the SQLiteDatafinancial.db, and creating all the list
+
+1213
+02:38:10.720 --> 02:38:14.390
+Jitendra K: Including portfolio audit log, market cash, etc.
+
+1214
+02:38:14.800 --> 02:38:19.679
+Jitendra K: So I'm going to have one parameter called yield ratio, which is my input.
+
+1215
+02:38:20.120 --> 02:38:25.990
+Jitendra K: And then, during the input, I'm going to source that as well with the Alpha Vantage client API.
+
+1216
+02:38:26.370 --> 02:38:31.039
+Jitendra K: During the second phase, which is a capability discovery, capability discovery.
+
+1217
+02:38:31.810 --> 02:38:38.850
+Jitendra K: So, the client called four MCP protocol methods in a sequence. The first method is the list tool.
+
+1218
+02:38:39.450 --> 02:38:46.179
+Jitendra K: Where the server responds with eight tool definitions, each with a name, description, and JSON schema for its argument.
+
+1219
+02:38:46.540 --> 02:38:53.860
+Jitendra K: And this is where the LLM will know what it can call and what argument to be passed, because we have a Docker string for that.
+
+1220
+02:38:54.640 --> 02:39:02.289
+Jitendra K: So, here I'm having 8 tools, including GAT quotation, GATT History, Technical Analysis, Company Overview, which is failing.
+
+1221
+02:39:02.780 --> 02:39:05.089
+Jitendra K: From the 12-for-one limitations.
+
+1222
+02:39:05.270 --> 02:39:11.450
+Jitendra K: And generate price chart, and then portfolio analysis and variational, variance risk.
+
+1223
+02:39:12.930 --> 02:39:14.300
+Jitendra K: And the watchlist.
+
+1224
+02:39:14.710 --> 02:39:22.839
+Jitendra K: Then I've got a list of resources, two static URIs, that is all into server-side configurations and supported indicators.
+
+1225
+02:39:23.410 --> 02:39:31.170
+Jitendra K: And then a list of resource templates, right? And then there are 3 reusable prompts, which include investment thesis, portfolio reviews.
+
+1226
+02:39:31.340 --> 02:39:33.130
+Jitendra K: and Market Monitoring Brief.
+
+1227
+02:39:33.960 --> 02:39:41.549
+Jitendra K: Then I move on to the resource reading URI phase, where the client calls the resource read, read underscore resource from server.
+
+1228
+02:39:42.010 --> 02:39:42.790
+Jitendra K: board.
+
+1229
+02:39:43.170 --> 02:39:45.709
+Jitendra K: This is where my server code will start.
+
+1230
+02:40:02.880 --> 02:40:09.660
+Jitendra K: Right, so here, I'm just enabling the MCP object using the HTTPS gateway.
+
+1231
+02:40:09.870 --> 02:40:14.639
+Jitendra K: And then… And in addition, I'm adding the context for debugging purpose.
+
+1232
+02:40:15.080 --> 02:40:21.859
+Jitendra K: And then finally, I'm running, the multi-asset scan that will perform the scan on the tools.
+
+1233
+02:40:22.090 --> 02:40:28.559
+Jitendra K: So basically, this is a resource reading part. So let's say right now, I'm not passing any document, but let's say…
+
+1234
+02:40:28.820 --> 02:40:32.909
+Jitendra K: If you would like to create some document and manage it as a data.
+
+1235
+02:40:36.350 --> 02:40:39.069
+Jitendra K: This is my binary file. I have some data into it.
+
+1236
+02:40:39.750 --> 02:40:47.239
+Jitendra K: Not very refined, so… I mean, let's say this… this you can replace with your organizational data.
+
+1237
+02:40:47.560 --> 02:40:51.560
+Jitendra K: finance.db is your automation data, and there are certain sort of document
+
+1238
+02:40:51.750 --> 02:41:02.520
+Jitendra K: Including PDFs or Word files, that you can able to pass it here as well, right? But I'm not passing it anything here, I'm just relying on the tool and the LLM-generated responses.
+
+1239
+02:41:03.180 --> 02:41:09.369
+Jitendra K: Another tool… Each tool will follow the pipeline in the middleware concept. So what it does is…
+
+1240
+02:41:10.640 --> 02:41:16.259
+Jitendra K: During the tool execution, Which is saved inside my middleware code.
+
+1241
+02:41:17.840 --> 02:41:22.630
+Jitendra K: Let me unfold this, unfold this, unfold this, and unfold this.
+
+1242
+02:41:24.730 --> 02:41:26.460
+Jitendra K: So this is my BDVR code.
+
+1243
+02:41:27.310 --> 02:41:30.840
+Jitendra K: where I'm using… Server information.
+
+1244
+02:41:37.010 --> 02:41:42.730
+Jitendra K: as well as set up how to execute it, in terms of rate limit, API errors.
+
+1245
+02:41:43.050 --> 02:41:44.999
+Jitendra K: And audit logs, right?
+
+1246
+02:41:45.210 --> 02:41:50.179
+Jitendra K: So basically, during this particular code, what I'm trying to do is, I'm just discovering the tool.
+
+1247
+02:41:50.290 --> 02:41:51.300
+Jitendra K: Hello, Tim.
+
+1248
+02:41:51.770 --> 02:41:57.249
+Jitendra K: I'm sending this query. The query is… Let me just open…
+
+1249
+02:41:58.150 --> 02:42:00.709
+Jitendra K: the environment. This is the query that I'm sending.
+
+1250
+02:42:01.580 --> 02:42:08.270
+Jitendra K: But I would like to find out the IBM stock price with a percentage change, 2.47%.
+
+1251
+02:42:08.940 --> 02:42:12.919
+Jitendra K: And then this is the volume of trade which has been happening last day.
+
+1252
+02:42:13.670 --> 02:42:17.499
+Jitendra K: Right? So, I would like to call this Alpha Vantage API that will…
+
+1253
+02:42:17.910 --> 02:42:26.500
+Jitendra K: return the metadata on this company. I can switch between IBM to any other company, right? So I would like to find out the company overview.
+
+1254
+02:42:26.800 --> 02:42:34.129
+Jitendra K: And, some sort of, parameters including SMA, EMA, RSI, MSED, which is all
+
+1255
+02:42:34.820 --> 02:42:40.459
+Jitendra K: trading parameters. So assume, like, there are sort of four parameters that I'm going to call, which is SMA,
+
+1256
+02:42:41.600 --> 02:42:42.770
+Jitendra K: EMA.
+
+1257
+02:42:44.630 --> 02:42:46.060
+Jitendra K: RSI.
+
+1258
+02:42:59.160 --> 02:43:04.309
+Jitendra K: And then I've got MACD. So if you want to look into this four parameter, what are these?
+
+1259
+02:43:04.750 --> 02:43:08.499
+Jitendra K: So let me just show you with an example.
+
+1260
+02:43:26.490 --> 02:43:35.379
+Jitendra K: So these are all… parameters of my guided trading decision strategies. RSA stands for Relative Strength Indexes.
+
+1261
+02:43:35.610 --> 02:43:41.520
+Jitendra K: That will measure the market momentum, and also identify the potential overbought and oversold conditions.
+
+1262
+02:43:41.800 --> 02:43:48.069
+Jitendra K: MSED stands for Moving Average Conversion Divergence. That will take the momentum and potential trend reversals.
+
+1263
+02:43:48.220 --> 02:43:59.370
+Jitendra K: EMA is exponential moving average. So, in a nutshell, what I'm trying to do is, I'm trying to analyze the market fluctuation from the historical volumes of trade and their price fluctuations, right?
+
+1264
+02:43:59.470 --> 02:44:09.529
+Jitendra K: So I'm just using AlphaVantage to give me all this, and then, based upon this, which has been written by AlphaVantage, I will take some decision, and the decision that I'm going to take is…
+
+1265
+02:44:09.940 --> 02:44:16.890
+Jitendra K: I would like to evaluate this particular… asset… class.
+
+1266
+02:44:17.250 --> 02:44:25.630
+Jitendra K: And then try to see if I can be able to invest on this, whether the investment will be fruitful or not. So it's like a trading strategy that I'm creating.
+
+1267
+02:44:25.780 --> 02:44:31.239
+Jitendra K: for Mind Trader, right? So you can see that how systematically It is calling these…
+
+1268
+02:44:31.520 --> 02:44:37.829
+Jitendra K: Sequences of tool, and then defining the market, Parameters based upon which.
+
+1269
+02:44:37.940 --> 02:44:42.069
+Jitendra K: And then, I would like to understand the comprehensive portfolio review for this.
+
+1270
+02:44:42.260 --> 02:44:45.900
+Jitendra K: So this should give me some suggestions on the top of the outcome.
+
+1271
+02:44:47.020 --> 02:44:50.250
+Jitendra K: You can see it is collecting the data, calling the tools.
+
+1272
+02:44:51.670 --> 02:44:53.550
+Jitendra K: And then generating the output.
+
+1273
+02:45:08.570 --> 02:45:12.879
+Jitendra K: So for each, let's say if I'm feeding multiple company data to it.
+
+1274
+02:45:13.100 --> 02:45:16.240
+Jitendra K: For each company, it will run the different tools.
+
+1275
+02:45:16.420 --> 02:45:18.929
+Jitendra K: And then, it generates the response.
+
+1276
+02:45:26.910 --> 02:45:32.590
+Jitendra K: So the sequence of this is, again, going back to the… Ford.
+
+1277
+02:45:33.140 --> 02:45:37.460
+Jitendra K: So, this is a sequence. So, we are calling these, daily historical
+
+1278
+02:45:38.740 --> 02:45:47.640
+Jitendra K: And get code details from All Forvantage. This is not for free tire limit, so company overview, I cannot be able to get it because of the free tire for All Forevantage.
+
+1279
+02:45:47.820 --> 02:45:59.629
+Jitendra K: And then I'm doing those technical analysis, and then take some decisions on the top of it. I will store this data, just to take it as a historical reference, and then use my prompt template to generate an answer.
+
+1280
+02:45:59.850 --> 02:46:09.450
+Jitendra K: So basically, this is what MCP does, right, in a nutshell. So what I… what I try to do here is, I've created a very clean, production-grade MCP server.
+
+1281
+02:46:09.710 --> 02:46:17.300
+Jitendra K: With all the tools and setup, including my company data, etc, inside the data folders and stuff like that.
+
+1282
+02:46:17.380 --> 02:46:31.889
+Jitendra K: And then, using the FastMCP2, create a communication protocol, where I can be able to register my prompts, I can be able to register my tools, I can register my resources on the fly, and I can change it. I will. Maybe I have to…
+
+1283
+02:46:32.240 --> 02:46:38.980
+Jitendra K: make this more dynamic. Let's say I have to make sure that the resources in this file should always update it.
+
+1284
+02:46:40.230 --> 02:46:46.459
+Jitendra K: So if I'm going to update my code, let's say, to point it to the new file, I have to make the changes here.
+
+1285
+02:46:46.640 --> 02:46:52.930
+Jitendra K: If I have to make the changes to the tool, I have to make the changes here. So this is becoming a more modular or organized way of
+
+1286
+02:46:53.360 --> 02:46:59.729
+Jitendra K: getting the right sort of response in a production-grade environment using MCP, right?
+
+1287
+02:46:59.860 --> 02:47:06.860
+Jitendra K: So MCP has just helped me to bind all this commercial together in the same umbrella.
+
+1288
+02:47:07.030 --> 02:47:08.659
+Jitendra K: Our same radar off.
+
+1289
+02:47:08.880 --> 02:47:24.310
+Jitendra K: convention, so that I can be able to work seamlessly on my business logic, rather than focusing too much about securities, too much about tool management, too much about resource management. It will run automatically, once I configure it.
+
+1290
+02:47:24.450 --> 02:47:27.900
+Jitendra K: So it will… able to solve the pressing issue of the rack.
+
+1291
+02:47:28.380 --> 02:47:32.670
+Jitendra K: Which means, at the retriever layer, if I implement the MCP protocol.
+
+1292
+02:47:32.910 --> 02:47:38.150
+Jitendra K: That will always try to point to the recent data in my organization.
+
+1293
+02:47:38.340 --> 02:47:49.399
+Jitendra K: And that is what I need, right? With all the protocol securities and vulnerabilities, I should just focus on the business proportion. Let's say I will be able to add more
+
+1294
+02:47:49.880 --> 02:48:01.280
+Jitendra K: use cases to my scenarios. I would like to analyze some more reporting scenarios. I would like to tackle some more complex query. That should be my focus, instead of focusing too much on the
+
+1295
+02:48:01.750 --> 02:48:08.309
+Jitendra K: tool and commercial part of it, right? So as a user, I should be able to do all this seamlessly without
+
+1296
+02:48:08.480 --> 02:48:12.550
+Jitendra K: Ending up… ending up into too much hassles while using these tools.
+
+1297
+02:48:13.020 --> 02:48:16.219
+Jitendra K: Yeah, I will share the code in a while. Let me show you one more
+
+1298
+02:48:16.570 --> 02:48:18.299
+Jitendra K: Maybe even one more query.
+
+1299
+02:48:30.950 --> 02:48:34.480
+Jitendra K: So I will run some more queries on the top of it.
+
+1300
+02:48:47.810 --> 02:48:57.570
+Jitendra K: Okay, I'll run some… individual… clients to extract Tesla motors or Tesla shares.
+
+1301
+02:49:08.030 --> 02:49:10.829
+Jitendra K: Well, let me do some sentiment analysis.
+
+1302
+02:49:16.740 --> 02:49:18.430
+Jitendra K: on the Apple stock.
+
+1303
+02:50:13.780 --> 02:50:17.210
+Jitendra K: Sentiment analysis should run.
+
+1304
+02:50:18.560 --> 02:50:20.740
+Jitendra K: These are some key areas out there.
+
+1305
+02:51:30.860 --> 02:51:35.649
+Jitendra K: No, this is just a PowerShell double quote issue, so I'm just resolving this input.
+
+1306
+02:51:36.620 --> 02:51:38.600
+Jitendra K: The tools are working fine.
+
+1307
+02:53:56.040 --> 02:53:59.069
+Jitendra K: Let me try with another argument.
+
+1308
+02:54:08.270 --> 02:54:10.070
+Jitendra K: Yeah, this is working.
+
+1309
+02:54:13.350 --> 02:54:17.820
+Jitendra K: I'm just gathering the AI news, the recent AI news.
+
+1310
+02:54:18.400 --> 02:54:20.600
+Jitendra K: And this is working fine.
+
+1311
+02:54:20.710 --> 02:54:24.000
+Jitendra K: So this is another tool that I've developed to gather daily
+
+1312
+02:54:24.390 --> 02:54:28.099
+Jitendra K: let's say I would like to do some analysis on,
+
+1313
+02:54:29.340 --> 02:54:33.300
+Jitendra K: the stock markets, which is related to AI companies, right?
+
+1314
+02:54:33.670 --> 02:54:35.980
+Jitendra K: So, I can able to do this…
+
+1315
+02:54:36.290 --> 02:54:41.589
+Jitendra K: With the help of this tool, which will give me the daily proportions on the…
+
+1316
+02:54:42.280 --> 02:54:49.159
+Jitendra K: sentiments, and there's something called insider trading, right? So I'm just using the insider trading tool to generate this analysis.
+
+1317
+02:54:49.350 --> 02:54:54.159
+Jitendra K: I can also do a server gateway, let me check if it is also working.
+
+1318
+02:56:27.560 --> 02:56:30.119
+Jitendra K: Now that we've done the sentiment analysis…
+
+1319
+02:57:13.120 --> 02:57:17.340
+Jitendra K: Great, it is working to get all the quotes. I can get the quotes.
+
+1320
+02:57:18.060 --> 02:57:19.739
+Jitendra K: on other stock.
+
+1321
+02:57:20.200 --> 02:57:23.170
+Jitendra K: or other asset classes as well, let's say Tesla.
+
+1322
+02:57:23.780 --> 02:57:25.100
+Jitendra K: NVIDIA…
+
+1323
+02:57:29.600 --> 02:57:31.369
+Jitendra K: And this, again, rate limit.
+
+1324
+02:57:34.840 --> 02:57:37.220
+Jitendra K: Okay, so this is,
+
+1325
+02:57:37.670 --> 02:57:44.170
+Jitendra K: due to rate limit. Now, I would like to perform some historical prizes on daily basis.
+
+1326
+02:57:59.390 --> 02:58:08.210
+Jitendra K: It is giving me these volumes on a daily basis. Now, I would like to perform the sentiment analysis on my Apple stock.
+
+1327
+02:58:09.270 --> 02:58:12.930
+Jitendra K: So, I'm saying Apple beats earnings by 15%.
+
+1328
+02:58:13.930 --> 02:58:16.549
+Jitendra K: Do the sentiment analysis on…
+
+1329
+02:58:24.260 --> 02:58:30.439
+Jitendra K: and… So this is the text per view, and then…
+
+1330
+02:58:30.610 --> 02:58:35.070
+Jitendra K: It gives me the scores on which the sentiment I can able to deviate.
+
+1331
+02:58:35.690 --> 02:58:47.370
+Jitendra K: Based upon my market belief. So if I have to run a market belief or summarization, I can do it as well. So let's say I would like to perform some summarization on some Federal Reserve policy.
+
+1332
+02:58:48.430 --> 02:58:51.300
+Jitendra K: Let me run this services as well.
+
+1333
+02:58:57.570 --> 02:59:00.189
+Jitendra K: I'm asking to summarize the text.
+
+1334
+02:59:01.200 --> 02:59:02.800
+Jitendra K: The maximum 30 words.
+
+1335
+02:59:04.920 --> 02:59:06.660
+Jitendra K: So it is summarizing this.
+
+1336
+02:59:06.880 --> 02:59:13.929
+Jitendra K: into my… Requirement. Let's say I would like to perform some entity extraction.
+
+1337
+02:59:14.930 --> 02:59:19.589
+Jitendra K: So, entity extraction means, let's say, a person with a financial company.
+
+1338
+02:59:19.820 --> 02:59:23.229
+Jitendra K: So I'm saying that… CEO Tim Cook announced,
+
+1339
+02:59:26.460 --> 02:59:30.210
+Jitendra K: Apple, $100 billion buyback, and some other news.
+
+1340
+02:59:30.560 --> 02:59:33.750
+Jitendra K: So this will give me the entity recognition from this phrase.
+
+1341
+02:59:34.210 --> 02:59:38.929
+Jitendra K: Where the name of the company is Apple, the short notation is AAPL,
+
+1342
+02:59:39.860 --> 02:59:44.220
+Jitendra K: people involved is Tim Koch, who's the CEO, and…
+
+1343
+02:59:44.680 --> 02:59:48.400
+Jitendra K: The metrics is buyback, value is $110 billion.
+
+1344
+02:59:49.650 --> 02:59:52.150
+Jitendra K: Right, so this will help me to create…
+
+1345
+02:59:52.270 --> 02:59:56.449
+Jitendra K: My own tools for finance analysis, right?
+
+1346
+02:59:56.580 --> 03:00:00.859
+Jitendra K: So this is a great tool which I can be able to use for KYC, which I can use for…
+
+1347
+03:00:00.990 --> 03:00:07.069
+Jitendra K: There's something again… there's something called insider trading, as I mentioned, then you can use it all for research.
+
+1348
+03:00:07.550 --> 03:00:13.130
+Jitendra K: many more use cases, right? So this tool will help you to…
+
+1349
+03:00:13.320 --> 03:00:18.469
+Jitendra K: Maybe work like a trading strategy analyst, which will help your…
+
+1350
+03:00:18.980 --> 03:00:25.799
+Jitendra K: Traders to get sufficient market insights, perform some validation pre-checks before they start their day.
+
+1351
+03:00:26.060 --> 03:00:30.510
+Jitendra K: And then once they invest, they will get a higher confidence on this tool.
+
+1352
+03:00:32.170 --> 03:00:35.090
+Jitendra K: So this is like a trading strategy and a list for you.
+
+1353
+03:00:36.600 --> 03:00:42.009
+Jitendra K: Which will give you all the market indicators, all the risky parameters.
+
+1354
+03:00:42.130 --> 03:00:44.539
+Jitendra K: And I have shown you, you can add some…
+
+1355
+03:00:45.010 --> 03:00:51.009
+Jitendra K: Financial terminologies, or moving averages, understanding the fluctuation in the market.
+
+1356
+03:00:51.380 --> 03:00:54.120
+Jitendra K: And this tool will give you all the…
+
+1357
+03:00:55.560 --> 03:01:01.060
+Jitendra K: right notions in terms of market beliefs, and you can operate seamlessly as a trader, right?
+
+1358
+03:01:01.730 --> 03:01:04.360
+Jitendra K: So this is… what…
+
+1359
+03:01:04.520 --> 03:01:09.750
+Jitendra K: I have to share… I mean, share with you, as one of the MCP use cases.
+
+1360
+03:01:10.050 --> 03:01:17.549
+Jitendra K: So assume it's like Alpha Researcher. Alpha Researcher will do all the market segmentation automatically, and then generate insights at the end of the day.
+
+1361
+03:01:18.860 --> 03:01:25.060
+Jitendra K: Now, I will share this code with you guys. I want you to go… Maybe line by line.
+
+1362
+03:01:25.470 --> 03:01:31.429
+Jitendra K: Look for server and client configurations, and let me know if there's any issue with understanding the code.
+
+1363
+03:01:32.150 --> 03:01:37.569
+Jitendra K: So, we are using FastMCP to implement all code, so everything, including
+
+1364
+03:01:38.680 --> 03:01:42.960
+Jitendra K: Layers, server-side configurations is all turned into.
+
+1365
+03:01:44.440 --> 03:01:46.540
+Jitendra K: fast MCP protocol.
+
+1366
+03:01:48.810 --> 03:01:51.129
+Jitendra K: And the rest of the things are the integration to it.
+
+1367
+03:01:55.940 --> 03:01:57.710
+Jitendra K: So I will take a pause here.
+
+1368
+03:01:59.800 --> 03:02:03.180
+Jitendra K: Let everybody go through the code and let me know if there's any issue.
+
+1369
+03:10:56.120 --> 03:11:03.110
+Jitendra K: There's some issue with the hosting credentials, guys, so sorry for that, and there was no one from the TS side.
+
+1370
+03:11:04.490 --> 03:11:11.629
+Jitendra K: Okay, so, are you able to see the code now? Will you be able to execute it and let me know if it is working?
+
+1371
+03:11:57.810 --> 03:12:00.060
+Jitendra K: Fast MCP is a Python package.
+
+1372
+03:12:00.980 --> 03:12:02.539
+Jitendra K: MCP is a protocol.
+
+1373
+03:12:25.580 --> 03:12:30.479
+Jitendra K: No, it's not required for this demo. You can extend it if you want.
+
+1374
+03:12:31.240 --> 03:12:36.360
+Jitendra K: You can add your tool as Git as well. Let's say if you would like to do some…
+
+1375
+03:12:36.810 --> 03:12:40.709
+Jitendra K: Debugging before committing, then you can add this.
+
+1376
+03:13:05.570 --> 03:13:13.739
+Jitendra K: So, any other question, guys, before we wind up for a day? Are you clear with the MCP? I hope, you are… you are very clear, or…
+
+1377
+03:13:14.390 --> 03:13:17.550
+Jitendra K: Still, there's a long way to go. You need more practice.
+
+1378
+03:13:21.890 --> 03:13:24.870
+Jitendra K: Yeah, thanks. Thanks, Helen. How about others?
+
+1379
+03:13:26.670 --> 03:13:31.259
+Jitendra K: Are you getting the gist of MCP, past MCP and the protocols?
+
+1380
+03:13:32.080 --> 03:13:37.260
+Jitendra K: What is the purpose? What are the different… building block of MCP.
+
+1381
+03:13:37.830 --> 03:13:43.879
+Jitendra K: Will MCP will still… A black box for you guys after this class.
+
+1382
+03:13:44.130 --> 03:13:47.399
+Jitendra K: So can we start using MCP from today onwards?
+
+1383
+03:13:49.110 --> 03:13:50.400
+Jitendra K: In every code.
+
+1384
+03:13:53.170 --> 03:13:57.890
+Jitendra K: Now, from here, the code will start getting complex and complex, right?
+
+1385
+03:13:58.290 --> 03:14:01.139
+Jitendra K: That means we will add more and more component to it.
+
+1386
+03:14:01.600 --> 03:14:08.510
+Jitendra K: So, I will, instead of… Focusing on every part of the code, we will just discuss
+
+1387
+03:14:09.510 --> 03:14:17.899
+Jitendra K: the core concept, let's say now, in this next tutorial, I will talk about A2A. So, I will still use MCP as a server to create A2A protocol.
+
+1388
+03:14:18.170 --> 03:14:25.400
+Jitendra K: But I will only talk about a component of A2A, right? Instead of covering all the codes into it.
+
+1389
+03:14:27.350 --> 03:14:35.050
+Jitendra K: So, for A2A, we need to create two agents which are doing some work, and then we have to integrate them so that they can communicate and exchange information.
+
+1390
+03:14:48.210 --> 03:14:52.530
+Jitendra K: Yeah, the tool approval depends upon your security layer in the organization.
+
+1391
+03:14:55.620 --> 03:15:01.080
+Jitendra K: So, you cannot use third-party tool as it is within your office, Network.
+
+1392
+03:15:02.130 --> 03:15:07.280
+Jitendra K: It depends upon… Your organization permission, firewall, and other stuff.
+
+1393
+03:15:08.520 --> 03:15:15.950
+Jitendra K: The server definition also contains MCP.prompts, apart from user-defined prompt, server also have prompt definition. This is system prompts.
+
+1394
+03:15:20.640 --> 03:15:22.549
+Jitendra K: So this is for system prompts.
+
+1395
+03:15:26.320 --> 03:15:32.490
+Jitendra K: Okay, I think, yeah, I haven't shared the command to execute, so use this command.
+
+1396
+03:15:37.840 --> 03:15:40.049
+Jitendra K: So you can go with these use cases.
+
+1397
+03:16:06.080 --> 03:16:12.739
+Jitendra K: So, I hope the core idea of MCP is clear at an architecture level, as well as the implementation level, right?
+
+1398
+03:16:13.050 --> 03:16:16.600
+Jitendra K: So there's no doubt about… MCP anymore.
+
+1399
+03:16:24.110 --> 03:16:29.840
+Jitendra K: Does somebody ask you… YMCP, then you will be able to answer it, right?
+
+1400
+03:16:38.150 --> 03:16:39.000
+Jitendra K: Okay.
+
+1401
+03:16:45.520 --> 03:16:54.110
+Jitendra K: So, in the next tutorial, we'll cover A2A and A2C, both protocol, and then next to next tutorial, we'll talk about
+
+1402
+03:16:54.450 --> 03:16:58.759
+Jitendra K: Guard rails. So, there's a lot of things that we have to cover.
+
+1403
+03:16:59.200 --> 03:17:02.640
+Jitendra K: So first we go with A2A, which is…
+
+1404
+03:17:03.230 --> 03:17:10.099
+Jitendra K: One of the best protocols for agentic orchestrations and establishing a communication between them.
+
+1405
+03:17:10.670 --> 03:17:19.449
+Jitendra K: And then we'll move on to A to C, the UI layer, how we can able to use UI layer to communicate between agent and client.
+
+1406
+03:17:19.660 --> 03:17:21.210
+Jitendra K: Which is your users.
+
+1407
+03:17:21.560 --> 03:17:23.350
+Jitendra K: And then we'll move on to the…
+
+1408
+03:17:24.610 --> 03:17:28.949
+Jitendra K: Guard rails, jailbreaking, and other phenomena, which will help us to
+
+1409
+03:17:29.240 --> 03:17:36.920
+Jitendra K: So right now, we are talking about architectures, right? We are not talking about how to create agents, we are using how to deploy your agents, right?
+
+1410
+03:17:37.910 --> 03:17:40.759
+Jitendra K: So, we will revisit the agent.
+
+1411
+03:17:41.050 --> 03:17:44.239
+Jitendra K: Again, after finishing all these things.
+
+1412
+03:17:44.420 --> 03:17:46.770
+Jitendra K: So there's a purpose to it. One is…
+
+1413
+03:17:47.010 --> 03:18:01.799
+Jitendra K: you will get the ecosystem understanding, like, what are the ecosystem of Agentic AI, and then how to deploy your applications. We haven't talked about observability yet, but we'll soon start with observability in the upcoming tutorials, maybe 5 or 6 classes from now.
+
+1414
+03:18:02.080 --> 03:18:05.169
+Jitendra K: So that you will also understand how to test your regents.
+
+1415
+03:18:12.130 --> 03:18:14.510
+Jitendra K: Yeah, use this GitHub code.
+
+1416
+03:18:17.460 --> 03:18:18.920
+Jitendra K: For your reference…
+
+1417
+03:18:25.260 --> 03:18:36.959
+Jitendra K: Alright guys, I think this is pretty much what we have for today, and I hope you enjoy the session. So we'll meet in the next tutorial for more in-depth analysis on agent-to-agent communications, and…
+
+1418
+03:18:37.250 --> 03:18:45.520
+Jitendra K: We'll take some good example to explore. So with that, thank you guys for attending this session. It was a pleasure to have an interaction. We'll meet in the next tutorial. Thank you.
+

@@ -1,0 +1,132 @@
+# API Contract: Domain Configuration CRUD
+# Feature: Dashboard Domain & Charter Governance — Feature A
+# Extends: GET /api/domain-config (existing read-only route)
+
+endpoints:
+
+  - method: POST
+    path: /api/domain-config
+    description: Create a new domain vocabulary entry
+    request_body:
+      content_type: application/json
+      schema:
+        required: [id, label, description]
+        properties:
+          id:
+            type: string
+            pattern: "^[a-z][a-z0-9-]*$"
+            description: Immutable kebab-case slug; must be unique across existing domains
+          label:
+            type: string
+            maxLength: 80
+            note: Must be a plain string; non-string values (objects, arrays) rejected with 400.
+          description:
+            type: string
+            maxLength: 400
+            note: Must be a plain string; non-string values rejected with 400.
+          color:
+            type: string
+            enum: [blue, green, red, petrol, amber, purple, neutral]
+            description: Regnology brand token name; hex values rejected. List is exhaustive — see ALLOWED_COLORS in domain-tags.service.ts.
+    responses:
+      201:
+        description: Domain created
+        body: "{ domain: DomainConfig }"
+      400:
+        description: Validation error (missing required field, invalid id format, invalid color)
+        body: "{ error: string }"
+      409:
+        description: Domain ID already exists
+        body: "{ error: string, conflictingId: string }"
+      500:
+        description: File write failure
+        body: "{ error: string }"
+
+  - method: PUT
+    path: /api/domain-config/:id
+    description: >
+      Update label, description, or color of an existing domain. Domain ID is immutable —
+      any `id` field present in the request body is silently ignored. The server always
+      uses the `:id` path parameter as the authoritative identifier.
+    path_params:
+      id: existing domain ID slug
+    request_body:
+      content_type: application/json
+      schema:
+        required: []
+        properties:
+          id:
+            type: string
+            note: If present, silently ignored — server uses path param as authoritative ID
+          label:
+            type: string
+            maxLength: 80
+            note: Must be a plain string; non-string values rejected with 400.
+          description:
+            type: string
+            maxLength: 400
+            note: Must be a plain string; non-string values rejected with 400.
+          color:
+            type: string
+            enum: [blue, green, red, petrol, amber, purple, neutral]
+            description: Regnology brand token name; hex values rejected. List is exhaustive — see ALLOWED_COLORS in domain-tags.service.ts.
+        note: >
+          At least one of label/description/color must be present AFTER stripping the
+          ignored `id` field. A body of { "id": "new-id" } is considered empty (returns 400)
+          because `id` is not a mutable field. Non-string values for label/description
+          rejected with 400.
+    responses:
+      200:
+        description: Domain updated
+        body: "{ domain: DomainConfig }"
+      400:
+        description: Validation error or empty body
+        body: "{ error: string }"
+      404:
+        description: Domain not found
+        body: "{ error: string }"
+      500:
+        description: File write failure
+        body: "{ error: string }"
+
+  - method: GET
+    path: /api/domain-config/:id/cascade-preview
+    description: >
+      Dry-run preview of the cascade delete for a domain. Returns counts of
+      artifact-tag assignments, primary-domain loss count, and org-binding entries
+      that would be removed. Does NOT modify any files.
+      ROUTE ORDERING NOTE: this path must be registered BEFORE DELETE /:id in the router
+      to prevent Express matching "cascade-preview" as the :id value.
+    path_params:
+      id: domain ID slug to preview
+    responses:
+      200:
+        description: Preview computed
+        body: "{ domainId: string, artifactTagCount: number, primaryDomainLossCount: number, orgBindingCount: number }"
+      404:
+        description: Domain not found
+        body: "{ error: string }"
+      500:
+        description: Read failure
+        body: "{ error: string }"
+
+  - method: DELETE
+    path: /api/domain-config/:id
+    description: >
+      Delete a domain and cascade: removes domain from domain-config.yaml,
+      removes all tag assignments (including primary_domain) for the domain from
+      artifact-tags.yaml, and removes all org-binding entries bound to the domain
+      from org-bindings.yaml. Calling cascade-preview first is OPTIONAL — the
+      cascade executes unconditionally when DELETE is called.
+      Three-file write is sequential (see research.md §2 for atomicity notes).
+    path_params:
+      id: domain ID slug to delete
+    responses:
+      204:
+        description: Domain deleted and cascade complete; no response body
+      404:
+        description: Domain not found
+        body: "{ error: string }"
+      500:
+        description: File write failure (partial state possible — see data-model.md cascade recovery note)
+        body: "{ error: string }"

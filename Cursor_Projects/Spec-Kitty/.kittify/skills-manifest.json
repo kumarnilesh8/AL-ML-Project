@@ -1,0 +1,728 @@
+{
+  "version": 1,
+  "created_at": "2026-07-10T06:28:20.321805+00:00",
+  "updated_at": "2026-07-10T06:28:20.321998+00:00",
+  "spec_kitty_version": "",
+  "entries": [
+    {
+      "skill_name": "ad-hoc-profile-load",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\ad-hoc-profile-load\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:93ce09e6c95c05454f4a56aefe9023573323e194986dd19e1b0471da031499fd",
+      "installed_at": "2026-07-10T06:28:19.258674+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "adversarial-squad",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\adversarial-squad\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:d9021a4755658ebe8e973268b6fb63c75fca4330af0df7199870d47c6d3a4ddd",
+      "installed_at": "2026-07-10T06:28:19.274915+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:e68bb4a9789a90d63cf691467a43be9bead35ab9bad7d1a1a1db531c5fb961e6",
+      "installed_at": "2026-07-10T06:28:19.292012+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-bulk-edit-classification",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-bulk-edit-classification\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:4df44dd9ccee29f8440c8316408a5b6d0696658c44ad80101dc5c3c298c0bf2b",
+      "installed_at": "2026-07-10T06:28:19.309792+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-charter-doctrine",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-charter-doctrine\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:c6b9a4a3b6ba24b0d48cad8e37eb2b0d859bfa9792393adfc3fda50a941d863e",
+      "installed_at": "2026-07-10T06:28:19.338835+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-charter-doctrine",
+      "source_file": "references\\charter-command-map.md",
+      "installed_path": ".agents\\skills\\spec-kitty-charter-doctrine\\references\\charter-command-map.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:42d4b2d813e713b634a11fd6ceb054eacf9898da5a5581a339314642ca458b37",
+      "installed_at": "2026-07-10T06:28:19.338835+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-charter-doctrine",
+      "source_file": "references\\doctrine-artifact-structure.md",
+      "installed_path": ".agents\\skills\\spec-kitty-charter-doctrine\\references\\doctrine-artifact-structure.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:2dbca635385fcd061598d42d83787dbb46e5c4a69b7514664416017567b5420e",
+      "installed_at": "2026-07-10T06:28:19.338835+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-git-workflow",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-git-workflow\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:1e4b3a29c8d9d8a1d6c1f7ece6fb5399cea00acd80c8a9222124982e0c8eca02",
+      "installed_at": "2026-07-10T06:28:19.374703+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-git-workflow",
+      "source_file": "references\\git-operations-matrix.md",
+      "installed_path": ".agents\\skills\\spec-kitty-git-workflow\\references\\git-operations-matrix.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:5e97ef043e21b2721ee30c7591ae9674096f2124a810d1a856c249e1ce048f08",
+      "installed_at": "2026-07-10T06:28:19.374703+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-glossary-context",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-glossary-context\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:a4c4bee318e166f06b34e817159b5775e786a7f09d62eb54aacf6cc4c0a45c0e",
+      "installed_at": "2026-07-10T06:28:19.414871+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-glossary-context",
+      "source_file": "references\\glossary-field-guide.md",
+      "installed_path": ".agents\\skills\\spec-kitty-glossary-context\\references\\glossary-field-guide.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:8bbd7e5656634de97af7c86d28c1e25a7d94386b62e074df4951730c330ab9d1",
+      "installed_at": "2026-07-10T06:28:19.414871+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-glossary-context",
+      "source_file": "references\\semantic-drift-examples.md",
+      "installed_path": ".agents\\skills\\spec-kitty-glossary-context\\references\\semantic-drift-examples.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:cd8a29247252f0a5532532b859287690bdc7f8d4bdc3e8951e9bdc7f5a932234",
+      "installed_at": "2026-07-10T06:28:19.414871+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-implement-review",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-implement-review\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:b8e6fb4b5a3a189a302aa781ae472dec505a7f686f0fa0579ff969e48557bb87",
+      "installed_at": "2026-07-10T06:28:19.458672+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-implement-review",
+      "source_file": "references\\agent-dispatch-matrix.md",
+      "installed_path": ".agents\\skills\\spec-kitty-implement-review\\references\\agent-dispatch-matrix.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:df5fd79c72a44adfc989147c3d15657eaeebc6d90cadd3a1f5c66af9761195bb",
+      "installed_at": "2026-07-10T06:28:19.458672+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-implement-review",
+      "source_file": "references\\rejection-loop-checklist.md",
+      "installed_path": ".agents\\skills\\spec-kitty-implement-review\\references\\rejection-loop-checklist.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:8c3bcc37a1afc8c876d79ae9545b6f55446787fec1c3043016c557b3ca82023f",
+      "installed_at": "2026-07-10T06:28:19.458672+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-mission-review",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-mission-review\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:6f2cbd72f23ee9e5cbf0e8937855ebb2ba465a2e4487dd2d952e42b16265abc1",
+      "installed_at": "2026-07-10T06:28:19.499323+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-mission-review",
+      "source_file": "references\\mission-review-fr-trace-guide.md",
+      "installed_path": ".agents\\skills\\spec-kitty-mission-review\\references\\mission-review-fr-trace-guide.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:a01202fb9d6b06de5ded975cf65877725e2e843c7c341a9946911df28fbf26f3",
+      "installed_at": "2026-07-10T06:28:19.499323+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-mission-system",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-mission-system\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:5478149ace2a0f9aebdc852773e289fc5ab06a1342100387c930d227c4c376dc",
+      "installed_at": "2026-07-10T06:28:19.530779+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-mission-system",
+      "source_file": "references\\mission-comparison-matrix.md",
+      "installed_path": ".agents\\skills\\spec-kitty-mission-system\\references\\mission-comparison-matrix.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:db86f1e589cd6b752f94cd546fe4c3c2a6e91ac82ca3fe386ee225d003cbf73e",
+      "installed_at": "2026-07-10T06:28:19.530779+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-orchestrator-api-operator",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-orchestrator-api-operator\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:a08bc7dba1cf5b76d56d5e7d09af2a5d9866e67f19fdad83c5eee43d21c09b45",
+      "installed_at": "2026-07-10T06:28:19.559936+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-orchestrator-api-operator",
+      "source_file": "references\\host-boundary-rules.md",
+      "installed_path": ".agents\\skills\\spec-kitty-orchestrator-api-operator\\references\\host-boundary-rules.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:7d58d7ffa6658e9c056e481efff2e819359041c3fb6ddff206224ce0c0107b74",
+      "installed_at": "2026-07-10T06:28:19.559936+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-orchestrator-api-operator",
+      "source_file": "references\\orchestrator-api-contract.md",
+      "installed_path": ".agents\\skills\\spec-kitty-orchestrator-api-operator\\references\\orchestrator-api-contract.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:72ca53058bb8da1a86d207d19dfc0498f3274b2cdf36cc95e509babe95058d6e",
+      "installed_at": "2026-07-10T06:28:19.559936+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-program-orchestrate",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-program-orchestrate\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:16ed46bc10e06bdef13c1d47c012e67424b783ae8ccd87625beb474fb718ef8e",
+      "installed_at": "2026-07-10T06:28:19.588703+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-runtime-next",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-runtime-next\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:f15e7b88d0caa485abc6b99aba30306503b634bb670d5d9a3fdee99b583984d4",
+      "installed_at": "2026-07-10T06:28:19.614445+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-runtime-next",
+      "source_file": "references\\blocked-state-recovery.md",
+      "installed_path": ".agents\\skills\\spec-kitty-runtime-next\\references\\blocked-state-recovery.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:1319e068992443733a09934f1504d91cdf9d2c8c7106ed2a06ce41c0564ac3a9",
+      "installed_at": "2026-07-10T06:28:19.614445+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-runtime-next",
+      "source_file": "references\\runtime-result-taxonomy.md",
+      "installed_path": ".agents\\skills\\spec-kitty-runtime-next\\references\\runtime-result-taxonomy.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:e8328926f86044df741b774c8b9c8d0f208244509e230bdb924b4315cc1ec071",
+      "installed_at": "2026-07-10T06:28:19.614445+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-runtime-review",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-runtime-review\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:1039fc5d3754404a78234070a69e6a9d9e5928ddf0c94bd0a4ba326206f2298d",
+      "installed_at": "2026-07-10T06:28:19.646819+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-runtime-review",
+      "source_file": "references\\review-checklist.md",
+      "installed_path": ".agents\\skills\\spec-kitty-runtime-review\\references\\review-checklist.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:6f3f78ebd2e3c18f5c1cf3d7ab993804432d386093b8c2a7bbd19a11818c7b68",
+      "installed_at": "2026-07-10T06:28:19.646819+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-setup-doctor",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-setup-doctor\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:84e06f535113545037e7eee84fd9f15c23d0f08b35d08a50c2b792e1559123d2",
+      "installed_at": "2026-07-10T06:28:19.680771+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-setup-doctor",
+      "source_file": "references\\agent-path-matrix.md",
+      "installed_path": ".agents\\skills\\spec-kitty-setup-doctor\\references\\agent-path-matrix.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:c50a96176afd38f3dafcf3f830762378fe2001b404b2d646d6383d3cb2f08110",
+      "installed_at": "2026-07-10T06:28:19.680771+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-setup-doctor",
+      "source_file": "references\\common-failure-signatures.md",
+      "installed_path": ".agents\\skills\\spec-kitty-setup-doctor\\references\\common-failure-signatures.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:855e6944e0e6119645817287a607474895712a579cc5ded6af75a17e1073571c",
+      "installed_at": "2026-07-10T06:28:19.680771+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spec-kitty-spdd-reasons",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spec-kitty-spdd-reasons\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:9774dc485588e9d75d3cb2ec5f16850ed66cf490ee23b956a35484ff97ea8244",
+      "installed_at": "2026-07-10T06:28:19.706217+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-admin-agent-config",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-admin-agent-config\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:d2919c66bf990aa56ce7aebf45fcd187f7f2331e817fbc5898c87c677e798b58",
+      "installed_at": "2026-07-10T06:28:19.722379+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-admin-dashboard",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-admin-dashboard\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:eaa4780978f8dc5957ad0e4c31401823526e0ea2ded01a0ba54362b8648fb4a2",
+      "installed_at": "2026-07-10T06:28:19.740702+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-admin-dashboard",
+      "source_file": "references\\dashboard-daemon.md",
+      "installed_path": ".agents\\skills\\spk-admin-dashboard\\references\\dashboard-daemon.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:5bac975d5a5ac9c38bb4d39d133353f0e8d4088a538d725152e3144cf33b1050",
+      "installed_at": "2026-07-10T06:28:19.740702+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-admin-git-workflow",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-admin-git-workflow\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:db79e5d5c14d60f8716106ce7850be5b55970375f4a720ce73ff5511b44a6671",
+      "installed_at": "2026-07-10T06:28:19.761913+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-admin-setup-doctor",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-admin-setup-doctor\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:5c177489b44e0ee4284bf3f8403c3ff0ff07804a67531e37bc51fd30af6b2524",
+      "installed_at": "2026-07-10T06:28:19.779233+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-admin-upgrade",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-admin-upgrade\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:b83c6e1885d58291b2a4034c64a742b910ed8a36efea8bd73372e543f3982694",
+      "installed_at": "2026-07-10T06:28:19.792923+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-doctrine-bulk-edit",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-doctrine-bulk-edit\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:48af10fa615230bba20e76c0db89f48ba515a83bd56e5496192b7b210986b7bc",
+      "installed_at": "2026-07-10T06:28:19.807936+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-doctrine-charter",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-doctrine-charter\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:475aa573b12fb9e2b3568c52c03458486981b486d8a15504dc0cc583981d8a9e",
+      "installed_at": "2026-07-10T06:28:19.827775+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-doctrine-glossary",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-doctrine-glossary\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:2d77641c9802d29d0eae0c6af9f9a2279e4849112097d16347e8573a6589756a",
+      "installed_at": "2026-07-10T06:28:19.850420+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-doctrine-profile-load",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-doctrine-profile-load\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:ac128d04b9b101af23b7e4ca179f3c438f502e2b1c2b495933b6a7b27dde5406",
+      "installed_at": "2026-07-10T06:28:19.870497+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-doctrine-semantic-compression",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-doctrine-semantic-compression\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:13fbac6f6c2a9f10917d69a1369087219018047fca1913387bbd6c86dad4b218",
+      "installed_at": "2026-07-10T06:28:19.890905+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-doctrine-spdd-reasons",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-doctrine-spdd-reasons\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:1a13f99a8b9eaf19be5d670005ff8d40a2f9dca6ea051c30924a033a23b55dc3",
+      "installed_at": "2026-07-10T06:28:19.907970+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-gate-accept",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-gate-accept\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:0045057d23cb87d7bd3ef454897868e2634bce23971159e85958e3138d43e9c9",
+      "installed_at": "2026-07-10T06:28:19.925390+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-gate-merge",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-gate-merge\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:175232a79f3f9dc8add2c10912679b905c846fad9998f4fbc94a4b267918ee32",
+      "installed_at": "2026-07-10T06:28:19.941298+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-gate-mission-review",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-gate-mission-review\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:a450e4c5738740e9d5bc459884bb4fe11c131088ba026e7811c2ce84b24cb915",
+      "installed_at": "2026-07-10T06:28:19.955637+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-gate-retrospective",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-gate-retrospective\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:f21881589d6218fd4add920730ef24ea209d709da4d1131b25efc5d7249eeb6b",
+      "installed_at": "2026-07-10T06:28:19.972806+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-integrate-orchestrator-api",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-integrate-orchestrator-api\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:064b8e2e61275c3966eff0fed47c0bb5c057dedb95b0d80d33da37792f254d70",
+      "installed_at": "2026-07-10T06:28:19.987576+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-meta-skill-authoring",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-meta-skill-authoring\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:27fd5b8d5402f13df9e8f84247ffc02854df96dc5f164cc99192c6b01e46de2c",
+      "installed_at": "2026-07-10T06:28:20.002955+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-meta-skill-map",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-meta-skill-map\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:803d14dcf936fb78c5036a62d00fd2faed82caf20df408a27c4032b4d15b2a9c",
+      "installed_at": "2026-07-10T06:28:20.021385+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-meta-skill-map",
+      "source_file": "references\\spk-skill-map.md",
+      "installed_path": ".agents\\skills\\spk-meta-skill-map\\references\\spk-skill-map.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:807283f3bb5ec04ebd574934fef928c6edc1644a27b7372569972f0a00f7600b",
+      "installed_at": "2026-07-10T06:28:20.021385+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-mission-documentation",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-mission-documentation\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:91423d726eb0d4f31c4fc3a3e73da0a3212917ac9651efcd6eb1345c279f2f4a",
+      "installed_at": "2026-07-10T06:28:20.042226+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-mission-plan",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-mission-plan\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:220f5fa4f29166e9f8ec29f0c9f61b44251ad32a32fecb70da4542279f2f8d20",
+      "installed_at": "2026-07-10T06:28:20.056118+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-mission-research",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-mission-research\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:e111e9b5771c51fa820c3d4b10f61fb1995d45c596e90f3eaa4c1e26a8f217d8",
+      "installed_at": "2026-07-10T06:28:20.069589+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-mission-specify",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-mission-specify\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:3b67a0ac9bfeb52ac54ca79f227d73632e44070eb4e4c69519be820adc73983e",
+      "installed_at": "2026-07-10T06:28:20.082196+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-mission-tasks",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-mission-tasks\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:dbf449c271887192e0807b4bd7e848adfa1b35fd8b66ada8f3ca9ff5d513d43d",
+      "installed_at": "2026-07-10T06:28:20.095589+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-mission-types",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-mission-types\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:990c0f52ca44432d965808307097d18ddfc85fa67185d19f30cc7e892e95f9f2",
+      "installed_at": "2026-07-10T06:28:20.112076+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-run-blocked-recovery",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-run-blocked-recovery\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:0a5c1c92411eb01546149d8b5b9b06efd3e51aa7371404bfc0878d711fc74a52",
+      "installed_at": "2026-07-10T06:28:20.125784+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-run-implement-review",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-run-implement-review\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:152abe0da81e80c1097bdc472a6c08170a7d6901f7359a685a31f88471addafa",
+      "installed_at": "2026-07-10T06:28:20.141229+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-run-next",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-run-next\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:9151faa0e19b04ada4cb066a4ae73a17d9d350831708602d7c48dd194f2184bd",
+      "installed_at": "2026-07-10T06:28:20.153894+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-run-program-orchestrate",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-run-program-orchestrate\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:828882d499e91ae727c8ef9a2dbfe1bb8c853eeb93255ad5925963c35739f5d5",
+      "installed_at": "2026-07-10T06:28:20.168231+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-run-review-wp",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-run-review-wp\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:f63e0bf0bb05de70e2ef2be973a3c5fc2d16bfa07602afd5ade17c40b2e6e694",
+      "installed_at": "2026-07-10T06:28:20.183266+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-start-agent-surface",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-start-agent-surface\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:098f41674c36bb752905887082329605872383ea9620d62cb8cfb41b3cf7de41",
+      "installed_at": "2026-07-10T06:28:20.197205+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-start-command-map",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-start-command-map\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:e0f154da3dae46d6de302f4ed0a0ba5f2bf6c6b8b76578b270bce6f814bf8b0b",
+      "installed_at": "2026-07-10T06:28:20.215653+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-start-command-map",
+      "source_file": "references\\command-map.md",
+      "installed_path": ".agents\\skills\\spk-start-command-map\\references\\command-map.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:5245ea5f49e20543896438b2d85c461ea64756108eb3fbe20711b5207aa6668c",
+      "installed_at": "2026-07-10T06:28:20.215653+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-start-first-feature",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-start-first-feature\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:7b39750d57d95b41e8f03c54c5ceae1a196da4e0efe9449932f6944dc6d06cb8",
+      "installed_at": "2026-07-10T06:28:20.236815+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-start-here",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-start-here\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:0d0f279c43c6448a26113338d53a19114361123027a3bd80fcf5d3dcb212b335",
+      "installed_at": "2026-07-10T06:28:20.251157+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-team-auth",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-team-auth\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:65809c6fcb6a6667a9c0319fd8b0bd438706d905ab58078db57e1f6fb1285898",
+      "installed_at": "2026-07-10T06:28:20.270299+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-team-connectors",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-team-connectors\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:9a1a2f742bf25b7d0d221a5d3cbc5d2186d2948ae6d08a79dc1e35efe314c89f",
+      "installed_at": "2026-07-10T06:28:20.284204+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-team-sync",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-team-sync\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:c0e76c4e1552112b0ef7243f3ef3ef4918872ac6fce9ba9f8a8d9522a2d89825",
+      "installed_at": "2026-07-10T06:28:20.297135+00:00",
+      "delivery_mode": "copy"
+    },
+    {
+      "skill_name": "spk-team-tracker",
+      "source_file": "SKILL.md",
+      "installed_path": ".agents\\skills\\spk-team-tracker\\SKILL.md",
+      "installation_class": "shared-root-capable",
+      "agent_key": "cursor",
+      "content_hash": "sha256:22187bcc1924ffd00af32ac0fbdf17b35cb6b2faa150993a311bf9b0087ba786",
+      "installed_at": "2026-07-10T06:28:20.314441+00:00",
+      "delivery_mode": "copy"
+    }
+  ]
+}

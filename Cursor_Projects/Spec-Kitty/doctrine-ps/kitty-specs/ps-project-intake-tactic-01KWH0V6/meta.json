@@ -1,0 +1,23 @@
+{
+  "coordination_branch": "kitty/mission-ps-project-intake-tactic-01KWH0V6",
+  "created_at": "2026-07-02T08:59:04.098076+00:00",
+  "documentation_state": {
+    "coverage_percentage": 0.0,
+    "divio_types_selected": [],
+    "generators_configured": [],
+    "iteration_mode": "initial",
+    "last_audit_date": null,
+    "target_audience": "developers"
+  },
+  "flattened": false,
+  "friendly_name": "ps project intake tactic",
+  "mission_id": "01KWH0V6115QR02A7WQF29J86N",
+  "mission_number": null,
+  "mission_slug": "ps-project-intake-tactic-01KWH0V6",
+  "mission_type": "documentation",
+  "purpose_context": "This mission advances ps project intake tactic on main so stakeholders can track the work from mission creation onward.",
+  "purpose_tldr": "ps project intake tactic",
+  "slug": "ps-project-intake-tactic-01KWH0V6",
+  "target_branch": "main",
+  "topology": "coord"
+}

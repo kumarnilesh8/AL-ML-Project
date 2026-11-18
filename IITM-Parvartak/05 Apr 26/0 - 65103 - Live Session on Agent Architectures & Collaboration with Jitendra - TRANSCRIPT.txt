@@ -1,0 +1,5594 @@
+WEBVTT
+
+1
+00:02:55.730 --> 00:03:02.300
+Jitendra K: Hey guys, good evening, good afternoon, and welcome to another module of AgentK.
+
+2
+00:03:02.510 --> 00:03:06.339
+Jitendra K: So before we start the session, can we have a quick audio check, and…
+
+3
+00:03:07.060 --> 00:03:11.339
+Jitendra K: Strain and visible… visibility, if you are able to see my screen.
+
+4
+00:03:16.310 --> 00:03:17.400
+Jitendra K: Okay, great.
+
+5
+00:03:18.360 --> 00:03:22.259
+Jitendra K: So I hope you guys are doing well, and, you have
+
+6
+00:03:23.060 --> 00:03:32.720
+Jitendra K: spent some amount of time to understand the previous discussion on PAFTA and LORAS. So, just a quick recap, what we have done so far is, we have discussed
+
+7
+00:03:33.210 --> 00:03:40.189
+Jitendra K: some conventional way to retrain the LLM model from the scratch, and we understand what are the tools and techniques, and
+
+8
+00:03:41.530 --> 00:03:46.640
+Jitendra K: kind of… mathematical model, which is available for our pursuer to
+
+9
+00:03:47.070 --> 00:03:50.739
+Jitendra K: Substantiate the goal of training the model from the scratch.
+
+10
+00:03:50.910 --> 00:03:55.990
+Jitendra K: And training the model from the scratch, needless to say, is one of the important techniques.
+
+11
+00:03:56.620 --> 00:04:01.489
+Jitendra K: Many organizations are using it for trading their domain corpus and
+
+12
+00:04:01.680 --> 00:04:08.470
+Jitendra K: Try to make sure they will generate more optimal response in their conversational solution.
+
+13
+00:04:09.240 --> 00:04:13.870
+Jitendra K: And including the Agentee conversation with… their problem statements.
+
+14
+00:04:14.230 --> 00:04:17.470
+Jitendra K: So this is one of the important, Hmm.
+
+15
+00:04:17.839 --> 00:04:19.600
+Jitendra K: Chapter that we have covered.
+
+16
+00:04:20.180 --> 00:04:24.120
+Jitendra K: We can extend it, but, let me…
+
+17
+00:04:24.240 --> 00:04:30.150
+Jitendra K: Take a pause here, and then we are going to switch back to our rack, conventional rack.
+
+18
+00:04:31.090 --> 00:04:47.669
+Jitendra K: and maybe we will revisit once you feel comfortable on those techniques. So, you need to first go through the mathematical derivations and stuff, understand the transformer architecture, understand the layers, and then apply Paft and LORAS on the top of it.
+
+19
+00:04:49.500 --> 00:04:51.289
+Jitendra K: There are multiple organizations.
+
+20
+00:04:51.660 --> 00:04:56.309
+Jitendra K: So there are banks, JPMC is doing it, HSBC is doing it.
+
+21
+00:04:56.880 --> 00:05:03.429
+Jitendra K: Standard Chartered Bank is doing it. You name it, and then every… every other thing is now…
+
+22
+00:05:03.770 --> 00:05:06.789
+Jitendra K: Dealing with peptidin Loras these days.
+
+23
+00:05:09.150 --> 00:05:11.749
+Jitendra K: Okay, so any question on the last
+
+24
+00:05:13.300 --> 00:05:17.230
+Jitendra K: Class that you have? Anything that you would like to ask?
+
+25
+00:05:17.690 --> 00:05:19.169
+Jitendra K: Are we good so far?
+
+26
+00:05:19.350 --> 00:05:21.389
+Jitendra K: Shall we continue with drag now?
+
+27
+00:05:40.080 --> 00:05:47.430
+Jitendra K: Yeah, so we will revisit this tutorial once I want everybody to be on the same page.
+
+28
+00:05:47.910 --> 00:05:53.050
+Jitendra K: So, revise the transformer architecture, revise the technique that we have shared, and then we will revisit.
+
+29
+00:05:53.680 --> 00:05:58.000
+Jitendra K: Otherwise, it will look like an alien stuff for many people in the class.
+
+30
+00:05:59.570 --> 00:06:02.339
+Jitendra K: So, I do not want to go into that path.
+
+31
+00:06:05.460 --> 00:06:08.789
+Jitendra K: Okay, so anything else apart from this?
+
+32
+00:06:10.020 --> 00:06:12.240
+Jitendra K: How are you guys practicing?
+
+33
+00:06:12.510 --> 00:06:16.690
+Jitendra K: What other books that you refer now, start referring to?
+
+34
+00:06:18.150 --> 00:06:24.280
+Jitendra K: Any… Blog, or anything that you're… Watching these days.
+
+35
+00:06:25.410 --> 00:06:32.139
+Jitendra K: There's one, best tutorial on Transformer, which has been recently concluded by Stanford.
+
+36
+00:06:33.480 --> 00:06:34.819
+Jitendra K: by us.
+
+37
+00:06:35.460 --> 00:06:36.510
+Jitendra K: 3D.
+
+38
+00:06:43.730 --> 00:06:46.240
+Jitendra K: Yeah, this is the autumn classes.
+
+39
+00:06:47.320 --> 00:06:49.119
+Jitendra K: So, you can visit…
+
+40
+00:06:53.130 --> 00:06:55.750
+Jitendra K: These lectures, these are great lectures.
+
+41
+00:06:59.790 --> 00:07:02.630
+Jitendra K: These are great lectures, and in fact.
+
+42
+00:07:02.820 --> 00:07:07.220
+Jitendra K: It will have detailed slides and explanations on the top of it.
+
+43
+00:07:11.250 --> 00:07:13.800
+Jitendra K: So you can revisit this if you want.
+
+44
+00:07:14.670 --> 00:07:21.050
+Jitendra K: Alright, coming back to the agenda, so agenda for today's tutorial would be, we are going to start with something called…
+
+45
+00:07:22.350 --> 00:07:28.429
+Jitendra K: foundations of RAC, so we started with NAVE RAC, now we are going to deep dive into the agentic RAC.
+
+46
+00:07:29.480 --> 00:07:34.280
+Jitendra K: So we talked about that agentic rack, or… rag.
+
+47
+00:07:34.450 --> 00:07:38.619
+Jitendra K: Is one of the important solutions, which we are going to use for.
+
+48
+00:07:39.200 --> 00:07:43.710
+Jitendra K: majority of our tasks. So, Ragaraw LLM to access external sources of truth.
+
+49
+00:07:44.120 --> 00:07:47.969
+Jitendra K: In real time, instead of guessing or hallucinating the answer.
+
+50
+00:07:48.380 --> 00:07:53.660
+Jitendra K: So, rack power agent, which can look up things before responding. This makes…
+
+51
+00:07:54.360 --> 00:08:01.030
+Jitendra K: This whole tool setup so powerful for high-stake applications like healthcare, finance, legal, and customer support.
+
+52
+00:08:03.280 --> 00:08:08.359
+Jitendra K: So retrieval augment generation is an architecture, or I would say it's an EI architecture.
+
+53
+00:08:08.780 --> 00:08:13.119
+Jitendra K: So when you say retrieval augment generation, it's an architecture that we are dealing with.
+
+54
+00:08:14.910 --> 00:08:18.540
+Jitendra K: So if I have to just give you a very conventional definition of this architecture.
+
+55
+00:08:18.950 --> 00:08:27.469
+Jitendra K: The architecture stands in contrast to so-called close-book LLMs that rely on what has… what they have been trained on.
+
+56
+00:08:27.580 --> 00:08:31.859
+Jitendra K: With RAG, we get an open book model that can be dynamically access the knowledge.
+
+57
+00:08:32.870 --> 00:08:36.649
+Jitendra K: So, RAG is a very conventional way of
+
+58
+00:08:38.270 --> 00:08:40.870
+Jitendra K: I would not say fine-tuning LLM, but yes.
+
+59
+00:08:41.130 --> 00:08:44.280
+Jitendra K: Making your task more comprehensive.
+
+60
+00:08:48.220 --> 00:08:54.570
+Jitendra K: So today, we are going to talk about agentic rack, and Agentic rack, we will try to understand the component of Agentic rack.
+
+61
+00:08:55.040 --> 00:08:59.340
+Jitendra K: And the component is only 3, which is retrieval, augment, and generation.
+
+62
+00:09:00.170 --> 00:09:03.369
+Jitendra K: So instead of asking a model to do
+
+63
+00:09:03.580 --> 00:09:10.750
+Jitendra K: We have 3 layers now. So, we have the first, and the core component of RAC include retriever layer.
+
+64
+00:09:11.200 --> 00:09:15.870
+Jitendra K: So, retrieval layer is responsible for identifying and returning
+
+65
+00:09:16.110 --> 00:09:19.259
+Jitendra K: Relevant context from a large corpus of document.
+
+66
+00:09:19.630 --> 00:09:24.740
+Jitendra K: And it typically comprises of embedding models, vector indexes, and similarity search capability.
+
+67
+00:09:25.470 --> 00:09:31.579
+Jitendra K: Now, when you say similarity search capability, that means we are doing similarity search at a retrieval layer.
+
+68
+00:09:32.580 --> 00:09:37.479
+Jitendra K: So everything that you're doing fundamentally with vectorization, it'll be at retrieval layer.
+
+69
+00:09:38.120 --> 00:09:44.069
+Jitendra K: So, first… You convert queries and document into a dense vector representation.
+
+70
+00:09:44.450 --> 00:09:52.200
+Jitendra K: Using pre-trained models like BERT, mini-LLM, Mini-LM, or domain-specific models like Scientific BERTs, etc.
+
+71
+00:09:52.440 --> 00:10:00.379
+Jitendra K: And then, what you do is, you convert this document into a chunk numerical representation, which is called vector.
+
+72
+00:10:00.580 --> 00:10:10.100
+Jitendra K: And the vectors are stored in specialized indexes, such as FAS or IVF and other Algorithms for action retrieval.
+
+73
+00:10:10.670 --> 00:10:19.770
+Jitendra K: Now, when you're performing a similarity search, that means you're trying to match query embedding against a stored vector, using a distance metrics like cosine.
+
+74
+00:10:20.360 --> 00:10:22.100
+Jitendra K: or Euclidean distance.
+
+75
+00:10:22.440 --> 00:10:26.750
+Jitendra K: And try… or maybe approximating nearest neighbor algorithm like HNSW.
+
+76
+00:10:27.060 --> 00:10:35.000
+Jitendra K: So basically, you're retrieving millions of documents and scanning those documents against the similarity of the query.
+
+77
+00:10:35.910 --> 00:10:42.630
+Jitendra K: So, generator is typically an autoregressive language model. So, they are autoregressive models, generators.
+
+78
+00:10:42.940 --> 00:10:48.700
+Jitendra K: which include GPT, T5, plot, that receive both the query and the original context.
+
+79
+00:10:49.170 --> 00:10:51.659
+Jitendra K: And generate a natural language response.
+
+80
+00:10:52.060 --> 00:10:55.490
+Jitendra K: And the quality of response depends upon
+
+81
+00:10:56.060 --> 00:11:00.220
+Jitendra K: Prompt engineering, context lens, relevance weighting, etc.
+
+82
+00:11:01.660 --> 00:11:11.910
+Jitendra K: So we'll try to understand how to utilize… The generators.
+
+83
+00:11:18.610 --> 00:11:25.929
+Jitendra K: So basically, generator, as I mentioned, is an autoregressive model. Autoregressive… what is autoregressive… what is the purpose of autoregressive here?
+
+84
+00:11:26.250 --> 00:11:30.909
+Jitendra K: So when you say autoregressive model, do you have any idea what is autoregressive models?
+
+85
+00:11:32.660 --> 00:11:35.889
+Jitendra K: How can we define transformers as autoregressive?
+
+86
+00:11:43.800 --> 00:11:46.699
+Jitendra K: Okay, in general, do you know what is autoregressive?
+
+87
+00:12:02.750 --> 00:12:06.480
+Jitendra K: It is log, rag activity on the neural network.
+
+88
+00:12:07.120 --> 00:12:13.689
+Jitendra K: I'm asking, what is autoregressive? There's something called mass model, there's something called autoregressive model.
+
+89
+00:12:14.350 --> 00:12:16.240
+Jitendra K: So you might have done some…
+
+90
+00:12:16.620 --> 00:12:23.570
+Jitendra K: Maybe… research on transformers, so you might have came across This term, logical, autoregressive.
+
+91
+00:12:30.860 --> 00:12:32.990
+Jitendra K: Okay, so let me explain.
+
+92
+00:12:33.510 --> 00:12:43.560
+Jitendra K: So, autoregressive models are typically a statistical or machine learning model that predicts the next value in the sequence, based on the previous value in that sequence.
+
+93
+00:12:44.280 --> 00:12:51.369
+Jitendra K: So the model assumes that the future value in the sequence are depending upon the past value and the dependence to make prediction.
+
+94
+00:12:51.840 --> 00:13:00.379
+Jitendra K: So in the context of natural language processing, autoregressive models are often applied to generate text or make prediction based upon the previous word or the sentence.
+
+95
+00:13:01.040 --> 00:13:07.840
+Jitendra K: So basically, the autoregressive model that we are using is GPT-2, GPT-3, GPT-3, 4, etc.
+
+96
+00:13:08.500 --> 00:13:10.869
+Jitendra K: So, in the context of natural language processing.
+
+97
+00:13:11.480 --> 00:13:18.859
+Jitendra K: When we are using autoregressive model, we are generating text, or making prediction based upon the previous word in the sentence.
+
+98
+00:13:19.200 --> 00:13:26.490
+Jitendra K: So this model learns the statistical pattern, dependency, and training data, and then use knowledge to generate coherent and contextual elements.
+
+99
+00:13:28.970 --> 00:13:35.860
+Jitendra K: So, if I have to just give you a very simple answer on autoregressive, transformer…
+
+100
+00:13:37.730 --> 00:13:40.370
+Jitendra K: So this is the architecture of GPT-2.
+
+101
+00:13:41.750 --> 00:13:46.440
+Jitendra K: So GPT-2 comprises of… to a layer.
+
+102
+00:13:47.200 --> 00:13:49.220
+Jitendra K: And they are decoder-only model.
+
+103
+00:13:49.330 --> 00:13:56.840
+Jitendra K: So there's no encoder in GPT. GPT model comprises of 12-layer decoder, only transformed with mass cell potential.
+
+104
+00:13:57.300 --> 00:14:00.880
+Jitendra K: So they are using 760 dimension state and 12 attention height.
+
+105
+00:14:01.680 --> 00:14:04.580
+Jitendra K: And for position-wise, feed-forward neural network.
+
+106
+00:14:04.840 --> 00:14:08.270
+Jitendra K: They have 3,072 dimension in their state.
+
+107
+00:14:09.110 --> 00:14:12.970
+Jitendra K: And they are using something called BP, bite pair, and pudding.
+
+108
+00:14:13.690 --> 00:14:15.460
+Jitendra K: Or minimizing the errors.
+
+109
+00:14:16.220 --> 00:14:21.209
+Jitendra K: So, this model have typical… 110 million parameter.
+
+110
+00:14:21.370 --> 00:14:24.939
+Jitendra K: If it's… If you look into the left part of this model.
+
+111
+00:14:26.200 --> 00:14:28.730
+Jitendra K: We can view that there are two training objectives.
+
+112
+00:14:29.890 --> 00:14:35.950
+Jitendra K: We have differential or different transformation applied to input sequence, or different fine-tuning tasks.
+
+113
+00:14:36.330 --> 00:14:41.670
+Jitendra K: So, GPT-2 model has total 1.5 billion parameters, and it is a unidirectional model.
+
+114
+00:14:41.880 --> 00:14:51.049
+Jitendra K: That means it is trying to predict the next word in the sentence. So, major challenge changes in GPT-2 as compared to GPT-1, is that GPT-2 is much more large.
+
+115
+00:14:51.740 --> 00:14:54.669
+Jitendra K: Had a strain on much large, unlabeled data set.
+
+116
+00:14:55.420 --> 00:15:03.070
+Jitendra K: So, no fine-tuning is done in GPT-2, and they have been introduced the concept of zero-shot transfer. So zero-shot transfer refer to the scenario
+
+117
+00:15:03.320 --> 00:15:09.830
+Jitendra K: Where a pre-trained model is directly applied to a new task or a domain without additional training or task-specific data.
+
+118
+00:15:10.330 --> 00:15:19.269
+Jitendra K: And what it does is, the model will leverage or learn knowledge from the pre-training stages to make prediction and generate output of the new task.
+
+119
+00:15:20.170 --> 00:15:32.769
+Jitendra K: And then GPT-3 came, which is having 175 billion parameter, which is much, much larger, and they are also using sparse transformation, or sparse attention mechanism, which is different retention mechanism.
+
+120
+00:15:33.440 --> 00:15:41.670
+Jitendra K: So there are changes in the architecture, changes in the… overall… Mathematical models of transformers.
+
+121
+00:15:42.420 --> 00:15:51.519
+Jitendra K: In general, autoregressive modeling is an important component of LLM, and LLMs are powered by generative pre-trained transformer architecture.
+
+122
+00:15:52.000 --> 00:15:57.200
+Jitendra K: So the transformer comprised of encoder-decoder, but here we are talking about only decoders.
+
+123
+00:15:57.330 --> 00:15:59.620
+Jitendra K: So that means we are generating the data.
+
+124
+00:15:59.990 --> 00:16:06.909
+Jitendra K: So, autoregressive models, or autoregression, will simply apply linear regression with lagged variable.
+
+125
+00:16:07.470 --> 00:16:10.790
+Jitendra K: So, linear regression with lag variable will follow this equation.
+
+126
+00:16:12.640 --> 00:16:19.319
+Jitendra K: So, autoregressive… Is nothing but… this is expressed as a probabilistical term.
+
+127
+00:16:20.580 --> 00:16:24.660
+Jitendra K: And, here you can see that I'm using some multiplication on
+
+128
+00:16:24.770 --> 00:16:27.989
+Jitendra K: Probability of tokens to be appear in the context.
+
+129
+00:16:28.990 --> 00:16:38.759
+Jitendra K: So, auto-regressive models distribute independent variable over n possible steps, assuming that each variable conditionally influence the outcome of the next.
+
+130
+00:16:42.380 --> 00:16:50.950
+Jitendra K: So, the core idea here is, you're going to use some sort of… task, or…
+
+131
+00:16:51.060 --> 00:16:59.669
+Jitendra K: basically, tokens to predict the next sequence. That means you're applying some mathematical model to predict it, and that is what the nature of the
+
+132
+00:16:59.820 --> 00:17:01.010
+Jitendra K: LLM is.
+
+133
+00:17:01.920 --> 00:17:10.900
+Jitendra K: Alright, so once we understand that these models are autoregressive, so now what we are going to do is… now we are going to go with the third stage.
+
+134
+00:17:11.170 --> 00:17:12.640
+Jitendra K: Which is called chunking.
+
+135
+00:17:13.190 --> 00:17:20.250
+Jitendra K: So, chunking is a process of breaking large documents into small, manageable pieces, because LLM cannot process entire data at once.
+
+136
+00:17:20.790 --> 00:17:25.980
+Jitendra K: The chunking will help you to enable targeted, efficient retrieval of relevant information.
+
+137
+00:17:26.410 --> 00:17:34.079
+Jitendra K: And chunking play a very critical role in improving the accuracy, stability, And usefulness of the response.
+
+138
+00:17:36.110 --> 00:17:39.980
+Jitendra K: So these are some types of… there are several types of chunking method.
+
+139
+00:17:40.440 --> 00:17:47.509
+Jitendra K: Which is called fixed size, recursive chunking, document-based chunking, semantic chunking, or even agentic chunking.
+
+140
+00:17:48.330 --> 00:17:55.140
+Jitendra K: So, fixed size chunking, you're going to use a specific number of characters, regardless of the content or structure.
+
+141
+00:17:55.510 --> 00:17:57.930
+Jitendra K: Recursive chunking, which we are using.
+
+142
+00:17:58.160 --> 00:18:02.579
+Jitendra K: Divide and put into small, manageable chunks in a hierarchical and iterative manner.
+
+143
+00:18:03.890 --> 00:18:08.069
+Jitendra K: Document-based chunking will split a document based upon inheritance structure.
+
+144
+00:18:08.320 --> 00:18:12.910
+Jitendra K: And semantic chunking divided text into meaningful, semantic complete chunks.
+
+145
+00:18:13.170 --> 00:18:21.319
+Jitendra K: And, LLM chunking or agentic chunking will help you to determine how much and what text to include in a chunk based upon the context.
+
+146
+00:18:23.000 --> 00:18:32.859
+Jitendra K: Now, after chunking, retrieval, everything that you're going to do, you're going to perform a semantic search. Now, how semantic search works, that is something.
+
+147
+00:18:33.490 --> 00:18:39.019
+Jitendra K: which we have discussed earlier as well, so let's try to revisit the same concept. So, similarity metrics…
+
+148
+00:18:39.160 --> 00:18:42.750
+Jitendra K: or what allow our RAT system to identify.
+
+149
+00:18:43.010 --> 00:18:46.529
+Jitendra K: Which chunk of data are most relevant to the quizer query?
+
+150
+00:18:47.070 --> 00:18:53.319
+Jitendra K: So these metrics determine how close a query vector is to the document vector in the embedding space.
+
+151
+00:18:54.540 --> 00:18:58.200
+Jitendra K: So not in terms of literal keywords, but in terms of their meaning.
+
+152
+00:18:59.040 --> 00:19:05.099
+Jitendra K: There are two main types of similarity metrics in vector search system, the cosine similarity metrics and Euclidean.
+
+153
+00:19:06.210 --> 00:19:10.020
+Jitendra K: So, cosine similarity measures the angle between the two vectors.
+
+154
+00:19:11.070 --> 00:19:17.259
+Jitendra K: Which is scale invariant. You could calculate by taking the dot product of the two vector and divided a product of
+
+155
+00:19:18.920 --> 00:19:20.609
+Jitendra K: their magnitude.
+
+156
+00:19:22.500 --> 00:19:25.830
+Jitendra K: Accuridine distance, on the other hand, is a very simple
+
+157
+00:19:26.190 --> 00:19:35.460
+Jitendra K: Geometric, phenomena, where you are going to use the distance… By using a simple… formula.
+
+158
+00:19:37.010 --> 00:19:45.080
+Jitendra K: Like this. So it measures by a straight line, distance between all the given point between your query vector and the vector loaded into the index.
+
+159
+00:19:45.360 --> 00:19:49.970
+Jitendra K: And simply… Calculate the distance.
+
+160
+00:19:53.410 --> 00:20:02.089
+Jitendra K: So now, we understand that these are the important part of the rack system. Now, we are going to discuss about the types of rack.
+
+161
+00:20:02.570 --> 00:20:07.790
+Jitendra K: So we understand that there are different types of RAG methods, which is called NAVE RAC,
+
+162
+00:20:08.420 --> 00:20:16.170
+Jitendra K: re-rank, multimodal rack, graph rack, hybrid rack, Agentic rag, and multi-agentic rag.
+
+163
+00:20:18.070 --> 00:20:26.859
+Jitendra K: So, we will try to cover these two racks today, where we are going to create a proper router, proper agents to operate on our particular data sets.
+
+164
+00:20:27.000 --> 00:20:28.810
+Jitendra K: And then try to use this.
+
+165
+00:20:30.950 --> 00:20:32.760
+Jitendra K: Yeah, I will share this.
+
+166
+00:20:38.380 --> 00:20:42.640
+Jitendra K: So, this is where you are going to have multiple types of
+
+167
+00:20:43.740 --> 00:20:49.550
+Jitendra K: use cases. Now, some of the use cases, which is very interesting, that I would like to talk about.
+
+168
+00:20:49.960 --> 00:20:53.380
+Jitendra K: There's something called healthcare use case from Mayo Clinic.
+
+169
+00:20:54.150 --> 00:20:58.560
+Jitendra K: So MyoClinic and Practo both are using agents these days.
+
+170
+00:20:59.310 --> 00:21:07.979
+Jitendra K: So what they did is, they are using agents to communicate with patient, and then maintaining their history of records, conversation.
+
+171
+00:21:08.240 --> 00:21:12.189
+Jitendra K: their healthcare reports. Every… I mean,
+
+172
+00:21:13.170 --> 00:21:19.919
+Jitendra K: Most of the country, European nations and even U.S, Canada have…
+
+173
+00:21:20.060 --> 00:21:26.379
+Jitendra K: that provision, Singapore also have maintaining the health record of the citizen in a centralized manner.
+
+174
+00:21:27.110 --> 00:21:29.330
+Jitendra K: So, Mayo Clinic, internally.
+
+175
+00:21:29.520 --> 00:21:36.989
+Jitendra K: take a decision support tool combining LLM with structure and unstructured data to augment physical decision… physician decision.
+
+176
+00:21:37.670 --> 00:21:47.970
+Jitendra K: So their platform, connect, facilitate, retrieve patient-specific contents, and update up-to-date clinical trial information, so that, in case of any
+
+177
+00:21:49.110 --> 00:21:53.030
+Jitendra K: Let's say, a mishap, or they can able to use.
+
+178
+00:21:53.310 --> 00:21:58.760
+Jitendra K: the early diagnostic recommendation, which is fully supported by Covent itself.
+
+179
+00:21:59.540 --> 00:22:04.970
+Jitendra K: So that's the healthcare, which is lacking in India, but yeah, other countries following it.
+
+180
+00:22:06.700 --> 00:22:13.059
+Jitendra K: So, yeah, HIPAA and the European nation have their own digital system.
+
+181
+00:22:13.350 --> 00:22:19.529
+Jitendra K: So basically, this is where… The agent can be very, very smart in predicting
+
+182
+00:22:20.790 --> 00:22:28.809
+Jitendra K: The medical report from the patient and early diagnostic of even the fatal of the fatal disease, like cancer.
+
+183
+00:22:29.590 --> 00:22:34.309
+Jitendra K: Or even, let's say that person required
+
+184
+00:22:34.740 --> 00:22:39.340
+Jitendra K: some immediate attention, right? So, all these things can be tracked.
+
+185
+00:22:39.670 --> 00:22:46.349
+Jitendra K: Even China has released something called, you just visit, like, a Hawker center, and then you scan yourself.
+
+186
+00:22:46.790 --> 00:22:50.590
+Jitendra K: And, the report can be immediately
+
+187
+00:22:50.950 --> 00:22:54.070
+Jitendra K: Generated by those devices, the scanners.
+
+188
+00:22:54.980 --> 00:22:58.840
+Jitendra K: So, these things are getting, I mean…
+
+189
+00:22:59.730 --> 00:23:08.559
+Jitendra K: establish, with the help of IoT-based frameworks and blockchain-based devices, where the information cannot be manipulated either.
+
+190
+00:23:08.760 --> 00:23:15.719
+Jitendra K: or you're not going to compromise on any PIA-sensitive data with a proper governance like HIPAA.
+
+191
+00:23:16.130 --> 00:23:18.920
+Jitendra K: and, GDPR-based compliance.
+
+192
+00:23:19.180 --> 00:23:21.099
+Jitendra K: So, none of the medical diagnostic
+
+193
+00:23:21.220 --> 00:23:24.860
+Jitendra K: Histories or reports will be leaked from the government website.
+
+194
+00:23:25.830 --> 00:23:31.420
+Jitendra K: So, Mayo Clinic has developed That kind of agent, which will able to determine
+
+195
+00:23:33.540 --> 00:23:37.750
+Jitendra K: Yeah, could be Manipal Hospital, yes. Okay, with TCS.
+
+196
+00:23:38.060 --> 00:23:45.450
+Jitendra K: But TCS, I don't think so. Will they produce quality one, or… but anyway, I will leave it to them.
+
+197
+00:23:46.300 --> 00:23:49.489
+Jitendra K: Because money government project has been operated by them.
+
+198
+00:23:51.340 --> 00:23:56.690
+Jitendra K: Similarly, in legal, scenario, Thomson Reeder has developed something called co-counsel.
+
+199
+00:23:57.130 --> 00:24:02.679
+Jitendra K: Which is a legal assistant, which will try legal database, brief, and case law.
+
+200
+00:24:03.190 --> 00:24:09.189
+Jitendra K: So it enables tasks like Deposition of Preparation and document review with citation.
+
+201
+00:24:09.650 --> 00:24:13.480
+Jitendra K: So the lawyers are now automated, with the help of…
+
+202
+00:24:15.210 --> 00:24:21.050
+Jitendra K: agent API use cases. So you can… able to create Doctor…
+
+203
+00:24:21.670 --> 00:24:24.340
+Jitendra K: I mean, in the first example that we discussed.
+
+204
+00:24:24.550 --> 00:24:29.359
+Jitendra K: The co-pilot for doctor, now you can create a co-pilot for legal advisors.
+
+205
+00:24:30.190 --> 00:24:36.070
+Jitendra K: That means these two industries are very, very useful, and they are using Agent Kai to an extent.
+
+206
+00:24:36.950 --> 00:24:47.029
+Jitendra K: Enterprise Knowledge Management, Atlantisial Tools, use their models with document retrieval to answer team query from Jira, Confluence.
+
+207
+00:24:47.410 --> 00:24:51.520
+Jitendra K: And other work tools that has been required for…
+
+208
+00:24:51.740 --> 00:24:55.880
+Jitendra K: many organizations. So they're maintaining a very decent agents.
+
+209
+00:24:56.170 --> 00:25:03.169
+Jitendra K: Which will be able to understand your consumer query, if you're running any batch job, and it go haywire or failed.
+
+210
+00:25:03.660 --> 00:25:06.189
+Jitendra K: And what will be the next section that you're going to do?
+
+211
+00:25:07.240 --> 00:25:08.890
+Jitendra K: Of course, you are going to…
+
+212
+00:25:09.450 --> 00:25:15.019
+Jitendra K: Send an email trigger, which is a conventional way, but what if the agent can fix that error for you?
+
+213
+00:25:15.600 --> 00:25:20.120
+Jitendra K: Instead of you wait for someone to join at morning hour, and then…
+
+214
+00:25:20.950 --> 00:25:28.069
+Jitendra K: do his usual routine tasks to find bugs, right? So what if the agent can able to self-correct it?
+
+215
+00:25:28.530 --> 00:25:36.269
+Jitendra K: So that is the Enterprise Knowledge Management with Atlantisial tool, and you can able to use it for multiple practical scenarios.
+
+216
+00:25:36.570 --> 00:25:42.929
+Jitendra K: Customer support, FinAI, there's something called Intercompany AI agents.
+
+217
+00:25:43.310 --> 00:25:49.690
+Jitendra K: Which help document and support article to deliver immediately with a more accurate answer to the user.
+
+218
+00:25:50.250 --> 00:25:57.340
+Jitendra K: So… That means every industry is disruptive with agentic AI these days, right?
+
+219
+00:25:57.530 --> 00:26:00.680
+Jitendra K: And, many of the use case comes under RAC.
+
+220
+00:26:01.210 --> 00:26:04.599
+Jitendra K: Agentic rack, native rack, or…
+
+221
+00:26:05.140 --> 00:26:12.450
+Jitendra K: multimodal rag, or even graph REG, or hybrid rag, right? So it depends upon your requirement, what kind of requirement that you're going to follow.
+
+222
+00:26:13.200 --> 00:26:16.510
+Jitendra K: So, multi-agentic rack, or agentic rack.
+
+223
+00:26:17.070 --> 00:26:20.120
+Jitendra K: Are the two important terminology associated with?
+
+224
+00:26:20.330 --> 00:26:22.630
+Jitendra K: The practical use case scenarios.
+
+225
+00:26:23.900 --> 00:26:26.400
+Jitendra K: Even in bank, when you're creating
+
+226
+00:26:26.540 --> 00:26:32.430
+Jitendra K: let's say, HR bots, which will be able to generate the…
+
+227
+00:26:33.140 --> 00:26:42.020
+Jitendra K: answer for the HR policies, or even, banking policies, let's say, I would like to understand the…
+
+228
+00:26:42.490 --> 00:26:50.289
+Jitendra K: Maybe, some sort of… financial regulatory policies from European nations against Asia-Pacific market, so they are very different.
+
+229
+00:26:50.570 --> 00:26:59.390
+Jitendra K: geographies, right? Which talks about how we can able to untuckle anti-money laundering, sanctions, Anti-bribery and commissions.
+
+230
+00:26:59.680 --> 00:27:06.590
+Jitendra K: So there are different laws. In India, we have a centralized body called RBI and SABI.
+
+231
+00:27:06.890 --> 00:27:17.610
+Jitendra K: In US, they are different, right? In European nation, they are different. They are different commissions. So every organization or every centralized organization will have their own set of rules and laws.
+
+232
+00:27:17.870 --> 00:27:23.470
+Jitendra K: So, anti-money laundering is one of the challenging tasks for these regulators.
+
+233
+00:27:23.630 --> 00:27:29.639
+Jitendra K: And bank is fined heavily for breaches. If you onboard a client, which is…
+
+234
+00:27:30.080 --> 00:27:33.619
+Jitendra K: Doing, money laundering from your bank.
+
+235
+00:27:34.050 --> 00:27:36.480
+Jitendra K: And even if they find few clients.
+
+236
+00:27:37.080 --> 00:27:40.250
+Jitendra K: And which is very few always, right? Because banks have…
+
+237
+00:27:40.360 --> 00:27:46.000
+Jitendra K: screening criteria. They have models. They are running models in Real time to predict,
+
+238
+00:27:46.190 --> 00:27:49.940
+Jitendra K: The network, typological, and other analysis.
+
+239
+00:27:50.060 --> 00:27:55.890
+Jitendra K: Based upon which they can be able to screen in those clients which is doing illicit activities on their transaction.
+
+240
+00:27:56.800 --> 00:28:01.790
+Jitendra K: So… but even if the best of the best bank is struggling to
+
+241
+00:28:02.250 --> 00:28:05.360
+Jitendra K: Reduce these fines to zero.
+
+242
+00:28:05.560 --> 00:28:07.570
+Jitendra K: There are a few fines you might have.
+
+243
+00:28:07.740 --> 00:28:08.760
+Jitendra K: heard about.
+
+244
+00:28:09.030 --> 00:28:12.030
+Jitendra K: This regulator has fined this bank so heavily.
+
+245
+00:28:13.210 --> 00:28:18.659
+Jitendra K: So the idea is, bank is always… Trying to reduce those fines.
+
+246
+00:28:18.890 --> 00:28:20.870
+Jitendra K: And try to become more and more…
+
+247
+00:28:22.410 --> 00:28:26.949
+Jitendra K: Technical Advance. Try to use technical advancement.
+
+248
+00:28:27.510 --> 00:28:31.040
+Jitendra K: To come up with, new systems and,
+
+249
+00:28:31.830 --> 00:28:37.249
+Jitendra K: With… without breaking the existing one. So bank is slow in always… bank is always slow in…
+
+250
+00:28:37.760 --> 00:28:41.479
+Jitendra K: Adapting to the technical aspect, but these days, at least
+
+251
+00:28:42.020 --> 00:28:48.619
+Jitendra K: agentic AI and Gen AI-based use cases are there in the bank as well. So that means,
+
+252
+00:28:49.580 --> 00:28:56.660
+Jitendra K: Every bank will have their own labs and set up to experiment with data, because they are at least having your data, right?
+
+253
+00:28:57.240 --> 00:29:03.110
+Jitendra K: So, you can experiment with that data. So, banks have launched chatbots, like…
+
+254
+00:29:03.870 --> 00:29:09.969
+Jitendra K: Bank of America have one of the biggest chatbots, which is called Erica, which I was a part of a team as well.
+
+255
+00:29:10.360 --> 00:29:15.739
+Jitendra K: And, I have developed some of the modules for Erica as well at that point of time. So Erica is a very…
+
+256
+00:29:16.530 --> 00:29:19.070
+Jitendra K: Profound retail-based, chatbot.
+
+257
+00:29:19.490 --> 00:29:25.819
+Jitendra K: And this bot will help you to understand user intent pretty clearly, and then generate an answer.
+
+258
+00:29:26.400 --> 00:29:36.670
+Jitendra K: But now, even bank is moving from chatbot-based conversational AI to more of an agent-tech AI, where now they are talking about workflows management.
+
+259
+00:29:37.090 --> 00:29:43.519
+Jitendra K: At a real-time manner. So, chatbot is pretty conventional. Something has happened, then you're talking to the bot.
+
+260
+00:29:43.810 --> 00:29:49.389
+Jitendra K: But what if A bot itself will protect you 24 plus 7.
+
+261
+00:29:51.890 --> 00:29:59.620
+Jitendra K: Right? So, it is called predictive analysis, not proactive analysis. Sorry, it is called proactive analysis, not predictive analysis.
+
+262
+00:30:00.110 --> 00:30:04.280
+Jitendra K: It is making more proactive actions to prevent any kind of
+
+263
+00:30:05.010 --> 00:30:12.490
+Jitendra K: fraudulent transactions and any kind of, laundering… money laundering activity from your phone in your account.
+
+264
+00:30:12.820 --> 00:30:21.930
+Jitendra K: So all these things are very, very useful these days, and the bank is now thinking of everything to be at an event level, real-time manner.
+
+265
+00:30:22.050 --> 00:30:25.829
+Jitendra K: Considering the scale of client, which is millions of customers.
+
+266
+00:30:26.150 --> 00:30:30.159
+Jitendra K: Millions of transactions every day. Billions of patterns of…
+
+267
+00:30:30.690 --> 00:30:36.730
+Jitendra K: data flow, right? And fuel percentage of transaction, which are illicit.
+
+268
+00:30:36.880 --> 00:30:38.649
+Jitendra K: Fraction of 1%.
+
+269
+00:30:39.510 --> 00:30:42.900
+Jitendra K: So, how will you do this analysis?
+
+270
+00:30:43.620 --> 00:30:49.399
+Jitendra K: Without disrupting the existing services. So this is very challenging use cases, right?
+
+271
+00:30:49.730 --> 00:30:54.650
+Jitendra K: So… Now, we understand that every
+
+272
+00:30:54.960 --> 00:31:02.189
+Jitendra K: organization, every second organization is using agent API these days. So you name it, and you will find the use cases.
+
+273
+00:31:02.690 --> 00:31:12.740
+Jitendra K: Now, once we have understand that, the RAG is one of the backbone and the most useful technology that we are going to utilize for that purpose.
+
+274
+00:31:15.600 --> 00:31:17.510
+Jitendra K: Now, I would like to talk about
+
+275
+00:31:17.690 --> 00:31:23.069
+Jitendra K: the… some of the mathematical formulas that is required to understand the RAT pipelines.
+
+276
+00:31:23.400 --> 00:31:32.320
+Jitendra K: So, this is the core formula that we are using to differentiate and generate an answer. So, we have a probability of generating the answer, Y.
+
+277
+00:31:32.530 --> 00:31:34.279
+Jitendra K: Considering your features.
+
+278
+00:31:34.670 --> 00:31:37.260
+Jitendra K: This is the postulate probability that we are using.
+
+279
+00:31:37.400 --> 00:31:39.410
+Jitendra K: To predict the next token.
+
+280
+00:31:39.530 --> 00:31:40.700
+Jitendra K: from the model.
+
+281
+00:31:40.960 --> 00:31:47.640
+Jitendra K: So what we are doing here is, we are using A simple startup.
+
+282
+00:31:48.340 --> 00:31:52.140
+Jitendra K: Where your input query is the… Intent.
+
+283
+00:31:52.380 --> 00:31:59.650
+Jitendra K: Then put query comprised of your intent, your… subquery parameters… Oh, your entities.
+
+284
+00:31:59.910 --> 00:32:06.749
+Jitendra K: your phrases, etc. So you're looking for a set of retrieval documents, which is that, which is an output.
+
+285
+00:32:07.420 --> 00:32:10.240
+Jitendra K: by generating an answer as Y.
+
+286
+00:32:11.260 --> 00:32:15.029
+Jitendra K: So this is a retrieval probability, P of Z .
+
+287
+00:32:15.500 --> 00:32:19.430
+Jitendra K: And you're taking a dot product with P of Y x given Z.
+
+288
+00:32:20.050 --> 00:32:22.850
+Jitendra K: And this bar is a conditional probability.
+
+289
+00:32:24.210 --> 00:32:29.840
+Jitendra K: Which is joining the two distribution, probiotical distribution, using this formula.
+
+290
+00:32:30.290 --> 00:32:32.600
+Jitendra K: So I'm saying PY given X,
+
+291
+00:32:33.340 --> 00:32:37.239
+Jitendra K: is equal to summation of PZ given X,
+
+292
+00:32:37.390 --> 00:32:41.859
+Jitendra K: dot P, Y, X, Y given X, and Z.
+
+293
+00:32:42.910 --> 00:32:48.099
+Jitendra K: So basically, this is what we are using as a core input to our RAC pipeline.
+
+294
+00:32:49.840 --> 00:32:56.770
+Jitendra K: Now, we have discussed about traditional rack in the last tutorial. If we have to just compare traditional with agentic.
+
+295
+00:32:57.090 --> 00:33:03.419
+Jitendra K: Traditional drag is more… Simpler. That means you have a fixed path, you have a fixed route.
+
+296
+00:33:03.830 --> 00:33:10.580
+Jitendra K: You're not using… Multifaceted route with tool selection criterias to generate an answer.
+
+297
+00:33:11.220 --> 00:33:16.619
+Jitendra K: It's a single retrieval pass which will do everything. But in case of agentic rack, you can create
+
+298
+00:33:17.160 --> 00:33:25.189
+Jitendra K: Loops using self-corrections and… Some sort of critical loops, which will help you to improve the answer.
+
+299
+00:33:25.850 --> 00:33:33.009
+Jitendra K: Traditional rag is slightly static, prompt-driven, no error recovery, no manual intervention from the user.
+
+300
+00:33:33.180 --> 00:33:36.519
+Jitendra K: And it is using just a single data source to make…
+
+301
+00:33:37.140 --> 00:33:45.729
+Jitendra K: to generate an answer. But Agent Tech Rack, we're able to use fallback strategies, autonomous evaluation using RAGAS, DeepVL,
+
+302
+00:33:47.030 --> 00:33:52.079
+Jitendra K: You can be able to integrate multiple sources, not just relying on single source.
+
+303
+00:33:52.360 --> 00:33:53.910
+Jitendra K: Of data to answer.
+
+304
+00:33:54.720 --> 00:33:58.889
+Jitendra K: And they can able to use planning, orchestrations, and stuff.
+
+305
+00:34:00.270 --> 00:34:07.600
+Jitendra K: Now, this is where I have to talk about one of the important components of Wrike pipeline.
+
+306
+00:34:08.409 --> 00:34:12.479
+Jitendra K: Let me just quickly… Show it the slide.
+
+307
+00:34:57.740 --> 00:35:00.250
+Jitendra K: Yeah, so I would like to talk about this slide.
+
+308
+00:35:01.010 --> 00:35:06.599
+Jitendra K: Which is a core layer of your… Agentic AI rack.
+
+309
+00:35:07.380 --> 00:35:10.520
+Jitendra K: Which include perception, cognitive, and action modules.
+
+310
+00:35:11.070 --> 00:35:14.020
+Jitendra K: If you look carefully, each module will have
+
+311
+00:35:14.180 --> 00:35:17.499
+Jitendra K: Different sort of responsibilities to perform.
+
+312
+00:35:17.970 --> 00:35:20.179
+Jitendra K: So in the perception module, you have got
+
+313
+00:35:20.700 --> 00:35:27.839
+Jitendra K: So, as the name says, perception, that means it is acquiring the parameters from the users in the form of a query.
+
+314
+00:35:28.170 --> 00:35:37.850
+Jitendra K: And based upon this query parameter, we are going to understand and acquire Different sort of, tools.
+
+315
+00:35:38.340 --> 00:35:40.069
+Jitendra K: to initialize.
+
+316
+00:35:40.460 --> 00:35:46.630
+Jitendra K: The cognitive pattern will start planning how to use these query parameters to distribute
+
+317
+00:35:47.280 --> 00:35:53.399
+Jitendra K: the search criteria. And then the action will perform the exact execution of this task.
+
+318
+00:35:54.170 --> 00:35:56.429
+Jitendra K: So, once you perform this.
+
+319
+00:35:58.000 --> 00:36:04.290
+Jitendra K: Then you are going to perform… then you are going to get another layer, which is integration. That means it will connect
+
+320
+00:36:04.480 --> 00:36:08.089
+Jitendra K: Agentic System Layer is an excellent system for communication and data flow.
+
+321
+00:36:08.290 --> 00:36:16.339
+Jitendra K: Which include your… protocols like, MCP and A2A, which is a part of the fourth layer.
+
+322
+00:36:16.750 --> 00:36:23.639
+Jitendra K: And then the operation layer will come, which will manage the real-time performance on monitoring capabilities.
+
+323
+00:36:23.790 --> 00:36:27.310
+Jitendra K: Which will enable to continuously improve the output.
+
+324
+00:36:27.620 --> 00:36:34.630
+Jitendra K: And finally, the infrastructure layer, which provides computational power, storage for efficient and reliable agentic execution, which include
+
+325
+00:36:35.090 --> 00:36:36.870
+Jitendra K: Your inference pipeline.
+
+326
+00:36:38.040 --> 00:36:42.520
+Jitendra K: So these are the standard 6-layer architecture that every rack should follow.
+
+327
+00:36:42.800 --> 00:36:45.320
+Jitendra K: So we'll try to discuss about this part.
+
+328
+00:36:45.650 --> 00:36:49.259
+Jitendra K: So this is what the system overview that I would like to talk about.
+
+329
+00:36:49.900 --> 00:36:53.149
+Jitendra K: So, let me know if you're able to read this clearly.
+
+330
+00:36:53.810 --> 00:36:56.250
+Jitendra K: Is it… is this diagram is visible?
+
+331
+00:37:01.100 --> 00:37:08.009
+Jitendra K: RAGA is an evaluation matrix. RAGA is an evaluation matrix that we're going to talk about in upcoming tutorial.
+
+332
+00:37:08.330 --> 00:37:11.319
+Jitendra K: Where you have to perform the evaluation of your agents.
+
+333
+00:37:25.050 --> 00:37:31.270
+Jitendra K: Alright, so let me explain what exactly we are doing here. So, the purpose of this…
+
+334
+00:37:31.950 --> 00:37:39.960
+Jitendra K: Diagram is to show you One way that you are going to deploy the… agentic rank.
+
+335
+00:37:42.630 --> 00:37:47.870
+Jitendra K: Now, what I'm trying to show here is, we look… the big picture of this slide is…
+
+336
+00:37:48.600 --> 00:37:52.820
+Jitendra K: So, you… when you're trying to produce A production-ready rack.
+
+337
+00:37:54.750 --> 00:37:56.739
+Jitendra K: You need to have several components.
+
+338
+00:37:57.440 --> 00:37:59.999
+Jitendra K: You need to have intelligent Orchestration layer.
+
+339
+00:38:00.200 --> 00:38:08.620
+Jitendra K: Guardrail validation, adaptive retrieval, document gridding, query rewriting, multi-channel access. That means the tool access.
+
+340
+00:38:08.960 --> 00:38:13.529
+Jitendra K: So in this, I'm just using few data sources. Let's say I'm reading some
+
+341
+00:38:14.920 --> 00:38:18.170
+Jitendra K: some archived document in a form of a PDF.
+
+342
+00:38:18.580 --> 00:38:25.069
+Jitendra K: This is all kind of a legal document, or it can be a technical scientific document.
+
+343
+00:38:27.880 --> 00:38:38.450
+Jitendra K: Then, I'm moving on to the data processing pipeline, where I'm managing this with the help of airflow or DAG structures, where I'm syncing and preparing these dock
+
+344
+00:38:39.030 --> 00:38:45.800
+Jitendra K: Document with the help of… Chunking and parsing and several cleanup stuff.
+
+345
+00:38:46.270 --> 00:38:51.110
+Jitendra K: Now, in the interim, I'm also enabling the storage layer, Postgres and OpenSearch.
+
+346
+00:38:51.230 --> 00:38:57.390
+Jitendra K: Or… Maintaining the agentic memory, and also managing the chunks in a vector form.
+
+347
+00:38:59.400 --> 00:39:04.189
+Jitendra K: Now, here, if you look carefully, this is the most important layer.
+
+348
+00:39:04.690 --> 00:39:06.610
+Jitendra K: Where you're going to pass.
+
+349
+00:39:07.030 --> 00:39:10.090
+Jitendra K: Your data that you acquired in the storage.
+
+350
+00:39:10.790 --> 00:39:18.990
+Jitendra K: Now, from this, I would like to start with… Arbor Retrieval pipeline with… reciprocal rank functions.
+
+351
+00:39:20.330 --> 00:39:29.890
+Jitendra K: Now… So basically, what I'm trying to do is, I'm reading this vector DB, Taking the user query.
+
+352
+00:39:30.700 --> 00:39:36.900
+Jitendra K: And use agent to discover the answer. As simple as that. And the interim, I'm managing everything.
+
+353
+00:39:37.880 --> 00:39:40.800
+Jitendra K: I'm managing my own local models.
+
+354
+00:39:41.130 --> 00:39:43.730
+Jitendra K: Managing the caching at API layer.
+
+355
+00:39:44.190 --> 00:39:54.679
+Jitendra K: using the client interface to get questions and answers generating as well, and then I'm creating the traceability using some tool like LangFuse.
+
+356
+00:39:55.120 --> 00:40:02.459
+Jitendra K: Now, this is typically a production-ready rack pipeline looks like. This is how the exact production pipeline of a rack looks like.
+
+357
+00:40:03.120 --> 00:40:08.880
+Jitendra K: So when you start with any production-ready rag, this is the minimum requirement that you should have.
+
+358
+00:40:12.350 --> 00:40:16.020
+Jitendra K: Right? So he required… I think there are two things which is missing.
+
+359
+00:40:17.330 --> 00:40:21.119
+Jitendra K: Which I would like to also maybe draw it externally.
+
+360
+00:40:21.590 --> 00:40:24.800
+Jitendra K: which include… your guardrails?
+
+361
+00:40:33.280 --> 00:40:39.060
+Jitendra K: Which will be able to prevent any kind of… Jailbreaking, prom poisoning.
+
+362
+00:40:42.910 --> 00:40:43.890
+Jitendra K: Or…
+
+363
+00:40:46.930 --> 00:40:48.480
+Jitendra K: Prompt injections.
+
+364
+00:40:49.980 --> 00:40:51.380
+Jitendra K: Or data leakage.
+
+365
+00:40:57.170 --> 00:41:10.350
+Jitendra K: And then… You have an authority pipeline, which is using some tool, To monitor your… Efficacy of this pipeline.
+
+366
+00:41:10.580 --> 00:41:15.300
+Jitendra K: But there's one more layer that I would like to add, which is called predict layer.
+
+367
+00:41:15.630 --> 00:41:16.750
+Jitendra K: After this.
+
+368
+00:41:17.340 --> 00:41:19.440
+Jitendra K: So you should have one pretty clear.
+
+369
+00:41:20.570 --> 00:41:23.220
+Jitendra K: Or self-correction, or self-reflection.
+
+370
+00:41:25.560 --> 00:41:27.150
+Jitendra K: Special Evaluate.
+
+371
+00:41:28.430 --> 00:41:35.750
+Jitendra K: The output of the response… And then, make course correction using feedback.
+
+372
+00:41:37.940 --> 00:41:43.589
+Jitendra K: Right? It can be… you can use this interface with a human in the loop, and then generate an answer.
+
+373
+00:41:46.490 --> 00:41:51.899
+Jitendra K: So this is the whole idea of… Hybrid retrieval pipeline.
+
+374
+00:41:52.660 --> 00:41:53.990
+Jitendra K: With the help of…
+
+375
+00:41:54.090 --> 00:41:59.950
+Jitendra K: the agent declare. So, agent sits here. Now, you can add as many as agent as you want.
+
+376
+00:42:00.480 --> 00:42:05.649
+Jitendra K: It's not just one agent who's operating seamlessly on this pipeline. So this is just a…
+
+377
+00:42:06.290 --> 00:42:10.959
+Jitendra K: illustration of agent declare. Here, you can able to add N number of agent.
+
+378
+00:42:11.980 --> 00:42:21.349
+Jitendra K: So this is your task now, to create an agent, right? So this is your main task, and you think that these are all your data engineers will do, but believe me.
+
+379
+00:42:21.710 --> 00:42:25.730
+Jitendra K: There's no such differentiation in the industry anymore.
+
+380
+00:42:26.540 --> 00:42:30.719
+Jitendra K: So you have to acquire skills of data engineering as well. You have to become full stack.
+
+381
+00:42:31.630 --> 00:42:36.559
+Jitendra K: If you would like to… Excel agent API. You cannot rely on team.
+
+382
+00:42:37.730 --> 00:42:39.340
+Jitendra K: This is the easiest part.
+
+383
+00:42:42.240 --> 00:42:43.860
+Jitendra K: This is the hard part.
+
+384
+00:42:45.170 --> 00:42:49.510
+Jitendra K: Right, so you have to get your hands dirty, you have to make sure that you have
+
+385
+00:42:49.880 --> 00:42:59.410
+Jitendra K: Properly explore the server, options, Cloud, infra, etc. And then deploy your agents using them.
+
+386
+00:43:00.020 --> 00:43:02.369
+Jitendra K: And this is the most customizable.
+
+387
+00:43:04.020 --> 00:43:05.600
+Jitendra K: on-prem solution.
+
+388
+00:43:06.070 --> 00:43:08.099
+Jitendra K: I'm using Olamas for.
+
+389
+00:43:08.490 --> 00:43:09.630
+Jitendra K: deploying it.
+
+390
+00:43:13.230 --> 00:43:17.510
+Jitendra K: Right, so this is where your expertise will come into play.
+
+391
+00:43:18.030 --> 00:43:25.449
+Jitendra K: Which include which sources of data you should look forward. This is your… this will test your business acumen.
+
+392
+00:43:25.810 --> 00:43:27.410
+Jitendra K: Your domain expertise.
+
+393
+00:43:28.560 --> 00:43:31.960
+Jitendra K: Without understanding data sources, you can simply put
+
+394
+00:43:32.380 --> 00:43:34.689
+Jitendra K: Rag is garbage in and garbage out.
+
+395
+00:43:34.900 --> 00:43:39.180
+Jitendra K: Nothing else. No use of your rack pipeline. Nobody's going to…
+
+396
+00:43:39.650 --> 00:43:43.589
+Jitendra K: take this solution. Even if you develop it, nobody's going to use it.
+
+397
+00:43:45.870 --> 00:43:48.020
+Jitendra K: If you do not understand the problem here.
+
+398
+00:43:48.810 --> 00:43:51.250
+Jitendra K: What kind of sources of data you should target.
+
+399
+00:43:52.230 --> 00:43:53.070
+Jitendra K: Right?
+
+400
+00:43:53.790 --> 00:43:56.819
+Jitendra K: when you're determining that I'm going to use
+
+401
+00:43:57.580 --> 00:44:07.300
+Jitendra K: The data processing pipeline, which comprises of scalable features… So, without understanding these pipelines.
+
+402
+00:44:07.580 --> 00:44:09.519
+Jitendra K: Which is your ETL layer.
+
+403
+00:44:13.560 --> 00:44:17.899
+Jitendra K: And if you do not know how to manage this whole pipeline in the form of a job.
+
+404
+00:44:18.130 --> 00:44:20.200
+Jitendra K: which can schedule it using a DAG.
+
+405
+00:44:21.120 --> 00:44:23.910
+Jitendra K: Then your pipeline will remain static.
+
+406
+00:44:24.220 --> 00:44:25.359
+Jitendra K: So that is not…
+
+407
+00:44:25.550 --> 00:44:31.419
+Jitendra K: what RAG wants. You're not serving the purpose of the RAG, so RAG needs to be as real-time as possible.
+
+408
+00:44:31.700 --> 00:44:34.779
+Jitendra K: As soon as your data changes, your answer should…
+
+409
+00:44:34.990 --> 00:44:37.359
+Jitendra K: Rely on the new version of data.
+
+410
+00:44:38.580 --> 00:44:44.220
+Jitendra K: So this is very important, you have to create your pipeline, you have to manage your ETL,
+
+411
+00:44:44.670 --> 00:44:47.769
+Jitendra K: And believe me, this is the 90% of the job.
+
+412
+00:44:49.340 --> 00:44:52.030
+Jitendra K: Data engineering part, and this is just a 10%.
+
+413
+00:44:57.770 --> 00:45:00.650
+Jitendra K: Yeah, Madeline architecture using Data Break.
+
+414
+00:45:00.970 --> 00:45:04.460
+Jitendra K: Gold source, silver, and bronze layer.
+
+415
+00:45:05.490 --> 00:45:13.949
+Jitendra K: So you can use with that architecture, or you can use port storage, cold storage, whatever you feel is utilized for that definition.
+
+416
+00:45:16.020 --> 00:45:16.850
+Jitendra K: Yep.
+
+417
+00:45:17.770 --> 00:45:21.039
+Jitendra K: So what… one of the important things is, you need to…
+
+418
+00:45:21.480 --> 00:45:24.000
+Jitendra K: Be very sure about your data.
+
+419
+00:45:24.750 --> 00:45:25.990
+Jitendra K: your problem.
+
+420
+00:45:26.910 --> 00:45:31.239
+Jitendra K: And… How you are going to create these data pipelines.
+
+421
+00:45:31.920 --> 00:45:42.009
+Jitendra K: So once you create this, then the engineering piece come, caching, API layer management, LLM hosting, kind of retrieval.
+
+422
+00:45:42.820 --> 00:45:47.220
+Jitendra K: And then, observability, and… reflection.
+
+423
+00:45:50.670 --> 00:45:55.310
+Jitendra K: So this is very important, if you're managing the engineering pieces together.
+
+424
+00:45:56.330 --> 00:46:00.389
+Jitendra K: Otherwise, this is just a 10% off your project.
+
+425
+00:46:00.860 --> 00:46:03.230
+Jitendra K: This engineering piece is very important.
+
+426
+00:46:04.300 --> 00:46:07.570
+Jitendra K: Right? Now, how you're going to solve this is what?
+
+427
+00:46:07.950 --> 00:46:09.810
+Jitendra K: We are going to learn in this cohort.
+
+428
+00:46:10.050 --> 00:46:15.389
+Jitendra K: So there are different types of agent development kit platform. You can go with Langraph, Langshain.
+
+429
+00:46:18.700 --> 00:46:20.849
+Jitendra K: Gen, Crew AI.
+
+430
+00:46:22.510 --> 00:46:23.710
+Jitendra K: Autogen.
+
+431
+00:46:28.340 --> 00:46:34.969
+Jitendra K: Etc, right? And it can… So, all those things is nothing but…
+
+432
+00:46:35.070 --> 00:46:40.010
+Jitendra K: The kind of tools that you're going to use to develop this part, this 10% of it.
+
+433
+00:46:42.740 --> 00:46:46.120
+Jitendra K: Right, so this is the whole picture of a rag.
+
+434
+00:46:46.480 --> 00:46:51.869
+Jitendra K: This is RAG. This is not RAG. If you feel that if I create agent, my job is done.
+
+435
+00:46:52.220 --> 00:46:53.720
+Jitendra K: That's not correct.
+
+436
+00:46:54.600 --> 00:46:56.349
+Jitendra K: This is exactly a rag.
+
+437
+00:46:56.560 --> 00:47:00.729
+Jitendra K: Where you need to think of all the moving pieces from end-to-end integration.
+
+438
+00:47:03.650 --> 00:47:05.650
+Jitendra K: Alright, so we'll move on.
+
+439
+00:47:06.470 --> 00:47:10.440
+Jitendra K: So, first and foremost thing, we'll try to understand what is data injection pipeline.
+
+440
+00:47:10.760 --> 00:47:16.900
+Jitendra K: So once you're creating a data injection pipeline, you're going to follow some convention, right, to maintain
+
+441
+00:47:17.280 --> 00:47:22.350
+Jitendra K: the pipeline, systematically. And one such convention will be given by Apache.
+
+442
+00:47:22.690 --> 00:47:30.999
+Jitendra K: And they are using something called directive acyclic graph, where you can be able to create your own schedulers to incorporate the data on a daily basis.
+
+443
+00:47:35.180 --> 00:47:39.320
+Jitendra K: Okay, nave rag versus agentic rag. So what is not clear?
+
+444
+00:47:49.510 --> 00:47:51.269
+Jitendra K: Which part is not clear?
+
+445
+00:48:04.040 --> 00:48:05.050
+Jitendra K: Okay.
+
+446
+00:48:07.020 --> 00:48:09.590
+Jitendra K: Okay, let's, let's go with some more examples.
+
+447
+00:48:10.340 --> 00:48:14.380
+Jitendra K: I think it is… Not that complex, but anyway.
+
+448
+00:48:15.100 --> 00:48:20.669
+Jitendra K: So nave rag is a linear rag, right? So when you say nave rag, it's a simple linear retrieval layer.
+
+449
+00:48:20.970 --> 00:48:26.929
+Jitendra K: That means… It's a process… Basically, you're doing a Q&A on your data.
+
+450
+00:48:28.680 --> 00:48:35.030
+Jitendra K: Whether you're getting good response, bad response, that… That is a second… part of it.
+
+451
+00:48:35.330 --> 00:48:44.199
+Jitendra K: But first and foremost, things are linear. That means there's no… Retrieval strategy involved.
+
+452
+00:48:45.270 --> 00:48:47.440
+Jitendra K: So when you say native rag, it's a linear rag.
+
+453
+00:48:48.240 --> 00:48:51.680
+Jitendra K: Right? You have an LLM, you integrate it, you have a query.
+
+454
+00:48:52.040 --> 00:48:58.610
+Jitendra K: You run it, you're happy with the result, and then you show it to your boss, boss appreciate, okay, you're getting answer, good.
+
+455
+00:48:59.220 --> 00:49:06.650
+Jitendra K: He does not know, because he does not understand what is agentic rack, so he will appreciate your idea that you're using this LLM to generate an answer.
+
+456
+00:49:07.680 --> 00:49:08.490
+Jitendra K: Right?
+
+457
+00:49:08.960 --> 00:49:13.279
+Jitendra K: But what if… if somebody… Test your output.
+
+458
+00:49:15.070 --> 00:49:17.890
+Jitendra K: And it'll find hundreds of issues with your output.
+
+459
+00:49:18.120 --> 00:49:19.949
+Jitendra K: How will you improve this system?
+
+460
+00:49:21.380 --> 00:49:24.210
+Jitendra K: It's a very basic system, three-step layer.
+
+461
+00:49:24.530 --> 00:49:26.949
+Jitendra K: How will you improve the system?
+
+462
+00:49:28.670 --> 00:49:30.650
+Jitendra K: Can you improve LLM? No.
+
+463
+00:49:31.050 --> 00:49:35.790
+Jitendra K: Can you improve the query? Your user will still constantly asking the stupid query.
+
+464
+00:49:36.010 --> 00:49:37.319
+Jitendra K: from your bots.
+
+465
+00:49:37.510 --> 00:49:38.970
+Jitendra K: They will keep on asking.
+
+466
+00:49:39.680 --> 00:49:44.480
+Jitendra K: off-field query, Two long queries.
+
+467
+00:49:44.920 --> 00:49:49.549
+Jitendra K: Two simple queries. You cannot control this. You cannot control LLM.
+
+468
+00:49:50.110 --> 00:49:51.669
+Jitendra K: How do you control output?
+
+469
+00:49:54.620 --> 00:49:56.169
+Jitendra K: So this is a linear rack.
+
+470
+00:49:56.290 --> 00:49:57.490
+Jitendra K: traditional route.
+
+471
+00:49:58.080 --> 00:50:01.650
+Jitendra K: Where you don't have anything to play, but just hosting your LLM model.
+
+472
+00:50:02.000 --> 00:50:07.660
+Jitendra K: It should accept the query parameter and generate an output. Most thing that you can do is you can parse the document
+
+473
+00:50:08.260 --> 00:50:11.279
+Jitendra K: to your LLM at runtime. That's the only thing that you can do.
+
+474
+00:50:12.830 --> 00:50:15.929
+Jitendra K: But in identity crack, I'm talking about intent.
+
+475
+00:50:16.350 --> 00:50:18.079
+Jitendra K: I'm talking about routing.
+
+476
+00:50:18.340 --> 00:50:23.570
+Jitendra K: I'm talking about managing the tools, managing the memories, managing the conversations.
+
+477
+00:50:23.960 --> 00:50:25.600
+Jitendra K: That is called agentic RAD.
+
+478
+00:50:27.130 --> 00:50:34.700
+Jitendra K: So, it's Integrac, We'll have more moving pieces, where you can able to fine-tune the response.
+
+479
+00:50:35.080 --> 00:50:38.330
+Jitendra K: Based upon multiple step Reasoning.
+
+480
+00:50:39.880 --> 00:50:41.179
+Jitendra K: Is it clear now?
+
+481
+00:50:44.760 --> 00:50:50.560
+Jitendra K: Yeah, NAVRAG is simply comparing a query vector to embedding vector. Agentic rag is the architecture, yeah.
+
+482
+00:50:56.690 --> 00:50:59.850
+Jitendra K: Is it clear to everyone? Can we have a quick thumbs up from everyone?
+
+483
+00:51:14.840 --> 00:51:17.569
+Jitendra K: Alright, thank you. So we'll move ahead.
+
+484
+00:51:20.030 --> 00:51:21.730
+Jitendra K: So let me close this.
+
+485
+00:51:25.090 --> 00:51:31.569
+Jitendra K: So, for non-technical user, there's… They will be happy about traditional rag, because you're getting something.
+
+486
+00:51:31.800 --> 00:51:35.059
+Jitendra K: Right? But this something is making any sense.
+
+487
+00:51:35.790 --> 00:51:39.330
+Jitendra K: That is subjective, right? So how will you improve the answer?
+
+488
+00:51:41.690 --> 00:51:43.720
+Jitendra K: That is what Agent Tech will do.
+
+489
+00:51:44.200 --> 00:51:48.400
+Jitendra K: So whenever you're… Simple knee rack brake.
+
+490
+00:51:48.540 --> 00:51:50.379
+Jitendra K: The solution is agent integral.
+
+491
+00:51:51.390 --> 00:51:52.280
+Jitendra K: Alright.
+
+492
+00:51:52.420 --> 00:51:54.330
+Jitendra K: So, we'll move ahead.
+
+493
+00:51:56.180 --> 00:51:59.380
+Jitendra K: So, data processing pipeline, as I mentioned.
+
+494
+00:52:00.030 --> 00:52:01.870
+Jitendra K: First and foremost thing, you have to…
+
+495
+00:52:02.620 --> 00:52:10.560
+Jitendra K: Identify the data sources that you're going to use to create a RAC pipeline. So once you understand the data sources, there could be several things.
+
+496
+00:52:11.270 --> 00:52:19.880
+Jitendra K: It could be your… SharePoint, PDFs, it could be your… high metadata stores.
+
+497
+00:52:20.980 --> 00:52:26.060
+Jitendra K: It could be your SQL tables, it could be your… documents, policies.
+
+498
+00:52:26.510 --> 00:52:28.390
+Jitendra K: It could be your web pages.
+
+499
+00:52:28.500 --> 00:52:32.999
+Jitendra K: It could be your CSV files that you're coming… that you're getting from business.
+
+500
+00:52:33.560 --> 00:52:40.590
+Jitendra K: So there, every possible multimodal data that you can think of will be a part of your requirement.
+
+501
+00:52:41.370 --> 00:52:47.179
+Jitendra K: So what you're going to do is, you're going to first create a… daily synchronization.
+
+502
+00:52:47.350 --> 00:52:48.820
+Jitendra K: Using pipelines.
+
+503
+00:52:49.080 --> 00:52:53.410
+Jitendra K: We should be able to fetch and parse these, data for you.
+
+504
+00:52:53.710 --> 00:52:55.710
+Jitendra K: And make it context-aware.
+
+505
+00:52:55.870 --> 00:53:02.160
+Jitendra K: And for that, you need to create chunking, indexing, embedding stores, and help to generate reports.
+
+506
+00:53:04.010 --> 00:53:07.379
+Jitendra K: So this is what we have covered as a part of embedding vector.
+
+507
+00:53:08.070 --> 00:53:16.710
+Jitendra K: Now, chunking strategies, as I mentioned, chunking strategies depends upon Few mathematical, fundamental.
+
+508
+00:53:17.530 --> 00:53:21.950
+Jitendra K: Here you can see that I'm saying the chunking boundary optimization.
+
+509
+00:53:22.270 --> 00:53:23.889
+Jitendra K: Total number of chunks.
+
+510
+00:53:24.460 --> 00:53:33.159
+Jitendra K: is nothing but it is L minus overlap chunks divided by chunk size minus overlap. So I'm keeping a document length as L.
+
+511
+00:53:33.900 --> 00:53:37.870
+Jitendra K: So let's say I have a corpus, which is having hundreds of paragraphs.
+
+512
+00:53:38.210 --> 00:53:41.810
+Jitendra K: Each paragraph is a line, a multi-line, I mean to say.
+
+513
+00:53:42.090 --> 00:53:44.939
+Jitendra K: So, document length is nothing but number of lines.
+
+514
+00:53:45.730 --> 00:53:50.640
+Jitendra K: And the number of overlap ratio Which is alpha.
+
+515
+00:53:51.070 --> 00:53:57.149
+Jitendra K: Given by… overlap size divided by chunk size. That means you're giving
+
+516
+00:53:57.590 --> 00:54:00.709
+Jitendra K: A chunking strategy with some overlap, mathematics.
+
+517
+00:54:01.260 --> 00:54:04.840
+Jitendra K: In general, you are going to create a percentage of overlap.
+
+518
+00:54:05.830 --> 00:54:10.789
+Jitendra K: To maintain your chunk size. They will say that the chunk size of my mod is 5,000.
+
+519
+00:54:11.090 --> 00:54:16.929
+Jitendra K: So you should consider 10% or 12% of the overlap size, which is 500.
+
+520
+00:54:18.470 --> 00:54:21.949
+Jitendra K: Right, so similarly, we're going to find some optimal range.
+
+521
+00:54:22.290 --> 00:54:24.710
+Jitendra K: By fine-tuning this parameter.
+
+522
+00:54:26.130 --> 00:54:34.960
+Jitendra K: Now, why chunking is important? Because that will help you to identify and minimize the higher overlap, where you need to,
+
+523
+00:54:35.660 --> 00:54:40.519
+Jitendra K: fine-tune, or… Store your information retrieval strategy.
+
+524
+00:54:40.840 --> 00:54:44.580
+Jitendra K: So there are different types of technique, which is called fixed size chunking.
+
+525
+00:54:45.360 --> 00:54:48.760
+Jitendra K: Recursive chunking, semantic chunking, and agentic chunking.
+
+526
+00:54:49.380 --> 00:54:52.369
+Jitendra K: So, authentic chunking depends upon the model types.
+
+527
+00:54:52.840 --> 00:54:56.000
+Jitendra K: So every model will have their own predefined criterias.
+
+528
+00:54:56.260 --> 00:54:58.799
+Jitendra K: On the basis of which, you can decide this parameter.
+
+529
+00:54:59.070 --> 00:55:02.860
+Jitendra K: Semantic trunking will use something called cluster sentences.
+
+530
+00:55:03.570 --> 00:55:06.540
+Jitendra K: And it is used for heterogeneous document search.
+
+531
+00:55:07.500 --> 00:55:15.330
+Jitendra K: And, this is good for images as well. So, this is one of the best techniques that you can use for images, semantic chunking.
+
+532
+00:55:15.770 --> 00:55:19.860
+Jitendra K: Recursive Text Splitter is good for paragraphs, sentence, and word.
+
+533
+00:55:20.140 --> 00:55:25.099
+Jitendra K: We shall preserve the semantic boundaries using separators like forward slash N or tab.
+
+534
+00:55:25.810 --> 00:55:33.080
+Jitendra K: So it'll increase the recall of the overall model by… 85%.
+
+535
+00:55:33.740 --> 00:55:41.320
+Jitendra K: fixed size chunking, you can create your own strategies with a size and overlap factor. You can see that I'm using 10% of overlap.
+
+536
+00:55:41.800 --> 00:55:43.540
+Jitendra K: Compared to the size of Chung.
+
+537
+00:55:43.950 --> 00:55:46.989
+Jitendra K: Overlap is important to preserve the context.
+
+538
+00:55:48.570 --> 00:55:54.279
+Jitendra K: So if I'm… have to create a context between The sentence, which are overlapping.
+
+539
+00:55:54.530 --> 00:55:56.949
+Jitendra K: As a human, how you will read a sentence?
+
+540
+00:55:57.750 --> 00:56:00.919
+Jitendra K: If I give you one paragraph, one file.
+
+541
+00:56:01.300 --> 00:56:06.760
+Jitendra K: And give you some paragraph in between. Will you be able to understand the meaning of that document? No, right?
+
+542
+00:56:07.620 --> 00:56:12.810
+Jitendra K: You have to read… The paragraph from the scratch, and then you correlate
+
+543
+00:56:13.200 --> 00:56:15.539
+Jitendra K: The previous lines and previous words.
+
+544
+00:56:15.790 --> 00:56:22.420
+Jitendra K: with a new verse that you're reading. And that's called overlapping criterias. And that will help you to preserve
+
+545
+00:56:23.800 --> 00:56:24.860
+Jitendra K: context.
+
+546
+00:56:27.670 --> 00:56:33.960
+Jitendra K: Now, I think somebody have asked in the last tutorial, can we use lexical and semantic?
+
+547
+00:56:34.770 --> 00:56:37.880
+Jitendra K: search together. So the answer is yes.
+
+548
+00:56:37.990 --> 00:56:39.010
+Jitendra K: You can.
+
+549
+00:56:39.760 --> 00:56:48.500
+Jitendra K: So, you can go with hybrid approach. And hybrid approach is a great way that you can able to create a consistent response on your query match.
+
+550
+00:56:49.440 --> 00:56:54.610
+Jitendra K: So there is something called BM25 scoring that we have discussed in the last tutorial.
+
+551
+00:56:55.520 --> 00:57:00.600
+Jitendra K: So the BM25, consider this like a tech keyword search mechanism.
+
+552
+00:57:01.070 --> 00:57:07.969
+Jitendra K: So keyword search will not have any semantic understanding of your text data. It's very simple keyword search.
+
+553
+00:57:08.320 --> 00:57:09.400
+Jitendra K: which will rank.
+
+554
+00:57:09.520 --> 00:57:16.439
+Jitendra K: the… focus… Vector, and try to find a similar Vector from your document.
+
+555
+00:57:18.570 --> 00:57:26.850
+Jitendra K: If you're riding VM25 with hybrid strategies like IVF or…
+
+556
+00:57:27.160 --> 00:57:34.369
+Jitendra K: IQ strategies, then you will be able to get a search which will be able to support both lexical retrieval, as well as
+
+557
+00:57:34.820 --> 00:57:36.350
+Jitendra K: contextual retrieval.
+
+558
+00:57:37.080 --> 00:57:39.250
+Jitendra K: And that is becoming more powerful.
+
+559
+00:57:40.350 --> 00:57:45.400
+Jitendra K: Because if we add a filter that I would like to first go with, basic…
+
+560
+00:57:47.870 --> 00:57:52.699
+Jitendra K: Lexical retrieval, which will hit that document, which talks about that particular topic.
+
+561
+00:57:53.250 --> 00:57:59.659
+Jitendra K: And then I will use my contextual retrieval to further filter down the answer.
+
+562
+00:58:00.580 --> 00:58:06.260
+Jitendra K: And that is why it is important to use maybe a hybrid strategy for some of your use cases.
+
+563
+00:58:08.350 --> 00:58:22.720
+Jitendra K: This is what we have talked about in the last tutorial, that this… there are different benchmarks that will help you to maintain the reciprocal… sorry, that will help you to maintain the hybrid scoring. And one such mathematical model is RRF, which is reciprocal rank fusion.
+
+564
+00:58:27.190 --> 00:58:30.780
+Jitendra K: Alright, so I will, maybe revisit this slide.
+
+565
+00:58:30.920 --> 00:58:33.209
+Jitendra K: So first, what we are going to do next is…
+
+566
+00:58:33.730 --> 00:58:35.639
+Jitendra K: We are going to talk about
+
+567
+00:58:39.490 --> 00:58:46.110
+Jitendra K: One second, guys. Yeah, so I will talk about a use case that we are going to solve today.
+
+568
+00:58:46.820 --> 00:58:51.539
+Jitendra K: And, this particular use case is related with cybersecurity.
+
+569
+00:58:51.730 --> 00:58:54.009
+Jitendra K: And I'm going to create a cyber rack.
+
+570
+00:58:54.960 --> 00:59:03.490
+Jitendra K: So… If you're not familiar with what cybersecurity vertical is, Cybersecurity is…
+
+571
+00:59:03.780 --> 00:59:07.900
+Jitendra K: For intrusion detection and prevention system creation in a large enterprise.
+
+572
+00:59:08.310 --> 00:59:11.750
+Jitendra K: So, let's say you're working for a large enterprise solution.
+
+573
+00:59:12.190 --> 00:59:14.940
+Jitendra K: And, you'd like to create,
+
+574
+00:59:15.420 --> 00:59:18.210
+Jitendra K: AutoRag, or something called Agentic Rag.
+
+575
+00:59:18.810 --> 00:59:21.440
+Jitendra K: Which will be able to understand the intrusion patterns.
+
+576
+00:59:22.680 --> 00:59:26.520
+Jitendra K: And then generate hundreds or thousands of alerts per hour.
+
+577
+00:59:27.010 --> 00:59:34.550
+Jitendra K: Which is overwhelming for security analysts with law, that demand deep, rapid-evolving domain expertise. So, conventional machine learning detector
+
+578
+00:59:34.840 --> 00:59:38.759
+Jitendra K: Trimmed alert volume, but still yield high false positive rates.
+
+579
+00:59:38.940 --> 00:59:48.720
+Jitendra K: While standard single pause retrieval, Augment generation pipeline can help you to fix some of the false positive alarms.
+
+580
+00:59:49.760 --> 00:59:55.160
+Jitendra K: So what are we going to do is, we are going to use a framework That will fully extend.
+
+581
+00:59:55.620 --> 00:59:58.530
+Jitendra K: Extensible on new types of attack.
+
+582
+00:59:59.260 --> 01:00:08.259
+Jitendra K: by simplifying and adding a classification layer without retaining the core agents. So CyberRag has been evaluated on SQL injection.
+
+583
+01:00:08.750 --> 01:00:11.910
+Jitendra K: XSS and SSTI benchmarks.
+
+584
+01:00:12.590 --> 01:00:16.150
+Jitendra K: And, we are going to use this quote just to…
+
+585
+01:00:16.300 --> 01:00:18.439
+Jitendra K: Create a core layer of it.
+
+586
+01:00:18.760 --> 01:00:27.139
+Jitendra K: So, basically, the background of this tool is we are trying to create a custom built-in solution designed to assist security operations.
+
+587
+01:00:28.710 --> 01:00:36.109
+Jitendra K: And this will help us to identify and resolve vulnerabilities that are commonly arise during normal system operations.
+
+588
+01:00:36.520 --> 01:00:39.190
+Jitendra K: And it leveraged well-known web-based attack.
+
+589
+01:00:39.360 --> 01:00:42.859
+Jitendra K: Patterns from multiple sources.
+
+590
+01:00:43.630 --> 01:00:50.320
+Jitendra K: So, intrusion detection system, IDS, is a very crucial component of cybersecurity for identifying ongoing attack.
+
+591
+01:00:50.720 --> 01:00:59.239
+Jitendra K: And what it does, it functions by monitoring network traffic from infrastructure and trying to protect and comparing the traffic against the database of the known fact.
+
+592
+01:01:00.580 --> 01:01:05.540
+Jitendra K: So, we'll talk about this… Scenario, past…
+
+593
+01:01:06.340 --> 01:01:08.630
+Jitendra K: Let me go to the code, so…
+
+594
+01:01:09.010 --> 01:01:11.359
+Jitendra K: This is the code that we're going to use.
+
+595
+01:01:11.910 --> 01:01:17.979
+Jitendra K: And I would like to introduce you to two more important tools called Vv8 and MAM0.
+
+596
+01:01:18.820 --> 01:01:24.060
+Jitendra K: So… Let me go back to VB8 first.
+
+597
+01:01:29.380 --> 01:01:31.310
+Jitendra K: This is my VBA Cloud.
+
+598
+01:01:32.500 --> 01:01:41.999
+Jitendra K: Which is my… which is going to store my documents on cloud, whatever I'm going to parse using this drag as input.
+
+599
+01:01:42.390 --> 01:01:51.700
+Jitendra K: I will convert this into an embedding vector, and then use it, to… Create contacts on my…
+
+600
+01:01:52.610 --> 01:01:55.779
+Jitendra K: tools, which is CyberRank that I have created.
+
+601
+01:01:56.320 --> 01:01:58.180
+Jitendra K: So what I'm doing is,
+
+602
+01:01:59.010 --> 01:02:04.279
+Jitendra K: I've created a cluster. So this is a cluster that I've created. Maybe I can show you.
+
+603
+01:02:13.840 --> 01:02:19.390
+Jitendra K: So this is the cluster that I'm going to use. So this cluster… We'll have…
+
+604
+01:02:20.340 --> 01:02:24.090
+Jitendra K: 15 days of expiry, 14 days, 2 weeks of expiry.
+
+605
+01:02:25.000 --> 01:02:30.440
+Jitendra K: It will give you the… protocol that I'm using to… Connect.
+
+606
+01:02:30.640 --> 01:02:35.829
+Jitendra K: to this cloud tool, which is your URL, Rest and point.
+
+607
+01:02:36.330 --> 01:02:41.769
+Jitendra K: And, the gRPC endpoint, which is the hosting URL,
+
+608
+01:02:42.100 --> 01:02:49.399
+Jitendra K: And I have to just create, this cluster copy might… API keys.
+
+609
+01:02:49.670 --> 01:02:51.859
+Jitendra K: And then plug into my local…
+
+610
+01:02:52.010 --> 01:02:57.160
+Jitendra K: Code, which will help me to maintain these vector stores on cloud.
+
+611
+01:02:57.590 --> 01:03:02.210
+Jitendra K: But definitely, this is limited, because this is non-paid version.
+
+612
+01:03:04.230 --> 01:03:08.969
+Jitendra K: We can use something simple, like FAS or PromoDB also to maintain it.
+
+613
+01:03:09.700 --> 01:03:15.720
+Jitendra K: But I just want to show it to you. Second tool that I would like to talk about is MAM0, which will able to manage
+
+614
+01:03:17.310 --> 01:03:20.849
+Jitendra K: Memory configuration of your… LLM API.
+
+615
+01:03:21.320 --> 01:03:28.949
+Jitendra K: And this platform… will be utilized for managing your short and long memory. And it's a universal
+
+616
+01:03:29.580 --> 01:03:36.109
+Jitendra K: memory management layer, or universal memory layer for AI Agent, which will help you to seamlessly
+
+617
+01:03:41.760 --> 01:03:49.350
+Jitendra K: maintain… The multi-level memories… Within the user session, agentic state with adaptation.
+
+618
+01:03:49.680 --> 01:03:56.370
+Jitendra K: It is quite, data-friendly, so that means, it is… you can simply integrate and Use it.
+
+619
+01:03:57.370 --> 01:04:01.850
+Jitendra K: So this is the two tools that we're going to use for this class.
+
+620
+01:04:15.720 --> 01:04:21.069
+Jitendra K: Yeah, so self-learning capability and routing capability is one of the important things.
+
+621
+01:04:21.650 --> 01:04:25.029
+Jitendra K: Routing capability is very important.
+
+622
+01:04:29.350 --> 01:04:31.810
+Jitendra K: So, your name rack will not have a router.
+
+623
+01:04:32.440 --> 01:04:33.700
+Jitendra K: capabilities.
+
+624
+01:04:37.480 --> 01:04:45.980
+Jitendra K: Alright, so we'll move on. So we have got two tools that we are going to integrate. Now, let me explain the code. What are we trying to achieve from this code?
+
+625
+01:04:50.130 --> 01:04:51.050
+Jitendra K: Yep.
+
+626
+01:04:55.440 --> 01:05:01.360
+Jitendra K: So this is a repo, you can go through it, read it, and then understand what is the API.
+
+627
+01:05:01.940 --> 01:05:04.150
+Jitendra K: But we are just using as an API here.
+
+628
+01:05:21.120 --> 01:05:26.459
+Jitendra K: Okay, so now let me explain the end-to-end data flow. What are we trying to achieve with this code?
+
+629
+01:05:26.960 --> 01:05:31.429
+Jitendra K: And, then we'll move on to this… for Deep Drive.
+
+630
+01:05:31.860 --> 01:05:33.950
+Jitendra K: So this is the flow that I'm using.
+
+631
+01:05:35.150 --> 01:05:40.779
+Jitendra K: So this is typically a graph rack, sorry, not a graph rack, land graph-based agentic rack.
+
+632
+01:05:41.440 --> 01:05:50.690
+Jitendra K: And this is what the end-to-end flow looks like. So, first and foremost thing is… I'm using something called…
+
+633
+01:05:52.940 --> 01:05:55.649
+Jitendra K: 6 subconfigure agent.
+
+634
+01:05:55.800 --> 01:05:59.950
+Jitendra K: So, each sub-configure agent will have their own responsibility.
+
+635
+01:06:00.370 --> 01:06:04.939
+Jitendra K: So I'm using a Langraph state machine for designing this cyber rack.
+
+636
+01:06:06.320 --> 01:06:09.700
+Jitendra K: And, it is using Type Dictionary, which is a shared memory.
+
+637
+01:06:09.870 --> 01:06:13.450
+Jitendra K: Going through 6 nodes. Each node return a partial dictionary.
+
+638
+01:06:13.890 --> 01:06:15.529
+Jitendra K: Merge back to the state.
+
+639
+01:06:16.070 --> 01:06:22.370
+Jitendra K: So… in this… code, what I'm going to do is…
+
+640
+01:06:22.630 --> 01:06:27.129
+Jitendra K: I'm going to first start with the configuration. So, let me explain the configuration.
+
+641
+01:06:29.320 --> 01:06:36.230
+Jitendra K: So the entry point for this is… You're going to start with… the configuration file.
+
+642
+01:06:42.570 --> 01:06:43.850
+Jitendra K: Which is here.
+
+643
+01:06:44.640 --> 01:06:48.240
+Jitendra K: And this configuration file, I'm using the environmental templates.
+
+644
+01:06:49.260 --> 01:06:58.380
+Jitendra K: So, I have got OpenAPI, OpenAI API key, we wait URL, Vivate API key, Redis, I will host in local.
+
+645
+01:06:58.900 --> 01:07:04.619
+Jitendra K: But, if it is not available, I will fall back in memory. So I haven't installed already, so I will keep it default.
+
+646
+01:07:05.220 --> 01:07:08.539
+Jitendra K: MAM0, which again, I'm invoking with an API.
+
+647
+01:07:09.080 --> 01:07:13.929
+Jitendra K: So the configuration purpose, configuration.py purpose, this file purpose.
+
+648
+01:07:14.280 --> 01:07:20.219
+Jitendra K: is to create a single source of truth for all configuration. So every component reads a thing from here.
+
+649
+01:07:20.550 --> 01:07:28.110
+Jitendra K: use Python data classes for type safety and .environmentalLibraryLoadSecret from .env file.
+
+650
+01:07:28.700 --> 01:07:32.609
+Jitendra K: So, first and foremost thing, I'm creating a data class without constructor.
+
+651
+01:07:33.280 --> 01:07:35.950
+Jitendra K: So this data class does not have any constructor.
+
+652
+01:07:36.470 --> 01:07:41.230
+Jitendra K: So, what I'm doing is I'm just importing a few… packages…
+
+653
+01:07:42.300 --> 01:07:45.680
+Jitendra K: OS for getting the environment, data class for…
+
+654
+01:07:45.810 --> 01:07:49.180
+Jitendra K: Build in two classes that are primarily data containers.
+
+655
+01:07:50.520 --> 01:07:53.960
+Jitendra K: field, I'm keeping it here. It will give you a…
+
+656
+01:07:54.440 --> 01:07:57.160
+Jitendra K: Factory methods to develop the code.
+
+657
+01:08:00.150 --> 01:08:09.620
+Jitendra K: And then, I'm also using os.getInvironment, which is our default factory, which is making callable to run initialization at a particular time.
+
+658
+01:08:10.130 --> 01:08:16.979
+Jitendra K: So I'm loading the environmental file.env file, from this line. So I'm saying load env.
+
+659
+01:08:17.720 --> 01:08:24.410
+Jitendra K: Then I'm running a module import time, which will run from config.
+
+660
+01:08:26.189 --> 01:08:28.359
+Jitendra K: Then, I have created a class.
+
+661
+01:08:28.490 --> 01:08:35.409
+Jitendra K: which is OpenAI configuration to manage my… API from OpenAI models.
+
+662
+01:08:36.189 --> 01:08:40.049
+Jitendra K: So I'm keeping two models, GPT-4 and GPT-40 Mini.
+
+663
+01:08:40.630 --> 01:08:46.499
+Jitendra K: Because they are different in terms of cost and deal classification, where task is well-defined.
+
+664
+01:08:47.120 --> 01:08:52.549
+Jitendra K: So I can use GPT-40 for report generation, where reasoning quality matters the most.
+
+665
+01:08:53.319 --> 01:08:59.129
+Jitendra K: Temperature, again, I'm keeping it to be 0.1 low for deterministic classification, because this is a…
+
+666
+01:08:59.840 --> 01:09:05.619
+Jitendra K: very important, reports. If I use… if my reports are hallucinated.
+
+667
+01:09:06.220 --> 01:09:10.149
+Jitendra K: Then my output will have false positives.
+
+668
+01:09:12.450 --> 01:09:20.160
+Jitendra K: I'm managing a VBA configuration as well, which is, again, a factory method, with a chunk size of 800, chunk overlap of 10%,
+
+669
+01:09:20.319 --> 01:09:22.059
+Jitendra K: Of 800, which is 8T.
+
+670
+01:09:22.479 --> 01:09:31.840
+Jitendra K: So, 800 character chunks with 80 overlap to preserve the context across boundary, this means adjacent chunks share 80 characters, so sentence split across.
+
+671
+01:09:32.000 --> 01:09:33.049
+Jitendra K: two chunks.
+
+672
+01:09:33.490 --> 01:09:35.410
+Jitendra K: Which will be fully presented.
+
+673
+01:09:35.819 --> 01:09:37.089
+Jitendra K: At least one.
+
+674
+01:09:37.510 --> 01:09:42.899
+Jitendra K: top K5, that means it will return 5 most relevant documents per search.
+
+675
+01:09:44.899 --> 01:09:55.029
+Jitendra K: So, now I'm creating a Redis configuration as well. Radis, if I install, then I will be able to enable the port, which will read to that service.
+
+676
+01:09:59.410 --> 01:10:06.650
+Jitendra K: Now, I will go with the data class, which is syntheticData.py, so I've created some synthetic data for this.
+
+677
+01:10:07.170 --> 01:10:14.959
+Jitendra K: So the purpose of this class is to generate all test scenarios, so that a system runs self-contained without external data set.
+
+678
+01:10:15.300 --> 01:10:20.810
+Jitendra K: So I've created a 55 attack payload across 4 classes and 9 knowledge base documents.
+
+679
+01:10:21.810 --> 01:10:30.860
+Jitendra K: So, these are types of attack, which is… SQLite accesseses, SSTI, these are all…
+
+680
+01:10:31.520 --> 01:10:38.309
+Jitendra K: terms which have been used for cyber attacks, and this is the class output, benign.
+
+681
+01:10:38.640 --> 01:10:40.540
+Jitendra K: That means they are false positives.
+
+682
+01:10:41.200 --> 01:10:45.029
+Jitendra K: The attack has been detected by the model, but it is false positive.
+
+683
+01:10:45.880 --> 01:10:54.310
+Jitendra K: So how these, systems work is, they are using some machine learning algorithms, right? So they are using patterns, like typological patterns.
+
+684
+01:10:54.930 --> 01:10:57.119
+Jitendra K: To understand and discover the attack.
+
+685
+01:10:57.450 --> 01:10:58.919
+Jitendra K: And they generate a log.
+
+686
+01:10:59.600 --> 01:11:06.669
+Jitendra K: So what we are doing is, we are reading this log, and then try to identify whether the pattern is false positive or true positive.
+
+687
+01:11:07.870 --> 01:11:09.929
+Jitendra K: So I'm creating a payload class.
+
+688
+01:11:10.280 --> 01:11:11.540
+Jitendra K: Which is bizarrene.
+
+689
+01:11:11.750 --> 01:11:13.380
+Jitendra K: Type of attack.
+
+690
+01:11:13.670 --> 01:11:16.829
+Jitendra K: And each payload has a ground truth label for evaluation.
+
+691
+01:11:17.980 --> 01:11:22.840
+Jitendra K: So… The payload class comprises of… several…
+
+692
+01:11:26.590 --> 01:11:27.610
+Jitendra K: Types.
+
+693
+01:11:28.810 --> 01:11:30.549
+Jitendra K: So you can see this is the type.
+
+694
+01:11:31.420 --> 01:11:40.389
+Jitendra K: Right? So, I can see it is using The index is SQLite001002003.
+
+695
+01:11:40.640 --> 01:11:44.889
+Jitendra K: And these are the different types of… SQL pattern attack.
+
+696
+01:11:45.920 --> 01:11:51.980
+Jitendra K: Which has been differentiated into 3 buckets, medium, Low and hard.
+
+697
+01:11:54.660 --> 01:11:57.320
+Jitendra K: Then, similarly, I'm using XSS.
+
+698
+01:11:57.980 --> 01:12:02.240
+Jitendra K: which is also categorized as STI payloads.
+
+699
+01:12:03.940 --> 01:12:05.750
+Jitendra K: And, the benign attack.
+
+700
+01:12:08.930 --> 01:12:13.430
+Jitendra K: Now, this is a knowledge-based document that I'm going to pass on to my VBH server.
+
+701
+01:12:13.830 --> 01:12:18.059
+Jitendra K: Now, the purpose of this knowledge base is to manage the vector store schemas.
+
+702
+01:12:18.320 --> 01:12:20.369
+Jitendra K: And I'm injecting some document.
+
+703
+01:12:20.580 --> 01:12:24.819
+Jitendra K: So I'm saying that I would like to create some definition of this attack.
+
+704
+01:12:26.040 --> 01:12:31.729
+Jitendra K: So the definition starts with, each and every type of configuration of attack.
+
+705
+01:12:32.110 --> 01:12:35.640
+Jitendra K: And then it gives you a very good descriptive around it.
+
+706
+01:12:35.940 --> 01:12:40.889
+Jitendra K: Right? So, this is one descriptive of my MITRE attack.
+
+707
+01:12:41.940 --> 01:12:48.389
+Jitendra K: Similarly, I've got XSS attack, which is also cross-referencing to multiple scenarios, and etc.
+
+708
+01:12:49.090 --> 01:12:54.530
+Jitendra K: Now, what I'm going to do is, I would like to use a payload, which is getPayloadMethod.
+
+709
+01:12:57.630 --> 01:13:05.940
+Jitendra K: Yes, these are reference to some documents. You can assume it, like, this is a PDF document, right? So I just extracted it and then put it here.
+
+710
+01:13:06.730 --> 01:13:09.890
+Jitendra K: hard-coded it, instead of reading from the PDF.
+
+711
+01:13:19.600 --> 01:13:23.209
+Jitendra K: Okay, now, after that, what I'm going to do is…
+
+712
+01:13:29.100 --> 01:13:34.030
+Jitendra K: So after this, I'm managing these documents in memory.
+
+713
+01:13:34.540 --> 01:13:41.160
+Jitendra K: So I have a class called Payload, which will… extract this document.
+
+714
+01:13:41.590 --> 01:13:47.049
+Jitendra K: and put it into my Vivate server. So, for that, I have to connect to the Vivate server.
+
+715
+01:13:47.300 --> 01:13:53.130
+Jitendra K: And then… Pass on these document files to my… VBH server.
+
+716
+01:13:53.850 --> 01:13:58.609
+Jitendra K: So, for that, I would like to use VBA.manager, which is…
+
+717
+01:13:59.690 --> 01:14:06.499
+Jitendra K: again, a tool, knowledge-based tool, that I'm going to use. So I will use this file, VBA.manager.
+
+718
+01:14:07.150 --> 01:14:10.270
+Jitendra K: Now, this file… Have.
+
+719
+01:14:10.510 --> 01:14:12.070
+Jitendra K: several configurations.
+
+720
+01:14:14.330 --> 01:14:18.379
+Jitendra K: Now, one of the important configuration here is how I'm managing the
+
+721
+01:14:19.840 --> 01:14:24.159
+Jitendra K: search criteria. So here you can see that I'm using hybrid search.
+
+722
+01:14:24.850 --> 01:14:28.730
+Jitendra K: On keyword, plus… semantic.
+
+723
+01:14:30.090 --> 01:14:31.709
+Jitendra K: Right, so I'm using both.
+
+724
+01:14:32.750 --> 01:14:43.160
+Jitendra K: Similarly, I'm also using, the schema creation, document injection, and hybrid search retrieval using MMR.
+
+725
+01:14:43.870 --> 01:14:46.590
+Jitendra K: So, first and foremost thing, I have to connect.
+
+726
+01:14:46.970 --> 01:14:48.969
+Jitendra K: to this Knowledge Base Manager.
+
+727
+01:14:49.590 --> 01:14:58.629
+Jitendra K: The purpose here is I'm passing the parameter, passes the OpenAI key to VBA, so it can call OpenAI embedding, API server side.
+
+728
+01:14:58.930 --> 01:15:07.730
+Jitendra K: Remember, OpenAPI, OpenAI API, or OpenAI model will prefer text to VAC OpenAI service.
+
+729
+01:15:08.020 --> 01:15:13.600
+Jitendra K: which will auto-embed document as an injection time. You send it over from the VBA database.
+
+730
+01:15:13.820 --> 01:15:15.970
+Jitendra K: So this will maintain your chunks.
+
+731
+01:15:16.610 --> 01:15:23.970
+Jitendra K: So it's like pipeline now. So once you pass the documents that I have just shown in the previous module.
+
+732
+01:15:25.020 --> 01:15:28.990
+Jitendra K: Those documents will be managed by your VBA server.
+
+733
+01:15:30.980 --> 01:15:32.760
+Jitendra K: So this is your VBA server.
+
+734
+01:15:33.430 --> 01:15:34.470
+Jitendra K: your tool.
+
+735
+01:15:35.080 --> 01:15:36.290
+Jitendra K: Which is called?
+
+736
+01:15:38.710 --> 01:15:39.980
+Jitendra K: vector store.
+
+737
+01:15:42.560 --> 01:15:46.890
+Jitendra K: So your document will be stored into Vector, Balm.
+
+738
+01:15:47.710 --> 01:15:50.100
+Jitendra K: And then you're assigning this chunk to…
+
+739
+01:15:53.120 --> 01:15:56.100
+Jitendra K: text-to-back OpenAI Server.
+
+740
+01:16:02.800 --> 01:16:09.760
+Jitendra K: So when you're calling the LLM, first and the foremost thing it does is, it will consume the… chunks.
+
+741
+01:16:10.320 --> 01:16:13.889
+Jitendra K: from your PV8 to generate a response using LLM.
+
+742
+01:16:16.210 --> 01:16:18.220
+Jitendra K: Which is autoregressive model.
+
+743
+01:16:24.030 --> 01:16:28.479
+Jitendra K: Yeah, let me use a white pen. So this is your PDF files.
+
+744
+01:16:28.790 --> 01:16:30.069
+Jitendra K: That you're using.
+
+745
+01:16:33.290 --> 01:16:34.839
+Jitendra K: In the rod form.
+
+746
+01:16:35.790 --> 01:16:41.470
+Jitendra K: You're performing this chunking, and… parsing strategies from Vv8.
+
+747
+01:16:43.040 --> 01:16:49.770
+Jitendra K: From VB8, you're passing this to a text-to-VAC open API service.
+
+748
+01:16:50.350 --> 01:16:55.080
+Jitendra K: And then you're consuming the LLM model, which is GPT-4.0,
+
+749
+01:16:55.800 --> 01:16:58.209
+Jitendra K: Which is autoregressive to generate an answer.
+
+750
+01:16:59.070 --> 01:17:01.139
+Jitendra K: So this is a sequence of the flow.
+
+751
+01:17:06.980 --> 01:17:11.620
+Jitendra K: Yeah, there's a monitoring tool that will detect. We have written some test cases.
+
+752
+01:17:13.070 --> 01:17:16.540
+Jitendra K: Those test cases will be evaluated by the agents.
+
+753
+01:17:16.780 --> 01:17:21.080
+Jitendra K: Where that is… True positive or false positive?
+
+754
+01:17:21.300 --> 01:17:22.560
+Jitendra K: with a scores.
+
+755
+01:17:23.650 --> 01:17:26.679
+Jitendra K: So that is… the purpose is to reduce false positives, right?
+
+756
+01:17:27.590 --> 01:17:31.119
+Jitendra K: So, we are going to use the agents to reduce false positives.
+
+757
+01:17:32.210 --> 01:17:34.860
+Jitendra K: Because every time an alert has been generated.
+
+758
+01:17:35.460 --> 01:17:41.000
+Jitendra K: It does not mean that the alert is… need to be… consider.
+
+759
+01:17:42.190 --> 01:17:47.560
+Jitendra K: Alright, so we have a schema creation as well, so I'm creating a schema.
+
+760
+01:17:51.550 --> 01:17:54.409
+Jitendra K: This is a property of my schema, the content.
+
+761
+01:17:55.840 --> 01:17:57.230
+Jitendra K: The type of attack?
+
+762
+01:17:57.600 --> 01:18:03.019
+Jitendra K: The title of the document, the source, Doc ID for hash references.
+
+763
+01:18:03.340 --> 01:18:04.889
+Jitendra K: chunk indexes.
+
+764
+01:18:05.420 --> 01:18:08.500
+Jitendra K: To use position of the chunks in original document.
+
+765
+01:18:08.640 --> 01:18:12.110
+Jitendra K: And the severity of the threat. So we have 3 severity.
+
+766
+01:18:12.220 --> 01:18:13.630
+Jitendra K: Medium, high, and low.
+
+767
+01:18:15.350 --> 01:18:19.619
+Jitendra K: Now, once I create, this collection.
+
+768
+01:18:22.190 --> 01:18:27.560
+Jitendra K: It will tell Vivia to use OpenAI model to automatically vectorize the content properly.
+
+769
+01:18:28.050 --> 01:18:31.509
+Jitendra K: And I'm using a text embedding 3 small.
+
+770
+01:18:31.660 --> 01:18:34.960
+Jitendra K: Which is our smallest and cheapest emitting model.
+
+771
+01:18:35.290 --> 01:18:40.040
+Jitendra K: with a 512 dimension, good enough for cybersecurity document retriever.
+
+772
+01:18:41.990 --> 01:18:44.509
+Jitendra K: And then I'm using a property of database, like.
+
+773
+01:18:45.000 --> 01:18:47.699
+Jitendra K: VM25 and vector search on that field.
+
+774
+01:18:48.080 --> 01:18:50.169
+Jitendra K: To perform the semantic search.
+
+775
+01:18:50.960 --> 01:18:56.650
+Jitendra K: Now, chunking algorithm, I'm using a sliding window with a sentence boundary snapping.
+
+776
+01:18:57.370 --> 01:18:59.270
+Jitendra K: So what it does is, it will take
+
+777
+01:19:02.570 --> 01:19:08.039
+Jitendra K: the document… From my file, from my input file.
+
+778
+01:19:08.410 --> 01:19:10.910
+Jitendra K: And then inject it with the help of…
+
+779
+01:19:11.160 --> 01:19:14.730
+Jitendra K: 800 to 80 chunking strategy. So, 800 chunks.
+
+780
+01:19:15.060 --> 01:19:18.550
+Jitendra K: I will use, and 10% of the overlapping criterias.
+
+781
+01:19:21.110 --> 01:19:23.240
+Jitendra K: And then, I will use…
+
+782
+01:19:23.500 --> 01:19:27.559
+Jitendra K: Once I inject this document, I will use a hybrid search to return the response.
+
+783
+01:19:28.940 --> 01:19:34.809
+Jitendra K: With the help of these… parameters, right? So what it does is, it will take a query.
+
+784
+01:19:35.580 --> 01:19:40.970
+Jitendra K: Use a scaling, limit a top K topic, and then filter and generate a response.
+
+785
+01:19:45.480 --> 01:19:54.280
+Jitendra K: Now, once I have all these things, I'm also using the evaluation, using maximum margin relevance, MMR.
+
+786
+01:19:54.680 --> 01:20:04.120
+Jitendra K: So it will talk about MMR, how many… So remember, MMR is 4… Coverage.
+
+787
+01:20:04.370 --> 01:20:06.190
+Jitendra K: Maximum margin relevance.
+
+788
+01:20:07.280 --> 01:20:14.289
+Jitendra K: So, for each remaining candidate, I'm computing the MMMR. So, that will tell you how relevant this candidate is to the query.
+
+789
+01:20:15.550 --> 01:20:18.399
+Jitendra K: And I'm using a maximum similarity to select
+
+790
+01:20:19.510 --> 01:20:22.999
+Jitendra K: That means how similar it is document-ready.
+
+791
+01:20:23.120 --> 01:20:24.469
+Jitendra K: By the word overlap.
+
+792
+01:20:28.050 --> 01:20:28.960
+Jitendra K: Yeah.
+
+793
+01:20:35.690 --> 01:20:44.359
+Jitendra K: Now, finally, I would like to use utils to manage the conversation between my agents, and I'm using a cache manager,
+
+794
+01:20:44.610 --> 01:20:46.700
+Jitendra K: So I'm using a Redis cache manager.
+
+795
+01:20:46.980 --> 01:20:54.920
+Jitendra K: So, the simple idea of Radis Cache is to enable the payload content, Via?
+
+796
+01:20:56.500 --> 01:20:58.409
+Jitendra K: collision registance Scheme.
+
+797
+01:20:59.390 --> 01:21:09.279
+Jitendra K: So, radish caching is used for improving the performance of your overlap. But right now, I'm using for single user, that means I'm just using it in my single laptop.
+
+798
+01:21:09.670 --> 01:21:14.149
+Jitendra K: One user, one machine. So I do not require caching at that point of time.
+
+799
+01:21:14.260 --> 01:21:15.540
+Jitendra K: So I will disable it.
+
+800
+01:21:17.810 --> 01:21:21.470
+Jitendra K: Then I'm also using a memory manager, using MAM0.
+
+801
+01:21:21.720 --> 01:21:26.609
+Jitendra K: And this memory manager will help me to create a persistent memory across sessions.
+
+802
+01:21:26.890 --> 01:21:32.359
+Jitendra K: Unlike caching, which stored exact result, memory stored learned pattern in the past.
+
+803
+01:21:33.610 --> 01:21:39.300
+Jitendra K: So, it's a three-tire architecture. We have memory client, that means the server.
+
+804
+01:21:39.850 --> 01:21:43.329
+Jitendra K: Which is fully featured, persistent across machine.
+
+805
+01:21:44.000 --> 01:21:51.020
+Jitendra K: Locally, I'm using OpenAI for embedding persistent to disk, and I'm using a fallback mechanism to
+
+806
+01:21:52.160 --> 01:21:55.369
+Jitendra K: look forward if MAM0 application is unavailable.
+
+807
+01:21:56.540 --> 01:22:03.109
+Jitendra K: Finally, I would like to go for the tools, so I'm using the classifier tool. So this is a classification tool.
+
+808
+01:22:03.640 --> 01:22:06.129
+Jitendra K: Which will be able to classify the type of attack.
+
+809
+01:22:07.150 --> 01:22:09.030
+Jitendra K: And it assigns a role.
+
+810
+01:22:09.340 --> 01:22:11.309
+Jitendra K: By reading the type of a prompt.
+
+811
+01:22:11.930 --> 01:22:14.819
+Jitendra K: So here is the system prompt. So I'm saying that…
+
+812
+01:22:15.060 --> 01:22:18.570
+Jitendra K: I'm assigning a role as a specialist detection classifier.
+
+813
+01:22:19.160 --> 01:22:22.859
+Jitendra K: Which will list specific indicators the model should look for.
+
+814
+01:22:23.240 --> 01:22:25.760
+Jitendra K: And then specify the output in this form.
+
+815
+01:22:34.450 --> 01:22:36.880
+Jitendra K: Now, the main function that I'm using is a rack.
+
+816
+01:22:37.580 --> 01:22:40.200
+Jitendra K: This is what we need to look forward.
+
+817
+01:22:40.480 --> 01:22:45.210
+Jitendra K: So this RAT tool is generating Taking the query.
+
+818
+01:22:46.090 --> 01:22:49.820
+Jitendra K: Retrieve the context from the knowledge base, and validate the correct
+
+819
+01:22:50.100 --> 01:22:53.059
+Jitendra K: Classification according to the scenario of the query.
+
+820
+01:22:53.640 --> 01:22:58.790
+Jitendra K: So this is the core LLM engine, which generates a natural language query from the classification output.
+
+821
+01:22:59.080 --> 01:23:03.729
+Jitendra K: And this is semantic representation, instead of using the raw payload from the query.
+
+822
+01:23:04.520 --> 01:23:09.279
+Jitendra K: So the idea is… I'm using one function to validate that classification.
+
+823
+01:23:09.400 --> 01:23:14.979
+Jitendra K: Now, this function, validate Classification, We'll first understand the type of attack.
+
+824
+01:23:15.170 --> 01:23:18.269
+Jitendra K: Classify it according to my labels.
+
+825
+01:23:18.700 --> 01:23:21.609
+Jitendra K: And then, generate the vulnerability score.
+
+826
+01:23:24.310 --> 01:23:34.059
+Jitendra K: And then… Based upon this, it will use a report Which classify with these parameters.
+
+827
+01:23:34.880 --> 01:23:37.939
+Jitendra K: The type of attack? Confidence in stating this?
+
+828
+01:23:38.220 --> 01:23:44.790
+Jitendra K: Feature indicators, and some payload criterias, and describe it into some one or two sentences.
+
+829
+01:23:46.350 --> 01:23:51.189
+Jitendra K: Right, so this is my… Rag.
+
+830
+01:23:51.420 --> 01:23:54.530
+Jitendra K: Now, this rag will use Q&A.
+
+831
+01:23:57.290 --> 01:23:59.940
+Jitendra K: to validate, right? So I will expect
+
+832
+01:24:00.770 --> 01:24:05.949
+Jitendra K: One second, where's my function? Defined question answer.
+
+833
+01:24:25.850 --> 01:24:27.409
+Jitendra K: Yeah, this one.
+
+834
+01:24:28.460 --> 01:24:36.710
+Jitendra K: So, to generate a semantic query from classification result, to identify the type of attack and the salient payload characteristics and contextual indications.
+
+835
+01:24:37.530 --> 01:24:41.000
+Jitendra K: And then, finally, I will have an orchestration layer.
+
+836
+01:24:41.490 --> 01:24:47.379
+Jitendra K: So this orchestration layer is… In the agentic port, let me show you.
+
+837
+01:24:47.890 --> 01:24:49.020
+Jitendra K: this quarter.
+
+838
+01:24:49.280 --> 01:24:51.210
+Jitendra K: Now, this is your orchestration layer.
+
+839
+01:24:51.790 --> 01:25:00.440
+Jitendra K: So this is the line graph that we are using. To start with, we are meant… we… the purpose is… this is the brain of the system. That means this is the actual…
+
+840
+01:25:01.030 --> 01:25:02.599
+Jitendra K: Flow of your system.
+
+841
+01:25:04.390 --> 01:25:10.469
+Jitendra K: Now, this is a brain of your system that defines a Langraff state machine that orchestrates the entire pipeline.
+
+842
+01:25:12.160 --> 01:25:16.879
+Jitendra K: So, Langraf, as we have understand that, it is using something called state management.
+
+843
+01:25:17.070 --> 01:25:21.759
+Jitendra K: Using a typedict that share the memory that flows through every node.
+
+844
+01:25:22.090 --> 01:25:27.230
+Jitendra K: So, each node read what it needs and return a partial dictionary that can merge back.
+
+845
+01:25:28.280 --> 01:25:31.649
+Jitendra K: So I'm using annotation, list, and addMessage.
+
+846
+01:25:31.750 --> 01:25:33.090
+Jitendra K: As a parameter.
+
+847
+01:25:35.310 --> 01:25:36.530
+Jitendra K: Of my type tick.
+
+848
+01:25:36.850 --> 01:25:41.429
+Jitendra K: So this will tell the land graph that message field use the addMessageReducer.
+
+849
+01:25:41.570 --> 01:25:45.810
+Jitendra K: When a node returns new message, so it is going to append to the existing list.
+
+850
+01:25:46.920 --> 01:25:48.399
+Jitendra K: In the progression.
+
+851
+01:25:49.380 --> 01:25:51.820
+Jitendra K: So I'm using a classification of payload.
+
+852
+01:25:52.380 --> 01:25:55.990
+Jitendra K: So, this is my node function. So this is the first agent.
+
+853
+01:25:56.330 --> 01:25:57.929
+Jitendra K: Every node is an agent.
+
+854
+01:26:01.830 --> 01:26:09.349
+Jitendra K: So it creates a list from existing log, and this is important because Langraph state should be treated as immutable, and it should return a new value.
+
+855
+01:26:10.170 --> 01:26:13.750
+Jitendra K: So, I'm trying to track how many times
+
+856
+01:26:13.860 --> 01:26:15.979
+Jitendra K: We are tempted to classify as well.
+
+857
+01:26:16.820 --> 01:26:19.780
+Jitendra K: Then I'm using a conditional router agent.
+
+858
+01:26:21.460 --> 01:26:23.530
+Jitendra K: This is my conditional router agent.
+
+859
+01:26:27.790 --> 01:26:29.630
+Jitendra K: Route after validation.
+
+860
+01:26:41.720 --> 01:26:44.520
+Jitendra K: Yeah, so this is my conditional routing agent.
+
+861
+01:26:45.000 --> 01:26:48.510
+Jitendra K: So, what it does is, it's a kind of a creative refinement loop.
+
+862
+01:26:48.650 --> 01:26:56.479
+Jitendra K: So if the rack valuator corrects the classification, and we haven't exceeded our loop budget, the pipeline will look back.
+
+863
+01:26:57.840 --> 01:27:01.250
+Jitendra K: So the idea is… We are going to look back.
+
+864
+01:27:01.450 --> 01:27:06.770
+Jitendra K: Based upon the… Configuration, which has been given by?
+
+865
+01:27:07.050 --> 01:27:11.770
+Jitendra K: the… Output in terms of confidence.
+
+866
+01:27:12.310 --> 01:27:16.350
+Jitendra K: So, okay, let me put into very simple terms what we are doing here is…
+
+867
+01:27:19.220 --> 01:27:20.920
+Jitendra K: We are using one system.
+
+868
+01:27:22.610 --> 01:27:24.039
+Jitendra K: So this system…
+
+869
+01:27:27.450 --> 01:27:30.879
+Jitendra K: will take… Network logs…
+
+870
+01:27:38.110 --> 01:27:39.160
+Jitendra K: From where?
+
+871
+01:27:39.420 --> 01:27:41.329
+Jitendra K: There are some existing mechanisms.
+
+872
+01:27:42.290 --> 01:27:45.249
+Jitendra K: In your company, which detect the cyber attacks.
+
+873
+01:27:47.130 --> 01:27:48.970
+Jitendra K: Using machine learning.
+
+874
+01:27:52.260 --> 01:27:54.030
+Jitendra K: And we generate some logs.
+
+875
+01:27:55.730 --> 01:27:58.640
+Jitendra K: But there's an issue with this approach.
+
+876
+01:27:59.640 --> 01:28:03.490
+Jitendra K: You are getting… more false positives.
+
+877
+01:28:12.320 --> 01:28:14.239
+Jitendra K: Than actual true positives.
+
+878
+01:28:16.020 --> 01:28:21.360
+Jitendra K: That means there's a huge amount of false positives. Now, imagine… You are a network administrator.
+
+879
+01:28:22.020 --> 01:28:26.609
+Jitendra K: If I give you 100 false positives, And one true positive.
+
+880
+01:28:27.060 --> 01:28:28.369
+Jitendra K: How will you feel?
+
+881
+01:28:33.770 --> 01:28:37.309
+Jitendra K: Right? So you are trying to automate this with the help of agent.
+
+882
+01:28:38.520 --> 01:28:44.949
+Jitendra K: with one more layer of intelligent. Because anyway, you are going to read this, literally, one by one.
+
+883
+01:28:46.280 --> 01:28:51.530
+Jitendra K: These false positives, and determine whether they are benign or… True.
+
+884
+01:28:52.360 --> 01:28:56.039
+Jitendra K: That means they are really a false positive, or they are true positive.
+
+885
+01:28:57.500 --> 01:29:03.830
+Jitendra K: But to find one true positive out of 101, Total alerts.
+
+886
+01:29:04.310 --> 01:29:07.030
+Jitendra K: You have to literally read each and every alert.
+
+887
+01:29:08.030 --> 01:29:11.260
+Jitendra K: So I'm just trying to mimic this with the help of agents.
+
+888
+01:29:13.180 --> 01:29:15.750
+Jitendra K: Now, agent will be able to filter this…
+
+889
+01:29:16.610 --> 01:29:21.799
+Jitendra K: false positive to a greater extent. Instead of sending 100 false positive.
+
+890
+01:29:22.180 --> 01:29:26.790
+Jitendra K: Maybe agent will give me 20 false positives. Much, much reduced version.
+
+891
+01:29:29.040 --> 01:29:33.400
+Jitendra K: That means they are helping, right? And as they grow, as they mature.
+
+892
+01:29:33.700 --> 01:29:39.589
+Jitendra K: The system will improve, maybe to 99% or 100% as well, in future.
+
+893
+01:29:40.910 --> 01:29:46.290
+Jitendra K: So this is a great system, right? So we are talking about something which is enterprise scale.
+
+894
+01:29:46.730 --> 01:29:48.340
+Jitendra K: And useful for that.
+
+895
+01:29:48.460 --> 01:29:49.690
+Jitendra K: requirement.
+
+896
+01:29:52.470 --> 01:29:57.200
+Jitendra K: Yeah, I will share the code. So this is important for two reasons.
+
+897
+01:29:57.790 --> 01:30:00.270
+Jitendra K: You're saving the time of investigation.
+
+898
+01:30:01.330 --> 01:30:02.759
+Jitendra K: Time to investigate.
+
+899
+01:30:08.600 --> 01:30:14.950
+Jitendra K: And you're also reducing the risk of… over-capturing.
+
+900
+01:30:15.900 --> 01:30:17.000
+Jitendra K: the alerts.
+
+901
+01:30:19.380 --> 01:30:22.289
+Jitendra K: And you're automating the suppression mechanism.
+
+902
+01:30:26.450 --> 01:30:27.630
+Jitendra K: of alerts.
+
+903
+01:30:32.490 --> 01:30:34.909
+Jitendra K: Alright, so the problem is clear to everyone.
+
+904
+01:30:36.940 --> 01:30:38.799
+Jitendra K: So what are we trying to achieve?
+
+905
+01:30:41.040 --> 01:30:42.780
+Jitendra K: Now, how we are achieved…
+
+906
+01:30:44.860 --> 01:30:50.480
+Jitendra K: That is something which we are discussing. So there are different pieces. Yeah, like, Kindrel, IBM, yes.
+
+907
+01:30:56.790 --> 01:31:03.190
+Jitendra K: Now, how we are achieving this with the help of networks. Oh, sorry, with the help of… Agents.
+
+908
+01:31:03.860 --> 01:31:07.449
+Jitendra K: The agent will analyze your false positive alerts.
+
+909
+01:31:07.940 --> 01:31:13.809
+Jitendra K: And then, generate the investigation on them with a confidence score.
+
+910
+01:31:14.600 --> 01:31:21.209
+Jitendra K: And with the help of those confidence score, you will send only the filter alert to your SMEs.
+
+911
+01:31:21.590 --> 01:31:23.730
+Jitendra K: So that they can be able to work on it.
+
+912
+01:31:36.630 --> 01:31:40.290
+Jitendra K: Yeah, I mean, they are logs. Log is always having…
+
+913
+01:31:40.620 --> 01:31:45.390
+Jitendra K: Delay, right? So we are talking about logs, we are not talking about real-time investigation.
+
+914
+01:31:45.880 --> 01:31:47.110
+Jitendra K: Rare logs.
+
+915
+01:31:48.010 --> 01:31:50.800
+Jitendra K: Log itself is… non-real-time.
+
+916
+01:31:52.130 --> 01:31:55.209
+Jitendra K: So there's no real-time requirement on this.
+
+917
+01:31:55.880 --> 01:32:00.840
+Jitendra K: We're talking about something which has been happening. We are not talking about proactive risk assessment.
+
+918
+01:32:07.210 --> 01:32:12.010
+Jitendra K: Yeah, code scanning finding, having very low falls for a difference in, yeah.
+
+919
+01:32:18.330 --> 01:32:23.200
+Jitendra K: Yeah, that's correct. I mean, there are few, you can think of multiple use cases, for sure.
+
+920
+01:32:23.560 --> 01:32:27.220
+Jitendra K: If you're working on some domain, cybersecurity and…
+
+921
+01:32:27.740 --> 01:32:31.590
+Jitendra K: Network resilience, then definitely this code will help you too.
+
+922
+01:32:32.540 --> 01:32:33.900
+Jitendra K: further fine-tune.
+
+923
+01:32:37.860 --> 01:32:50.560
+Jitendra K: In anti-money laundering, do we need to tag the old cases as true positive and false? Yes, you have to maintain the database of the recent true positive and false positive. If somebody, as an investigator.
+
+924
+01:32:51.040 --> 01:32:54.380
+Jitendra K: Give you the label, then it's a golden source of data for you.
+
+925
+01:32:56.510 --> 01:33:03.260
+Jitendra K: I'm working on a similar rag by a security testing guide using OWSV, so far I put a simple rag to read,
+
+926
+01:33:03.860 --> 01:33:04.779
+Jitendra K: Sounds good, yeah.
+
+927
+01:33:05.300 --> 01:33:13.489
+Jitendra K: Yeah, so that, that is mean, you're talking about, the… Simple Q&A, but…
+
+928
+01:33:13.730 --> 01:33:15.560
+Jitendra K: Here we are talking about detection.
+
+929
+01:33:16.350 --> 01:33:22.470
+Jitendra K: It's not simple Q&A. Here we are talking about, taking a decision from agents.
+
+930
+01:33:24.320 --> 01:33:32.350
+Jitendra K: Right, so your user will log in and understand about OWSAP security guidelines, but here we're talking about agent is going to do
+
+931
+01:33:33.210 --> 01:33:37.279
+Jitendra K: The analysis, and then generate a response on the behalf of a user.
+
+932
+01:33:40.390 --> 01:33:42.510
+Jitendra K: So it's the autonomous agent example.
+
+933
+01:33:42.920 --> 01:33:44.620
+Jitendra K: Self-autonomous agent.
+
+934
+01:33:45.060 --> 01:33:47.160
+Jitendra K: Which can improve, for sure.
+
+935
+01:33:48.290 --> 01:33:49.260
+Jitendra K: with time.
+
+936
+01:33:58.500 --> 01:34:02.800
+Jitendra K: Alright, so let's move on to the orchestrator, and then we'll move on to a demo.
+
+937
+01:34:03.140 --> 01:34:09.500
+Jitendra K: So, Orchestrator have two components. The first component is your conditional routing pattern.
+
+938
+01:34:10.140 --> 01:34:15.230
+Jitendra K: So, conditional routing is very important, depending upon the type of
+
+939
+01:34:16.780 --> 01:34:20.330
+Jitendra K: Attack, and depending upon the type of scenarios.
+
+940
+01:34:20.540 --> 01:34:25.990
+Jitendra K: It will be able to call the right agent, and that's the whole purpose of… orchestration.
+
+941
+01:34:26.940 --> 01:34:29.830
+Jitendra K: Now, maybe I can show you a demo quickly.
+
+942
+01:35:14.330 --> 01:35:17.699
+Jitendra K: So you can see that it starts analyzing the query.
+
+943
+01:35:17.890 --> 01:35:19.579
+Jitendra K: In terms of the load.
+
+944
+01:35:26.380 --> 01:35:31.820
+Jitendra K: These are ignorable errors, I think there's some issue with my files, but V8 is working.
+
+945
+01:35:35.820 --> 01:35:40.290
+Jitendra K: Now, I will show you the reports as well, let it be generated. So, I have some…
+
+946
+01:35:40.490 --> 01:35:42.809
+Jitendra K: 10 scenarios to test.
+
+947
+01:35:55.020 --> 01:35:58.859
+Jitendra K: Routing is for agents, it's not for database routing.
+
+948
+01:36:00.140 --> 01:36:03.349
+Jitendra K: Routing is for tool users, and
+
+949
+01:36:04.200 --> 01:36:07.759
+Jitendra K: We are talking about intents in terms of routing criteria.
+
+950
+01:36:07.990 --> 01:36:09.559
+Jitendra K: Intent from the query.
+
+951
+01:36:22.380 --> 01:36:26.130
+Jitendra K: Okay, so let me explain this output. So, first…
+
+952
+01:36:26.280 --> 01:36:30.420
+Jitendra K: Try to see, let it be run, and then we'll talk about this.
+
+953
+01:36:51.200 --> 01:36:54.450
+Jitendra K: Okay, so let's try to look from the top.
+
+954
+01:37:08.210 --> 01:37:12.829
+Jitendra K: So basically, we have 4 analysts. Let me start from the top.
+
+955
+01:37:13.510 --> 01:37:16.710
+Jitendra K: The first analysis, here we're talking about SQL injection.
+
+956
+01:37:17.480 --> 01:37:20.590
+Jitendra K: So it is predictive sequel… attack.
+
+957
+01:37:21.360 --> 01:37:22.610
+Jitendra K: to be false.
+
+958
+01:37:22.750 --> 01:37:25.160
+Jitendra K: Within 21.2 seconds.
+
+959
+01:37:26.110 --> 01:37:29.280
+Jitendra K: And it is saying… 90%.
+
+960
+01:37:31.600 --> 01:37:32.410
+Jitendra K: Right?
+
+961
+01:37:32.950 --> 01:37:38.009
+Jitendra K: So, what it does is it tries to classify The return as low
+
+962
+01:37:39.730 --> 01:37:42.650
+Jitendra K: I would say low in terms of severity.
+
+963
+01:37:43.490 --> 01:37:46.019
+Jitendra K: And, the true label is in…
+
+964
+01:37:46.390 --> 01:37:50.590
+Jitendra K: Our data, and it is predicting the output as 1.
+
+965
+01:37:51.670 --> 01:37:54.609
+Jitendra K: So this is an incorrect prediction that has been done by agent.
+
+966
+01:37:55.860 --> 01:38:01.410
+Jitendra K: So basically, what it does is, it is trying to see that this should not be,
+
+967
+01:38:01.680 --> 01:38:03.969
+Jitendra K: The low, but it should be high.
+
+968
+01:38:05.130 --> 01:38:09.919
+Jitendra K: Now, it is trying to analyze a second type of attack, which is XSS Crypt Alert.
+
+969
+01:38:10.310 --> 01:38:18.119
+Jitendra K: And it is predicting… This with a higher confidence of 100. So accessors classify prompt list specific indicator.
+
+970
+01:38:18.880 --> 01:38:27.790
+Jitendra K: And it is saying clearly that the payload contains script tags and call to document cookie, where the strong indicators are cross-site referencing.
+
+971
+01:38:28.050 --> 01:38:33.559
+Jitendra K: And this could be a possible attack. So it is also giving you the reasoning that Wyatt is thinking that this is a…
+
+972
+01:38:34.130 --> 01:38:35.430
+Jitendra K: vulnerable scenario.
+
+973
+01:38:35.740 --> 01:38:38.930
+Jitendra K: Similarly, for this, it is also predicting correctly.
+
+974
+01:38:39.530 --> 01:38:47.130
+Jitendra K: generating the report with a… Reasoning and parameters. It talks about the code.
+
+975
+01:38:47.560 --> 01:38:49.490
+Jitendra K: Which is a part of your pattern.
+
+976
+01:38:49.900 --> 01:38:55.910
+Jitendra K: DDO's pattern, and then try to predict Why… why it is… Classifying this as?
+
+977
+01:38:56.590 --> 01:39:02.950
+Jitendra K: vulnerable scenario. Similarly, another thing, it is a prompt poisoning it.
+
+978
+01:39:03.300 --> 01:39:05.760
+Jitendra K: from… one user.
+
+979
+01:39:09.240 --> 01:39:25.759
+Jitendra K: Which is generating another vulnerable scenario for the system, and it is generating this. So overall accuracy that I have tested is 75%, so 4 out of 3 queries has been true positive. One is coming as wrong. That means this may require some more
+
+980
+01:39:25.870 --> 01:39:27.190
+Jitendra K: inspection.
+
+981
+01:39:27.700 --> 01:39:31.649
+Jitendra K: On the type of patterns, so it required more data to train this model.
+
+982
+01:39:32.270 --> 01:39:39.330
+Jitendra K: Similarly, it will generate some… Report, which can be analyzed by your…
+
+983
+01:39:39.950 --> 01:39:44.180
+Jitendra K: Your network analyzer agents, or network analyst person.
+
+984
+01:39:44.690 --> 01:39:51.120
+Jitendra K: Which will generate some executive summary and, some suspicious patterns that have been detected.
+
+985
+01:39:51.520 --> 01:39:57.900
+Jitendra K: And the type of classification, and what kind of scenarios in which the systems are vulnerable.
+
+986
+01:39:58.270 --> 01:40:02.930
+Jitendra K: Right? And also discussing some mitigation stuff, which may or may not be useful.
+
+987
+01:40:03.850 --> 01:40:05.200
+Jitendra K: And the conclusion.
+
+988
+01:40:06.170 --> 01:40:11.899
+Jitendra K: And then you can ask questions on the top of this report as well. So this is what I have done.
+
+989
+01:40:13.930 --> 01:40:19.980
+Jitendra K: But it is all, I mean, I'm just passing the static Prompts to my model.
+
+990
+01:40:20.910 --> 01:40:27.400
+Jitendra K: You can make it, real-time as well. You can create a panel and then ask questions to be taken care of by the user.
+
+991
+01:40:27.640 --> 01:40:28.710
+Jitendra K: on the report.
+
+992
+01:40:29.060 --> 01:40:31.770
+Jitendra K: So this is the classical rack pipeline.
+
+993
+01:40:33.490 --> 01:40:41.169
+Jitendra K: And, you can able to use this pipeline for your purpose, you can fine-tune this model.
+
+994
+01:40:41.280 --> 01:40:50.730
+Jitendra K: With more context, enrichment, And you can plug in more data points to cover wider scope of network attacks.
+
+995
+01:40:51.060 --> 01:40:52.960
+Jitendra K: And make it more customizable.
+
+996
+01:40:54.540 --> 01:40:57.010
+Jitendra K: So I will share this code with everyone.
+
+997
+01:40:57.170 --> 01:41:01.990
+Jitendra K: Let me share this… You can ease this code.
+
+998
+01:41:02.670 --> 01:41:04.030
+Jitendra K: replicate it.
+
+999
+01:41:05.630 --> 01:41:07.490
+Jitendra K: And do some more analysis.
+
+1000
+01:41:09.680 --> 01:41:12.720
+Jitendra K: But the crux of this is clear to everyone.
+
+1001
+01:41:12.880 --> 01:41:14.269
+Jitendra K: I'm assuming yes.
+
+1002
+01:41:18.020 --> 01:41:23.619
+Jitendra K: On the base of learning, are we predicting the new class? No, we are not predicting the new class.
+
+1003
+01:41:25.050 --> 01:41:30.109
+Jitendra K: So, because the model will start hallucinating pretty significantly.
+
+1004
+01:41:30.400 --> 01:41:34.240
+Jitendra K: So I'm not going to use new class, discovery.
+
+1005
+01:41:34.390 --> 01:41:36.339
+Jitendra K: Until and unless I have a data.
+
+1006
+01:41:37.100 --> 01:41:44.040
+Jitendra K: which talks about the emerging patterns in network. That way, I can be able to predict the new types of DDoS.
+
+1007
+01:41:44.150 --> 01:41:51.769
+Jitendra K: So there should be some… Baseline criteria to evaluate the agent. If you… if you create
+
+1008
+01:41:52.760 --> 01:41:58.879
+Jitendra K: If you rely just on LLMs to invent a new type of pattern, it will give you some fancy stories.
+
+1009
+01:42:00.930 --> 01:42:02.639
+Jitendra K: They are great in doing that.
+
+1010
+01:42:03.460 --> 01:42:08.829
+Jitendra K: They will create some hypothetical threat for you, and then start explaining that this threat could be
+
+1011
+01:42:09.380 --> 01:42:15.340
+Jitendra K: a million dollar loss and all. So, avoid that kind of… try it.
+
+1012
+01:42:20.890 --> 01:42:28.060
+Jitendra K: So instead of that, use something which is called, potential patterns that can fall.
+
+1013
+01:43:04.950 --> 01:43:06.470
+Jitendra K: Alright, so…
+
+1014
+01:43:10.750 --> 01:43:12.040
+Jitendra K: Thank you, Priya.
+
+1015
+01:43:13.870 --> 01:43:15.160
+Jitendra K: Thanks, broker.
+
+1016
+01:43:16.230 --> 01:43:24.769
+Jitendra K: So, this is RAC. I mean, we can play around with small use cases for sure with RAG, but this is how the agentic rack works.
+
+1017
+01:43:25.260 --> 01:43:32.009
+Jitendra K: So, when you look into enterprise-grade solution, so you have to think of a scale, you have to think of
+
+1018
+01:43:32.770 --> 01:43:39.760
+Jitendra K: the business scenarios that can fit to your purpose. Otherwise, a simple Q&A kind of rag.
+
+1019
+01:43:40.460 --> 01:43:43.650
+Jitendra K: There are plenty of racks available in market.
+
+1020
+01:43:44.470 --> 01:43:52.049
+Jitendra K: I'm not saying that they are not useful, but yes, we have to find out the big picture, the broader aspects of using the ride.
+
+1021
+01:43:52.350 --> 01:43:55.630
+Jitendra K: And this is one use case which I feel I should share with you.
+
+1022
+01:43:56.030 --> 01:43:57.920
+Jitendra K: And this will help you to…
+
+1023
+01:43:59.490 --> 01:44:02.880
+Jitendra K: think, beyond the conventional RAG method.
+
+1024
+01:44:03.420 --> 01:44:10.349
+Jitendra K: Now, I can show you some more demo on financial rags and stuff, that will definitely going to help you to understand.
+
+1025
+01:44:10.570 --> 01:44:16.960
+Jitendra K: the big picture, right? So, just go through the code, understand the flow. I've shared you the flow diagram.
+
+1026
+01:44:17.750 --> 01:44:23.380
+Jitendra K: The best way to understand the code is to… tweak it.
+
+1027
+01:44:23.570 --> 01:44:28.939
+Jitendra K: So you can add your own use cases, play around with it, Some of the…
+
+1028
+01:44:29.290 --> 01:44:34.739
+Jitendra K: parameters will remain static, like orchestrator in order to change. If you're adding some more agent.
+
+1029
+01:44:35.090 --> 01:44:42.430
+Jitendra K: You just need to go to this file, Where's that file?
+
+1030
+01:44:43.740 --> 01:44:47.730
+Jitendra K: My agent tick file, yeah, agent file. And you can change this…
+
+1031
+01:44:47.940 --> 01:44:51.300
+Jitendra K: If you want to change data, you can go to this file and change it.
+
+1032
+01:44:51.570 --> 01:44:55.889
+Jitendra K: If you would like to change the configuration from VBA to something else, you can change it.
+
+1033
+01:44:56.580 --> 01:44:59.509
+Jitendra K: Right, so this is a more modular way of writing the code.
+
+1034
+01:44:59.850 --> 01:45:08.160
+Jitendra K: So, modular port is always useful for two reasons. Once you can manage it, and also you can extend it.
+
+1035
+01:45:12.550 --> 01:45:23.669
+Jitendra K: the mitigation security case you explained well, and can relate to database repository, we are multi-year-old. Yeah, that's correct. So, in GitHub, if you are using
+
+1036
+01:45:23.930 --> 01:45:27.669
+Jitendra K: Some sort of security features, definitely, you can automate that.
+
+1037
+01:45:28.720 --> 01:45:31.600
+Jitendra K: What is significant of prompt I'm going to have shared?
+
+1038
+01:45:31.860 --> 01:45:34.150
+Jitendra K: No, the prompt is just for report writing.
+
+1039
+01:45:34.280 --> 01:45:40.470
+Jitendra K: So I've generated a report, now user can ask… instead of reading the full report, user is just doing selective.
+
+1040
+01:45:41.290 --> 01:45:42.230
+Jitendra K: Q&A.
+
+1041
+01:45:45.190 --> 01:45:46.539
+Jitendra K: So, the report…
+
+1042
+01:45:47.210 --> 01:45:52.190
+Jitendra K: Even the user's not very keen to read the reports, they are doing Q&A on the reports.
+
+1043
+01:46:02.590 --> 01:46:07.930
+Jitendra K: Yeah, I have, the architecture, so… I think,
+
+1044
+01:46:08.240 --> 01:46:12.260
+Jitendra K: Depends upon what kind of infrastructure you are using.
+
+1045
+01:46:12.650 --> 01:46:18.769
+Jitendra K: But overall, we are going to use, these bare minimum INFRA.
+
+1046
+01:46:18.970 --> 01:46:19.990
+Jitendra K: Corporate.
+
+1047
+01:46:25.380 --> 01:46:35.649
+Jitendra K: All right, so I think, we can take a break of 20 minutes. So once we come back, then we will discuss some more examples of agentic rack.
+
+1048
+01:46:36.620 --> 01:46:39.570
+Jitendra K: And, yep.
+
+1049
+01:46:40.240 --> 01:46:49.969
+Jitendra K: And we also need to… talk about memory management in conversation. Like, how to trace the agentic rack.
+
+1050
+01:46:52.070 --> 01:46:54.419
+Jitendra K: So when you're tracing the agentic reasoning.
+
+1051
+01:46:54.680 --> 01:47:00.370
+Jitendra K: what are the tools that you required, right? So, we are going to install Langsmith?
+
+1052
+01:47:00.800 --> 01:47:06.010
+Jitendra K: We are going to use Langesmith to trace agentic communication.
+
+1053
+01:47:07.160 --> 01:47:09.650
+Jitendra K: Langsmith, if you do not…
+
+1054
+01:47:09.810 --> 01:47:13.910
+Jitendra K: install in your system, please go and… sorry, if you do not create your own
+
+1055
+01:47:14.370 --> 01:47:17.739
+Jitendra K: enablement, please go and log into Langsmith.
+
+1056
+01:47:17.950 --> 01:47:21.530
+Jitendra K: And then use your API to operate.
+
+1057
+01:47:22.200 --> 01:47:26.979
+Jitendra K: So, let's take a 20 minutes break, and then we can start the session. Let me start a timer.
+
+1058
+01:47:30.700 --> 01:47:36.630
+Jitendra K: Database query, I haven't implemented that, but yes, you can do it with the help of RAG.
+
+1059
+01:47:43.680 --> 01:47:49.190
+Jitendra K: How to create a FinOps solution for your intake ecosystem as well as possible, which seems very ridiculous way.
+
+1060
+01:47:49.590 --> 01:47:56.360
+Jitendra K: Yeah, financial operation, is like KYC and, what are you called?
+
+1061
+01:47:56.630 --> 01:48:05.009
+Jitendra K: Due diligence… These are all automated now. I mean, many organizations trying to automate the paperwork.
+
+1062
+01:48:05.130 --> 01:48:07.490
+Jitendra K: Involved with the help of agents.
+
+1063
+01:48:08.200 --> 01:48:11.009
+Jitendra K: Right, from client onboarding to client offboarding.
+
+1064
+01:48:12.000 --> 01:48:17.429
+Jitendra K: So they are using a seamless way to use entities, graphs, and
+
+1065
+01:48:18.200 --> 01:48:20.659
+Jitendra K: Protocols to manage the client space.
+
+1066
+01:48:20.980 --> 01:48:30.150
+Jitendra K: Right, so… It's very systematically… It's a very growing area where everything is going to be managed by agents.
+
+1067
+01:48:35.370 --> 01:48:41.900
+Jitendra K: Okay, you're referring to Agentic Solution Record VIN opts to manage the costs associated with the use of agentic solution.
+
+1068
+01:48:42.680 --> 01:48:48.119
+Jitendra K: Cost is a subjective task. I don't think so any bank…
+
+1069
+01:48:48.400 --> 01:48:52.600
+Jitendra K: does not have that money to operate. They have money.
+
+1070
+01:48:53.010 --> 01:48:55.420
+Jitendra K: But their intents are not clear.
+
+1071
+01:48:59.540 --> 01:49:05.549
+Jitendra K: So, intent is what is lacking, right? They want system to be foolproof and all.
+
+1072
+01:49:06.260 --> 01:49:12.160
+Jitendra K: And then they… Experiment with the…
+
+1073
+01:49:12.540 --> 01:49:19.190
+Jitendra K: system boundaries, and then they take a call whether to invest or not. Or maybe they're waiting for something
+
+1074
+01:49:19.680 --> 01:49:21.360
+Jitendra K: Cheaper to be a peer.
+
+1075
+01:49:21.590 --> 01:49:23.630
+Jitendra K: Any sooner, and then they will…
+
+1076
+01:49:24.300 --> 01:49:27.740
+Jitendra K: utilize this tech stack. But many banks are doing it.
+
+1077
+01:49:28.550 --> 01:49:39.420
+Jitendra K: Of course, there are multiple banks, which is using it. Yeah, specifically retail and… Consumer investment as well.
+
+1078
+01:49:45.590 --> 01:49:48.769
+Jitendra K: Yeah, cyber, cybersecurity is always,
+
+1079
+01:49:49.720 --> 01:49:55.189
+Jitendra K: fundamental problem for… not just for banks, but for other…
+
+1080
+01:49:58.100 --> 01:50:05.270
+Jitendra K: insurance, as well as retail products. So this is, something generic solution that you can think of. Cybersecurity is…
+
+1081
+01:50:05.480 --> 01:50:08.010
+Jitendra K: Itself is a big… Ocean.
+
+1082
+01:50:12.510 --> 01:50:17.210
+Jitendra K: So, cybersecurity threat management, if you can do with the help of CyberRack.
+
+1083
+01:50:17.540 --> 01:50:22.110
+Jitendra K: That'll definitely going to help you. There's a paper that I would like to share.
+
+1084
+01:50:22.820 --> 01:50:26.149
+Jitendra K: Which will help you to understand more on this.
+
+1085
+01:50:26.910 --> 01:50:31.799
+Jitendra K: Just refer to this paper, and you will be able to see. This is what the CyberRag does.
+
+1086
+01:50:36.580 --> 01:50:39.739
+Jitendra K: And this is exactly what I've created as a solution.
+
+1087
+01:50:52.450 --> 01:51:00.029
+Jitendra K: Alright, so let's take a quick 20 minutes break, and then we can start the class again. Let's take a 20 minutes break.
+
+1088
+01:51:01.950 --> 01:51:02.870
+Jitendra K: Yep.
+
+1089
+02:11:31.450 --> 02:11:34.800
+Jitendra K: Hi guys, I hope you're back, and we have a quick confirmation.
+
+1090
+02:11:45.750 --> 02:11:46.889
+Jitendra K: Okay, great.
+
+1091
+02:11:49.310 --> 02:11:53.190
+Jitendra K: Okay, so thanks for being on time, so let's start with…
+
+1092
+02:11:53.880 --> 02:12:00.570
+Jitendra K: the remaining part of this tutorial. So, we will take one more example to understand the rack.
+
+1093
+02:12:00.780 --> 02:12:05.720
+Jitendra K: And this time, we are going to use 7 agents from financial perspective.
+
+1094
+02:12:06.500 --> 02:12:10.950
+Jitendra K: And this is, one of the fin racks that we are going to determine.
+
+1095
+02:12:11.380 --> 02:12:13.790
+Jitendra K: So the core architecture would be…
+
+1096
+02:12:14.370 --> 02:12:16.609
+Jitendra K: Let me show you the architecture.
+
+1097
+02:12:18.340 --> 02:12:23.279
+Jitendra K: Very similar to the use case that we have just discovered, but slightly financial-specific.
+
+1098
+02:12:23.760 --> 02:12:25.800
+Jitendra K: So we are going to use,
+
+1099
+02:12:26.520 --> 02:12:30.959
+Jitendra K: Multiple agents, which will be specialized into
+
+1100
+02:12:31.310 --> 02:12:35.060
+Jitendra K: their domain, including capital, capital, basal.
+
+1101
+02:12:35.310 --> 02:12:40.929
+Jitendra K: EML, KYC process, ESG, which is Environment and safety governance.
+
+1102
+02:12:41.180 --> 02:12:43.929
+Jitendra K: Operational Risk, Market Conduct, and DORA.
+
+1103
+02:12:44.390 --> 02:12:47.599
+Jitendra K: So, these are 7 agents that we're going to use.
+
+1104
+02:12:49.040 --> 02:12:55.590
+Jitendra K: So, the first and foremost thing is your user, which will write some query based upon which the intent router
+
+1105
+02:12:55.910 --> 02:13:00.579
+Jitendra K: We'll classify, decompose the route into these subagents.
+
+1106
+02:13:00.750 --> 02:13:03.510
+Jitendra K: And then, we are going to use,
+
+1107
+02:13:03.850 --> 02:13:10.099
+Jitendra K: Some sort of traces from the agent to identify how well It generates an answer.
+
+1108
+02:13:10.210 --> 02:13:14.460
+Jitendra K: And then it will use this particular threshold to determine
+
+1109
+02:13:14.990 --> 02:13:20.549
+Jitendra K: And evaluate the faithfulness, relevance, correctness, and completeness of the answer, and then generate an answer.
+
+1110
+02:13:21.040 --> 02:13:33.670
+Jitendra K: So this is the agent that we're going to use. So again, this agent will use, several specialized agents, capital basel, AML, KYC, ESG, climate, operational records, and market conduct.
+
+1111
+02:13:33.890 --> 02:13:43.420
+Jitendra K: And data resilience, which is called DORA, and Multiple Domain Synthesizer, which is an intent router classifier, using price…
+
+1112
+02:13:44.390 --> 02:13:46.890
+Jitendra K: Using the query parameters.
+
+1113
+02:13:47.140 --> 02:13:52.830
+Jitendra K: So the query decomposition is very important. Let's say the complex query, like, compare basal…
+
+1114
+02:13:53.420 --> 02:14:00.730
+Jitendra K: credit risk versus FRTB market risk. So it has to be… look for two separate fields.
+
+1115
+02:14:01.060 --> 02:14:07.239
+Jitendra K: So it has to perform the search individually across both. And then we are going to use some
+
+1116
+02:14:08.110 --> 02:14:14.709
+Jitendra K: Evaluations using faithfulness, relevance, correctness, completeness to generate an output.
+
+1117
+02:14:15.710 --> 02:14:17.840
+Jitendra K: So this is what we are going to do.
+
+1118
+02:14:18.250 --> 02:14:24.460
+Jitendra K: And, let me show you the code now. Let's try to run this.
+
+1119
+02:14:34.030 --> 02:14:35.690
+Jitendra K: So this is my code.
+
+1120
+02:14:42.520 --> 02:14:46.349
+Jitendra K: First, let me install a few libraries.
+
+1121
+02:15:22.200 --> 02:15:25.810
+Jitendra K: No, I would like to start my OpenAI key.
+
+1122
+02:16:02.000 --> 02:16:05.870
+Jitendra K: Also, let me go with my Langsmith API.
+
+1123
+02:17:31.450 --> 02:17:33.800
+Jitendra K: Yeah, I'll share that file once again.
+
+1124
+02:17:34.670 --> 02:17:38.600
+Jitendra K: Let me just flust… Fix this…
+
+1125
+02:17:39.360 --> 02:17:43.330
+Jitendra K: Okay, so this is the two API key that I'm going to use, and…
+
+1126
+02:18:01.809 --> 02:18:05.849
+Jitendra K: Yeah, pretty much this is what we need. Let me just try and test.
+
+1127
+02:20:45.980 --> 02:20:49.190
+Jitendra K: I think it is getting heavy, that's, you know, it is taking time.
+
+1128
+02:21:26.550 --> 02:21:31.540
+Jitendra K: No, I think it should, open automatically, I cannot see any link generated.
+
+1129
+02:21:42.810 --> 02:21:45.119
+Jitendra K: The loading time is high for this.
+
+1130
+02:21:50.830 --> 02:21:52.559
+Jitendra K: Okay, now it came.
+
+1131
+02:23:29.950 --> 02:23:32.490
+Jitendra K: Okay, I think my,
+
+1132
+02:23:44.970 --> 02:23:49.040
+Jitendra K: My system setting is blocking it, because of a tool calling.
+
+1133
+02:24:11.920 --> 02:24:15.619
+Jitendra K: Okay, I have a workaround for it. Maybe I will go with terminal.
+
+1134
+02:24:16.730 --> 02:24:18.600
+Jitendra K: Rather than UI-based approach.
+
+1135
+02:29:39.090 --> 02:29:42.309
+Jitendra K: Okay, this is a Maramudi error, so this is…
+
+1136
+02:29:43.020 --> 02:29:47.559
+Jitendra K: Yeah, this is getting into some memory error because of, huge chunking.
+
+1137
+02:29:48.510 --> 02:29:53.049
+Jitendra K: I have to reduce the document to some extent, and then rerun this.
+
+1138
+02:30:03.090 --> 02:30:08.870
+Jitendra K: So Chrome ID is not able to manage. That's the whole drawback of open source vector stores.
+
+1139
+02:30:09.530 --> 02:30:14.249
+Jitendra K: You can see that this is… Failing because of that.
+
+1140
+02:30:27.910 --> 02:30:31.849
+Jitendra K: Even the Streamlit API is also entering it into memory error.
+
+1141
+02:30:35.050 --> 02:30:36.509
+Jitendra K: I can fix this.
+
+1142
+02:30:39.430 --> 02:30:41.230
+Jitendra K: There's some infinite rule.
+
+1143
+02:31:58.870 --> 02:32:05.169
+Jitendra K: Okay, so the issue is with the chunking, and there's an finite loop in the chunking which is creating this issue.
+
+1144
+02:32:05.860 --> 02:32:09.250
+Jitendra K: So, let me just use a new one.
+
+1145
+02:33:28.230 --> 02:33:30.260
+Jitendra K: Okay, so now I can run this.
+
+1146
+02:33:32.470 --> 02:33:35.979
+Jitendra K: So I will still go with the terminal-based query.
+
+1147
+02:33:36.500 --> 02:33:38.070
+Jitendra K: Rather than tool-based curry.
+
+1148
+02:33:45.330 --> 02:33:47.930
+Jitendra K: So we can compile the main function.
+
+1149
+02:34:01.950 --> 02:34:04.829
+Jitendra K: And this architecture is easier to return.
+
+1150
+02:34:05.580 --> 02:34:10.889
+Jitendra K: Retrieving some information from its own… it is using its own vector store, using indexes.
+
+1151
+02:34:15.080 --> 02:34:16.430
+Jitendra K: Yeah, this work.
+
+1152
+02:34:20.310 --> 02:34:24.609
+Jitendra K: Okay, so I will explain the architecture now, what we are trying to do.
+
+1153
+02:34:27.650 --> 02:34:30.679
+Jitendra K: Let me first try to enable Streamlit as well.
+
+1154
+02:34:36.660 --> 02:34:39.040
+Jitendra K: So, let me just try Streamlit…
+
+1155
+02:36:04.140 --> 02:36:12.000
+Jitendra K: Yes, so… Thank you, I think that's the whole crux of this class, so we have to go… as…
+
+1156
+02:36:13.040 --> 02:36:14.650
+Jitendra K: Conventional as we can.
+
+1157
+02:36:24.140 --> 02:36:30.679
+Jitendra K: Okay, now it is working, ChromaDB is working, Langan Smith is working, Agents is working, Langraph is compiled.
+
+1158
+02:36:31.260 --> 02:36:36.190
+Jitendra K: So I can use some demo queries… some multi-hop queries.
+
+1159
+02:36:37.400 --> 02:36:41.990
+Jitendra K: Which is, expecting the capital agent to be called.
+
+1160
+02:36:42.350 --> 02:36:48.879
+Jitendra K: And it is multi-hop, and the query is why it is challenging, because it requires a combination of
+
+1161
+02:36:49.600 --> 02:36:57.199
+Jitendra K: C, T1 plus CCB and CCYB, and some GSIB surcharges across paragraphs.
+
+1162
+02:36:58.370 --> 02:37:04.340
+Jitendra K: So the query is, what is the minimum CEFT capital requirement under Basel II, including all buffers, and how much
+
+1163
+02:37:04.880 --> 02:37:08.989
+Jitendra K: how to apply them in G… A GSIB.
+
+1164
+02:37:09.440 --> 02:37:14.580
+Jitendra K: Which is one of the, one of the processes which… Bank have.
+
+1165
+02:37:26.530 --> 02:37:28.749
+Jitendra K: Fill some we should do…
+
+1166
+02:37:41.320 --> 02:37:45.699
+Jitendra K: Okay, so as soon as it… okay, there's an issue with the app, I think.
+
+1167
+02:37:45.960 --> 02:37:51.080
+Jitendra K: It is working fine in the console, but let's go with the console itself.
+
+1168
+02:38:18.420 --> 02:38:23.719
+Jitendra K: Okay, now let me explain what are the things that is there, inside this code, and how the…
+
+1169
+02:38:23.990 --> 02:38:25.890
+Jitendra K: Systematic REG is working.
+
+1170
+02:38:26.330 --> 02:38:32.120
+Jitendra K: And what are the external calls that, each agents are doing when it is trying to generate an answer?
+
+1171
+02:38:32.360 --> 02:38:36.849
+Jitendra K: So what is the sequence of execution? That is something which we have to understand from this code.
+
+1172
+02:38:37.130 --> 02:38:43.170
+Jitendra K: So there are several tools involved. The first tool is your vector store, which is ChromaDB now.
+
+1173
+02:38:43.500 --> 02:38:53.769
+Jitendra K: The second thing is we are using something called… Langsmith for maintaining the Records of conversation and the…
+
+1174
+02:38:54.000 --> 02:38:56.260
+Jitendra K: The flow of execution.
+
+1175
+02:38:56.500 --> 02:39:00.470
+Jitendra K: the memory traces, etc. So, Langsmith is a great tool for doing
+
+1176
+02:39:01.090 --> 02:39:08.059
+Jitendra K: aIOps or Agentic Ops, so you can use Langosmith for that purpose. I'm just using the same purpose
+
+1177
+02:39:08.970 --> 02:39:15.029
+Jitendra K: for that. So let's say if I have a query, the query is, what is the minimum CET requirement during
+
+1178
+02:39:16.020 --> 02:39:23.100
+Jitendra K: During, including all buffers. So, first and foremost thing, it will go and hit my main.ui function.
+
+1179
+02:39:23.270 --> 02:39:26.240
+Jitendra K: where I'm going to invoke the graph, nodes.
+
+1180
+02:39:26.430 --> 02:39:29.100
+Jitendra K: And it will first go to the router intent.
+
+1181
+02:39:29.210 --> 02:39:30.130
+Jitendra K: Agent.
+
+1182
+02:39:30.490 --> 02:39:38.969
+Jitendra K: So to understand the intent of the query by decomposing the parameters, so here I'm saying I would like to access capital
+
+1183
+02:39:39.120 --> 02:39:44.950
+Jitendra K: market, With a multi-hop query intent as… 95%.
+
+1184
+02:39:45.210 --> 02:39:53.680
+Jitendra K: It's a primary capital market, complexity is multiple hop, confidence is 95%, and then these are the documented principles which may be required.
+
+1185
+02:39:54.810 --> 02:40:00.569
+Jitendra K: It will execute the agent which is dedicated to capital market and potential agent.
+
+1186
+02:40:00.730 --> 02:40:06.750
+Jitendra K: And then use the records, which is a part of my ChromaDB indexes, which is dedicated to this agent.
+
+1187
+02:40:07.240 --> 02:40:14.320
+Jitendra K: And then I'm using a maximum margin relevance, that means I'm trying to search for broader Rather than…
+
+1188
+02:40:14.440 --> 02:40:18.750
+Jitendra K: same, same answers from all documents. I'm looking for
+
+1189
+02:40:19.990 --> 02:40:24.080
+Jitendra K: depth and breadth, that means I'm looking for more wider coverage of answer.
+
+1190
+02:40:25.390 --> 02:40:30.270
+Jitendra K: So once the answer has been generated, then I will check the quality, and then generate a result.
+
+1191
+02:40:30.400 --> 02:40:32.390
+Jitendra K: So the idea here is,
+
+1192
+02:40:33.010 --> 02:40:36.719
+Jitendra K: The intent is… the intent router is a brain.
+
+1193
+02:40:36.860 --> 02:40:38.790
+Jitendra K: That is the single most important.
+
+1194
+02:40:40.100 --> 02:40:41.700
+Jitendra K: decision-making point.
+
+1195
+02:40:41.840 --> 02:40:48.220
+Jitendra K: Where I'm using GPT-40 Mini that classifies the query into one of the seven domains before retrieval happened.
+
+1196
+02:40:49.160 --> 02:40:55.600
+Jitendra K: And then, we are also using the agent that is dedicated to perform this analysis.
+
+1197
+02:40:55.830 --> 02:40:59.529
+Jitendra K: We are decomposing a query, detect the complex route.
+
+1198
+02:40:59.980 --> 02:41:04.469
+Jitendra K: and break this up into subquery. Each subquery run a separate ChromaDB search.
+
+1199
+02:41:06.050 --> 02:41:08.330
+Jitendra K: And merge the result back to the…
+
+1200
+02:41:09.770 --> 02:41:17.790
+Jitendra K: centralized agent. And then we are using the MMR that will diversify the five rank document.
+
+1201
+02:41:18.250 --> 02:41:21.699
+Jitendra K: And generate a quality with a higher confidence.
+
+1202
+02:41:22.090 --> 02:41:26.320
+Jitendra K: Now, I can check the response in my Langsmith API as well.
+
+1203
+02:41:26.880 --> 02:41:28.610
+Jitendra K: where I have…
+
+1204
+02:41:32.520 --> 02:41:33.979
+Jitendra K: Creating my account.
+
+1205
+02:41:39.420 --> 02:41:41.689
+Jitendra K: I can go back to my Langesmith.
+
+1206
+02:41:43.330 --> 02:41:44.540
+Jitendra K: And this is…
+
+1207
+02:41:52.340 --> 02:41:56.549
+Jitendra K: The first run has failed, so it is showing failure 3 times.
+
+1208
+02:41:57.050 --> 02:42:00.200
+Jitendra K: Now, this is the output that we are getting. So you can trace it.
+
+1209
+02:42:00.970 --> 02:42:05.849
+Jitendra K: Using Langsmith, you can show the attribute of the query.
+
+1210
+02:42:06.540 --> 02:42:10.100
+Jitendra K: what attribute it is using. You can actually see the output.
+
+1211
+02:42:10.690 --> 02:42:12.999
+Jitendra K: You can see the input, you can see the feedback.
+
+1212
+02:42:14.130 --> 02:42:15.660
+Jitendra K: Second, user feedback.
+
+1213
+02:42:16.720 --> 02:42:24.750
+Jitendra K: a user… And it will use further to inspect what exactly this, this…
+
+1214
+02:42:25.540 --> 02:42:28.790
+Jitendra K: tool is doing, right, from multiple years of feedback.
+
+1215
+02:42:43.930 --> 02:42:46.589
+Jitendra K: So this is a great tool for doing the debugging.
+
+1216
+02:42:46.890 --> 02:42:50.069
+Jitendra K: You can able to… we'll discuss this in detail, by the way.
+
+1217
+02:42:50.810 --> 02:42:54.729
+Jitendra K: So just an overview that this tool will capture all your…
+
+1218
+02:42:55.560 --> 02:42:58.140
+Jitendra K: Runs with the proper fields, and…
+
+1219
+02:42:58.250 --> 02:43:00.950
+Jitendra K: Details of the cost functions.
+
+1220
+02:43:01.690 --> 02:43:07.210
+Jitendra K: So… In a nutshell, what we are trying to do is, we are using a series of 7 agents.
+
+1221
+02:43:07.560 --> 02:43:10.620
+Jitendra K: And the sales agent has been defined based upon
+
+1222
+02:43:11.200 --> 02:43:18.430
+Jitendra K: Each type, and depending upon the type of intent, it will route the query to the appropriate agent.
+
+1223
+02:43:28.540 --> 02:43:33.680
+Jitendra K: The SAC file, yeah, there's a tool called Mermaid which will help you to create this kind of file.
+
+1224
+02:43:44.850 --> 02:43:52.629
+Jitendra K: So, Mermaid is also, You can also import in Python, and then you can create and plot.
+
+1225
+02:43:54.340 --> 02:43:58.730
+Jitendra K: So, after every Langsmith, sorry, Lang graph.
+
+1226
+02:43:59.420 --> 02:44:05.150
+Jitendra K: state management, the final state you can pass into Mermaid flow, and then it will generate a SVG file.
+
+1227
+02:44:16.540 --> 02:44:21.890
+Jitendra K: So, basically, what we are trying to do here is, we are using a fin rag, which is having
+
+1228
+02:44:22.760 --> 02:44:29.929
+Jitendra K: the… 7 agents, which are working together, and as I mentioned, these agents are specialized.
+
+1229
+02:44:32.180 --> 02:44:34.270
+Jitendra K: And we are also using,
+
+1230
+02:44:35.900 --> 02:44:41.729
+Jitendra K: We are also using LLM as a judge to evaluate the faithfulness, relevance, correctness, and completeness.
+
+1231
+02:44:41.960 --> 02:44:46.660
+Jitendra K: But in future, we are going to replace this with… Ragas and Deepaybell.
+
+1232
+02:44:47.210 --> 02:44:54.389
+Jitendra K: So we're going to use functions rather than relying on agents to evaluate itself, right? So we will use our mathematical
+
+1233
+02:44:54.740 --> 02:44:58.210
+Jitendra K: Models and functions to replace this hole.
+
+1234
+02:44:58.770 --> 02:44:59.719
+Jitendra K: I'm as a judge.
+
+1235
+02:45:00.640 --> 02:45:07.959
+Jitendra K: So, we will not relying on LLM as a judge by itself, because LLM as a judge will be too much
+
+1236
+02:45:09.320 --> 02:45:16.590
+Jitendra K: over… I might say, over-emphasis on LLM-based calibration criterias.
+
+1237
+02:45:17.330 --> 02:45:22.689
+Jitendra K: So it is always advisable not to use LLM as a judge when you're evaluating the response of the
+
+1238
+02:45:23.860 --> 02:45:25.720
+Jitendra K: prompts.
+
+1239
+02:45:25.940 --> 02:45:27.960
+Jitendra K: You need to create your own functions.
+
+1240
+02:45:28.620 --> 02:45:30.519
+Jitendra K: And generate a relevant answer.
+
+1241
+02:45:53.970 --> 02:45:59.310
+Jitendra K: Alright, so… I will share this code with you guys as well, so that you can run it.
+
+1242
+02:46:00.450 --> 02:46:02.820
+Jitendra K: Get a feeling of the sport.
+
+1243
+02:46:07.690 --> 02:46:13.440
+Jitendra K: So again, a quick recap what we have learned in this class. We understand how the agentic RAT pipeline works.
+
+1244
+02:46:13.780 --> 02:46:18.979
+Jitendra K: And how it is differentiated from the NAVE rack that we have understood in the last tutorial.
+
+1245
+02:46:19.640 --> 02:46:28.710
+Jitendra K: Now, this is very important that, we are going to use, not just LLM as a judge, but also we are going to evaluate something called RAGA's Evaluation Framework.
+
+1246
+02:46:29.140 --> 02:46:32.119
+Jitendra K: Which will able to give us these scores.
+
+1247
+02:46:32.530 --> 02:46:38.630
+Jitendra K: So, mathematically, if I have to describe what is faithfulness, The faithfulness is nothing but…
+
+1248
+02:46:38.880 --> 02:46:42.879
+Jitendra K: It will measure the factual consistency of the generated answer.
+
+1249
+02:46:43.300 --> 02:46:48.670
+Jitendra K: In the context of the query. So, faithfulness is supported claim divided by total claims.
+
+1250
+02:46:49.850 --> 02:46:55.260
+Jitendra K: That means, claims means, the path that you're using for search.
+
+1251
+02:46:55.800 --> 02:47:00.050
+Jitendra K: Answer relevance means it will take an aggregation.
+
+1252
+02:47:00.990 --> 02:47:04.519
+Jitendra K: of the original query via embedding similarity search.
+
+1253
+02:47:04.910 --> 02:47:09.390
+Jitendra K: And then try to see how many… answers…
+
+1254
+02:47:10.050 --> 02:47:12.079
+Jitendra K: Are aligned to the original one.
+
+1255
+02:47:14.930 --> 02:47:21.109
+Jitendra K: So what it does, it will generate an question from the answer and measure the alignment with the original query via omitting similarity.
+
+1256
+02:47:22.310 --> 02:47:28.870
+Jitendra K: context precision, It's a weighted distribution of… Relevant chunks appear in the…
+
+1257
+02:47:29.260 --> 02:47:33.010
+Jitendra K: Answer as compared to the ground truth that you're passing.
+
+1258
+02:47:34.530 --> 02:47:38.969
+Jitendra K: Context recall, which is a faction of ground truth claims.
+
+1259
+02:47:40.540 --> 02:47:42.200
+Jitendra K: Which is attributed to the…
+
+1260
+02:47:42.650 --> 02:47:47.429
+Jitendra K: last one, retrieve Chung. So I will explain this again, when we are discussing RAGAS.
+
+1261
+02:47:47.940 --> 02:47:56.020
+Jitendra K: So basically… When you're implementing a rack pipeline, you should be very, very instrumental in determining the thresholds.
+
+1262
+02:47:56.480 --> 02:47:58.710
+Jitendra K: What is your target threshold?
+
+1263
+02:47:59.590 --> 02:48:04.410
+Jitendra K: And for that, you have to experiment and also work with your business users, not just…
+
+1264
+02:48:05.540 --> 02:48:13.269
+Jitendra K: With your developer, but you have to work with your business user to understand their requirement and what they say as a correct answer.
+
+1265
+02:48:13.690 --> 02:48:16.359
+Jitendra K: That's why it is slightly subjective.
+
+1266
+02:48:17.530 --> 02:48:19.670
+Jitendra K: to our business propositions.
+
+1267
+02:48:24.080 --> 02:48:33.180
+Jitendra K: One question on the graph, after intent classification, there could be multiple gradient path needed simultaneous. How's the line graph achieving that? We are using intent classifier.
+
+1268
+02:48:33.660 --> 02:48:35.290
+Jitendra K: Module for doing this.
+
+1269
+02:48:35.440 --> 02:48:37.539
+Jitendra K: So we have an intent classification module.
+
+1270
+02:48:38.280 --> 02:48:45.649
+Jitendra K: So, intent classification module will… Use to identify the query route.
+
+1271
+02:48:46.210 --> 02:48:48.509
+Jitendra K: And then generate an answer on the top of it.
+
+1272
+02:48:53.830 --> 02:48:55.850
+Jitendra K: So this is the path of your query.
+
+1273
+02:48:58.430 --> 02:49:01.839
+Jitendra K: It will go to first intent, route intent classification.
+
+1274
+02:49:12.750 --> 02:49:15.070
+Jitendra K: So this is a node, that means it's an agent.
+
+1275
+02:49:15.550 --> 02:49:20.159
+Jitendra K: And then it will look for primary, secondary categories, and then
+
+1276
+02:49:20.390 --> 02:49:24.409
+Jitendra K: Using LLM to generate a reasoning around the topic of the query.
+
+1277
+02:49:24.860 --> 02:49:28.169
+Jitendra K: And then, based upon the topic, it will hit your vector store.
+
+1278
+02:49:29.160 --> 02:49:36.360
+Jitendra K: That is required to generate an answer. If it is required two intent, primary and secondary, it'll use two vector indexes.
+
+1279
+02:49:38.290 --> 02:49:44.609
+Jitendra K: And GraphRag, line graph that we are using is just to maintain the states of those node management.
+
+1280
+02:49:45.330 --> 02:49:47.150
+Jitendra K: It's nothing to do with intent.
+
+1281
+02:49:47.340 --> 02:49:49.509
+Jitendra K: Langraph has nothing to do with intent.
+
+1282
+02:49:51.010 --> 02:49:53.949
+Jitendra K: Intent classification itself is an agent.
+
+1283
+02:49:57.760 --> 02:50:03.119
+Jitendra K: with Langraph, Lang, the chain does not matter.
+
+1284
+02:50:03.880 --> 02:50:06.289
+Jitendra K: You can replace it with crew as well later.
+
+1285
+02:50:22.120 --> 02:50:28.200
+Jitendra K: Is this, tutorials clear to everyone, guys? Are you… Are you catching this?
+
+1286
+02:50:28.660 --> 02:50:31.230
+Jitendra K: stuff, how to create RAT pipeline now?
+
+1287
+02:50:32.130 --> 02:50:33.920
+Jitendra K: Anything that you would like to ask?
+
+1288
+02:50:50.840 --> 02:50:56.939
+Jitendra K: Yeah, so you will have access to README files, so please go through it, and you will see each and every
+
+1289
+02:50:57.040 --> 02:50:58.460
+Jitendra K: Thing that is there.
+
+1290
+02:51:00.970 --> 02:51:10.660
+Jitendra K: Yeah, some query can be, so let's say if I'm asking… Two or three different, questions on…
+
+1291
+02:51:12.840 --> 02:51:15.840
+Jitendra K: the mix of… Let's say I'm saying that
+
+1292
+02:51:16.060 --> 02:51:20.519
+Jitendra K: how many clients are there, which is coming under EML scenarios, which is…
+
+1293
+02:51:21.200 --> 02:51:24.450
+Jitendra K: Increasing the operational risk, as far as basel.
+
+1294
+02:51:24.840 --> 02:51:26.839
+Jitendra K: That is a multi-cop query.
+
+1295
+02:51:31.930 --> 02:51:35.970
+Jitendra K: Is there any limit to how many nodes that can be attached to the intent router?
+
+1296
+02:51:36.250 --> 02:51:40.460
+Jitendra K: No, there's no such limit, but in general, it depends upon your…
+
+1297
+02:51:41.600 --> 02:51:46.209
+Jitendra K: Data management and, indexing technique as well.
+
+1298
+02:51:46.380 --> 02:51:49.639
+Jitendra K: If you're adding too many nodes without performing
+
+1299
+02:51:50.250 --> 02:51:52.950
+Jitendra K: Data curation, it will fail drastically.
+
+1300
+02:51:56.240 --> 02:52:06.289
+Jitendra K: That is the router logic. Router is very important. Router will be the core of your agentic AI rack pipeline. If you do not implement router.
+
+1301
+02:52:06.610 --> 02:52:09.510
+Jitendra K: Properly, all your system will…
+
+1302
+02:52:10.090 --> 02:52:15.959
+Jitendra K: crash at runtime, for sure, because you cannot control the query parameter from the user, right?
+
+1303
+02:52:16.470 --> 02:52:20.330
+Jitendra K: So, user can write anything, whatever they want.
+
+1304
+02:52:21.520 --> 02:52:29.469
+Jitendra K: So your router will crash in that part. If you do not maintain proper indexes, proper data management, proper caching.
+
+1305
+02:52:30.000 --> 02:52:31.669
+Jitendra K: It will fail drastically.
+
+1306
+02:52:37.850 --> 02:52:41.400
+Jitendra K: Yeah, it's a centralized orchestrator, which will…
+
+1307
+02:52:42.280 --> 02:52:44.270
+Jitendra K: So it's a starting of your note.
+
+1308
+02:52:46.620 --> 02:52:51.080
+Jitendra K: Yeah, multi-hop queries… That's the whole purpose of using…
+
+1309
+02:52:51.870 --> 02:52:56.150
+Jitendra K: Agentic AI, sorry, Agentic Rag. Otherwise, we are happy with NaveRag.
+
+1310
+02:52:56.900 --> 02:53:00.350
+Jitendra K: Regenerating some answer to please human, right?
+
+1311
+02:53:01.060 --> 02:53:04.389
+Jitendra K: if… We fall into that trap.
+
+1312
+02:53:04.550 --> 02:53:10.919
+Jitendra K: that, it is generating something, whether it is good, bad, I don't care, so then this is not a…
+
+1313
+02:53:12.710 --> 02:53:16.300
+Jitendra K: I mean, we do not really require the genetic rag in that case, right?
+
+1314
+02:53:17.820 --> 02:53:20.340
+Jitendra K: Agentech rag is much, much…
+
+1315
+02:53:21.260 --> 02:53:28.809
+Jitendra K: sophisticated compared to NAVE rag. And then you will see the graph rag even more Prominent and agentic, right?
+
+1316
+02:53:35.400 --> 02:53:40.370
+Jitendra K: Multidomain synthesis means, Combination of 2 or 3 different agents.
+
+1317
+02:53:40.630 --> 02:53:46.739
+Jitendra K: two different… Domain experts which are talking to each other.
+
+1318
+02:53:47.520 --> 02:53:50.369
+Jitendra K: Because the query is coming from both
+
+1319
+02:53:51.130 --> 02:53:53.979
+Jitendra K: This part and this part, so both have two active.
+
+1320
+02:53:54.310 --> 02:53:56.019
+Jitendra K: So this will active, and then…
+
+1321
+02:53:56.500 --> 02:53:59.609
+Jitendra K: This agent will active, and this agent will act active.
+
+1322
+02:54:00.030 --> 02:54:01.560
+Jitendra K: And then they will…
+
+1323
+02:54:01.920 --> 02:54:07.730
+Jitendra K: not collaborate together, they are not talking to each other, they are just providing the data back.
+
+1324
+02:54:08.830 --> 02:54:13.120
+Jitendra K: to the… this layer, and then I will use…
+
+1325
+02:54:14.130 --> 02:54:17.140
+Jitendra K: This, layer to generate the output.
+
+1326
+02:54:20.180 --> 02:54:23.600
+Jitendra K: That means a supervisory pattern, so supervisory…
+
+1327
+02:54:24.170 --> 02:54:27.450
+Jitendra K: In the supervisor pattern, you're going to have delegates.
+
+1328
+02:54:28.150 --> 02:54:37.429
+Jitendra K: Delegate 1 will work on their task, delegate 2 will work on their task, and at the end of the day, they are going to send a task result both to their supervisor.
+
+1329
+02:54:37.620 --> 02:54:41.220
+Jitendra K: And he will compile the outcome, and then send it back to the user.
+
+1330
+02:54:43.290 --> 02:54:44.979
+Jitendra K: So these two delegate does not…
+
+1331
+02:54:45.540 --> 02:54:53.029
+Jitendra K: communicate with each other. But we'll talk about how, if we create a communication between these two delegates, things will start changing.
+
+1332
+02:55:06.450 --> 02:55:09.690
+Jitendra K: Alright, any further questions, guys, before we wind up for today?
+
+1333
+02:55:19.710 --> 02:55:25.350
+Jitendra K: Yeah, definitely. So, it required multiple pieces to be worked together.
+
+1334
+02:55:26.330 --> 02:55:31.420
+Jitendra K: So… He required a proper observatory pipeline.
+
+1335
+02:55:31.900 --> 02:55:39.340
+Jitendra K: It required… Good amount of, database handholding.
+
+1336
+02:55:39.810 --> 02:55:43.109
+Jitendra K: He required human feedback. He required…
+
+1337
+02:55:44.060 --> 02:55:46.170
+Jitendra K: Proper tax stack to be developed.
+
+1338
+02:55:46.380 --> 02:55:49.589
+Jitendra K: you will see that true AI will have limitation
+
+1339
+02:55:49.850 --> 02:55:52.329
+Jitendra K: You will see Autogen will have a limitation.
+
+1340
+02:55:52.810 --> 02:55:54.650
+Jitendra K: then you have to use language.
+
+1341
+02:55:55.230 --> 02:55:56.030
+Jitendra K: Right?
+
+1342
+02:55:56.400 --> 02:56:01.279
+Jitendra K: So, it depends, really, on your use case and the kind of
+
+1343
+02:56:01.410 --> 02:56:03.450
+Jitendra K: Pollution that you're trying to provision.
+
+1344
+02:56:34.480 --> 02:56:40.190
+Jitendra K: No, intent classification… dead router is not a supervisor, it's a… just,
+
+1345
+02:56:41.550 --> 02:56:46.719
+Jitendra K: One agent which is trying to route And select the right agents.
+
+1346
+02:56:50.410 --> 02:56:53.300
+Jitendra K: The supervisor agent will collect the data.
+
+1347
+02:57:02.500 --> 02:57:05.520
+Jitendra K: Alright, any further question, guys, before we wind up for today?
+
+1348
+02:57:08.890 --> 02:57:11.830
+Jitendra K: Yeah, so I'm using, my Claude skills.
+
+1349
+02:57:12.310 --> 02:57:14.630
+Jitendra K: Agents to develop some slides.
+
+1350
+02:57:15.400 --> 02:57:17.460
+Jitendra K: I have a Clawed scale agent.
+
+1351
+02:57:20.240 --> 02:57:22.989
+Jitendra K: Yeah, Node can be a tool already, again, yes.
+
+1352
+02:57:55.560 --> 02:58:01.649
+Jitendra K: Yes, the, yeah, agent is, clawed skills have multiple agents.
+
+1353
+02:58:04.320 --> 02:58:06.870
+Jitendra K: They have thousands of agents.
+
+1354
+02:58:16.530 --> 02:58:22.300
+Jitendra K: Yeah, Agent AI testing is monitoring that we are discussing. Langosmith is testing only.
+
+1355
+02:58:37.830 --> 02:58:42.319
+Jitendra K: Yeah, you can go with Kimi for PPT. Kimi, too, is good for PPT.
+
+1356
+02:58:42.530 --> 02:58:44.720
+Jitendra K: I think Claude is not good for that.
+
+1357
+02:58:45.460 --> 02:58:47.230
+Jitendra K: Go for KME K2.
+
+1358
+02:58:57.470 --> 02:59:03.250
+Jitendra K: Claude is good for code, and maybe… report generation.
+
+1359
+02:59:09.200 --> 02:59:14.150
+Jitendra K: This… this sounds like a competitor, but they are working for a common goal.
+
+1360
+02:59:15.540 --> 02:59:19.370
+Jitendra K: Floor, ChatGPT, Gemini.
+
+1361
+02:59:20.630 --> 02:59:25.690
+Jitendra K: They have their own internal agreement, what they need to do, what they need to deliver. Otherwise.
+
+1362
+02:59:26.380 --> 02:59:33.549
+Jitendra K: They will become a generic, every time, right? Why they're not launching the full flash capability of everything?
+
+1363
+02:59:33.690 --> 02:59:34.959
+Jitendra K: as a single…
+
+1364
+02:59:35.530 --> 02:59:40.729
+Jitendra K: So there's a strap in the leadership board and all, which is a conspiracy theory. So I think…
+
+1365
+02:59:41.010 --> 02:59:45.470
+Jitendra K: They already have an agreement, what feature they would like to launch, and what should be the timing.
+
+1366
+02:59:48.400 --> 02:59:52.770
+Jitendra K: And the rest of the things are… happening automatically.
+
+1367
+03:00:02.890 --> 03:00:13.180
+Jitendra K: Yeah, thank you. So, in the next class, we have to create a lab group. So, lab group is important. Some of the students are not very active in the class.
+
+1368
+03:00:13.640 --> 03:00:15.850
+Jitendra K: They are just listening, and
+
+1369
+03:00:17.740 --> 03:00:20.570
+Jitendra K: Maybe… I don't know if they are…
+
+1370
+03:00:20.690 --> 03:00:25.329
+Jitendra K: understanding everything or not. So we need to now go into the lab session.
+
+1371
+03:00:25.900 --> 03:00:34.180
+Jitendra K: And, once I share the code, so I will give you some timelines to operate and then execute the code end-to-end.
+
+1372
+03:00:34.890 --> 03:00:43.080
+Jitendra K: And, maybe I will ask the question from the code, and you have to answer it. So that is something which we are going to do from the next tutorial onwards.
+
+1373
+03:00:44.790 --> 03:00:51.340
+Jitendra K: So, will that be okay, guys? Right? So, I need everybody attention, and I will ask some questions from the code.
+
+1374
+03:00:55.130 --> 03:00:58.120
+Jitendra K: So that you should have an attention in the class.
+
+1375
+03:00:58.700 --> 03:01:03.619
+Jitendra K: And that will help you to debug… improve your debugging skills, basically.
+
+1376
+03:01:10.450 --> 03:01:11.330
+Jitendra K: Yeah.
+
+1377
+03:01:14.450 --> 03:01:19.160
+Jitendra K: Alright, so this is pretty much what we have for today. Yeah, this class…
+
+1378
+03:01:19.700 --> 03:01:26.259
+Jitendra K: We'll continue with, the same synergy. We will have more number of examples and less theory.
+
+1379
+03:01:27.030 --> 03:01:32.349
+Jitendra K: And, next tutorial will be GraphRack. So, GraphRack is even more complex.
+
+1380
+03:01:32.800 --> 03:01:37.789
+Jitendra K: And for that, you require Neo4j account, so please make sure that you register in Neo4j.
+
+1381
+03:01:38.000 --> 03:01:41.600
+Jitendra K: And it will share you 3, credentials.
+
+1382
+03:01:41.840 --> 03:01:46.369
+Jitendra K: One is for URL, second is for hosting server, third is for your API token.
+
+1383
+03:01:46.670 --> 03:01:52.070
+Jitendra K: download it, and then be ready for… with Neo4C, and then we'll use some document
+
+1384
+03:01:52.740 --> 03:01:55.120
+Jitendra K: Which is hierarchical in nature.
+
+1385
+03:01:55.420 --> 03:01:57.940
+Jitendra K: Specific to regulatory space.
+
+1386
+03:01:58.230 --> 03:02:01.900
+Jitendra K: And then we see how Neo4j can help you to create more
+
+1387
+03:02:03.240 --> 03:02:06.789
+Jitendra K: precise answer. Maybe we can compare the three racks.
+
+1388
+03:02:06.950 --> 03:02:10.130
+Jitendra K: And see the quality of response from all three. And then…
+
+1389
+03:02:10.550 --> 03:02:15.009
+Jitendra K: You himself will decide which one is… Useful and why.
+
+1390
+03:02:22.370 --> 03:02:28.240
+Jitendra K: Alright guys, so this is pretty much what we have for today, and thank you for attending this class, and
+
+1391
+03:02:28.590 --> 03:02:31.190
+Jitendra K: We will meet in the next tutorial.
+
+1392
+03:02:31.300 --> 03:02:32.649
+Jitendra K: I have one more.
+
+1393
+03:02:34.050 --> 03:02:36.919
+Jitendra K: Exploratory session on the RAG, which is…
+
+1394
+03:02:38.050 --> 03:02:42.319
+Jitendra K: GraphRag. So GraphRag is, the new trend. So…
+
+1395
+03:02:43.870 --> 03:02:46.400
+Jitendra K: Not every organization is doing graph reg.
+
+1396
+03:02:46.760 --> 03:02:51.050
+Jitendra K: We're… GraphFrag is something which is a new trending.
+
+1397
+03:02:51.550 --> 03:02:53.849
+Jitendra K: way of developing the RAC pipeline.
+
+1398
+03:02:54.740 --> 03:02:58.430
+Jitendra K: So thank you, and have a pleasant evening ahead. We'll meet in the next tutorials. Thank you.
+

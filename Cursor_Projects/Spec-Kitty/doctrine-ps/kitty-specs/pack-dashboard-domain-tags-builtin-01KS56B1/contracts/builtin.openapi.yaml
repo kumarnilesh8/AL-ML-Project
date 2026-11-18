@@ -1,0 +1,112 @@
+openapi: "3.0.3"
+info:
+  title: Pack Dashboard — Built-in Doctrine API
+  version: "1.0.0"
+  description: >
+    Read-only endpoints for accessing spec-kitty built-in governance artifacts.
+    These artifacts are scanned from SPEC_KITTY_SRC/doctrine/ at server startup and
+    cached in memory. No write operations are exposed for built-in artifacts.
+
+paths:
+  /api/builtin:
+    get:
+      summary: Get all built-in artifacts grouped by kind
+      description: >
+        Returns all built-in artifacts scanned from SPEC_KITTY_SRC/doctrine/,
+        grouped by ArtifactKind. Each entry includes source: 'builtin'.
+        Returns an empty object if SPEC_KITTY_SRC is not configured or the path does not exist.
+      responses:
+        "200":
+          description: Built-in artifacts grouped by kind
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/BuiltinArtifactSummary"
+
+  /api/builtin/{kind}:
+    get:
+      summary: Get built-in artifacts for a specific kind
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Artifact kind (e.g., directives, tactics, agent_profiles)
+      responses:
+        "200":
+          description: List of built-in artifacts for this kind
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BuiltinArtifactSummary"
+        "400":
+          description: Unknown artifact kind
+
+  /api/builtin/{kind}/{id}:
+    get:
+      summary: Get a single built-in artifact's full detail
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Full built-in artifact detail (read-only)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BuiltinArtifactDetail"
+        "400":
+          description: Unknown artifact kind
+        "404":
+          description: Built-in artifact not found
+
+components:
+  schemas:
+    BuiltinArtifactSummary:
+      type: object
+      required: [kind, id, title, filePath, source]
+      properties:
+        kind:
+          type: string
+          description: Artifact kind
+        id:
+          type: string
+          description: Artifact identifier
+        title:
+          type: string
+          description: Human-readable artifact title
+        filePath:
+          type: string
+          description: Absolute path to the YAML file on the server
+        source:
+          type: string
+          enum: [builtin]
+          description: Always 'builtin' for built-in artifacts
+
+    BuiltinArtifactDetail:
+      allOf:
+        - $ref: "#/components/schemas/BuiltinArtifactSummary"
+        - type: object
+          required: [content, parsedData]
+          properties:
+            content:
+              type: string
+              description: Raw YAML content (read-only; do not POST/PUT this back)
+            parsedData:
+              type: object
+              description: Parsed YAML as a plain object (structure varies by kind)

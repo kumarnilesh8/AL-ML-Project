@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "mission_slug": "organizational-bindings-01KSPTPR",
+  "mission_id": "01KSPTPR63VP3XCPPPCWHDPWZV",
+  "mission_branch": "kitty/mission-organizational-bindings-01KSPTPR",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "lanes": [
+    {
+      "lane_id": "lane-a",
+      "wp_ids": [
+        "WP01"
+      ],
+      "write_scope": [
+        "config/artifact-tags.yaml",
+        "config/domain-config.yaml",
+        "docs/artifact-tags.yaml",
+        "docs/domain-config.yaml",
+        "tools/pack-dashboard/server/src/config.ts",
+        "tools/pack-dashboard/server/src/routes/domain-config.routes.ts",
+        "tools/pack-dashboard/server/src/services/domain-tags.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-b",
+      "wp_ids": [
+        "WP02"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/server/src/models/org-binding.model.ts",
+        "tools/pack-dashboard/server/src/services/org-bindings.service.test.ts",
+        "tools/pack-dashboard/server/src/services/org-bindings.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "dashboard",
+        "legacy-cleanup",
+        "tracker-integration"
+      ],
+      "depends_on_lanes": [
+        "lane-a"
+      ],
+      "parallel_group": 1
+    },
+    {
+      "lane_id": "lane-c",
+      "wp_ids": [
+        "WP03"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/server/src/index.ts",
+        "tools/pack-dashboard/server/src/routes/org-bindings.routes.test.ts",
+        "tools/pack-dashboard/server/src/routes/org-bindings.routes.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard"
+      ],
+      "depends_on_lanes": [
+        "lane-b"
+      ],
+      "parallel_group": 2
+    },
+    {
+      "lane_id": "lane-d",
+      "wp_ids": [
+        "WP04"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/src/app/app.routes.ts",
+        "tools/pack-dashboard/src/app/layout/sidebar.component.ts",
+        "tools/pack-dashboard/src/app/models/org-binding.model.ts",
+        "tools/pack-dashboard/src/app/pages/org-bindings/**",
+        "tools/pack-dashboard/src/app/services/org-bindings.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "app-shell",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup"
+      ],
+      "depends_on_lanes": [
+        "lane-c"
+      ],
+      "parallel_group": 3
+    },
+    {
+      "lane_id": "lane-e",
+      "wp_ids": [
+        "WP05"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/src/styles.scss"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup"
+      ],
+      "depends_on_lanes": [
+        "lane-d"
+      ],
+      "parallel_group": 4
+    },
+    {
+      "lane_id": "lane-f",
+      "wp_ids": [
+        "WP06"
+      ],
+      "write_scope": [
+        "config/org-bindings.yaml",
+        "tools/pack-dashboard/src/app/layout/header.component.ts",
+        "tools/pack-dashboard/src/app/pages/artifact-detail/**",
+        "tools/pack-dashboard/src/app/pages/dashboard/dashboard.component.ts",
+        "tools/pack-dashboard/src/app/pages/domain-artifacts/domain-artifacts.component.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "app-shell",
+        "artifact-rendering",
+        "dashboard"
+      ],
+      "depends_on_lanes": [
+        "lane-d"
+      ],
+      "parallel_group": 4
+    },
+    {
+      "lane_id": "lane-g",
+      "wp_ids": [
+        "WP07"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/src/app/components/domain-tags-editor/**"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup"
+      ],
+      "depends_on_lanes": [
+        "lane-f"
+      ],
+      "parallel_group": 5
+    }
+  ],
+  "computed_at": "2026-05-28T11:22:36.761389+00:00",
+  "computed_from": "dependency_graph+ownership",
+  "planning_artifact_wps": []
+}

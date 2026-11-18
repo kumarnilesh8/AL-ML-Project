@@ -1,0 +1,10 @@
+{
+  "applicationReference": "rfo-eep-sql-workflow-f573e088",
+  "baseToken": "c5440aa7-dbeb-477c-ae5c-4588938ef95a",
+  "name": "RFO_EEP_SQL_Workflow",
+  "description": "SQL Studio deployment pipeline: turn a requirement into Oracle SQL, a PL/SQL package, and a technical deployment document.",
+  "costCenterId": "401000",
+  "securityTier": "UNRESTRICTED",
+  "recordStoreKind": "NONE",
+  "aiAccessKind": "AI"
+}

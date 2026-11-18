@@ -1,0 +1,78 @@
+schema_version: "1.0"
+id: sqlx-testing
+name: SQLX Test Suite Generation
+purpose: >
+  Create a test suite for an SQLX functional unit: test input data (.tab), expected outputs
+  (.tab), test configuration (.json), and scenario documentation. Coverage must include every
+  code path (CASE branches, decision table rules, join behavior) and edge cases (nulls,
+  boundaries, empty input). Tests run via Abacus CLI. Do not modify production SQLX code.
+  Use when the task is "generate tests for this FU" and the FU has been generated and
+  optionally validated. Do not use for generating or validating SQLX.
+steps:
+  - title: Analyse the Functional Unit
+    description: >
+      Read BL: identify every CASE branch (including implicit ELSE → null), every decision
+      table and its rules, every WHERE clause, every join. Read CF: all input entities and
+      prepared views. Read DD: output schema. Read spec: business intent for each scenario.
+
+  - title: Design Test Scenarios
+    description: >
+      Build a test matrix covering: happy path (standard input → expected calculation), null
+      handling (nullable fields null, verify coalesce defaults), boundary values (min/max
+      numeric, empty string, edge dates), domain coverage (at least one row per domain value
+      used in CASE/conditions), decision table coverage (at least one input row per DT rule),
+      join behavior (left outer join with no matching right side for null propagation),
+      multi-row (multiple inputs → multiple outputs), country variants if applicable, and
+      empty input for optional imports.
+
+  - title: Generate Test Input Data
+    description: >
+      For each imported dataset, create a .tab file with typed columns matching CF imports.
+      Tab-separated; strings in double quotes; `null` for explicit nulls. Use domain-valid
+      values from MCP data model when needed. Place under test/FU_NAME_CF/ (e.g.
+      POSITION_IN.tab, INSTRUMENT_IN.tab).
+
+  - title: Calculate Expected Outputs
+    description: >
+      For each test input row: apply CF view prep → BL intermediate → decision table →
+      CASE → output row. Write expected output .tab matching DD schema (e.g.
+      test/FU_NAME_CF/FU_NAME_CF.tab). Document trace in scenario doc: which rule or branch
+      produced which value.
+
+  - title: Generate Test Configuration
+    description: >
+      Create JSON test config (e.g. test/FU_NAME_CF_TEST.json) with name, component, unit,
+      and settings (e.g. sqlx.globalVariables for visibilityContext). Align with Abacus CLI
+      test runner format (manual Ch. 14 and 18).
+
+  - title: Document Test Scenarios
+    description: >
+      Write a Markdown scenario document with: scenario ID, short name, input description,
+      expected output, and which code path is exercised (CASE branch, DT rule, coalesce,
+      join behavior, etc.).
+
+  - title: Write Test Artifacts
+    description: >
+      Write all files under FU test/ subdirectory: test/FU_NAME_CF/*.tab (inputs and expected
+      output), test/FU_NAME_CF_TEST.json, test/FU_NAME_test_scenarios.md, and optionally
+      FU_NAME_DD_test.sqlx (dataset extends for test imports) if used by the project.
+
+  - title: Run Tests via Abacus CLI
+    description: >
+      Resolve content root from .doctrine-config/config.yaml (sqlx.content_root) or workspace
+      root. Resolve CLI from PATH or sqlx.abacus_cli_path. Run: abacus -d <contentRoot> test
+      <unit-test-name>. Capture exit code and output. Use -l to list tests, -r for coverage.
+      If CLI not configured, note "Abacus CLI test execution skipped" in scenario doc. Record
+      result (pass/fail, exit code, relevant output) in scenario doc or test run report.
+
+failure_modes:
+  - "Missing CASE branch coverage — at least one test row per CASE branch is required for exit criteria."
+  - "Missing decision table rule coverage — every DT rule must have at least one corresponding test row."
+  - "Expected outputs not traceable to spec or BL logic — document the trace in the scenario doc."
+  - "Empty input scenarios omitted — optional imports with empty datasets must be covered."
+
+notes: >
+  Invoked by SQLX Specialist Simon (sqlx-specialist-simon agent profile) for Test tasks. Prerequisites: FU directory
+  with _CF.sqlx, _BL.sqlx, _DD.sqlx and component.sqlx; specification when available. Exit
+  criteria: every CASE branch and DT rule has at least one test row; expected outputs traceable
+  to spec/BL logic; tests executable via Abacus CLI; edge cases explicitly covered.

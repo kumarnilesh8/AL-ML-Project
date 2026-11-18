@@ -1,0 +1,13 @@
+{
+  "coordination_branch": "kitty/mission-pack-assemble-drg-fix-01KT6K2Y",
+  "created_at": "2026-06-03T11:14:50.877731+00:00",
+  "friendly_name": "pack assemble drg fix",
+  "mission_id": "01KT6K2YVX8PVCB0W2Z0BEV2MG",
+  "mission_number": null,
+  "mission_slug": "pack-assemble-drg-fix-01KT6K2Y",
+  "mission_type": "software-dev",
+  "purpose_context": "This mission advances pack assemble drg fix on overhaul/migrate_to_kitty so stakeholders can track the work from mission creation onward.",
+  "purpose_tldr": "pack assemble drg fix",
+  "slug": "pack-assemble-drg-fix-01KT6K2Y",
+  "target_branch": "overhaul/migrate_to_kitty"
+}

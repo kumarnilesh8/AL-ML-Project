@@ -1,0 +1,17 @@
+{
+  "baseline_merge_commit": "23f59f431ed39713c0eea01c68a8170cc17ea12c",
+  "change_mode": "bulk_edit",
+  "coordination_branch": "kitty/mission-ps-departmental-rebrand-and-extend-all-company-pack-01KVD1M1",
+  "created_at": "2026-06-18T09:39:59.485398+00:00",
+  "friendly_name": "ps departmental rebrand and extend all company pack",
+  "mission_id": "01KVD1M1VW8WDSNN96HH098T0R",
+  "mission_number": 6,
+  "mission_slug": "ps-departmental-rebrand-and-extend-all-company-pack-01KVD1M1",
+  "mission_type": "software-dev",
+  "purpose_context": "This mission advances ps departmental rebrand and extend all company pack on beta so stakeholders can track the work from mission creation onward.",
+  "purpose_tldr": "ps departmental rebrand and extend all company pack",
+  "slug": "ps-departmental-rebrand-and-extend-all-company-pack-01KVD1M1",
+  "target_branch": "beta",
+  "vcs": "git",
+  "vcs_locked_at": "2026-06-18T15:35:04.076125+00:00"
+}

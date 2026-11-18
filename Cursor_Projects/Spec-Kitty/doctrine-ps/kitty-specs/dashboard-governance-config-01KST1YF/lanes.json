@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "mission_slug": "dashboard-governance-config-01KST1YF",
+  "mission_id": "01KST1YF6S3MCBTWVDWV8K7XC6",
+  "mission_branch": "kitty/mission-dashboard-governance-config-01KST1YF",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "lanes": [
+    {
+      "lane_id": "lane-a",
+      "wp_ids": [
+        "WP01"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/server/src/services/domain-tags.service.test.ts",
+        "tools/pack-dashboard/server/src/services/domain-tags.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup",
+        "tracker-integration"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-d",
+      "wp_ids": [
+        "WP04"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/server/src/index.ts",
+        "tools/pack-dashboard/server/src/models/charter.model.ts",
+        "tools/pack-dashboard/server/src/routes/charter.routes.ts",
+        "tools/pack-dashboard/server/src/services/charter.service.test.ts",
+        "tools/pack-dashboard/server/src/services/charter.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup",
+        "tracker-integration"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-g",
+      "wp_ids": [
+        "WP07"
+      ],
+      "write_scope": [
+        "Jenkinsfile"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "legacy-cleanup"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-b",
+      "wp_ids": [
+        "WP02"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/server/src/routes/domain-config.routes.ts",
+        "tools/pack-dashboard/server/src/services/domain-cascade.service.test.ts",
+        "tools/pack-dashboard/server/src/services/domain-cascade.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup"
+      ],
+      "depends_on_lanes": [
+        "lane-a"
+      ],
+      "parallel_group": 1
+    },
+    {
+      "lane_id": "lane-e",
+      "wp_ids": [
+        "WP05"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/src/app/components/charter-badge/**",
+        "tools/pack-dashboard/src/app/components/platform-defaults-section/**",
+        "tools/pack-dashboard/src/app/models/charter.model.ts",
+        "tools/pack-dashboard/src/app/pages/artifact-detail/**",
+        "tools/pack-dashboard/src/app/pages/artifact-list/**",
+        "tools/pack-dashboard/src/app/pages/builtin-detail/**",
+        "tools/pack-dashboard/src/app/pages/dashboard/**",
+        "tools/pack-dashboard/src/app/pages/domain-artifacts/**",
+        "tools/pack-dashboard/src/app/services/charter.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup",
+        "tracker-integration"
+      ],
+      "depends_on_lanes": [
+        "lane-d"
+      ],
+      "parallel_group": 1
+    },
+    {
+      "lane_id": "lane-c",
+      "wp_ids": [
+        "WP03"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/src/app/components/domain-vocabulary-panel/**",
+        "tools/pack-dashboard/src/app/pages/org-bindings/**",
+        "tools/pack-dashboard/src/app/services/domain.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup",
+        "tracker-integration"
+      ],
+      "depends_on_lanes": [
+        "lane-a",
+        "lane-b"
+      ],
+      "parallel_group": 2
+    },
+    {
+      "lane_id": "lane-f",
+      "wp_ids": [
+        "WP06"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/src/app/app.routes.ts",
+        "tools/pack-dashboard/src/app/layout/sidebar.component.ts",
+        "tools/pack-dashboard/src/app/pages/charter/**"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "app-shell",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup",
+        "tracker-integration"
+      ],
+      "depends_on_lanes": [
+        "lane-d",
+        "lane-e"
+      ],
+      "parallel_group": 2
+    }
+  ],
+  "computed_at": "2026-06-01T09:09:51.178606+00:00",
+  "computed_from": "dependency_graph+ownership",
+  "planning_artifact_wps": []
+}

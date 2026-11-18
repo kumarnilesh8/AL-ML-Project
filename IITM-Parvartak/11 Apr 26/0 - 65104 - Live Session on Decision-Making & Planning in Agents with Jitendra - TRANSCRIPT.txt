@@ -1,0 +1,4170 @@
+WEBVTT
+
+1
+00:03:11.070 --> 00:03:13.489
+Jitendra K: Hey guys, good evening, good afternoon.
+
+2
+00:03:14.010 --> 00:03:19.520
+Jitendra K: And welcome to another module on AgentKai, where we are going to talk about GraphRack.
+
+3
+00:03:20.250 --> 00:03:27.489
+Jitendra K: So, just a quick recap what we have learned so far. So, we started with the basics of RAC, which include Vendler rack.
+
+4
+00:03:27.880 --> 00:03:29.869
+Jitendra K: And similar sort of features.
+
+5
+00:03:30.440 --> 00:03:37.650
+Jitendra K: Now, in this tutorial, we'll talk about something called GraphRite, which is a very specific use case of oncology-based search.
+
+6
+00:03:38.060 --> 00:03:40.389
+Jitendra K: And we will use Ontology for…
+
+7
+00:03:41.190 --> 00:03:44.799
+Jitendra K: Managing the document chunks and relationship.
+
+8
+00:03:46.310 --> 00:03:51.329
+Jitendra K: So, some of the critical challenges that we have seen when we are creating a RAT pipeline
+
+9
+00:03:51.690 --> 00:03:55.330
+Jitendra K: When we're connecting external sources to manage output of the model.
+
+10
+00:03:56.060 --> 00:04:01.270
+Jitendra K: So, this technique is perfect for LLM to access domain-specific data and
+
+11
+00:04:03.780 --> 00:04:09.279
+Jitendra K: Addressing the issue of hallucination. Therefore, RAG has been widely used to power manage an AI application.
+
+12
+00:04:09.540 --> 00:04:12.179
+Jitendra K: Such as chatbot, recommendation system.
+
+13
+00:04:12.640 --> 00:04:19.489
+Jitendra K: And, legacy-based workflows. So, baseline rack, you usually integrate a backer database, an LLM.
+
+14
+00:04:19.700 --> 00:04:26.929
+Jitendra K: Where the vector database store and retrieve contextual information from user queries, and the LLM generates answer based upon the retriever context.
+
+15
+00:04:27.370 --> 00:04:32.859
+Jitendra K: While this approach worked well in many cases, but it struggled with complex tasks like multi-hop reasoning.
+
+16
+00:04:32.990 --> 00:04:35.549
+Jitendra K: Or question and answer that required connection.
+
+17
+00:04:36.170 --> 00:04:40.080
+Jitendra K: Between the entities, or linkage between the entities.
+
+18
+00:04:40.500 --> 00:04:50.460
+Jitendra K: And that is where you have… to create something as, entity relationship modeling using graph.
+
+19
+00:04:51.240 --> 00:04:56.360
+Jitendra K: And that is something which we are going to talk about in today's tutorial, how we can be able to use graphs
+
+20
+00:04:56.700 --> 00:04:58.370
+Jitendra K: Properties to manage.
+
+21
+00:04:59.010 --> 00:05:02.390
+Jitendra K: The entity linkage between the document.
+
+22
+00:05:02.860 --> 00:05:09.160
+Jitendra K: So, challenge usually arise at the first step, because a rack retrieved text based upon semantic similarity.
+
+23
+00:05:09.550 --> 00:05:14.610
+Jitendra K: Not on direct… Complex queries, which is specified details.
+
+24
+00:05:14.870 --> 00:05:16.360
+Jitendra K: About those entities.
+
+25
+00:05:17.590 --> 00:05:24.180
+Jitendra K: So, unlike a baseline rack that use vector database to retrieve semantic Similarity.
+
+26
+00:05:24.350 --> 00:05:27.650
+Jitendra K: GraphRag enhanced RAG by incorporating knowledge graphs.
+
+27
+00:05:28.210 --> 00:05:34.049
+Jitendra K: Our knowledge graph as a data structure that stores and links related or unrelated data based upon their relationship.
+
+28
+00:05:34.710 --> 00:05:38.999
+Jitendra K: So what GraphRite Pipeline does is… It will use…
+
+29
+00:05:46.980 --> 00:05:55.460
+Jitendra K: These set of tools… Where you're going to create a source document, undergoes through text extraction and chunking.
+
+30
+00:05:55.700 --> 00:06:00.539
+Jitendra K: And then, you're going to tailor to a domain-specific entities mapping.
+
+31
+00:06:00.950 --> 00:06:06.899
+Jitendra K: And then you preserve this mapping into some database like Neo4J or NetworkX,
+
+32
+00:06:07.550 --> 00:06:12.530
+Jitendra K: And then, from that database, you are going to… Grady.
+
+33
+00:06:13.130 --> 00:06:17.930
+Jitendra K: The output in a form of a cipher query, and then generate a response.
+
+34
+00:06:18.530 --> 00:06:25.070
+Jitendra K: So, GraphRags generally comprise of three important steps. The first is indexing.
+
+35
+00:06:25.350 --> 00:06:31.359
+Jitendra K: That means you are going to perform a text segmentation, the entire input corpus is divided into multiple texts.
+
+36
+00:06:31.670 --> 00:06:33.030
+Jitendra K: and text chunks.
+
+37
+00:06:33.660 --> 00:06:39.839
+Jitendra K: And from there, These text chunks are smallest analyzable unit.
+
+38
+00:06:40.060 --> 00:06:49.999
+Jitendra K: It can be a paragraph, sentence, or other logical units. And by segmenting long document into smaller, manageable chunks, we extract and preserve more detailed information about this input data.
+
+39
+00:06:50.590 --> 00:06:57.630
+Jitendra K: Now, the second step is very important, where you require graph property to establish your entity relationship.
+
+40
+00:06:58.170 --> 00:07:03.839
+Jitendra K: So, GraphTrack use LLM to identify and extract all entities, like name, person, place, organization.
+
+41
+00:07:04.400 --> 00:07:11.279
+Jitendra K: Their linkage and the relationship between them, and then key claims expressed in the text from each text unit.
+
+42
+00:07:11.690 --> 00:07:16.279
+Jitendra K: And we'll use this extracted information to construct an initial knowledge graph.
+
+43
+00:07:18.540 --> 00:07:21.849
+Jitendra K: The third technique that GraphRec uses, hierarchical clustering.
+
+44
+00:07:22.200 --> 00:07:27.319
+Jitendra K: So, hierarchical clustering is, used for community detection.
+
+45
+00:07:27.580 --> 00:07:31.380
+Jitendra K: Discovering the community linkage between the clusters.
+
+46
+00:07:33.830 --> 00:07:38.129
+Jitendra K: So our data flow of graph rack will look like this.
+
+47
+00:07:38.740 --> 00:07:41.040
+Jitendra K: But if we are going to implement this.
+
+48
+00:07:43.400 --> 00:07:46.499
+Jitendra K: In the form of a pipeline, this is how the pipeline looks like.
+
+49
+00:07:47.170 --> 00:07:50.339
+Jitendra K: So, you are going to have a user query and conversational history.
+
+50
+00:07:50.580 --> 00:07:54.669
+Jitendra K: The system take user query and conversational history at the initial input.
+
+51
+00:07:54.970 --> 00:07:58.750
+Jitendra K: The community report batch, Which is the second layer.
+
+52
+00:07:59.100 --> 00:08:05.470
+Jitendra K: Where the system user node, community report generated by LLM from a specific level of community hierarchy.
+
+53
+00:08:05.770 --> 00:08:07.840
+Jitendra K: Will be set up as a context data.
+
+54
+00:08:08.330 --> 00:08:15.429
+Jitendra K: And then you are going to use something called RIR, which is called Rated Intermediate Response, so each batch of the community
+
+55
+00:08:15.840 --> 00:08:18.610
+Jitendra K: Report is further divided into predefined
+
+56
+00:08:19.200 --> 00:08:23.210
+Jitendra K: Text chunks, and each chunk is a user-generated intermediary report.
+
+57
+00:08:23.820 --> 00:08:29.179
+Jitendra K: And then, finally, you're going to rank and filter. The system rank and filter these intermediate responses.
+
+58
+00:08:29.800 --> 00:08:33.199
+Jitendra K: Select the most important points, and then…
+
+59
+00:08:34.460 --> 00:08:38.269
+Jitendra K: aggregate the intermediate responses. And the final response would be.
+
+60
+00:08:39.150 --> 00:08:43.850
+Jitendra K: Kind of an intermediate response, which has been used to generate a final reply.
+
+61
+00:08:44.430 --> 00:08:49.060
+Jitendra K: So this is how the flow of… GraphRag will work.
+
+62
+00:08:49.530 --> 00:08:51.479
+Jitendra K: And, you will be able to get…
+
+63
+00:08:57.540 --> 00:09:01.120
+Jitendra K: This… Whole pipeline extracted.
+
+64
+00:09:02.460 --> 00:09:15.869
+Jitendra K: Now, as I mentioned, GraphRack combines knowledge graph with retrieval augment generation, so it is adding one more layer on the top of your rack pipeline to give LLM structure output with a relationship-aware context, rather than flat text chunks.
+
+65
+00:09:16.330 --> 00:09:20.640
+Jitendra K: So the core problem that we are trying to solve here with GraphFrag is…
+
+66
+00:09:21.370 --> 00:09:28.719
+Jitendra K: Standard rack, or standard vector rack, embit document into a chunk, or create a simple vector store.
+
+67
+00:09:29.450 --> 00:09:32.629
+Jitendra K: That we are going to retry by top K parameter.
+
+68
+00:09:32.900 --> 00:09:37.339
+Jitendra K: Y cosine similarity, and then the stuff that we put up in the prompt.
+
+69
+00:09:37.780 --> 00:09:43.540
+Jitendra K: So this works well for local question, but fails on global or multi-hop questions.
+
+70
+00:09:43.920 --> 00:09:50.079
+Jitendra K: Because relevance… relevant facts are scattered across many chunks that are not shared lexical similarity.
+
+71
+00:09:50.430 --> 00:09:55.559
+Jitendra K: So GraphX solves this by extracting entities and relationship into a knowledge graph.
+
+72
+00:09:55.800 --> 00:10:04.020
+Jitendra K: Then traversing that graph to pull in structural connection, or connected context, not just semantically similar context.
+
+73
+00:10:06.000 --> 00:10:09.329
+Jitendra K: So, document chunking and entity relationship extraction.
+
+74
+00:10:09.490 --> 00:10:16.550
+Jitendra K: is the foundation of your GraphRite pipeline. So documents are split into chunks, NLM extracted, subject, predicate, object.
+
+75
+00:10:16.740 --> 00:10:18.690
+Jitendra K: Kind of a triplet from each chunk.
+
+76
+00:10:19.080 --> 00:10:22.939
+Jitendra K: And then it creates an entity called node.
+
+77
+00:10:23.210 --> 00:10:25.809
+Jitendra K: Where each relationship becomes a direct touch.
+
+78
+00:10:26.210 --> 00:10:31.570
+Jitendra K: And then the graph construction and community detection happen. All the triplets are loaded into the graph.
+
+79
+00:10:32.070 --> 00:10:36.769
+Jitendra K: which is your Neo 4J memory, and then the community detection algorithm.
+
+80
+00:10:37.030 --> 00:10:41.239
+Jitendra K: Which is typically… there are two algorithms called Latin and LoVN.
+
+81
+00:10:41.750 --> 00:10:46.740
+Jitendra K: Which is partitioning the graph into a cluster of dense… Connected entity.
+
+82
+00:10:46.900 --> 00:10:50.109
+Jitendra K: And these communities represent a thematic cluster.
+
+83
+00:10:50.740 --> 00:10:59.490
+Jitendra K: And then the community summarization, where the LLM generates a natural language summary of each community, and these summaries act as a pre-computed global answer.
+
+84
+00:11:01.080 --> 00:11:04.050
+Jitendra K: That will capture the high-level themes of the corpus.
+
+85
+00:11:04.520 --> 00:11:07.459
+Jitendra K: And then extracted entities from the query.
+
+86
+00:11:07.970 --> 00:11:14.499
+Jitendra K: Will be the nodes, that will traverse via graph algorithm for global search and local search.
+
+87
+00:11:15.150 --> 00:11:23.510
+Jitendra K: So the… Most important point here is, that means you're storing the data in some linkage.
+
+88
+00:11:26.000 --> 00:11:38.010
+Jitendra K: So basically, if you're using a linkage between your corpus, or vectors, Then your search will… B… optimize.
+
+89
+00:11:38.140 --> 00:11:41.660
+Jitendra K: Not all the time, but at least for a complex query I'm talking about.
+
+90
+00:11:42.380 --> 00:11:47.380
+Jitendra K: Right? So this is where the setup of GraphRag… this is how the setup of a GraphLite looked like.
+
+91
+00:11:47.750 --> 00:11:52.299
+Jitendra K: So, if I were to just give you a very simple analogy of graph rack.
+
+92
+00:11:53.570 --> 00:11:57.439
+Jitendra K: It is used to remove the limitation of vector rag.
+
+93
+00:11:57.650 --> 00:12:02.909
+Jitendra K: We treat document as an isolated chunk, not as a cross-domain reasoning model.
+
+94
+00:12:04.190 --> 00:12:08.560
+Jitendra K: So here, if you're looking into comparing the two solutions.
+
+95
+00:12:09.230 --> 00:12:12.320
+Jitendra K: You can see that vector IRAG has limitation.
+
+96
+00:12:12.650 --> 00:12:16.320
+Jitendra K: It will not able to conceptualize multi-hop queries.
+
+97
+00:12:16.570 --> 00:12:22.910
+Jitendra K: While traversing the entire relationship of the document, no structural understanding of hierarchy or taxonomy been present.
+
+98
+00:12:23.150 --> 00:12:28.680
+Jitendra K: It's just a semantic correlation that you're using to generate a top K topics, or top K,
+
+99
+00:12:29.260 --> 00:12:33.409
+Jitendra K: retriever from the rack pipeline.
+
+100
+00:12:36.120 --> 00:12:41.900
+Jitendra K: GraphRack is using something called entity triplets, Which is…
+
+101
+00:12:42.200 --> 00:12:51.910
+Jitendra K: maintaining the relationship across full corpus. You can use queries like Cipher, SparkQL, to transform your knowledge graphs.
+
+102
+00:12:52.330 --> 00:12:59.610
+Jitendra K: And then use a community summarization for enabling the global corpus search using a hybrid strategy.
+
+103
+00:13:00.090 --> 00:13:06.430
+Jitendra K: That means this method will definitely going to improve your overall rack pipeline for the purpose.
+
+104
+00:13:06.950 --> 00:13:14.590
+Jitendra K: Now, this is how the GraphRag end-to-end pipeline looks like, where you're going to have a raw corpus, PDF, HTML, text data.
+
+105
+00:13:14.960 --> 00:13:17.480
+Jitendra K: You convert them to chunking and extraction.
+
+106
+00:13:18.130 --> 00:13:20.829
+Jitendra K: Build some knowledge graph on the top of it.
+
+107
+00:13:21.000 --> 00:13:23.430
+Jitendra K: To store the entities, relationship.
+
+108
+00:13:23.950 --> 00:13:29.920
+Jitendra K: So… and then use something called community detection algorithms, which is laden in hierarchical clusters.
+
+109
+00:13:30.110 --> 00:13:31.660
+Jitendra K: To perform the search.
+
+110
+00:13:32.220 --> 00:13:38.190
+Jitendra K: And then, finally, you're going to use indexing and embedding to maintain the chunks that you store.
+
+111
+00:13:38.560 --> 00:13:43.830
+Jitendra K: In the GraphRag knowledge base as well, and then perform a query and retrieval.
+
+112
+00:13:44.340 --> 00:13:49.020
+Jitendra K: So, GraphRack has been introduced in 2004, it's a very recent tech stack.
+
+113
+00:13:50.940 --> 00:13:55.399
+Jitendra K: Which will decompose the corpus into a graph, detect communities, linkage.
+
+114
+00:13:55.990 --> 00:14:00.690
+Jitendra K: Generate some pre-summaries for each community, and then route the query to the right scope.
+
+115
+00:14:01.210 --> 00:14:05.280
+Jitendra K: And that is where you're going to differentiate between local entity and global themes.
+
+116
+00:14:05.570 --> 00:14:08.980
+Jitendra K: To generate the overall answer from that cluster analysis.
+
+117
+00:14:09.800 --> 00:14:15.740
+Jitendra K: Now, as I mentioned, it is using some triplet, so a triplet will be subject, predicate, and object.
+
+118
+00:14:16.350 --> 00:14:20.370
+Jitendra K: So this is the triplet form for any graph rack system.
+
+119
+00:14:20.660 --> 00:14:23.009
+Jitendra K: Where the chunk of the corpus…
+
+120
+00:14:23.230 --> 00:14:30.020
+Jitendra K: We'll have name entity with certain types, and relationship with description, and the strength of relationship as well.
+
+121
+00:14:30.590 --> 00:14:37.640
+Jitendra K: So, here we are trying to deduplicate any fuzzy matching and emitting similarity, which is a bottleneck in.
+
+122
+00:14:38.030 --> 00:14:40.489
+Jitendra K: Vanilla rag or agentic rag.
+
+123
+00:14:45.390 --> 00:14:50.429
+Jitendra K: So this is the operation model of GraphRag schema and property model.
+
+124
+00:14:50.700 --> 00:15:02.299
+Jitendra K: So, on the left-hand side, you can see the code is in all cipher. I will not go into that part, but yes, just to give you a gist of this code, this is a cipher query, which Neo4J or other graph
+
+125
+00:15:02.660 --> 00:15:06.010
+Jitendra K: database prefer, similar to SQL, right?
+
+126
+00:15:06.200 --> 00:15:13.410
+Jitendra K: So if you're creating a SQL, you prefer some way to write SQL. If you're using NoSQL, there's a way to write NoSQL.
+
+127
+00:15:13.700 --> 00:15:19.829
+Jitendra K: So, similarly, Cypher query is for… Creating the graph.
+
+128
+00:15:19.970 --> 00:15:23.720
+Jitendra K: Routing logic based upon this cipher logic.
+
+129
+00:15:23.940 --> 00:15:27.379
+Jitendra K: So you're going to use a cipher which will construct a table.
+
+130
+00:15:27.870 --> 00:15:33.700
+Jitendra K: And I will say the table will have entities, Weights, descriptions, and linkages.
+
+131
+00:15:34.030 --> 00:15:41.559
+Jitendra K: And then, based upon that, I would like to enable these four properties of a graph, which is entity, document, chunk, and community.
+
+132
+00:15:42.070 --> 00:15:46.800
+Jitendra K: The community, as you can see on my screen, is a… linkage.
+
+133
+00:15:47.410 --> 00:15:51.680
+Jitendra K: We generate some sort of relationship between the other entity.
+
+134
+00:15:52.250 --> 00:15:55.520
+Jitendra K: It could be ID, it could be level, it could be summary, it could be rank.
+
+135
+00:15:56.300 --> 00:16:01.570
+Jitendra K: The chunk that I'm storing is very similar to the text chunk that we are using by embedding model.
+
+136
+00:16:01.820 --> 00:16:05.910
+Jitendra K: The document will have title, source, chunk IDs, and
+
+137
+00:16:06.100 --> 00:16:10.560
+Jitendra K: Global parameters, entities, name, type, description, etc.
+
+138
+00:16:14.010 --> 00:16:16.789
+Jitendra K: So let me check if there's any question.
+
+139
+00:16:23.050 --> 00:16:25.970
+Jitendra K: Yeah, we'll take an example to understand community detection.
+
+140
+00:16:26.420 --> 00:16:28.880
+Jitendra K: Myrofish use graft right.
+
+141
+00:16:30.420 --> 00:16:34.129
+Jitendra K: There could be, I'm not sure about that, but it could be, yes.
+
+142
+00:16:39.260 --> 00:16:45.030
+Jitendra K: Alright, now let's start to look into this algorithm, these two algorithms, which is called Laden Algorithm and Hierarchical Summary.
+
+143
+00:16:45.750 --> 00:16:50.080
+Jitendra K: So these two algorithms are the backbone of… Graphite system.
+
+144
+00:16:51.120 --> 00:16:57.719
+Jitendra K: So, we'll talk about Latin algorithm, how it has been used for community detection, we'll talk about step-by-step process.
+
+145
+00:16:58.240 --> 00:17:03.270
+Jitendra K: of this algorithm. We are not going to create it from scratch, it is already existing.
+
+146
+00:17:03.650 --> 00:17:06.199
+Jitendra K: So we'll try to understand what this algorithm does.
+
+147
+00:17:06.690 --> 00:17:07.819
+Jitendra K: In a nutshell.
+
+148
+00:17:09.780 --> 00:17:16.219
+Jitendra K: So, basically, as I mentioned, We are talking about community detection as a clusters.
+
+149
+00:17:16.920 --> 00:17:21.720
+Jitendra K: So, communities are nothing but a cluster of similar documents, or similar entities.
+
+150
+00:17:24.010 --> 00:17:31.429
+Jitendra K: So, whether you're working on social network, biological data, or recommendation system, identifying the community within these networks is the key.
+
+151
+00:17:32.030 --> 00:17:40.709
+Jitendra K: So one of the powerful methods is called Leyden clustering. When dealing with massive data, you need tools that offer not just precision, but also speed and scalability.
+
+152
+00:17:41.720 --> 00:17:51.790
+Jitendra K: So what is lead-in clustering? Laden clustering is a community detection algorithm used in network analysis. It identifies groups of nodes that are more dense, connected to each other.
+
+153
+00:17:52.390 --> 00:17:54.340
+Jitendra K: Then to the rest of the network.
+
+154
+00:17:54.450 --> 00:18:01.499
+Jitendra K: So that's… this algorithm optimized modularity, which measures the strength of division of network into clusters.
+
+155
+00:18:01.620 --> 00:18:05.439
+Jitendra K: By maximizing the modularity, letting the algorithm ensure that
+
+156
+00:18:06.070 --> 00:18:09.169
+Jitendra K: Identifying communities are well defined and meaningful.
+
+157
+00:18:09.420 --> 00:18:14.380
+Jitendra K: So this makes it a valuable tool for uncovering hidden structure within the complex network.
+
+158
+00:18:14.940 --> 00:18:17.710
+Jitendra K: So, Laden Key has an advantage, it connect.
+
+159
+00:18:17.960 --> 00:18:20.339
+Jitendra K: Make sure that every community is connected.
+
+160
+00:18:21.320 --> 00:18:24.869
+Jitendra K: And, you can have a better convergence.
+
+161
+00:18:25.020 --> 00:18:27.969
+Jitendra K: Faster and produce high-quality communities.
+
+162
+00:18:28.290 --> 00:18:34.359
+Jitendra K: You can adjust the granularity, it allows you to customize the size of the community, making it suitable for different types of analysis.
+
+163
+00:18:35.910 --> 00:18:39.299
+Jitendra K: So the key concept here is modularity, community, and clustering.
+
+164
+00:18:39.770 --> 00:18:42.060
+Jitendra K: So, community in a graph theory.
+
+165
+00:18:42.830 --> 00:18:45.779
+Jitendra K: or I would say a community in a group of nodes.
+
+166
+00:18:46.200 --> 00:18:50.209
+Jitendra K: are nothing but… They are more densely connected.
+
+167
+00:18:50.600 --> 00:18:52.179
+Jitendra K: Nodes to each other.
+
+168
+00:18:52.820 --> 00:18:57.849
+Jitendra K: And in social network, a community could be a group of friends who know all each other.
+
+169
+00:18:58.580 --> 00:19:06.090
+Jitendra K: Modularity, on the other hand, measure how well a network is divided into communities. So check whether the nodes within the same community have
+
+170
+00:19:06.340 --> 00:19:08.949
+Jitendra K: More connection than expected, by chance.
+
+171
+00:19:09.190 --> 00:19:12.829
+Jitendra K: And the value of modularity ranges between minus 1 to plus 1.
+
+172
+00:19:13.340 --> 00:19:17.440
+Jitendra K: With value close to 1, indicating a stronger community structure.
+
+173
+00:19:17.860 --> 00:19:22.439
+Jitendra K: So, graph clustering refer to the process of finding clusters, or a group of nodes.
+
+174
+00:19:22.730 --> 00:19:34.999
+Jitendra K: that are more connected internally than within the rest of the graph. So identifying this cluster will help to uncover hidden relationships, such as group of people with similar interests or interaction in the network.
+
+175
+00:19:37.120 --> 00:19:40.540
+Jitendra K: So, lead-in algorithm works in three main phases.
+
+176
+00:19:40.930 --> 00:19:43.360
+Jitendra K: First, it will try to understand
+
+177
+00:19:43.700 --> 00:19:48.350
+Jitendra K: local moving nodes. That means, initially, nodes are assigned to individual clusters.
+
+178
+00:19:48.990 --> 00:19:57.600
+Jitendra K: And then nodes are moved between the community to maximize the modularity and improve the quality of partition. So that means these intracluster should be separated
+
+179
+00:19:58.340 --> 00:20:02.289
+Jitendra K: within each other. So let's say if I'm talking about a bunch of documents, right?
+
+180
+00:20:02.580 --> 00:20:04.930
+Jitendra K: So let's say I'm using a regulatory document.
+
+181
+00:20:05.240 --> 00:20:07.230
+Jitendra K: Which talks about a certain topic.
+
+182
+00:20:07.940 --> 00:20:09.490
+Jitendra K: This is topic one.
+
+183
+00:20:10.110 --> 00:20:14.200
+Jitendra K: Topic 2, Topic 3, Topic 4, so on and so forth.
+
+184
+00:20:15.150 --> 00:20:17.500
+Jitendra K: Now, these topics have certain elements.
+
+185
+00:20:18.540 --> 00:20:20.650
+Jitendra K: So these are called entities.
+
+186
+00:20:21.610 --> 00:20:26.699
+Jitendra K: Now, I'm linking the common topic between the two documents by one entity, and then whole graph.
+
+187
+00:20:27.640 --> 00:20:32.950
+Jitendra K: will be moving… With the initial cluster.
+
+188
+00:20:33.390 --> 00:20:40.440
+Jitendra K: And then the communities are trying to maximize the modularity and improve the quality of partitions. That means these two clusters should be separated.
+
+189
+00:20:41.570 --> 00:20:47.660
+Jitendra K: Now, refining the partition, communities are refined to ensure that each one is properly connected internally.
+
+190
+00:20:48.120 --> 00:20:55.370
+Jitendra K: And then aggregate into super node. That means communities are aggregate into super node, specifying the network structure, and then process repeats.
+
+191
+00:20:55.870 --> 00:21:03.230
+Jitendra K: So basically, this process will continue until I achieve the optimal thoughts.
+
+192
+00:21:13.280 --> 00:21:20.030
+Jitendra K: So this is what… We are doing, with the help of… Laden algorithm.
+
+193
+00:21:24.440 --> 00:21:28.749
+Jitendra K: So, if you would like to understand the working principle of Latin.
+
+194
+00:21:29.520 --> 00:21:33.869
+Jitendra K: Latin algorithm, we will create some small data set.
+
+195
+00:21:34.510 --> 00:21:40.250
+Jitendra K: With a very simple numbers… on the top of it, and we will use Network X.
+
+196
+00:21:40.450 --> 00:21:42.379
+Jitendra K: Which is another Python package.
+
+197
+00:21:42.740 --> 00:21:46.520
+Jitendra K: That will help us to create graphs in Python.
+
+198
+00:21:46.860 --> 00:21:50.469
+Jitendra K: And we'll create some graphs, and then…
+
+199
+00:21:51.290 --> 00:21:55.020
+Jitendra K: Try to parse some data on the top of it, and then try to see the linkage.
+
+200
+00:21:55.450 --> 00:21:57.530
+Jitendra K: So let me go back to my collab.
+
+201
+00:22:34.970 --> 00:22:37.050
+Jitendra K: Okay, so I will use two packages.
+
+202
+00:22:37.480 --> 00:22:41.610
+Jitendra K: pip install… Network…
+
+203
+00:22:45.370 --> 00:22:47.719
+Jitendra K: X and MacBot.
+
+204
+00:22:57.200 --> 00:22:59.420
+Jitendra K: So, I will use this package, NetworkX.
+
+205
+00:22:59.870 --> 00:23:02.959
+Jitendra K: So, network access is a library for analyzing and creating graphs.
+
+206
+00:23:03.250 --> 00:23:05.930
+Jitendra K: And matplot, as you know, it's for visualization purpose.
+
+207
+00:23:07.310 --> 00:23:09.529
+Jitendra K: So, I will import these libraries…
+
+208
+00:23:09.880 --> 00:23:14.669
+Jitendra K: into my namespace, I will say import network X, matplot, and random.
+
+209
+00:23:17.020 --> 00:23:22.789
+Jitendra K: Now, we'll create a simple graph to demonstrate letting the string, and you can generate a random graph for real-world data.
+
+210
+00:23:23.120 --> 00:23:26.719
+Jitendra K: As well. So I'm just trying to show you one simple graph.
+
+211
+00:23:29.030 --> 00:23:34.420
+Jitendra K: Which is having some nodes and some edges. So this is the graph that I'm using. So you can see this is one graph.
+
+212
+00:23:35.360 --> 00:23:36.790
+Jitendra K: This is second graph.
+
+213
+00:23:37.350 --> 00:23:41.160
+Jitendra K: This is third graph, this is the fourth graph.
+
+214
+00:23:42.760 --> 00:23:45.040
+Jitendra K: Now, we are going to… we will apply…
+
+215
+00:23:46.840 --> 00:23:50.869
+Jitendra K: We will manually implement a simplified version of latent clustering to demonstrate
+
+216
+00:23:50.990 --> 00:23:55.329
+Jitendra K: How nodes move between the community to maximize the separation.
+
+217
+00:23:55.690 --> 00:23:59.420
+Jitendra K: So start with a node in its own community. So, let's say…
+
+218
+00:24:00.030 --> 00:24:04.820
+Jitendra K: I would like to start with 11, or maybe 1.
+
+219
+00:24:04.930 --> 00:24:07.729
+Jitendra K: Right? Which is a part of my own Node community.
+
+220
+00:24:07.980 --> 00:24:13.810
+Jitendra K: And then, I will do a local movement phase, so move node to the neighbor community to maximize the modularity.
+
+221
+00:24:14.090 --> 00:24:17.869
+Jitendra K: And then I will merge the node within the same community and repeat the process.
+
+222
+00:24:18.360 --> 00:24:22.509
+Jitendra K: So that means I have to do some sort of traversal using graph.
+
+223
+00:24:23.060 --> 00:24:31.320
+Jitendra K: So true to this traversal, I will use something called… the… I will explain this quote.
+
+224
+00:24:31.430 --> 00:24:33.480
+Jitendra K: Which is called shuffling mechanism.
+
+225
+00:24:33.810 --> 00:24:37.810
+Jitendra K: And then, it will be able to introduce… the…
+
+226
+00:24:38.260 --> 00:24:41.619
+Jitendra K: Merge node in the community and rebuild a graph with fewer nodes.
+
+227
+00:24:41.940 --> 00:24:48.579
+Jitendra K: Now, in the aggregation phase, I will use the aggregation phase.
+
+228
+00:24:51.330 --> 00:24:57.910
+Jitendra K: So, this aggregation phase… We'll give you, the aggregated graphite community.
+
+229
+00:24:58.420 --> 00:25:02.750
+Jitendra K: So, basically, If I have to explain you a very simple term.
+
+230
+00:25:02.870 --> 00:25:05.179
+Jitendra K: Let… let me go by this code.
+
+231
+00:25:10.930 --> 00:25:12.060
+Jitendra K: One second…
+
+232
+00:25:59.930 --> 00:26:02.619
+Jitendra K: Okay, so let me just show you the pseudocode.
+
+233
+00:26:03.300 --> 00:26:07.860
+Jitendra K: So, first… What I'm doing is, I'm initializing the edges.
+
+234
+00:26:08.340 --> 00:26:13.370
+Jitendra K: So I'm creating a unidirected graph with 15 nodes forming a cycle. 6 cycle.
+
+235
+00:26:13.660 --> 00:26:15.619
+Jitendra K: From node 0 to node 5.
+
+236
+00:26:15.760 --> 00:26:21.319
+Jitendra K: A 4-cycle from 6 to 9, and a 5-cycle from 10 to 14.
+
+237
+00:26:22.890 --> 00:26:25.029
+Jitendra K: So I just initialized the community.
+
+238
+00:26:25.590 --> 00:26:29.899
+Jitendra K: So, key concept is, I would like to start Node in its own community.
+
+239
+00:26:30.350 --> 00:26:35.870
+Jitendra K: And then, I will use the clustering to improve the modularity gain.
+
+240
+00:26:36.450 --> 00:26:41.579
+Jitendra K: So the modularity gain that I'm using here is… By using this modularity graph.
+
+241
+00:26:43.220 --> 00:26:46.509
+Jitendra K: Now, this is a modularity gain, if I have to write down the equation.
+
+242
+00:26:47.090 --> 00:26:48.700
+Jitendra K: The equation is this.
+
+243
+00:26:53.210 --> 00:26:55.999
+Jitendra K: So, Q is your modularity parameter.
+
+244
+00:26:57.230 --> 00:27:02.599
+Jitendra K: This parameter… will use… Which is a total address.
+
+245
+00:27:03.020 --> 00:27:07.309
+Jitendra K: adjacent… is equals to 1 if Azure exists.
+
+246
+00:27:08.050 --> 00:27:14.170
+Jitendra K: K is the degree of node I, and sigma is the… community factor
+
+247
+00:27:14.390 --> 00:27:20.710
+Jitendra K: So, I mean, you know how to understand this part, so that means we are just using the algorithm which is already defined.
+
+248
+00:27:21.200 --> 00:27:24.940
+Jitendra K: And what it does is, it will run this algorithm in a loop.
+
+249
+00:27:26.430 --> 00:27:31.200
+Jitendra K: And then, each iteration shuffle nodes to avoid deterministic order biasing.
+
+250
+00:27:31.380 --> 00:27:36.129
+Jitendra K: For each node, it will examine all the network, neighbor, community count each.
+
+251
+00:27:36.450 --> 00:27:40.010
+Jitendra K: node to Candidate Community, and move the node to…
+
+252
+00:27:40.140 --> 00:27:42.730
+Jitendra K: The highest internal ledge, which is having a link.
+
+253
+00:27:43.610 --> 00:27:50.220
+Jitendra K: Now, finally, I would like to use, the… Results…
+
+254
+00:27:50.610 --> 00:27:55.799
+Jitendra K: So this is where I'm going to do post-analysis. That means I'm just using
+
+255
+00:27:56.540 --> 00:28:00.900
+Jitendra K: The, and applying their lead-in algorithm.
+
+256
+00:28:01.450 --> 00:28:03.630
+Jitendra K: And then we are just trying to…
+
+257
+00:28:04.780 --> 00:28:10.189
+Jitendra K: Do a local movement phase, move the node to the neighbor community to maximize the modularity.
+
+258
+00:28:10.350 --> 00:28:13.260
+Jitendra K: And merge the node with the same community and repeat the process.
+
+259
+00:28:13.540 --> 00:28:15.870
+Jitendra K: So, this is during the aggregation phase.
+
+260
+00:28:17.700 --> 00:28:19.620
+Jitendra K: Which is the last part of my code.
+
+261
+00:28:23.460 --> 00:28:24.960
+Jitendra K: Let me show it to you.
+
+262
+00:29:25.650 --> 00:29:31.870
+Jitendra K: Modularity is to separate a cluster with maximum margin. That's the purpose of modularity. If you are mixing
+
+263
+00:29:32.240 --> 00:29:38.510
+Jitendra K: If you're using two clusters of similar entities, then why you're creating two separate clusters, right?
+
+264
+00:29:38.710 --> 00:29:43.299
+Jitendra K: The purpose of modularity is to separate a topic With a maximum margin.
+
+265
+00:29:43.740 --> 00:29:48.539
+Jitendra K: So these top two topics should be as different as each other when you're storing it in a Neo4J.
+
+266
+00:29:48.990 --> 00:29:52.329
+Jitendra K: That is called modularity gain. And if you're increasing this distance.
+
+267
+00:29:52.600 --> 00:29:54.969
+Jitendra K: You automatically increase the modularity again.
+
+268
+00:30:01.760 --> 00:30:05.920
+Jitendra K: Okay, now let me explain the last part of this code, which is aggregation part.
+
+269
+00:30:09.230 --> 00:30:16.400
+Jitendra K: No, it's not a k-mean clustering. K-mean is a supervised… unsupervised learning algorithm, where you are using
+
+270
+00:30:16.770 --> 00:30:20.799
+Jitendra K: some seat parameter to differentiate, right? But here we are talking about
+
+271
+00:30:20.950 --> 00:30:25.939
+Jitendra K: The concept of clustering will remain the same, but the way that KME clustering operates is different.
+
+272
+00:30:27.770 --> 00:30:35.569
+Jitendra K: The objective of clustering will remain the same, right? Because it's a clustering algorithm. Clustering means you are grouping homogeneous data together.
+
+273
+00:30:35.750 --> 00:30:37.770
+Jitendra K: And separating heterogeneous data.
+
+274
+00:30:38.730 --> 00:30:42.789
+Jitendra K: But, the way that we are using this clustering is very different from K-Main.
+
+275
+00:30:43.740 --> 00:30:50.550
+Jitendra K: Okay, so this is the code that we are using for aggregation, so here I'm using… the network graphics.
+
+276
+00:30:51.010 --> 00:30:52.499
+Jitendra K: And creating an object.
+
+277
+00:30:52.710 --> 00:30:55.909
+Jitendra K: So it creates an empty network graph that will store the metagraph.
+
+278
+00:30:56.310 --> 00:31:00.759
+Jitendra K: And then community mapping, I'm keeping as I'm traditionally to map the original community ID.
+
+279
+00:31:01.190 --> 00:31:03.189
+Jitendra K: And then creating some super notes.
+
+280
+00:31:04.280 --> 00:31:09.960
+Jitendra K: So, I will iterate through each node in the original graph, create one super node per unique community.
+
+281
+00:31:10.260 --> 00:31:17.360
+Jitendra K: And then, performing the greedy search to transfer Some common linkages.
+
+282
+00:31:17.640 --> 00:31:20.270
+Jitendra K: Between the node traversal.
+
+283
+00:31:20.420 --> 00:31:23.990
+Jitendra K: And then, finally, I will have the… Edge.
+
+284
+00:31:24.680 --> 00:31:29.019
+Jitendra K: So, original graph… After aggregation is converted into 3…
+
+285
+00:31:29.240 --> 00:31:33.530
+Jitendra K: connection between them. So that means we have got 3 subgraphs.
+
+286
+00:31:33.740 --> 00:31:36.209
+Jitendra K: inside it. So we started with how many?
+
+287
+00:31:36.870 --> 00:31:40.919
+Jitendra K: We started with 1, 2, 3, 4.
+
+288
+00:31:41.050 --> 00:31:44.129
+Jitendra K: Even 5, I can see the fifth one is also here.
+
+289
+00:31:44.560 --> 00:31:48.599
+Jitendra K: So I can say this is one graph, This is one graph.
+
+290
+00:31:49.310 --> 00:31:50.860
+Jitendra K: This is one graph.
+
+291
+00:31:51.460 --> 00:31:53.090
+Jitendra K: This is one graph.
+
+292
+00:31:55.810 --> 00:31:57.769
+Jitendra K: And then you have got another graph.
+
+293
+00:31:58.600 --> 00:32:03.510
+Jitendra K: Now, we have just formed 3 linkage, 3 nodes, as a final outcome.
+
+294
+00:32:04.010 --> 00:32:08.130
+Jitendra K: So we remove the complexity of… We're entering this crop.
+
+295
+00:32:09.020 --> 00:32:13.510
+Jitendra K: So overall, what we are doing is, we are trying to oversimplify the graph by…
+
+296
+00:32:14.700 --> 00:32:17.469
+Jitendra K: Removing the common linkages between them.
+
+297
+00:32:22.940 --> 00:32:29.379
+Jitendra K: All right, so we'll move on. So this is one of the code that we are using for performing this analysis.
+
+298
+00:32:29.830 --> 00:32:33.779
+Jitendra K: No… How to use this setup?
+
+299
+00:32:34.080 --> 00:32:35.909
+Jitendra K: In our graph rack.
+
+300
+00:32:36.030 --> 00:32:40.160
+Jitendra K: So, you need not to worry too much about Latin algorithm hierarchical summary.
+
+301
+00:32:40.540 --> 00:32:47.580
+Jitendra K: Because this Neo 4G will automatically do it for you. So Neo 4G will do it for you, you don't have to worry about it.
+
+302
+00:32:47.790 --> 00:32:50.880
+Jitendra K: So Neo4j will generate this file.
+
+303
+00:32:51.140 --> 00:32:54.270
+Jitendra K: And it will convert your entities into a link.
+
+304
+00:32:54.790 --> 00:32:56.140
+Jitendra K: from your document.
+
+305
+00:32:56.740 --> 00:33:01.280
+Jitendra K: The most important point is how to perform local search and global search.
+
+306
+00:33:03.700 --> 00:33:07.019
+Jitendra K: Using the parameters that we are going to use in our pipeline.
+
+307
+00:33:07.280 --> 00:33:09.279
+Jitendra K: So you can see the local search.
+
+308
+00:33:09.700 --> 00:33:14.080
+Jitendra K: is depending upon two important algorithms called bet-first search and depth-first search.
+
+309
+00:33:16.350 --> 00:33:18.639
+Jitendra K: And it will generate a relevance
+
+310
+00:33:19.080 --> 00:33:23.230
+Jitendra K: And using graph centrality concept, it will give you the answer.
+
+311
+00:33:25.620 --> 00:33:33.809
+Jitendra K: So, let's say I'm asking a simple question, what regulation does JP Morgan face for its derivative trading? So I will have a set of trading documents.
+
+312
+00:33:34.200 --> 00:33:37.759
+Jitendra K: Which is a confidential information for my organization.
+
+313
+00:33:37.950 --> 00:33:43.509
+Jitendra K: Then I will run a local search, which is within my document search, and retry this answer.
+
+314
+00:33:44.860 --> 00:33:50.269
+Jitendra K: For corpus-level thematic queries, that means I would like to go for global search.
+
+315
+00:33:52.380 --> 00:33:59.490
+Jitendra K: So let's say if I'm asking a question, what are the domain… dominant themes in 2024 financial regulation landscape? That means a global search.
+
+316
+00:33:59.700 --> 00:34:04.960
+Jitendra K: I can use documents outside my organization to generate this answer as well.
+
+317
+00:34:05.690 --> 00:34:09.749
+Jitendra K: Right? So that is where you need to define the scope of the query.
+
+318
+00:34:10.260 --> 00:34:12.290
+Jitendra K: With this foundational layer.
+
+319
+00:34:14.020 --> 00:34:16.549
+Jitendra K: Now, behind the scenes, this is what is happening.
+
+320
+00:34:16.870 --> 00:34:25.729
+Jitendra K: So, if I have to explain you this slide in a more simple and layman format, Let me…
+
+321
+00:34:42.480 --> 00:34:45.230
+Jitendra K: Let me use an example to explain this.
+
+322
+00:34:46.219 --> 00:34:51.520
+Jitendra K: One second… Yeah, I will share the quote file, don't worry about it.
+
+323
+00:34:52.400 --> 00:34:57.039
+Jitendra K: So, Graph Theory Foundation, right? So, here we are… what we are talking about is…
+
+324
+00:34:57.450 --> 00:35:05.799
+Jitendra K: So, we are outlining the three mathematical core concepts, which is used by GraphRag. A retrieval augment generation mechanism, which you already know.
+
+325
+00:35:06.120 --> 00:35:12.709
+Jitendra K: Here, we are leveraging graph properties, but we are doing the same thing. That's why it is called GraphRag, right?
+
+326
+00:35:13.050 --> 00:35:16.890
+Jitendra K: We are still building a rack pipeline, but with graph property.
+
+327
+00:35:17.680 --> 00:35:20.800
+Jitendra K: That means this is RAG++ for you.
+
+328
+00:35:21.040 --> 00:35:24.060
+Jitendra K: Something additional is there in your rack pipeline.
+
+329
+00:35:25.680 --> 00:35:28.190
+Jitendra K: Right, so what is additional? This is the additional.
+
+330
+00:35:31.060 --> 00:35:34.580
+Jitendra K: These three fundamental things are happening in addition.
+
+331
+00:35:37.250 --> 00:35:42.479
+Jitendra K: So what are you doing is, you're using something called PageRank Centrality Concept.
+
+332
+00:35:43.650 --> 00:35:48.289
+Jitendra K: So, PageRank will identify the important entities in graph, document.
+
+333
+00:35:48.870 --> 00:35:55.010
+Jitendra K: concepts or mode, based upon the link structure, and then it uses a formula which is 1 minus D,
+
+334
+00:35:56.020 --> 00:35:57.200
+Jitendra K: over N.
+
+335
+00:35:58.710 --> 00:36:08.280
+Jitendra K: plus D times… summation of PR… Page rank value divided well.
+
+336
+00:36:09.670 --> 00:36:17.220
+Jitendra K: And this value V is all Belongs to natural number.
+
+337
+00:36:17.920 --> 00:36:22.449
+Jitendra K: So, P of RU is the PRU, which is, you can see here.
+
+338
+00:36:24.110 --> 00:36:27.140
+Jitendra K: Which is my output page rank.
+
+339
+00:36:28.800 --> 00:36:35.830
+Jitendra K: So, page rank is a score of the node, and D is the damping factor, which is 85. Probability of random suffer keeping
+
+340
+00:36:36.460 --> 00:36:44.570
+Jitendra K: kind of, you can consider it to be, like, Jumping and randomly initiated notes.
+
+341
+00:36:45.360 --> 00:36:50.159
+Jitendra K: 10 is the total number of nodes, B of U is the set of nodes that link to U,
+
+342
+00:36:50.280 --> 00:36:52.699
+Jitendra K: And L of V is the outlink from V.
+
+343
+00:36:53.430 --> 00:36:54.940
+Jitendra K: So the intuition is…
+
+344
+00:36:55.190 --> 00:37:02.140
+Jitendra K: Many important nodes point to incoming links, and each link node separate, it's important equally across the outgoing links.
+
+345
+00:37:02.400 --> 00:37:05.080
+Jitendra K: So, in graph, rank which entity?
+
+346
+00:37:05.910 --> 00:37:10.379
+Jitendra K: Like, people, concept, document, are more centrally to the knowledge graph.
+
+347
+00:37:10.950 --> 00:37:16.440
+Jitendra K: So, if you're… If you have work on topic mining, you will understand this concept.
+
+348
+00:37:16.990 --> 00:37:22.240
+Jitendra K: that web page search in Google happened with the help of PageRank algorithm.
+
+349
+00:37:22.650 --> 00:37:30.870
+Jitendra K: What Google does is, it will rank your HTML page based upon the query context, using PageRank in the early days, 1998, 1999.
+
+350
+00:37:31.380 --> 00:37:36.470
+Jitendra K: So that means they are using some prioritization which note to retrieve when the query mentions a topic.
+
+351
+00:37:37.000 --> 00:37:42.820
+Jitendra K: So let's say if I'm asking a question, quantum computing, A topic on quantum computing.
+
+352
+00:37:43.150 --> 00:37:47.209
+Jitendra K: It will have a high relevance on quantum computing as a node.
+
+353
+00:37:47.500 --> 00:37:51.729
+Jitendra K: And all the related topics with quantum computing should be linked with my node.
+
+354
+00:37:54.900 --> 00:37:59.689
+Jitendra K: Now, after it generates, then I'm going to use this mechanism.
+
+355
+00:37:59.880 --> 00:38:05.780
+Jitendra K: To embed the entity and relationship from a knowledge graph into a continuous vector space.
+
+356
+00:38:06.550 --> 00:38:09.910
+Jitendra K: So what it does is, the key idea is, I'm going to use…
+
+357
+00:38:10.600 --> 00:38:14.469
+Jitendra K: The three parameter had, relation, and tail.
+
+358
+00:38:16.210 --> 00:38:18.440
+Jitendra K: So that means I'm trying to minimize…
+
+359
+00:38:18.780 --> 00:38:25.349
+Jitendra K: The triplet loss here, or triplet… Consideration here. So, GraphRag.
+
+360
+00:38:25.540 --> 00:38:29.229
+Jitendra K: It converts graph structure into a dense vector for similarity search.
+
+361
+00:38:30.090 --> 00:38:33.050
+Jitendra K: So let's say if I'm asking, find city similar to Paris.
+
+362
+00:38:34.020 --> 00:38:38.149
+Jitendra K: It'll try to find out all the cities which are similar to Paris, which are linked.
+
+363
+00:38:39.090 --> 00:38:47.339
+Jitendra K: So it will help a retrieval node, not directly connect, but create a relationship Relationally close entities.
+
+364
+00:38:47.810 --> 00:38:55.219
+Jitendra K: Then the final layer is hybrid retrieval score, where I'm using alpha, COAS, Graph Relevance, Community Link.
+
+365
+00:38:55.920 --> 00:39:01.580
+Jitendra K: And then merging the formula to create a balance between the two, using a weighted distribution.
+
+366
+00:39:02.650 --> 00:39:04.900
+Jitendra K: Now, what it does is it combines three signals.
+
+367
+00:39:05.560 --> 00:39:08.429
+Jitendra K: Semantic similarity using cosine.
+
+368
+00:39:09.230 --> 00:39:13.239
+Jitendra K: and BitQuery and dock with LRM transformer, take cosine similarity.
+
+369
+00:39:13.660 --> 00:39:15.959
+Jitendra K: Second factor is the graph relevance.
+
+370
+00:39:16.880 --> 00:39:25.680
+Jitendra K: Which is using a graph structure, how many graph path-connected query entities to dock entities, typically computed via graph traversal or personalized page rank.
+
+371
+00:39:26.120 --> 00:39:32.310
+Jitendra K: And then the community rank, which is a document standing in our knowledge community, variant of a page rank.
+
+372
+00:39:32.850 --> 00:39:35.579
+Jitendra K: Restricted to a topical subgraph.
+
+373
+00:39:36.290 --> 00:39:45.750
+Jitendra K: And then I'm using some parameters, alpha, beta, gamma, to balance this. Alpha is a classical dense retrieval, embedding similarity, beta is the graph-aware retrieval.
+
+374
+00:39:46.080 --> 00:39:50.120
+Jitendra K: Which will answer, does document connected to query by relationship?
+
+375
+00:39:51.790 --> 00:39:57.979
+Jitendra K: And then the community bias, that means preferred document from authoritative sources within a topic.
+
+376
+00:39:58.400 --> 00:40:02.449
+Jitendra K: That means I'm looking for authentication linkage.
+
+377
+00:40:03.600 --> 00:40:04.490
+Jitendra K: Right?
+
+378
+00:40:06.150 --> 00:40:10.319
+Jitendra K: So these three factors will constitute a graph rag.
+
+379
+00:40:11.500 --> 00:40:15.749
+Jitendra K: So here, you are going to use a graph, right, with all these mathematical principles.
+
+380
+00:40:16.190 --> 00:40:18.219
+Jitendra K: To perform the search.
+
+381
+00:40:22.380 --> 00:40:28.610
+Jitendra K: So, dimension is nothing but your number of entities in your knowledge base, which LLM will found for you.
+
+382
+00:40:32.500 --> 00:40:37.820
+Jitendra K: So let's say if I'm asking… explain quantum computing simply, So, it will use…
+
+383
+00:40:38.470 --> 00:40:41.070
+Jitendra K: A very simple formulation, like this.
+
+384
+00:40:43.340 --> 00:40:48.520
+Jitendra K: So if I'm asking a very simple question, Explain quantum computing.
+
+385
+00:40:49.170 --> 00:40:55.589
+Jitendra K: So it will… pageang will identify the entities like quantum computing, qubits, superposition, entanglement.
+
+386
+00:40:55.830 --> 00:40:59.790
+Jitendra K: And then translate maps to these entities and their relationship.
+
+387
+00:41:00.040 --> 00:41:07.160
+Jitendra K: And then the hybrid retrieval score will generate embedding similarity to PERI, Which is alpha, graph, connectivity.
+
+388
+00:41:07.710 --> 00:41:09.370
+Jitendra K: and the community link.
+
+389
+00:41:09.930 --> 00:41:13.859
+Jitendra K: Right? And then generate a topic. That means we'll fetch the document.
+
+390
+00:41:14.350 --> 00:41:16.900
+Jitendra K: And then send it to the LLM to generate an answer.
+
+391
+00:41:17.410 --> 00:41:20.160
+Jitendra K: So… so this is the part of GraphRec.
+
+392
+00:41:25.580 --> 00:41:27.609
+Jitendra K: Alright, any question on this, guys?
+
+393
+00:41:30.040 --> 00:41:32.950
+Jitendra K: Now, the question is, why graph rack beat native rack?
+
+394
+00:41:33.760 --> 00:41:39.860
+Jitendra K: If I have to answer that… The answer is… These three parameters.
+
+395
+00:41:40.430 --> 00:41:41.989
+Jitendra K: Alpha, beta, and Gamma.
+
+396
+00:41:46.420 --> 00:41:51.830
+Jitendra K: But it has to be curated, right? So, you cannot use GraphRag randomly.
+
+397
+00:41:52.680 --> 00:41:56.990
+Jitendra K: You need to understand on which use scenarios, when you have a quality data.
+
+398
+00:41:57.420 --> 00:42:03.069
+Jitendra K: you can go for GraphRag. You cannot blindly use GraphRag and then expect everything will run automatically.
+
+399
+00:42:04.240 --> 00:42:08.359
+Jitendra K: You need to curate your data, you need to inspect your quality of data.
+
+400
+00:42:08.590 --> 00:42:10.130
+Jitendra K: And then use GraphRite.
+
+401
+00:42:10.300 --> 00:42:13.860
+Jitendra K: Otherwise, it's a garbage-in, garbage-out system for you.
+
+402
+00:42:15.310 --> 00:42:19.140
+Jitendra K: When you're sure… when you're quite sure that the document that you're using
+
+403
+00:42:19.440 --> 00:42:21.530
+Jitendra K: For generating the answer, have linkage.
+
+404
+00:42:23.040 --> 00:42:30.970
+Jitendra K: Right? It does not mean that if I'm saying GraphRec is advanced technique, so you should start using GraphRec. GraphRec is a very expensive.
+
+405
+00:42:32.100 --> 00:42:37.240
+Jitendra K: As compared to traditional rag, or vanilla rag, or… Agentic route.
+
+406
+00:42:37.650 --> 00:42:40.610
+Jitendra K: But there should be a motive why you should use graphite.
+
+407
+00:42:43.030 --> 00:42:48.470
+Jitendra K: When you're quite sure that your documents in your domain, the problem that you're trying to solve.
+
+408
+00:42:48.710 --> 00:42:55.000
+Jitendra K: have proper linkage in terms of documents and entities, then you can use Forgraph, right? Otherwise.
+
+409
+00:42:55.490 --> 00:43:01.930
+Jitendra K: It will be simply a waste of your resources and amount as well. GraphRag will not generate good answers.
+
+410
+00:43:11.630 --> 00:43:19.689
+Jitendra K: That is for local search, BFS and DFS. So, Bradford search and dashboard search are for local search within the graph.
+
+411
+00:44:26.160 --> 00:44:29.270
+Jitendra K: From user input, natural language query, how does it…
+
+412
+00:44:30.300 --> 00:44:33.999
+Jitendra K: Locate graph nodes. So, user query will have entities, right?
+
+413
+00:44:34.870 --> 00:44:41.440
+Jitendra K: So, the entity here is quantum computing, and quantum computing will be linked to Multiple sub-entities like this.
+
+414
+00:44:42.100 --> 00:44:44.400
+Jitendra K: And then I will be able to expand my search.
+
+415
+00:44:45.060 --> 00:44:49.799
+Jitendra K: Based upon these parameters, qubit, superposition, entanglement, and then…
+
+416
+00:44:50.120 --> 00:44:54.920
+Jitendra K: Broaden my spectrum of finding the right document with a maximum relevance.
+
+417
+00:44:58.660 --> 00:45:03.289
+Jitendra K: Are these graphs built during runtime or compiled in a database?
+
+418
+00:45:06.830 --> 00:45:08.640
+Jitendra K: Oh yeah, let me zoom in.
+
+419
+00:45:10.150 --> 00:45:17.700
+Jitendra K: Are we… sorry, let me understand your question. Are these graphs built during runtime, or compiled in database earlier?
+
+420
+00:45:18.010 --> 00:45:24.999
+Jitendra K: So this is, already stored in Neo4j. That's the reason we are using a tool called Neo4J to store this.
+
+421
+00:45:25.360 --> 00:45:29.370
+Jitendra K: And then at the time of inference, we will just… scratch the…
+
+422
+00:45:29.720 --> 00:45:32.320
+Jitendra K: Node and metadata to generate an answer.
+
+423
+00:45:33.330 --> 00:45:34.810
+Jitendra K: Using Community Rank.
+
+424
+00:45:35.050 --> 00:45:48.329
+Jitendra K: That is what we are trying to solve. So, you guys are not even familiar with graph, DEFS, BFS? Is that what, is referring? Is that what my understanding is correct? You never heard about DFSBFS before?
+
+425
+00:45:48.980 --> 00:45:51.339
+Jitendra K: Okay, so that is the issue here.
+
+426
+00:45:52.350 --> 00:45:54.470
+Jitendra K: You don't have software background.
+
+427
+00:45:56.830 --> 00:45:58.879
+Jitendra K: So, I think,
+
+428
+00:46:05.280 --> 00:46:08.450
+Jitendra K: So those who are not familiar with DFS and BFS,
+
+429
+00:46:09.100 --> 00:46:14.240
+Jitendra K: it's a mechanism to traverse in a graph, right? So…
+
+430
+00:46:14.850 --> 00:46:17.279
+Jitendra K: Let me put it into a simple term.
+
+431
+00:46:17.420 --> 00:46:21.950
+Jitendra K: So, let's say you're using… the algorithm
+
+432
+00:46:22.410 --> 00:46:30.490
+Jitendra K: let's say I'm designing an algorithm, And assume it, like, These notes are…
+
+433
+00:46:31.860 --> 00:46:35.910
+Jitendra K: Your… your zip codes, addresses, right?
+
+434
+00:46:36.080 --> 00:46:39.680
+Jitendra K: Let's say these are the zones in Bangalore or Delhi.
+
+435
+00:46:40.190 --> 00:46:45.830
+Jitendra K: So you have got poor Mangala, you have got, white field, I've got,
+
+436
+00:46:46.610 --> 00:46:50.110
+Jitendra K: Ozur, and all other roads, right? Masu Road.
+
+437
+00:46:50.470 --> 00:46:53.390
+Jitendra K: So they are interconnected via highway.
+
+438
+00:46:53.800 --> 00:46:57.569
+Jitendra K: Now, you would like to find out the shortest route, let's say you're staying here.
+
+439
+00:46:58.020 --> 00:47:02.490
+Jitendra K: and you would like to reach to this point, what is the shortest route that I can take?
+
+440
+00:47:02.970 --> 00:47:05.689
+Jitendra K: And that is what graphs will help you do.
+
+441
+00:47:06.420 --> 00:47:08.600
+Jitendra K: Answer. The shortest route.
+
+442
+00:47:09.980 --> 00:47:11.799
+Jitendra K: And the shortest route is Euro.
+
+443
+00:47:13.720 --> 00:47:18.680
+Jitendra K: Objective, because it'll save the time that you're going to invest in travel.
+
+444
+00:47:19.130 --> 00:47:23.310
+Jitendra K: The resources, which is your petrol fuel, that you're going to bear.
+
+445
+00:47:23.770 --> 00:47:28.389
+Jitendra K: Right? So this shortest route will be defined via DFS and BFS algorithm.
+
+446
+00:47:28.970 --> 00:47:35.340
+Jitendra K: So that algorithm will help you to identify The shortest route in… Two travers.
+
+447
+00:47:35.540 --> 00:47:42.149
+Jitendra K: Now, here, our approach is different. We are not talking about shortest route and all this thing. We are talking about relevant document.
+
+448
+00:47:42.910 --> 00:47:46.859
+Jitendra K: Now, let's say this document talks about quantum computing.
+
+449
+00:47:50.590 --> 00:47:56.640
+Jitendra K: And this is a central topic. And then, I will have subtopics which are related with quantum computing.
+
+450
+00:47:57.090 --> 00:47:59.029
+Jitendra K: With some centrality.
+
+451
+00:47:59.140 --> 00:48:03.669
+Jitendra K: number. So let's say the node is situated, and I will say that this topic is relevant.
+
+452
+00:48:03.810 --> 00:48:07.249
+Jitendra K: By 50%, this topic is 40% relevant.
+
+453
+00:48:07.670 --> 00:48:12.039
+Jitendra K: This topic is 30% relevant, this topic is 90% relevant.
+
+454
+00:48:12.210 --> 00:48:17.049
+Jitendra K: And let's say if I'm saying I would like to return top K to be 2.
+
+455
+00:48:18.660 --> 00:48:21.680
+Jitendra K: So, using this graph property, I was able to return this.
+
+456
+00:48:22.280 --> 00:48:23.200
+Jitendra K: And this.
+
+457
+00:48:23.870 --> 00:48:26.259
+Jitendra K: So there's a tiebreaker, 50 and 50.
+
+458
+00:48:26.640 --> 00:48:31.759
+Jitendra K: So again, it will use another parameter to generate an answer, which could be…
+
+459
+00:48:32.320 --> 00:48:35.990
+Jitendra K: The proximity distance between the two nodes.
+
+460
+00:48:38.990 --> 00:48:46.090
+Jitendra K: Right, so this is how the graph property will help you to solve the problem associated with context.
+
+461
+00:48:50.750 --> 00:48:54.960
+Jitendra K: Is it clear now? So, forget about DFS, BFS…
+
+462
+00:48:55.390 --> 00:48:57.720
+Jitendra K: So they are just traversal mechanism.
+
+463
+00:48:58.800 --> 00:49:01.419
+Jitendra K: They are called bread-first search, depth-first search.
+
+464
+00:49:02.270 --> 00:49:05.780
+Jitendra K: These are two graph properties that we are using for local search.
+
+465
+00:49:06.390 --> 00:49:12.219
+Jitendra K: And for global search, things will remain the same, only the part is, we are going to perform hybrid search.
+
+466
+00:49:12.350 --> 00:49:14.700
+Jitendra K: With Graph, you're going to use tools.
+
+467
+00:49:22.190 --> 00:49:23.600
+Jitendra K: To generate an answer.
+
+468
+00:49:25.540 --> 00:49:27.380
+Jitendra K: Is this clear now to everyone?
+
+469
+00:49:35.890 --> 00:49:38.479
+Jitendra K: Okay, so let me share this notebook.
+
+470
+00:50:00.110 --> 00:50:05.100
+Jitendra K: This is just an example to explain you the concept of leading algorithm.
+
+471
+00:50:05.900 --> 00:50:10.169
+Jitendra K: And, we have created an algorithm from the scratch.
+
+472
+00:50:12.110 --> 00:50:15.310
+Jitendra K: Now, let me introduce you to the tool called Neo4J.
+
+473
+00:50:17.230 --> 00:50:20.880
+Jitendra K: So now, Neo4J is a tool that we're going to use to store.
+
+474
+00:50:22.690 --> 00:50:24.890
+Jitendra K: The entities that we are going to formulate.
+
+475
+00:50:58.680 --> 00:51:00.679
+Jitendra K: So this is a database called Aura.
+
+476
+00:51:00.860 --> 00:51:04.889
+Jitendra K: from Neo4j, which has been used to store the graph entries.
+
+477
+00:51:52.530 --> 00:51:55.480
+Jitendra K: So, you can see that this is how it works.
+
+478
+00:51:56.120 --> 00:52:00.899
+Jitendra K: So this is the… This is the deployment strategy for agents.
+
+479
+00:52:01.290 --> 00:52:07.040
+Jitendra K: So you have a graphic schema, you have a tool, you have prompts management, and then use case description.
+
+480
+00:52:07.180 --> 00:52:13.719
+Jitendra K: And then, depending upon that, it will create a workflow. So, basically, this is the central piece, which is for ontology search.
+
+481
+00:52:14.160 --> 00:52:17.659
+Jitendra K: And whatever we are talking about to manage this ontology.
+
+482
+00:52:18.170 --> 00:52:22.609
+Jitendra K: Using, learning algorithm and all, which will be inbuilt in this
+
+483
+00:52:23.130 --> 00:52:26.880
+Jitendra K: So in order to create anything to… perform this…
+
+484
+00:52:27.840 --> 00:52:34.580
+Jitendra K: mapping within your document. You can still create some features that will be useful for your document management.
+
+485
+00:52:34.900 --> 00:52:37.800
+Jitendra K: But in general, you need not to worry too much about it.
+
+486
+00:52:40.090 --> 00:52:42.229
+Jitendra K: So it's a self-manageable instance.
+
+487
+00:52:45.430 --> 00:52:46.999
+Jitendra K: I will log into this…
+
+488
+00:53:13.740 --> 00:53:15.679
+Jitendra K: I haven't one installed which is running.
+
+489
+00:53:16.530 --> 00:53:18.270
+Jitendra K: So, I will…
+
+490
+00:53:33.150 --> 00:53:35.620
+Jitendra K: Maybe we want to show you the dashboard view of this.
+
+491
+00:53:37.400 --> 00:53:40.209
+Jitendra K: My trial got expired, but anyway…
+
+492
+00:54:16.390 --> 00:54:20.820
+Jitendra K: Okay, so what I'm trying to show you is, I'm just trying to show you…
+
+493
+00:54:21.260 --> 00:54:24.409
+Jitendra K: That, you can do a variety of use cases with graph.
+
+494
+00:54:24.750 --> 00:54:26.520
+Jitendra K: Using Neo4j.
+
+495
+00:54:26.950 --> 00:54:30.700
+Jitendra K: And, here we are using another use case for entity management.
+
+496
+00:54:30.950 --> 00:54:33.810
+Jitendra K: So we're just managing the entity using this graph.
+
+497
+00:54:34.070 --> 00:54:35.950
+Jitendra K: All you required is a cluster.
+
+498
+00:54:36.100 --> 00:54:37.260
+Jitendra K: To begin with.
+
+499
+00:54:38.170 --> 00:54:42.060
+Jitendra K: So this is a cluster which I'm using to store my entities.
+
+500
+00:54:42.770 --> 00:54:44.160
+Jitendra K: from documents.
+
+501
+00:54:44.780 --> 00:54:49.470
+Jitendra K: So this is our install which is running. I will have a data API by which I can able to.
+
+502
+00:54:49.640 --> 00:54:55.710
+Jitendra K: connect to this cluster, and store my artifacts. So I will show you how.
+
+503
+00:55:01.020 --> 00:55:04.049
+Jitendra K: First, let me log in with another account.
+
+504
+00:55:38.490 --> 00:55:40.809
+Jitendra K: Just give me 2 minutes, guys, one second.
+
+505
+01:07:42.910 --> 01:07:47.269
+Jitendra K: Hey guys, sorry, there was some issue at my network.
+
+506
+01:07:47.400 --> 01:07:55.419
+Jitendra K: So, can we do one thing? Can we take a quick, 20 minutes break, pre-pawn it, and then we can start a session? I will fix my network issue.
+
+507
+01:07:55.640 --> 01:07:59.559
+Jitendra K: I think my laptop seems to be very slow, so that's the reason.
+
+508
+01:07:59.680 --> 01:08:04.579
+Jitendra K: I need to connect with, Ralph, this node as well.
+
+509
+01:08:04.740 --> 01:08:06.700
+Jitendra K: So that I need a strong connection.
+
+510
+01:08:07.110 --> 01:08:09.889
+Jitendra K: Just let's take a quick 20 minutes break.
+
+511
+01:08:10.250 --> 01:08:14.510
+Jitendra K: Unfortunately, I have to shut down my system as well, so I will rejoin.
+
+512
+01:08:15.050 --> 01:08:19.119
+Jitendra K: And, so there will be no timer, so just be on time, so,
+
+513
+01:08:19.300 --> 01:08:21.800
+Jitendra K: So that we can have this continuation.
+
+514
+01:08:23.529 --> 01:08:24.350
+Jitendra K: Thank you.
+
+515
+01:18:58.220 --> 01:18:59.709
+Priya Kulkarni: We'll get an order.
+
+516
+01:19:20.790 --> 01:19:22.450
+Kamran Noor: I know, so lush.
+
+517
+01:31:14.180 --> 01:31:17.680
+Jitendra K: Hi guys, I hope you're back. Can we have a quick confirmation?
+
+518
+01:31:33.990 --> 01:31:35.790
+Jitendra K: Hey guys, I'm audible to you.
+
+519
+01:31:37.600 --> 01:31:38.860
+Jitendra K: Alright, thank you.
+
+520
+01:31:39.210 --> 01:31:45.489
+Jitendra K: So my apologies, there was some glitch in my system, so we'll continue with our use case.
+
+521
+01:31:58.610 --> 01:32:03.829
+Jitendra K: So, first and foremost thing, what I need you to do is, you need to go to Neo4j.
+
+522
+01:32:05.530 --> 01:32:09.900
+Jitendra K: console, and restore your… account over there.
+
+523
+01:32:11.010 --> 01:32:15.479
+Jitendra K: And then create an instance. I will guide you how to create. You have to click on Free.
+
+524
+01:32:15.760 --> 01:32:20.999
+Jitendra K: And then click next, and then it will give you the regional configuration on the top of it.
+
+525
+01:32:21.440 --> 01:32:27.220
+Jitendra K: So once you create that instance, you have to download the connection metrics.
+
+526
+01:32:27.690 --> 01:32:33.020
+Jitendra K: Which will be this file, which I'm going to use to set up my… Agent decals.
+
+527
+01:32:33.770 --> 01:32:37.700
+Jitendra K: So, can you quickly, guys, try this, and let me know if you're done?
+
+528
+01:32:46.880 --> 01:32:50.599
+Jitendra K: So I'll replace my earlier instance with this information.
+
+529
+01:34:56.880 --> 01:35:00.799
+Jitendra K: And this is my memory configuration, so I have all three.
+
+530
+01:35:22.790 --> 01:35:25.130
+Jitendra K: So, I have everything to operate.
+
+531
+01:35:25.900 --> 01:35:29.449
+Jitendra K: So please let me know if you're able to set up your Neo4J quickly.
+
+532
+01:35:29.650 --> 01:35:31.849
+Jitendra K: Can we have a thumbs up, or…
+
+533
+01:35:32.270 --> 01:35:34.479
+Jitendra K: If you're facing some issue, please let me know.
+
+534
+01:35:43.400 --> 01:35:45.799
+Jitendra K: So, you need these four parameters.
+
+535
+01:35:54.510 --> 01:35:58.930
+Jitendra K: Yeah, I can show you with… Another demo.
+
+536
+01:36:00.090 --> 01:36:01.529
+Jitendra K: So you need to set up…
+
+537
+01:36:02.260 --> 01:36:05.340
+Jitendra K: your NEO4J, click on your instance.
+
+538
+01:36:07.310 --> 01:36:11.829
+Jitendra K: And then, once you run your instance, it will give you the option to download the credentials.
+
+539
+01:36:22.100 --> 01:36:25.529
+Jitendra K: Yeah, should be fine. If it is taking time, then it should be fine.
+
+540
+01:36:29.460 --> 01:36:32.590
+Jitendra K: Okay, so… let me go back to the code.
+
+541
+01:36:33.460 --> 01:36:38.299
+Jitendra K: So this is our code, which will have all the persistent memory. Let me delete this file.
+
+542
+01:36:39.750 --> 01:36:43.219
+Jitendra K: This will have some pre-execution, so I will delete this.
+
+543
+01:36:46.120 --> 01:36:49.259
+Jitendra K: The memory of the ChromaDB also I will delete.
+
+544
+01:36:53.500 --> 01:37:02.030
+Jitendra K: So I've got data, some few sources, I've got my agents, graph… algorithms…
+
+545
+01:37:03.360 --> 01:37:06.530
+Jitendra K: And, new 4J store to connect.
+
+546
+01:37:06.790 --> 01:37:10.060
+Jitendra K: Memory to manage, and ontology graphs to store.
+
+547
+01:37:10.610 --> 01:37:14.109
+Jitendra K: So this is my main file, which I'm going to launch right now.
+
+548
+01:37:14.490 --> 01:37:16.650
+Jitendra K: So first, let me go to the terminal.
+
+549
+01:37:18.040 --> 01:37:19.439
+Jitendra K: So I will say PIP.
+
+550
+01:37:20.180 --> 01:37:26.070
+Jitendra K: Install… hyphen R… requirement.txt.
+
+551
+01:37:51.950 --> 01:37:55.750
+Jitendra K: Now, these are the documents that I'm talking about, so let me show you the code.
+
+552
+01:38:13.670 --> 01:38:18.939
+Jitendra K: So these are some regulatory data which talks about European Council and, European Act.
+
+553
+01:38:19.400 --> 01:38:24.560
+Jitendra K: as a part of financial analytics, I'm going to use this document. This is another
+
+554
+01:38:25.120 --> 01:38:32.019
+Jitendra K: Basel Community Document. For those who are not familiar with Basel, a basil's,
+
+555
+01:38:32.320 --> 01:38:38.060
+Jitendra K: It's one of the banking for international settlement, and this is one of the mandates that we are going to use.
+
+556
+01:38:38.500 --> 01:38:44.109
+Jitendra K: to govern the client space, right, with the regulatory obligations.
+
+557
+01:38:44.300 --> 01:38:47.950
+Jitendra K: So you can see it talks about the policies which regulator need
+
+558
+01:38:48.990 --> 01:38:54.390
+Jitendra K: Which is aggregator has mandated as a part of a governance principle, and the bank has to follow this.
+
+559
+01:38:58.420 --> 01:39:03.610
+Jitendra K: Similarly, I've got another document, which is… Talk about liquidity funds.
+
+560
+01:39:04.270 --> 01:39:08.850
+Jitendra K: Which is also Corporate and Banking Exposure, talks about that.
+
+561
+01:39:09.300 --> 01:39:12.190
+Jitendra K: So we'll look into this document as well.
+
+562
+01:39:16.950 --> 01:39:20.159
+Jitendra K: So I think I have everything installed properly.
+
+563
+01:39:21.090 --> 01:39:23.149
+Jitendra K: Now, what I'm going to do next is…
+
+564
+01:39:33.200 --> 01:39:37.289
+Jitendra K: Now, what I'm going to do next is, I would like to invoke my main file.
+
+565
+01:41:03.670 --> 01:41:06.750
+Jitendra K: Hmm, so I think it has been initialized and connected.
+
+566
+01:41:07.420 --> 01:41:11.689
+Jitendra K: Earlier it was detecting some issue, now it has been resolved.
+
+567
+01:41:11.950 --> 01:41:14.860
+Jitendra K: So, Neo 4J is connected, ChromaDB is connected.
+
+568
+01:41:15.150 --> 01:41:16.929
+Jitendra K: MAM0 is connected.
+
+569
+01:41:17.150 --> 01:41:21.209
+Jitendra K: Langraph, Langsmith is connected, and now I'm ready to launch a query.
+
+570
+01:41:21.390 --> 01:41:25.200
+Jitendra K: And this is showing a nice banking icon, so that I can be able to run it.
+
+571
+01:41:25.800 --> 01:41:29.049
+Jitendra K: Now, let me show you some queries.
+
+572
+01:41:37.450 --> 01:41:41.290
+Jitendra K: One second, let me just quickly run through the queries.
+
+573
+01:42:07.340 --> 01:42:10.970
+Jitendra K: So I will use 3 types of query, complex, medium.
+
+574
+01:42:11.680 --> 01:42:15.109
+Jitendra K: And, maybe a low complex queries.
+
+575
+01:42:15.510 --> 01:42:17.509
+Jitendra K: To show you the output.
+
+576
+01:42:29.070 --> 01:42:32.680
+Jitendra K: So this is all connected, the systems are up and running.
+
+577
+01:42:33.080 --> 01:42:41.699
+Jitendra K: Now, my graph… I will go to the code in a while. First, let me quickly finish this demo, the functional demo, and then we will move on to the code.
+
+578
+01:42:41.820 --> 01:42:45.810
+Jitendra K: Now, as I mentioned, the graph rack is going to address two problems. One is,
+
+579
+01:42:46.880 --> 01:42:48.860
+Jitendra K: You were able to link documents.
+
+580
+01:42:49.770 --> 01:42:51.990
+Jitendra K: That means your document will be parsed.
+
+581
+01:42:52.260 --> 01:42:53.540
+Jitendra K: And it will be linked.
+
+582
+01:42:54.510 --> 01:43:03.770
+Jitendra K: And it will use Ontology to map your document, rather than simple rather than a simple…
+
+583
+01:43:05.970 --> 01:43:08.639
+Jitendra K: Semantic search that you're using earlier.
+
+584
+01:43:52.150 --> 01:43:54.049
+Jitendra K: This is connected…
+
+585
+01:44:08.950 --> 01:44:10.630
+Jitendra K: This is my instance.
+
+586
+01:44:12.980 --> 01:44:16.040
+Jitendra K: Previous one is paused, so I can delete this.
+
+587
+01:44:24.820 --> 01:44:28.680
+Jitendra K: Yeah, that's correct. So, Neo4j is your dependency.
+
+588
+01:45:06.870 --> 01:45:08.649
+Jitendra K: No, this is running.
+
+589
+01:45:15.150 --> 01:45:18.659
+Jitendra K: Anyway, let me run the query first, and then we'll see.
+
+590
+01:46:08.070 --> 01:46:14.020
+Jitendra K: First, let me check if RAFTB have some issue, which I feel it is.
+
+591
+01:47:34.680 --> 01:47:38.750
+Jitendra K: This is connected to localhost, so that's an issue here.
+
+592
+01:47:39.380 --> 01:47:41.420
+Jitendra K: But I'm using a cloud version.
+
+593
+01:49:52.010 --> 01:49:55.570
+Jitendra K: There are some ignorable warning, but overall, I think it is connected.
+
+594
+01:49:55.980 --> 01:49:58.550
+Jitendra K: But let me quickly try…
+
+595
+01:53:48.720 --> 01:53:51.899
+Jitendra K: I think this is refusing Connect.
+
+596
+01:54:27.870 --> 01:54:33.740
+Jitendra K: Let me… Just delete that, console and regenerate the file.
+
+597
+01:54:35.240 --> 01:54:37.320
+Jitendra K: Just delete this…
+
+598
+01:55:19.320 --> 01:55:21.310
+Jitendra K: This is the password.
+
+599
+01:55:25.770 --> 01:55:27.719
+Jitendra K: Some names also.
+
+600
+01:56:08.160 --> 01:56:11.540
+Jitendra K: So let it be run… up and running, and then we can…
+
+601
+01:56:11.860 --> 01:56:14.180
+Jitendra K: There's the connection, and then we'll change.
+
+602
+01:57:06.720 --> 01:57:10.520
+Jitendra K: So I will connect this… It's running.
+
+603
+01:57:11.130 --> 01:57:13.430
+Jitendra K: I will try to test this and see…
+
+604
+01:57:14.980 --> 01:57:17.490
+Jitendra K: Should not give any hard time.
+
+605
+01:57:18.520 --> 01:57:20.530
+Jitendra K: So let me quickly try this.
+
+606
+01:58:38.150 --> 01:58:40.890
+Jitendra K: Okay, great. So the username is incorrect?
+
+607
+01:58:41.360 --> 01:58:43.300
+Jitendra K: that I have to change here.
+
+608
+01:59:21.980 --> 01:59:26.230
+Jitendra K: So this is working fine now, so we just need to swap the username.
+
+609
+01:59:26.650 --> 01:59:31.909
+Jitendra K: with the right set of configuration, so my username here in the file that I downloaded.
+
+610
+01:59:32.340 --> 01:59:35.789
+Jitendra K: It shows as this, so let me replace this.
+
+611
+02:01:43.280 --> 02:01:45.650
+Jitendra K: Okay, so it is creating the schema now.
+
+612
+02:01:46.040 --> 02:01:51.629
+Jitendra K: And it will store… it into my NEO4J cloud server, and
+
+613
+02:01:52.330 --> 02:01:56.819
+Jitendra K: We were even able to track the schema inside Neo4J.
+
+614
+02:01:59.630 --> 02:02:02.020
+Jitendra K: So basically, it initialized my schema.
+
+615
+02:02:02.590 --> 02:02:06.019
+Jitendra K: Index has been created, and the system is ready.
+
+616
+02:02:06.450 --> 02:02:10.190
+Jitendra K: Now I will inject my PDF and test with demo queries.
+
+617
+02:02:12.410 --> 02:02:15.330
+Jitendra K: So, the first demo query that I'm going to run
+
+618
+02:02:22.210 --> 02:02:24.389
+Jitendra K: So I'm going to run a few demo queries.
+
+619
+02:02:25.200 --> 02:02:27.450
+Jitendra K: So, I will run a few demo queries…
+
+620
+02:02:33.730 --> 02:02:35.200
+Jitendra K: Maybe a tough one.
+
+621
+02:02:37.460 --> 02:02:40.250
+Jitendra K: So I'm asking design and integrated agility compliance
+
+622
+02:02:44.940 --> 02:02:49.070
+Jitendra K: Okay, this is, multifaceted.
+
+623
+02:02:50.200 --> 02:02:52.620
+Jitendra K: Okay, let me ask this question.
+
+624
+02:03:11.900 --> 02:03:18.290
+Jitendra K: Okay, so I'm asking how, this, something called DORA's relationship with NIS2 Directive.
+
+625
+02:03:18.600 --> 02:03:32.719
+Jitendra K: work in practical, explain the lexical specialist principle, the cooperation mechanism in Article 47, and the implication of financial entity that is also designated. So it's a multifaceted query, so if I run this query.
+
+626
+02:03:42.300 --> 02:03:45.949
+Jitendra K: So you can see that it is fusing the graph and the vector search, both.
+
+627
+02:03:56.150 --> 02:03:58.109
+Jitendra K: And this is what it is generated.
+
+628
+02:04:10.490 --> 02:04:13.759
+Jitendra K: So you can see how nicely it is generating this output.
+
+629
+02:04:14.290 --> 02:04:16.400
+Jitendra K: Based upon the query that I have asked.
+
+630
+02:04:17.050 --> 02:04:24.100
+Jitendra K: So that means, this… is using the references from the document that I have provided.
+
+631
+02:04:24.330 --> 02:04:29.129
+Jitendra K: And try to use entity mapping based upon my query parameter.
+
+632
+02:04:43.100 --> 02:04:49.150
+Jitendra K: So let me see if I can inject… some parameters…
+
+633
+02:06:13.370 --> 02:06:15.769
+Jitendra K: Now I'm going to inject some document as well.
+
+634
+02:06:24.620 --> 02:06:31.169
+Jitendra K: Here's the data file… Agent, source, and data.
+
+635
+02:06:32.100 --> 02:06:34.389
+Jitendra K: The data file is already there.
+
+636
+02:06:35.830 --> 02:06:37.769
+Jitendra K: Then I can…
+
+637
+02:08:22.570 --> 02:08:24.830
+Jitendra K: You can see that now it is,
+
+638
+02:08:25.530 --> 02:08:29.129
+Jitendra K: Added chunking to Chroma and my Neo4j.
+
+639
+02:08:32.240 --> 02:08:38.559
+Jitendra K: So it will start… parsing my document to Neo4j. Some of them are failing.
+
+640
+02:08:39.220 --> 02:08:41.190
+Jitendra K: Which I have to try a quietest.
+
+641
+02:09:21.080 --> 02:09:26.729
+Jitendra K: So, I think I have to delete some document that's going to be sending too many requests.
+
+642
+02:09:26.950 --> 02:09:32.370
+Jitendra K: Because I'm using a free version of Neo4J, and it will not allow to have…
+
+643
+02:09:32.680 --> 02:09:35.530
+Jitendra K: greater amount of API calls.
+
+644
+02:10:09.080 --> 02:10:11.900
+Jitendra K: So you can see it is coming now, the entities.
+
+645
+02:10:14.800 --> 02:10:18.770
+Jitendra K: Article, control, jurisdiction, obligation, regulation, risk.
+
+646
+02:10:19.450 --> 02:10:22.079
+Jitendra K: And their relationship will also be there.
+
+647
+02:10:35.470 --> 02:10:38.950
+Jitendra K: So this will be, your entities, which is store.
+
+648
+02:10:39.680 --> 02:10:44.309
+Jitendra K: And I can search the graph as well for an entity, any node.
+
+649
+02:10:44.800 --> 02:10:48.100
+Jitendra K: Which will give me these, regulatives.
+
+650
+02:10:48.260 --> 02:10:49.590
+Jitendra K: To search for.
+
+651
+02:10:49.870 --> 02:10:54.630
+Jitendra K: And then I can run a query on the top of my… Ontology.
+
+652
+02:10:54.950 --> 02:11:04.820
+Jitendra K: For those who are not aware about ontology mapping, let me show you how the graph has been constructed. Because of the limitation that we have with license. Yeah, I'm not able to show you the full graph.
+
+653
+02:11:05.270 --> 02:11:07.830
+Jitendra K: But this is how the ontology graph looks like.
+
+654
+02:11:08.520 --> 02:11:10.539
+Jitendra K: So, let me show you.
+
+655
+02:11:10.880 --> 02:11:12.940
+Jitendra K: for regulatory ontology.
+
+656
+02:11:45.230 --> 02:11:47.859
+Jitendra K: So this is how the visual graph will look like.
+
+657
+02:11:48.730 --> 02:11:55.449
+Jitendra K: And you can see that, if I have two documents, like, from JPMorgan, Chase, and Board of Governance, from Federal Reservation.
+
+658
+02:11:55.740 --> 02:12:04.760
+Jitendra K: These are the different types of ontologies which you'll create. So this is basically a graph, right? And what is your objective of this graph? To store the entity relationship.
+
+659
+02:12:04.950 --> 02:12:07.789
+Jitendra K: And in which form, you need to use
+
+660
+02:12:09.240 --> 02:12:13.090
+Jitendra K: The way to store the graph as distinct as possible.
+
+661
+02:12:13.460 --> 02:12:18.570
+Jitendra K: Right? So that you can able to establish a linkage between the two graphs using predicate.
+
+662
+02:12:19.260 --> 02:12:26.509
+Jitendra K: terms, right? Now, when you're searching for any terminologies, let's say if I'm writing a query like this.
+
+663
+02:12:33.870 --> 02:12:37.309
+Jitendra K: Which is a multifaceted query, which is a very complex query.
+
+664
+02:12:37.830 --> 02:12:41.019
+Jitendra K: So this is one of the complex queries that I'm writing.
+
+665
+02:12:48.940 --> 02:12:51.789
+Jitendra K: Let me delete some data, I think, first.
+
+666
+02:12:52.580 --> 02:12:55.860
+Jitendra K: That is creating the issue. Let me go with…
+
+667
+02:12:59.740 --> 02:13:01.249
+Jitendra K: Only one document.
+
+668
+02:13:17.090 --> 02:13:23.080
+Jitendra K: So you can see that it is creating These notes, regulatory obligations.
+
+669
+02:13:23.690 --> 02:13:27.160
+Jitendra K: Some branches, descriptions on the top of it.
+
+670
+02:13:27.310 --> 02:13:32.899
+Jitendra K: jurisdictions, and Federal Reserves, etc. So this will start…
+
+671
+02:13:33.800 --> 02:13:36.980
+Jitendra K: Feeding that data again to my Neo4j instance.
+
+672
+02:13:44.140 --> 02:13:46.369
+Jitendra K: And then now I can run my query.
+
+673
+02:14:20.700 --> 02:14:27.380
+Jitendra K: This is a very complex query. I'm asking a critical third-party service provider established in the US Federation.
+
+674
+02:14:27.860 --> 02:14:33.220
+Jitendra K: Designated as a critical under one regulation called DORA, traced the full regulatory journey.
+
+675
+02:14:33.500 --> 02:14:39.490
+Jitendra K: Designation criterias with reference to Article This, subsidiary establishment requirement.
+
+676
+02:14:39.820 --> 02:14:49.169
+Jitendra K: Led overseas power in including third-party inspection, penalty, payment regimes, and competent authority follow-up mechanism.
+
+677
+02:14:49.640 --> 02:14:54.849
+Jitendra K: So this is a multiple-faceted query, that means I have… I'm asking 5 or 6 queries together.
+
+678
+02:14:55.440 --> 02:14:59.239
+Jitendra K: And that is the power of GraphRag, that it will be able to search
+
+679
+02:15:00.180 --> 02:15:03.900
+Jitendra K: For multifaceted query, and generate a right answer every time.
+
+680
+02:15:05.230 --> 02:15:08.270
+Jitendra K: And for such complex scenarios, I have to use GraphFrag.
+
+681
+02:15:09.250 --> 02:15:12.050
+Jitendra K: And you can see that how nicely it is generating this answer.
+
+682
+02:15:16.220 --> 02:15:19.230
+Jitendra K: And the confidence score is also giving 80%.
+
+683
+02:15:20.060 --> 02:15:27.680
+Jitendra K: And the router logic starts with obligation check, retriever items, and then non-compliance and primary report generation.
+
+684
+02:15:28.110 --> 02:15:30.229
+Jitendra K: So let's try to understand this code.
+
+685
+02:15:35.250 --> 02:15:39.610
+Jitendra K: So first, I will explain the code flow, how what is happening inside the code.
+
+686
+02:15:40.220 --> 02:15:44.649
+Jitendra K: So, this is a graph rack, that means you have multi-agent access…
+
+687
+02:15:48.840 --> 02:15:57.330
+Jitendra K: application where latency is critical. You need to invest, on an infra. That's the only thing that I can suggest.
+
+688
+02:15:57.710 --> 02:16:01.629
+Jitendra K: Without investment, I don't think so this will be successful.
+
+689
+02:16:01.900 --> 02:16:05.190
+Jitendra K: You need to buy a cloud, you need to buy infrastructure, and then…
+
+690
+02:16:05.520 --> 02:16:07.199
+Jitendra K: Operate on the top of it.
+
+691
+02:16:08.280 --> 02:16:11.279
+Jitendra K: It will take time, because this is just a simple plane.
+
+692
+02:16:11.600 --> 02:16:16.050
+Jitendra K: local-based systems. You have to invest on clouds and…
+
+693
+02:16:16.380 --> 02:16:22.540
+Jitendra K: At least in your infrastructure team, should I have proper caching, should I have proper maintenance of your…
+
+694
+02:16:22.660 --> 02:16:24.250
+Jitendra K: Neo4G account.
+
+695
+02:16:24.830 --> 02:16:27.930
+Jitendra K: And then, go with security features and stuff.
+
+696
+02:16:31.550 --> 02:16:35.980
+Jitendra K: Yeah, NeoForge is a leading, institution, which is…
+
+697
+02:16:36.799 --> 02:16:42.059
+Jitendra K: Selling this, but yeah, there are other cloud-agnostic solutions these days.
+
+698
+02:16:42.200 --> 02:16:43.520
+Jitendra K: Vitually useful.
+
+699
+02:16:50.969 --> 02:16:54.550
+Jitendra K: Yeah, so there are some security and vulnerability issues always there.
+
+700
+02:16:54.889 --> 02:17:00.040
+Jitendra K: With other cloud and other systems, so you need to keep a track on that.
+
+701
+02:17:00.469 --> 02:17:03.079
+Jitendra K: And then decide which system you would like to go for.
+
+702
+02:17:07.080 --> 02:17:12.949
+Jitendra K: Alright, so let me explain the flow of this whole code. What are we trying to achieve with this code?
+
+703
+02:17:13.450 --> 02:17:17.619
+Jitendra K: So this is one of the code, that will use GraphFrag.
+
+704
+02:17:17.920 --> 02:17:20.350
+Jitendra K: And it's solution based upon ontology.
+
+705
+02:17:20.910 --> 02:17:27.069
+Jitendra K: So basically, we need to have these pipelines. One is your PDF pipeline, which will read the PDF.
+
+706
+02:17:27.559 --> 02:17:31.080
+Jitendra K: Convert everything into a chunk within certain overlap.
+
+707
+02:17:31.299 --> 02:17:32.630
+Jitendra K: of 10%.
+
+708
+02:17:32.930 --> 02:17:35.279
+Jitendra K: Then you are going to store this into Embitter.
+
+709
+02:17:35.900 --> 02:17:42.869
+Jitendra K: In the meantime, you have two databases now. One is your ontology extractor, second is your Similarity Search.
+
+710
+02:17:43.370 --> 02:17:47.600
+Jitendra K: So we need to keep a track of both. So this will run on the top of it.
+
+711
+02:17:49.020 --> 02:17:52.029
+Jitendra K: So, in the Chroma DB, I will use Hybrid Fusion.
+
+712
+02:17:52.780 --> 02:17:58.279
+Jitendra K: And then, based upon that hybrid fusion, I will use, the multiple router.
+
+713
+02:17:58.570 --> 02:18:03.040
+Jitendra K: Now, first and foremost thing, I have to store this ontology into a Neo 4G instance.
+
+714
+02:18:03.450 --> 02:18:09.450
+Jitendra K: And then, using a new 4GN stance, I will take up the query parameter, read the…
+
+715
+02:18:09.650 --> 02:18:15.040
+Jitendra K: data from MAM0, if there's any similar query written, then select the router agent.
+
+716
+02:18:15.330 --> 02:18:23.300
+Jitendra K: We shall perform the hybrid integration on both Ontology as well as Chroma by using a rank fusion, reciprocal rank fusion.
+
+717
+02:18:23.610 --> 02:18:29.239
+Jitendra K: And then generate a reasonable agent, which will be able to understand what sort of nodes we need to trigger.
+
+718
+02:18:29.549 --> 02:18:31.770
+Jitendra K: And then generate a report according to it.
+
+719
+02:18:32.030 --> 02:18:38.400
+Jitendra K: So that means this is one of the powerful ways that you can able to create a graphite with additional functionality.
+
+720
+02:18:38.600 --> 02:18:44.769
+Jitendra K: On the top of the… semantic search capabilities of graph, non-graph TVs.
+
+721
+02:18:47.080 --> 02:18:52.049
+Jitendra K: So the phase one that we have utilized is start with injection, PyPDF loader.
+
+722
+02:18:52.400 --> 02:18:55.429
+Jitendra K: That we have created, so PiMu PDF,
+
+723
+02:18:55.570 --> 02:18:58.159
+Jitendra K: Is one of the libraries that we are using.
+
+724
+02:18:58.540 --> 02:19:01.110
+Jitendra K: To perform the chunking and retrieval.
+
+725
+02:19:01.430 --> 02:19:05.389
+Jitendra K: So it'll go to your… main.py file.
+
+726
+02:19:12.430 --> 02:19:18.199
+Jitendra K: So, ma'am.uf file will have injection of pipeline for PDF.
+
+727
+02:19:18.639 --> 02:19:21.319
+Jitendra K: So here I'm calling PDF injection pipeline.
+
+728
+02:19:22.090 --> 02:19:24.440
+Jitendra K: This is my pipeline that will inject
+
+729
+02:19:25.940 --> 02:19:28.140
+Jitendra K: Extract text from all the pages.
+
+730
+02:19:29.740 --> 02:19:36.539
+Jitendra K: Using a recursive character tag splitter, which is chunking at 1200 character with 200 overlap.
+
+731
+02:19:37.040 --> 02:19:43.550
+Jitendra K: And then I'm using a two parallel write per chunk, ChromaDB, and Neo4J for ontology extractor.
+
+732
+02:19:44.100 --> 02:19:47.410
+Jitendra K: And then… In the Phase 2, I have a query.
+
+733
+02:19:47.820 --> 02:19:51.270
+Jitendra K: Where the agent state will typically
+
+734
+02:19:51.500 --> 02:19:55.089
+Jitendra K: Use 6 node, first node is memory read.
+
+735
+02:19:55.260 --> 02:19:57.069
+Jitendra K: Second is router agent.
+
+736
+02:19:57.560 --> 02:20:05.230
+Jitendra K: Which will check the intent classification using obligation check, cross-regulatory analysis, risk control mapping, gap analysis, or general.
+
+737
+02:20:05.340 --> 02:20:09.729
+Jitendra K: And then the retriever agent, which is a hybrid. It will run in parallel
+
+738
+02:20:10.100 --> 02:20:14.500
+Jitendra K: Fulfill the search, obligation, cross path references from document.
+
+739
+02:20:14.750 --> 02:20:19.829
+Jitendra K: And then use a Chroma DB semantic search, then fuse with reciprocal rank fusion.
+
+740
+02:20:19.980 --> 02:20:26.289
+Jitendra K: So, reciprocal rank fusion is a function that we are using to enhance the document parsing.
+
+741
+02:20:26.940 --> 02:20:30.980
+Jitendra K: So, fusion means we are broadening the spectrum of search.
+
+742
+02:20:31.260 --> 02:20:37.339
+Jitendra K: And then, using a GPT-40 reasoning model, To generate a report.
+
+743
+02:20:37.490 --> 02:20:42.090
+Jitendra K: Now, this is the key architecture that we are using to perform this whole analysis.
+
+744
+02:20:42.400 --> 02:20:50.299
+Jitendra K: Now, some of the main modules that I would like to talk about is this module. So, if I have to explain you this module, this is the ontology module.
+
+745
+02:20:50.550 --> 02:20:55.219
+Jitendra K: That we are using. Now, first of all, we have to understand what his ontology is all about.
+
+746
+02:20:56.050 --> 02:20:58.470
+Jitendra K: So, if you're not familiar with Ontology.
+
+747
+02:20:58.920 --> 02:21:04.349
+Jitendra K: Ontology is a term which has been used to establish a relationship.
+
+748
+02:21:09.760 --> 02:21:16.050
+Jitendra K: So, what you have to do is, you have… so here I'm ta- yeah, here I'm talking about maintaining your knowledge graphs.
+
+749
+02:21:16.980 --> 02:21:22.170
+Jitendra K: So, Knowledge Graph is the main backbone of your rack pipeline.
+
+750
+02:21:22.340 --> 02:21:25.980
+Jitendra K: Right? So, graph rec pipeline. So, here we are using a knowledge graph.
+
+751
+02:21:26.570 --> 02:21:33.169
+Jitendra K: that will store your entities in a form of a relationship, and that is called ontology. That means a fixed
+
+752
+02:21:33.650 --> 02:21:39.330
+Jitendra K: It's not a linear anymore, it's having… Sequence…
+
+753
+02:21:39.640 --> 02:21:41.300
+Jitendra K: In a form of a relationship.
+
+754
+02:21:43.780 --> 02:21:48.100
+Jitendra K: So this is your… Layer definition of ontology.
+
+755
+02:21:52.380 --> 02:21:58.420
+Jitendra K: Which has been maintained by a knowledge graph to store your knowledge graph and, and maybe…
+
+756
+02:21:58.630 --> 02:22:00.620
+Jitendra K: Some sort of taxonomy reasoner.
+
+757
+02:22:00.880 --> 02:22:02.510
+Jitendra K: Right, so this is important.
+
+758
+02:22:02.910 --> 02:22:07.220
+Jitendra K: Because we are trying to solve everything with the help of Ontology-based system.
+
+759
+02:22:09.200 --> 02:22:12.100
+Jitendra K: Yeah, I will share the notebook, don't worry about this.
+
+760
+02:22:13.010 --> 02:22:22.010
+Jitendra K: So, ontology is the central piece that we are using for storing the entities, right? In the form of some relationship or ontology-based search.
+
+761
+02:22:22.630 --> 02:22:28.580
+Jitendra K: So now we are using… Neo4J to run and execute the whole pipeline.
+
+762
+02:22:28.910 --> 02:22:34.210
+Jitendra K: That will give us more… Intuitive answers to our search query.
+
+763
+02:22:34.450 --> 02:22:37.070
+Jitendra K: And that is what we have seen, that… how it is generating.
+
+764
+02:22:51.690 --> 02:22:55.650
+Jitendra K: Now, what I'm going to do is, I would like to explain you this code as well.
+
+765
+02:23:09.880 --> 02:23:18.439
+Jitendra K: So, I will talk about this code. So, few setup, I'm using some few setup, importing the packages, standard libraries from Python.
+
+766
+02:23:18.760 --> 02:23:24.350
+Jitendra K: Data classes for managing the pyntic functions, and a field for customization behavior.
+
+767
+02:23:24.790 --> 02:23:30.559
+Jitendra K: Then the main configuration is, your models, OpenAI models, and,
+
+768
+02:23:33.020 --> 02:23:37.880
+Jitendra K: And also, we are using, the fields and logging mechanism.
+
+769
+02:23:38.420 --> 02:23:46.420
+Jitendra K: Now, I would like to create a node type, which is ontology node type. It creates an enumeration that I inherited from both string
+
+770
+02:23:46.590 --> 02:23:50.689
+Jitendra K: An enum, and this make enum value behave like a string.
+
+771
+02:23:51.320 --> 02:24:01.039
+Jitendra K: So I'm using… a topic That is, defining a regulatory framework, and then using a parent document.
+
+772
+02:24:01.750 --> 02:24:02.919
+Jitendra K: And the stops.
+
+773
+02:24:03.420 --> 02:24:11.850
+Jitendra K: Then I'm defining the relationship between the document, that these relationships can be… Possible with cross-references.
+
+774
+02:24:12.580 --> 02:24:15.849
+Jitendra K: And then extracting the data in a pyromantic format.
+
+775
+02:24:20.130 --> 02:24:24.860
+Jitendra K: So once I've done that, then… I would like to…
+
+776
+02:24:25.630 --> 02:24:30.739
+Jitendra K: go with schema design to preserve these documents, so these are some of the
+
+777
+02:24:32.430 --> 02:24:37.009
+Jitendra K: some of the queries that I'm writing, which is Cypher queries. This is Cypher query now.
+
+778
+02:24:37.430 --> 02:24:43.900
+Jitendra K: And then, based upon the cipher query, I'm going to write the schema, and then the System prompt.
+
+779
+02:24:44.490 --> 02:24:54.929
+Jitendra K: Okay, so you're asking, are we using LLM for extracting information, PDF chunk, and no. We are using LLM, yes, so this is how the LLM operates, with an instruction.
+
+780
+02:24:55.330 --> 02:24:58.120
+Jitendra K: So we are creating a node using this system prompt.
+
+781
+02:24:58.270 --> 02:25:00.489
+Jitendra K: We are using LLMs to extract
+
+782
+02:25:00.760 --> 02:25:05.069
+Jitendra K: PDF chunk and send it to a Neo4J, but in the form of a node, not chunks.
+
+783
+02:25:06.850 --> 02:25:13.970
+Jitendra K: Right? So if any entity has been there in the paragraph, it will rearrange it in this manner. That means you're rearranging a paragraph.
+
+784
+02:25:14.310 --> 02:25:18.860
+Jitendra K: inside a document, in a more… concise format.
+
+785
+02:25:22.380 --> 02:25:26.589
+Jitendra K: And then, you have some exception handlers, which we are going to use for doing this.
+
+786
+02:25:27.190 --> 02:25:29.749
+Jitendra K: Now, the question could be,
+
+787
+02:25:31.870 --> 02:25:37.560
+Jitendra K: Till what extent we can use GraphRag, and till what extent we should go with hybrid approach?
+
+788
+02:25:38.390 --> 02:25:45.179
+Jitendra K: Now, as I mentioned, it depends upon your budget, it depends upon your use case, it depends upon your… how well you are…
+
+789
+02:25:45.940 --> 02:25:48.530
+Jitendra K: Motivated to refine your output.
+
+790
+02:25:48.870 --> 02:25:50.930
+Jitendra K: It depends about too many things, right?
+
+791
+02:25:51.190 --> 02:25:53.680
+Jitendra K: So, GraphRag is an optimization strategy.
+
+792
+02:25:54.350 --> 02:25:58.850
+Jitendra K: So I will not recommend GraphRec to be used in every other use cases.
+
+793
+02:25:59.210 --> 02:26:01.530
+Jitendra K: Maybe you can use, GraphRec
+
+794
+02:26:01.640 --> 02:26:06.409
+Jitendra K: Not more than a few percentage, maybe 5-10% of the time.
+
+795
+02:26:07.810 --> 02:26:09.759
+Jitendra K: Now, the question is why we are learning.
+
+796
+02:26:11.170 --> 02:26:14.570
+Jitendra K: Right? So again, the answer is we have time, that's the reason we are learning.
+
+797
+02:26:15.340 --> 02:26:18.250
+Jitendra K: And, it is good to acquire this knowledge.
+
+798
+02:26:18.690 --> 02:26:22.610
+Jitendra K: Because if you've… If you are stuck in somewhere in future.
+
+799
+02:26:22.760 --> 02:26:27.409
+Jitendra K: Where your models are not improving, then you understand this technique can also help you.
+
+800
+02:26:29.880 --> 02:26:34.210
+Jitendra K: So let me share the code with you guys, and the slides, and other material.
+
+801
+02:26:34.310 --> 02:26:41.640
+Jitendra K: And I want to invest this remaining part of this curriculum To discuss on any…
+
+802
+02:26:42.790 --> 02:26:45.909
+Jitendra K: Query which has not been addressed.
+
+803
+02:26:46.600 --> 02:26:52.189
+Jitendra K: So, I will advise you to use your own credentials.
+
+804
+02:26:53.040 --> 02:26:56.180
+Jitendra K: And run this… Set up in your…
+
+805
+02:26:56.730 --> 02:27:02.390
+Jitendra K: VS Code, and let me know if you're facing some difficulty, I will help you to sort this out.
+
+806
+02:27:02.920 --> 02:27:06.469
+Jitendra K: So now, I'm just taking a pause here. I will share the code.
+
+807
+02:27:08.710 --> 02:27:11.329
+Jitendra K: Second, that where's my code…
+
+808
+02:29:29.140 --> 02:29:32.020
+Jitendra K: So please use these files, and
+
+809
+02:29:32.560 --> 02:29:34.550
+Jitendra K: Let me know if you have any issue.
+
+810
+02:29:55.520 --> 02:29:57.719
+Jitendra K: So I'll take a pause here, and then…
+
+811
+02:29:58.480 --> 02:30:02.130
+Jitendra K: Considering that you're working on this code, Set it up.
+
+812
+02:30:02.850 --> 02:30:05.239
+Jitendra K: Please use your OpenAPI key.
+
+813
+02:30:05.450 --> 02:30:09.539
+Jitendra K: And, if it is not working.
+
+814
+02:30:10.110 --> 02:30:14.130
+Jitendra K: Please raise it with Simply… sorry, this Amira's team.
+
+815
+02:30:14.940 --> 02:30:18.490
+Jitendra K: Whoever is your concerned person, please sort it out with your commercials.
+
+816
+02:30:21.770 --> 02:30:26.780
+Jitendra K: If database is large, it is as well to implement graph regular hybrid.
+
+817
+02:30:27.860 --> 02:30:35.899
+Jitendra K: Yeah, if the database is too large, don't go for GraphRec. Otherwise, you will end up into just managing the nodes and entities in GraphRec.
+
+818
+02:30:42.960 --> 02:30:46.469
+Jitendra K: So if database is too large, don't go for a graph rack, for sure.
+
+819
+02:30:48.020 --> 02:30:54.730
+Jitendra K: Only the cases which are premium for you, where your customers need more Refinement…
+
+820
+02:30:55.300 --> 02:30:59.310
+Jitendra K: would result COFA graph, right? Otherwise, I think,
+
+821
+02:30:59.860 --> 02:31:04.190
+Jitendra K: Hybrid rag is fine. Vandler rag, agentic rag is good. Good enough.
+
+822
+02:37:12.440 --> 02:37:17.680
+Jitendra K: MAM0 API key is from MAM0 website, so you need to log into this website.
+
+823
+02:37:43.820 --> 02:37:45.490
+Jitendra K: So this is the API key.
+
+824
+02:38:04.180 --> 02:38:09.779
+Jitendra K: Yeah, so this is a production-grade application, so that means, You just need to…
+
+825
+02:38:10.440 --> 02:38:13.089
+Jitendra K: Tweak certain things, and then you can use it.
+
+826
+02:39:51.070 --> 02:39:55.650
+Jitendra K: Yeah, so I will share a OneNote file so that you can use it.
+
+827
+02:39:55.800 --> 02:39:57.370
+Jitendra K: If you have a OneNote tool.
+
+828
+02:40:39.160 --> 02:40:44.360
+Jitendra K: Okay, so let's talk about the remaining part of this, slides.
+
+829
+02:40:44.580 --> 02:40:51.370
+Jitendra K: So we have seen one complex scenario where the regulatory landscape will be tracked with the help of GraphRite.
+
+830
+02:40:51.750 --> 02:41:00.799
+Jitendra K: Now, why graph rack is important? Because, as I mentioned, your traditional rack system, which you're designing with EJNTIC RAG or vanilla rack.
+
+831
+02:41:01.220 --> 02:41:07.660
+Jitendra K: I have one issue, which is you're over-relying on semantic… Search.
+
+832
+02:41:08.410 --> 02:41:17.469
+Jitendra K: But it does not establish any relationship between the direct… the… the document and paragraphs, or even chunks of paragraph.
+
+833
+02:41:17.870 --> 02:41:19.910
+Jitendra K: And that will be done by GraphRag.
+
+834
+02:41:20.580 --> 02:41:24.900
+Jitendra K: Using a graph-based search mechanism, which is…
+
+835
+02:41:25.090 --> 02:41:33.519
+Jitendra K: Coming, adding one additional intelligent layer over the traditional semantic layer, so that you can able to establish
+
+836
+02:41:34.200 --> 02:41:36.750
+Jitendra K: Complex query search more seamlessly.
+
+837
+02:41:37.290 --> 02:41:43.330
+Jitendra K: Now, once you establish this, then what are the ways to benchmark the graph rack system?
+
+838
+02:41:43.530 --> 02:41:51.609
+Jitendra K: So these are some of the, some of the important considerations that you should have when you're establishing the benchmarking criteria for GraphRite.
+
+839
+02:41:51.940 --> 02:41:56.999
+Jitendra K: Which include faithfulness score, relevancy score, context precision, context recall.
+
+840
+02:41:57.210 --> 02:42:04.139
+Jitendra K: Multi-hop accuracy, because here the system will use multi-hop queries to retrieve
+
+841
+02:42:04.410 --> 02:42:10.900
+Jitendra K: And the comprehensiveness, where the answer will cover all the major themes defined by the community summary, or linkage.
+
+842
+02:42:11.690 --> 02:42:17.299
+Jitendra K: And then, this is the overall performance of GraphRag versus the baseline performance.
+
+843
+02:42:19.320 --> 02:42:24.900
+Jitendra K: In terms of multiple benchmark on… all out on a scale of 100, so you can see that sometimes
+
+844
+02:42:25.560 --> 02:42:33.050
+Jitendra K: You will get better results with GraphRag local search versus global. Overall, I will say, GraphRag is…
+
+845
+02:42:34.100 --> 02:42:41.800
+Jitendra K: kind of superseding, the NAV rack pipeline. I'm not comparing agentic rack in this slide.
+
+846
+02:42:42.160 --> 02:42:48.730
+Jitendra K: But NAVRAG is overall… Much, much less accurate than GraphRite.
+
+847
+02:42:51.150 --> 02:42:56.620
+Jitendra K: Now, where you can be able to use GraphRack, so some of the use cases that we have seen is the regulatory compliance.
+
+848
+02:42:56.820 --> 02:43:00.930
+Jitendra K: You can also use GraphRack for supply chain management system.
+
+849
+02:43:01.050 --> 02:43:07.510
+Jitendra K: Where you can be able to understand the supplier notifications and their third-party contracts.
+
+850
+02:43:07.840 --> 02:43:09.230
+Jitendra K: And deal with that.
+
+851
+02:43:09.900 --> 02:43:18.730
+Jitendra K: KYC and AML entity resolution models, where you can able to understand the community link between different companies.
+
+852
+02:43:19.090 --> 02:43:26.150
+Jitendra K: And this is one of the classical scenarios for shell company detection models, where you can be able to detect the shell companies, their linkages.
+
+853
+02:43:26.630 --> 02:43:30.960
+Jitendra K: And, their authorities, how they are changing and swapping.
+
+854
+02:43:32.740 --> 02:43:34.830
+Jitendra K: Target intelligence using…
+
+855
+02:43:36.840 --> 02:43:45.379
+Jitendra K: attacks, which is cybersecurity. You can be able to go for GraphRack to create a system which will able to
+
+856
+02:43:45.550 --> 02:43:51.010
+Jitendra K: Understand a document, or any sort of research paper.
+
+857
+02:43:51.580 --> 02:43:56.330
+Jitendra K: And you can able to use GraphRack to… Accommodate the knowledge.
+
+858
+02:43:57.810 --> 02:44:02.469
+Jitendra K: To an extent, with the help of, the different mechanism.
+
+859
+02:44:02.770 --> 02:44:08.859
+Jitendra K: You can use GraphRec for pharma and biotech, where you can be able to use gene detection
+
+860
+02:44:09.320 --> 02:44:15.890
+Jitendra K: knowledge graph for drug for repurposing purpose. You can improve the clinical trials, outcomes, adverse event.
+
+861
+02:44:16.490 --> 02:44:20.210
+Jitendra K: And, all these things, you can able to do that.
+
+862
+02:44:20.360 --> 02:44:25.279
+Jitendra K: Legal and compliance, that means if I have to deal with provision of
+
+863
+02:44:26.050 --> 02:44:30.910
+Jitendra K: a certain, country-wise act, some regulations from countries.
+
+864
+02:44:31.490 --> 02:44:35.070
+Jitendra K: And I can be able to take a call if I'm…
+
+865
+02:44:35.460 --> 02:44:40.509
+Jitendra K: investing in this market, what are the repercussions, so I will get a holistic view.
+
+866
+02:44:40.790 --> 02:44:47.980
+Jitendra K: cybersecurity, where I can able to use the patterns of attack, where I can able to make proactive screening.
+
+867
+02:44:48.260 --> 02:44:51.990
+Jitendra K: On the type of attack before it went live.
+
+868
+02:44:55.530 --> 02:44:59.760
+Jitendra K: Now, some of the challenges, as I mentioned, with GraphRag, it is high cost.
+
+869
+02:45:00.080 --> 02:45:02.630
+Jitendra K: So, it will use high token cost.
+
+870
+02:45:03.040 --> 02:45:08.690
+Jitendra K: Endless schemas, statelessness, entity resolution across noisy data sources.
+
+871
+02:45:08.860 --> 02:45:13.359
+Jitendra K: And it will add latencies and throughput retoriation to your algorithm.
+
+872
+02:45:14.060 --> 02:45:19.890
+Jitendra K: So some of the other emerging patterns include, you can also use,
+
+873
+02:45:20.800 --> 02:45:28.040
+Jitendra K: pretty, defined agentic rag and replace with GraphRag. I mean, you need not to use GraphRag for all use cases.
+
+874
+02:45:28.220 --> 02:45:33.229
+Jitendra K: But you can use agentic rack with proper router configuration to work.
+
+875
+02:45:34.170 --> 02:45:36.420
+Jitendra K: On your complex scenarios as well.
+
+876
+02:45:38.150 --> 02:45:50.599
+Jitendra K: So the key takeaway that we have from this tutorial is GraphFrag is instrumental in terms of using a property of a graph, multihop reasoning, and hybrid retrievals.
+
+877
+02:45:51.080 --> 02:45:56.210
+Jitendra K: It uses something called community detection, hierarchical summarization, to unlock the power of graphs.
+
+878
+02:45:56.780 --> 02:46:04.579
+Jitendra K: And it is also using, production deployment, which required several setups with Neo4J cloud vendors.
+
+879
+02:46:04.810 --> 02:46:09.459
+Jitendra K: To deal with your, infrastructure, knowledge-based management.
+
+880
+02:46:09.880 --> 02:46:16.650
+Jitendra K: So, I think this is what we have discussed. So, I think I have shared the slide already, but let me reshare.
+
+881
+02:46:17.810 --> 02:46:19.340
+Jitendra K: If you haven't opted in…
+
+882
+02:46:30.520 --> 02:46:35.849
+Jitendra K: So, any final comment, any question, guys, before we wind up for today? Anything that you would like to ask?
+
+883
+02:46:55.220 --> 02:46:58.099
+Jitendra K: Yeah, so tomorrow we are going to have,
+
+884
+02:46:59.360 --> 02:47:02.260
+Jitendra K: Tomorrow, we are going to talk about something called,
+
+885
+02:47:03.970 --> 02:47:06.379
+Jitendra K: So we'll move on from GraphRec to…
+
+886
+02:47:06.790 --> 02:47:11.719
+Jitendra K: Maybe I will start with, other design patterns.
+
+887
+02:47:12.000 --> 02:47:18.759
+Jitendra K: So we haven't discussed about design patterns, about creation of agents, so tomorrow we will talk about React, Reboot.
+
+888
+02:47:19.500 --> 02:47:23.209
+Jitendra K: We will also talk about some linear design patterns.
+
+889
+02:47:23.630 --> 02:47:31.399
+Jitendra K: And, what are the different ways to manage your agent tick orchestration? That is something which you are going to talk about. Hybrid design button, basically.
+
+890
+02:47:44.370 --> 02:47:45.310
+Jitendra K: Sure.
+
+891
+02:47:48.110 --> 02:47:50.939
+Jitendra K: Yeah, reinforcement learning we'll cover in the…
+
+892
+02:47:51.180 --> 02:47:54.919
+Jitendra K: Upcoming tutorials, so it will be too much overwhelming.
+
+893
+02:47:55.430 --> 02:47:58.669
+Jitendra K: With reinforcement learning. So, once we complete…
+
+894
+02:47:59.240 --> 02:48:04.170
+Jitendra K: the basics of RAG, all types of RAG, Then we understand…
+
+895
+02:48:04.760 --> 02:48:07.360
+Jitendra K: How to optimize, how to use,
+
+896
+02:48:08.050 --> 02:48:13.430
+Jitendra K: different sort of design pattern, then we'll move on to reinforcement learning and all. DSPY packages.
+
+897
+02:48:34.850 --> 02:48:42.579
+Jitendra K: In my current project, I'm supposed to integrate unaccepted data such as operator maintenance log, OEM manual logs.
+
+898
+02:48:46.330 --> 02:48:49.190
+Jitendra K: So if you're using manual logs,
+
+899
+02:48:49.290 --> 02:48:51.469
+Jitendra K: I just want to understand,
+
+900
+02:48:52.050 --> 02:48:54.360
+Jitendra K: How many manual logs you have.
+
+901
+02:48:55.270 --> 02:48:58.730
+Jitendra K: Is it, too many, or too few.
+
+902
+02:49:08.720 --> 02:49:12.880
+Jitendra K: 100 per year. Yeah, so then it is a good use case for GraphRag.
+
+903
+02:49:13.590 --> 02:49:17.459
+Jitendra K: Not many, you don't have many documents.
+
+904
+02:49:17.980 --> 02:49:22.240
+Jitendra K: You can manage your search… sorry, terminologies in GraphRec.
+
+905
+02:49:27.730 --> 02:49:35.729
+Jitendra K: Yeah, so you can create your entities, and if your users are asking, about, operational…
+
+906
+02:49:36.090 --> 02:49:42.889
+Jitendra K: questions. They might ask, If they're asking simple to medium question, then you do not require graphite.
+
+907
+02:49:43.230 --> 02:49:49.949
+Jitendra K: GraphRec is used for when your users are asking too many complex questions, and you already have an evidence.
+
+908
+02:49:50.360 --> 02:49:56.419
+Jitendra K: that your agents are not performing well in answering those questions. Then go for GraphRec. Otherwise.
+
+909
+02:49:56.660 --> 02:49:58.870
+Jitendra K: You can stick with the agentic rack first.
+
+910
+02:49:59.210 --> 02:50:04.340
+Jitendra K: And, try to prove the point that agentic rag is 80%, 90% accurate.
+
+911
+02:50:04.810 --> 02:50:09.159
+Jitendra K: And remaining 10% You have to change the approach, and then…
+
+912
+02:50:09.740 --> 02:50:12.620
+Jitendra K: go for GraphRec for that 10% coverage.
+
+913
+02:50:14.510 --> 02:50:18.120
+Jitendra K: But to begin with, yeah, do not try graph, right? To begin with.
+
+914
+02:50:19.080 --> 02:50:23.710
+Jitendra K: Because it will be too much for… Your engineering team.
+
+915
+02:50:37.620 --> 02:50:43.279
+Jitendra K: Thinking of modernization, legacy source, millions online healthcare domain, quote, latest tech stack.
+
+916
+02:50:43.920 --> 02:50:46.549
+Jitendra K: Yeah, that's a good use case, so if you have…
+
+917
+02:50:47.430 --> 02:50:53.350
+Jitendra K: Healthcare domain, where you would like to… Maybe,
+
+918
+02:50:53.640 --> 02:50:55.860
+Jitendra K: Automate some of the process for…
+
+919
+02:50:56.250 --> 02:51:00.050
+Jitendra K: drug discovery and, as I mentioned,
+
+920
+02:51:01.320 --> 02:51:04.360
+Jitendra K: Doctor Assistant app, then it is a great use case.
+
+921
+02:51:08.240 --> 02:51:13.579
+Jitendra K: Graph frag in a specific context will reduce my turn, so economic vector, can have a…
+
+922
+02:51:14.270 --> 02:51:20.820
+Jitendra K: No, even GraphRag will use high token, because you're using entity first, right? So you're linking the entity.
+
+923
+02:51:21.340 --> 02:51:27.929
+Jitendra K: Using LLMs, instead of just reading as a semantic correlated, text.
+
+924
+02:51:28.420 --> 02:51:31.609
+Jitendra K: You're also doing entity resolution with Alpos.
+
+925
+02:51:31.940 --> 02:51:36.110
+Jitendra K: LLM, so that means you're adding additional tokens.
+
+926
+02:51:36.860 --> 02:51:37.980
+Jitendra K: To your model.
+
+927
+02:51:39.330 --> 02:51:42.779
+Jitendra K: Yeah, that's why it is expensive. Very, very expensive.
+
+928
+02:52:03.520 --> 02:52:09.609
+Jitendra K: Dumping database into initial context window consumes substantial motor.
+
+929
+02:52:10.630 --> 02:52:17.819
+Jitendra K: Yeah, there's something called, first time to token, or first token cost.
+
+930
+02:52:19.090 --> 02:52:29.450
+Jitendra K: So, initial contacts window… Definitely will consume more tokens than typical algorithmic feed retrieval, because
+
+931
+02:52:29.760 --> 02:52:34.120
+Jitendra K: That is where you have to create, the maximum retry.
+
+932
+02:52:35.320 --> 02:52:41.000
+Jitendra K: constraint as well in your agents. Like, till what extent your agent will use loopback.
+
+933
+02:52:42.070 --> 02:52:44.230
+Jitendra K: Right, so all these things are important.
+
+934
+02:52:44.780 --> 02:52:49.420
+Jitendra K: for your agentic, control behavior, otherwise…
+
+935
+02:52:49.980 --> 02:52:55.819
+Jitendra K: You might have heard about prompt injections and, vulnerable attacks in agents.
+
+936
+02:52:56.270 --> 02:52:58.129
+Jitendra K: And that's the whole purpose.
+
+937
+02:52:58.230 --> 02:53:00.450
+Jitendra K: Right, if somebody attack your system.
+
+938
+02:53:00.940 --> 02:53:04.070
+Jitendra K: They will… you're giving free access to all your data.
+
+939
+02:53:04.240 --> 02:53:06.890
+Jitendra K: And, the tokens, so they will…
+
+940
+02:53:07.430 --> 02:53:13.039
+Jitendra K: They will not only steal your information from the agents, but also give you the hard money.
+
+941
+02:53:13.190 --> 02:53:14.290
+Jitendra K: Hard bills.
+
+942
+02:53:17.930 --> 02:53:23.930
+Jitendra K: For Laura, Kirura, any more use cases?
+
+943
+02:53:27.560 --> 02:53:30.690
+Jitendra K: Yeah, we'll revisit this topic, once we…
+
+944
+02:53:32.100 --> 02:53:39.389
+Jitendra K: complete the RAC pipeline, then we'll try to revisit during optimization strategies.
+
+945
+02:53:40.490 --> 02:53:44.690
+Jitendra K: The more agentic IFI, the more LM provider makes money. Yeah, that's correct.
+
+946
+02:53:45.940 --> 02:53:50.309
+Jitendra K: The compacting market down, features, using floating over…
+
+947
+02:53:51.860 --> 02:54:00.080
+Jitendra K: No, it's not a vendor-agnostic tool, it's a general tool which you can use for any cloud, any LLM provider.
+
+948
+02:54:00.890 --> 02:54:04.740
+Jitendra K: So, it's not, have any vendor locking?
+
+949
+02:54:08.550 --> 02:54:11.670
+Jitendra K: Claude have their own tools, yes.
+
+950
+02:54:13.160 --> 02:54:16.889
+Jitendra K: Where you're compressing very long context and summarizing it and storing it.
+
+951
+02:54:21.270 --> 02:54:27.700
+Jitendra K: But Mamjero is an open source library, so it's not… dedicated to Claude or OpenAI.
+
+952
+02:54:34.340 --> 02:54:40.299
+Jitendra K: Alright guys, so this is pretty much what we have for today. If there's no further question, let's wind up.
+
+953
+02:54:40.710 --> 02:54:43.610
+Jitendra K: So, can I request to launch a poll now?
+
+954
+02:55:38.770 --> 02:55:42.609
+Jitendra K: For fraud and authentication project, can we use DraftK?
+
+955
+02:55:43.480 --> 02:55:46.570
+Jitendra K: Fraud detection or fraud prevention?
+
+956
+02:55:54.190 --> 02:56:00.949
+Jitendra K: detection. Yes, you can use… if you would like to discover new patterns of fraud, definitely you can go for it.
+
+957
+02:56:01.320 --> 02:56:04.670
+Jitendra K: That is the whole idea of regulatory policies, right?
+
+958
+02:56:05.080 --> 02:56:07.030
+Jitendra K: So, regulator will give you some…
+
+959
+02:56:07.870 --> 02:56:13.230
+Jitendra K: Rules and some addendums that you should adhere to, to identify the frauds.
+
+960
+02:56:13.630 --> 02:56:20.709
+Jitendra K: Like, they produce some sanctions, And then, based upon the sanction, you can able to refine your rules.
+
+961
+02:56:21.010 --> 02:56:27.919
+Jitendra K: In your transition monitoring, That these countries and this type of… Cause, sorry.
+
+962
+02:56:29.000 --> 02:56:32.879
+Jitendra K: This type of transaction is not allowed as far as these rules.
+
+963
+02:56:33.420 --> 02:56:38.429
+Jitendra K: Let's say U.S. mandate versus RBI rules. They are different types of regulatory bodies.
+
+964
+02:56:39.750 --> 02:56:42.390
+Jitendra K: Definitely you can use GraphRec for doing this.
+
+965
+02:56:42.500 --> 02:56:47.379
+Jitendra K: But for policymaking, right? So if you're making a policy by reading a document.
+
+966
+02:56:47.530 --> 02:56:49.260
+Jitendra K: And he would like to connect
+
+967
+02:56:49.560 --> 02:56:51.919
+Jitendra K: Two or three different types of regulators.
+
+968
+02:56:52.330 --> 02:56:59.289
+Jitendra K: And provide some sort of tool to your policy designer, then it's a good use case, right?
+
+969
+02:56:59.460 --> 02:57:07.269
+Jitendra K: Because your designer, a policy designer, will use your system to implement a policy by searching through multiple documents at a time.
+
+970
+02:57:08.120 --> 02:57:12.199
+Jitendra K: And they will get a good result, all the time with GraphRite.
+
+971
+02:57:16.210 --> 02:57:19.559
+Jitendra K: So, policymaking is a good example that you can use.
+
+972
+02:57:29.240 --> 02:57:36.370
+Jitendra K: To those who are not able to understand GraphRag, may I know what is the reason why you are not asking questions?
+
+973
+02:57:36.570 --> 02:57:43.919
+Jitendra K: I can have a bunch of 5 or 6 friends who is constantly asking questions, but remaining of them are silent in the class.
+
+974
+02:57:44.570 --> 02:57:48.519
+Jitendra K: So, are you getting buried inside something, or what is the issue here?
+
+975
+02:57:48.750 --> 02:57:51.739
+Jitendra K: Are you not able to follow even the single line of the code?
+
+976
+02:57:53.270 --> 02:57:58.429
+Jitendra K: I'm assuming that… that you're not familiar with Python, neither with stats, neither with…
+
+977
+02:57:59.450 --> 02:58:06.750
+Jitendra K: Agents, and not… nor have, any interest to learn And acquire new knowledge.
+
+978
+02:58:07.270 --> 02:58:10.690
+Jitendra K: Because you're not asking questions, so that is my impression.
+
+979
+02:58:11.230 --> 02:58:14.199
+Jitendra K: You're just joining this class for sake of,
+
+980
+02:58:14.950 --> 02:58:20.649
+Jitendra K: Maybe, getting some jargons, and then use it for your own interview purposes.
+
+981
+02:58:23.640 --> 02:58:26.740
+Jitendra K: So, I encourage participating in the class, guys.
+
+982
+02:58:27.090 --> 02:58:32.319
+Jitendra K: If you're not participating in the class, then it is of… Literally no use.
+
+983
+02:58:34.610 --> 02:58:40.330
+Jitendra K: Have to review graph, concept, practice more hands-on. Yes, that's the best thing that you can do.
+
+984
+02:58:41.020 --> 02:58:47.280
+Jitendra K: But the code that I've shared is more than sufficient. You can change that code and play around with multiple documents and
+
+985
+02:58:47.640 --> 02:58:53.269
+Jitendra K: Maybe you can try set up Some code agent, and then…
+
+986
+02:58:53.700 --> 02:58:57.140
+Jitendra K: change it as well, right? Based upon your domain.
+
+987
+02:59:05.580 --> 02:59:12.029
+Jitendra K: So I can see only 10 to 15 students are asking, and they are very active in the class. Remaining class is buried, I think.
+
+988
+02:59:12.470 --> 02:59:20.979
+Jitendra K: They are not even… Not even the stage 1 of Agentech AI.
+
+989
+02:59:21.430 --> 02:59:23.820
+Jitendra K: And that is a big, big problem now.
+
+990
+02:59:28.640 --> 02:59:32.020
+Jitendra K: Yeah, Priya, so you have to learn the technology.
+
+991
+02:59:41.050 --> 02:59:44.980
+Jitendra K: Because I cannot start with BFS and DFS, it will be…
+
+992
+02:59:45.610 --> 02:59:49.560
+Jitendra K: 10-day session if I just complete a graph from the scratch.
+
+993
+02:59:50.220 --> 02:59:57.509
+Jitendra K: So you need to understand this constraint, right? If I say graph rag, then you should do some research before appearing to the class.
+
+994
+02:59:58.060 --> 03:00:02.959
+Jitendra K: Like, what is GraphRag? What are the prerequisites? At least try to use ChatGPT to
+
+995
+03:00:03.640 --> 03:00:08.350
+Jitendra K: Understand what are the concepts that I should know before attending graph-track problems.
+
+996
+03:00:11.530 --> 03:00:14.299
+Jitendra K: And if you have any doubt in that, then you can ask.
+
+997
+03:00:16.090 --> 03:00:22.870
+Jitendra K: But, simply relying on all your own trainer to give everything, it will be impossible, literally impossible.
+
+998
+03:00:25.540 --> 03:00:28.809
+Jitendra K: The strainer can, as a part of my…
+
+999
+03:00:29.120 --> 03:00:32.329
+Jitendra K: duty, I can give you hands-on session only.
+
+1000
+03:00:32.460 --> 03:00:34.080
+Jitendra K: Not a concept building.
+
+1001
+03:00:34.980 --> 03:00:44.460
+Jitendra K: concept building will be necessary when we are using a new topic, so that is what I'm doing. Yeah, this is a second year CSE data structure and algorithm use cases.
+
+1002
+03:01:01.620 --> 03:01:03.749
+Jitendra K: Thanks, thanks, thanks, Krishna.
+
+1003
+03:01:07.770 --> 03:01:12.100
+Jitendra K: Yeah, so I would definitely say that whenever you're stuck, let's say.
+
+1004
+03:01:12.280 --> 03:01:18.220
+Jitendra K: We would like to know more about Neo4J, right? So, how NEO4J operates, what are the ontology graphs?
+
+1005
+03:01:18.800 --> 03:01:23.300
+Jitendra K: Then, there are tons of reference material in Neo4j itself.
+
+1006
+03:01:23.660 --> 03:01:26.680
+Jitendra K: You can go to Neo4G API, and then you can search.
+
+1007
+03:01:27.200 --> 03:01:30.979
+Jitendra K: Right? So let's say you would like to learn, what is ontology.
+
+1008
+03:01:32.040 --> 03:01:35.700
+Jitendra K: So… You can search for Ontology as well.
+
+1009
+03:01:36.600 --> 03:01:42.150
+Jitendra K: So, you can see that even this algorithm is defined
+
+1010
+03:01:43.000 --> 03:01:47.560
+Jitendra K: There are different, sort of, papers that you can be able to look forward.
+
+1011
+03:01:47.760 --> 03:01:53.550
+Jitendra K: And if I have to look for new 4J learning material, There's the academy as well.
+
+1012
+03:01:55.170 --> 03:02:01.879
+Jitendra K: So I'm not asking you to learn Cypher query, because CypherQuery, now you can write with the help of LLM itself.
+
+1013
+03:02:02.530 --> 03:02:05.580
+Jitendra K: But you need to understand the basics of Cypher query, right?
+
+1014
+03:02:09.620 --> 03:02:17.059
+Jitendra K: Yeah, so if you… Yeah, so basically, for tomorrow's session, we are going to cover agentic design pattern.
+
+1015
+03:02:21.330 --> 03:02:24.010
+Jitendra K: But this… design pattern.
+
+1016
+03:02:26.870 --> 03:02:28.359
+Jitendra K: I will share some…
+
+1017
+03:02:46.460 --> 03:02:48.880
+Jitendra K: So this just shares this article.
+
+1018
+03:02:49.560 --> 03:02:53.009
+Jitendra K: I think this is one of the great articles that you can see.
+
+1019
+03:02:53.760 --> 03:02:58.889
+Jitendra K: We shall have… All the possible permutation combination that you required.
+
+1020
+03:02:59.200 --> 03:03:01.949
+Jitendra K: Don't go into the code, you can skip the code.
+
+1021
+03:03:02.450 --> 03:03:05.950
+Jitendra K: Just read the, theory part of it.
+
+1022
+03:03:06.430 --> 03:03:16.409
+Jitendra K: And then you will have references to React and other framework. But there's a book by Alan Suli… sorry, Gilemone or something.
+
+1023
+03:03:16.750 --> 03:03:20.240
+Jitendra K: We're… Let me show you the book.
+
+1024
+03:03:20.740 --> 03:03:25.840
+Jitendra K: This is one of the best books. Sorry, Antonio Gulli. So this you can use.
+
+1025
+03:03:26.500 --> 03:03:31.569
+Jitendra K: And this is one of the best books that you can refer.
+
+1026
+03:03:33.680 --> 03:03:38.069
+Jitendra K: But I will still say that you need not to look for all.
+
+1027
+03:03:39.480 --> 03:03:44.040
+Jitendra K: Just go for 4 or 5 design patterns that we're going to discuss tomorrow.
+
+1028
+03:03:44.740 --> 03:03:49.910
+Jitendra K: And, we will start with linear… And,
+
+1029
+03:03:50.360 --> 03:03:53.600
+Jitendra K: Yeah, so let me go back here in this book.
+
+1030
+03:04:01.610 --> 03:04:03.470
+Jitendra K: Yeah, go for reflection.
+
+1031
+03:04:03.810 --> 03:04:07.710
+Jitendra K: tool, planning, And then…
+
+1032
+03:04:11.760 --> 03:04:14.080
+Jitendra K: Most probably, you can go for…
+
+1033
+03:04:43.140 --> 03:04:46.890
+Jitendra K: So in the reflection itself is a react button here.
+
+1034
+03:05:11.190 --> 03:05:18.409
+Jitendra K: Yeah, the planning pattern. They are important. So, reflection, planning, or tool use. So, these three we are going to talk about tomorrow.
+
+1035
+03:05:18.890 --> 03:05:22.089
+Jitendra K: Reflection, tool use, and planning.
+
+1036
+03:05:22.780 --> 03:05:27.219
+Jitendra K: We'll try to cover multi-agent collaboration as well, but if time permits.
+
+1037
+03:05:27.910 --> 03:05:34.350
+Jitendra K: Otherwise, we'll discuss in the next-to-next class. So this is the three patterns that you have to go through, and then…
+
+1038
+03:05:34.880 --> 03:05:37.149
+Jitendra K: You can just look into these…
+
+1039
+03:05:37.590 --> 03:05:43.690
+Jitendra K: Concepts, not code, and then the remaining thing we will discuss in tomorrow's tutorial.
+
+1040
+03:05:44.810 --> 03:05:50.899
+Jitendra K: So, one blog writing, second is book reference, and then quote reference, you can leave it to me.
+
+1041
+03:05:55.560 --> 03:06:08.150
+Jitendra K: All right, guys, so I think this is pretty much what we have for today. So thank you for attending this class, and nice to have an interaction. So we'll meet tomorrow for design patterns. So thank you, and have a nice day ahead.
+
+1042
+03:06:08.930 --> 03:06:10.910
+Jitendra K: Let me ping this book.
+

@@ -1,0 +1,129 @@
+{
+  "mission_slug": "powershell-specialist-agent-01KTP3DG",
+  "mission_number": "",
+  "mission_type": "software-dev",
+  "overall_verdict": "pass",
+  "criteria": [
+    {
+      "criterion_id": "FR-001",
+      "description": "Pack agent profile powershell-peter exists with schema-valid fields",
+      "proof_type": "automated_test",
+      "evidence": "pack/agent_profiles/powershell-peter.agent.yaml",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-09T12:35:00Z",
+      "notes": "Validated via pack-artifacts-acceptance contract and pack validate"
+    },
+    {
+      "criterion_id": "FR-002",
+      "description": "Profile declares PowerShell 7+ focus, Pester, PSScriptAnalyzer quality scope",
+      "proof_type": "automated_test",
+      "evidence": "pack/agent_profiles/powershell-peter.agent.yaml",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-09T12:35:00Z",
+      "notes": "specialization.primary-focus and secondary-awareness verified"
+    },
+    {
+      "criterion_id": "FR-003",
+      "description": "Avoidance-boundary excludes DevOps Danny, Annie, non-PowerShell app logic",
+      "proof_type": "automated_test",
+      "evidence": "pack/agent_profiles/powershell-peter.agent.yaml",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-09T12:35:00Z",
+      "notes": "avoidance-boundary section present"
+    },
+    {
+      "criterion_id": "FR-004",
+      "description": "Styleguide powershell-conventions with naming, layout, Pester, error-handling principles",
+      "proof_type": "automated_test",
+      "evidence": "pack/styleguides/powershell-conventions.styleguide.yaml",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-09T12:35:00Z",
+      "notes": "10 principles, 5 patterns (Recommended Tooling and Comment-Based Help added in refactoring)"
+    },
+    {
+      "criterion_id": "FR-005",
+      "description": "Tactic powershell-module-scaffold with psd1/psm1/build.ps1 steps",
+      "proof_type": "automated_test",
+      "evidence": "pack/tactics/powershell-module-scaffold.tactic.yaml",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-09T12:35:00Z",
+      "notes": "Required step keywords present"
+    },
+    {
+      "criterion_id": "FR-006",
+      "description": "Procedure powershell-pester-workflow with Pester/Invoke-Pester/Describe steps and entry/exit conditions",
+      "proof_type": "automated_test",
+      "evidence": "pack/procedures/powershell-pester-workflow.procedure.yaml",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-10T09:30:00Z",
+      "notes": "Reclassified from tactic to procedure per PR review; entry/exit conditions and anti-patterns added"
+    },
+    {
+      "criterion_id": "FR-007",
+      "description": "Tactic powershell-script-quality-gate with PSScriptAnalyzer/StrictMode steps",
+      "proof_type": "automated_test",
+      "evidence": "pack/tactics/powershell-script-quality-gate.tactic.yaml",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-09T12:35:00Z",
+      "notes": "C-001 tiered AppSec checklist present"
+    },
+    {
+      "criterion_id": "FR-008",
+      "description": "DRG fragment registers applies/requires edges for Peter",
+      "proof_type": "automated_test",
+      "evidence": "pack/drg/fragment.yaml",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-09T12:35:00Z",
+      "notes": "Compiled graph in regnology-default.graph.yaml"
+    },
+    {
+      "criterion_id": "FR-009",
+      "description": "artifact-tags.yaml tags profile, styleguide, and three tactics",
+      "proof_type": "automated_test",
+      "evidence": "config/artifact-tags.yaml",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-09T12:35:00Z",
+      "notes": "7 tag entries with tooling/engineering domains (pester and psscriptanalyzer toolguides added in refactoring)"
+    },
+    {
+      "criterion_id": "FR-010",
+      "description": "Companion primer docs/references/powershell-primer.md with attribution",
+      "proof_type": "automated_test",
+      "evidence": "docs/references/powershell-primer.md",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-09T12:35:00Z",
+      "notes": "Stijn Dejongh and REGNOLOGY header present"
+    },
+    {
+      "criterion_id": "FR-011",
+      "description": "Cursor export .cursor/agents/powershell-peter.md for routing",
+      "proof_type": "automated_test",
+      "evidence": ".cursor/agents/powershell-peter.md",
+      "pass_fail": "not_applicable",
+      "verified_by": "doctrine-daphne",
+      "verified_at": "2026-06-10T09:30:00Z",
+      "notes": "Deleted per PR review — .cursor/agents/ files should be generated on installation, not committed to the repository"
+    },
+    {
+      "criterion_id": "FR-012",
+      "description": "Profile references POWERSHELL_SYNTAX.md for spec-kitty CLI shell usage",
+      "proof_type": "automated_test",
+      "evidence": "pack/agent_profiles/powershell-peter.agent.yaml",
+      "pass_fail": "pass",
+      "verified_by": "reviewer-renata",
+      "verified_at": "2026-06-09T12:35:00Z",
+      "notes": "directive-references includes shell syntax template path"
+    }
+  ],
+  "negative_invariants": []
+}

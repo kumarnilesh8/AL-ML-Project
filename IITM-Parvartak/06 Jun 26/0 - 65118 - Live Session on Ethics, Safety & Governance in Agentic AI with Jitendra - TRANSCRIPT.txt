@@ -1,0 +1,5462 @@
+WEBVTT
+
+1
+00:03:03.230 --> 00:03:04.769
+Jitendra K: Hi guys, good evening.
+
+2
+00:03:05.280 --> 00:03:16.519
+Jitendra K: And good afternoon, warm welcome to another module on reinforcement learning. So, before we start, can we have a quick audio check if my voice is audio to everyone? You're able to hear me loud and clear, and my screen is visible as well?
+
+3
+00:03:23.630 --> 00:03:24.869
+Jitendra K: Alright, thank you.
+
+4
+00:03:25.580 --> 00:03:35.459
+Jitendra K: So, we'll continue with our discussion on reinforcement learning. So, before, going into the topic, I just want to discuss a few things with you guys.
+
+5
+00:03:35.600 --> 00:03:39.570
+Jitendra K: I can see that we have a few sessions left. In fact, a four-week
+
+6
+00:03:40.290 --> 00:03:47.840
+Jitendra K: Excluding this part. So we have really 3 weeks of tutorial and 2 weeks… 1 week of, project solution discussion.
+
+7
+00:03:48.030 --> 00:03:54.139
+Jitendra K: So, we have 3 weeks, that means 6 classes. Today, class will be the beginning.
+
+8
+00:03:54.310 --> 00:03:59.480
+Jitendra K: So, I just want to give you some more just about what we are going to cover.
+
+9
+00:03:59.880 --> 00:04:05.860
+Jitendra K: As a part of this, leftover classes. So we'll complete our discussion on reinforcement learning.
+
+10
+00:04:06.070 --> 00:04:09.310
+Jitendra K: Maybe today and tomorrow, and then we will start with…
+
+11
+00:04:09.800 --> 00:04:19.280
+Jitendra K: the… some real-world case studies on AI Agent, and there are a few case studies. So, we'll cover some of the case studies, which are…
+
+12
+00:04:19.899 --> 00:04:25.109
+Jitendra K: Known to me, but if you would like to maybe… Come up with something…
+
+13
+00:04:26.130 --> 00:04:29.790
+Jitendra K: On your own domain, so please let me know upfront, by tomorrow.
+
+14
+00:04:29.930 --> 00:04:35.169
+Jitendra K: What you would like to cover, and what kind of agent you would like to design, and how did you see
+
+15
+00:04:35.330 --> 00:04:40.320
+Jitendra K: Those agents are working with sample data, or let's say, synthetic data.
+
+16
+00:04:40.740 --> 00:04:42.780
+Jitendra K: So, just give me a very clear…
+
+17
+00:04:43.470 --> 00:04:49.530
+Jitendra K: Opinion, how you're seeing the agents in your real-world example.
+
+18
+00:04:49.800 --> 00:04:52.139
+Jitendra K: Irrespective of what domain you're working.
+
+19
+00:04:52.520 --> 00:05:00.500
+Jitendra K: So, just give me a thought process on the top of it, so that I can design some real-world example. If you're not sharing it, then I will continue with my own approach.
+
+20
+00:05:01.040 --> 00:05:06.419
+Jitendra K: And then, the last two sessions will be about, low-code, no-code platforms, so we'll take,
+
+21
+00:05:07.080 --> 00:05:08.860
+Jitendra K: Crew AI, AutoGen.
+
+22
+00:05:09.260 --> 00:05:19.949
+Jitendra K: and Microsoft Semantic Kernel as the three tool, and we will also talk about NATN. So these are the four tools that we're going to cover in the remaining proportion of the classes.
+
+23
+00:05:21.340 --> 00:05:26.550
+Jitendra K: So, any question, anything that you would like to discuss before we start the session for today?
+
+24
+00:05:42.360 --> 00:05:54.430
+Jitendra K: would like, use cases for your role in manufacturing, planning, shopping, social… just give me a detail around it, what kind of data you're playing with, what kind of attribute? This is a very generic use case that you are saying.
+
+25
+00:05:54.610 --> 00:06:01.669
+Jitendra K: Manufacturing, planning, it's a very vast ocean, right? You have to be very specific about the detail.
+
+26
+00:06:01.890 --> 00:06:07.179
+Jitendra K: When you say manufacturing planning, what is your data? What kind of characteristics you're trying to…
+
+27
+00:06:07.690 --> 00:06:13.309
+Jitendra K: put forth an agent for reasoning purpose, right? Manufacturing planning is a very vast topic.
+
+28
+00:06:13.780 --> 00:06:21.100
+Jitendra K: It talks about, mobile manufacturing, EDA manufacturing, vehicle manufacturing. So what are you trying to reduce?
+
+29
+00:06:21.860 --> 00:06:24.080
+Jitendra K: What are you trying to improve as a process?
+
+30
+00:06:26.610 --> 00:06:29.519
+Jitendra K: So that is very important. Just give me some dummy data.
+
+31
+00:06:29.810 --> 00:06:33.129
+Jitendra K: Some examples to create.
+
+32
+00:06:34.050 --> 00:06:35.350
+Jitendra K: Solution around it.
+
+33
+00:06:41.440 --> 00:06:46.629
+Jitendra K: Germany Enterprise… Germany Enterprise, but…
+
+34
+00:07:07.890 --> 00:07:08.800
+Jitendra K: Boop.
+
+35
+00:07:09.070 --> 00:07:11.140
+Jitendra K: Yeah, I can see some more…
+
+36
+00:07:12.770 --> 00:07:17.329
+Jitendra K: Germany Enterprise, heavy enterprise, let's just write in a shortlist of that.
+
+37
+00:07:19.150 --> 00:07:24.420
+Jitendra K: Vehicle manufacturing, task planning for operation, retractor, for example.
+
+38
+00:07:30.350 --> 00:07:35.350
+Jitendra K: Yeah, we can talk about, end-to-end example on GCP.
+
+39
+00:07:35.910 --> 00:07:41.029
+Jitendra K: And, we have Vertex, Enterprise Solution.
+
+40
+00:07:41.380 --> 00:07:48.119
+Jitendra K: So, yeah, I can demonstrate one. So, during this, we can demonstrate how to develop AgentN.
+
+41
+00:07:48.530 --> 00:07:50.810
+Jitendra K: Cloud Platform, so we'll talk about that.
+
+42
+00:07:54.360 --> 00:08:04.079
+Jitendra K: But the cloud training is different, from Agentic. So Agentic, we are learning ADK platform, how to create agent, irrespective of the…
+
+43
+00:08:04.400 --> 00:08:05.669
+Jitendra K: provisioning part.
+
+44
+00:08:12.070 --> 00:08:13.610
+Jitendra K: Sure, yeah.
+
+45
+00:08:13.740 --> 00:08:17.599
+Jitendra K: We'll take half an hour session from you, in that case, Alan.
+
+46
+00:08:18.340 --> 00:08:23.069
+Jitendra K: Alright, so let's continue with our main topic for today, reinforcement learning.
+
+47
+00:08:23.510 --> 00:08:31.319
+Jitendra K: So we are going to start with the basics of reinforcement learning, and try to understand what exactly reinforcement learning
+
+48
+00:08:31.830 --> 00:08:33.500
+Jitendra K: objective is…
+
+49
+00:08:34.659 --> 00:08:44.640
+Jitendra K: deployment topic, we will cover as a part of whole project. Now, we are talking about project end-to-end, no single thing we are going to discuss.
+
+50
+00:08:44.820 --> 00:08:48.909
+Jitendra K: We'll talk about what we are trying to solve, how to deploy, that will be…
+
+51
+00:08:49.170 --> 00:08:55.039
+Jitendra K: Giving you full picture now, right? So it's not about bit and pieces anymore, we have to talk about end-to-end.
+
+52
+00:08:55.250 --> 00:08:57.340
+Jitendra K: So, of course, deployment will be considered.
+
+53
+00:08:57.510 --> 00:09:00.169
+Jitendra K: And AI observability will also be a part of it.
+
+54
+00:09:03.070 --> 00:09:10.260
+Jitendra K: All right, so we'll talk about reinforcement learning. So, as the name says, reinforce. You're reinforcing something to improve certain things.
+
+55
+00:09:10.450 --> 00:09:14.970
+Jitendra K: So reinforcement learning is a mathematical, framework.
+
+56
+00:09:15.120 --> 00:09:20.540
+Jitendra K: That has been used to train a very specific feedback models.
+
+57
+00:09:20.810 --> 00:09:22.870
+Jitendra K: For certain tasks.
+
+58
+00:09:23.210 --> 00:09:27.030
+Jitendra K: So, when we talk about reinforcement learning, there are different,
+
+59
+00:09:27.160 --> 00:09:37.249
+Jitendra K: tools and algorithms, which is a part of reinforcement learning. As a part of an applied mathematics, so reinforcement learning comes under applied mathematics, applied AI and ML.
+
+60
+00:09:37.430 --> 00:09:45.100
+Jitendra K: To improve the model scores and try to ensure that you have a model-free and model-based training on the top of it.
+
+61
+00:09:45.200 --> 00:09:51.570
+Jitendra K: So, if I have to just give you an example on reinforcement learning, There are many examples.
+
+62
+00:09:51.860 --> 00:09:57.330
+Jitendra K: One of the examples could be… the Tesla self-driving car.
+
+63
+00:09:57.480 --> 00:10:08.009
+Jitendra K: So, when I talk about Tesla self-driving car, it's an autonomous vehicle, right? So, the autonomous vehicle will have different components, including agent involvement and feedback loop.
+
+64
+00:10:08.360 --> 00:10:15.670
+Jitendra K: So, the agent in that self-driving car is a decision maker algorithm, which has been feed as a car planner.
+
+65
+00:10:16.050 --> 00:10:24.220
+Jitendra K: And the environment is everything the agent interacts with, like road, other cars, pedestrian, weather condition, APIs, etc, sensor data.
+
+66
+00:10:24.340 --> 00:10:27.239
+Jitendra K: So these are all environment. So, at every step.
+
+67
+00:10:27.540 --> 00:10:32.509
+Jitendra K: The agent observer particular state from sensor data, map.
+
+68
+00:10:32.660 --> 00:10:42.869
+Jitendra K: the past trajectories, understanding the requirement in terms of traffic rules, etc. Signboard reading, looking for the
+
+69
+00:10:44.110 --> 00:10:47.189
+Jitendra K: Kind of, collision probabilities all the time.
+
+70
+00:10:47.310 --> 00:10:56.070
+Jitendra K: And then try to estimate the right path, right? So how… did you ever think that how this magic happened? So the magic behind the scene is reinforcement learning.
+
+71
+00:10:56.300 --> 00:11:06.509
+Jitendra K: So self-driving car is one of the greatest examples of reinforcement learning success. So that means reinforcement learning is a success. It's no more a theoretical topic anymore.
+
+72
+00:11:06.680 --> 00:11:11.930
+Jitendra K: Even, the best of the best,
+
+73
+00:11:12.450 --> 00:11:16.850
+Jitendra K: rover mission from NASA is heavily using reinforcement learning.
+
+74
+00:11:17.150 --> 00:11:24.239
+Jitendra K: They're using rovers, trajectories, All are reinforcement learning-based algorithms, so they are predicting the odd of
+
+75
+00:11:24.980 --> 00:11:28.409
+Jitendra K: Landing a rover, in a field state.
+
+76
+00:11:28.780 --> 00:11:36.569
+Jitendra K: Right? So the idea is the key decision-making, will be improved with our public interest from learning when we have a policy or a goal to learn.
+
+77
+00:11:36.700 --> 00:11:44.110
+Jitendra K: So the whole idea of reinforcement learning is depending upon very simple, and very simple… topic.
+
+78
+00:11:44.230 --> 00:11:45.829
+Jitendra K: Call Reward.
+
+79
+00:11:46.160 --> 00:11:47.939
+Jitendra K: So it's a reward-based learning.
+
+80
+00:11:48.290 --> 00:11:51.349
+Jitendra K: So, in supervised learning, you have a…
+
+81
+00:11:52.000 --> 00:11:57.430
+Jitendra K: Labels, so when you're trying to supervise any algorithm, Using machine learning.
+
+82
+00:11:58.320 --> 00:12:02.569
+Jitendra K: Algorithms or machine learning framework, you have labels to train the model.
+
+83
+00:12:02.790 --> 00:12:10.989
+Jitendra K: So, this is a label-free training. We are not passing any label, this is a label-free training. Instead of that, we are saying that, the algorithm, or agent.
+
+84
+00:12:11.160 --> 00:12:15.759
+Jitendra K: We'll explore the environment to understand the reward distribution. That's the simplest thing.
+
+85
+00:12:16.570 --> 00:12:22.530
+Jitendra K: Right? So that is what we are doing in reinforcement learning. So when we're talking about reward, reward can be a positive, negative.
+
+86
+00:12:22.650 --> 00:12:39.080
+Jitendra K: It could be a penalty as well, right? It's not necessary that reward will be positive always. But we are looking for a feedback loop in a positive sense, so that's why we call it a reward, as a positive reward. So the idea is, the goal, you need to create a policy
+
+87
+00:12:39.190 --> 00:12:42.669
+Jitendra K: That maximize the expected cumulative reward.
+
+88
+00:12:43.350 --> 00:12:48.850
+Jitendra K: So, expected cumulative reward is written by the equation called expected probability
+
+89
+00:12:52.240 --> 00:12:56.599
+Jitendra K: And submission of reward from the current state all the way to the end state.
+
+90
+00:12:56.700 --> 00:12:59.059
+Jitendra K: With a gamma as a discount factor.
+
+91
+00:12:59.360 --> 00:13:01.339
+Jitendra K: You'll come to this, what is gamma?
+
+92
+00:13:01.450 --> 00:13:08.300
+Jitendra K: And this is your reward distribution probability. So you're just coming up with a… Expected cumulative reward.
+
+93
+00:13:08.820 --> 00:13:16.580
+Jitendra K: And, you're going to apply this expected cumulative reward on a policy function. So we'll talk about policy function and value function.
+
+94
+00:13:16.800 --> 00:13:20.880
+Jitendra K: what exactly the difference is. But the idea of policy is to select
+
+95
+00:13:21.060 --> 00:13:23.870
+Jitendra K: A suitable action in a given state.
+
+96
+00:13:24.190 --> 00:13:25.619
+Jitendra K: Imagine that.
+
+97
+00:13:25.960 --> 00:13:32.449
+Jitendra K: You're riding a car, right? And your objective is to move from A to B.
+
+98
+00:13:34.640 --> 00:13:39.129
+Jitendra K: And your objective is, you would like to either save time.
+
+99
+00:13:43.310 --> 00:13:44.640
+Jitendra K: Of this travel.
+
+100
+00:13:45.210 --> 00:13:49.150
+Jitendra K: Right, so you will take a highway or a proper NH
+
+101
+00:13:49.410 --> 00:13:56.480
+Jitendra K: Highway to travel, or your objective is to Save… the fuel cost.
+
+102
+00:13:57.150 --> 00:13:58.590
+Jitendra K: Or efficiency cost.
+
+103
+00:13:59.080 --> 00:14:07.309
+Jitendra K: So in that case, you will go slowly, and then swiftly, and then you reach A to B. So, depending upon your objective, you take a decision, right?
+
+104
+00:14:07.520 --> 00:14:16.980
+Jitendra K: So, the whole idea of reinforcement learning is to apply the same fundamental in policy function. The idea is, if you're selecting an action, that can give you
+
+105
+00:14:17.240 --> 00:14:28.509
+Jitendra K: the… I mean, give… emphasize on your objective. If you're going to achieve this objective, you have to choose an action, right? And the state. Management.
+
+106
+00:14:29.790 --> 00:14:31.509
+Jitendra K: So, with the help of these two
+
+107
+00:14:32.270 --> 00:14:35.330
+Jitendra K: Variables, you can able to optimize your policy.
+
+108
+00:14:36.300 --> 00:14:55.190
+Jitendra K: You can create this as a policy that I will like to save the fuel all the time, then I will go with this speed, not over-speeding, neither underspeeding, but I will go with an average speed to save the fuel, and to save off… save the cost of operation. To save the time, I have to run 180 miles per hour, or 180 kilometer per hour.
+
+109
+00:14:55.670 --> 00:14:58.299
+Jitendra K: Right? So that depends upon your requirement.
+
+110
+00:14:58.660 --> 00:15:04.420
+Jitendra K: So, the whole idea is, the learning depends upon your objective.
+
+111
+00:15:04.810 --> 00:15:11.010
+Jitendra K: And, ultimately, the objective will have a different sort of actions against it.
+
+112
+00:15:11.200 --> 00:15:14.319
+Jitendra K: So you're going to deal with these objectives.
+
+113
+00:15:14.440 --> 00:15:20.129
+Jitendra K: And then try to ensure that you're going to sustain these objectives with the help of a policy function, right?
+
+114
+00:15:20.370 --> 00:15:25.590
+Jitendra K: So the core idea of reinforcement learning is It is of two type.
+
+115
+00:15:25.950 --> 00:15:28.260
+Jitendra K: Which is called Model Free Environment.
+
+116
+00:15:32.770 --> 00:15:34.739
+Jitendra K: And model-based environment.
+
+117
+00:15:39.810 --> 00:15:46.659
+Jitendra K: So, model-free environment learn a policy or a value function directly from interaction, without modeling the environmental.
+
+118
+00:15:46.780 --> 00:15:49.430
+Jitendra K: Constraints or dynamicness, right?
+
+119
+00:15:49.960 --> 00:16:03.290
+Jitendra K: Model-based learning is slightly offline, using BatchRL, which is critical for safety domain, for safety-critical domain. The agent learns solely from a fixed dataset of past interaction.
+
+120
+00:16:03.710 --> 00:16:12.330
+Jitendra K: Just like chatbots, right? So they will gather the feedback from the users, understand Their personalities of interactions.
+
+121
+00:16:12.510 --> 00:16:22.709
+Jitendra K: And then adapt to it. And that is called Model Offline RL, right? So you will see that these chatbots, or so-called conversational AI tools are getting
+
+122
+00:16:22.820 --> 00:16:28.040
+Jitendra K: change in terms of what they are suggesting earlier. North is showing something.
+
+123
+00:16:28.300 --> 00:16:33.300
+Jitendra K: Very different in terms of, their recommendations and write-ups.
+
+124
+00:16:33.500 --> 00:16:38.659
+Jitendra K: So, actually, this is a reinforcement learning magic behind the scene, which is using a value-based queue learning.
+
+125
+00:16:38.840 --> 00:16:46.210
+Jitendra K: So there's a value-based queue learning which is happening behind the scene, which is increasing the expected cumulative reward, because if you're matching the personality of a user.
+
+126
+00:16:46.680 --> 00:16:54.440
+Jitendra K: Automatically you will have a higher chance that user will adopt your way of, Write-ups, etc.
+
+127
+00:16:54.830 --> 00:17:03.360
+Jitendra K: Right? So, it starts using you, using that particular tool more often. That's the whole idea. And of course.
+
+128
+00:17:03.570 --> 00:17:13.980
+Jitendra K: If the traffic is going to OpenAI versus, Sonnet, Anthropic, that's a different story altogether. So the whole idea is, the action value written
+
+129
+00:17:14.200 --> 00:17:20.200
+Jitendra K: With the help of a Q-value function, and we'll talk about something called Bellman optimization.
+
+130
+00:17:20.390 --> 00:17:38.179
+Jitendra K: Which is giving you the reward probabilities. But remember, there are two sort of process, online versus offline. Online is model-free, offline is RL, batch RL, and this is basically a trial and error, which will give you some sort of exploration-exploitation method.
+
+131
+00:17:38.670 --> 00:17:45.480
+Jitendra K: Now, the second topic we are going to talk about is called exploration versus exploitation. Now, before moving on to that part.
+
+132
+00:17:46.770 --> 00:17:48.840
+Jitendra K: Let's start to understand some more…
+
+133
+00:17:49.630 --> 00:17:52.410
+Jitendra K: user-friendly topic, or I would say beginning topic.
+
+134
+00:17:52.690 --> 00:17:57.400
+Jitendra K: So, we will talk about some of the… Situations, in terms of…
+
+135
+00:17:58.200 --> 00:18:11.620
+Jitendra K: Okay, let me… I think we have discussed all these things, so I'm just moving fast. And this is what the reinforcement learning typical process looks like. So here we are talking about an agent which is learning from the environment with an interaction.
+
+136
+00:18:12.160 --> 00:18:18.870
+Jitendra K: And the agent could be anything. It could be your algorithm, it could be a human, it could be a machine, it could be a robot, it could be anything.
+
+137
+00:18:19.110 --> 00:18:24.129
+Jitendra K: Right, so the agent is nothing but… it's an entity who's interacting with the environment, in any shape and form.
+
+138
+00:18:24.850 --> 00:18:34.010
+Jitendra K: So how it is interacting with the environment? By changing the state. So there are two states, you can see there are two colors, green and orange.
+
+139
+00:18:34.430 --> 00:18:39.409
+Jitendra K: And when we are changing the state by selecting an action.
+
+140
+00:18:39.930 --> 00:18:41.660
+Jitendra K: It moved to a new state.
+
+141
+00:18:42.340 --> 00:18:48.319
+Jitendra K: Which is the next state as compared to the previous one, which is, currently my agent is at state number ST.
+
+142
+00:18:48.560 --> 00:18:52.809
+Jitendra K: And then, by choosing an action, he moved on to a state T plus 1.
+
+143
+00:18:53.570 --> 00:18:59.299
+Jitendra K: And immediately he sends a reward, based upon that step. So the action will give a reward.
+
+144
+00:18:59.730 --> 00:19:03.949
+Jitendra K: And also the state change. So it is… will be feedback to the agent.
+
+145
+00:19:04.070 --> 00:19:05.940
+Jitendra K: And again, this is a black box.
+
+146
+00:19:06.030 --> 00:19:24.140
+Jitendra K: let's assume that I don't know what is happening inside it, but it's… he's just having a goal, like a Terminator who has to kill his enemies, right? So that's the goal of a Terminator. So, the goal has to be sustained, and that's the whole idea of this algorithm, right? So I've given an algorithm that will help me to…
+
+147
+00:19:24.330 --> 00:19:30.419
+Jitendra K: Achieve the maximum reward all the time by making this scores correction and choosing the action.
+
+148
+00:19:31.470 --> 00:19:39.630
+Jitendra K: So again, coming back to Tesla driving cars, so… And Tesla driving cars, we have,
+
+149
+00:19:40.060 --> 00:19:45.350
+Jitendra K: We have several vision trans… vision-based devices, several IoT-based sensors.
+
+150
+00:19:45.670 --> 00:19:50.279
+Jitendra K: So Tesla is a full self-managed driving instruction module.
+
+151
+00:19:50.400 --> 00:19:57.770
+Jitendra K: Which is fundamentally a vision-based end-to-end neural network, which has been stacked trains on millions of real-world driving clips.
+
+152
+00:19:57.920 --> 00:20:00.609
+Jitendra K: And the architecture includes perception and planning.
+
+153
+00:20:00.790 --> 00:20:07.550
+Jitendra K: So, perception, convert a raw camera feeds into a three-dimensional vector space of object, lanes, traffic, controls.
+
+154
+00:20:07.830 --> 00:20:13.999
+Jitendra K: actions, etc. Planning will be a recurrent neural network. The planner takes the vector space.
+
+155
+00:20:14.120 --> 00:20:19.170
+Jitendra K: Convert the navigation goals, past trajectory, and output a future trajectory.
+
+156
+00:20:19.610 --> 00:20:25.429
+Jitendra K: With our different opinions, right? So that is what, the Tesla self-driving car is doing.
+
+157
+00:20:25.550 --> 00:20:30.980
+Jitendra K: So it will maintain the stage using imitation learning, behavioral cloning.
+
+158
+00:20:31.130 --> 00:20:37.119
+Jitendra K: Initially, the planner is trained purely by imitation. The network receives a sequence of sensor data.
+
+159
+00:20:37.350 --> 00:20:45.350
+Jitendra K: And it should predict the human driver, future steering, throttle, and brake, which is going to apply as a control.
+
+160
+00:20:45.480 --> 00:20:51.070
+Jitendra K: And the loss function is the error between the predicted trajectory and the recorded human trajectory, and this produces a policy
+
+161
+00:20:51.180 --> 00:20:55.440
+Jitendra K: That can driver, that can drive naturally in many situations.
+
+162
+00:20:56.040 --> 00:20:59.589
+Jitendra K: So, basically, you're compounding the errors and try to improve it.
+
+163
+00:20:59.900 --> 00:21:05.810
+Jitendra K: The stage number two is reinforcement learning fine-tuning. To overcome the error, compounding errors.
+
+164
+00:21:06.040 --> 00:21:15.179
+Jitendra K: Tesla introduced reinforcement learning on top of limitation… imitation. So the key invocation… innovation is that the car never explores on public road.
+
+165
+00:21:15.330 --> 00:21:21.589
+Jitendra K: All the RL work has been done offline, so inside Tesla data centers, using enormous data points.
+
+166
+00:21:21.910 --> 00:21:25.710
+Jitendra K: That has been collected from different sensors and different vision.
+
+167
+00:21:26.090 --> 00:21:27.629
+Jitendra K: The idea is,
+
+168
+00:21:28.050 --> 00:21:38.379
+Jitendra K: They are creating a very good neural network reward model for human preferences to avoid certain types of collisions and maintaining the car.
+
+169
+00:21:38.640 --> 00:21:57.329
+Jitendra K: actual state. So typically, this is what the real-world example can do with the help of reinforcement learning. So reinforcement learning is a framework where the agent learns to maximize cumulative reward through experience. So in Tesla motors, reinforcement learning is used to fine-tune a neural network planner
+
+170
+00:21:57.420 --> 00:22:03.139
+Jitendra K: That was first pre-trained by imitations to learn the reward distribution, right? That is what…
+
+171
+00:22:03.430 --> 00:22:08.859
+Jitendra K: Every reinforcement learning algorithm will have this same trick and same fundamental.
+
+172
+00:22:11.850 --> 00:22:15.619
+Jitendra K: Okay, so… We'll move on to the…
+
+173
+00:22:16.510 --> 00:22:19.709
+Jitendra K: more topics of fundamental, so this is…
+
+174
+00:22:19.970 --> 00:22:23.269
+Jitendra K: Again, the process that you need to understand.
+
+175
+00:22:23.410 --> 00:22:24.280
+Jitendra K: Now…
+
+176
+00:22:24.420 --> 00:22:32.830
+Jitendra K: if you're trying to solve a reinforcement learning problem, you cannot acquire a Tesla-like data centers, right? Because we have a budget. We don't have a budget to…
+
+177
+00:22:33.200 --> 00:22:37.600
+Jitendra K: get these kind of use cases. We are working 9 to 6, right?
+
+178
+00:22:37.840 --> 00:22:41.489
+Jitendra K: So, the idea is, how will you learn reinforcement learning?
+
+179
+00:22:41.800 --> 00:22:44.269
+Jitendra K: So this is where OpenAI Gym
+
+180
+00:22:44.720 --> 00:22:48.729
+Jitendra K: is, gonna work. So, OpenAI GEM has created
+
+181
+00:22:49.110 --> 00:22:54.000
+Jitendra K: Some sort of sample data set for you to learn and explore reinforcement learning algorithm.
+
+182
+00:22:54.300 --> 00:23:00.309
+Jitendra K: So, what OpenAI will do is, they will give you some sort of environment to operate, similar to
+
+183
+00:23:00.610 --> 00:23:08.909
+Jitendra K: the scikit-learn datasets that you might have used in machine learning, or maybe recently we have used Hugging Face data to train the model.
+
+184
+00:23:09.230 --> 00:23:12.139
+Jitendra K: Right? All these things are kind of,
+
+185
+00:23:12.590 --> 00:23:17.679
+Jitendra K: Provide as a customized way to retrain your model and generate some insights on the top of it.
+
+186
+00:23:18.000 --> 00:23:24.100
+Jitendra K: So basically, this is one of the environment. You can see here, that is a Counter-Strike, screenshot.
+
+187
+00:23:24.290 --> 00:23:41.310
+Jitendra K: And this is the start state of the Counter-Strike, ST. I would say S0, right? This is the starting point of it. So, as this particular creature moves and enter this gate, he will find a lot of hurdles, a lot of enemies, shooting from all the angles, and…
+
+188
+00:23:41.910 --> 00:23:47.840
+Jitendra K: different perspective. So the idea is you need to ensure that you explore this environment.
+
+189
+00:23:48.010 --> 00:23:50.710
+Jitendra K: Get rid of your enemies, reach your objective.
+
+190
+00:23:51.180 --> 00:23:53.750
+Jitendra K: And then I maximize the cumulative reward.
+
+191
+00:23:54.770 --> 00:24:00.960
+Jitendra K: So this is the front screen, the starting screen of the environment, when the agent takes certain actions to reach.
+
+192
+00:24:01.290 --> 00:24:07.320
+Jitendra K: the end objective, so that is where, OpenAI have provided this particular whole game.
+
+193
+00:24:07.420 --> 00:24:12.130
+Jitendra K: In a form of a screenshot, and you need to learn from Vision Transformer to solve this game.
+
+194
+00:24:12.830 --> 00:24:15.550
+Jitendra K: Right, so that is what, the challenge is.
+
+195
+00:24:18.220 --> 00:24:23.549
+Jitendra K: Okay, let me take some questions. I've heard some guy once RL is given.
+
+196
+00:24:24.040 --> 00:24:27.290
+Jitendra K: Is give a man the taste of AI.
+
+197
+00:24:29.840 --> 00:24:35.329
+Jitendra K: Yeah, it's environmental-based learning. So, taste and all, I think this is something hoax you're talking about.
+
+198
+00:24:36.920 --> 00:24:41.289
+Jitendra K: It's not taste, actually. I'm talking about vision transformers.
+
+199
+00:24:41.990 --> 00:24:49.880
+Jitendra K: RL exploration and exploitation is necessary, but agent might try a new tool calling when something does not work, or when something…
+
+200
+00:24:50.190 --> 00:24:53.460
+Jitendra K: What's how, you know, a reward signal accomplish?
+
+201
+00:24:54.990 --> 00:25:00.529
+Jitendra K: No, it is, yeah, that is the whole dilemma of exploration and exploitation, so we'll talk about that.
+
+202
+00:25:04.940 --> 00:25:13.270
+Jitendra K: So, we'll talk about that. So, exploration and exploitation dilemma, so how can we solve that? Till what point do you have to exploit? Till what point do you have to exploit?
+
+203
+00:25:13.960 --> 00:25:20.260
+Jitendra K: So, this is what the reinforcement Learning Framework looks like. So, you have… basically, what I'm trying to say is.
+
+204
+00:25:20.380 --> 00:25:26.049
+Jitendra K: We have an open source data where you can train your algorithms, right? So this is one way that we can be able to understand.
+
+205
+00:25:27.220 --> 00:25:37.379
+Jitendra K: Now, the reward hypothesis, if I have to explain this with example, so you can see that, this is, one of the puzzle game in the early,
+
+206
+00:25:37.530 --> 00:25:40.030
+Jitendra K: I think pre-smartphone era.
+
+207
+00:25:40.260 --> 00:25:43.190
+Jitendra K: There's one other game where you have several grids.
+
+208
+00:25:43.340 --> 00:25:50.990
+Jitendra K: And this is your creature who is moving in this grid. And the objective is to maximize the carriage before getting a shock.
+
+209
+00:25:51.470 --> 00:25:56.290
+Jitendra K: So, you can see that, closer to the shock, you have rewards.
+
+210
+00:25:56.730 --> 00:26:02.270
+Jitendra K: So that it will imitate this rabbit to die until he reaches this point.
+
+211
+00:26:02.530 --> 00:26:06.289
+Jitendra K: That means he had to explore, and then find a path.
+
+212
+00:26:06.530 --> 00:26:11.240
+Jitendra K: to improve, the overall search. Maybe if we start exploring.
+
+213
+00:26:11.350 --> 00:26:14.249
+Jitendra K: You'll find the surrounding is all filled with…
+
+214
+00:26:14.360 --> 00:26:19.549
+Jitendra K: A bunch of carrot, and then he can explore some way to do it.
+
+215
+00:26:19.860 --> 00:26:22.570
+Jitendra K: So the constraint is you cannot cross the grid.
+
+216
+00:26:22.760 --> 00:26:30.229
+Jitendra K: without, without passing the immediate one. You can change the path, you can go with this direction.
+
+217
+00:26:30.370 --> 00:26:31.790
+Jitendra K: And then move back.
+
+218
+00:26:32.400 --> 00:26:44.580
+Jitendra K: You can move in any direction. I mean, this is totally an exploration-exploitation problem, right? So the idea is the reward near the shock is even bigger. More carriage will be discounted. So that means this is discount, gamma.
+
+219
+00:26:44.810 --> 00:26:49.250
+Jitendra K: Which is imitating the rabbit to go in this area, and then get a shock.
+
+220
+00:26:49.460 --> 00:26:52.149
+Jitendra K: So, higher the gamma, higher the reward.
+
+221
+00:26:52.270 --> 00:27:01.949
+Jitendra K: Lower the gamma, higher the reward. The larger the gamma, the small is the discount factor, and more the long-term reward. And the smaller the gamma, the bigger is the discount.
+
+222
+00:27:02.120 --> 00:27:05.200
+Jitendra K: Because this is 1 minus gamma, the discount factor.
+
+223
+00:27:05.500 --> 00:27:09.139
+Jitendra K: So, if you're subtracting anything, this should be a higher value.
+
+224
+00:27:09.290 --> 00:27:15.029
+Jitendra K: The smaller the grammar, bigger the discount, and the agent care more about the short-term reward. That means the nearest carrot.
+
+225
+00:27:15.280 --> 00:27:24.560
+Jitendra K: Right, so that is the whole idea of reward distribution or reward hypothesis. So, reward hypothesis is very important, and this will make,
+
+226
+00:27:25.260 --> 00:27:31.419
+Jitendra K: The whole setup very, very easy and foolproof in terms of probability.
+
+227
+00:27:31.690 --> 00:27:38.629
+Jitendra K: Now, this is a mathematical equation of how to represent a reward distribution. So, when we're generating a reward distribution.
+
+228
+00:27:39.900 --> 00:27:46.440
+Jitendra K: We are talking about fundamentally a cumulative reward that has been come from all the process.
+
+229
+00:27:46.920 --> 00:27:53.919
+Jitendra K: So, now, if I have to re-represent this equation with the help of a discount factor, which is a multiplicative factor.
+
+230
+00:27:54.600 --> 00:27:59.710
+Jitendra K: Right? So if I'm multiplying this with a reward distribution probability discount factor.
+
+231
+00:27:59.980 --> 00:28:03.290
+Jitendra K: it will give me the whole equation. So if I'm making this…
+
+232
+00:28:03.390 --> 00:28:09.349
+Jitendra K: discount factor to be zero, or nearer to zero. This whole equation, the whole reward will shrink.
+
+233
+00:28:09.940 --> 00:28:13.490
+Jitendra K: If I'm making it high, Closer to 1.
+
+234
+00:28:13.780 --> 00:28:19.240
+Jitendra K: This reward distribution will… Maybe multifold, right?
+
+235
+00:28:19.490 --> 00:28:23.639
+Jitendra K: So I will likely to get a higher reward if I'm working closer to 1.
+
+236
+00:28:24.000 --> 00:28:26.780
+Jitendra K: So this is how the step-by-step of…
+
+237
+00:28:26.940 --> 00:28:29.999
+Jitendra K: Each reward distribution looks like at every step.
+
+238
+00:28:30.120 --> 00:28:34.860
+Jitendra K: And you can see that this is becoming exponentially growing, in terms of power.
+
+239
+00:28:35.090 --> 00:28:41.610
+Jitendra K: And, with each and every iteration, my expectation will be to increase the reward in each process.
+
+240
+00:28:41.900 --> 00:28:48.960
+Jitendra K: So, that is what Boston Dynamics are doing, right? With their robots, when they're crawling, when they're walking, when they're dancing.
+
+241
+00:28:49.320 --> 00:28:52.859
+Jitendra K: Even the robots are dancing better than humans these days, so…
+
+242
+00:28:53.030 --> 00:28:57.820
+Jitendra K: how it has been achieved. So, this has been achieved with the help of videos.
+
+243
+00:28:58.510 --> 00:29:01.790
+Jitendra K: They have trained with multiple videos, TikTok and…
+
+244
+00:29:02.140 --> 00:29:08.179
+Jitendra K: I think, there's a lot of social media websites, which have been feed to robots.
+
+245
+00:29:08.430 --> 00:29:12.890
+Jitendra K: to take certain dynamic decisions, right? So that is the whole idea of,
+
+246
+00:29:13.110 --> 00:29:17.480
+Jitendra K: These robots, which is getting smarter in terms of movements.
+
+247
+00:29:19.000 --> 00:29:24.409
+Jitendra K: So, as I mentioned, there are 3 elementary building blocks of reinforcement learning.
+
+248
+00:29:24.650 --> 00:29:29.860
+Jitendra K: And this is called anatomy of reinforcement Learning. So when you talk about anatomy of reinforcement learning, there are three
+
+249
+00:29:30.210 --> 00:29:31.150
+Jitendra K: Types.
+
+250
+00:29:31.450 --> 00:29:35.560
+Jitendra K: One is called policy, second is called value function.
+
+251
+00:29:35.840 --> 00:29:38.640
+Jitendra K: The third one is called Model of the Environment.
+
+252
+00:29:39.370 --> 00:29:44.659
+Jitendra K: Right? So when you talk about any reinforcement learning problem, these three things are fundamental.
+
+253
+00:29:44.980 --> 00:29:48.239
+Jitendra K: So you need to understand each and everything, what is policy.
+
+254
+00:29:48.410 --> 00:29:55.340
+Jitendra K: So, policy is just like an agentic brain at a decision time. So, define how the agent select action given the state.
+
+255
+00:29:55.890 --> 00:30:00.500
+Jitendra K: The policy is a mapping from state to action. This acts like a mapping function.
+
+256
+00:30:00.750 --> 00:30:04.220
+Jitendra K: So it's like, you create a policy that I will study.
+
+257
+00:30:04.650 --> 00:30:11.279
+Jitendra K: Throughout my year to get a better result. So that will be a policy. Some students will say that, okay, I will…
+
+258
+00:30:11.440 --> 00:30:14.120
+Jitendra K: Start studying from this time frame.
+
+259
+00:30:14.480 --> 00:30:19.879
+Jitendra K: They are smart, they are getting good reward, that's their approach, so they feel that it's the right policy.
+
+260
+00:30:20.150 --> 00:30:31.940
+Jitendra K: Right, so there could be a number of scenarios like this in real-world example. So policy is nothing but it determines the agentic brain at the same time. It defines how the agent select action, given a particular state.
+
+261
+00:30:32.150 --> 00:30:37.270
+Jitendra K: So, policy is a mapping from state to action, potentially incorporating the randomness.
+
+262
+00:30:37.590 --> 00:30:41.989
+Jitendra K: So when you talk about policy, it is of two types. One is called a deterministic policy.
+
+263
+00:30:42.280 --> 00:30:44.829
+Jitendra K: The second one is called stochastic policy.
+
+264
+00:30:45.090 --> 00:30:50.660
+Jitendra K: So, deterministic policy… Represented by pi. Policy is represented by pi.
+
+265
+00:30:51.510 --> 00:30:54.499
+Jitendra K: Given a particular state, you're choosing an action.
+
+266
+00:30:55.190 --> 00:30:56.700
+Jitendra K: And this is deterministic.
+
+267
+00:30:57.080 --> 00:31:01.220
+Jitendra K: Given a state, the action pick and the agent pick an action.
+
+268
+00:31:01.890 --> 00:31:02.730
+Jitendra K: Right?
+
+269
+00:31:03.290 --> 00:31:11.519
+Jitendra K: Stochastic policy, on the other hand, will depend upon… the action feedback.
+
+270
+00:31:13.120 --> 00:31:19.939
+Jitendra K: So, it will say that I would like to, given a state agent sample an action from the probabstical distribution.
+
+271
+00:31:20.220 --> 00:31:23.500
+Jitendra K: And then select the… Right?
+
+272
+00:31:24.030 --> 00:31:26.960
+Jitendra K: Or, wrong action to perform.
+
+273
+00:31:33.110 --> 00:31:36.919
+Jitendra K: And that is what stochastic policy talks about.
+
+274
+00:31:37.140 --> 00:31:40.140
+Jitendra K: So, a stochastic policy Is…
+
+275
+00:31:41.010 --> 00:31:46.340
+Jitendra K: basically an exploration technique in order to discover better action. The agent must sometimes try
+
+276
+00:31:46.460 --> 00:31:50.820
+Jitendra K: Some, non-greedy actions, and try to use…
+
+277
+00:31:51.270 --> 00:31:55.149
+Jitendra K: Some sort of policies that will naturally enable exploration.
+
+278
+00:31:55.730 --> 00:32:01.169
+Jitendra K: So in… during exploration, they may come up with better actions as well, right? That's one thing.
+
+279
+00:32:01.420 --> 00:32:05.819
+Jitendra K: Or, it may come with a poor selection. That is totally dependent upon the
+
+280
+00:32:05.930 --> 00:32:08.450
+Jitendra K: Kind of data that you're playing with.
+
+281
+00:32:10.330 --> 00:32:16.370
+Jitendra K: So basically, your objective is, you need to attend a policy function which is running optimal.
+
+282
+00:32:16.530 --> 00:32:22.419
+Jitendra K: So when you talk about policy as an optimal, you represent this mathematically by lambda pi asterisk.
+
+283
+00:32:22.750 --> 00:32:29.500
+Jitendra K: So, every asterisk in reinforcement learning is optimal. So, pi asterisk means It is gonna be…
+
+284
+00:32:30.050 --> 00:32:38.180
+Jitendra K: an optimal policy. And this function can be represented as argument of Max… pi.
+
+285
+00:32:39.440 --> 00:32:41.710
+Jitendra K: Expected value of pi.
+
+286
+00:32:42.170 --> 00:32:44.990
+Jitendra K: Given… Duh?
+
+287
+00:32:46.260 --> 00:32:49.809
+Jitendra K: Reward distribution probability at a given state.
+
+288
+00:32:50.500 --> 00:32:52.670
+Jitendra K: So this is what the function looks like.
+
+289
+00:32:52.840 --> 00:32:56.899
+Jitendra K: So, policy, in its very simple term, will help you to select an action.
+
+290
+00:32:58.090 --> 00:33:02.600
+Jitendra K: Based upon these two methods, which is deterministic and stochastic.
+
+291
+00:33:03.790 --> 00:33:06.749
+Jitendra K: Value function, on the other hand, will work like a judge.
+
+292
+00:33:07.140 --> 00:33:13.509
+Jitendra K: So while policies say what to do, the value functions say how good a state or a state action payer is.
+
+293
+00:33:14.100 --> 00:33:18.110
+Jitendra K: It predicts future cumulative reward. So there are two types of function.
+
+294
+00:33:18.470 --> 00:33:22.640
+Jitendra K: There's something called stateValue Function, which is represented by V of pi.
+
+295
+00:33:24.950 --> 00:33:25.790
+Jitendra K: S?
+
+296
+00:33:27.460 --> 00:33:31.090
+Jitendra K: There's something called actionValue Function, which is represented by Q.
+
+297
+00:33:31.810 --> 00:33:36.210
+Jitendra K: Q Pi… state, an action.
+
+298
+00:33:37.180 --> 00:33:40.929
+Jitendra K: So there are two sort of value functions, state value function, action value function.
+
+299
+00:33:42.430 --> 00:33:54.520
+Jitendra K: Now, we'll talk about these two functions with the help of some examples. Now, model of the environment is nothing but a model in which the agent internal representation on how the environmental operates, or how it works.
+
+300
+00:33:54.960 --> 00:33:57.710
+Jitendra K: It is always…
+
+301
+00:33:58.570 --> 00:34:09.249
+Jitendra K: you know, you have a model constraint, and you will have a reward probability. So these two things will be input to any reinforcement learning model. What is that? Reward distribution?
+
+302
+00:34:10.980 --> 00:34:13.020
+Jitendra K: And the environmental constraint.
+
+303
+00:34:13.840 --> 00:34:24.159
+Jitendra K: So, we are talking about… we are not talking about reward distribution, we are talking about environmental constraint. So, model of the environment depends upon environmental constraint. Let's take an example of a Tesla Motors.
+
+304
+00:34:24.320 --> 00:34:33.550
+Jitendra K: So even if you are creating a model-free environmental learning, you're not riding Tesla cars in… on-road to learn. You're using some simulations.
+
+305
+00:34:33.969 --> 00:34:39.430
+Jitendra K: But you have to code rewards, like, if you're maintaining a safe distance between the two vehicles.
+
+306
+00:34:39.960 --> 00:34:41.799
+Jitendra K: What should be the margin?
+
+307
+00:34:42.139 --> 00:34:51.109
+Jitendra K: If your vehicle is powerful enough to, you know, get super speed in a fraction of a second, then what should be a driving behavior?
+
+308
+00:34:51.290 --> 00:34:54.250
+Jitendra K: How to accelerate, how to de-accelerate, when to apply a break.
+
+309
+00:34:54.429 --> 00:35:00.339
+Jitendra K: How to, look into the signboards. How optimally are you looking into the signboards?
+
+310
+00:35:00.550 --> 00:35:04.680
+Jitendra K: How optimally you're following the path navigations from your app?
+
+311
+00:35:05.960 --> 00:35:13.280
+Jitendra K: That is all reward which has been given to the vehicle in the simulation, and then he reacts on those constraints.
+
+312
+00:35:13.660 --> 00:35:18.429
+Jitendra K: Right? So that is how this whole idea of model of the environment originated.
+
+313
+00:35:18.760 --> 00:35:26.340
+Jitendra K: Right? And this is greatly inspired by Tesla only, so you need to have model of the environment with a set of constraints and the rewards.
+
+314
+00:35:30.220 --> 00:35:32.220
+Jitendra K: Okay, I will skip this slide.
+
+315
+00:35:40.620 --> 00:35:43.320
+Jitendra K: Yeah, now I will talk about the two types of tasks.
+
+316
+00:35:43.870 --> 00:35:48.939
+Jitendra K: Which is, there in any reinforcement Learning Framework, which is called episodal and continuous tasks.
+
+317
+00:35:49.430 --> 00:35:53.699
+Jitendra K: Now, what is episodal tasks? Epidodal tasks are the tasks, or…
+
+318
+00:35:54.300 --> 00:35:57.169
+Jitendra K: the state, which will have an ID state.
+
+319
+00:35:57.560 --> 00:36:00.199
+Jitendra K: Like, yeah, like the game of chess.
+
+320
+00:36:00.400 --> 00:36:05.390
+Jitendra K: Once you beat a player, you have to re-challenge it for a new game. You cannot say that
+
+321
+00:36:05.510 --> 00:36:08.979
+Jitendra K: I would like to reconsider this move, and then maybe…
+
+322
+00:36:09.370 --> 00:36:12.260
+Jitendra K: try another time, right? You have to…
+
+323
+00:36:12.720 --> 00:36:19.330
+Jitendra K: First, agree that you lost the game, or this is something, I mean, as a rule, it will be.
+
+324
+00:36:19.470 --> 00:36:23.630
+Jitendra K: And then you have to, again, challenge the player. That means it will have an end state.
+
+325
+00:36:23.750 --> 00:36:32.289
+Jitendra K: Continuous tasks, on the other hand, will have infinite, it may continue for forever, no terminal state. Classical example is Tesla Motors.
+
+326
+00:36:32.520 --> 00:36:51.690
+Jitendra K: Because with every fraction of new patterns which may arise, the car has to adapt and learn continuously. So episodal task is the one where the agent interact naturally break into a distinct sequence, which is called episode, and each episode ends with a terminal state, after which the involvement is reset, and then…
+
+327
+00:36:52.070 --> 00:36:56.350
+Jitendra K: You have to start again, from the initial state.
+
+328
+00:36:57.320 --> 00:37:04.089
+Jitendra K: So, if you're choosing The episodal task, you have to design the industry as well.
+
+329
+00:37:04.500 --> 00:37:12.780
+Jitendra K: Continuous task is the one which agent react with then vomited forever with no longer… with no natural termination, and there's no terminal state or no reset.
+
+330
+00:37:13.010 --> 00:37:17.919
+Jitendra K: It can go indefinitely, and then continue to perform the optimization.
+
+331
+00:37:26.330 --> 00:37:27.800
+Jitendra K: Okay, so…
+
+332
+00:37:28.750 --> 00:37:37.439
+Jitendra K: Now, we'll talk about one important, dilemma called exploration and exploitation. So, this is the most important dilemma of reinforcement learning.
+
+333
+00:37:37.830 --> 00:37:42.069
+Jitendra K: So basically, exploration and exploitation are the two important steps.
+
+334
+00:37:43.410 --> 00:37:48.990
+Jitendra K: So… Let's take this with an example. So…
+
+335
+00:37:49.610 --> 00:37:54.489
+Jitendra K: Imagine that yourself, you're driving the bicycle for the very first time in your life.
+
+336
+00:37:55.390 --> 00:38:03.160
+Jitendra K: So when you're driving a bicycle, you have different ways to steer the bicycle. First and foremost thing, you're not going to…
+
+337
+00:38:03.330 --> 00:38:06.620
+Jitendra K: Aim for driving the bicycle with a higher speed.
+
+338
+00:38:06.770 --> 00:38:12.020
+Jitendra K: Your aim is to balance it out for few meters, or few,
+
+339
+00:38:12.170 --> 00:38:18.130
+Jitendra K: distance first, right? So there are different ways that you try, all possible ways, and you fail.
+
+340
+00:38:18.680 --> 00:38:25.320
+Jitendra K: So that is exploration you are doing, how to balance a bicycle. Then you take a help from your parents, your friends.
+
+341
+00:38:25.470 --> 00:38:32.340
+Jitendra K: And they give you support, and then all of a sudden, under their guidance, you become expert in balancing the bicycle.
+
+342
+00:38:32.950 --> 00:38:44.770
+Jitendra K: But all this phase are exploration. You're trying to understand the best policy to control the behavior of bicycle, or so-called, you're trying to understand the center of gravity of your body.
+
+343
+00:38:45.080 --> 00:38:47.439
+Jitendra K: So that you can able to steer it properly.
+
+344
+00:38:47.950 --> 00:39:01.159
+Jitendra K: So the same idea has been applied to agent. When the agent starts with a problem statement, it explores the environment, tries a number of combinations to understand the reward, and then they try an action,
+
+345
+00:39:01.380 --> 00:39:06.499
+Jitendra K: to select a suitable one, and then they start exploiting that. We'll talk about
+
+346
+00:39:06.790 --> 00:39:13.609
+Jitendra K: The multi-arm band-aid problem, which is there in exploration Exploitation, which can help us to understand this concept better.
+
+347
+00:39:14.300 --> 00:39:21.750
+Jitendra K: Now, imagine that, you had lined up into a casino, in Las Vegas, or in the US,
+
+348
+00:39:22.150 --> 00:39:25.659
+Jitendra K: And, I will talk about this part first.
+
+349
+00:39:26.310 --> 00:39:28.120
+Jitendra K: Then move on to this problem.
+
+350
+00:39:30.650 --> 00:39:31.940
+Jitendra K: One second…
+
+351
+00:39:50.150 --> 00:39:59.670
+Jitendra K: Yeah, we are talking about these slot machines, so those who are gamblers, they might have known all these things. So this is, one of the slot machines, that has been operated.
+
+352
+00:39:59.800 --> 00:40:12.159
+Jitendra K: So, in the multi-arm bandit with a one arm, you have a probability associated with these bands, right? So, normally, when you start investing on these gambling machines.
+
+353
+00:40:12.690 --> 00:40:17.800
+Jitendra K: you will find that there are different reward distributions. So, first one, you have to invest
+
+354
+00:40:18.120 --> 00:40:22.429
+Jitendra K: Or understanding the rewards. So let's say you enter the casino with 100 US dollar.
+
+355
+00:40:22.760 --> 00:40:26.480
+Jitendra K: And then you split your, tokens into 10.
+
+356
+00:40:27.170 --> 00:40:28.030
+Jitendra K: each.
+
+357
+00:40:28.140 --> 00:40:31.600
+Jitendra K: And you start exploring this. So you invest 10-10 each.
+
+358
+00:40:32.010 --> 00:40:35.000
+Jitendra K: Then, next time you operate 1010 each.
+
+359
+00:40:35.870 --> 00:40:43.330
+Jitendra K: And the third time also, you invest 10-10 each. And then by the time you invest, $90, you understand what is the reward probability.
+
+360
+00:40:43.670 --> 00:40:50.619
+Jitendra K: So, whatever you earn, you're going to use a machine, a slot machine, which is giving a higher reward, as compared to the two machines.
+
+361
+00:40:50.860 --> 00:40:52.700
+Jitendra K: Daniel will,
+
+362
+00:40:52.820 --> 00:41:02.980
+Jitendra K: We phase the same thing, with any kind of dilemmas. So during the first phase, you're exploring, that you are choosing the action that agent currently behaved at the highest value.
+
+363
+00:41:03.090 --> 00:41:13.670
+Jitendra K: And by greedy, greedily maximizing the immediate reward on existing knowledge. During exploration, you're choosing a non-greedy action. During exploitation, you are choosing a greedy action.
+
+364
+00:41:13.830 --> 00:41:19.770
+Jitendra K: So, when you're exploring, you are choosing a non-gritty action to gather more information about environment.
+
+365
+00:41:20.020 --> 00:41:24.639
+Jitendra K: Discovering better states or actions that lead to higher, longer rewards all the time.
+
+366
+00:41:30.010 --> 00:41:37.279
+Jitendra K: And this dilemma arises because the agent has limited experience, because you don't know what kind of wiseness is there in the reward machines.
+
+367
+00:41:38.210 --> 00:41:41.679
+Jitendra K: And, what are the different sightings is all about.
+
+368
+00:41:41.800 --> 00:41:45.340
+Jitendra K: But while investing, you understand that the slot machine
+
+369
+00:41:45.550 --> 00:41:49.129
+Jitendra K: is giving me this much rewards, I will operate rather on this.
+
+370
+00:41:49.430 --> 00:41:55.549
+Jitendra K: So this… Is where you are going to have a sequential decision problem under uncertainty.
+
+371
+00:41:55.760 --> 00:41:59.300
+Jitendra K: Where action have dual purpose. They fact… they fact…
+
+372
+00:41:59.550 --> 00:42:02.189
+Jitendra K: Both immediate payoff and the futures technology.
+
+373
+00:42:02.420 --> 00:42:09.850
+Jitendra K: So without exploration, you cannot able to achieve the optimal result. You will stay stuck in a local optima.
+
+374
+00:42:10.500 --> 00:42:16.340
+Jitendra K: Right? So this is where, you need to find a right balance of strategy, when to explore and when to exploit.
+
+375
+00:42:16.880 --> 00:42:23.120
+Jitendra K: So there are classical algorithms which will help you to do so, and one such algorithm that we are going to talk about
+
+376
+00:42:23.450 --> 00:42:29.359
+Jitendra K: is, A-B testing, or performing clinical trials.
+
+377
+00:42:29.490 --> 00:42:41.220
+Jitendra K: Or there are different other techniques which will help you to do that. But there's something called multi-arm bandit problem using Bernoulli distribution, because here we are talking about an event probability. That's why it is Bernoulli.
+
+378
+00:42:41.520 --> 00:42:47.089
+Jitendra K: But we can solve this problem with the help of Markov Decision Training. We'll talk about Markov.
+
+379
+00:42:47.400 --> 00:42:51.960
+Jitendra K: But before we move on to that Markov, let me talk about First.
+
+380
+00:42:52.400 --> 00:42:59.940
+Jitendra K: the agent-based learning without deterministic flow. And for that, we are going to use one OpenAI challenge.
+
+381
+00:43:00.380 --> 00:43:03.450
+Jitendra K: Call Cartport Challenge. Cartpole.
+
+382
+00:43:51.860 --> 00:43:56.940
+Jitendra K: So, we'll talk about the cartpole problem, and this is a problem that is associated with
+
+383
+00:43:57.270 --> 00:43:59.310
+Jitendra K: One of the classical challenges.
+
+384
+00:43:59.560 --> 00:44:03.729
+Jitendra K: So, let me show you the environment first, and then we'll talk about the solution.
+
+385
+00:44:04.100 --> 00:44:07.470
+Jitendra K: So the environment for Cardpole is, in OpenAI Gym.
+
+386
+00:44:08.010 --> 00:44:10.479
+Jitendra K: And this is, what the environment looks like.
+
+387
+00:45:22.310 --> 00:45:24.030
+Jitendra K: So this is a problem.
+
+388
+00:45:25.380 --> 00:45:30.929
+Jitendra K: That we are trying to solve. So, this is a cardpole problem. So in this problem, you have got…
+
+389
+00:45:31.430 --> 00:45:33.209
+Jitendra K: Variety of constraints.
+
+390
+00:45:38.530 --> 00:45:43.350
+Jitendra K: So, assuming that this is a card, which is… Attached to this hinge.
+
+391
+00:45:43.470 --> 00:45:45.519
+Jitendra K: And this is the pole which is upright.
+
+392
+00:45:46.020 --> 00:45:52.850
+Jitendra K: And this pole is moving, in a certain direction with the action that you're applying on this card, which is…
+
+393
+00:45:52.970 --> 00:45:56.289
+Jitendra K: You apply a force, it will create a reverse action.
+
+394
+00:45:56.540 --> 00:46:00.470
+Jitendra K: And the pole will get upright. So there are two sort of constraints.
+
+395
+00:46:00.660 --> 00:46:03.629
+Jitendra K: The first constraint is, let's assume that this is a length.
+
+396
+00:46:05.320 --> 00:46:06.230
+Jitendra K: L.
+
+397
+00:46:06.970 --> 00:46:12.300
+Jitendra K: And this is the center of this… space.
+
+398
+00:46:12.490 --> 00:46:21.620
+Jitendra K: You cannot move this card beyond 2.4 times The distance from origin.
+
+399
+00:46:22.200 --> 00:46:26.550
+Jitendra K: on either of the axes. That means you cannot go beyond this point.
+
+400
+00:46:26.730 --> 00:46:27.979
+Jitendra K: These two points.
+
+401
+00:46:28.450 --> 00:46:30.329
+Jitendra K: So you have to maintain the cart.
+
+402
+00:46:31.460 --> 00:46:33.310
+Jitendra K: By moving in these two directions.
+
+403
+00:46:34.100 --> 00:46:42.489
+Jitendra K: So when you're applying a force to move the cart, it will create an opposite reaction to balance this cart, or this part, sorry, this particular pole upright.
+
+404
+00:46:42.840 --> 00:46:49.120
+Jitendra K: Now, the second constraint is… If you're maintaining a… speed or acceleration.
+
+405
+00:46:50.480 --> 00:46:55.429
+Jitendra K: And if this theta, which is the angle it creates, On either side.
+
+406
+00:46:55.600 --> 00:47:00.940
+Jitendra K: If it is goat, Less than a critical angle, which is 114 degree.
+
+407
+00:47:01.190 --> 00:47:02.490
+Jitendra K: From either side.
+
+408
+00:47:03.110 --> 00:47:06.170
+Jitendra K: It will fall automatically due to center of mass.
+
+409
+00:47:06.420 --> 00:47:10.569
+Jitendra K: Which is the pole center of mass under the influence of gravity.
+
+410
+00:47:10.920 --> 00:47:14.669
+Jitendra K: So it will take a rotational mechanics, and then it will fall down.
+
+411
+00:47:15.200 --> 00:47:18.230
+Jitendra K: Right? So you need to… your target is to maintain this card.
+
+412
+00:47:19.030 --> 00:47:22.469
+Jitendra K: Speed in either way, to balance this pole.
+
+413
+00:47:23.090 --> 00:47:26.040
+Jitendra K: That is the problem given to us. Very simple problem.
+
+414
+00:47:26.360 --> 00:47:29.370
+Jitendra K: So if I have to ask you how many action space is there.
+
+415
+00:47:29.870 --> 00:47:34.490
+Jitendra K: There are only two actions that you can perform, either move left, or either move right.
+
+416
+00:47:34.970 --> 00:47:37.400
+Jitendra K: Right? Nothing more, nothing less than that.
+
+417
+00:47:42.380 --> 00:47:44.180
+Jitendra K: So this is the problem.
+
+418
+00:47:45.200 --> 00:47:47.090
+Jitendra K: So the action space is discrete.
+
+419
+00:47:47.220 --> 00:47:51.740
+Jitendra K: Only two. Possibilities. Observation space can be anything.
+
+420
+00:47:52.410 --> 00:47:56.460
+Jitendra K: When you're moving the cart, so you have different GIF files.
+
+421
+00:47:56.720 --> 00:48:01.780
+Jitendra K: So we are going to train with the help of a GIF files, so that means these are all encoded integer ranges.
+
+422
+00:48:02.310 --> 00:48:08.469
+Jitendra K: So the description given to us is you can push the cart to left or push the car to the right, and observation space is between these range.
+
+423
+00:48:08.970 --> 00:48:11.399
+Jitendra K: And these are the set of constraints that you're applying.
+
+424
+00:48:13.590 --> 00:48:18.220
+Jitendra K: And the reward that you're going to achieve, if you maintain this card.
+
+425
+00:48:19.830 --> 00:48:23.950
+Jitendra K: Maybe, within threshold of 500 iteration.
+
+426
+00:48:24.550 --> 00:48:27.810
+Jitendra K: On other side, you will get a 1 reward for that.
+
+427
+00:48:28.240 --> 00:48:32.910
+Jitendra K: Right, so basically, you are going to use the acceleration and deceleration.
+
+428
+00:48:33.090 --> 00:48:38.270
+Jitendra K: to maintain this pole upright all the time. That's the simplest logic that you're going to use.
+
+429
+00:48:38.650 --> 00:48:41.170
+Jitendra K: Right, so how to solve this problem now?
+
+430
+00:48:41.450 --> 00:48:45.849
+Jitendra K: With the help of… reinforcement learning or with the help of Python.
+
+431
+00:48:46.080 --> 00:48:49.029
+Jitendra K: That is something which we are going to talk about now.
+
+432
+00:48:49.630 --> 00:48:51.690
+Jitendra K: So, any question on the problem statement?
+
+433
+00:48:54.750 --> 00:48:56.939
+Jitendra K: Are you guys clear with the problem statement?
+
+434
+00:49:05.510 --> 00:49:09.730
+Jitendra K: Alright, now we'll solve this with the help of… policy functions.
+
+435
+00:49:15.250 --> 00:49:17.900
+Jitendra K: I should use Google Pool App for that.
+
+436
+00:51:25.050 --> 00:51:27.079
+Jitendra K: So you need to have a gym package.
+
+437
+00:51:27.550 --> 00:51:30.249
+Jitendra K: And a few dependencies to run this.
+
+438
+00:51:30.800 --> 00:51:32.920
+Jitendra K: Now, I will cover the…
+
+439
+00:51:33.970 --> 00:51:41.500
+Jitendra K: algorithm and how we are running this. So we're going to solve this with the help of a few algorithms, which I have listed.
+
+440
+00:51:41.700 --> 00:51:47.070
+Jitendra K: Which are policy gradient function from Monte Carlo approach, actor-critic on policy.
+
+441
+00:51:47.220 --> 00:51:48.990
+Jitendra K: dynamic queue networks.
+
+442
+00:51:49.110 --> 00:51:52.820
+Jitendra K: And, policy approximation optimization.
+
+443
+00:51:52.990 --> 00:52:04.680
+Jitendra K: So, but the idea is, I just want to show you the demo, so we'll discuss this algorithm in a separate note. So let's first try to understand this demo, what exactly we are trying to run.
+
+444
+00:53:23.830 --> 00:53:25.340
+Jitendra K: Not connecting.
+
+445
+00:55:11.610 --> 00:55:13.989
+Jitendra K: Okay, I think this is working.
+
+446
+00:55:14.340 --> 00:55:18.960
+Jitendra K: Send us for… I have… Load the environment…
+
+447
+00:55:26.420 --> 00:55:28.120
+Jitendra K: Not start training.
+
+448
+00:55:32.620 --> 00:55:40.400
+Jitendra K: Running it for… 500 episodes, so it will take some time.
+
+449
+00:56:00.980 --> 00:56:04.660
+Jitendra K: Okay, till the time it is running, I think it is work.
+
+450
+00:56:05.210 --> 00:56:09.819
+Jitendra K: This electrocratic training. Yeah, it will take 4 algorithms.
+
+451
+00:56:10.060 --> 00:56:12.980
+Jitendra K: So, it's important to discuss this code.
+
+452
+00:56:16.080 --> 00:56:22.980
+Jitendra K: Is the policy function probabilistic? Yes, this is probabilistic, because reward distribution you cannot control, right?
+
+453
+00:56:26.830 --> 00:56:32.860
+Jitendra K: Okay, so… Let's look into this breakdown of this problem. So, first and foremost thing.
+
+454
+00:56:34.720 --> 00:56:36.770
+Jitendra K: We are going to use,
+
+455
+00:56:37.980 --> 00:56:41.970
+Jitendra K: the… all the required libraries, including GIM,
+
+456
+00:56:42.490 --> 00:56:49.100
+Jitendra K: So the idea is we would like to use GM library, OpenAI GEM, and all the dependencies to operate.
+
+457
+00:56:49.380 --> 00:56:57.429
+Jitendra K: So here we are looking into several packages, including math package, standard packages for randomizations, and data class.
+
+458
+00:56:57.590 --> 00:57:00.750
+Jitendra K: for configuration management, DAC for…
+
+459
+00:57:00.980 --> 00:57:11.210
+Jitendra K: managing the data and the optional, which will give us a type hint. And then I've got all the available third-party tools, including NumPy, Torch.
+
+460
+00:57:11.520 --> 00:57:22.229
+Jitendra K: This is where I'm going to create agents, reinforcement learning agents, and things like that. So I'm running this on CPU, the end objective ID I've given to be cartpool version 1.
+
+461
+00:57:22.410 --> 00:57:25.660
+Jitendra K: I have saved some parameters to begin with.
+
+462
+00:57:25.800 --> 00:57:39.529
+Jitendra K: And then I'm creating a MLP class, the extended version from Neural Network Torch module. It is to have a two-hidden layer, speed-forward network with 10H activation, and I'm taking input dimension to be…
+
+463
+00:57:40.150 --> 00:57:42.019
+Jitendra K: 4 for a carpool state.
+
+464
+00:57:43.380 --> 00:57:49.129
+Jitendra K: The output dimension is 2, it can move, it will pass or fail, right?
+
+465
+00:57:49.290 --> 00:57:58.580
+Jitendra K: So, I will use this. Now, I have a category called policy that I'm applying. Now, this policy will wrap MLP to produce a categorical distribution over discrete action.
+
+466
+00:57:58.730 --> 00:58:04.220
+Jitendra K: So this is totally a discrete action, because when you're increasing or decreasing a limit.
+
+467
+00:58:04.420 --> 00:58:06.129
+Jitendra K: Or a speed of a cart.
+
+468
+00:58:06.250 --> 00:58:08.879
+Jitendra K: You will have a diff… you will have a range.
+
+469
+00:58:09.350 --> 00:58:15.280
+Jitendra K: Right? In terms of discrete actions. So you'll follow that range to push back and
+
+470
+00:58:15.620 --> 00:58:19.920
+Jitendra K: pullback. So, that is where the categorical policy needs to be generated.
+
+471
+00:58:20.160 --> 00:58:27.729
+Jitendra K: So, we are just using a logit, functions to generate discrete, policies on the top of it.
+
+472
+00:58:27.920 --> 00:58:31.859
+Jitendra K: Then I'm using is something called Generalized Advantage Estimation.
+
+473
+00:58:32.070 --> 00:58:36.509
+Jitendra K: So this estimation will learn the reward, learn the step.
+
+474
+00:58:37.160 --> 00:58:40.009
+Jitendra K: Estimate the value, and then…
+
+475
+00:58:40.250 --> 00:58:47.030
+Jitendra K: using a Monte Carlo, I will estimate this particular function called early.
+
+476
+00:58:47.380 --> 00:58:48.549
+Jitendra K: Sorry, I am.
+
+477
+00:58:49.020 --> 00:58:54.149
+Jitendra K: Right, so this is where the parameter is, which I'm using as a temporal distribution parameter.
+
+478
+00:58:54.350 --> 00:59:02.309
+Jitendra K: So, it is very simple. You have an algorithm which will send the reward. So, let's say the reward is, if you're moving the car too fast.
+
+479
+00:59:03.330 --> 00:59:08.760
+Jitendra K: it fall down. The pole fall down, right? If you're moving the car too slow.
+
+480
+00:59:08.960 --> 00:59:14.779
+Jitendra K: it'll fall down in the opposite direction. So that means you have to maintain some acceleration and deacceleration policy.
+
+481
+00:59:15.070 --> 00:59:20.199
+Jitendra K: to make it uplift all the time. And that is what, this is a time-dependent event.
+
+482
+00:59:20.660 --> 00:59:25.659
+Jitendra K: So, you are going to create a kind of a deterministic policy that will help you to maintain this.
+
+483
+00:59:25.890 --> 00:59:29.599
+Jitendra K: And once you understand those policies, you will create a checkpoint.
+
+484
+00:59:29.710 --> 00:59:31.269
+Jitendra K: A long memory, too.
+
+485
+00:59:31.520 --> 00:59:35.730
+Jitendra K: Ensure that you will use this learning.
+
+486
+00:59:36.100 --> 00:59:40.250
+Jitendra K: As a policy to apply in the futuristic, provisions.
+
+487
+00:59:40.370 --> 00:59:45.989
+Jitendra K: So that you can increase the time. I mean, here you are just increasing the time of keeping that pole.
+
+488
+00:59:46.290 --> 00:59:51.950
+Jitendra K: balance out throughout, the experimentation. So you need to create a
+
+489
+00:59:52.360 --> 00:59:59.230
+Jitendra K: I mean, the time should be high in this case, right? So that is the ultimate objective, or the reward that you're going to have.
+
+490
+00:59:59.430 --> 01:00:00.860
+Jitendra K: Now, I'm just plotting it.
+
+491
+01:00:01.310 --> 01:00:08.190
+Jitendra K: With the help of these functions. So, I'm just saying that I have caught Some random baseline.
+
+492
+01:00:08.330 --> 01:00:15.839
+Jitendra K: And then I would like to challenge that baseline with different algorithm. That is what I'm trying to do. So baseline is this. That means this
+
+493
+01:00:15.950 --> 01:00:17.800
+Jitendra K: All can be applied.
+
+494
+01:00:18.100 --> 01:00:23.600
+Jitendra K: Maximum up to 400 and 500 iterations, right? That is what I'm trying to achieve.
+
+495
+01:00:23.930 --> 01:00:32.079
+Jitendra K: So I'm trying to use different algorithms now. Now, one of the algorithms called Advantage Actor Critic, A2C.
+
+496
+01:00:32.400 --> 01:00:39.650
+Jitendra K: So, what is a advantage actor critic algorithm? So, this is one of the algorithms which will use critics to improve the response.
+
+497
+01:00:39.950 --> 01:00:43.189
+Jitendra K: Of the entire… a process flow.
+
+498
+01:00:43.890 --> 01:00:48.300
+Jitendra K: So what this algorithm does is, It will take a feedback.
+
+499
+01:00:48.500 --> 01:00:53.879
+Jitendra K: it will calculate the individual loss. So, A2C or A8C is a…
+
+500
+01:00:54.090 --> 01:01:05.440
+Jitendra K: natural evolution of reinforcement learning. It introduced a critique, a learned value function, to reduce the variance of policy gradient, and enabling something called bootstrapping learning.
+
+501
+01:01:05.590 --> 01:01:07.290
+Jitendra K: From partial episode.
+
+502
+01:01:08.810 --> 01:01:13.720
+Jitendra K: Right? So that it will be having a cumulative effect on the overall functions.
+
+503
+01:01:13.920 --> 01:01:19.369
+Jitendra K: So, it's represented mathematically as delta J, which is your cost function.
+
+504
+01:01:19.750 --> 01:01:24.039
+Jitendra K: And this will… this algorithm will help you to improve the estimated reward.
+
+505
+01:01:24.780 --> 01:01:28.640
+Jitendra K: By decreasing the errors, At each step.
+
+506
+01:01:28.810 --> 01:01:30.599
+Jitendra K: So if you're decreasing the error.
+
+507
+01:01:30.740 --> 01:01:33.519
+Jitendra K: By taking a look back from some critic.
+
+508
+01:01:34.400 --> 01:01:39.739
+Jitendra K: automatically you will have a high probability of win. It's like you hire a tutor for a particular
+
+509
+01:01:40.050 --> 01:01:43.119
+Jitendra K: Subject, and then you are taking a mock test.
+
+510
+01:01:43.330 --> 01:01:44.750
+Jitendra K: Under his guidance.
+
+511
+01:01:45.090 --> 01:01:48.469
+Jitendra K: So that is what this actor critic will do, right? So this is…
+
+512
+01:01:48.570 --> 01:01:54.070
+Jitendra K: Something the same phenomena will happen in Actor Critic. You have… you're trying to reduce this loss.
+
+513
+01:01:54.560 --> 01:01:58.600
+Jitendra K: with the help of Monte Carlo Simulation. I think there's…
+
+514
+01:01:58.930 --> 01:02:09.380
+Jitendra K: You guys must be family with Monte Carlo in some or other way. The Monte Carlo is a simulation, which will give you some of discounted reward for it each step at the end of the episode.
+
+515
+01:02:09.740 --> 01:02:19.889
+Jitendra K: So, it will calculate the variance, in terms of error trajectory, and then fix it. That is what ActiveCritic does here. The architecture is very simple, you have a policy.
+
+516
+01:02:20.760 --> 01:02:26.419
+Jitendra K: That, actor will use to, work with critic to improve it over a period of time.
+
+517
+01:02:26.580 --> 01:02:31.859
+Jitendra K: So you're going to have… Different criterias to evaluate.
+
+518
+01:02:31.990 --> 01:02:34.440
+Jitendra K: Based upon this whole algorithm.
+
+519
+01:02:35.600 --> 01:02:44.820
+Jitendra K: Now, once we run this, this is the first approach that we are trying to solve this algorithm with. So, what we did is, we have created a configuration for this algorithm.
+
+520
+01:02:44.980 --> 01:02:55.650
+Jitendra K: With a total step, total environmental steps, not an episodic task. The rolled out step, number of steps collected before each update, which is a batch size of 256.
+
+521
+01:02:55.970 --> 01:03:00.809
+Jitendra K: the LAM parameter, which is, lambda itself, 0.95,
+
+522
+01:03:01.150 --> 01:03:13.579
+Jitendra K: I'm also using weight… weights of cross-entropy. This is where the errors have been defined. And the maximizing of gradient normalization. Gradient clipping normalization. That means there's some advanced deep learning technique I'm using.
+
+523
+01:03:13.690 --> 01:03:20.030
+Jitendra K: There's something called gradient clip. So, gradient clip is, like, when your errors are getting lower and lower.
+
+524
+01:03:20.160 --> 01:03:25.910
+Jitendra K: you clip that I need not to further improve the algorithm, so I will clip this error that until this point.
+
+525
+01:03:26.470 --> 01:03:33.590
+Jitendra K: whatever I'm going to achieve, just give me the result, so that it will converge faster, and that is called gradient clipping. So I'm just using this.
+
+526
+01:03:33.790 --> 01:03:36.540
+Jitendra K: Coefficient to clip the gradients, right?
+
+527
+01:03:36.670 --> 01:03:43.309
+Jitendra K: So these are all advanced deep learning concepts, so I'm training with the help of A to C, and I'm achieving something.
+
+528
+01:03:44.300 --> 01:03:45.269
+Jitendra K: Which is?
+
+529
+01:03:45.540 --> 01:03:49.229
+Jitendra K: it increases the baseline. Previously, the baseline itself
+
+530
+01:03:49.340 --> 01:03:56.549
+Jitendra K: is much, much below than this baseline. Now, with the help of A2C, I'm able to improve this algorithm further.
+
+531
+01:03:56.720 --> 01:04:01.789
+Jitendra K: So it even challenged the baseline and got improved, much, much faster.
+
+532
+01:04:02.160 --> 01:04:11.349
+Jitendra K: There's a second method called DQN, DynamicQ Network. So, DQN is very sim- I mean, very different algorithm with, actor-critic or A2C.
+
+533
+01:04:11.700 --> 01:04:18.709
+Jitendra K: So, if I have to explain you, DQN, DQN is Dynamic Query Network, or DeepQ Network.
+
+534
+01:04:18.870 --> 01:04:24.790
+Jitendra K: So both DQN and E2C solve the same problem, to improve the policy gradient with feedback.
+
+535
+01:04:25.130 --> 01:04:31.280
+Jitendra K: So… DQN is off-policy. A to C is… on policy.
+
+536
+01:04:31.600 --> 01:04:38.159
+Jitendra K: So the updates are performed only on data collection from the current policy, but DQN use something called replay buffer.
+
+537
+01:04:38.800 --> 01:04:44.650
+Jitendra K: So, this is very efficient in terms of, performing a faster convergence.
+
+538
+01:04:44.940 --> 01:04:49.429
+Jitendra K: So DQN is quite sensitive to change in parameter.
+
+539
+01:04:49.650 --> 01:04:54.559
+Jitendra K: But A to C is less sensitive to it. That's the only difference between these two policies.
+
+540
+01:04:54.710 --> 01:05:01.579
+Jitendra K: Both are mathematical function that is performing the same task to reduce the gradient of the errors.
+
+541
+01:05:02.890 --> 01:05:16.509
+Jitendra K: So DQN is a deep queue network, is a landmark algorithm that brought deep learning and reinforcement learning into the same page. So what it does is it used two important tricks called replay buffer and target network.
+
+542
+01:05:16.620 --> 01:05:27.649
+Jitendra K: So, buffer breaks the correlation between consecutive sample and reuse old experiences. And target network will slow down the update on Q network. That will generate more stable bootstrap targets.
+
+543
+01:05:27.940 --> 01:05:34.630
+Jitendra K: That is where these… this algorithm is useful for solving reinforcement learning. Let's see what is the outcome of this algorithm.
+
+544
+01:05:34.760 --> 01:05:43.869
+Jitendra K: So it is not able to achieve, as… performance… Sorry, as, compared to A to C,
+
+545
+01:05:44.340 --> 01:05:55.359
+Jitendra K: it is not that stable, right? So you can see that A2C has crossed this baseline, but it is not able to cross this, so there's a gap between the two, right? So that means our…
+
+546
+01:05:55.640 --> 01:05:58.510
+Jitendra K: first approach, A2C, is still better.
+
+547
+01:06:00.450 --> 01:06:02.559
+Jitendra K: than DQ in the second approach.
+
+548
+01:06:06.910 --> 01:06:11.610
+Jitendra K: The third approach that we're going to take is PPO, Policy Proximity Optimization.
+
+549
+01:06:11.790 --> 01:06:28.590
+Jitendra K: And this is where, you will see the GRPO and other stuff in Agentic World or Gen AI modules, that this is the same inspiration that we're using to train GRPO, group-related policy optimizations, and this is the free fundamental algorithm, all policy
+
+550
+01:06:28.630 --> 01:06:33.210
+Jitendra K: proximity optimization. So proximal proximity optimization
+
+551
+01:06:33.430 --> 01:06:38.529
+Jitendra K: Is a modern default for on-policy reinforcement learning.
+
+552
+01:06:38.680 --> 01:06:40.180
+Jitendra K: Not for off-policy.
+
+553
+01:06:40.440 --> 01:06:46.929
+Jitendra K: So, what it does is… You use a CLIP surrogate objective to prevent policy from changing too much.
+
+554
+01:06:47.580 --> 01:06:51.649
+Jitendra K: In a single update. So, what it does is…
+
+555
+01:06:52.020 --> 01:07:00.899
+Jitendra K: It will give you some way to improve the response Based upon the episode itself.
+
+556
+01:07:01.690 --> 01:07:07.880
+Jitendra K: Right, so that means it will make… the policy… function.
+
+557
+01:07:08.400 --> 01:07:13.469
+Jitendra K: Fixed to operate, instead of trying too many random exploration.
+
+558
+01:07:13.730 --> 01:07:23.619
+Jitendra K: And with the help of this policy proximity, you can able to achieve better results. But for this case, this algorithm is not doing that great. It is similar to,
+
+559
+01:07:23.990 --> 01:07:34.089
+Jitendra K: very similar to DQN, but not passing A2C criterias to cross the baseline. So the crux is, we have compared four algorithms, the basic
+
+560
+01:07:34.240 --> 01:07:35.270
+Jitendra K: vanilla.
+
+561
+01:07:35.400 --> 01:07:41.679
+Jitendra K: Then we try with A2C, DQN, PPO, so I think A2C has been proven to be the best.
+
+562
+01:07:41.830 --> 01:07:47.760
+Jitendra K: In terms of our criteria, right? It is crossing this baseline that we have clearly seen.
+
+563
+01:07:47.870 --> 01:07:52.199
+Jitendra K: Even PPO is crossing it, let me see if it is running for…
+
+564
+01:07:53.540 --> 01:07:56.769
+Jitendra K: Okay, this is not the criteria, environmental step.
+
+565
+01:07:56.910 --> 01:08:02.049
+Jitendra K: Yeah, so I think… A2C is the winner for overall scenarios.
+
+566
+01:08:03.790 --> 01:08:19.210
+Jitendra K: So, I will share this notebook with you guys, just go through it. You need not to understand a whole code, you just need to understand, I think, PPO part of it, because remaining part, you are not going to use it until… unless you are solving some of the other reinforcement learning challenges.
+
+567
+01:08:19.600 --> 01:08:25.319
+Jitendra K: So, you can skip the other algorithm, you can focus on PPU, because that is the main topic.
+
+568
+01:08:25.529 --> 01:08:28.159
+Jitendra K: for Gen AI that we're going to use.
+
+569
+01:08:31.120 --> 01:08:33.170
+Jitendra K: So let me share this notebook.
+
+570
+01:09:04.569 --> 01:09:06.360
+Jitendra K: But any question before?
+
+571
+01:09:06.470 --> 01:09:08.560
+Jitendra K: Please let me know.
+
+572
+01:09:09.430 --> 01:09:11.149
+Jitendra K: Before we went out to a break.
+
+573
+01:09:11.569 --> 01:09:14.569
+Jitendra K: So just go through this notebook and let me know if there's any question.
+
+574
+01:13:50.730 --> 01:13:56.379
+Jitendra K: There are good reference material available. You can use this winter session from Stanford.
+
+575
+01:13:56.630 --> 01:14:05.430
+Jitendra K: To take a reference against, what we are discussing, and… There are different modules… Including…
+
+576
+01:14:06.050 --> 01:14:12.420
+Jitendra K: the Q-learning policy, Tableau policies, MDP, Mark Protestian process, etc.
+
+577
+01:14:12.600 --> 01:14:17.449
+Jitendra K: So you can take a reference, and he's a speaker as well. This is not the best spoke.
+
+578
+01:14:17.840 --> 01:14:23.050
+Jitendra K: Suton and Bartow, which is… Available, I think you guys have already downloaded that.
+
+579
+01:14:23.510 --> 01:14:28.709
+Jitendra K: So, just continue to read these chapters, you will get some idea about reinforcement learning.
+
+580
+01:14:32.370 --> 01:14:37.150
+Jitendra K: Alright, so I hope you're able to run this. Any question on this part?
+
+581
+01:14:40.870 --> 01:14:42.610
+Jitendra K: Is everybody able to run this?
+
+582
+01:15:38.150 --> 01:15:46.570
+Jitendra K: Yeah, that's an interesting observation, because that's actually happening. So, PPO is expected to be more stable and monolithic than A to C.
+
+583
+01:15:46.760 --> 01:15:52.250
+Jitendra K: Because we are clipping the objective that prevent destructive policy update.
+
+584
+01:15:52.620 --> 01:15:58.279
+Jitendra K: That means it will… as I mentioned, this is the algorithm that we are using for exploration purposes.
+
+585
+01:16:00.180 --> 01:16:04.600
+Jitendra K: So, E2C appear to be more… have smoother or more monotonic, climb.
+
+586
+01:16:04.930 --> 01:16:06.560
+Jitendra K: as compared to PPO.
+
+587
+01:16:35.360 --> 01:16:38.300
+Jitendra K: Alright, so I hope you guys are able to run this.
+
+588
+01:16:38.740 --> 01:16:40.949
+Jitendra K: If there's any question, please let me know.
+
+589
+01:17:06.110 --> 01:17:09.800
+Jitendra K: Okay, so now we'll talk about one of the important framework
+
+590
+01:17:09.920 --> 01:17:13.700
+Jitendra K: Which is called Markov property, or Markov process.
+
+591
+01:17:14.010 --> 01:17:19.260
+Jitendra K: So, Markov process, or Markov property, which I often call it as Markov chain.
+
+592
+01:17:19.390 --> 01:17:23.040
+Jitendra K: is a stochastic process, which follows Markov property.
+
+593
+01:17:23.420 --> 01:17:28.619
+Jitendra K: And the statement is, the future depends only on the present state, not on the past.
+
+594
+01:17:29.090 --> 01:17:31.100
+Jitendra K: And that is what Markov processed.
+
+595
+01:17:31.460 --> 01:17:33.160
+Jitendra K: Or markup property state.
+
+596
+01:17:33.640 --> 01:17:40.059
+Jitendra K: And the algorithm which is processing, or following this hypothesis is Markov process.
+
+597
+01:17:40.330 --> 01:17:42.219
+Jitendra K: or Markov decision process.
+
+598
+01:17:43.570 --> 01:17:52.250
+Jitendra K: So, a Markov decision process is a set of tuples a state, And a state probability transition.
+
+599
+01:17:53.230 --> 01:17:55.889
+Jitendra K: These two tuples we'll consider to be a Markov.
+
+600
+01:17:56.200 --> 01:18:00.160
+Jitendra K: So, S is your state finite countable.
+
+601
+01:18:00.410 --> 01:18:02.809
+Jitendra K: P is that state transition probability.
+
+602
+01:18:03.060 --> 01:18:09.210
+Jitendra K: So, we are looking for a… probabilical of transaction from state
+
+603
+01:18:09.420 --> 01:18:11.350
+Jitendra K: Current state to the next state.
+
+604
+01:18:12.210 --> 01:18:13.600
+Jitendra K: Based upon…
+
+605
+01:18:16.740 --> 01:18:19.760
+Jitendra K: The probability of getting the positive reward.
+
+606
+01:18:20.140 --> 01:18:22.629
+Jitendra K: At a given state transition.
+
+607
+01:18:31.660 --> 01:18:35.980
+Jitendra K: Right? So, it will satisfy mathematically, the formulation.
+
+608
+01:18:38.210 --> 01:18:43.809
+Jitendra K: Now… Where does the Markov process has been used in reinforcement learning?
+
+609
+01:18:44.320 --> 01:18:48.170
+Jitendra K: So, MDP will add action and policy to a
+
+610
+01:18:49.660 --> 01:18:52.899
+Jitendra K: Environment, so that it will follow that property.
+
+611
+01:18:53.240 --> 01:18:56.759
+Jitendra K: And that will help you to perform and simulate the whole data.
+
+612
+01:18:59.250 --> 01:19:05.129
+Jitendra K: So the statement is very simple. Marco properties state that, given the predict… given the present state.
+
+613
+01:19:06.370 --> 01:19:08.349
+Jitendra K: You can derive the feature.
+
+614
+01:19:08.780 --> 01:19:11.090
+Jitendra K: We do not require past observation.
+
+615
+01:19:11.610 --> 01:19:14.360
+Jitendra K: And that is one of the important claims, because…
+
+616
+01:19:14.660 --> 01:19:18.610
+Jitendra K: The algorithm that we're talking about is data-hungry, and
+
+617
+01:19:18.810 --> 01:19:25.780
+Jitendra K: All the algorithms that we have used in machine learning, they're also data hungry. And he's claiming that you can predict future on current state.
+
+618
+01:19:27.050 --> 01:19:29.679
+Jitendra K: And that is one of the important rewards.
+
+619
+01:19:29.850 --> 01:19:34.249
+Jitendra K: Generation policy that you can use in reinforcement learning.
+
+620
+01:19:34.780 --> 01:19:40.449
+Jitendra K: So that is what we are going to talk about, in the next part of this tutorial.
+
+621
+01:19:43.230 --> 01:19:49.919
+Jitendra K: Now, this is… this concept came from game theory, or so-called poker, and different sort of games, which is…
+
+622
+01:19:50.220 --> 01:20:02.059
+Jitendra K: utilizing these Markov chains to get the win ratio, right? Similarly, I've got this example, this is one of the classical examples, which talks about a student who's preparing for an exam.
+
+623
+01:20:02.560 --> 01:20:07.500
+Jitendra K: And, he's crossing different hurdles. Let's say he's preparing for some
+
+624
+01:20:07.750 --> 01:20:11.290
+Jitendra K: JE entrance, and then he's taking a test series.
+
+625
+01:20:11.920 --> 01:20:14.470
+Jitendra K: At different levels, and then…
+
+626
+01:20:14.580 --> 01:20:18.739
+Jitendra K: this is what his plan looks like. So, he starts preparing for Level 1.
+
+627
+01:20:19.030 --> 01:20:24.829
+Jitendra K: And then there's an 80% probability that he will move on to level 2, and 20% probability that
+
+628
+01:20:25.020 --> 01:20:30.090
+Jitendra K: We will, do some more study, and then increase the overall reward.
+
+629
+01:20:30.580 --> 01:20:34.709
+Jitendra K: And then from level 2, there's 70% probability that he will go to level 3.
+
+630
+01:20:34.840 --> 01:20:40.370
+Jitendra K: Or after level 3, there's 30% probability that he will quit, or maybe…
+
+631
+01:20:40.670 --> 01:20:44.600
+Jitendra K: Failed to execute a level 3 task, which is having more hurdle.
+
+632
+01:20:45.200 --> 01:20:51.500
+Jitendra K: If he cross level 3, then there's an 80% chance that he will win, and after win, he will quit, which is the most probable scenario.
+
+633
+01:20:51.930 --> 01:21:03.540
+Jitendra K: But there could be some other intermediary scenarios that you can see as a part of this probabilical transaction. So basically, this is a state sequence with transition probability, and you're modeling the dynamicness of the environment.
+
+634
+01:21:03.650 --> 01:21:11.459
+Jitendra K: And creating a reward signal, adding a reward to Markov process as a value function to evaluate that policy, how effective it is.
+
+635
+01:21:12.070 --> 01:21:20.860
+Jitendra K: Right? So that is what this whole Markov chain will govern the criteria of generating the estimated cumulative reward on the higher side.
+
+636
+01:21:23.130 --> 01:21:27.389
+Jitendra K: So we'll solve one example, with the help of Markov decision process.
+
+637
+01:21:27.780 --> 01:21:36.520
+Jitendra K: And… How did you get a transition provider? Transition provider, of course, has to be provided by someone.
+
+638
+01:21:36.890 --> 01:21:38.320
+Jitendra K: Who is the observer?
+
+639
+01:21:39.730 --> 01:21:42.470
+Jitendra K: Right, so you need to use some transition probability.
+
+640
+01:21:42.930 --> 01:21:48.080
+Jitendra K: There's no line graph in this, so this is not a land graph. It's simply a…
+
+641
+01:21:48.450 --> 01:21:51.140
+Jitendra K: State Transition Metrics, STM.
+
+642
+01:21:52.860 --> 01:21:54.470
+Jitendra K: There's no line graph here.
+
+643
+01:22:00.200 --> 01:22:07.579
+Jitendra K: All right, so we'll talk about one use case, that has been… that I can able to give you and provide some insight against.
+
+644
+01:22:07.930 --> 01:22:15.050
+Jitendra K: And, let's assume that… I would like to take up some decision-making, right, on the basis of,
+
+645
+01:22:15.400 --> 01:22:17.539
+Jitendra K: Certain signals from the past.
+
+646
+01:22:18.550 --> 01:22:23.639
+Jitendra K: And I would like to ensure that I will achieve the maximum cumulative reward all the time.
+
+647
+01:22:24.340 --> 01:22:27.409
+Jitendra K: And, this is where I'm going to use,
+
+648
+01:22:27.730 --> 01:22:32.639
+Jitendra K: the, Markov decision process to solve this problem.
+
+649
+01:22:33.420 --> 01:22:36.619
+Jitendra K: So, let me quickly open my reader.
+
+650
+01:23:49.770 --> 01:23:52.700
+Jitendra K: Once again, let me open this example.
+
+651
+01:26:39.850 --> 01:26:43.650
+Jitendra K: Okay, so this is a problem that I'm trying to solve, which is a great problem.
+
+652
+01:26:43.790 --> 01:26:48.950
+Jitendra K: And I'm going to solve with two approaches. One is called policy optimization, second one is called value optimization.
+
+653
+01:26:49.350 --> 01:26:56.300
+Jitendra K: So, this is, one of the stochastic, great problems, and this comes under dynamic programming.
+
+654
+01:26:56.470 --> 01:27:01.980
+Jitendra K: So, objective is, let's say you would like to teach an agent to navigate this 7 cross 7 grid.
+
+655
+01:27:02.150 --> 01:27:04.609
+Jitendra K: Which is having 7 columns and 7 rows.
+
+656
+01:27:04.850 --> 01:27:07.329
+Jitendra K: Right, so this is 7 crossings, 7th grade.
+
+657
+01:27:07.660 --> 01:27:14.750
+Jitendra K: And your goal is, you're going to start with 6 cross 6, this cell. This is your starting point. Sorry, 6 cross 6, this is your starting point.
+
+658
+01:27:14.890 --> 01:27:19.780
+Jitendra K: And you have to avoid the pitfall cells that give a negative reward.
+
+659
+01:27:20.220 --> 01:27:24.479
+Jitendra K: So these are the pitfalls held. So each move costs a small penalty.
+
+660
+01:27:24.730 --> 01:27:32.879
+Jitendra K: of minus 0.1. And the involvement is stochastic. That means even when the agent choose a direction, there's a 20% chances.
+
+661
+01:27:33.060 --> 01:27:35.710
+Jitendra K: That, there would be some random push.
+
+662
+01:27:35.970 --> 01:27:45.190
+Jitendra K: From different factors, like… Wind or some breeziness, which will move the state back to the previous state.
+
+663
+01:27:45.330 --> 01:27:49.809
+Jitendra K: That means we are going to train the model to understand the best policy.
+
+664
+01:27:50.540 --> 01:27:52.340
+Jitendra K: Which is V is strict R.
+
+665
+01:27:53.580 --> 01:27:58.659
+Jitendra K: Oh, sorry, best value, and best policy, which is pi asteris.
+
+666
+01:27:59.460 --> 01:28:03.339
+Jitendra K: We need to use both approximation value and policy approximation.
+
+667
+01:28:03.820 --> 01:28:08.909
+Jitendra K: Now, let's try to look into the code first, what we are trying to solve, how we are solving this problem.
+
+668
+01:28:09.230 --> 01:28:14.830
+Jitendra K: So, first and foremost thing, again, I'm doing everything inside Markov Decision Chain.
+
+669
+01:28:14.930 --> 01:28:21.390
+Jitendra K: So I'm creating my own set of, utilities using Matplot and NumPy.
+
+670
+01:28:21.520 --> 01:28:28.239
+Jitendra K: NumPy for matrix operation in linear algebra, and matrix, I have to show it in the form of a grid using matplot.
+
+671
+01:28:28.720 --> 01:28:36.829
+Jitendra K: Then I'm representing a number of columns, a number of row, grid size, which is a dimension, with each cell is a state with a flattened 2 across 2 grid.
+
+672
+01:28:36.940 --> 01:28:42.359
+Jitendra K: And the transition reward probability. Now, this is the core of MDP, the transition state probability.
+
+673
+01:28:42.490 --> 01:28:45.080
+Jitendra K: I'm defining inside this function.
+
+674
+01:28:45.380 --> 01:28:53.419
+Jitendra K: So I'm saying that, the probability of interaction versus some external factor which may impact.
+
+675
+01:28:53.840 --> 01:28:55.340
+Jitendra K: Will be 0.8.
+
+676
+01:28:55.450 --> 01:28:57.069
+Jitendra K: So, probability of wind…
+
+677
+01:28:57.220 --> 01:29:09.599
+Jitendra K: a wind blows agent in one of the four directions, which are equally likely. I'm keeping it to be 0.2 divided by 4, which is 0.005, which is 5%, and this is a stochastic transition.
+
+678
+01:29:09.860 --> 01:29:11.839
+Jitendra K: And that state is not deterministic.
+
+679
+01:29:11.990 --> 01:29:18.930
+Jitendra K: So if Windows… 20% cumulative, but it can move the agent in any direction, abruptly.
+
+680
+01:29:19.360 --> 01:29:25.739
+Jitendra K: Now, I'm creating a terminal state and, encoding a reward and signals.
+
+681
+01:29:25.940 --> 01:29:35.619
+Jitendra K: For each step, right? So this is the… each step reward. So respect of the right move and wrong move, the step will cost the agent minus 0.1.
+
+682
+01:29:36.050 --> 01:29:38.650
+Jitendra K: Now, when I'm trying a value approximation.
+
+683
+01:29:38.750 --> 01:29:41.209
+Jitendra K: This is my function of value approximation.
+
+684
+01:29:41.620 --> 01:29:51.160
+Jitendra K: So I'm creeping a val… sorry, this is a functional value approximation. So in this function, I would like to find the optimal value without knowing the policy in advance.
+
+685
+01:29:51.670 --> 01:29:57.329
+Jitendra K: Because I don't have any policy, this is a new environment given to me, so I don't have any idea about how to solve this.
+
+686
+01:29:57.500 --> 01:30:02.570
+Jitendra K: So I don't have any policy as such, right? Which is typically obtained once you explore
+
+687
+01:30:02.900 --> 01:30:12.249
+Jitendra K: properly all the environmental constraints. Then you create a policy on the top of it. But here, I'm just operating without policy, without knowing the policy in advance, by repetitively
+
+688
+01:30:12.380 --> 01:30:17.999
+Jitendra K: Applying the optimality criterias, I would like to solve this equation by hit and trial.
+
+689
+01:30:19.090 --> 01:30:24.760
+Jitendra K: So, policy evaluation works like… Sorry, value iteration works with,
+
+690
+01:30:25.970 --> 01:30:31.520
+Jitendra K: each state, computing the Q values for every action, then maximize the new value out of it.
+
+691
+01:30:31.790 --> 01:30:35.819
+Jitendra K: And then, finally, our priority policies to solve the overall approach.
+
+692
+01:30:36.310 --> 01:30:41.869
+Jitendra K: However, in case of policy iteration, you are trying to find a maximum or optimal policy.
+
+693
+01:30:42.060 --> 01:30:47.640
+Jitendra K: By alternating between the policy valuation and policy improvement. To solve the values for current policy.
+
+694
+01:30:47.910 --> 01:30:54.309
+Jitendra K: update the policy to be greedy with respect to those values, right? So this is what you're trying to achieve.
+
+695
+01:30:55.010 --> 01:30:58.120
+Jitendra K: So, you can see that this is what we are getting.
+
+696
+01:30:58.850 --> 01:31:03.659
+Jitendra K: And, this has been solved with the help of this grid method.
+
+697
+01:31:04.130 --> 01:31:07.200
+Jitendra K: And, policy converged after 6 titration.
+
+698
+01:31:09.420 --> 01:31:12.829
+Jitendra K: So this is a framework. We are not applying any algorithm to solve this.
+
+699
+01:31:13.100 --> 01:31:18.529
+Jitendra K: But we are just using number of iterations. So you can see that number of iteration is higher.
+
+700
+01:31:18.730 --> 01:31:22.540
+Jitendra K: For a value function, Because it has to explore.
+
+701
+01:31:22.880 --> 01:31:24.510
+Jitendra K: More as compared to.
+
+702
+01:31:24.620 --> 01:31:31.789
+Jitendra K: policy function, rather than approximation. So in the policy function, we are approximating, in value function.
+
+703
+01:31:32.030 --> 01:31:36.810
+Jitendra K: We are producing the… outcome, objective.
+
+704
+01:31:37.000 --> 01:31:38.040
+Jitendra K: To be…
+
+705
+01:31:38.750 --> 01:31:45.700
+Jitendra K: Depend upon the environmental constraint, and then… and the agent will, like, start exploring and then generating those answers.
+
+706
+01:31:47.930 --> 01:31:51.000
+Jitendra K: So, any question on this, guys? Any question?
+
+707
+01:31:51.290 --> 01:31:54.019
+Jitendra K: Let me share this notebook again.
+
+708
+01:32:03.090 --> 01:32:07.819
+Jitendra K: So remember, we are learning the concept, but we will move on to GRPO slowly.
+
+709
+01:32:08.240 --> 01:32:11.220
+Jitendra K: So, first we need to understand the basics.
+
+710
+01:32:11.380 --> 01:32:14.650
+Jitendra K: This is one of the basic principles that we are using.
+
+711
+01:32:17.120 --> 01:32:19.210
+Jitendra K: So let me reshare this notebook.
+
+712
+01:33:22.260 --> 01:33:28.399
+Jitendra K: Yeah, it is slightly different, so you can skip this part. I think you just need to start from this.
+
+713
+01:33:31.710 --> 01:33:32.690
+Jitendra K: this cell.
+
+714
+01:33:38.750 --> 01:33:44.100
+Jitendra K: Yeah, I will try to compile this, and then share the slide, maybe, in the next class, so…
+
+715
+01:34:07.760 --> 01:34:11.689
+Jitendra K: Can you guys please run this and let me know if you are able to understand the concept?
+
+716
+01:34:12.430 --> 01:34:16.689
+Jitendra K: Is it too hard to understand? Too easy to implement?
+
+717
+01:34:17.650 --> 01:34:20.120
+Jitendra K: Just let me know your thoughts, what exactly…
+
+718
+01:34:21.400 --> 01:34:26.119
+Jitendra K: We are facing here. Because these are advanced concepts, no doubt about it.
+
+719
+01:34:26.390 --> 01:34:30.940
+Jitendra K: But at least you're getting the crux of the problem, or still…
+
+720
+01:34:31.290 --> 01:34:33.840
+Jitendra K: Not able to understand, so please let me know.
+
+721
+01:36:44.290 --> 01:36:49.509
+Jitendra K: So, I will explain this in a layman term, what is the difference between Markov process and electrocrate.
+
+722
+01:36:49.970 --> 01:36:52.740
+Jitendra K: So let's imagine that you're trying to teach a dog.
+
+723
+01:36:53.010 --> 01:36:55.500
+Jitendra K: You have a pack inside your home.
+
+724
+01:36:55.800 --> 01:37:04.329
+Jitendra K: And you're teaching a dog to navigate a maze to get a treat. The maze have some dead ends, like some pitfalls and rewards at the end.
+
+725
+01:37:04.660 --> 01:37:11.509
+Jitendra K: So you have two different styles of teaching. One is via Markov process, using Q-learning, valuations, etc.
+
+726
+01:37:11.830 --> 01:37:14.249
+Jitendra K: So the drug will try a different path.
+
+727
+01:37:14.410 --> 01:37:17.619
+Jitendra K: After each try, you write your own map.
+
+728
+01:37:17.830 --> 01:37:18.680
+Jitendra K: Right?
+
+729
+01:37:18.890 --> 01:37:25.550
+Jitendra K: If you go left, you end up there getting, this reward, or something of that sort.
+
+730
+01:37:25.840 --> 01:37:33.089
+Jitendra K: So it's like, over time, the map becomes very accurate. When the dog stands at any spot, you look at the map, see which direction let
+
+731
+01:37:33.460 --> 01:37:39.879
+Jitendra K: leads to more treat in the longer run, and tell the dog to go in that manner. And that is what Markov property is all about.
+
+732
+01:37:40.390 --> 01:37:46.149
+Jitendra K: In actor-critic method, the coach and the player will work. There are two roles, the actor, the dog itself.
+
+733
+01:37:46.390 --> 01:37:49.730
+Jitendra K: Which try to run through the maze, the critic, a coach watching.
+
+734
+01:37:50.550 --> 01:37:55.310
+Jitendra K: Right? So it will shout, good, choice, bad move, based upon the things.
+
+735
+01:37:55.460 --> 01:38:01.260
+Jitendra K: Which has been turned up as compared to expectation. So, dog does not memorize a map of every spot.
+
+736
+01:38:01.460 --> 01:38:04.739
+Jitendra K: Instead, learn a generic rule. If a coach praises me.
+
+737
+01:38:05.020 --> 01:38:10.330
+Jitendra K: For turning left in 13th spot, it will be more likely to turn left again in a similar spot.
+
+738
+01:38:10.730 --> 01:38:15.200
+Jitendra K: So that means he's depending on the feedback, but here we are learning the policy in MARPOF.
+
+739
+01:38:15.430 --> 01:38:16.730
+Jitendra K: And that's the difference.
+
+740
+01:38:20.370 --> 01:38:21.960
+Jitendra K: You understand now, or…
+
+741
+01:38:31.330 --> 01:38:33.280
+Jitendra K: So you're learning under supervision.
+
+742
+01:38:45.060 --> 01:38:48.210
+Jitendra K: That's correct, yeah, so Critic will have sufficient
+
+743
+01:38:48.390 --> 01:38:50.560
+Jitendra K: Information on the top of it.
+
+744
+01:38:56.680 --> 01:39:01.449
+Jitendra K: So in Markov process, it's like a value function or a value iteration.
+
+745
+01:39:01.690 --> 01:39:08.449
+Jitendra K: And you need not… you need not to know… or sorry, you need not… need to know the transition probability and reward functions.
+
+746
+01:39:09.600 --> 01:39:12.240
+Jitendra K: Before you start experimentation.
+
+747
+01:39:14.180 --> 01:39:16.790
+Jitendra K: So it'll be good if you already have Explorer.
+
+748
+01:39:17.330 --> 01:39:21.669
+Jitendra K: And then you have a critic to follow and do a cross correction.
+
+749
+01:39:26.700 --> 01:39:33.569
+Jitendra K: Alright, now I think it's… we can take a break of 25 minutes, and then once we come back, then we'll talk about
+
+750
+01:39:33.920 --> 01:39:38.159
+Jitendra K: GRPO and other stuff, which is our main objective.
+
+751
+01:39:38.350 --> 01:39:46.900
+Jitendra K: And we'll move on to some, open source model, try to train it with the help of the policies, and then we'll see the results, how optimally to come up.
+
+752
+01:39:47.320 --> 01:39:50.849
+Jitendra K: Let's take a break of 25 minutes, and then we can start the session again.
+
+753
+02:05:15.510 --> 02:05:19.010
+Jitendra K: Hi guys, I hope you're back. Can we have a quick confirmation?
+
+754
+02:05:32.670 --> 02:05:35.610
+Jitendra K: Alright, thank you. So now we'll talk about,
+
+755
+02:05:36.240 --> 02:05:42.700
+Jitendra K: how we are going to use reinforcement learning to solve GenAI problem, and in fact, we'll learn one
+
+756
+02:05:43.040 --> 02:05:47.639
+Jitendra K: policy optimization framework called GRPO, Group Relative Policy Optimization.
+
+757
+02:05:47.970 --> 02:05:50.740
+Jitendra K: And I think we have talked about this,
+
+758
+02:05:50.920 --> 02:05:54.100
+Jitendra K: Few class before, when we were dealing with Paft and LORAS.
+
+759
+02:05:54.310 --> 02:05:57.490
+Jitendra K: I will discuss GRPO after reinforcement learning.
+
+760
+02:05:57.680 --> 02:06:02.670
+Jitendra K: So, now with, we have some idea about reinforcement learning, we understand what are the…
+
+761
+02:06:02.880 --> 02:06:08.409
+Jitendra K: Essentials of reinforcement learning, what is the mathematical background, how reinforcement learning works.
+
+762
+02:06:08.760 --> 02:06:13.420
+Jitendra K: So it's a good time to discuss about, how to solve the problem with Alpop.
+
+763
+02:06:13.910 --> 02:06:19.550
+Jitendra K: Reinforcement learning frameworks, and use those frameworks to implement
+
+764
+02:06:19.960 --> 02:06:27.050
+Jitendra K: A strategy is to optimize the, Jenny Aframe box.
+
+765
+02:06:27.450 --> 02:06:29.889
+Jitendra K: Right, so that is what we are going to talk about now.
+
+766
+02:06:30.090 --> 02:06:36.020
+Jitendra K: So we'll talk about something called GRP, or Group Risk Policy Optimization, and this is a method that we are going to use.
+
+767
+02:06:36.190 --> 02:06:42.799
+Jitendra K: with the help of PPO, or proximity policy optimization, as one of the important frameworks.
+
+768
+02:06:49.750 --> 02:06:53.690
+Jitendra K: Okay, so the background behind this framework is…
+
+769
+02:06:55.700 --> 02:07:04.870
+Jitendra K: So the whole idea is, we are using reinforcement learning for reasoning capability. So we are trying to create an inference scaling, which will empower LLM with unprecedented
+
+770
+02:07:05.050 --> 02:07:11.490
+Jitendra K: Reasoning ability with the help of reinforcement learning as the core technique to, To improve the complex reasoning.
+
+771
+02:07:11.680 --> 02:07:17.689
+Jitendra K: And GRP is the most common RL optimizer technique to use for training and reasoning models.
+
+772
+02:07:18.060 --> 02:07:23.960
+Jitendra K: So before delving drive into the details of GRPO, we need to build an understanding on,
+
+773
+02:07:24.380 --> 02:07:32.359
+Jitendra K: Reinforcement learning with… human feedback. So, when I talk about reinforcement learning with human feedback, We are talking about…
+
+774
+02:07:33.680 --> 02:07:37.250
+Jitendra K: Generating an optimization policy, that reward.
+
+775
+02:07:37.530 --> 02:07:41.870
+Jitendra K: Or that generate a reward signal for the training purpose, right?
+
+776
+02:07:42.130 --> 02:07:46.139
+Jitendra K: So, first and foremost thing, that means you have launched some vanilla application.
+
+777
+02:07:46.330 --> 02:07:48.560
+Jitendra K: And after launching the vanilla application.
+
+778
+02:07:49.350 --> 02:07:52.650
+Jitendra K: You're going to start with a dataset of diversified prompts.
+
+779
+02:07:53.220 --> 02:07:58.029
+Jitendra K: And, use a simple mini batch of prompts to train the algorithm.
+
+780
+02:07:58.170 --> 02:08:00.110
+Jitendra K: Right? Using GRPO.
+
+781
+02:08:00.320 --> 02:08:05.759
+Jitendra K: And that is the exact, fundamental of training, the reinforcement learning with the help of…
+
+782
+02:08:06.360 --> 02:08:09.630
+Jitendra K: Training the whole objective of
+
+783
+02:08:10.490 --> 02:08:14.769
+Jitendra K: policies with Alpha Reinforcement Learning Framework. So basically.
+
+784
+02:08:14.990 --> 02:08:17.850
+Jitendra K: This is what it looks like in a sequence.
+
+785
+02:08:18.050 --> 02:08:23.379
+Jitendra K: So, you can see on my screen that we are using a reinforcement learning with human loop.
+
+786
+02:08:23.610 --> 02:08:25.639
+Jitendra K: Or reinforcement learning with?
+
+787
+02:08:26.150 --> 02:08:28.770
+Jitendra K: reward distribution, RLVR.
+
+788
+02:08:28.900 --> 02:08:32.299
+Jitendra K: Right, so that means we are using some sort of policies to improve.
+
+789
+02:08:32.620 --> 02:08:38.549
+Jitendra K: So to train an LM with RLVR, we must select a domain that is verifiable in nature.
+
+790
+02:08:38.850 --> 02:08:45.599
+Jitendra K: So let's say if I'm using a particular problem, let's say I'm creating a code agent that will solve the problem.
+
+791
+02:08:45.940 --> 02:08:50.410
+Jitendra K: Or I would like to use an agent which will solve the mathematical problem.
+
+792
+02:08:50.930 --> 02:08:56.639
+Jitendra K: So, we need to create a dataset that has either the ground truth answers or some rule-based technique.
+
+793
+02:08:56.830 --> 02:09:01.679
+Jitendra K: That can be used to verify the correctness of the response to the prompt in our data site.
+
+794
+02:09:02.100 --> 02:09:08.929
+Jitendra K: So for coding, we can create a sandbox for running LLM, generate code, and use the test cases to assess the correctness.
+
+795
+02:09:09.120 --> 02:09:13.909
+Jitendra K: Similarly, we can evaluate mathematical problem by performing basic string matching.
+
+796
+02:09:14.050 --> 02:09:18.430
+Jitendra K: Between the answer predicted by LLM and the ground truth for the problem that we see.
+
+797
+02:09:18.640 --> 02:09:25.499
+Jitendra K: So the whole scope of this work is you're testing the model in terms of reasoning capability, or for a domain-agnostic task.
+
+798
+02:09:27.190 --> 02:09:32.399
+Jitendra K: Right? So that is what we are doing in terms of, policy optimization.
+
+799
+02:09:32.640 --> 02:09:35.400
+Jitendra K: So, usually, we instruct the LLM
+
+800
+02:09:35.520 --> 02:09:40.769
+Jitendra K: To format the output so that the final answer can be easily parsed.
+
+801
+02:09:41.030 --> 02:09:43.390
+Jitendra K: And then use certain frameworks to do so.
+
+802
+02:09:43.700 --> 02:09:51.009
+Jitendra K: So the whole idea here is, we are trying to understand the reasoning trajectories of the agent or the model.
+
+803
+02:09:51.410 --> 02:09:54.749
+Jitendra K: And, try to understand,
+
+804
+02:09:55.090 --> 02:10:04.970
+Jitendra K: And decomposing that complex path into smaller, solvable problems, and optimize from there. And that's the whole idea of policy proximity optimization.
+
+805
+02:10:05.920 --> 02:10:11.799
+Jitendra K: So the idea is, this particular approach will use actor-critic style.
+
+806
+02:10:12.100 --> 02:10:17.280
+Jitendra K: the one algorithm that we have just discussed. So, it'll use actor-critic style to implement
+
+807
+02:10:17.380 --> 02:10:20.000
+Jitendra K: The whole objective on the top of it.
+
+808
+02:10:20.230 --> 02:10:28.539
+Jitendra K: So the active critic will be a function that we are using to improve the selection criterias of the…
+
+809
+02:10:28.990 --> 02:10:30.340
+Jitendra K: optimized path.
+
+810
+02:10:31.480 --> 02:10:33.520
+Jitendra K: Dang, it's just not working.
+
+811
+02:10:59.050 --> 02:11:03.080
+Jitendra K: So the idea is very similar. We are going to understand the reward distribution.
+
+812
+02:11:03.910 --> 02:11:06.489
+Jitendra K: Which will help us to generate the
+
+813
+02:11:06.840 --> 02:11:11.580
+Jitendra K: And implement a current policy to improve the action space selection criteria.
+
+814
+02:11:11.730 --> 02:11:16.670
+Jitendra K: So basically, our objective for PPO is, we begin with an unclipped objective.
+
+815
+02:11:17.060 --> 02:11:21.760
+Jitendra K: That will use some surrogate objective based upon region policy optimization.
+
+816
+02:11:21.960 --> 02:11:25.590
+Jitendra K: And then, we will clip the gradients during training.
+
+817
+02:11:26.690 --> 02:11:30.180
+Jitendra K: So this is how we are clipping the gradient during the training of the LLM.
+
+818
+02:11:30.650 --> 02:11:35.290
+Jitendra K: And this clipping will help me to get the maximum reward, estimated reward.
+
+819
+02:11:35.620 --> 02:11:40.209
+Jitendra K: Based upon this objective. So, the clipping forced the policy to fall into a range of…
+
+820
+02:11:40.800 --> 02:11:46.590
+Jitendra K: 1 minus epsilon 2 plus 1 minus epsilon. That means we are balancing the exploration and exploitation.
+
+821
+02:11:46.700 --> 02:11:52.740
+Jitendra K: Between the two states. Similar to what we have seen in the, the,
+
+822
+02:11:53.190 --> 02:11:57.620
+Jitendra K: The casino, what do you… multi-arm bandit use case, right?
+
+823
+02:11:57.730 --> 02:12:02.339
+Jitendra K: So it's an objective function that will force the algorithm to run in this range.
+
+824
+02:12:02.620 --> 02:12:13.760
+Jitendra K: So basically, this is one policy that you are using to improve the gradient, but what if you are going to use multiple policies? That means you're moving from PPO2
+
+825
+02:12:14.040 --> 02:12:20.449
+Jitendra K: GRPO, that means you're implementing a group of policies, a group of related policy optimization.
+
+826
+02:12:20.670 --> 02:12:26.020
+Jitendra K: And it is built on the top of PPO by proposing a simpler technique for estimation, the advantage.
+
+827
+02:12:26.160 --> 02:12:37.919
+Jitendra K: So in particularly GRPO, estimate advantage by sampling multiple competitions, or a group of competitions… completions for each prompt, and use the reward for these completions to form a baseline.
+
+828
+02:12:38.000 --> 02:12:47.899
+Jitendra K: And this group relative, or this group derived base replaced the value function, which allowed the GRPO to, train via critic and avoid a
+
+829
+02:12:48.500 --> 02:12:50.230
+Jitendra K: drastic reduction.
+
+830
+02:12:50.440 --> 02:13:00.439
+Jitendra K: In terms of competition overhead. So we are just focusing on only those areas which need improvement, instead of solving the whole chain. So that means we are just using a weight update.
+
+831
+02:13:00.550 --> 02:13:12.059
+Jitendra K: on the existing vanilla models, and try to improve and adapt to a domain by running a training sample which has been labeled by the human. That is what we are doing with the help of a GRPO.
+
+832
+02:13:12.470 --> 02:13:15.340
+Jitendra K: Right? So this is one of the important,
+
+833
+02:13:16.550 --> 02:13:22.509
+Jitendra K: Way that you can do declarative-style port programming to improve the overall model response.
+
+834
+02:13:24.100 --> 02:13:27.060
+Jitendra K: So, now, GRPO comes with various…
+
+835
+02:13:27.720 --> 02:13:33.529
+Jitendra K: technique, various variants. I mean, there are a lot of variants which have been… came along with GRPU.
+
+836
+02:13:33.780 --> 02:13:45.010
+Jitendra K: And, first we will talk about the first and the very basic GRPO technique, and then with an example to understand how it works behind the scenes. So I think it is still running, it is learning… running for almost
+
+837
+02:13:46.010 --> 02:13:49.900
+Jitendra K: Few hours, so… maybe if it is not…
+
+838
+02:13:50.030 --> 02:13:52.169
+Jitendra K: Completed, I will share the quote.
+
+839
+02:13:57.500 --> 02:14:02.170
+Jitendra K: But let me explain this code first, what exactly we are trying to solve with the help of this
+
+840
+02:14:02.460 --> 02:14:08.730
+Jitendra K: whole method. Now, first and the foremost thing, you need to understand this framework called GSM8K.
+
+841
+02:14:09.800 --> 02:14:15.149
+Jitendra K: So, graduate school mathematics, 8K, which is one of the framework.
+
+842
+02:14:15.730 --> 02:14:20.189
+Jitendra K: Which is… used to benchmark the LLM reasoning capability.
+
+843
+02:14:20.290 --> 02:14:21.790
+Jitendra K: Yes, MK.
+
+844
+02:14:22.730 --> 02:14:26.679
+Jitendra K: 8… And this is the benchmark.
+
+845
+02:14:27.720 --> 02:14:29.270
+Jitendra K: that I'm going to use.
+
+846
+02:14:29.940 --> 02:14:47.659
+Jitendra K: to differentiate the grade A mathematics. So, let's say we are comparing the reasoning power of the model. So, we are trying to benchmark the model with the help of 8-grade problems. 8th grade mathematical problem that a school-going student can solve. Can it be solved by LLMs?
+
+847
+02:14:48.460 --> 02:14:55.029
+Jitendra K: Right? Can we use LLMs to solve the same problem as the 8th grade students are solving?
+
+848
+02:14:55.270 --> 02:15:07.060
+Jitendra K: That is called benchmark. So, you remember that the LLMs are getting mature day by day. Earlier, it is a… now it is becoming a grade grad student, a post-grad student, or PhD-level student.
+
+849
+02:15:07.330 --> 02:15:12.929
+Jitendra K: But earlier it was Grade A, Class… Grade A or Class 8 student, right?
+
+850
+02:15:13.060 --> 02:15:15.469
+Jitendra K: So that's the whole idea of,
+
+851
+02:15:15.640 --> 02:15:20.620
+Jitendra K: you know, benchmarking the reasoning capability of the LLM, and reasoning capability is always…
+
+852
+02:15:20.760 --> 02:15:25.650
+Jitendra K: Benchmarked by the systematic, quality evaluations criteria.
+
+853
+02:15:32.940 --> 02:15:39.340
+Jitendra K: So we'll use a similar approach to first train the model and test the model with this approach.
+
+854
+02:15:39.600 --> 02:15:44.700
+Jitendra K: Right, so here it is called GSM8K dataset, which is Grade School Mathematics 8K, which is of
+
+855
+02:15:45.060 --> 02:15:50.040
+Jitendra K: 8.5, high quality, linguistic, great mathematical problem.
+
+856
+02:15:50.240 --> 02:15:54.920
+Jitendra K: And, the LLM has been trained on this approach, and
+
+857
+02:15:55.020 --> 02:15:59.100
+Jitendra K: You can able to evaluate the output based upon these tests validation.
+
+858
+02:15:59.380 --> 02:16:07.609
+Jitendra K: And I think in the leadership board of Hugging Face, let me see which model is generating the optimal result on this dataset.
+
+859
+02:16:17.060 --> 02:16:20.360
+Jitendra K: Yeah, so these are the models which are generating
+
+860
+02:16:21.240 --> 02:16:24.439
+Jitendra K: Best reasoning in terms of mathematical criterias.
+
+861
+02:16:24.660 --> 02:16:27.039
+Jitendra K: If we reverse sort this, these are the models.
+
+862
+02:16:28.190 --> 02:16:30.849
+Jitendra K: Right? These are open source models that I'm talking about.
+
+863
+02:16:33.180 --> 02:16:44.800
+Jitendra K: So these are the ranking of the model, and you can be able to benchmark reason capability with the help of this dataset. But we see programmatically how to do this programmatically? Can we do it programmatically?
+
+864
+02:16:47.040 --> 02:16:54.370
+Jitendra K: I think, yes… This Mazir Panai, someone from Tamil Nadu.
+
+865
+02:16:58.520 --> 02:17:01.499
+Jitendra K: Okay, we'll try to solve this with the help of GRPU.
+
+866
+02:17:01.900 --> 02:17:04.430
+Jitendra K: And, we will use,
+
+867
+02:17:04.590 --> 02:17:10.610
+Jitendra K: So, policy optimization with the help of… Actocratic gradient clipping method.
+
+868
+02:17:10.990 --> 02:17:18.500
+Jitendra K: So, first and the foremost thing, I believe, now you're clear with the data, that what data we are going to use to perform the testing.
+
+869
+02:17:18.760 --> 02:17:24.680
+Jitendra K: And this is, the notebook which talks about implementation of GRPO, group-related policy optimization.
+
+870
+02:17:24.870 --> 02:17:33.730
+Jitendra K: And several advanced variants of this, which include TAPO, which is… dynamic sampling with Advantage Group.
+
+871
+02:17:33.870 --> 02:17:37.840
+Jitendra K: But then we have got… scale divergence criterias.
+
+872
+02:17:38.170 --> 02:17:44.279
+Jitendra K: We have got soft token clipping. There are different methods to improve the gradient. So we'll talk about the basic first.
+
+873
+02:17:45.549 --> 02:17:49.169
+Jitendra K: So, I'm going to install certain packages, including…
+
+874
+02:17:49.340 --> 02:17:52.339
+Jitendra K: Logit optimization to keep the gradient tracking.
+
+875
+02:17:52.650 --> 02:18:00.510
+Jitendra K: I'm using a GSM… GSMK dataset from Hugging Face. That's a required… are required, to install Hugging Face API as well.
+
+876
+02:18:00.700 --> 02:18:02.440
+Jitendra K: And I required to have…
+
+877
+02:18:02.780 --> 02:18:07.770
+Jitendra K: adapters, because that is how I'm going to improve the weight training. So I'm going to use PEFT.
+
+878
+02:18:08.570 --> 02:18:17.239
+Jitendra K: Now, I have a code which talks about different commercials, including the standard import for regex, garbage collection for freeing the GPU memory.
+
+879
+02:18:17.660 --> 02:18:24.760
+Jitendra K: Random for shuffling, and data class for configuration, and loading the dataset I'm going to use, Hugging Face data loaders.
+
+880
+02:18:25.200 --> 02:18:32.540
+Jitendra K: I'm using AutoModel because I'm going to use open source model, load LLM, enabling a device with good architectures.
+
+881
+02:18:32.730 --> 02:18:43.579
+Jitendra K: And I'm going to keep it, 16-bit floating point, so I'm going to use 8 A800 or 800 GPUs, which is available
+
+882
+02:18:43.790 --> 02:18:45.340
+Jitendra K: within Google Collab.
+
+883
+02:18:45.520 --> 02:18:49.520
+Jitendra K: Right, so I'm just going to use these, startups.
+
+884
+02:18:49.870 --> 02:18:54.450
+Jitendra K: Now, once I have the setup, the next thing that I'm going to do is, I would like to…
+
+885
+02:18:54.730 --> 02:18:58.930
+Jitendra K: do a code configuration on GRPO, so I will say that I have a class.
+
+886
+02:18:59.209 --> 02:19:04.020
+Jitendra K: which will have various parameters, so I'm going to use when
+
+887
+02:19:04.400 --> 02:19:08.790
+Jitendra K: 0.5 billion instruct model, which is a very, very small model.
+
+888
+02:19:09.490 --> 02:19:11.680
+Jitendra K: And I just want to show you the…
+
+889
+02:19:12.059 --> 02:19:15.229
+Jitendra K: outcome, that's the reason I'm just selecting the 0.5.
+
+890
+02:19:15.410 --> 02:19:17.540
+Jitendra K: Quad Pillion parameter model.
+
+891
+02:19:17.770 --> 02:19:25.090
+Jitendra K: So I've got, LoRAS enabled, so I'm making it true. We are going to use LoRAS for reducing the trainable parameters.
+
+892
+02:19:25.260 --> 02:19:30.909
+Jitendra K: I've got N iterations, number of iterations, number of training, and subsamples.
+
+893
+02:19:31.190 --> 02:19:35.819
+Jitendra K: And then I've got prompt parameter, number of distinct prompt sample for RL step.
+
+894
+02:19:36.100 --> 02:19:41.959
+Jitendra K: So I'm keeping it as a prompt parameter for step to be 4. Distinct prompt required to train.
+
+895
+02:19:42.559 --> 02:19:44.310
+Jitendra K: Because this model will adapt.
+
+896
+02:19:44.420 --> 02:19:52.200
+Jitendra K: In terms of the training data, and then try to generate a reasoning on the top of it by adapting the style of calculations.
+
+897
+02:19:52.370 --> 02:20:02.529
+Jitendra K: So basically, we are running these algorithms to improve the reasoning capability. Like, how did you improve your reasoning capability in your 8th grade? By solving problems only, right?
+
+898
+02:20:02.950 --> 02:20:07.759
+Jitendra K: So the same way we are training the models, LLMs, to improve their reasoning capability.
+
+899
+02:20:08.130 --> 02:20:12.060
+Jitendra K: Right? Until and unless you have…
+
+900
+02:20:12.180 --> 02:20:18.910
+Jitendra K: extraordinary brain, or you're from alien technology, then it's a different story. But this is how you should train the model.
+
+901
+02:20:19.880 --> 02:20:22.339
+Jitendra K: Yeah, this is similar to supervised fine-tuning.
+
+902
+02:20:22.760 --> 02:20:23.720
+Jitendra K: No.
+
+903
+02:20:24.010 --> 02:20:30.880
+Jitendra K: We are also using the gradient clipping method, that means we do not want to overrun this whole technique.
+
+904
+02:20:31.050 --> 02:20:33.559
+Jitendra K: So we are clipping the gradient for normalization.
+
+905
+02:20:33.680 --> 02:20:39.500
+Jitendra K: We're using, micro bass size for forward and backward passes.
+
+906
+02:20:39.690 --> 02:20:45.270
+Jitendra K: And then we have got epsilon parameter here, absolute and epsil.
+
+907
+02:20:45.500 --> 02:20:49.840
+Jitendra K: That means these are the, decoupling clipping bonds.
+
+908
+02:20:50.250 --> 02:20:53.429
+Jitendra K: And the log loss aggregation, I'm using some technique.
+
+909
+02:20:54.070 --> 02:20:56.849
+Jitendra K: Right, so I'm just going to do this whole.
+
+910
+02:20:57.050 --> 02:21:01.110
+Jitendra K: Now I'm going to load the policies, and tokenizer method.
+
+911
+02:21:01.330 --> 02:21:09.249
+Jitendra K: Because I'm going to use the left padding, which is required, because we generate a batch from… of prompt, and then slice the completions from right.
+
+912
+02:21:09.420 --> 02:21:14.349
+Jitendra K: Left padding will ensure all the prompts and At the same index.
+
+913
+02:21:14.810 --> 02:21:16.499
+Jitendra K: So I'm loading the policy.
+
+914
+02:21:17.150 --> 02:21:22.620
+Jitendra K: Loading the quad model, quad billion parameter model, 0.5 billion parameter model.
+
+915
+02:21:23.140 --> 02:21:31.010
+Jitendra K: And then load the model with the correct D-type, data types, and attention implementation, because that is what I would like to attack.
+
+916
+02:21:31.370 --> 02:21:42.520
+Jitendra K: the attention parameter. So I would avoid flash and STAPA ad cases, so I'm going to go with eager attention. So there are different types of attention parameters.
+
+917
+02:21:42.770 --> 02:21:50.490
+Jitendra K: So, that depends upon the implementation of the model, and this model, Quan model, is great. They have been trained using flash retention.
+
+918
+02:21:50.690 --> 02:21:59.349
+Jitendra K: But, I'm using… The eager, you know, eager, parameter.
+
+919
+02:22:02.490 --> 02:22:10.530
+Jitendra K: to… to generate the objective. So I'm creating an objective that I would like to target this layer.
+
+920
+02:22:10.860 --> 02:22:14.810
+Jitendra K: Which is, having the eager attention, right? So this is…
+
+921
+02:22:15.180 --> 02:22:22.110
+Jitendra K: There are different types of attention mechanism that has been there. So, eager is a very simple and debug-friendly, so I will tell the model
+
+922
+02:22:22.280 --> 02:22:27.490
+Jitendra K: to use, pure Python implementation of attention mechanism, which is essentially,
+
+923
+02:22:27.700 --> 02:22:32.370
+Jitendra K: kind of, directives, line by line, that I'm going to pass on as a policy function.
+
+924
+02:22:32.970 --> 02:22:39.270
+Jitendra K: So, there are different types of data retention, like SDPA, scale.product retention, there's flash retention.
+
+925
+02:22:39.590 --> 02:22:58.499
+Jitendra K: So, flash retention, tiles the compute into smaller block, and then fit into the fast on-chip SRAM. And this has drastically reduced the expensive memory leads, right, to slower VRAM, and this is created by NVIDIA. Flash retention is more flexible, which use PyTorch 2.4.
+
+926
+02:22:58.830 --> 02:23:10.279
+Jitendra K: And allow you to define your custom attention patterns, such as sliding window, block parsing, sparse, or even low-level write-ups using kernel function in NVIDIA. You can do it.
+
+927
+02:23:10.400 --> 02:23:15.060
+Jitendra K: So this will help you to save the cost, what kind of attention layer you have created.
+
+928
+02:23:15.520 --> 02:23:26.920
+Jitendra K: Right? So we are just targeting the simple layers, just to show you the result at this moment. So I'm just keeping this as, eager attention, which is by default.
+
+929
+02:23:27.110 --> 02:23:29.200
+Jitendra K: parameter that I would like to utilize.
+
+930
+02:23:30.410 --> 02:23:33.660
+Jitendra K: So, any question until this point? Shall we move ahead with the code?
+
+931
+02:23:34.170 --> 02:23:40.639
+Jitendra K: I think it will take some time to implement, run the code, so I've run it for almost 2 hours, it is not still completed.
+
+932
+02:23:41.750 --> 02:23:43.679
+Jitendra K: But any question before we move on?
+
+933
+02:23:43.830 --> 02:23:46.889
+Jitendra K: The load policy is clear. What are we trying to improve?
+
+934
+02:23:55.470 --> 02:23:56.910
+Jitendra K: Yes and no, guys?
+
+935
+02:24:07.660 --> 02:24:09.579
+Jitendra K: Okay, how about the rest of the class?
+
+936
+02:24:10.030 --> 02:24:11.410
+Jitendra K: Are you following so far
+
+937
+02:24:15.060 --> 02:24:21.409
+Jitendra K: And this is off-topic, guys, so I'm just taking it from my… Own sake of…
+
+938
+02:24:21.580 --> 02:24:23.549
+Jitendra K: I mean, I've added for my…
+
+939
+02:24:24.220 --> 02:24:29.030
+Jitendra K: I've had it from my own side, right? There's nothing in your curriculum to discuss all these things.
+
+940
+02:24:29.550 --> 02:24:33.330
+Jitendra K: Alright, now, once we have enabled the gradient checkpoint.
+
+941
+02:24:35.890 --> 02:24:42.179
+Jitendra K: Okay, great. So, load policy is a function which will help us to load the model with the correct
+
+942
+02:24:42.730 --> 02:24:46.580
+Jitendra K: Attention implementation, here we are choosing eager initializer.
+
+943
+02:24:46.820 --> 02:24:50.549
+Jitendra K: Which will work reliably on the setup that I'm using, T4.
+
+944
+02:24:50.820 --> 02:25:02.830
+Jitendra K: And I'm also enabling the gradient clipping to save the memory, visual computer losses. So gradient clipping is like, I will give a directive that, I'm required.
+
+945
+02:25:03.110 --> 02:25:06.500
+Jitendra K: To improve the model, not further than that.
+
+946
+02:25:06.670 --> 02:25:12.150
+Jitendra K: So once you… Clip the gradient, you look for 2 or 3 iterations, and then you stop.
+
+947
+02:25:12.930 --> 02:25:15.849
+Jitendra K: Instead of wasting the resources like this, right?
+
+948
+02:25:16.040 --> 02:25:20.019
+Jitendra K: Because after this, I did not require any more improvement. That is called gradient clipping.
+
+949
+02:25:20.210 --> 02:25:30.790
+Jitendra K: So, I'm creating a policy which will load, into the model training parameters. So, I will create, LORAS-only train adapters, not the full weights.
+
+950
+02:25:30.970 --> 02:25:37.290
+Jitendra K: So I'm making 1.5 trainable on 16-bit GPU, 16GB GPU by shrinking the optimization state.
+
+951
+02:25:37.550 --> 02:25:48.909
+Jitendra K: So I'm targeting these layers. This is important. This is the layer that I'm targeting. These are your target modules. And this is one of the favorite interview questions, which module you are targeting when you're training with the model.
+
+952
+02:25:49.160 --> 02:25:56.399
+Jitendra K: with LoRAS. And you can see that I'm using QKV, all projection layer, output layer, gate.
+
+953
+02:25:57.020 --> 02:25:58.770
+Jitendra K: Up and down projection.
+
+954
+02:25:59.260 --> 02:26:04.820
+Jitendra K: So these are my target modules. So what is target module in LoRAS? This is the module that you are going to.
+
+955
+02:26:05.360 --> 02:26:09.830
+Jitendra K: use… The existing… without touching the existing weight.
+
+956
+02:26:09.970 --> 02:26:12.100
+Jitendra K: We're going to just train on deltas.
+
+957
+02:26:13.890 --> 02:26:16.310
+Jitendra K: Right, so I'm going to just train on deltas.
+
+958
+02:26:16.510 --> 02:26:20.860
+Jitendra K: To, to project on the existing one.
+
+959
+02:26:21.150 --> 02:26:31.860
+Jitendra K: And, I'm just using the linear layers. This is a list which LoRa Linear Layer will use to replace with low-rank adapters, instead of updating the full weight.
+
+960
+02:26:31.970 --> 02:26:35.790
+Jitendra K: LoRa will inject a trainable rank decomposition matrix A and B,
+
+961
+02:26:35.900 --> 02:26:41.569
+Jitendra K: Into these layers, and leaving the original weight frozen, and this dynamically reduced the memory and compute.
+
+962
+02:26:42.010 --> 02:26:47.920
+Jitendra K: So, first layer is queue, projection, query projection, which will map the hidden state.
+
+963
+02:26:48.250 --> 02:26:53.970
+Jitendra K: to the query vectors. K projection, which is the key projection, map hidden state to the key vector.
+
+964
+02:26:54.200 --> 02:27:03.469
+Jitendra K: We will map hidden state to the value vector. Output projection project the concatenated attention hat back to the hidden dimension.
+
+965
+02:27:03.720 --> 02:27:07.859
+Jitendra K: So if you're not familiar with this, again, you have to revisit Transformer class.
+
+966
+02:27:11.550 --> 02:27:13.819
+Jitendra K: And this is what we are targeting.
+
+967
+02:27:21.160 --> 02:27:22.200
+Jitendra K: this layer.
+
+968
+02:27:23.880 --> 02:27:29.150
+Jitendra K: Right? So this is what we are doing. We are using a decoder-only architecture, so in this case.
+
+969
+02:27:29.350 --> 02:27:34.330
+Jitendra K: We will have an attention layer in the encoder layer, or decoder-only architecture, in this case.
+
+970
+02:27:34.580 --> 02:27:38.710
+Jitendra K: Right, so this depends upon what kind of architecture you're using. One is,
+
+971
+02:27:38.860 --> 02:27:46.890
+Jitendra K: a decoder only. So, we are going to use output projection, which will continue the attention head back to the hidden dimension.
+
+972
+02:27:46.990 --> 02:27:52.660
+Jitendra K: And then a set of feet-forward, projections, gate projection, up projection, and down projection.
+
+973
+02:27:52.840 --> 02:28:02.399
+Jitendra K: Gate projection will produce a gating signal, element-wise multiply with activation, and then up projection will expand a hidden dimension from
+
+974
+02:28:02.720 --> 02:28:06.409
+Jitendra K: 512 vectors to 2,048 vectors.
+
+975
+02:28:06.570 --> 02:28:10.899
+Jitendra K: In terms of dimension, and down projection will project back to the hidden dimension.
+
+976
+02:28:11.210 --> 02:28:16.530
+Jitendra K: So basically, this is the formula that every FFN feed-forward neural network use.
+
+977
+02:28:18.410 --> 02:28:22.300
+Jitendra K: Which is… dawn projection.
+
+978
+02:28:26.030 --> 02:28:28.379
+Jitendra K: Depends upon the activation function.
+
+979
+02:28:28.980 --> 02:28:30.899
+Jitendra K: gate projection parameter.
+
+980
+02:28:32.910 --> 02:28:36.780
+Jitendra K: Multiply by… A projection parameter.
+
+981
+02:28:37.880 --> 02:28:41.749
+Jitendra K: So this is the formula which we are going to use to perform this whole trade-off.
+
+982
+02:28:42.480 --> 02:28:47.510
+Jitendra K: Now, once you are clear that these are my target modules, so I'm going to use just a training.
+
+983
+02:28:47.920 --> 02:28:54.990
+Jitendra K: By freezing the original weight, And adding the… custom layer.
+
+984
+02:28:55.420 --> 02:28:59.490
+Jitendra K: On the top of it. That is what I'm doing here. Nothing less, nothing more.
+
+985
+02:29:01.530 --> 02:29:10.419
+Jitendra K: Right, so LoRa, I use all linear layers that are responsible for task-specific adaptation, so in RL math reasoning, I would like to improve with a policy.
+
+986
+02:29:10.550 --> 02:29:16.379
+Jitendra K: Must learn to produce step-by-step reasoning and final answer. Both attention will focus on relevant part of the prompt.
+
+987
+02:29:16.510 --> 02:29:23.299
+Jitendra K: and previous reasoning. So FFL will store those factual and reasoning knowledge, which should benefit from this adaptation.
+
+988
+02:29:24.200 --> 02:29:27.600
+Jitendra K: Right? So that is what the function of LoRa is.
+
+989
+02:29:28.630 --> 02:29:35.479
+Jitendra K: Alright, now we understand that what are the target projection layer. Now we'll move on to the mechanics.
+
+990
+02:29:35.690 --> 02:29:38.229
+Jitendra K: Of how we are training this entire setup.
+
+991
+02:29:38.550 --> 02:29:48.349
+Jitendra K: So, once we load the policy, we define the projection layer, then we will create… Something called…
+
+992
+02:29:49.800 --> 02:29:52.870
+Jitendra K: KL penalty, pull her back.
+
+993
+02:29:52.990 --> 02:29:54.720
+Jitendra K: divergence criteria.
+
+994
+02:29:55.120 --> 02:30:00.480
+Jitendra K: So we are using a penalty factor, which will load a frozen weight model, a frozen reference model.
+
+995
+02:30:00.730 --> 02:30:06.109
+Jitendra K: With LoRa, we can get reference lock probability by temporarily disabling the adapter.
+
+996
+02:30:06.480 --> 02:30:08.680
+Jitendra K: So no separate models needed for that.
+
+997
+02:30:09.230 --> 02:30:13.190
+Jitendra K: Now, in this cell, I'm writing a system prompt.
+
+998
+02:30:14.110 --> 02:30:19.850
+Jitendra K: So, here, you can see that I'm creating an instruct model. I'm instructing the model to output reasoning.
+
+999
+02:30:20.760 --> 02:30:22.410
+Jitendra K: Which is the parameter here.
+
+1000
+02:30:23.390 --> 02:30:27.610
+Jitendra K: and tag… And final answer inside this tag.
+
+1001
+02:30:27.990 --> 02:30:29.499
+Jitendra K: Which will help us, too.
+
+1002
+02:30:29.770 --> 02:30:32.590
+Jitendra K: Make this, extraction seamlessly.
+
+1003
+02:30:32.750 --> 02:30:37.330
+Jitendra K: The first and foremost thing, I'm storing the GSMK8 store, the golden answer.
+
+1004
+02:30:37.770 --> 02:30:39.650
+Jitendra K: And I'm splitting the fields.
+
+1005
+02:30:40.130 --> 02:30:46.069
+Jitendra K: Then I'm reading the role using the tokenization chat template to format the conversation.
+
+1006
+02:30:46.280 --> 02:30:55.649
+Jitendra K: And then, I'm loading the GSMK8 data subsample training and evaluation set, and I build a prompt and run it to improve the answer.
+
+1007
+02:30:56.000 --> 02:30:57.589
+Jitendra K: Right? That is what I'm doing.
+
+1008
+02:30:58.010 --> 02:31:06.070
+Jitendra K: After that, I'm converting string to float to user calculation, and then recompiling it.
+
+1009
+02:31:06.390 --> 02:31:12.800
+Jitendra K: So I'm just formatting the data here, nothing else, right? I'm just formatting the data that this is the parameter that I'm going to pass.
+
+1010
+02:31:14.070 --> 02:31:19.880
+Jitendra K: And each parameter will run against the prompt and generate a reward mechanism for me.
+
+1011
+02:31:20.390 --> 02:31:28.380
+Jitendra K: So this is where the core mechanics lies, right? Now… After it generates the rewards.
+
+1012
+02:31:28.530 --> 02:31:37.580
+Jitendra K: I'm converting this into a log probability tokens, log probabilities, right? Because I need to get a scale, I'm just computing the logits.
+
+1013
+02:31:38.490 --> 02:31:46.589
+Jitendra K: the last numbers, positions that has been saved, it will improve from further from that. And then I'm getting a per-token lock probability.
+
+1014
+02:31:46.970 --> 02:31:48.220
+Jitendra K: Right? Here.
+
+1015
+02:31:48.500 --> 02:31:52.540
+Jitendra K: And then finally, I'm using the entropy approach.
+
+1016
+02:31:52.840 --> 02:31:56.590
+Jitendra K: to compute a gradient, right? This is what I'm doing here.
+
+1017
+02:31:56.870 --> 02:32:01.520
+Jitendra K: And finally, and I mean, I'm applying the GRPO.
+
+1018
+02:32:01.830 --> 02:32:04.180
+Jitendra K: So this is the chunk loss function.
+
+1019
+02:32:04.280 --> 02:32:08.009
+Jitendra K: Which will help me to understand.
+
+1020
+02:32:08.220 --> 02:32:15.489
+Jitendra K: The… first, what it does is to compute a single important ratio per sequence, which is on land probability by geometric mean.
+
+1021
+02:32:15.650 --> 02:32:17.330
+Jitendra K: And clip that ratio.
+
+1022
+02:32:17.550 --> 02:32:23.200
+Jitendra K: that compute the, pessimistic bound of loss. So, loss is per sequence.
+
+1023
+02:32:23.500 --> 02:32:27.199
+Jitendra K: And then clip count will count how many sequences were clipped.
+
+1024
+02:32:28.520 --> 02:32:32.789
+Jitendra K: And finally, I will run this algorithm in the framework.
+
+1025
+02:32:33.030 --> 02:32:39.480
+Jitendra K: To reduce those losses during training, and then it will generate a reward, or estimated reward.
+
+1026
+02:32:39.780 --> 02:32:43.499
+Jitendra K: During this training, and that is what it is running right now, right? So this…
+
+1027
+02:32:43.940 --> 02:32:46.920
+Jitendra K: So, it'll run against the golden site.
+
+1028
+02:32:47.070 --> 02:32:50.900
+Jitendra K: And I have got the test set, so I would like to run this
+
+1029
+02:32:51.750 --> 02:32:58.459
+Jitendra K: test set, and generate a rewards, which will give me all the available assumptions that I have made during my training.
+
+1030
+02:32:58.680 --> 02:33:02.170
+Jitendra K: Since it is running for 2 or 3 different variations, it is taking time.
+
+1031
+02:33:02.490 --> 02:33:13.139
+Jitendra K: And, that's the whole idea, I mean, for this model. So you understand the crux, right? Yeah, we are not hard-coding any reward. It is generating by the signal.
+
+1032
+02:33:15.860 --> 02:33:24.930
+Jitendra K: Do we need to use any language model for reasoning inference in this exercise? No, we are not using any reasoning model. So we are just using an open source model, Quen.
+
+1033
+02:33:26.560 --> 02:33:30.060
+Jitendra K: Alibabaquan, 0.5 billion instruct model.
+
+1034
+02:33:30.500 --> 02:33:32.590
+Jitendra K: Because it is an open source model.
+
+1035
+02:33:32.930 --> 02:33:35.989
+Jitendra K: And we have a domain agnostic, label.
+
+1036
+02:33:36.910 --> 02:33:43.189
+Jitendra K: I mean, it's a mathematical model, GSMK, It's a maths reasoning.
+
+1037
+02:33:43.850 --> 02:33:45.510
+Jitendra K: So I'm improving the math.
+
+1038
+02:33:46.000 --> 02:33:47.290
+Jitendra K: problem solving.
+
+1039
+02:33:47.580 --> 02:33:49.169
+Jitendra K: Capability of the model.
+
+1040
+02:33:49.630 --> 02:33:52.499
+Jitendra K: Right? Gwen will have definitely some…
+
+1041
+02:33:53.480 --> 02:33:57.570
+Jitendra K: some way of solving mathematics, but I'm trying to improve it further.
+
+1042
+02:33:58.140 --> 02:34:02.520
+Jitendra K: by adapting this whole sequence with the help of Paft.
+
+1043
+02:34:05.300 --> 02:34:09.100
+Jitendra K: And I'm attacking those layers from transformer tension.
+
+1044
+02:34:09.530 --> 02:34:11.640
+Jitendra K: Without touching the original weights.
+
+1045
+02:34:13.400 --> 02:34:16.660
+Jitendra K: So I'm not touching these weights. I'm just focusing on…
+
+1046
+02:34:18.080 --> 02:34:22.540
+Jitendra K: A cross B, the linear projection on my new training parameters.
+
+1047
+02:34:23.160 --> 02:34:26.770
+Jitendra K: And, I'm having a set-off.
+
+1048
+02:34:26.980 --> 02:34:34.529
+Jitendra K: data, from GSM8K module, And I split this data into training and test.
+
+1049
+02:34:36.100 --> 02:34:38.189
+Jitendra K: I'm using training to explore.
+
+1050
+02:34:38.750 --> 02:34:41.910
+Jitendra K: Different ways to solve mathematical problems, so that
+
+1051
+02:34:42.020 --> 02:34:48.110
+Jitendra K: This model will understand the way to solve this problem, and use this reasoning capability
+
+1052
+02:34:48.460 --> 02:34:50.190
+Jitendra K: To tag it to this layer.
+
+1053
+02:34:51.410 --> 02:34:54.910
+Jitendra K: Right, so it's the same way that you're training yourself.
+
+1054
+02:34:55.390 --> 02:34:58.660
+Jitendra K: For new set of exams, without…
+
+1055
+02:34:59.460 --> 02:35:02.750
+Jitendra K: You know, getting, so it's like this, right?
+
+1056
+02:35:02.870 --> 02:35:05.450
+Jitendra K: So let's say you're trying to learn a new…
+
+1057
+02:35:05.680 --> 02:35:09.340
+Jitendra K: programming, let's say Go programming, you're trying to learn. There are two paths to it.
+
+1058
+02:35:09.650 --> 02:35:17.970
+Jitendra K: You go to the market, purchase all books from Go, and then try to learn, maybe 10 years, maybe after a decade, you will become master in Go.
+
+1059
+02:35:18.920 --> 02:35:22.469
+Jitendra K: Second is, you want to become a project-specific task.
+
+1060
+02:35:23.030 --> 02:35:25.479
+Jitendra K: You would like to drive a project-specific task.
+
+1061
+02:35:25.830 --> 02:35:30.559
+Jitendra K: And for that, you can go to the certain course materials, some open source.
+
+1062
+02:35:30.960 --> 02:35:35.659
+Jitendra K: blogs and volumes, and then you learn Go programming in a month.
+
+1063
+02:35:36.030 --> 02:35:37.569
+Jitendra K: Not in years.
+
+1064
+02:35:38.080 --> 02:35:43.210
+Jitendra K: Right? Because it will help you to solve your project problems, and that is your objective.
+
+1065
+02:35:43.450 --> 02:35:47.519
+Jitendra K: So, depending upon the objective, we are trying to solve this with the help of reinforcement learning.
+
+1066
+02:35:47.780 --> 02:35:49.940
+Jitendra K: And that is the beauty of reinforcement learning.
+
+1067
+02:35:52.840 --> 02:35:55.179
+Jitendra K: Is it clear now, for everyone?
+
+1068
+02:36:03.330 --> 02:36:05.960
+Jitendra K: Is it difficult? Too much difficult?
+
+1069
+02:36:07.010 --> 02:36:12.619
+Jitendra K: It is difficult, but this is an advanced level concept of retraining the model.
+
+1070
+02:36:13.240 --> 02:36:24.080
+Jitendra K: Just to understand, in SFT, we were calculating the loss with respect to prediction, the correct next… So, GRPO is a different mechanism. We are passing the labels.
+
+1071
+02:36:24.420 --> 02:36:27.280
+Jitendra K: Supervised fine-tuning, we are still doing a way
+
+1072
+02:36:27.760 --> 02:36:32.309
+Jitendra K: We are still coming under supervised fine-tuning this whole objective, because we have labels to it.
+
+1073
+02:36:33.320 --> 02:36:38.060
+Jitendra K: So, supervised fine-tuning…
+
+1074
+02:36:38.240 --> 02:36:43.309
+Jitendra K: Your learn… your objective is to learn to predict the exact next level token, given the previous context.
+
+1075
+02:36:44.160 --> 02:36:48.449
+Jitendra K: So you're doing a categorical class entropy, negative likelihood of losses.
+
+1076
+02:36:48.780 --> 02:36:51.489
+Jitendra K: In GRP, you're trying to maximize the reward.
+
+1077
+02:36:51.940 --> 02:36:53.610
+Jitendra K: After whole completion.
+
+1078
+02:36:54.180 --> 02:36:57.410
+Jitendra K: So you are trying to reduce the mathematical compilation errors.
+
+1079
+02:36:57.830 --> 02:37:00.070
+Jitendra K: By clipping the gradient using.
+
+1080
+02:37:01.000 --> 02:37:03.340
+Jitendra K: The task that you have given to the model.
+
+1081
+02:37:05.620 --> 02:37:12.200
+Jitendra K: So the… Algorithm is still, I will say, supervised, but with reinforcement learning.
+
+1082
+02:37:13.150 --> 02:37:15.599
+Jitendra K: Yeah, but they are serving two different purposes.
+
+1083
+02:37:16.040 --> 02:37:17.620
+Jitendra K: SFT and GRPO.
+
+1084
+02:37:27.820 --> 02:37:29.570
+Jitendra K: So this is what we are doing here.
+
+1085
+02:37:34.990 --> 02:37:38.890
+Jitendra K: So, any question, anything that you would like to ask now?
+
+1086
+02:37:51.780 --> 02:37:53.229
+Jitendra K: Yeah, I will share that.
+
+1087
+02:38:01.050 --> 02:38:07.909
+Jitendra K: So the homework for you guys is, you need to run this first, GRPU function, and
+
+1088
+02:38:08.120 --> 02:38:10.020
+Jitendra K: First and foremost, I think you need to run it.
+
+1089
+02:38:10.500 --> 02:38:13.759
+Jitendra K: And then understand, each and every line.
+
+1090
+02:38:14.560 --> 02:38:17.659
+Jitendra K: And then let me know if there's any question tomorrow.
+
+1091
+02:38:21.770 --> 02:38:23.900
+Jitendra K: So, let me share this as well.
+
+1092
+02:38:39.030 --> 02:38:40.470
+Jitendra K: Yeah, that's good.
+
+1093
+02:38:41.680 --> 02:38:44.440
+Jitendra K: So, I hope we are using open source model.
+
+1094
+02:38:44.960 --> 02:38:46.599
+Jitendra K: Which model are you using?
+
+1095
+02:38:55.800 --> 02:38:57.160
+Jitendra K: Okay, okay.
+
+1096
+02:39:02.450 --> 02:39:03.270
+Jitendra K: Right.
+
+1097
+02:39:03.740 --> 02:39:08.360
+Jitendra K: Yeah, so it can be very, very useful for domain-specific task adaptation.
+
+1098
+02:39:08.540 --> 02:39:15.999
+Jitendra K: And this approach, is, quietly foolproof, right? Instead of going with RAG optimization.
+
+1099
+02:39:16.340 --> 02:39:22.310
+Jitendra K: You can go with, GRPO functions to implement a policy.
+
+1100
+02:39:22.540 --> 02:39:29.300
+Jitendra K: And, do you think that, companies like Gemini, Google, Microsoft.
+
+1101
+02:39:29.640 --> 02:39:33.780
+Jitendra K: Facebook matter, they are using Rack to optimize your response?
+
+1102
+02:39:35.790 --> 02:39:38.610
+Jitendra K: The answer is no, they are not. They are using these methods.
+
+1103
+02:39:38.850 --> 02:39:40.479
+Jitendra K: To optimize the algorithm.
+
+1104
+02:39:51.770 --> 02:39:52.969
+Jitendra K: Okay, great.
+
+1105
+02:40:06.470 --> 02:40:13.790
+Jitendra K: Yeah, it could be. Training, fine-tuning the language model to adapt to a domain. It could be SLM approach as well, yes.
+
+1106
+02:40:53.730 --> 02:40:57.780
+Jitendra K: Yeah, you can go ahead and show your demo, I think,
+
+1107
+02:40:58.730 --> 02:41:03.950
+Jitendra K: Or maybe if you want to continue tomorrow as well, that should be fine as well, but… Yeah.
+
+1108
+02:41:05.590 --> 02:41:09.910
+Allen Abishek: Hello. Thank you. I will share my screen.
+
+1109
+02:41:10.480 --> 02:41:15.790
+Allen Abishek: Sure. You cannot start screen share while the other participant is sharing.
+
+1110
+02:41:15.790 --> 02:41:18.870
+Jitendra K: Let me stop the screen share. Yeah.
+
+1111
+02:41:21.780 --> 02:41:22.820
+Allen Abishek: Yeah.
+
+1112
+02:41:31.250 --> 02:41:39.520
+Allen Abishek: Screen… Yes. So… If, if you can see here,
+
+1113
+02:41:44.120 --> 02:41:45.020
+Allen Abishek: Yeah
+
+1114
+02:41:49.570 --> 02:41:53.080
+Allen Abishek: So, what we have is, we have two EC2s.
+
+1115
+02:41:53.630 --> 02:42:00.080
+Allen Abishek: And each EC2 has an AI agent and a STN controller running in it.
+
+1116
+02:42:00.660 --> 02:42:12.750
+Allen Abishek: For that, we SSH into each EC2, And… If you see here, Right.
+
+1117
+02:42:15.940 --> 02:42:23.540
+Allen Abishek: There is a, like, TFS NAF agent, and
+
+1118
+02:42:24.130 --> 02:42:36.740
+Allen Abishek: which is the AI agent. The AI agent consists of, if you… Hmm… 3… 3 pods, which is…
+
+1119
+02:42:38.620 --> 02:42:42.300
+Allen Abishek: this thing is blocking, I'm not able to.
+
+1120
+02:42:44.450 --> 02:42:50.650
+Jitendra K: No, that's fine. I think, even if you give the flow, that should be okay, and you can show some samples.
+
+1121
+02:42:50.650 --> 02:42:57.470
+Allen Abishek: Yeah, yeah. Yeah, so you run the STN controller, which is these pods, and then you also…
+
+1122
+02:42:57.650 --> 02:43:02.439
+Allen Abishek: like, run the kubectlit pods hyphen A.
+
+1123
+02:43:10.350 --> 02:43:15.050
+Jitendra K: Okay, so you have implemented both A2A and MCP, that's awesome. That's really awesome.
+
+1124
+02:43:15.360 --> 02:43:18.440
+Jitendra K: I can see it's a very modular code as well.
+
+1125
+02:43:18.900 --> 02:43:21.500
+Jitendra K: And even the memory management, you have done.
+
+1126
+02:43:21.600 --> 02:43:24.180
+Jitendra K: So, which package you have used for memory management?
+
+1127
+02:43:24.630 --> 02:43:33.760
+Allen Abishek: For memory management, this is the… this is for session, memory, lang core messages.
+
+1128
+02:43:33.860 --> 02:43:38.720
+Allen Abishek: Basically, your chat, the chat, so it doesn't forget what you said in the.
+
+1129
+02:43:38.720 --> 02:43:44.210
+Jitendra K: So I think you can use MAM0 or PGSQL, that will improve your…
+
+1130
+02:43:44.570 --> 02:43:49.459
+Jitendra K: A memory management seamlessly, because when you're debugging the agentic behavior, sometimes
+
+1131
+02:43:49.590 --> 02:43:56.070
+Jitendra K: it ends up into an finite rate state, and it is easy to verify with the help of MEM0 and PGCQL.
+
+1132
+02:43:56.640 --> 02:43:57.909
+Jitendra K: But yeah, I mean, that's cool.
+
+1133
+02:43:58.640 --> 02:44:06.320
+Allen Abishek: Yeah, this one is just a very lightweight, like, POC, thing, so we just, did, did, like.
+
+1134
+02:44:06.320 --> 02:44:11.390
+Jitendra K: Maybe, why don't you start with the agents… how many agents are you using, and what are the services?
+
+1135
+02:44:12.100 --> 02:44:15.529
+Allen Abishek: So, per EC2, we have one agent.
+
+1136
+02:44:15.640 --> 02:44:23.469
+Allen Abishek: One, pod which connects to the OLAMA model running on a server in the testbed.
+
+1137
+02:44:23.600 --> 02:44:28.660
+Allen Abishek: And then one MCP server, which, the agent talks to.
+
+1138
+02:44:28.840 --> 02:44:32.700
+Allen Abishek: The MCP server is connected to the SDN controller.
+
+1139
+02:44:32.890 --> 02:44:38.330
+Allen Abishek: STN controller's NBI service, so it translates to
+
+1140
+02:44:38.450 --> 02:44:47.190
+Allen Abishek: MCP server tool call is translated to, like, a REST API request of the NBI service endpoint.
+
+1141
+02:44:48.290 --> 02:44:54.590
+Allen Abishek: So it's the same as sending a REST API request to the NBI, and saying, hey, do this, get this.
+
+1142
+02:44:54.920 --> 02:44:56.139
+Allen Abishek: Like, like that.
+
+1143
+02:44:56.420 --> 02:45:01.549
+Allen Abishek: If you… so, the same thing is replicated in two servers.
+
+1144
+02:45:01.680 --> 02:45:07.379
+Allen Abishek: And if you see in the, like, in the .env, like, we connect them,
+
+1145
+02:45:07.680 --> 02:45:11.229
+Allen Abishek: On this… the .env.
+
+1146
+02:45:11.800 --> 02:45:22.819
+Allen Abishek: Like, this is the private IP address of each EC2, so this EC2 is connected to the other EC2's private address, and this is the ingress proxy.
+
+1147
+02:45:23.110 --> 02:45:29.369
+Allen Abishek: And this is the, the port which is exposed of the MCP server.
+
+1148
+02:45:29.570 --> 02:45:38.909
+Allen Abishek: And the MCP server is found… the files are in this folder, so you basically build the image. So all you have to do is, you have to go to…
+
+1149
+02:45:39.380 --> 02:45:44.750
+Allen Abishek: scripts. First build the images, it will build these 3 images.
+
+1150
+02:45:44.930 --> 02:45:48.430
+Allen Abishek: Then you deploy KDSSH, it will deploy.
+
+1151
+02:45:48.750 --> 02:45:57.450
+Allen Abishek: make a few… see over here, deploy KDS, and then it deploys.
+
+1152
+02:45:58.460 --> 02:46:11.180
+Allen Abishek: I already built it, so I just ran the thing directly for deploy kds, kubernetes.sh. So you just… you have to install micro Kubernetes, and
+
+1153
+02:46:11.330 --> 02:46:18.690
+Allen Abishek: You have to… there is an open source repository of the STN controller, you just do git clone, and then
+
+1154
+02:46:18.820 --> 02:46:23.200
+Allen Abishek: You clone the repository, And,
+
+1155
+02:46:24.100 --> 02:46:40.609
+Allen Abishek: you go here, you run this shell script, and then it will create the pods, like Docker images, everything. It's like a 40-minute process, but then once it's done, then the next time you just start and stop the containers. That's it. I mean, the pods, that's it.
+
+1156
+02:46:41.620 --> 02:46:47.700
+Allen Abishek: And so the same thing happens in two servers. So, if you see here,
+
+1157
+02:46:56.020 --> 02:47:00.440
+Allen Abishek: I'm not able to show this. So, like, if you see here, there is, like.
+
+1158
+02:47:00.920 --> 02:47:05.790
+Allen Abishek: a TFS… the SDN controller's web UI of one EC2,
+
+1159
+02:47:05.940 --> 02:47:13.339
+Allen Abishek: then the agent's web UI of the same EC2, the SDN controller of the other EC2, and
+
+1160
+02:47:13.790 --> 02:47:32.299
+Allen Abishek: the AI agent of that EC2. So now you have two peer agents in this scenario. So what we can do is we can upload a topology to… for it to connect to, and that is… right now, it's not, like, working for optical, so we're just focusing on packet.
+
+1161
+02:47:32.520 --> 02:47:38.930
+Allen Abishek: But once the optical is ready, then we'll have packet optical network.
+
+1162
+02:47:39.490 --> 02:47:43.349
+Allen Abishek: And then… We add this topology.
+
+1163
+02:47:43.970 --> 02:47:45.090
+Allen Abishek: So…
+
+1164
+02:47:45.210 --> 02:48:04.740
+Allen Abishek: If you see here, we have routers, data center, that's your compute nodes, and then net X, so that's, like, your gateway to the outside world, so this is your gateway endpoint. And then, the same thing, what you would do is, you, like, we'll connect another topology.
+
+1165
+02:48:05.150 --> 02:48:07.809
+Allen Abishek: This is this, another piece.
+
+1166
+02:48:08.620 --> 02:48:17.939
+Allen Abishek: So these are two separate network topologies. Maybe one is owned by ISP provider A, and the other is owned by ISP provider B.
+
+1167
+02:48:18.030 --> 02:48:34.700
+Allen Abishek: But in order, like, you're making a WhatsApp call or something like that, so a session needs to be created between, like, say, DC6 of ISP provider B, and DC1 of ISP provider A.
+
+1168
+02:48:34.790 --> 02:48:50.179
+Allen Abishek: So, you have, instead of manually doing all the configuration and everything to set up the service, like, L2VPN service for, like, connectivity, maybe it is SD-WAN, maybe it is VPN as a service, the company is offering, like, VPN.
+
+1169
+02:48:50.230 --> 02:48:57.740
+Allen Abishek: So, to give, like, the direct connection between… but the underlays between different ISP segments are working together.
+
+1170
+02:48:57.870 --> 02:49:04.940
+Allen Abishek: So, what you can do is, like, just say something like, get… all devices.
+
+1171
+02:49:05.130 --> 02:49:15.939
+Allen Abishek: What this will do, it will take the intent, it will compare with the rag what tool call to make, based on, like, sample scenarios, and then it will…
+
+1172
+02:49:16.350 --> 02:49:34.760
+Allen Abishek: the model will, learn from this, and it will tell the MCP server… it will execute an MCP server call. The MCP server tool call is basically TFS inventory. This will translate to a GET API request of the STN controller's NBI service.
+
+1173
+02:49:34.790 --> 02:49:37.460
+Allen Abishek: And then you will get back a replacing
+
+1174
+02:49:37.510 --> 02:49:47.319
+Allen Abishek: oh, these are the devices and the details, like name, UUID, Ethernet endpoints, and the same thing for
+
+1175
+02:49:47.420 --> 02:49:51.080
+Allen Abishek: This one as well, like, you can say, get all devices.
+
+1176
+02:49:51.930 --> 02:49:54.900
+Jitendra K: And you have developed this whole application using Streamlit, right?
+
+1177
+02:49:55.800 --> 02:50:05.069
+Allen Abishek: For this, yes, Streamlit for the web UI. Actually, I didn't use Streamlit, I just, like, said, make a generic front-end web page.
+
+1178
+02:50:05.810 --> 02:50:08.110
+Jitendra K: Oh, okay, with JavaScript, you wouldn't say.
+
+1179
+02:50:08.280 --> 02:50:13.850
+Allen Abishek: Yeah, yes, yes, HTML and, the… and then the JavaScript, yes.
+
+1180
+02:50:14.250 --> 02:50:18.830
+Jitendra K: Oh, that's awesome. I think the visuals are appealing as well, I mean.
+
+1181
+02:50:19.310 --> 02:50:20.740
+Jitendra K: That looks awesome.
+
+1182
+02:50:21.270 --> 02:50:22.310
+Jitendra K: And I think…
+
+1183
+02:50:22.310 --> 02:50:23.850
+Allen Abishek: So,
+
+1184
+02:50:24.030 --> 02:50:31.480
+Jitendra K: I think you will not get into any, latency issue, what stream did have. So, yeah, that's the right approach.
+
+1185
+02:50:32.530 --> 02:50:39.620
+Allen Abishek: Yeah, I mean, for now, we just have… we're just doing it as, like, a proof of concept for the journal paper we're working on, but
+
+1186
+02:50:39.640 --> 02:50:56.749
+Allen Abishek: The Telefonica guys will clone the reposit, like, because the universities will make their repositories open source once it is complete, the project is complete. Then the Telefonica guys, like, anyone can access it once it's open source from anywhere.
+
+1187
+02:50:56.780 --> 02:51:01.990
+Allen Abishek: But then these fellows, like, from Telefonica, Orange, Deutsch Telecom, they'll… they will…
+
+1188
+02:51:02.060 --> 02:51:08.609
+Allen Abishek: Clone it, and then they will add some stuff, make changes on top of it, and then they'll say proprietary and sell it in the market.
+
+1189
+02:51:09.550 --> 02:51:10.779
+Jitendra K: Yeah, I agree.
+
+1190
+02:51:11.360 --> 02:51:16.439
+Jitendra K: So, I mean, this is awesome, I think. This is a new research, which we are doing.
+
+1191
+02:51:16.920 --> 02:51:23.110
+Jitendra K: And it will definitely going to help L1 team to debug the network issues much, much faster.
+
+1192
+02:51:23.560 --> 02:51:29.280
+Jitendra K: As compared to, so that means you are reducing the SLA of investigation.
+
+1193
+02:51:29.800 --> 02:51:34.020
+Jitendra K: from… These op… these, agentic operations.
+
+1194
+02:51:35.430 --> 02:51:36.010
+Allen Abishek: Yeah.
+
+1195
+02:51:36.460 --> 02:51:38.760
+Jitendra K: Yeah, that's awesome, I think. This is…
+
+1196
+02:51:40.310 --> 02:51:42.720
+Allen Abishek: solid autonomous networking systems.
+
+1197
+02:51:42.720 --> 02:51:51.850
+Jitendra K: Yeah, I agree, I agree. And there's a huge investment in L1 team, and your model can target those reductions in terms of cost.
+
+1198
+02:51:51.850 --> 02:51:59.280
+Allen Abishek: Yes, the goal is semi-autonomous self-operating networks.
+
+1199
+02:51:59.280 --> 02:51:59.800
+Jitendra K: Hmm.
+
+1200
+02:51:59.800 --> 02:52:00.969
+Allen Abishek: what you gotta do?
+
+1201
+02:52:01.120 --> 02:52:10.410
+Allen Abishek: OPEX of… Telecom operators and ISP providers. That is their, like, the goal, is what they.
+
+1202
+02:52:10.410 --> 02:52:13.570
+Jitendra K: Oh, awesome, awesome, man. And this is a…
+
+1203
+02:52:13.950 --> 02:52:18.369
+Jitendra K: Million dollar project that you're showing. But, yeah, that's fine.
+
+1204
+02:52:18.800 --> 02:52:32.319
+Allen Abishek: Yeah, so see, DC1 is in network 1, and DC6 is in network 2. So, maybe this one is owned by Airtel, and this one… this network is owned by… by GEO or someone, but they need to share their capabilities
+
+1205
+02:52:32.320 --> 02:52:39.270
+Allen Abishek: Because these two need to talk to each other. So now, if you see DC1 here, and then if we go to service.
+
+1206
+02:52:39.820 --> 02:52:46.860
+Allen Abishek: you see, like, it has been created, L2, and then these are, like, the dependent services, this is the parent service.
+
+1207
+02:52:47.090 --> 02:52:55.259
+Allen Abishek: And then, if you go to this SDN controller, you can see the other extension over here.
+
+1208
+02:52:55.410 --> 02:53:09.809
+Allen Abishek: So, I never said anything, I only spoke to AI agent in one… in this EC2. I never spoke to AI agent of this EC2, I only asked for topology, that's it. So, this AI agent spoke to this AI agent.
+
+1209
+02:53:09.880 --> 02:53:24.890
+Allen Abishek: And then it, told its STN controller, hey, create a VPN, L2 VPN from NetExt to DC6. So that is from NetExt to DC6 over here.
+
+1210
+02:53:25.250 --> 02:53:32.630
+Jitendra K: Yeah, I think this will replace all the L1 operation, for sure. L1 team is not required after they deploy these agents.
+
+1211
+02:53:33.030 --> 02:53:46.330
+Allen Abishek: So this one goes, like, from DC1, Router 1, NetExt, and the other network's NetExt connects to this, and it goes to DC6. So you have, like, a L2VPN across two networking domains.
+
+1212
+02:53:46.730 --> 02:53:54.420
+Allen Abishek: and everything is taken care of. The AI agents use something called Pareto optimality algorithm.
+
+1213
+02:53:54.710 --> 02:53:55.429
+Jitendra K: Oh, by the…
+
+1214
+02:53:55.430 --> 02:53:56.220
+Allen Abishek: the…
+
+1215
+02:53:56.620 --> 02:53:58.429
+Jitendra K: For candidate selections, okay?
+
+1216
+02:53:58.680 --> 02:54:12.870
+Allen Abishek: So basically, what they do is, each AI agent knows the other AI agent will do what's best to achieve the entire goal. So this will also do what's best to achieve the entire goal. It's like a… it's the opposite of Nash equilibrium.
+
+1217
+02:54:14.320 --> 02:54:17.949
+Allen Abishek: So, these AI agents will assume that, hey, this… my other.
+
+1218
+02:54:17.950 --> 02:54:18.640
+Jitendra K: I think one…
+
+1219
+02:54:18.640 --> 02:54:18.960
+Allen Abishek: this…
+
+1220
+02:54:18.960 --> 02:54:25.430
+Jitendra K: One recommendation from my side, if you have a list of L1 incident by CBRIT,
+
+1221
+02:54:25.640 --> 02:54:34.850
+Jitendra K: And you can simulate the scenarios, based upon the previous feedback from the human, and try to compare this agent against what kind of remediation they perform.
+
+1222
+02:54:35.310 --> 02:54:39.229
+Jitendra K: as a human, that will give you a huge amount of,
+
+1223
+02:54:40.150 --> 02:54:43.139
+Jitendra K: Push back, as a part of industrial use case.
+
+1224
+02:54:43.370 --> 02:54:46.580
+Jitendra K: So my recommendation is you can use some simulated scenarios.
+
+1225
+02:54:46.830 --> 02:54:52.020
+Jitendra K: Take data from Airtel or some client, whoever you're working with.
+
+1226
+02:54:52.120 --> 02:54:57.379
+Jitendra K: they might… they might have a data, because they are using ServiceNow for log management, and that's the whole purpose of it.
+
+1227
+02:54:57.550 --> 02:54:59.599
+Jitendra K: Everything has been logged, right?
+
+1228
+02:54:59.910 --> 02:55:07.150
+Jitendra K: So you can use those ground truth labels, which are then performed as a part of inspection, remediations.
+
+1229
+02:55:07.410 --> 02:55:21.700
+Jitendra K: And you can try these steps with the help of AI Agent, and then show them that my agents are doing exemplary in terms of improving the overall efficacy of the network design with a lower downtime.
+
+1230
+02:55:21.930 --> 02:55:25.760
+Jitendra K: a lower business interruption with 99.9% SLA meat.
+
+1231
+02:55:25.970 --> 02:55:31.130
+Jitendra K: And, the cost of operation is this, as compared to the team that you're operating with L1.
+
+1232
+02:55:31.430 --> 02:55:40.849
+Jitendra K: And, the time to resolution TTR is improving by 99%. So with that, I think this will become, basically.
+
+1233
+02:55:42.230 --> 02:55:45.959
+Jitendra K: Another fascinating use cases that you have solved with Agent GI?
+
+1234
+02:55:46.980 --> 02:55:55.660
+Allen Abishek: Nice. So that's… so even, like, that's why I was thinking, like, now you have multi-agent system, now add reinforcement learning on top of it.
+
+1235
+02:55:55.660 --> 02:55:59.230
+Jitendra K: Yeah, exactly, that will automatically come, because once you understand
+
+1236
+02:55:59.450 --> 02:56:05.720
+Jitendra K: That this is the ground truth label, this is the remediation step, and your agent will start adapting to it.
+
+1237
+02:56:05.980 --> 02:56:10.020
+Jitendra K: So, there's a huge scope of reinforcement learning in this scenario as well.
+
+1238
+02:56:11.770 --> 02:56:27.969
+Allen Abishek: And then, if you see here, you can see what tool calls the model made to the MCP server. So, list inventory, list peers, so it needs to discover the other peer, and then it will say, hey, once the other peer agent has been discovered.
+
+1239
+02:56:27.970 --> 02:56:33.150
+Allen Abishek: Hi, please, provision this type of service in your end.
+
+1240
+02:56:33.370 --> 02:56:38.090
+Allen Abishek: And then it will do and send back, the confirmation.
+
+1241
+02:56:38.250 --> 02:56:43.640
+Allen Abishek: So, and then we can also delete the service just by telling it to delete, so the services…
+
+1242
+02:56:43.860 --> 02:56:48.610
+Allen Abishek: L2, VPN, DC1, DC6.
+
+1243
+02:56:52.640 --> 02:56:55.830
+Allen Abishek: DC1, DC6. Delete service.
+
+1244
+02:56:58.370 --> 02:57:01.460
+Allen Abishek: It's better to use the UUID, yeah.
+
+1245
+02:57:07.190 --> 02:57:08.770
+Allen Abishek: And then it will delete.
+
+1246
+02:57:10.150 --> 02:57:10.670
+Jitendra K: Yeah.
+
+1247
+02:57:11.350 --> 02:57:15.259
+Allen Abishek: EFS delete service. So this MCP server has been called.
+
+1248
+02:57:15.640 --> 02:57:19.549
+Jitendra K: Yeah, that is a remediation… remediation steps that you're performing, and that's…
+
+1249
+02:57:19.890 --> 02:57:22.780
+Jitendra K: Yeah, that's fascinating, yeah, I think, yeah.
+
+1250
+02:57:23.170 --> 02:57:23.810
+Allen Abishek: So…
+
+1251
+02:57:23.810 --> 02:57:30.350
+Jitendra K: So you're reducing the downtime, you're reducing the downtime, you're… In decreasing the operational cost.
+
+1252
+02:57:30.890 --> 02:57:33.880
+Jitendra K: You are reducing the human dependencies.
+
+1253
+02:57:34.040 --> 02:57:36.640
+Jitendra K: Because this needs to be 24 plus 7.
+
+1254
+02:57:36.640 --> 02:57:37.460
+Allen Abishek: Yes, yes.
+
+1255
+02:57:37.460 --> 02:57:43.319
+Jitendra K: And, you're also improving the overall SLA meetup criteria meetup criterias.
+
+1256
+02:57:43.650 --> 02:57:48.840
+Jitendra K: That's fascinating, I think, that's… that's, that's… Really awesome, man.
+
+1257
+02:57:49.340 --> 02:57:51.780
+Jitendra K: That will solve a lot of issues, actually.
+
+1258
+02:57:52.190 --> 02:57:54.899
+Jitendra K: So this is your PhD project, right?
+
+1259
+02:57:54.900 --> 02:58:07.879
+Allen Abishek: Yes, this is my PhD project, it's network automation, basically. All this, I use two components, one is SDN controller, the other one is NFV orchestrator.
+
+1260
+02:58:08.290 --> 02:58:12.089
+Allen Abishek: And then all these AI agents run in parallel
+
+1261
+02:58:12.200 --> 02:58:20.170
+Allen Abishek: So, to automatically configure, reconfigure the network based on how the user plane traffic keeps changing.
+
+1262
+02:58:21.900 --> 02:58:22.820
+Jitendra K: Okay.
+
+1263
+02:58:23.170 --> 02:58:25.619
+Allen Abishek: We call it closed-loop automation.
+
+1264
+02:58:27.060 --> 02:58:29.550
+Allen Abishek: Yep. Automation.
+
+1265
+02:58:30.450 --> 02:58:33.859
+Allen Abishek: So this is my PhD area.
+
+1266
+02:58:35.460 --> 02:58:38.200
+Jitendra K: Oh, you're using closed-loop network automation.
+
+1267
+02:58:38.460 --> 02:58:41.579
+Allen Abishek: Closed-loop automation for the network automation.
+
+1268
+02:58:42.420 --> 02:58:46.120
+Jitendra K: That means they are mesh typology, which has been predefined.
+
+1269
+02:58:46.320 --> 02:58:49.240
+Jitendra K: And you're using… oh, okay, okay.
+
+1270
+02:58:49.240 --> 02:58:57.420
+Allen Abishek: I can share my screen again, I can show a small example, one second,
+
+1271
+02:59:02.070 --> 02:59:05.080
+Allen Abishek: Of course, blue… Yes.
+
+1272
+02:59:05.580 --> 02:59:06.870
+Allen Abishek: And,
+
+1273
+02:59:12.590 --> 02:59:14.579
+Allen Abishek: You see here.
+
+1274
+02:59:16.920 --> 02:59:20.910
+Jitendra K: And which tool are you using to write this, thesis overly?
+
+1275
+02:59:21.100 --> 02:59:24.620
+Allen Abishek: Overleaf. So this is a journal paper.
+
+1276
+02:59:25.340 --> 02:59:26.089
+Jitendra K: Yeah, this is a preview.
+
+1277
+02:59:26.090 --> 02:59:33.219
+Allen Abishek: So it's not free, it's, there is, like, a limited version which is free, but my university gives premium.
+
+1278
+02:59:33.610 --> 02:59:34.180
+Jitendra K: Oh, okay.
+
+1279
+02:59:35.030 --> 02:59:36.279
+Jitendra K: to understand latex.
+
+1280
+02:59:36.510 --> 02:59:38.260
+Jitendra K: As well, right?
+
+1281
+02:59:38.260 --> 02:59:43.580
+Allen Abishek: to no latex. If you're doing an individual, like, maybe 3, 5… I think five projects are free.
+
+1282
+02:59:43.960 --> 02:59:48.820
+Allen Abishek: But more than 5 is, you have to pay.
+
+1283
+02:59:49.570 --> 02:59:53.180
+Jitendra K: Okay, great. Yeah, that is something which is also useful.
+
+1284
+02:59:53.440 --> 02:59:57.700
+Jitendra K: So what other tool you are using for writing this thesis, apart from latex?
+
+1285
+02:59:58.550 --> 03:00:04.110
+Allen Abishek: As of now, only latex. I haven't used anything. Past 2 years, only latex.
+
+1286
+03:00:04.840 --> 03:00:05.840
+Jitendra K: Okay, great.
+
+1287
+03:00:05.840 --> 03:00:12.599
+Allen Abishek: like, this one is using AI Agent for close-loop automation for DDoS attack mitigation.
+
+1288
+03:00:13.130 --> 03:00:13.570
+Jitendra K: Basically.
+
+1289
+03:00:13.570 --> 03:00:18.059
+Allen Abishek: Basically, what we have is, like, an AI agent, same with LanChain.
+
+1290
+03:00:18.430 --> 03:00:20.400
+Allen Abishek: This is the AI agent.
+
+1291
+03:00:20.580 --> 03:00:23.660
+Allen Abishek: And then this is… so, when,
+
+1292
+03:00:24.080 --> 03:00:28.380
+Allen Abishek: attack is simulated in the NDT over here.
+
+1293
+03:00:28.990 --> 03:00:37.060
+Allen Abishek: No, not simulated, sorry. When a notification comes to the AI agent via the MCP, I mean, via the…
+
+1294
+03:00:37.250 --> 03:00:50.660
+Allen Abishek: GUI, or there is another Kafka broker, which will say… which will again post into the GUI that attack has been detected from here to here, like, in this server, targeting this server.
+
+1295
+03:00:50.980 --> 03:01:00.320
+Allen Abishek: So then what it will do, it will… it'll automatically simulate an attack in that server, like, via the routers, which go to that server.
+
+1296
+03:01:00.460 --> 03:01:07.370
+Allen Abishek: And then, it will try to mitigate the attack in the simulated,
+
+1297
+03:01:07.480 --> 03:01:13.809
+Allen Abishek: attack using ACLs by installing them, and then checking if
+
+1298
+03:01:13.940 --> 03:01:22.059
+Allen Abishek: It's, the attack has been… if the attack packets are being dropped in the simulated routers using this equation.
+
+1299
+03:01:22.420 --> 03:01:28.350
+Allen Abishek: And if it works, then it will push the actual ACL configurations
+
+1300
+03:01:28.580 --> 03:01:35.489
+Allen Abishek: to the control orchestrator, which will push it to the physical network where the DDoS attack is actually happening.
+
+1301
+03:01:35.750 --> 03:01:43.140
+Allen Abishek: So you just need a notification. The system will mitigate it itself, instead of, like, using a cybersecurity
+
+1302
+03:01:43.660 --> 03:01:44.950
+Allen Abishek: engineer.
+
+1303
+03:01:45.590 --> 03:01:51.069
+Jitendra K: Yeah, that is what I'm talking about. The initial investigation will be much, much faster.
+
+1304
+03:01:51.170 --> 03:01:54.069
+Jitendra K: Are you implementing the solution without L1 team.
+
+1305
+03:01:54.220 --> 03:01:58.079
+Jitendra K: This is what L1 team is doing 24 across 7. They have an operational.
+
+1306
+03:01:58.080 --> 03:02:00.740
+Allen Abishek: So this one will do the 24 plus 7.
+
+1307
+03:02:00.960 --> 03:02:02.460
+Jitendra K: Yeah, yeah, yeah.
+
+1308
+03:02:02.460 --> 03:02:05.700
+Allen Abishek: This platform, these three components together.
+
+1309
+03:02:05.890 --> 03:02:21.990
+Allen Abishek: So, they monitor… so this is the closed loop over here. I don't know if it's big enough. Yes. It will do the action, it will get the feedback from KPI monitoring of the routers, like, I think there's some 3 KPIs it monitors from the routers.
+
+1310
+03:02:22.110 --> 03:02:26.810
+Allen Abishek: then it goes back to the agent. The agent decides if it's good enough or not.
+
+1311
+03:02:26.950 --> 03:02:31.120
+Allen Abishek: Then they… if it's not good enough, the AI agent will do something else.
+
+1312
+03:02:31.390 --> 03:02:41.780
+Allen Abishek: And then once the threshold is met, like, it meets the conditions, then whatever was the most recent ACLs, it will post into the actual network via this.
+
+1313
+03:02:42.230 --> 03:02:43.480
+Jitendra K: That's awesome, I think, yeah.
+
+1314
+03:02:43.850 --> 03:02:47.070
+Allen Abishek: Incidentally, this is a close-loop example.
+
+1315
+03:02:48.610 --> 03:02:50.960
+Jitendra K: So this is ICA incident control versus…
+
+1316
+03:02:52.260 --> 03:02:54.919
+Allen Abishek: You know, intent compliance assessor.
+
+1317
+03:02:56.990 --> 03:02:59.740
+Allen Abishek: And this is the incident notification.
+
+1318
+03:03:01.260 --> 03:03:03.449
+Allen Abishek: This is the AI agent, the ICA.
+
+1319
+03:03:03.610 --> 03:03:08.849
+Allen Abishek: And this is the digital twin of the… Of this physical network.
+
+1320
+03:03:14.840 --> 03:03:15.640
+Allen Abishek: -Oh.
+
+1321
+03:03:16.190 --> 03:03:21.830
+Allen Abishek: I'm working on another one, but I don't think I'll be able to showcase that by the time I finish, this program will…
+
+1322
+03:03:22.270 --> 03:03:23.180
+Allen Abishek: Finish.
+
+1323
+03:03:37.190 --> 03:03:38.330
+Allen Abishek: Yeah.
+
+1324
+03:03:42.680 --> 03:03:43.440
+Allen Abishek: Hello?
+
+1325
+03:03:56.490 --> 03:04:00.800
+Allen Abishek: I think Jite Tender dropped the call, or dropped from the call, I don't know.
+
+1326
+03:04:22.140 --> 03:04:23.490
+Allen Abishek: So what do we do now?
+
+1327
+03:09:06.250 --> 03:09:09.650
+Jitendra K: Hey, sorry guys, I think there's some network interruption.
+
+1328
+03:09:09.780 --> 03:09:16.309
+Jitendra K: So, I just rejoined. But yeah, excellent work, and I think this is one of the fascinating work I've seen.
+
+1329
+03:09:16.680 --> 03:09:22.780
+Jitendra K: So I hope this paper is going to be published soon, or is it already… Publish.
+
+1330
+03:09:22.780 --> 03:09:31.059
+Allen Abishek: We will publish it soon, like, maybe by the end of this year in, IEEE Journal, Computer Networks.
+
+1331
+03:09:31.420 --> 03:09:34.539
+Jitendra K: Oh, this is gonna be archived, okay, yeah, sure.
+
+1332
+03:09:34.910 --> 03:09:38.200
+Jitendra K: That's, that's really awesome, I think, once it's gone…
+
+1333
+03:09:38.200 --> 03:09:42.840
+Allen Abishek: published, I can share it in the WhatsApp group.
+
+1334
+03:09:42.840 --> 03:09:43.510
+Jitendra K: Definitely.
+
+1335
+03:09:44.310 --> 03:09:52.109
+Jitendra K: Thanks, yeah, I think that will make sense. And the code standards looks also good, I think it's very descriptive, pretty well aligned.
+
+1336
+03:09:52.570 --> 03:09:55.189
+Jitendra K: So, this looks awesome, I think.
+
+1337
+03:09:56.220 --> 03:10:06.909
+Allen Abishek: Yeah, we have a lot of potential, like, for Indian vendors to create products like this. A lot of open-source softwares. We need, like, good systems to organize the…
+
+1338
+03:10:07.050 --> 03:10:09.920
+Allen Abishek: Brains and workforce.
+
+1339
+03:10:10.320 --> 03:10:16.729
+Allen Abishek: Yeah. And then we can also have, like, very good, what to say, like, quality…
+
+1340
+03:10:16.960 --> 03:10:20.090
+Allen Abishek: Products in the global market.
+
+1341
+03:10:21.140 --> 03:10:22.699
+Jitendra K: Yeah, that's great, that's great.
+
+1342
+03:10:23.410 --> 03:10:27.899
+Jitendra K: And I think every organization is, taking, at least some…
+
+1343
+03:10:28.380 --> 03:10:35.700
+Jitendra K: Some bit of, strategies to develop agents and solve those issues, or… some automation…
+
+1344
+03:10:36.060 --> 03:10:43.550
+Jitendra K: initiative, so that's… that's a good time to invest. I think. It's always good and advisable to…
+
+1345
+03:10:44.060 --> 03:10:48.170
+Jitendra K: go as technical as we can. Yeah, that's awesome, and I think…
+
+1346
+03:10:48.700 --> 03:10:54.310
+Jitendra K: Your work has a lot of potential to be very immersed. Yeah, this is really awesome.
+
+1347
+03:10:54.840 --> 03:10:56.269
+Allen Abishek: Thank you, thank you very much.
+
+1348
+03:10:58.010 --> 03:11:06.260
+Jitendra K: So, thank you guys for attending the session. So, tomorrow, we will continue with reinforcement Learning GRPU, and we'll see the variations of GRPU.
+
+1349
+03:11:06.520 --> 03:11:12.750
+Jitendra K: And we'll take some more examples, some more benchmark to solve the problem. Right now, we're using GSM8K.
+
+1350
+03:11:14.460 --> 03:11:27.120
+Jitendra K: But, I'm trying to look into arranging the port, run port, let's see if I can manage to run tomorrow with run port, so we'll spin up one cluster and then run it as a part of it.
+
+1351
+03:11:27.770 --> 03:11:33.650
+Jitendra K: So, we'll continue with our discussion on GRPO tomorrow as well. We'll take a deep dive.
+
+1352
+03:11:33.840 --> 03:11:38.260
+Jitendra K: And, don't get, disheartened if you're not able to understand.
+
+1353
+03:11:38.430 --> 03:11:39.969
+Jitendra K: All these things.
+
+1354
+03:11:40.290 --> 03:11:44.120
+Jitendra K: Because these things are highly mathematical and, highly…
+
+1355
+03:11:44.640 --> 03:11:49.179
+Jitendra K: subjective, either you're going to use it or not use it, right? So…
+
+1356
+03:11:49.890 --> 03:11:53.950
+Jitendra K: So the answer is, we are still learning, because
+
+1357
+03:11:54.380 --> 03:11:57.790
+Jitendra K: This is something, which nobody's going to touch base.
+
+1358
+03:11:59.930 --> 03:12:05.410
+Jitendra K: So with that, thank you, and no, no, we will have a class tomorrow as well, so…
+
+1359
+03:12:06.260 --> 03:12:09.209
+Jitendra K: It should be 7th, I think. It should be there.
+
+1360
+03:12:11.730 --> 03:12:13.329
+Jitendra K: 7th is reflecting.
+
+1361
+03:12:17.230 --> 03:12:20.850
+Jitendra K: So we'll meet tomorrow for the class, and we'll discuss
+
+1362
+03:12:21.270 --> 03:12:26.550
+Jitendra K: the next part of it. So, thank you, and stay tuned for more learning. Thank you.
+
+1363
+03:12:31.460 --> 03:12:34.469
+Jitendra K: So tomorrow there's a class challenge, so,
+
+1364
+03:12:34.660 --> 03:12:37.290
+Jitendra K: If you want, I can show you the link as well.
+
+1365
+03:12:47.850 --> 03:12:49.080
+Jitendra K: Thank you, guys.
+

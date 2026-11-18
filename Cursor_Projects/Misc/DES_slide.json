@@ -1,0 +1,84 @@
+[
+  {
+    "template_name": "EXEC_SUMMARY_1",
+    "slide_params": {
+      "fixed_shapes": {
+        "title": "Domain Squad",
+        "main_contents": {
+          "text_paragraphs": [
+            {
+              "text_runs": [
+                {
+                  "text": "Why it matters",
+                  "text_params": {"font": "Financier Display Semibold", "size": 24}
+                }
+              ]
+            },
+            {
+              "text_runs": [
+                {
+                  "text": "- Accelerates shift to agentic AI with real business impact",
+                  "text_params": {"font": "GT America Regular", "size": 18}
+                }
+              ],
+              "level": 1
+            },
+            {
+              "text_runs": [
+                {
+                  "text": "- Bridges domain experts and engineers to shape scalable use cases",
+                  "text_params": {"font": "GT America Regular", "size": 18}
+                }
+              ],
+              "level": 1
+            },
+            {
+              "text_runs": [
+                {
+                  "text": "- Governance aligns priorities and avoids duplication via Enablement Board",
+                  "text_params": {"font": "GT America Regular", "size": 18}
+                }
+              ],
+              "level": 1
+            },
+            {
+              "text_runs": [
+                {
+                  "text": "- Knowledge Hub centralizes training, templates, and meeting records",
+                  "text_params": {"font": "GT America Regular", "size": 18}
+                }
+              ],
+              "level": 1
+            },
+            {
+              "text_runs": [
+                {
+                  "text": "- Cadence and ownership speed idea-to-implementation",
+                  "text_params": {"font": "GT America Regular", "size": 18}
+                }
+              ],
+              "level": 1
+            },
+            {
+              "text_runs": [
+                {
+                  "text": "Outcome",
+                  "text_params": {"font": "Financier Display Semibold", "size": 24}
+                }
+              ]
+            },
+            {
+              "text_runs": [
+                {
+                  "text": "- Faster value delivery, consistent best practices, measurable impact",
+                  "text_params": {"font": "GT America Regular", "size": 18}
+                }
+              ],
+              "level": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+]

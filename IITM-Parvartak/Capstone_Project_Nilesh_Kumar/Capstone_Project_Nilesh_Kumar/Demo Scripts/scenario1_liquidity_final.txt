@@ -1,0 +1,30 @@
+```markdown
+# Final Risk Analyst Communication
+
+## 1. Direct Answer
+The bank’s liquidity metrics show that Liquidity Coverage Ratios (LCR) range from 1.22 to 1.30 and Net Stable Funding Ratios (NSFR) range from 1.09 to 1.12, all above the Basel III regulatory minimum of 1.0. High-quality liquid assets remain stable between 49M and 52M USD with positive net cash flows, indicating no immediate liquidity concern from the data reviewed.
+
+## 2. Evidence & Sources
+- Liquidity_Risk_Metrics.csv: Provided recent LCR and NSFR values, high-quality liquid asset levels, and net cash flow data.
+- Basel III Regulatory Framework: Established minimum regulatory ratios of 1.0 for LCR and NSFR.
+- Internal Risk Management Policy: Defined risk identification, assessment, reporting, and escalation protocols.
+- Note: Internal documents were not available beyond the approved response draft. Analysis is based solely on these approved internal data excerpts and regulatory standards.
+
+## 3. Confidence Level
+High confidence. The data are recent, consistent, and complete for multiple consecutive days. Regulatory benchmarks and internal policies are well established, and no contradictory signals or anomalies were detected in the data.
+
+## 4. Limitations & Uncertainty
+- Lack of detailed composition or quality tiers of high-quality liquid assets.
+- Absence of stress testing or scenario analysis results to evaluate resilience under adverse conditions.
+- No intraday liquidity data or early warning indicators for sudden liquidity shocks.
+- Missing information on contingent liquidity risks from off-balance-sheet exposures.
+- No forward-looking forecasts or sensitivity analyses on liquidity metrics.
+- Escalation criteria thresholds described only at a high level, without detailed quantitative parameters.
+
+## 5. Escalation Recommendation
+No escalation required at this time. The available data indicate a sound liquidity position with no warnings or anomalies. Ongoing monitoring as per internal policy is advised, and reassessment should be considered if future data reveal deteriorating trends or stress testing results indicate increased vulnerabilities.
+
+---
+
+*This response is for decision-support only. No actions have been taken or recommended by this system. All final decisions remain with the human analyst.*
+```

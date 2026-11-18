@@ -1,0 +1,49 @@
+schema_version: "1.0"
+id: pester
+tool: Pester
+title: Pester — PowerShell testing framework
+guide_path: toolguides/pester.md
+summary: >
+  PowerShell testing framework for unit, integration, and acceptance tests. Pester 5.x
+  uses Describe / Context / It blocks with Should assertions. Supports mocking
+  (Mock, InModuleScope), test-drive isolation (New-PesterConfiguration), code coverage
+  reporting, and CI-compatible output (JUnit XML via -CI). Always prefer Pester 5.x
+  syntax (Should -Be, Should -Throw) over deprecated v3 assertion syntax.
+
+  WHEN TO USE: Author or run tests for PowerShell modules and scripts. Validate
+  module behaviour before handoff. Generate coverage reports for quality gates.
+
+  INSTALLATION:
+    Install-Module Pester -Scope CurrentUser -Force -MinimumVersion 5.0.0
+    # or via PSResourceGet:
+    Install-PSResource Pester -Scope CurrentUser
+
+  KEY COMMANDS:
+    Invoke-Pester -Path ./Tests -Output Detailed          # run all tests
+    Invoke-Pester -Path ./Tests -Output CI                 # CI-compatible output
+    Invoke-Pester -Path ./Tests -CodeCoverage ./Public     # with coverage
+    New-PesterConfiguration                                # programmatic config
+
+  COMMON PITFALLS:
+    1. Pester 3.x syntax (Assert-VerifiableMocks, Should Be without dash) silently
+       passes in some environments — always verify Pester 5.x is loaded.
+    2. Forgetting -ErrorAction Stop inside mocked cmdlets — non-terminating errors
+       bypass Should -Throw assertions.
+    3. Tests that depend on execution order — each It block must be independent;
+       use BeforeAll / BeforeEach for shared setup.
+    4. Missing InModuleScope for testing private functions — Pester cannot see
+       Private/ functions without explicit scope injection.
+commands:
+  - Invoke-Pester
+  - New-PesterConfiguration
+  - Mock
+  - InModuleScope
+  - Should
+  - Describe
+  - Context
+  - It
+  - BeforeAll
+  - BeforeEach
+  - AfterAll
+  - AfterEach
+last_updated: "2026-06-10"

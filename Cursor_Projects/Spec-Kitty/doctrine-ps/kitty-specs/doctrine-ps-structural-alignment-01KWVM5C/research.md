@@ -1,0 +1,143 @@
+# Phase 0 Research: Doctrine-PS Structural Alignment
+
+**Mission:** `doctrine-ps-structural-alignment-01KWVM5C`
+**Date:** 2026-07-06
+
+Resolves the plan-phase decisions the spec deliberately deferred (former Open Questions 1–2
+and the Assumptions-section Georgia-sequencing risk), plus one new finding surfaced during
+this plan phase's Charter Check.
+
+---
+
+## R1 — Georgia-repoint sequencing vs. `receptionist-rob-front-door-rework` (spec Assumptions)
+
+- **Finding:** A same-day, in-flight sibling mission in `regnology-ps-chatbots` —
+  `receptionist-rob-front-door-rework` (parent Jira ticket MIGRATION-2848) — is actively
+  restructuring `roster.yaml`, the exact file FR-013 edits, including dropping the
+  `navigator: navigator-nemo` top-level key and adding a new `shared/commands/` bucket.
+- **Decision:** Do **not** split this mission or block on that sibling mission merging.
+  Instead, treat re-verification as a mandatory first task step of IC-03 (WP-B):
+  immediately before implementing FR-012/FR-013/FR-014, re-check
+  `regnology-ps-chatbots`'s live `gemini-agents/roster.yaml` and
+  `shared/{glossary,branding}/` structure against this spec's 2026-07-06 snapshot, and update
+  the target state described in Georgia's profile/templates to match whatever is live at
+  that moment (not the snapshot, if it has since drifted).
+- **Rationale:** The specific paths FR-012/FR-013 target (`shared/glossary/`,
+  `shared/branding/`) are not touched by `receptionist-rob-front-door-rework`'s own scope
+  (confirmed during the post-spec squad review — that mission's FR-013 explicitly scopes a
+  new, distinct `shared/commands/` bucket and states it "MUST NOT modify any other existing
+  specialist agent's instructions"). The collision risk is narrow (only `roster.yaml`'s
+  broader schema), so a cheap immediate re-verification is proportionate; a full mission
+  split or merge-order dependency would be over-engineering for a risk this contained.
+- **Consequence for IC-03 / WP-B**: the work package's first task must be the
+  re-verification step, not the edit itself.
+
+## R2 — Lint allow-list completeness (spec's former Open Question 1)
+
+- **Decision:** Do a full `.gitignore` cross-reference pass now, as part of IC-02/WP-C,
+  rather than shipping with only the `.cursor/`/`.claude/` entries already known.
+- **Rationale:** The mission already requires one dotfile-inclusive re-search
+  (`.gitignore`'s dead `gemini-agents/onboarding-odysseus/...` rules, found by Doctrine
+  Daphne's post-spec review) — doing the full cross-reference pass in the same pass is
+  strictly cheaper than a follow-up mission, and directly serves FR-010's purpose (the
+  allow-list is more useful to future doc authors if it's complete on day one rather than
+  seeded with only the two entries this mission happened to trip over).
+- **Consequence for IC-02 / WP-C**: the allow-list task expands from "seed known entries"
+  to "read `.gitignore` in full, cross-reference every gitignored path against doc mentions
+  repo-wide, and pre-seed every genuinely generated-but-documented path with a
+  `gitignored`/`generated`-bearing comment" (per FR-010's existing acceptance criterion for
+  comment content).
+
+## R3 — `pack/.pack-version` bump for FR-013 (spec's former Open Question 2)
+
+- **Decision:** No version bump. FR-013's changes are non-breaking clarifications of
+  Georgia's existing output contract (path examples only — which target repository and
+  subdirectory her generated files land in), not a change to the contract's shape, fields,
+  or semantics.
+- **Rationale:** Directive 006 (Version Governance)'s procedures enumerate the actual
+  version-bump trigger set: "Version-impacting changes to the pack (new required directives,
+  breaking structural changes to step contracts, removal of artifacts) must be accompanied by
+  explicit upgrade guidance before the change is distributed"
+  (`006-version-governance.directive.yaml`, `procedures`). FR-013's changes trip none of these
+  three triggers — no required directive is added, no step-contract structure changes, and no
+  artifact is removed; only the literal path strings inside existing worked examples change.
+  This is the same class of change as fixing a typo in an example, not a version-impacting one
+  under the directive's own criteria.
+- **Consequence**: `pack/.pack-version` (currently `2.0.0`) is untouched by this mission.
+  The pre-existing `pack/.pack-version` vs. `README.md` "1.0.0" prose drift (noted by Paula
+  Patterns in the post-spec review) remains a separate, already-out-of-scope item.
+
+## R4 — `.kittify/charter/charter.md` staleness (new finding, this plan's Charter Check)
+
+- **Finding:** The charter still describes `gemini-agents/` as a committed repository
+  directory ("Committed but never hand-edited") in its Repository Structure table, which
+  is now stale — `gemini-agents/` was removed from `doctrine-ps` earlier in this session,
+  superseded by `regnology-ps-chatbots`. The file carries a
+  `<!-- Generated by \`spec-kitty charter generate\` -->` marker (generated 2026-05-28),
+  confirming it is a generated artefact, not hand-authored prose.
+- **Decision:** Out of scope for this mission. Do not hand-edit `charter.md`'s Repository
+  Structure table as part of IC-01, even though it is textually the same class of drift
+  FR-001–FR-008 fix elsewhere — editing a generated file by hand would itself violate the
+  repo's generated-artefact convention (the next `spec-kitty charter generate` run would
+  either overwrite the hand-edit or diverge from it).
+- **Recommendation (not actioned by this mission):** run `spec-kitty charter generate` (or
+  the project's equivalent charter sync command) as a separate, fast follow-up action once
+  this mission's `gemini-agents/`-related doc corrections have landed, so the regenerated
+  charter reflects the corrected state rather than re-deriving it from still-stale source
+  docs. Track as a follow-up note on MIGRATION-2915 rather than a blocking dependency.
+
+## R5 — README.md dangling-path resolution: correct-in-place vs. remove (spec FR-005/FR-006/FR-008)
+
+- **Finding:** FR-005, FR-006, and FR-008 each flag a dangling path in `README.md`'s
+  Repository Structure tree, but the spec's Assumptions section leaves the "correct the path"
+  vs. "remove the reference entirely" choice as a plan-phase decision per path, guided by
+  whether the underlying concept still needs documenting.
+- **Decision:**
+  - **FR-005 (`docs/HOW_TO_USE.md` → `docs/installation/HOW_TO_USE.md`): correct in place.**
+    The underlying concept (a HOW_TO_USE guide) exists and is already linked correctly
+    elsewhere in the same file (README.md prose, lines ~41, 120, 258) — only the tree-diagram
+    entry carries the stale path, so there is a real, existing target to repoint to.
+  - **FR-006 (`pack/mission_step_contracts/`): remove.** No such directory (or equivalent)
+    exists anywhere in the pack, and the spec's Out of Scope section is explicit that
+    "Creating a `pack/mission_step_contracts/` directory to make README.md's claim true by
+    building the missing feature" is not this mission's job. Unlike FR-003/FR-007's toolguide
+    reference (which resolves to a real file in the inherited `regnology-all-company` parent
+    pack), there is no alternate existing or inherited location this claim could correctly
+    repoint to, and the spec identifies no tracked plan to build one — so the "6 contracts"
+    claim is removed rather than marked aspirational.
+  - **FR-008 (`tools/pack-dashboard/`): remove.** Same reasoning as FR-006 — the spec's Out of
+    Scope section explicitly rules out "Creating a `tools/pack-dashboard/` Angular+Express
+    application to make README.md's claim true," and nothing in the spec's Background,
+    Assumptions, or Key Entities sections identifies `pack-dashboard` as a real, separately
+    tracked deliverable this mission could instead point to. FR-008's acceptance criteria's
+    alternate "clearly labeled as a reference to a separate, named repository/deliverable"
+    branch does not apply here — no such named repository is evidenced anywhere in this spec.
+- **Rationale:** Per the spec's own Edge Cases section, an aspirational/future label is only
+  appropriate when a path "describes a not-yet-built target state" that is genuinely intended
+  — not when a claim is simply outdated over-reach with no corroborating roadmap evidence.
+  FR-005 has a real, existing, correctly-documented-elsewhere target, so correction-in-place
+  is proportionate. FR-006 and FR-008 have neither an existing target nor spec evidence of an
+  active plan to build one — their Out-of-Scope entries frame building the feature as
+  explicitly not this mission's job, with no pointer to a tracked follow-up — so removal is
+  the only option that does not silently misrepresent current or planned reality.
+- **Consequence for IC-01**: `README.md`'s Repository Structure tree entry for
+  `docs/HOW_TO_USE.md` is corrected to `docs/installation/HOW_TO_USE.md`; the
+  `pack/mission_step_contracts/` and `tools/pack-dashboard/` entries (and their "Pack
+  Contents" table row / tree-diagram descriptions) are removed rather than re-labeled as
+  planned/future work.
+
+## Summary of decisions
+
+| Item | Decision |
+|------|----------|
+| R1 Georgia-repoint sequencing | Proceed in one pass; re-verify `regnology-ps-chatbots` live structure as IC-03/WP-B's first task step, not a mission split |
+| R2 Lint allow-list completeness | Full `.gitignore` cross-reference pass now, folded into IC-02/WP-C |
+| R3 `pack/.pack-version` bump | No bump — non-breaking path-example clarification only |
+| R4 `charter.md` staleness | Out of scope this mission; recommend a separate `spec-kitty charter generate` follow-up, tracked on MIGRATION-2915 |
+| R5 README.md dangling-path resolution | FR-005 corrected in place; FR-006 and FR-008 removed (no existing/inherited/tracked target for either) |
+
+All plan-phase decisions the spec deferred are now resolved. No DDR required for this
+mission's scope (no breaking changes, no new dependencies, no architectural changes) — per
+Directive 018 (Traceable Decisions), which reserves decision-record treatment for
+architecture and design rationale, not for routine path corrections or non-breaking
+template/example edits; none of this mission's changes rise to that threshold.

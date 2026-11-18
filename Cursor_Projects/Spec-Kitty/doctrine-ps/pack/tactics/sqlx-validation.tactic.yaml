@@ -1,0 +1,65 @@
+schema_version: "1.0"
+id: sqlx-validation
+name: SQLX Validation
+purpose: >
+  Validate SQLX artifacts against language specification, coding standards, data model
+  constraints, and known anti-patterns. Produce an actionable validation report with errors
+  and warnings including file location and recommended fix for each finding. Do not modify
+  source files — validation is read-only. Use after generating SQLX, on request to validate
+  an FU, or before handoff to test or integration. Do not use for generating SQLX or tests.
+steps:
+  - title: Load Artifacts and Context
+    description: >
+      Read all SQLX files in the target FU directory. Load SQLX coding standards from
+      styleguide sqlx-coding-standards. If data model validation is needed, use MCP
+      query_datamodel_definitions to access entity and field definitions.
+
+  - title: Apply Validation Rules by Category
+    description: >
+      Execute validation rules in order. For each violation: record ID, file, location,
+      finding, recommended fix, and severity (Error or Warning). Categories and key rules:
+      FS (File Structure): component.sqlx, CF, BL, DD files must exist (Error); file names
+      UPPERCASE with underscores (Warning). UD (Unit Declarations): CF starts with `unit
+      FU_NAME_CF;`, BL starts with `unit FU_NAME_BL as function;`, unit name matches file
+      name, component starts with `component FU_NAME;` (all Error). IE (Import/Export): all
+      used datasets imported, BL exports FU_NAME_BL (not FU_NAME_OUT), no subcomponents
+      (Error); imports alphabetically sorted, export last in CF (Warning). SP (SQL Patterns):
+      no select *, coalesce() on nullable DT inputs, explicit field lists in all SELECT, no
+      ambiguous field references (Error); alphabetical field order, table aliases, prefer left
+      outer join (Warning). DD (Dataset Definition): definition for all exports, primary key
+      defined, valid field types (Error); domain references exist in data model (Warning).
+      DT (Decision Tables): input/output declarations at top, `---` separates rules, no `*`
+      wildcard in else rules, DT input view applies coalesce() (Error). DM (Data Model, when
+      MCP available): referenced entities and fields exist in ABACUS360 (Error/Warning).
+
+  - title: Run Abacus CLI Validation if Available
+    description: >
+      Resolve content root from .doctrine-config/config.yaml (sqlx.content_root) or workspace
+      root. Resolve CLI from PATH or sqlx.abacus_cli_path. Check environment: HADOOP_HOME set
+      and winutils.exe in PATH (Windows). JVM configuration: use -Xms512m -Xmx4G; add
+      -Djava.security.manager=allow for Java 23+. Run: abacus -d <contentRoot> validate
+      [path]. Capture exit code, stdout, stderr. Merge CLI output into validation report.
+      If CLI not configured, note "Abacus CLI validation skipped" and proceed with report
+      from rule-based checks only.
+
+  - title: Produce Validation Report
+    description: >
+      Write report to reports/validation/[FU_NAME]_validation.md. Include: Summary (errors
+      count, warnings count, passed count, Abacus CLI exit code and status); Errors table
+      (ID, File, Location, Rule, Finding, Recommended Fix); Warnings table (same structure);
+      Passed summary by category; Abacus CLI result excerpt if run; one-line pass/fail for CI.
+
+failure_modes:
+  - "False positives in the report damage trust — every finding must reference a specific documented rule ID."
+  - "CLI validation skipped silently — always note Abacus CLI availability status in the report."
+  - "Abacus JVM heap errors on startup — reduce -Xms to 512m and retry before escalating."
+
+notes: >
+  Invoked by SQLX Specialist Simon (sqlx-specialist-simon agent profile) for Validate tasks. Run after sqlx-generation.
+  Findings may trigger re-generation of specific artifacts. Exit criteria: all rule categories
+  applied, report has zero false positives (every finding is a documented rule violation),
+  each issue has file, location, and recommended fix. CLI troubleshooting: DOS error/errno=1455
+  → reduce -Xms; UnsatisfiedLinkError → install winutils and set HADOOP_HOME;
+  UnsupportedOperationException (getSubject) → add -Djava.security.manager=allow;
+  Subcomponents not supported → flatten to single root component; Invalid expression `*` →
+  use rule with no input condition instead.

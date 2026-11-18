@@ -1,0 +1,350 @@
+# Content Coverage Assessment
+[Agent: Curator Claire]
+
+## 1. Overview
+This document assesses the migration of legacy doctrine artifacts from `TO_BE_REMOVED` into the new `pack` directory structure. 
+
+- **Total artifacts in `TO_BE_REMOVED`:** 326
+- **Successfully mapped to `pack/`:** 156
+- **Intentionally skipped/deferred (per migration plan):** 30
+- **Pending migration (unmapped):** 140
+
+## 2. Cross-Directory References
+✅ All internal references within `pack/` to the old `doctrine/` structure have been audited and updated to refer directly to `pack/`. The pack is now structurally isolated.
+
+## 3. Pending Artifacts (Action Required)
+The following artifacts remain in `TO_BE_REMOVED` and have not yet found a canonical landing spot in `pack/`. They should be evaluated for Batches 3, 4, and 5 of the migration plan:
+
+- `docs/specifications/features/appsec-sonarqube-pipeline.md`
+- `doctrine/DOCTRINE_STACK.md`
+- `doctrine/REPO_MAP.md`
+- `doctrine/SURFACES.md`
+- `doctrine/agents/architect-alphonso.agent.md`
+- `doctrine/agents/code-reviewer-cindy.agent.md`
+- `doctrine/agents/curator-claire.agent.md`
+- `doctrine/agents/frontend-freddy.agent.md`
+- `doctrine/agents/java-jenny.agent.md`
+- `doctrine/agents/manager-mike.agent.md`
+- `doctrine/agents/planning-priti.agent.md`
+- `doctrine/agents/python-pedro.agent.md`
+- `doctrine/agents/researcher-ralph.agent.md`
+- `doctrine/agents/reviewer-rachel.agent.md`
+- `doctrine/agents/sqlx-author-arthur.agent.md`
+- `doctrine/agents/sqlx-interpreter-indy.agent.md`
+- `doctrine/approaches/01_redundancy_rationale.md`
+- `doctrine/approaches/agent-profile-handoff-patterns.md`
+- `doctrine/approaches/bug-fixing-checklist.md`
+- `doctrine/approaches/file-based-orchestration.md`
+- `doctrine/approaches/file_based_collaboration/01_check_assigned_work.md`
+- `doctrine/approaches/file_based_collaboration/02_prioritize_tasks.md`
+- `doctrine/approaches/file_based_collaboration/03_process_tasks.md`
+- `doctrine/approaches/file_based_collaboration/04_delegate_work.md`
+- `doctrine/approaches/file_based_collaboration/05_create_tasks.md`
+- `doctrine/approaches/file_based_collaboration/06_error_handling.md`
+- `doctrine/approaches/file_based_collaboration/07_log_work.md`
+- `doctrine/approaches/function-over-form-testing.md`
+- `doctrine/approaches/locality-of-change.md`
+- `doctrine/approaches/meta-analysis.md`
+- `doctrine/approaches/operating_procedures/01_redundancy_rationale.md`
+- `doctrine/approaches/prompt_documentation/01_documentation_structure.md`
+- `doctrine/approaches/prompt_documentation/02_swot_analysis_guidelines.md`
+- `doctrine/approaches/prompt_documentation/03_improvement_guidelines.md`
+- `doctrine/approaches/prompt_documentation/04_pattern_recognition.md`
+- `doctrine/approaches/ralph-wiggum-loop.md`
+- `doctrine/approaches/reverse-speccing.md`
+- `doctrine/approaches/spec-driven-6-phase-cycle.md`
+- `doctrine/approaches/spec-driven-development.md`
+- `doctrine/approaches/style-execution-primers.md`
+- `doctrine/approaches/target-audience-fit.md`
+- `doctrine/approaches/test-readability-clarity-check.md`
+- `doctrine/approaches/tooling-setup-best-practices.md`
+- `doctrine/approaches/traceable-decisions-detailed-guide.md`
+- `doctrine/approaches/trunk-based-development.md`
+- `doctrine/approaches/work-directory-orchestration.md`
+- `doctrine/directives/002_context_notes.md`
+- `doctrine/directives/003_repository_quick_reference.md`
+- `doctrine/directives/004_documentation_context_files.md`
+- `doctrine/directives/005_agent_profiles.md`
+- `doctrine/directives/007_agent_declaration.md`
+- `doctrine/directives/008_artifact_templates.md`
+- `doctrine/directives/009_role_capabilities.md`
+- `doctrine/directives/010_mode_protocol.md`
+- `doctrine/directives/011_risk_escalation.md`
+- `doctrine/directives/012_operating_procedures.md`
+- `doctrine/directives/014_worklog_creation.md`
+- `doctrine/directives/015_store_prompts.md`
+- `doctrine/directives/016_acceptance_test_driven_development.md`
+- `doctrine/directives/017_test_driven_development.md`
+- `doctrine/directives/019_file_based_collaboration.md`
+- `doctrine/directives/020_lenient_adherence.md`
+- `doctrine/directives/021_locality_of_change.md`
+- `doctrine/directives/024_self_observation_protocol.md`
+- `doctrine/directives/026_commit_protocol.md`
+- `doctrine/directives/028_bugfixing_techniques.md`
+- `doctrine/directives/034_spec_driven_development.md`
+- `doctrine/directives/035_specification_frontmatter_standards.md`
+- `doctrine/directives/036_boy_scout_rule.md`
+- `doctrine/directives/037_context_aware_design.md`
+- `doctrine/directives/039_refactoring_techniques.md`
+- `doctrine/directives/040_human_in_charge_escalation_protocol.md`
+- `doctrine/docs/architecture/diagrams/DESCRIPTIONS.md`
+- `doctrine/docs/architecture/diagrams/accessibility-audit.md`
+- `doctrine/docs/ddd-core-concepts-reference.md`
+- `doctrine/docs/linguistic-anti-patterns.md`
+- `doctrine/docs/references/comparative_studies/2026-02-05-spec-kitty-comparative-analysis.md`
+- `doctrine/docs/references/comparative_studies/references/spec-kitty-AGENTS.md`
+- `doctrine/docs/references/comparative_studies/references/spec-kitty-spec-driven.md`
+- `doctrine/docs/references/refactoring-architecture-pattern-escalation-guide.md`
+- `doctrine/docs/references/refactoring-conditional-variants-to-strategy-state.md`
+- `doctrine/docs/references/refactoring-first-wave-selection.md`
+- `doctrine/docs/references/refactoring-hierarchy-field-placement-guide.md`
+- `doctrine/docs/references/refactoring-trigger-to-pattern-map.md`
+- `doctrine/docs/ubiquitous-language-integration-summary.md`
+- `doctrine/docs/using_the_agents/01_getting_started.md`
+- `doctrine/docs/using_the_agents/02_key_interactions.md`
+- `doctrine/docs/using_the_agents/03_building_a_feature.md`
+- `doctrine/docs/using_the_agents/04_creating_branded_documents.md`
+- `doctrine/docs/workflows/core-use-cases.md`
+- `doctrine/guidelines/commit-message-phase-declarations.md`
+- `doctrine/guidelines/operational_guidelines.md`
+- `doctrine/guidelines/regnology_specific.md`
+- `doctrine/guidelines/rehydrate.md`
+- `doctrine/guidelines/runtime_sheet.md`
+- `doctrine/shorthands/SKILLS_CREATED.md`
+- `doctrine/shorthands/afk-mode.md`
+- `doctrine/shorthands/automation-script.md`
+- `doctrine/shorthands/bootstrap-repo.md`
+- `doctrine/shorthands/curate-directory.md`
+- `doctrine/shorthands/iteration-orchestration.md`
+- `doctrine/shorthands/lexical-analysis.md`
+- `doctrine/shorthands/new-agent.md`
+- `doctrine/shorthands/test-readability-check.md`
+- `doctrine/styleguides/FORMALIZED_CONSTRAINT_TESTING.md`
+- `doctrine/styleguides/presentations/reveal-js-slide-deck.md`
+- `doctrine/styleguides/programming/java_guidelines.md`
+- `doctrine/tactics/SELECT_APPROPRIATE_AGENT.tactic.md`
+- `doctrine/tactics/agent-profile-creation.tactic.md`
+- `doctrine/tactics/code-documentation-analysis.tactic.md`
+- `doctrine/tactics/code-review-incremental.tactic.md`
+- `doctrine/tactics/context-establish-and-freeze.tactic.md`
+- `doctrine/tactics/create-branded-pdf-document.tactic.md`
+- `doctrine/tactics/create-branded-slidedeck.tactic.md`
+- `doctrine/tactics/execution-fresh-context-iteration.tactic.md`
+- `doctrine/tactics/model-discipline-selection.tactic.md`
+- `doctrine/tactics/refactoring-conditional-to-strategy.tactic.md`
+- `doctrine/tactics/refactoring-extract-class-by-responsibility-split.tactic.md`
+- `doctrine/tactics/refactoring-extract-first-order-concept.tactic.md`
+- `doctrine/tactics/refactoring-guard-clauses-before-polymorphism.tactic.md`
+- `doctrine/tactics/refactoring-inline-temp.tactic.md`
+- `doctrine/tactics/refactoring-introduce-null-object.tactic.md`
+- `doctrine/tactics/refactoring-move-field.tactic.md`
+- `doctrine/tactics/refactoring-move-method.tactic.md`
+- `doctrine/tactics/refactoring-replace-magic-number-with-symbolic-constant.tactic.md`
+- `doctrine/tactics/refactoring-replace-temp-with-query.tactic.md`
+- `doctrine/tactics/refactoring-retry-pattern.tactic.md`
+- `doctrine/tactics/refactoring-strangler-fig.tactic.md`
+- `doctrine/tactics/session-brief.tactic.md`
+- `doctrine/tactics/tactics-curation.tactic.md`
+- `doctrine/tactics/task-completion-validation.tactic.md`
+- `doctrine/tactics/test-to-system-reconstruction.tactic.md`
+- `doctrine/tactics/tiered-execution.tactic.md`
+- `doctrine/templates/GUARDIAN_AUDIT_REPORT.md`
+- `doctrine/templates/GUARDIAN_UPGRADE_PLAN.md`
+- `doctrine/templates/RELEASE_NOTES.md`
+- `doctrine/templates/branding/PS_logo_art_minimal.md`
+- `doctrine/templates/checklists/derivative-repo-setup.md`
+- `doctrine/templates/checklists/quarterly-tool-review.md`
+- `doctrine/templates/checklists/tool-adoption-checklist.md`
+
+
+## 4. Intentionally Skipped / Deferred
+These artifacts were identified in `TO_BE_REMOVED` but lack a mapping in `pack/` due to being marked as skipped or deferred in the migration plan (e.g. they are already covered by upstream spec-kitty artifacts):
+
+- `doctrine/agents/backend-benny.agent.md`
+- `doctrine/directives/001_cli_shell_tooling.md`
+- `doctrine/directives/041_use_regnology_branding.md`
+- `doctrine/directives/044_use_corporate_tooling.md`
+- `doctrine/guidelines/general_guidelines.md`
+- `doctrine/guidelines/powershell-conventions.md`
+- `doctrine/styleguides/GENERIC_TESTING.md`
+- `doctrine/styleguides/shell-scripts.md`
+- `doctrine/tactics/6-phase-spec-driven-implementation-flow.md`
+- `doctrine/tactics/ATDD_adversarial-acceptance.tactic.md`
+- `doctrine/tactics/adversarial-testing.tactic.md`
+- `doctrine/tactics/analysis-extract-before-interpret.tactic.md`
+- `doctrine/tactics/autonomous-operation-protocol.tactic.md`
+- `doctrine/tactics/change-apply-smallest-viable-diff.tactic.md`
+- `doctrine/tactics/claim-inventory-development.tactic.md`
+- `doctrine/tactics/dependency-hygiene.tactic.md`
+- `doctrine/tactics/development-bdd.tactic.md`
+- `doctrine/tactics/documentation-curation-audit.tactic.md`
+- `doctrine/tactics/event-storming-discovery.tactic.md`
+- `doctrine/tactics/input-validation-fail-fast.tactic.md`
+- `doctrine/tactics/phase-checkpoint-protocol.md`
+- `doctrine/tactics/premortem-risk-identification.tactic.md`
+- `doctrine/tactics/review-intent-and-risk-first.tactic.md`
+- `doctrine/tactics/stopping-conditions.tactic.md`
+- `doctrine/tactics/terminology-extraction-mapping.tactic.md`
+- `doctrine/tactics/test-boundaries-by-responsibility.tactic.md`
+- `doctrine/tactics/testing-select-appropriate-level.tactic.md`
+- `doctrine/toolguides/external-integrations.md`
+- `doctrine/toolguides/rtk.md`
+- `doctrine/toolguides/sqlx-mcp-and-manual.md`
+
+## 5. Completed Mappings
+- `doctrine/CHANGELOG.md` → `templates/project/CHANGELOG.md`
+- `doctrine/GLOSSARY.md` → `tactics/glossary-maintenance-workflow.tactic.yaml`
+- `doctrine/agents/README.md` → `README.md`
+- `doctrine/agents/abacus-mapper-abe.agent.md` → `agent_profiles/abacus-mapper-abe.agent.yaml`
+- `doctrine/agents/analyst-annie.agent.md` → `agent_profiles/analyst-annie.agent.yaml`
+- `doctrine/agents/bootstrap-bill.agent.md` → `agent_profiles/bootstrap-bill.agent.yaml`
+- `doctrine/agents/devops-danny.agent.md` → `agent_profiles/devops-danny.agent.yaml`
+- `doctrine/agents/diagram-daisy.agent.md` → `agent_profiles/diagram-daisy.agent.yaml`
+- `doctrine/agents/editor-eddy.agent.md` → `agent_profiles/editor-eddy.agent.yaml`
+- `doctrine/agents/lexical-larry.agent.md` → `agent_profiles/lexical-larry.agent.yaml`
+- `doctrine/agents/scribe-sally.agent.md` → `agent_profiles/scribe-sally.agent.yaml`
+- `doctrine/agents/slidedeck-stanislav.agent.md` → `agent_profiles/slidedeck-stanislav.agent.yaml`
+- `doctrine/agents/synthesizer-sam.agent.md` → `agent_profiles/synthesizer-sam.agent.yaml`
+- `doctrine/agents/translator-tanya.agent.md` → `agent_profiles/translator-tanya.agent.yaml`
+- `doctrine/approaches/README.md` → `README.md`
+- `doctrine/approaches/bounded-context-linguistic-discovery.md` → `paradigms/bounded-context-linguistic-discovery.paradigm.yaml`
+- `doctrine/approaches/create-branded-slidedeck.md` → `procedures/create-branded-slidedeck.procedure.yaml`
+- `doctrine/approaches/decision-first-development.md` → `paradigms/decision-first-development.paradigm.yaml`
+- `doctrine/approaches/decision-reference-types.md` → `procedures/decision-reference-types.procedure.yaml`
+- `doctrine/approaches/design_diagramming-incremental_detail.md` → `paradigms/design-diagramming-incremental-detail.paradigm.yaml`
+- `doctrine/approaches/evidence-based-requirements.md` → `paradigms/evidence-based-requirements.paradigm.yaml`
+- `doctrine/approaches/file_based_collaboration/README.md` → `README.md`
+- `doctrine/approaches/language-first-architecture.md` → `paradigms/language-first-architecture.paradigm.yaml`
+- `doctrine/approaches/living-glossary-practice.md` → `paradigms/living-glossary-practice.paradigm.yaml`
+- `doctrine/approaches/operating_procedures/README.md` → `README.md`
+- `doctrine/approaches/ports-and-adapters-architecture.md` → `paradigms/ports-and-adapters-architecture.paradigm.yaml`
+- `doctrine/approaches/prompt_documentation/README.md` → `README.md`
+- `doctrine/approaches/regnology-jira-approach.md` → `templates/tickets/jira-approach.md`
+- `doctrine/approaches/sqlx-spec-driven-authoring.md` → `paradigms/sqlx-spec-driven-authoring.paradigm.yaml`
+- `doctrine/approaches/test-first-bug-fixing.md` → `directives/028-test-first-bug-fixing.directive.yaml`
+- `doctrine/approaches/traceability-chain-pattern.md` → `paradigms/traceability-chain-pattern.paradigm.yaml`
+- `doctrine/directives/006_version_governance.md` → `directives/006-version-governance.directive.yaml`
+- `doctrine/directives/013_tooling_setup.md` → `directives/013-tooling-setup.directive.yaml`
+- `doctrine/directives/018_traceable_decisions.md` → `directives/018-traceable-decisions.directive.yaml`
+- `doctrine/directives/022_audience_oriented_writing.md` → `directives/022-audience-oriented-writing.directive.yaml`
+- `doctrine/directives/023_clarification_before_execution.md` → `directives/023-clarification-before-execution.directive.yaml`
+- `doctrine/directives/025_framework_guardian.md` → `directives/025-framework-guardian.directive.yaml`
+- `doctrine/directives/042_model_discipline.md` → `directives/042-model-discipline.directive.yaml`
+- `doctrine/directives/043_appsec_compliance.md` → `directives/043-appsec-compliance.directive.yaml`
+- `doctrine/directives/README.md` → `README.md`
+- `doctrine/docs/VISION.md` → `templates/architecture/design_vision.md`
+- `doctrine/docs/adrs/ADR-001-modular-agent-directive-system.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-002-portability-enhancement-opencode.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-003-task-lifecycle-state-management.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-004-work-directory-structure.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-005-coordinator-agent-pattern.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-006-adopt-three-layer-governance-model.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-007-repository-restructuring-layer-separation.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-008-file-based-async-coordination.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-009-orchestration-metrics-standard.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-010-github-copilot-tooling-setup.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-011-command-alias-primer-alignment.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-012-test-driven-defaults.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-013-zip-distribution.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-014-framework-guardian-agent.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-015-follow-up-task-lookup-pattern.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-016-agent-specific-iteration-templates.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-017-traceable-decision-integration.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-018-multi-repository-orchestration-strategy.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-019-trunk-based-development.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-020-multi-tier-agentic-runtime.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-021-model-routing-strategy.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-022-docsite-separated-metadata.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-023-README.md` → `README.md`
+- `doctrine/docs/adrs/ADR-023-completion-summary.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-023-executive-summary.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-023-implementation-roadmap.md` → `templates/architecture/roadmap.md`
+- `doctrine/docs/adrs/ADR-023-prompt-optimization-framework.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-024-cli-swarm-mode-integration.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/ADR-025-sonarqube-sast-sbom-integration.md` → `templates/architecture/adr.md`
+- `doctrine/docs/adrs/README.md` → `README.md`
+- `doctrine/docs/architecture/architectural_vision.md` → `templates/project/VISION.md`
+- `doctrine/docs/architecture/diagrams/README.md` → `README.md`
+- `doctrine/docs/audience/README.md` → `README.md`
+- `doctrine/docs/audience/agentic-framework-core-team.md` → `templates/audience/agentic-framework-core-team.md`
+- `doctrine/docs/audience/ai_power_user.md` → `templates/audience/ai_power_user.md`
+- `doctrine/docs/audience/automation_agent.md` → `templates/audience/automation_agent.md`
+- `doctrine/docs/audience/line_manager.md` → `templates/audience/line_manager.md`
+- `doctrine/docs/audience/nontech_educator.md` → `templates/audience/nontech_educator.md`
+- `doctrine/docs/audience/persona_functional_analyst.md` → `templates/architecture/PERSONA.md`
+- `doctrine/docs/audience/persona_mid_upper_management.md` → `templates/architecture/PERSONA.md`
+- `doctrine/docs/audience/persona_regnology_customer.md` → `templates/architecture/PERSONA.md`
+- `doctrine/docs/audience/persona_software_architect.md` → `templates/architecture/PERSONA.md`
+- `doctrine/docs/audience/process_architect.md` → `templates/audience/process_architect.md`
+- `doctrine/docs/audience/software_engineer.md` → `templates/audience/software_engineer.md`
+- `doctrine/docs/audience/tech_coach.md` → `templates/audience/tech_coach.md`
+- `doctrine/docs/references/comparative_studies/references/README.md` → `README.md`
+- `doctrine/docs/references/comparative_studies/references/spec-kitty-README.md` → `README.md`
+- `doctrine/docs/session-summaries/confluence-howto-regnology-mcp-setup.md` → `toolguides/regnology-mcp.md`
+- `doctrine/docs/using_the_agents/README.md` → `README.md`
+- `doctrine/examples/personas/emerging-developer.md` → `templates/audience/examples/emerging-developer.md`
+- `doctrine/examples/personas/technical-lead.md` → `templates/audience/examples/technical-lead.md`
+- `doctrine/guidelines/bootstrap.md` → `agent_profiles/bootstrap-bill.agent.yaml`
+- `doctrine/guidelines/java-conventions.md` → `styleguides/java-conventions.styleguide.yaml`
+- `doctrine/guidelines/python-conventions.md` → `styleguides/python-conventions.styleguide.yaml`
+- `doctrine/guidelines/version-control-hygiene.md` → `styleguides/version-control-hygiene.styleguide.yaml`
+- `doctrine/shorthands/README.md` → `README.md`
+- `doctrine/shorthands/architect-adr.md` → `templates/architecture/adr.md`
+- `doctrine/shorthands/editor-revision.md` → `templates/project/VISION.md`
+- `doctrine/styleguides/README.md` → `README.md`
+- `doctrine/styleguides/commit-and-markdown-linting.md` → `styleguides/commit-and-markdown-linting.styleguide.yaml`
+- `doctrine/styleguides/domain-driven-naming.md` → `styleguides/domain-driven-naming.styleguide.yaml`
+- `doctrine/styleguides/programming/java.md` → `styleguides/java-conventions.styleguide.yaml`
+- `doctrine/styleguides/programming/python.md` → `styleguides/python-conventions.styleguide.yaml`
+- `doctrine/styleguides/programming/python_conventions.md` → `styleguides/python-conventions.styleguide.yaml`
+- `doctrine/styleguides/sqlx-test-data-conventions.md` → `styleguides/sqlx-test-data-conventions.styleguide.yaml`
+- `doctrine/styleguides/version_control_hygiene.md` → `styleguides/version-control-hygiene.styleguide.yaml`
+- `doctrine/tactics/README.md` → `README.md`
+- `doctrine/tactics/adr-drafting-workflow.tactic.md` → `templates/architecture/adr.md`
+- `doctrine/tactics/ammerse-analysis.tactic.md` → `tactics/ammerse-analysis.tactic.yaml`
+- `doctrine/tactics/appsec-pipeline-setup.tactic.md` → `tactics/appsec-pipeline-setup.tactic.yaml`
+- `doctrine/tactics/context-boundary-inference.tactic.md` → `tactics/context-boundary-inference.tactic.yaml`
+- `doctrine/tactics/glossary-maintenance-workflow.tactic.md` → `tactics/glossary-maintenance-workflow.tactic.yaml`
+- `doctrine/tactics/lexical-style-diagnostic.tactic.md` → `tactics/lexical-style-diagnostic.tactic.yaml`
+- `doctrine/tactics/maven-project-compliance-setup.tactic.md` → `tactics/maven-project-compliance-setup.tactic.yaml`
+- `doctrine/tactics/reflection-post-action-learning-loop.tactic.md` → `tactics/reflection-post-action-learning-loop.tactic.yaml`
+- `doctrine/tactics/repository-initialization.tactic.md` → `tactics/repository-initialization.tactic.yaml`
+- `doctrine/tactics/requirements-validation-workflow.tactic.md` → `tactics/requirements-validation-workflow.tactic.yaml`
+- `doctrine/tactics/safe-to-fail-experiment-design.tactic.md` → `tactics/safe-to-fail-experiment-design.tactic.yaml`
+- `doctrine/tactics/secure-design-checklist.tactic.md` → `tactics/secure-design-checklist.tactic.yaml`
+- `doctrine/tactics/security-issue-triage.tactic.md` → `tactics/security-issue-triage.tactic.yaml`
+- `doctrine/tactics/sqlx/README.md` → `README.md`
+- `doctrine/tactics/team-interaction-mapping.tactic.md` → `tactics/team-interaction-mapping.tactic.yaml`
+- `doctrine/tactics/urgent-vulnerability-response.tactic.md` → `tactics/urgent-vulnerability-response.tactic.yaml`
+- `doctrine/templates/LEX/LEX_DELTAS.md` → `templates/lexical/LEX_DELTAS.md`
+- `doctrine/templates/LEX/LEX_REPORT.md` → `templates/lexical/LEX_REPORT.md`
+- `doctrine/templates/LEX/LEX_STYLE_RULES.md` → `templates/lexical/LEX_STYLE_RULES.md`
+- `doctrine/templates/LEX/README.md` → `README.md`
+- `doctrine/templates/README.md` → `README.md`
+- `doctrine/templates/branding/COLOR_PALETTE.md` → `templates/branding/COLOR_PALETTE.md`
+- `doctrine/templates/branding/README.md` → `README.md`
+- `doctrine/templates/checklists/README.md` → `README.md`
+- `doctrine/templates/ci/README.md` → `README.md`
+- `doctrine/templates/ci/jenkins-agent.yaml` → `templates/ci/jenkins-agent.yaml`
+- `doctrine/templates/coordination/README.md` → `README.md`
+- `doctrine/templates/coordination/hic-blocker.md` → `templates/coordination/hic-blocker.md`
+- `doctrine/templates/coordination/hic-decision-request.md` → `templates/coordination/hic-decision-request.md`
+- `doctrine/templates/coordination/hic-executive-summary.md` → `templates/coordination/hic-executive-summary.md`
+- `doctrine/templates/coordination/hic-problem.md` → `templates/coordination/hic-problem.md`
+- `doctrine/templates/documentation/README.md` → `README.md`
+- `doctrine/templates/documentation/audience-persona-template.md` → `templates/architecture/PERSONA.md`
+- `doctrine/templates/documentation/concept-template.md` → `templates/documentation/concept-template.md`
+- `doctrine/templates/documentation/pattern-template.md` → `templates/documentation/pattern-template.md`
+- `doctrine/templates/license/README.md` → `README.md`
+- `doctrine/templates/security/security-exemption.md` → `templates/security/security-exemption.md`
+- `doctrine/templates/tactic.md` → `tactics/requirements-validation-workflow.tactic.yaml`
+- `doctrine/templates/tickets/DOD_DOR_CHECKLIST.md` → `templates/tickets/DOD_DOR_CHECKLIST.md`
+- `doctrine/templates/tickets/EPIC_TEMPLATE.md` → `templates/tickets/EPIC_TEMPLATE.md`
+- `doctrine/templates/tickets/README.md` → `README.md`
+- `doctrine/templates/tickets/STORY_TEMPLATE.md` → `templates/tickets/STORY_TEMPLATE.md`
+- `doctrine/templates/tickets/SUBTASK_TEMPLATE.md` → `templates/tickets/SUBTASK_TEMPLATE.md`
+- `doctrine/toolguides/agentic_model_leaderboard.yaml` → `toolguides/agentic-model-leaderboard.toolguide.yaml`
+- `doctrine/toolguides/google-cloud-mcp.md` → `toolguides/google-cloud-mcp.toolguide.yaml`
+- `doctrine/toolguides/regnology-mcp.md` → `toolguides/regnology-mcp.toolguide.yaml`
+- `doctrine/toolguides/ripgrep.md` → `toolguides/ripgrep.toolguide.yaml`
+- `doctrine/toolguides/sqlx_language/README.md` → `README.md`

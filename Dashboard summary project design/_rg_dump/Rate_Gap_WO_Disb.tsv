@@ -1,0 +1,5 @@
+UAT 84	Repricing context (Without Disbursement Context)
+1. Time Band - IR Granular Time Band i.e. IR_SEG_GRANULAR	
+2. CoA's include - Project Assets, Treasury Assets only 	
+3. Rate Gap Using vanilla Swaps instruments with USD ( Rec-Fixed, Pay- Floating).   Metrics used Notional Balance EoB only.	
+5. Rate Gap Target 0 till the end of bucket i.e. 69 time bands	

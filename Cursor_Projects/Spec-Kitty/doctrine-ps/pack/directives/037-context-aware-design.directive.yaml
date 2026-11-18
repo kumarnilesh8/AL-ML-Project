@@ -1,0 +1,59 @@
+schema_version: "1.0"
+id: CONTEXT_AWARE_DESIGN
+title: Context-Aware Design
+enforcement: required
+scope: >
+  Applies to all architecture, naming, and interface decisions that touch bounded context
+  boundaries. A bounded context is a linguistic/model boundary — it may share a deployable,
+  database, or runtime with other contexts. Cloud-native capability decomposition
+  (cloud-native-domain-modelling) is the Regnology default architecture.
+  Applies when: creating new modules, packages, or services; designing interfaces between
+  components; naming classes, methods, or database tables; reviewing pull requests;
+  writing specifications or ADRs; selecting a programming language for a new deployable.
+intent: >
+  Design decisions must respect bounded context semantic boundaries. Code, terminology, and
+  abstractions must align with the bounded context they inhabit. Crossing integration
+  boundaries where models differ requires explicit translation — not every internal module
+  boundary requires translation. Bounded contexts are linguistic/model boundaries; they may
+  share a deployable, database, or runtime. Cloud-native capability decomposition
+  (cloud-native-domain-modelling) is the Regnology default architecture. Hexagonal/clean/onion
+  architectures are not the default scaffolding pattern and require an explicit ADR to adopt.
+procedures:
+  - >
+    Identify Current Context: determine which bounded context the code or design inhabits.
+    Establish the ubiquitous language for that context and who owns its vocabulary.
+  - >
+    Check Context Boundaries: determine whether the design crosses a semantic context boundary.
+    Distinguish integration boundaries (API, event, file, foreign schema) from internal module
+    splits. If models differ at an integration edge, ensure translation is explicit and
+    proportionate. Internal module splits within the same capability do not require
+    translation layers.
+  - >
+    Validate Linguistic Consistency: verify that names use the context's ubiquitous language,
+    domain terms are consistent with the context glossary, and generic names
+    (Manager, Handler, Data, Utils, Info) are avoided or flagged for renaming.
+  - >
+    Document Context Decisions: record context membership in code or docs; document boundary
+    crossings in ADRs; explain translation logic at integration boundaries.
+    For new deployables, assign one primary language using capability-language-selection
+    and record non-obvious choices in ADRs.
+integrity_rules:
+  - >
+    Hexagonal architecture, clean architecture, and onion architecture are NOT the default
+    scaffolding pattern at Regnology. They must not be applied as boilerplate. An explicit
+    ADR documenting the justification is required before adopting ports-and-adapters as the
+    structural default for any capability.
+  - >
+    Ports-and-adapters (ports, adapters, repository interfaces, Protocol/I* on every entity)
+    must not be introduced without an explicit ADR that names the concrete swap-out scenario
+    they enable. Speculative extensibility is not sufficient justification.
+  - >
+    Integration boundaries between capabilities (APIs, events) use translation when models
+    differ. Internal module splits within the same deployable do not require ACL mappers —
+    in-process calls between modules in the same capability are expected and correct.
+  - >
+    Cross-capability writes to data owned by another capability are a violation. Write
+    ownership stays with the capability that owns the dataset.
+  - >
+    Generic utility microservices (email service, validation service, logging service) are
+    an anti-pattern. Cross-cutting functions belong in shared libraries, not new deployables.

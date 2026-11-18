@@ -1,0 +1,109 @@
+# Acceptance contract: PowerShell Peter pack artifacts
+# Mission: powershell-specialist-agent-01KTP3DG
+# Maps spec FR/NFR rows to verifiable checks
+
+schema_version: "1.0"
+mission_slug: powershell-specialist-agent-01KTP3DG
+
+acceptance_gates:
+  - id: GATE-VALIDATE
+    command: spec-kitty doctrine pack validate pack/
+    expect:
+      errors: 0
+
+  - id: GATE-DRG-COMPILE
+    command: python3 tools/compile-drg.py
+    expect:
+      exit_code: 0
+
+artifacts:
+  - path: pack/agent_profiles/powershell-peter.agent.yaml
+    fr: [FR-001, FR-002, FR-003]
+    required_fields:
+      - profile-id: powershell-peter
+      - name: PowerShell Peter
+    required_sections:
+      - specialization.avoidance-boundary
+      - collaboration.works-with
+      - directive-references
+
+  - path: pack/styleguides/powershell-conventions.styleguide.yaml
+    fr: [FR-004]
+    required_fields:
+      - id: powershell-conventions
+      - scope: code
+    minimum_counts:
+      principles: 8
+      patterns: 3
+
+  - path: pack/tactics/powershell-module-scaffold.tactic.yaml
+    fr: [FR-005]
+    required_step_keywords:
+      - psd1
+      - psm1
+      - build.ps1
+
+  - path: pack/procedures/powershell-pester-workflow.procedure.yaml
+    fr: [FR-006]
+    required_step_keywords:
+      - Pester
+      - Invoke-Pester
+      - Describe
+    required_sections:
+      - entry_condition
+      - exit_condition
+      - anti_patterns
+
+  - path: pack/tactics/powershell-script-quality-gate.tactic.yaml
+    fr: [FR-007]
+    required_step_keywords:
+      - PSScriptAnalyzer
+      - StrictMode
+
+  - path: pack/drg/fragment.yaml
+    fr: [FR-008]
+    required_edges:
+      - source: powershell-peter
+        target: powershell-conventions
+        relation: applies
+      - source: powershell-peter
+        target: powershell-module-scaffold
+        relation: suggests
+      - source: powershell-peter
+        target: powershell-pester-workflow
+        relation: applies
+      - source: powershell-peter
+        target: powershell-script-quality-gate
+        relation: applies
+      - source: powershell-peter
+        target: TEST_FIRST_BUG_FIXING
+        relation: requires
+
+  - path: config/artifact-tags.yaml
+    fr: [FR-009]
+    required_tag_ids:
+      - powershell-peter
+      - powershell-conventions
+      - powershell-module-scaffold
+      - powershell-pester-workflow
+      - powershell-script-quality-gate
+
+  - path: docs/references/powershell-primer.md
+    fr: [FR-010]
+    required_content:
+      - Stijn Dejongh
+      - REGNOLOGY
+
+  - path: .cursor/agents/powershell-peter.md
+    fr: [FR-011]
+    priority: should
+    status: removed
+    reason: ".cursor/agents/ files should be generated on installation, not committed (PR review feedback)"
+
+constraints:
+  - id: C-001
+    verify: powershell-script-quality-gate tactic references PSScriptAnalyzer and secret hygiene
+  - id: C-002
+    verify: profile-id is powershell-peter
+  - id: C-004
+    verify: styleguide line count materially smaller than companion primer (distill check)

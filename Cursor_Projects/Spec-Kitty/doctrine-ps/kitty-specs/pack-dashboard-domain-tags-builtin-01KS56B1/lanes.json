@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "mission_slug": "pack-dashboard-domain-tags-builtin-01KS56B1",
+  "mission_id": "01KS56B1RXDA4JCMAZ6T4NHJ20",
+  "mission_branch": "kitty/mission-pack-dashboard-domain-tags-builtin-01KS56B1",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "lanes": [
+    {
+      "lane_id": "lane-a",
+      "wp_ids": [
+        "WP01",
+        "WP02",
+        "WP03",
+        "WP04",
+        "WP05"
+      ],
+      "write_scope": [
+        "docs/artifact-tags.yaml",
+        "docs/domain-config.yaml",
+        "tools/pack-dashboard/server/src/config.ts",
+        "tools/pack-dashboard/server/src/routes/artifact-tags.routes.test.ts",
+        "tools/pack-dashboard/server/src/routes/artifact-tags.routes.ts",
+        "tools/pack-dashboard/server/src/routes/domain-config.routes.ts",
+        "tools/pack-dashboard/server/src/services/domain-tags.service.test.ts",
+        "tools/pack-dashboard/server/src/services/domain-tags.service.ts",
+        "tools/pack-dashboard/src/app/components/domain-chips/domain-chips.component.ts",
+        "tools/pack-dashboard/src/app/models/domain.model.ts",
+        "tools/pack-dashboard/src/app/pages/artifact-detail/artifact-detail.component.ts",
+        "tools/pack-dashboard/src/app/pages/artifact-list/artifact-list.component.ts",
+        "tools/pack-dashboard/src/app/pages/dashboard/dashboard.component.ts",
+        "tools/pack-dashboard/src/app/services/domain.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "app-shell",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup",
+        "tests",
+        "tracker-integration",
+        "workspace"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-b",
+      "wp_ids": [
+        "WP06",
+        "WP07",
+        "WP08",
+        "WP09",
+        "WP10",
+        "WP11"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/server/src/index.ts",
+        "tools/pack-dashboard/server/src/models/artifact.model.ts",
+        "tools/pack-dashboard/server/src/routes/builtin.routes.test.ts",
+        "tools/pack-dashboard/server/src/routes/builtin.routes.ts",
+        "tools/pack-dashboard/server/src/services/builtin-scanner.service.test.ts",
+        "tools/pack-dashboard/server/src/services/builtin-scanner.service.ts",
+        "tools/pack-dashboard/server/src/services/pack-scanner.service.ts",
+        "tools/pack-dashboard/src/app/app.routes.ts",
+        "tools/pack-dashboard/src/app/components/platform-defaults-section/platform-defaults-section.component.ts",
+        "tools/pack-dashboard/src/app/components/structured-view/structured-view.component.ts",
+        "tools/pack-dashboard/src/app/models/artifact.model.ts",
+        "tools/pack-dashboard/src/app/pages/builtin-detail/builtin-detail.component.ts",
+        "tools/pack-dashboard/src/app/services/builtin.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "app-shell",
+        "artifact-rendering",
+        "dashboard",
+        "tests",
+        "tracker-integration",
+        "workspace"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    }
+  ],
+  "computed_at": "2026-05-21T12:31:47.047229+00:00",
+  "computed_from": "dependency_graph+ownership",
+  "planning_artifact_wps": [],
+  "collapse_report": {
+    "events": [
+      {
+        "wp_a": "WP02",
+        "wp_b": "WP01",
+        "rule": "dependency",
+        "evidence": "WP02 depends on WP01"
+      },
+      {
+        "wp_a": "WP03",
+        "wp_b": "WP01",
+        "rule": "dependency",
+        "evidence": "WP03 depends on WP01"
+      },
+      {
+        "wp_a": "WP04",
+        "wp_b": "WP02",
+        "rule": "dependency",
+        "evidence": "WP04 depends on WP02"
+      },
+      {
+        "wp_a": "WP05",
+        "wp_b": "WP03",
+        "rule": "dependency",
+        "evidence": "WP05 depends on WP03"
+      },
+      {
+        "wp_a": "WP07",
+        "wp_b": "WP06",
+        "rule": "dependency",
+        "evidence": "WP07 depends on WP06"
+      },
+      {
+        "wp_a": "WP08",
+        "wp_b": "WP07",
+        "rule": "dependency",
+        "evidence": "WP08 depends on WP07"
+      },
+      {
+        "wp_a": "WP09",
+        "wp_b": "WP08",
+        "rule": "dependency",
+        "evidence": "WP09 depends on WP08"
+      },
+      {
+        "wp_a": "WP10",
+        "wp_b": "WP09",
+        "rule": "dependency",
+        "evidence": "WP10 depends on WP09"
+      },
+      {
+        "wp_a": "WP11",
+        "wp_b": "WP07",
+        "rule": "dependency",
+        "evidence": "WP11 depends on WP07"
+      }
+    ],
+    "total_merges": 9,
+    "independent_wps_collapsed": 0,
+    "by_rule": {
+      "dependency": 9
+    }
+  }
+}

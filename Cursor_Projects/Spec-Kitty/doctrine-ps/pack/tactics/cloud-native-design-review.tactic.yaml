@@ -1,0 +1,61 @@
+schema_version: "1.0"
+id: cloud-native-design-review
+name: Cloud-Native Design Review
+purpose: >
+  Role-specific checklists and triggers for applying CONTEXT_AWARE_DESIGN during code review,
+  architecture, and specification work. Covers code-reviewer boundary enforcement, architect ADR
+  triggers, and analyst spec-scoping rules. Applies during the review and specify phases.
+steps:
+  - title: "Code reviewer: context boundary enforcement checklist"
+    description: >
+      Apply during every pull request review. Flag any item that is not satisfied.
+      (1) Code uses the context's ubiquitous language — not generic or borrowed terms from
+      another context.
+      (2) Cross-capability integration uses APIs or events — not internal ACL mappers between
+      capabilities.
+      (3) New deployables use a single primary language (no polyglot microservice without ADR).
+      (4) No hexagonal/DI/repository-interface scaffolding without a documented justification
+      (ADR or inline comment naming the concrete swap-out scenario).
+      (5) No direct coupling between contexts via shared mutable state.
+      (6) Domain terms match the glossary for this context.
+      (7) Generic names (Manager, Handler, Info, Utils, Data) are flagged and a rename
+      is requested.
+
+  - title: "Architect: ADR trigger conditions"
+    description: >
+      Write an ADR when any of the following context and architecture decisions are made.
+      Do not defer — record at the time of decision.
+      (1) A new bounded context boundary is introduced or an existing one is redefined.
+      (2) A new language is assigned to a deployable (capability-language-selection): record
+      the language, the capability, and the rationale for non-obvious choices.
+      (3) Ports-and-adapters or hexagonal architecture is proposed: the ADR must name the
+      concrete swap-out scenario that justifies the abstraction.
+      (4) An integration pattern between capabilities is chosen (BFF, Published Language,
+      Shared Kernel, Conformist, Anti-Corruption Layer): record which pattern and why.
+      (5) A shared kernel (small shared model between two contexts) is introduced: document
+      both owning contexts and the coordination mechanism.
+
+  - title: "Analyst Annie: spec scoping rules"
+    description: >
+      Apply when writing or reviewing specifications (user stories, feature specs, ADRs).
+      (1) Each specification belongs to exactly one bounded context. If a spec crosses
+      contexts, split it into per-context specs with an explicit integration story.
+      (2) Use the context's ubiquitous language consistently throughout the spec. Do not mix
+      vocabulary from different contexts in the same spec without explicit translation notes.
+      (3) Cross-reference the context glossary. New terms introduced in the spec must be
+      added to the glossary before the spec is approved.
+      (4) Cross-context integrations must be documented explicitly: identify the integration
+      boundary, name the pattern (BFF, event, API), and call out any model translation needed.
+
+failure_modes:
+  - "Reviewer approving code that uses generic names (Manager, Handler) without flagging for rename."
+  - "Architecture decision made without an ADR when a trigger condition is met."
+  - "Spec spanning multiple bounded contexts without explicit integration boundaries documented."
+  - "Ports-and-adapters scaffolding merged without an ADR naming the concrete swap-out scenario."
+  - "Cross-capability ACL mapper introduced instead of using the capability's published API or event."
+notes: >
+  This tactic operationalises CONTEXT_AWARE_DESIGN for three roles. It does not replace
+  the full directive — consult CONTEXT_AWARE_DESIGN for the complete principle statement
+  and integrity rules. For C4 diagramming rules see the c4-cloud-native-mapping styleguide.
+  For implementation patterns see CONTEXT_AWARE_DESIGN directly.
+  Directive refs: CONTEXT_AWARE_DESIGN. Applies to: review, specify phases.

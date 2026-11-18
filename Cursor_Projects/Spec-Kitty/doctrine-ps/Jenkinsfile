@@ -1,0 +1,1029 @@
+/*
+ * =============================================================================
+ * Regnology Agent Doctrine — Overlay Pack Distribution Pipeline (WP03)
+ * Mission:   single-command-installer-bootstrap-01KVFHX6
+ * Spec:      kitty-specs/single-command-installer-bootstrap-01KVFHX6/
+ * Migrated from: regnology-stack-distribution-pipeline-01KSWHFT (WP02 Jenkinsfile)
+ * -----------------------------------------------------------------------------
+ * On a TAG BUILD: resolve the pinned component versions for the built tag from
+ * config/release-map.yaml (Single Source of Truth, WP01), package the doctrine
+ * overlay pack into versioned + latest-alias .tar.gz / .zip pairs (each with a
+ * detached .sha256 sidecar), inject the resolved versions into COPIES of the
+ * installer scripts, run SonarQube SAST + CycloneDX SBOM scans, and publish
+ * everything to Artefactory under `ps-tooling-generic-local/doctrine-pack/`.
+ * On any failure after the first upload, every artifact uploaded in the failing
+ * run is DELETEd so consumers never observe a partial release.
+ *
+ * CURRENT-STATE RECONCILIATION (plan.md Δ1–Δ7):
+ *   Δ1 Trigger        : `branch 'main'` -> `buildingTag()` (RUN_ON_THIS_BRANCH escape hatch).
+ *   Δ2 Versioning     : `pack/.pack-version` -> resolved from config/release-map.yaml per tag.
+ *   Δ3 Artifact name  : `regnology-default-*` -> `ps-agent-enabled-factory-<version>`.
+ *   Δ4 Integrity      : in-archive MANIFEST.yml PLUS detached `<artifact>.sha256` per payload.
+ *   Δ5 Injection      : `@…@` tokens injected into published installer copies; none may remain.
+ *   Δ6 Lint           : `bash -n` + PowerShell parser + release-map validator gate (early stage).
+ *   Δ7 Security posture: keep first-deploy `catchError -> UNSTABLE`; HARDEN_SECURITY_SCAN flips to hard-fail.
+ *
+ * NOTE ON LAYERS (FR-013, D-007):
+ *   This pipeline publishes the PS OVERLAY pack only (`ps-agent-enabled-factory-*`).
+ *   The base `regnology-all-company-*` layer is published by the UPSTREAM
+ *   all-company pipeline, NOT here. The installer composes base -> overlay at
+ *   install time; this CI owns only the overlay artifacts + injected installers.
+ *
+ * PREREQUISITES (Jenkins admin):
+ *  1. Artefactory generic repository (default: ps-tooling-generic-local) exists.
+ *  2. Jenkins credential `ARTEFACTORY_API_TOKEN` (Secret Text) holds a valid
+ *     Artefactory API KEY (header scheme `X-JFrog-Art-Api: <token>`). If you
+ *     migrate to access tokens, switch to `Authorization: Bearer <token>`.
+ *  3. Jenkins credential `SONAR_TOKEN` (Secret Text) holds the SonarQube token.
+ *     It is injected ONLY via withCredentials; there is no plaintext default.
+ *  4. Kubernetes pod agent defined in `jenkins-agent.yaml`. The `tools`
+ *     container provides tar, zip, curl, sha256sum, python3, sed, awk, bash.
+ *     sonar-scanner / cyclonedx are optional (Security Scan degrades to UNSTABLE
+ *     unless HARDEN_SECURITY_SCAN=true). `pwsh` is optional (PowerShell parse
+ *     check degrades to UNSTABLE if absent — never silently passed).
+ *  5. The Pipeline Utility Steps plugin provides `readYaml`. If it is absent the
+ *     tag->version resolution falls back to a single-quoted `sh` awk parse of
+ *     config/release-map.yaml (documented inline in the Checkout stage).
+ *  Note: The Jenkins git-client plugin must support Git 2.53+ without the
+ *        deprecated git-whatchanged (upgrade if "refusing to run without
+ *        --i-still-use-this" appears in build logs).
+ *
+ * IDEMPOTENCY & ROLLBACK:
+ *  - Validate performs a HEAD check against Artefactory before any upload,
+ *    aborting if the resolved version already exists (unless FORCE_PUBLISH=true).
+ *  - On any failure after the first upload, post.failure DELETEs every artifact
+ *    uploaded in the failing run. Rollback is best-effort: individual DELETE
+ *    failures are logged as warnings; the build remains FAILURE.
+ *
+ * TRIGGER SCOPE:
+ *  - All stages are gated by
+ *      `when { anyOf { buildingTag(); expression { RUN_ON_THIS_BRANCH } } }`.
+ *    The pipeline is a no-op on ordinary branch/merge builds. It activates on a
+ *    tag build (multibranch tag scan / `buildingTag()`), or when
+ *    RUN_ON_THIS_BRANCH=true is set for pipeline testing (supply TAG_NAME_OVERRIDE
+ *    to exercise the resolution path off a real tag).
+ *
+ * SECURITY NOTES (DIRECTIVE_043):
+ *  - Every curl command that references a credential uses single-quoted Groovy
+ *    `sh '''…'''` blocks so `$ART_TOKEN` / `$SONAR_TOKEN` are ONLY expanded by
+ *    the shell, NEVER by Groovy string interpolation.
+ *  - NEVER write `${env.ART_TOKEN}` / `"...$ART_TOKEN..."` in a Groovy string,
+ *    and never `echo` a token — it would leak the credential into the build log.
+ *  - withCredentials(...) is the sole injection path for every secret.
+ *
+ * Archive layout contract (constraint C-003):
+ *  - tar MUST contain a top-level `pack/` directory — NOT bare pack contents.
+ *    The installer extracts with `--strip-components=1` to strip the prefix.
+ *    CORRECT:   tar czf archive.tar.gz pack/
+ *    INCORRECT: cd pack && tar czf ../archive.tar.gz .
+ *  - `pack/META/MANIFEST.yml` is generated BEFORE tar; the find expression
+ *    excludes META/ so the manifest never hashes itself.
+ *
+ * Parameters:
+ *   ARTEFACTORY_URL           Artefactory instance root URL (no trailing slash)
+ *   ARTEFACTORY_REPO          Generic repository name (e.g. ps-tooling-generic-local)
+ *   ARTEFACTORY_CREDENTIAL_ID Jenkins credential ID of the Artefactory API key
+ *   SONAR_CREDENTIAL_ID       Jenkins credential ID of the SonarQube token
+ *   SONAR_HOST_URL            SonarQube host URL
+ *   FORCE_PUBLISH             When true, skip the duplicate-version HEAD guard
+ *   RUN_ON_THIS_BRANCH        When true, run all stages on this branch (testing)
+ *   TAG_NAME_OVERRIDE         Tag to resolve when testing off a real tag build
+ *   ALLOW_UNRESOLVED_BASE     When true, allow the UNRESOLVED-UPSTREAM sentinel
+ *   HARDEN_SECURITY_SCAN      When true, security scans hard-fail (no UNSTABLE)
+ * =============================================================================
+ */
+
+pipeline {
+    agent {
+        kubernetes {
+            yamlFile 'jenkins-agent.yaml'
+            defaultContainer 'tools'
+            workspaceVolume(dynamicPVC(storageClassName: 'standard-rwo', requestsSize: '5Gi'))
+        }
+    }
+
+    options {
+        timestamps()
+        ansiColor('xterm')
+        timeout(time: 30, unit: 'MINUTES')
+        buildDiscarder(logRotator(numToKeepStr: '30'))
+        disableConcurrentBuilds()
+    }
+
+    parameters {
+        string(
+            name: 'ARTEFACTORY_URL',
+            defaultValue: 'https://artifactory.regnology.net/artifactory',
+            description: 'Artefactory instance root URL (no trailing slash). The repo path is appended automatically.'
+        )
+        string(
+            name: 'ARTEFACTORY_REPO',
+            defaultValue: 'ps-tooling-generic-local',
+            description: 'Artefactory generic repository. Archives are published to ARTEFACTORY_REPO/doctrine-pack/.'
+        )
+        string(
+            name: 'ARTEFACTORY_CREDENTIAL_ID',
+            defaultValue: 'ARTEFACTORY_API_TOKEN',
+            description: 'ID of the Jenkins Secret Text credential holding the Artefactory API key (X-JFrog-Art-Api).'
+        )
+        string(
+            name: 'SONAR_CREDENTIAL_ID',
+            defaultValue: 'SONAR_TOKEN',
+            description: 'ID of the Jenkins Secret Text credential holding the SonarQube token. Injected via withCredentials only.'
+        )
+        string(
+            name: 'SONAR_HOST_URL',
+            defaultValue: 'https://sonar.regnology.net',
+            description: 'SonarQube host URL used by the Security Scan stage.'
+        )
+        booleanParam(
+            name: 'FORCE_PUBLISH',
+            defaultValue: false,
+            description: 'When true, skip the duplicate-version HEAD guard and allow re-publishing an existing version.'
+        )
+        booleanParam(
+            name: 'RUN_ON_THIS_BRANCH',
+            defaultValue: false,
+            description: 'When true, execute all stages on this branch (pipeline testing). Combine with TAG_NAME_OVERRIDE to drive version resolution. Does NOT suppress rollback.'
+        )
+        string(
+            name: 'TAG_NAME_OVERRIDE',
+            defaultValue: '',
+            description: 'Tag to resolve from config/release-map.yaml when env.TAG_NAME is absent (e.g. RUN_ON_THIS_BRANCH testing). Leave empty on real tag builds.'
+        )
+        booleanParam(
+            name: 'ALLOW_UNRESOLVED_BASE',
+            defaultValue: false,
+            description: 'When true, allow a base_pack_version of UNRESOLVED-UPSTREAM to proceed. Default false: a sentinel base version is a hard release-blocking error (WP01 open-resolution).'
+        )
+        booleanParam(
+            name: 'HARDEN_SECURITY_SCAN',
+            defaultValue: false,
+            description: 'When true, SonarQube + CycloneDX are required and hard-fail the build (removes the first-deploy catchError->UNSTABLE soft-fail).'
+        )
+        string(
+            name: 'BASE_PACK_GIT_URL',
+            defaultValue: 'ssh://git@bitbucket.regnology.net:7999/rfg/skills.git',
+            description: 'Git URL of the parent regnology-all-company doctrine pack repo. The Layered Validation stage shallow-clones it and uses its pack/ subdir as BASE_PACK_DIR.'
+        )
+        string(
+            name: 'BASE_PACK_GIT_BRANCH',
+            defaultValue: 'main',
+            description: 'Branch of the parent pack repo to clone for layered validation.'
+        )
+        string(
+            name: 'BASE_PACK_CREDENTIAL_ID',
+            defaultValue: '',
+            description: 'Optional Jenkins SSH credential ID used to clone BASE_PACK_GIT_URL. Leave empty to rely on the agent default SSH config (same as checkout scm).'
+        )
+    }
+
+    environment {
+        PACK_DIR           = 'pack'
+        // Δ3: overlay archive basename. The base regnology-all-company layer is
+        // published by the UPSTREAM pipeline, not here.
+        ARCHIVE_BASENAME   = 'ps-agent-enabled-factory'
+        // Subdirectory within ARTEFACTORY_REPO where pack archives are published.
+        // Full path: ARTEFACTORY_URL/ARTEFACTORY_REPO/ARTEFACTORY_PATH/<file>
+        ARTEFACTORY_PATH   = 'doctrine-pack'
+        // NOTE: PACK_VERSION / OVERLAY_PACK_VERSION / BASE_PACK_VERSION /
+        // SPEC_KITTY_VERSION / RELEASE_TAG are intentionally NOT declared here.
+        // Declaring them as '' can prevent env.X = value from taking effect in
+        // Kubernetes pod agents (Jenkins treats '' as null and blocks subsequent
+        // assignment). They are set dynamically in the Checkout stage from the
+        // release map.
+        //
+        // Comma-separated list of Artefactory URLs successfully PUT in this run.
+        // Populated by the Publish stage; consumed by post.failure for rollback.
+        UPLOADED_ARTIFACTS = ''
+        // Mirror params into env so they are accessible in sh steps without
+        // Groovy interpolation.
+        ARTEFACTORY_URL    = "${params.ARTEFACTORY_URL}"
+        ARTEFACTORY_REPO   = "${params.ARTEFACTORY_REPO}"
+        SONAR_HOST_URL     = "${params.SONAR_HOST_URL}"
+    }
+
+    stages {
+
+        // -----------------------------------------------------------------------
+        // Stage 1: Checkout + Resolve Versions (T009 — Δ1/Δ2)
+        // Clones the repo and resolves the pinned component versions for the built
+        // TAG from config/release-map.yaml (the SSOT). Prefers readYaml (Pipeline
+        // Utility Steps); falls back to a single-quoted sh awk parse if the plugin
+        // is unavailable. Fails clearly if the tag has no mapping.
+        // -----------------------------------------------------------------------
+        stage('Checkout') {
+            when { anyOf { buildingTag(); expression { params.RUN_ON_THIS_BRANCH == true } } }
+            steps {
+                // debian:bookworm-slim does not ship curl, zip, or sha256sum.
+                // Install them once here so every subsequent stage can rely on them.
+                sh '''
+                    apt-get update -qq
+                    apt-get install -y --no-install-recommends curl zip coreutils
+                '''
+                checkout scm
+                script {
+                    // ── Resolve the build tag ──────────────────────────────────
+                    // env.TAG_NAME is set by the multibranch tag scan / buildingTag().
+                    // TAG_NAME_OVERRIDE lets pipeline testing drive resolution off a
+                    // real tag build.
+                    def resolvedTag = (env.TAG_NAME?.trim()) ?: (params.TAG_NAME_OVERRIDE?.trim() ?: '')
+                    if (!resolvedTag) {
+                        error("No release tag resolved. This pipeline is tag-triggered (env.TAG_NAME). " +
+                              "For branch testing set RUN_ON_THIS_BRANCH=true AND TAG_NAME_OVERRIDE=<tag>.")
+                    }
+                    env.RELEASE_TAG = resolvedTag
+                    echo "Resolving pinned versions for release tag: ${resolvedTag}"
+
+                    // ── Read config/release-map.yaml (prefer readYaml) ─────────
+                    def specKitty = null
+                    def overlay   = null
+                    def base       = null
+                    def method     = null
+
+                    def cfg = null
+                    boolean haveReadYaml = true
+                    try {
+                        cfg = readYaml file: 'config/release-map.yaml'
+                    } catch (Throwable t) {
+                        // readYaml step not installed (Pipeline Utility Steps absent)
+                        // or read/parse error — fall back to the sh awk parser.
+                        haveReadYaml = false
+                        echo "readYaml unavailable (${t.getClass().getName()}: ${t.getMessage()}); " +
+                             "using single-quoted sh awk fallback."
+                    }
+
+                    if (haveReadYaml) {
+                        method = 'readYaml (Pipeline Utility Steps)'
+                        def entry = cfg.releases.find { it.tag?.toString() == resolvedTag }
+                        if (entry == null) {
+                            error("Release tag '${resolvedTag}' has no entry in config/release-map.yaml. " +
+                                  "Add a releases[] mapping for this tag before tagging a release.")
+                        }
+                        specKitty = entry.spec_kitty_version?.toString()
+                        overlay   = entry.overlay_pack_version?.toString()
+                        base      = entry.base_pack_version?.toString()
+                    } else {
+                        method = 'sh awk fallback (readYaml unavailable)'
+                        // Dependency-free awk parse of the simple, known release-map
+                        // structure. No backslashes used (release-map indents with
+                        // spaces, values are double-quoted). resolvedTag is a tag
+                        // string (not a secret), interpolated like the other URLs.
+                        def parsed = sh(
+                            returnStdout: true,
+                            script: '''
+                                set -eu
+                                awk -v want="''' + resolvedTag + '''" '
+                                    function val(s){ sub(/^[^:]*:[ ]*/,"",s); sub(/[ ]*#.*$/,"",s); gsub(/^[ ]+/,"",s); gsub(/[ ]+$/,"",s); gsub(/^"/,"",s); gsub(/"$/,"",s); return s }
+                                    /^[ ]*-[ ]*tag:/ { cur=(val($0)==want)?1:0; next }
+                                    cur && /spec_kitty_version:/ && !/default_spec_kitty_version:/ { sk=val($0) }
+                                    cur && /overlay_pack_version:/ { ov=val($0) }
+                                    cur && /base_pack_version:/    { bp=val($0) }
+                                    END { print sk; print ov; print bp }
+                                ' config/release-map.yaml
+                            '''
+                        ).trim()
+                        def parts = parsed.split('\n', -1)
+                        specKitty = parts.size() > 0 ? parts[0].trim() : ''
+                        overlay   = parts.size() > 1 ? parts[1].trim() : ''
+                        base      = parts.size() > 2 ? parts[2].trim() : ''
+                        if (!specKitty && !overlay && !base) {
+                            error("Release tag '${resolvedTag}' has no entry in config/release-map.yaml " +
+                                  "(awk fallback found no matching releases[] block).")
+                        }
+                    }
+
+                    if (!specKitty || !overlay || !base) {
+                        error("Incomplete release-map entry for tag '${resolvedTag}': " +
+                              "spec_kitty_version='${specKitty}', overlay_pack_version='${overlay}', " +
+                              "base_pack_version='${base}'. All three must be set.")
+                    }
+
+                    env.SPEC_KITTY_VERSION   = specKitty
+                    env.OVERLAY_PACK_VERSION = overlay
+                    env.BASE_PACK_VERSION    = base
+                    // PACK_VERSION drives the published archive name; it is the
+                    // OVERLAY version (this repo publishes the overlay layer only).
+                    env.PACK_VERSION = overlay
+                    echo "Resolved via ${method}: tag=${resolvedTag} spec-kitty=${specKitty} " +
+                         "overlay=${overlay} base=${base}"
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Stage 2: Validate (T009)
+        // a) Semver regex guard on the resolved OVERLAY version (the published one).
+        // b) UNRESOLVED-UPSTREAM sentinel guard — a tagged release cannot pin the
+        //    base layer until the upstream version is resolved (WP01 open-resolution).
+        // c) Duplicate-version HEAD check keyed to the resolved version + new name.
+        // -----------------------------------------------------------------------
+        stage('Validate') {
+            when { anyOf { buildingTag(); expression { params.RUN_ON_THIS_BRANCH == true } } }
+            steps {
+                script {
+                    // T009a: semver regex on the published (overlay) version.
+                    def semverRegex = /^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$/
+                    if (!(env.PACK_VERSION ==~ semverRegex)) {
+                        error("Overlay version '${env.PACK_VERSION}' does not match semver pattern. " +
+                              "Expected MAJOR.MINOR.PATCH[-prerelease]. Check config/release-map.yaml.")
+                    }
+                    echo "Semver check passed: ${env.PACK_VERSION}"
+
+                    // T009b: UNRESOLVED-UPSTREAM sentinel guard.
+                    // The base regnology-all-company version is EXTERNAL to this
+                    // repo and tracked as an open-resolution sentinel in the map.
+                    // A real tagged release must NOT inject the literal sentinel.
+                    if (env.BASE_PACK_VERSION == 'UNRESOLVED-UPSTREAM') {
+                        if (params.ALLOW_UNRESOLVED_BASE) {
+                            echo "WARNING: base_pack_version is the UNRESOLVED-UPSTREAM sentinel and " +
+                                 "ALLOW_UNRESOLVED_BASE=true — proceeding deliberately. NOT recommended for a real release."
+                        } else {
+                            error("base_pack_version for tag ${env.RELEASE_TAG} is the sentinel " +
+                                  "'UNRESOLVED-UPSTREAM'. A tagged release cannot pin the base layer until the " +
+                                  "upstream all-company version is resolved (WP01 open-resolution; research.md " +
+                                  "Open items #2). Pin it in config/release-map.yaml, or set " +
+                                  "ALLOW_UNRESOLVED_BASE=true to override deliberately.")
+                        }
+                    }
+
+                    // T009c: duplicate-version guard via HTTP HEAD.
+                    // 200  → version already published → abort (unless FORCE_PUBLISH).
+                    // 404  → not yet published → proceed.
+                    // 401/403 → token scope is PUT-only → treat as proceed (auth
+                    //          failures surface at upload time).
+                    // 000  → network unreachable → abort; don't attempt a blind publish.
+                    if (params.FORCE_PUBLISH) {
+                        echo "FORCE_PUBLISH=true — skipping duplicate-version guard."
+                    } else {
+                        def headUrl = "${params.ARTEFACTORY_URL}/${params.ARTEFACTORY_REPO}/${env.ARTEFACTORY_PATH}/${env.ARCHIVE_BASENAME}-${env.PACK_VERSION}.tar.gz"
+                        withCredentials([string(credentialsId: params.ARTEFACTORY_CREDENTIAL_ID, variable: 'ART_TOKEN')]) {
+                            def status = sh(
+                                script: '''
+                                    set +x
+                                    HTTP=$(curl -sI -o /dev/null -w "%{http_code}" \
+                                        --max-time 15 --connect-timeout 10 \
+                                        -H "X-JFrog-Art-Api: $ART_TOKEN" \
+                                        "''' + headUrl + '''") || HTTP="000"
+                                    echo "$HTTP"
+                                ''',
+                                returnStdout: true
+                            ).trim()
+                            echo "HEAD ${headUrl} -> HTTP ${status}"
+                            if (status == '200') {
+                                error("Version ${env.PACK_VERSION} already published at ${headUrl}. " +
+                                      "Bump the overlay_pack_version in config/release-map.yaml or set FORCE_PUBLISH=true to override.")
+                            }
+                            if (status == '000') {
+                                error("Cannot reach Artefactory (network/DNS failure for HEAD check). " +
+                                      "Aborting to prevent a blind publish. Verify VPN/network access.")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Stage 3: Installer Lint (T012 — Δ6) [runs EARLY, before Package]
+        // a) bash -n on the POSIX installer — HARD fail (NOT wrapped in catchError).
+        // b) PowerShell parser check via pwsh if present; otherwise UNSTABLE
+        //    (never a silent pass).
+        // c) WP01 release-map validator (config/validate-release-map.py).
+        // -----------------------------------------------------------------------
+        stage('Installer Lint') {
+            when { anyOf { buildingTag(); expression { params.RUN_ON_THIS_BRANCH == true } } }
+            steps {
+                // (a) HARD fail on POSIX syntax error.
+                sh '''
+                    set -eu
+                    echo "Linting POSIX installer: bash -n dist/scripts/install-regnology-stack.sh"
+                    bash -n dist/scripts/install-regnology-stack.sh
+                    echo "bash -n OK"
+                '''
+                // (b) PowerShell parser check (optional tool → UNSTABLE, not pass).
+                script {
+                    def hasPwsh = sh(returnStatus: true, script: 'command -v pwsh >/dev/null 2>&1') == 0
+                    if (hasPwsh) {
+                        sh '''
+                            set -eu
+                            echo "PowerShell parse check: install-regnology-stack.ps1"
+                            pwsh -NoProfile -Command '[void][System.Management.Automation.Language.Parser]::ParseFile("dist/scripts/install-regnology-stack.ps1",[ref]$null,[ref]$null)'
+                            echo "PowerShell parse OK"
+                        '''
+                    } else {
+                        echo "pwsh not present on agent — PowerShell parse check SKIPPED."
+                        unstable("PowerShell parser unavailable: install-regnology-stack.ps1 was not syntax-checked.")
+                    }
+                }
+                // (c) WP01 release-map validator runs in CI.
+                sh '''
+                    set -eu
+                    echo "Validating config/release-map.yaml (WP01 validator)"
+                    python3 config/validate-release-map.py
+                '''
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Stage 4: Compile DRG Graph
+        // Regenerates pack/drg/ps-agent-enabled-factory.graph.yaml from the authored
+        // fragment.yaml using tools/compile-drg.py. Must run BEFORE Package so the
+        // assembled tarball always contains a fresh DRG graph. Failure is hard.
+        //
+        // The overlay extends regnology-all-company, so the graph MUST be compiled
+        // WITH --base-pack: this resolves cross-layer edges to their TRUE kinds
+        // (toolguide:/paradigm:/...) instead of the directive: fallback. The parent
+        // pack is cloned ONCE here and reused by the layered-validation stage, so the
+        // workspace graph that reaches Package can never be a directive:-regressed one.
+        // Git URL/branch are passed via the environment (not Groovy-interpolated into
+        // the shell) to avoid shell-quoting/injection surprises.
+        // -----------------------------------------------------------------------
+        stage('Compile DRG Graph') {
+            when { anyOf { buildingTag(); expression { params.RUN_ON_THIS_BRANCH == true } } }
+            steps {
+                script {
+                    sh '''
+                        set -eu
+                        python3 --version
+                        if ! python3 -c "import doctrine" 2>/dev/null; then
+                            pip3 install --quiet pipx 2>/dev/null || true
+                            # Honor the release-map spec-kitty pin (env.SPEC_KITTY_VERSION,
+                            # default "main"): a digit => PyPI release; otherwise a git ref
+                            # installed from source. Fall back to PyPI latest if unreachable.
+                            SK_REF="${SPEC_KITTY_VERSION:-main}"
+                            case "$SK_REF" in
+                                git+*)  SK_SPEC="$SK_REF" ;;
+                                [0-9]*) SK_SPEC="spec-kitty-cli==$SK_REF" ;;
+                                *)      SK_SPEC="git+https://github.com/Priivacy-ai/spec-kitty.git@$SK_REF" ;;
+                            esac
+                            pipx install --force "$SK_SPEC" 2>/dev/null \
+                                || pip3 install --quiet "$SK_SPEC" 2>/dev/null \
+                                || pipx install spec-kitty-cli 2>/dev/null || true
+                        fi
+                    '''
+
+                    def cloneDir = "${env.WORKSPACE}/.base-pack-clone"
+                    withEnv([
+                        "BASE_PACK_CLONE_DIR=${cloneDir}",
+                        "BASE_PACK_GIT_URL=${params.BASE_PACK_GIT_URL}",
+                        "BASE_PACK_GIT_BRANCH=${params.BASE_PACK_GIT_BRANCH}",
+                    ]) {
+                        def cloneScript = '''
+                            set -eu
+                            rm -rf "$BASE_PACK_CLONE_DIR"
+                            git clone --depth 1 --branch "$BASE_PACK_GIT_BRANCH" \
+                                "$BASE_PACK_GIT_URL" "$BASE_PACK_CLONE_DIR"
+                            test -d "$BASE_PACK_CLONE_DIR/pack/drg" || {
+                                echo "FATAL: cloned parent pack has no pack/drg directory at $BASE_PACK_CLONE_DIR/pack." >&2
+                                exit 1
+                            }
+                        '''
+                        if (params.BASE_PACK_CREDENTIAL_ID?.trim()) {
+                            sshagent(credentials: [params.BASE_PACK_CREDENTIAL_ID]) { sh cloneScript }
+                        } else {
+                            sh cloneScript
+                        }
+                        sh '''
+                            set -eu
+                            export PATH="$HOME/.local/bin:$PATH"
+                            python3 tools/compile-drg.py --base-pack "$BASE_PACK_CLONE_DIR/pack"
+                        '''
+                    }
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Stage 4b: Validate Doctrine (Layered)
+        // The published OVERLAY pack (ps-agent-enabled-factory) extends the parent
+        // regnology-all-company pack. Standalone validation of pack/ reports
+        // cross-layer references as expected drg_dangling_edge errors; the
+        // AUTHORITATIVE gate is validation of an ASSEMBLED (parent + overlay) tree.
+        //
+        // This stage reuses the parent-pack clone created by the Compile DRG Graph
+        // stage (pinned base version read from config/release-map.yaml via the same
+        // readYaml pattern as Checkout), then runs
+        // `make validate-layered BASE_PACK_DIR=<clone>/pack`, which recompiles the
+        // overlay graph with the parent inventory, assembles the two layers, and
+        // validates the merged tree. Non-zero is a HARD failure.
+        //
+        // Runs AFTER Compile DRG Graph and BEFORE Package so a regressed or
+        // genuinely-broken doctrine graph never reaches a published artifact.
+        // -----------------------------------------------------------------------
+        stage('Validate Doctrine (Layered)') {
+            when { anyOf { buildingTag(); expression { params.RUN_ON_THIS_BRANCH == true } } }
+            steps {
+                script {
+                    // Re-read the pinned base_pack_version from the release map using
+                    // the same readYaml-with-awk-fallback pattern as the Checkout
+                    // stage. env.BASE_PACK_VERSION is already resolved in Checkout;
+                    // this re-read keeps the stage self-documenting and resilient if
+                    // the stage order is changed. It is informational: the parent
+                    // repo is cloned by branch, and the pinned version is logged for
+                    // traceability.
+                    def basePackVersion = env.BASE_PACK_VERSION
+                    if (!basePackVersion?.trim()) {
+                        try {
+                            def cfg = readYaml file: 'config/release-map.yaml'
+                            def entry = cfg.releases.find { it.tag?.toString() == env.RELEASE_TAG }
+                            basePackVersion = entry?.base_pack_version?.toString()
+                        } catch (Throwable t) {
+                            echo "readYaml unavailable for base_pack_version re-read " +
+                                 "(${t.getClass().getName()}); relying on env.BASE_PACK_VERSION."
+                        }
+                    }
+                    echo "Layered validation — pinned base_pack_version: ${basePackVersion ?: 'UNKNOWN'} " +
+                         "(parent ${params.BASE_PACK_GIT_URL} @ ${params.BASE_PACK_GIT_BRANCH})"
+
+                    // Ensure make + spec-kitty CLI are available on the agent. The
+                    // `tools` container ships python3/bash/etc.; make may be absent
+                    // and spec-kitty must be installed + on PATH for assemble/validate.
+                    sh '''
+                        set -eu
+                        command -v make >/dev/null 2>&1 || (apt-get update -qq && apt-get install -y --no-install-recommends make)
+                        if ! command -v spec-kitty >/dev/null 2>&1; then
+                            pip3 install --quiet pipx 2>/dev/null || true
+                            # Honor the release-map spec-kitty pin (env.SPEC_KITTY_VERSION,
+                            # default "main"): a digit => PyPI release; otherwise a git ref
+                            # installed from source. Fall back to PyPI latest if unreachable.
+                            SK_REF="${SPEC_KITTY_VERSION:-main}"
+                            case "$SK_REF" in
+                                git+*)  SK_SPEC="$SK_REF" ;;
+                                [0-9]*) SK_SPEC="spec-kitty-cli==$SK_REF" ;;
+                                *)      SK_SPEC="git+https://github.com/Priivacy-ai/spec-kitty.git@$SK_REF" ;;
+                            esac
+                            pipx install --force "$SK_SPEC" 2>/dev/null \
+                                || pip3 install --quiet "$SK_SPEC" 2>/dev/null \
+                                || pipx install spec-kitty-cli 2>/dev/null || true
+                        fi
+                    '''
+
+                    // Reuse the parent-pack clone created by the Compile DRG Graph
+                    // stage (same WORKSPACE) — no second clone is performed here.
+                    // `make validate-layered` assembles parent + overlay and validates
+                    // the merged tree; non-zero is a HARD failure. It is read-only
+                    // against the working tree (backs up/restores the graph). The clone
+                    // is removed in the global post block. The path is passed via the
+                    // environment rather than Groovy-interpolated into the shell.
+                    def cloneDir = "${env.WORKSPACE}/.base-pack-clone"
+                    withEnv(["BASE_PACK_CLONE_DIR=${cloneDir}"]) {
+                        sh '''
+                            set -eu
+                            test -d "$BASE_PACK_CLONE_DIR/pack/drg" || {
+                                echo "FATAL: parent pack clone missing at $BASE_PACK_CLONE_DIR/pack — the Compile DRG Graph stage must run first." >&2
+                                exit 1
+                            }
+                            export PATH="$HOME/.local/bin:$PATH"
+                            make validate-layered BASE_PACK_DIR="$BASE_PACK_CLONE_DIR/pack"
+                        '''
+                    }
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Stage 5: Package (T010 — Δ3/Δ4)
+        // a) Generate pack/META/MANIFEST.yml (sha256 of every file under pack/
+        //    except META/ itself) — must happen BEFORE tar.
+        // b) Create reproducible .tar.gz with `pack/` top-level wrapper.
+        // c) Create .zip variant (Windows installer fallback).
+        // d) Produce detached <artifact>.sha256 sidecars for the tar and zip.
+        // -----------------------------------------------------------------------
+        stage('Package') {
+            when { anyOf { buildingTag(); expression { params.RUN_ON_THIS_BRANCH == true } } }
+            steps {
+                script {
+                    def version  = env.PACK_VERSION
+                    def tarName  = "${env.ARCHIVE_BASENAME}-${version}.tar.gz"
+                    def zipName  = "${env.ARCHIVE_BASENAME}-${version}.zip"
+                    env.TAR_NAME = tarName
+                    env.ZIP_NAME = zipName
+
+                    // T010a: Generate integrity manifest (find excludes META/).
+                    sh '''
+                        set -eu
+                        mkdir -p pack/META
+                        cd pack
+                        find . -type f -not -path './META/*' | LC_ALL=C sort > ../.manifest.filelist
+                        cd ..
+                        {
+                            printf '# Regnology Agent Doctrine — Pack Integrity Manifest\n'
+                            printf '# Generated by Jenkins WP03 pipeline; do not edit by hand.\n'
+                            printf 'version: "%s"\n' "''' + version + '''"
+                            printf 'generated_at: "%s"\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+                            printf 'files:\n'
+                            while IFS= read -r f; do
+                                rel="${f#./}"
+                                sum="$(sha256sum "pack/${rel}" | awk '{print $1}')"
+                                printf '  - path: "%s"\n    sha256: "%s"\n' "${rel}" "${sum}"
+                            done < .manifest.filelist
+                        } > pack/META/MANIFEST.yml
+                        rm -f .manifest.filelist
+                        echo "Manifest written: pack/META/MANIFEST.yml ($(wc -l < pack/META/MANIFEST.yml) lines)"
+                    '''
+
+                    // T010b: Reproducible tar with pack/ wrapper.
+                    sh '''
+                        set -eu
+                        SOURCE_DATE_EPOCH="$(git log -1 --pretty=%ct 2>/dev/null || date +%s)"
+                        export SOURCE_DATE_EPOCH
+                        tar czf "''' + tarName + '''" \
+                            --sort=name \
+                            --owner=0 --group=0 --numeric-owner \
+                            --mtime="@${SOURCE_DATE_EPOCH}" \
+                            pack/
+                        ls -lh "''' + tarName + '''"
+                    '''
+
+                    // T010c: Zip variant for Windows installer (Expand-Archive).
+                    sh '''
+                        set -eu
+                        which zip >/dev/null 2>&1 || (apt-get update && apt-get install -y zip)
+                        rm -f "''' + zipName + '''"
+                        zip -qr "''' + zipName + '''" pack/
+                        ls -lh "''' + zipName + '''"
+                    '''
+
+                    // T010d: detached .sha256 sidecars for both archives. The
+                    // installer reads only field 1 of each sidecar (the digest).
+                    sh '''
+                        set -eu
+                        sha256sum "''' + tarName + '''" > "''' + tarName + '''.sha256"
+                        sha256sum "''' + zipName + '''" > "''' + zipName + '''.sha256"
+                        echo "Checksums:"
+                        cat "''' + tarName + '''.sha256" "''' + zipName + '''.sha256"
+                    '''
+
+                    archiveArtifacts artifacts: [
+                        tarName,
+                        tarName + '.sha256',
+                        zipName,
+                        zipName + '.sha256',
+                        'pack/META/MANIFEST.yml',
+                        'dist/scripts/install-regnology-stack.sh',
+                        'dist/scripts/install-regnology-stack.ps1',
+                        'docs/HOW_TO_INSTALL.md'
+                    ].join(','), fingerprint: true
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Stage 6: Inject Installer Versions (T011 — Δ5)
+        // Substitute the four WP01 tokens into COPIES of the installer scripts,
+        // assert NO @…@ token survives, and re-run `bash -n` on the injected .sh
+        // before publish. The in-repo originals are NEVER mutated — they keep the
+        // placeholders for the Bitbucket fallback (unpinned) path.
+        // -----------------------------------------------------------------------
+        stage('Inject Installer Versions') {
+            when { anyOf { buildingTag(); expression { params.RUN_ON_THIS_BRANCH == true } } }
+            steps {
+                // Resolved versions come from env (set in Checkout). They are NOT
+                // secrets, so shell-expanding them in single-quoted sh is fine.
+                sh '''
+                    set -eu
+                    mkdir -p dist/published
+                    cp dist/scripts/install-regnology-stack.sh  dist/published/install-regnology-stack.sh
+                    cp dist/scripts/install-regnology-stack.ps1 dist/published/install-regnology-stack.ps1
+
+                    for f in dist/published/install-regnology-stack.sh dist/published/install-regnology-stack.ps1; do
+                        sed -i \
+                            -e "s#@SPEC_KITTY_VERSION@#${SPEC_KITTY_VERSION}#g" \
+                            -e "s#@OVERLAY_PACK_VERSION@#${OVERLAY_PACK_VERSION}#g" \
+                            -e "s#@BASE_PACK_VERSION@#${BASE_PACK_VERSION}#g" \
+                            -e "s#@RELEASE_TAG@#${RELEASE_TAG}#g" \
+                            "$f"
+                    done
+
+                    # No-remaining-token assertion: any surviving @WORD@ fails the build.
+                    if grep -nE '@[A-Z_]+@' \
+                            dist/published/install-regnology-stack.sh \
+                            dist/published/install-regnology-stack.ps1; then
+                        echo "FATAL: un-injected @...@ token(s) remain in the published installer copies." >&2
+                        exit 1
+                    fi
+                    echo "Token injection complete; zero @...@ tokens remain in the injected copies."
+
+                    # Re-validate the injected POSIX script parses cleanly before publish.
+                    bash -n dist/published/install-regnology-stack.sh
+                    echo "bash -n on injected .sh OK"
+
+                    # Detached checksums for the injected scripts.
+                    sha256sum dist/published/install-regnology-stack.sh  > dist/published/install-regnology-stack.sh.sha256
+                    sha256sum dist/published/install-regnology-stack.ps1 > dist/published/install-regnology-stack.ps1.sha256
+                '''
+                archiveArtifacts artifacts: [
+                    'dist/published/install-regnology-stack.sh',
+                    'dist/published/install-regnology-stack.sh.sha256',
+                    'dist/published/install-regnology-stack.ps1',
+                    'dist/published/install-regnology-stack.ps1.sha256'
+                ].join(','), fingerprint: true
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Stage 7: Security Scan (T013 — Δ7)
+        // SonarQube SAST + CycloneDX SBOM. Default posture: catchError(UNSTABLE)
+        // for first-deploy resilience (tools may be absent on some agents). When
+        // HARDEN_SECURITY_SCAN=true the soft-fail is removed and the tools are
+        // required — flipping the transition to FAILURE is a single-flag change.
+        //
+        // SONAR_TOKEN is sourced via withCredentials only; it is shell-expanded
+        // inside single-quoted sh and never Groovy-interpolated or echoed.
+        // -----------------------------------------------------------------------
+        stage('Security Scan') {
+            when { anyOf { buildingTag(); expression { params.RUN_ON_THIS_BRANCH == true } } }
+            steps {
+                script {
+                    boolean harden = params.HARDEN_SECURITY_SCAN
+
+                    // SonarQube SAST.
+                    withCredentials([string(credentialsId: params.SONAR_CREDENTIAL_ID, variable: 'SONAR_TOKEN')]) {
+                        def sonarSh = '''
+                            set -eu
+                            set +x
+                            if ! command -v sonar-scanner >/dev/null 2>&1; then
+                                echo "sonar-scanner not present on agent — SAST not executed." >&2
+                                exit 1
+                            fi
+                            sonar-scanner \
+                                -Dsonar.projectKey=regnology-agent-doctrine \
+                                -Dsonar.sources=pack \
+                                -Dsonar.host.url="${SONAR_HOST_URL}" \
+                                -Dsonar.login="$SONAR_TOKEN"
+                        '''
+                        if (harden) {
+                            sh sonarSh
+                        } else {
+                            catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') { sh sonarSh }
+                        }
+                    }
+
+                    // CycloneDX SBOM (no credential).
+                    def sbomSh = '''
+                        set -eu
+                        if ! command -v cyclonedx >/dev/null 2>&1; then
+                            echo "cyclonedx-cli not present on agent — SBOM not generated." >&2
+                            exit 1
+                        fi
+                        cyclonedx --output-format json --output-file sbom.cdx.json pack/
+                        echo "SBOM written: sbom.cdx.json"
+                    '''
+                    if (harden) {
+                        sh sbomSh
+                    } else {
+                        catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') { sh sbomSh }
+                    }
+
+                    archiveArtifacts artifacts: 'sbom.cdx.json', allowEmptyArchive: true, fingerprint: true
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Stage 8: Publish (T010/T011)
+        // Phase 1: versioned tar + .sha256, versioned zip + .sha256, SBOM.
+        // Phase 2: latest-alias tar + .sha256, latest-alias zip + .sha256.
+        // Phase 3: INJECTED installer scripts (versioned + latest) + .sha256, guide.
+        // Tracks every PUT URL in UPLOADED_ARTIFACTS for rollback in post.failure.
+        //
+        // AppSec invariant: $ART_TOKEN is ONLY expanded by the shell inside
+        // single-quoted sh blocks. It is NEVER referenced via Groovy interpolation.
+        //
+        // NOTE: only the OVERLAY pack + injected installers are published here.
+        // The base regnology-all-company-* layer is published by the UPSTREAM
+        // all-company pipeline, not by this CI.
+        // -----------------------------------------------------------------------
+        stage('Publish') {
+            when { anyOf { buildingTag(); expression { params.RUN_ON_THIS_BRANCH == true } } }
+            steps {
+                script {
+                    def version   = env.PACK_VERSION
+                    def tarName   = env.TAR_NAME
+                    def zipName   = env.ZIP_NAME
+                    def basePath  = "${params.ARTEFACTORY_URL}/${params.ARTEFACTORY_REPO}/${env.ARTEFACTORY_PATH}"
+
+                    def tarVerUrl  = "${basePath}/${tarName}"
+                    def zipVerUrl  = "${basePath}/${zipName}"
+                    def sbomVerUrl = "${basePath}/${env.ARCHIVE_BASENAME}-${version}-sbom.cdx.json"
+                    def tarLatest  = "${basePath}/${env.ARCHIVE_BASENAME}-latest.tar.gz"
+                    def zipLatest  = "${basePath}/${env.ARCHIVE_BASENAME}-latest.zip"
+
+                    def uploaded = []
+
+                    withCredentials([string(credentialsId: params.ARTEFACTORY_CREDENTIAL_ID, variable: 'ART_TOKEN')]) {
+
+                        // Closure: PUT a local file to an Artefactory URL.
+                        // URL and filename are Groovy-interpolated (not secrets).
+                        // Token is ONLY shell-expanded via $ART_TOKEN.
+                        def upload = { String localFile, String targetUrl ->
+                            def httpCode = sh(
+                                script: '''
+                                    set +x
+                                    set -eu
+                                    curl -sS -o /tmp/art_upload.out -w "%{http_code}" \
+                                        -H "X-JFrog-Art-Api: $ART_TOKEN" \
+                                        -T "''' + localFile + '''" \
+                                        "''' + targetUrl + '''"
+                                ''',
+                                returnStdout: true
+                            ).trim()
+                            if (!(httpCode ==~ /2\d\d/)) {
+                                sh 'cat /tmp/art_upload.out || true'
+                                error("Upload failed: ${localFile} -> ${targetUrl} (HTTP ${httpCode})")
+                            }
+                            uploaded << targetUrl
+                            env.UPLOADED_ARTIFACTS = uploaded.join(',')
+                            echo "Uploaded: ${localFile} -> ${targetUrl} (HTTP ${httpCode})"
+                        }
+
+                        // ── Phase 1: versioned overlay archives + checksums + SBOM ─
+                        echo "Phase 1: versioned uploads (overlay archive + detached .sha256)"
+                        upload(tarName,             tarVerUrl)
+                        upload(tarName + '.sha256', tarVerUrl + '.sha256')
+                        upload(zipName,             zipVerUrl)
+                        upload(zipName + '.sha256', zipVerUrl + '.sha256')
+
+                        if (fileExists('sbom.cdx.json')) {
+                            upload('sbom.cdx.json', sbomVerUrl)
+                        } else {
+                            echo "sbom.cdx.json not found — SBOM upload skipped."
+                        }
+
+                        // ── Phase 2: latest-alias archives + checksums ─────────────
+                        echo "Phase 2: latest-alias uploads"
+                        upload(tarName,             tarLatest)
+                        upload(tarName + '.sha256', tarLatest + '.sha256')
+                        upload(zipName,             zipLatest)
+                        upload(zipName + '.sha256', zipLatest + '.sha256')
+
+                        // ── Phase 3: INJECTED installer scripts + checksums + guide ─
+                        // Publish the build-time-injected copies (dist/published/*),
+                        // NOT the in-repo originals (those keep placeholders).
+                        echo "Phase 3: injected installer scripts and installation guide"
+                        def shInjected  = 'dist/published/install-regnology-stack.sh'
+                        def ps1Injected = 'dist/published/install-regnology-stack.ps1'
+                        def shSha       = shInjected + '.sha256'
+                        def ps1Sha      = ps1Injected + '.sha256'
+                        def howToDoc    = 'docs/HOW_TO_INSTALL.md'
+
+                        def shVerUrl     = "${basePath}/install-regnology-stack-${version}.sh"
+                        def shLatestUrl  = "${basePath}/install-regnology-stack-latest.sh"
+                        def ps1VerUrl    = "${basePath}/install-regnology-stack-${version}.ps1"
+                        def ps1LatestUrl = "${basePath}/install-regnology-stack-latest.ps1"
+                        def howToUrl     = "${basePath}/HOW_TO_INSTALL.md"
+
+                        upload(shInjected,  shVerUrl)
+                        upload(shSha,       shVerUrl + '.sha256')
+                        upload(shInjected,  shLatestUrl)
+                        upload(shSha,       shLatestUrl + '.sha256')
+                        upload(ps1Injected, ps1VerUrl)
+                        upload(ps1Sha,      ps1VerUrl + '.sha256')
+                        upload(ps1Injected, ps1LatestUrl)
+                        upload(ps1Sha,      ps1LatestUrl + '.sha256')
+                        upload(howToDoc,    howToUrl)
+                    }
+
+                    echo "All artifacts published for version ${version}."
+                    echo "UPLOADED_ARTIFACTS: ${env.UPLOADED_ARTIFACTS}"
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Stage 9: Smoke Check (T010)
+        // 1. Re-fetches the versioned tar and streams it through `tar -tzf -`,
+        //    asserting the pack/ wrapper and pack/META/MANIFEST.yml are present.
+        // 2. HEAD-verifies that the installer scripts, install guide, AND the
+        //    detached .sha256 siblings are reachable. Any miss triggers the
+        //    post.failure rollback.
+        // -----------------------------------------------------------------------
+        stage('Smoke Check') {
+            when { anyOf { buildingTag(); expression { params.RUN_ON_THIS_BRANCH == true } } }
+            steps {
+                script {
+                    def version   = env.PACK_VERSION
+                    def tarName   = env.TAR_NAME
+                    def zipName   = env.ZIP_NAME
+                    def basePath  = "${params.ARTEFACTORY_URL}/${params.ARTEFACTORY_REPO}/${env.ARTEFACTORY_PATH}"
+                    def tarVerUrl = "${basePath}/${tarName}"
+                    def zipVerUrl = "${basePath}/${zipName}"
+
+                    // ── 1. Pack archive content check ──────────────────────────
+                    withCredentials([string(credentialsId: params.ARTEFACTORY_CREDENTIAL_ID, variable: 'ART_TOKEN')]) {
+                        sh '''
+                            set -eu
+                            set +x
+                            echo "Smoke check: fetching ''' + tarVerUrl + '''"
+                            curl -sSf \
+                                -H "X-JFrog-Art-Api: $ART_TOKEN" \
+                                "''' + tarVerUrl + '''" \
+                                | tar -tzf - > /tmp/smoke_entries.txt
+                            echo "Archive entry count: $(wc -l < /tmp/smoke_entries.txt)"
+
+                            grep -q '^pack/' /tmp/smoke_entries.txt || {
+                                echo "FATAL: published archive has no pack/ top-level directory." >&2
+                                echo "       Installer --strip-components=1 contract is violated." >&2
+                                head -30 /tmp/smoke_entries.txt >&2
+                                exit 4
+                            }
+
+                            grep -q '^pack/META/MANIFEST.yml$' /tmp/smoke_entries.txt || {
+                                echo "FATAL: pack/META/MANIFEST.yml missing from published archive." >&2
+                                head -30 /tmp/smoke_entries.txt >&2
+                                exit 3
+                            }
+
+                            echo "Pack archive smoke check passed for ''' + tarName + '''."
+                        '''
+                    }
+
+                    // ── 2. Artifact + checksum accessibility check ─────────────
+                    // Every published payload must have a reachable .sha256 sibling
+                    // (FR-012/D-006). HEAD each artifact and its sidecar.
+                    def shLatestUrl  = "${basePath}/install-regnology-stack-latest.sh"
+                    def ps1LatestUrl = "${basePath}/install-regnology-stack-latest.ps1"
+                    def howToUrl     = "${basePath}/HOW_TO_INSTALL.md"
+
+                    withCredentials([string(credentialsId: params.ARTEFACTORY_CREDENTIAL_ID, variable: 'ART_TOKEN')]) {
+                        sh '''
+                            set -eu
+                            set +x
+                            for url in \
+                                "''' + tarVerUrl + '''.sha256" \
+                                "''' + zipVerUrl + '''.sha256" \
+                                "''' + shLatestUrl + '''" \
+                                "''' + shLatestUrl + '''.sha256" \
+                                "''' + ps1LatestUrl + '''" \
+                                "''' + ps1LatestUrl + '''.sha256" \
+                                "''' + howToUrl + '''"; do
+                                HTTP=$(curl -sI -o /dev/null -w "%{http_code}" \
+                                    --max-time 15 --connect-timeout 10 \
+                                    -H "X-JFrog-Art-Api: $ART_TOKEN" \
+                                    "$url")
+                                [ "$HTTP" = "200" ] || {
+                                    echo "FATAL: $url not accessible (HTTP $HTTP)." >&2
+                                    exit 5
+                                }
+                                echo "OK: $url (HTTP $HTTP)"
+                            done
+                            echo "Artifact + checksum accessibility check passed."
+                        '''
+                    }
+                }
+            }
+        }
+    }
+
+    // ---------------------------------------------------------------------------
+    // post.failure — Rollback
+    // DELETEs every URL in UPLOADED_ARTIFACTS so consumers never observe a partial
+    // release. Applies to tag builds and RUN_ON_THIS_BRANCH test runs. Best-effort:
+    // individual DELETE failures are logged as warnings; the build remains FAILURE.
+    //
+    // AppSec: $ART_TOKEN is shell-expanded only; never Groovy-interpolated.
+    // ---------------------------------------------------------------------------
+    post {
+        failure {
+            script {
+                if (env.TAG_NAME?.trim() || params.RUN_ON_THIS_BRANCH) {
+                    if (env.UPLOADED_ARTIFACTS?.trim()) {
+                        echo "Build failed after partial upload. Rolling back: ${env.UPLOADED_ARTIFACTS}"
+                        withCredentials([string(
+                            credentialsId: params.ARTEFACTORY_CREDENTIAL_ID,
+                            variable: 'ART_TOKEN'
+                        )]) {
+                            env.UPLOADED_ARTIFACTS.split(',').each { artifact ->
+                                def remoteUrl = artifact.trim()
+                                echo "Rollback: DELETE ${remoteUrl}"
+                                def status = sh(
+                                    script: '''
+                                        set +x
+                                        set +e
+                                        curl -s -o /dev/null -w "%{http_code}" \
+                                          -X DELETE \
+                                          -H "X-JFrog-Art-Api: $ART_TOKEN" \
+                                          ''' + "\"${remoteUrl}\"",
+                                    returnStdout: true
+                                ).trim()
+                                echo "Rollback ${remoteUrl}: HTTP ${status}"
+                            }
+                        }
+                        echo 'Rollback complete.'
+                    } else {
+                        echo 'Build failed before any upload completed. Nothing to roll back.'
+                    }
+                } else {
+                    echo "Not a tag/test build (TAG_NAME='${env.TAG_NAME}') — rollback not applicable."
+                }
+            }
+        }
+        always {
+            sh 'rm -f /tmp/art_upload.out /tmp/art_rollback.out /tmp/smoke_entries.txt || true'
+            // Clean up doctrine layered-validation scratch: the parent-pack clone
+            // (created in Compile DRG Graph) and any assemble temp dirs.
+            sh 'rm -rf "${WORKSPACE}/.base-pack-clone" "${WORKSPACE}"/.tmp-assembled.* || true'
+        }
+    }
+}

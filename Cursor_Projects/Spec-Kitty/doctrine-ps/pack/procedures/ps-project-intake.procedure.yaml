@@ -1,0 +1,157 @@
+schema_version: "1.0"
+id: ps-project-intake
+name: PS Project Intake
+purpose: >
+  Capture the repeatable process for intaking a new tooling project into the PS
+  central tooling team as durable, multi-actor doctrine, so any colleague can run
+  it without the original author. The procedure loads a fitting specialist
+  profile, runs a structured intake interview, resolves the target Jira project
+  and its field schema LIVE, reconciles the interview against the real repository
+  or POC, creates an overview Epic and a thin first-story set (including one
+  "(initial intake)" story) with explicit human consent, and verifies the result.
+  It reuses — never restates — the Regnology Jira conventions and the
+  regnology-mcp Jira mechanics.
+entry_condition: >
+  A new PS tooling project needs to be brought into central tooling. The operator
+  can reach Regnology Jira through the regnology-mcp server and can either name the
+  target Jira project or resolve it during the flow. The requester (or enough
+  written context to stand in for them) is available for the interview.
+exit_condition: >
+  An overview Epic and a thin first-story set (including one explicitly-named
+  "(initial intake)" story) exist in the correct Jira project and are confirmed by
+  a JQL query. Every external write (Epic/Story creation, and any repository
+  scaffold or push) has a verbatim human consent quote recorded in the intake
+  trace. The created artifacts are linked back to the seed context, and the intake
+  trace is complete (no unresolved items remain in blocked_if_unresolved).
+steps:
+  - title: Run the structured intake interview
+    actor: agent
+    description: >
+      Follow the ps-intake-interview tactic end to end. It opens by loading a
+      fitting specialist profile (by fit, not habit) and copying the
+      ps-intake-trace template into the engagement working area before any
+      question, so the profile choice, answers, decisions, and consent are
+      recorded live rather than reconstructed. Then cover all nine dimensions
+      (identity & why, maturity, in scope, out of scope, binary definition of
+      done, work item type, handoff & stakeholders, repository status, tech
+      stack) and apply the tactic's binary completion check. Record "unknown"
+      answers and flag any that block Epic creation. The profile-selection
+      criteria and trace mechanics are owned by the tactic — this procedure
+      delegates to it rather than restating them.
+    on_success: Proceed to resolve Jira live.
+    on_failure: If a blocking dimension cannot be answered, stop and escalate to a human.
+  - title: Resolve the target Jira project and field schema live
+    actor: agent
+    description: >
+      Using the regnology-mcp-jira toolguide, resolve the target project key, its
+      Epic/Story issue types, the real custom-field IDs for this project, and any
+      assignee usernames (Server/DC — no account-ID lookup) — all at runtime.
+      Never reuse cached IDs and never fabricate a project key or username. Record
+      the resolution evidence in the trace.
+    on_success: Proceed to reconcile reality.
+    on_failure: >
+      If the project, a mandatory field, or a required user cannot be resolved,
+      STOP. Do not fabricate identifiers; escalate to a human for the missing
+      value.
+  - title: Reconcile the interview against reality
+    actor: agent
+    description: >
+      Inspect what actually exists — the repository, POC, or existing system —
+      and reconcile it against the interview answers. Fix project/naming and scope
+      discrepancies now, before anything is created in Jira. Record the reconciled
+      truth in the trace; it is what downstream steps use.
+    on_success: Proceed to draft and create the Epic.
+  - title: Draft the overview Epic, then STOP for consent before creating
+    actor: human
+    description: >
+      Draft the Epic description following the regnology-jira-workflow procedure
+      (wiki markup; Context traceable by absolute URL; In/Out scope; binary
+      Given/When/Then acceptance criteria; Story Points; Affects Version/s; Work
+      Item Type). Present the draft — together with the thin first-story set you
+      intend to create under it — and STOP. Only after explicit human consent,
+      recorded verbatim in the trace consent log and covering both the Epic and
+      that initial first-story set, create the Epic.
+    on_success: Proceed to slice first stories under the recorded consent.
+    on_failure: Without recorded consent, do not create the Epic or any story.
+  - title: Slice a thin first-story set (under the recorded consent)
+    actor: agent
+    description: >
+      Under the consent recorded at Epic creation, create the small, rudimentary
+      set of first Stories under the Epic — including one explicitly named to mark
+      the "(initial intake)" work. Keep them thin; deeper decomposition is a
+      deliberate follow-up, not part of intake. If the set would materially exceed
+      what was consented, STOP and obtain fresh consent first. Apply the Jira
+      conventions and semantic linking from regnology-jira-workflow; link each
+      Story to the Epic via the resolved Epic Link (not Cloners).
+    on_success: Proceed to optional scaffold, else to verification.
+    on_failure: Without recorded consent covering these stories, do not create them.
+  - title: Optionally scaffold the repository, STOP for consent before any push
+    actor: human
+    description: >
+      If the interview established that a repository must be created, scaffold it
+      per the applicable repository-initialization conventions. Any push to a
+      remote is an external write: STOP and obtain explicit human consent, recorded
+      verbatim in the trace, before pushing.
+    on_success: Proceed to verification.
+    on_failure: Without recorded consent, do not push.
+  - title: Verify and link back
+    actor: agent
+    description: >
+      Run a JQL query to confirm the Epic and first stories exist and resolve.
+      Record the query and result in the trace. Add semantic/remote links from the
+      created artifacts back to the seed ticket or context. Confirm the trace is
+      complete — nothing left in blocked_if_unresolved — before declaring the
+      intake done.
+    on_success: Intake complete.
+anti_patterns:
+  - name: Creating the Epic before reconciling reality
+    description: >
+      Filing the Epic straight from the interview without inspecting the actual
+      repository or POC. Interview answers drift from reality (naming, scope,
+      maturity); creating first and reconciling later produces a mis-scoped Epic
+      and rework. Reconcile, then create.
+  - name: Fabricating project keys, field IDs, or usernames
+    description: >
+      Guessing a Jira project key, reusing a cached custom-field ID, or inventing
+      an assignee. These are environment-specific and must be resolved live via
+      the regnology-mcp-jira toolguide. A fabricated identifier is a defect; on
+      failure, stop and escalate.
+  - name: Opening the trace after the interview
+    description: >
+      Interviewing from memory and writing the trace afterwards. Answers and
+      consent must be recorded live; a reconstructed trace loses detail and cannot
+      serve as an audit record.
+  - name: Re-encoding Jira conventions already governed elsewhere
+    description: >
+      Restating wiki-markup, DoR/DoD, linking, or transition rules inside this
+      procedure. They are owned by regnology-jira-workflow; duplicate them and
+      they drift. Reference, do not restate.
+  - name: Creating Jira issues or pushing without recorded consent
+    description: >
+      Performing an external write with no verbatim consent quote in the trace.
+      Every create/push requires explicit human consent captured at the moment it
+      is given (Directive 044).
+references:
+  - type: procedure
+    id: regnology-jira-workflow
+    reason: >
+      Owns all Jira ticket conventions (wiki markup, In/Out scope, binary
+      acceptance criteria, absolute URLs, semantic linking, DoR/DoD, transitions).
+      Reused, not restated.
+  - type: tactic
+    id: ps-intake-interview
+    reason: The structured interview mechanics this procedure orchestrates.
+  - type: toolguide
+    id: regnology-mcp-jira
+    reason: >
+      Live resolution of the target project, field schema, and users, plus the
+      Epic/Story creation and verification calls.
+  - type: template
+    id: ps-intake-trace
+    reason: The auditable per-intake record of interview, resolution, and consent.
+  - type: directive
+    id: CORPORATE_TOOLING
+    reason: Governs Jira/Confluence interactions and external-write consent.
+  - type: directive
+    id: TRACEABLE_DECISIONS
+    reason: The intake trace and link-back satisfy decision traceability.

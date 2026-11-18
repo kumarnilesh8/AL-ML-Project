@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+simulation-report.md
+.next/
+*.tsbuildinfo
+next-env.d.ts
+supabase/.temp/
+supabase/.branches/

@@ -1,0 +1,70 @@
+{
+  "event_count": 57,
+  "last_event_id": "01KWE80VPCH3DT79K90T6F1AV1",
+  "materialized_at": "2026-07-01T07:06:46.860321+00:00",
+  "mission_number": "8",
+  "mission_slug": "doctrine-pack-remediation-georgia-templates-01KWCBN5",
+  "mission_type": "software-dev",
+  "summary": {
+    "approved": 0,
+    "blocked": 0,
+    "canceled": 0,
+    "claimed": 0,
+    "done": 7,
+    "for_review": 0,
+    "in_progress": 0,
+    "in_review": 0,
+    "planned": 0
+  },
+  "work_packages": {
+    "WP01": {
+      "actor": "merge",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KWE80C6YNP6MDX6NAWF1MKMS",
+      "last_transition_at": "2026-07-01T07:06:31.006183+00:00"
+    },
+    "WP02": {
+      "actor": "merge",
+      "force_count": 2,
+      "lane": "done",
+      "last_event_id": "01KWE80PQXYGC1W3WFAP36CYYR",
+      "last_transition_at": "2026-07-01T07:06:41.789401+00:00"
+    },
+    "WP03": {
+      "actor": "merge",
+      "force_count": 2,
+      "lane": "done",
+      "last_event_id": "01KWE80ETTA4DMK5KAYTVBXY10",
+      "last_transition_at": "2026-07-01T07:06:33.690895+00:00"
+    },
+    "WP04": {
+      "actor": "merge",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KWE80HC586HEJ3VDXY5XT7AF",
+      "last_transition_at": "2026-07-01T07:06:36.293709+00:00"
+    },
+    "WP05": {
+      "actor": "merge",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KWE80KVFX1NNX1NE18G22HQC",
+      "last_transition_at": "2026-07-01T07:06:38.831520+00:00"
+    },
+    "WP06": {
+      "actor": "merge",
+      "force_count": 2,
+      "lane": "done",
+      "last_event_id": "01KWE80S6GMD5PRCR5J519TSVM",
+      "last_transition_at": "2026-07-01T07:06:44.304911+00:00"
+    },
+    "WP07": {
+      "actor": "merge",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KWE80VPCH3DT79K90T6F1AV1",
+      "last_transition_at": "2026-07-01T07:06:46.860321+00:00"
+    }
+  }
+}

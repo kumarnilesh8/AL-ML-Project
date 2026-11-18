@@ -1,0 +1,56 @@
+{
+  "event_count": 55,
+  "last_event_id": "01KVDQ8BCJN63KT6W78T63E3EE",
+  "materialized_at": "2026-06-18T15:58:04.690033+00:00",
+  "mission_number": "6",
+  "mission_slug": "ps-departmental-rebrand-and-extend-all-company-pack-01KVD1M1",
+  "mission_type": "software-dev",
+  "summary": {
+    "approved": 0,
+    "blocked": 0,
+    "canceled": 0,
+    "claimed": 0,
+    "done": 5,
+    "for_review": 0,
+    "in_progress": 0,
+    "in_review": 0,
+    "planned": 0
+  },
+  "work_packages": {
+    "WP01": {
+      "actor": "merge",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KVDQ81HBBND73C9NQX37M6F9",
+      "last_transition_at": "2026-06-18T15:57:54.603855+00:00"
+    },
+    "WP02": {
+      "actor": "merge",
+      "force_count": 2,
+      "lane": "done",
+      "last_event_id": "01KVDQ842PV6TVD34C5TDH4K05",
+      "last_transition_at": "2026-06-18T15:57:57.206461+00:00"
+    },
+    "WP03": {
+      "actor": "merge",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KVDQ86G2RDD2S0R44TQ3YV6H",
+      "last_transition_at": "2026-06-18T15:57:59.682466+00:00"
+    },
+    "WP04": {
+      "actor": "merge",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KVDQ88ZB06NS9890B8FGY6XG",
+      "last_transition_at": "2026-06-18T15:58:02.219049+00:00"
+    },
+    "WP05": {
+      "actor": "merge",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KVDQ8BCJN63KT6W78T63E3EE",
+      "last_transition_at": "2026-06-18T15:58:04.690033+00:00"
+    }
+  }
+}

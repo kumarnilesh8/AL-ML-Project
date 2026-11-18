@@ -1,0 +1,28 @@
+schema_version: "1.0"
+id: bounded-context-linguistic-discovery
+name: Bounded Context Linguistic Discovery
+summary: >
+  Use terminology patterns to identify hidden context boundaries in software systems.
+  Semantic conflicts — the same term meaning different things to different teams — signal
+  architectural boundaries that should be made explicit.
+
+  Apply when multiple teams work on the same system, terminology conflicts arise frequently,
+  team restructuring signals vocabulary churn, or a legacy monolith requires decomposition.
+  Do not apply to simple CRUD apps, prototyping phases, or single teams with shared
+  understanding.
+
+  Core insight: bounded contexts are not arbitrary divisions — they emerge from genuine
+  semantic boundaries in the domain. Conway's Law applied to linguistics: teams that
+  communicate frequently converge on shared terminology; teams with infrequent communication
+  develop different vocabularies. Where teams differ linguistically, context boundaries belong.
+  Context mapping relationship patterns include Upstream/Downstream, Anti-Corruption Layer,
+  Shared Kernel, Published Language, and Conformist.
+
+  Anti-ACL clarification: Integration boundary ACL (translating at the edge between bounded
+  contexts) is permitted. Internal ACL stacks within a single capability are an anti-pattern
+  — they fragment the internal model unnecessarily. Context mapping patterns do not require
+  separate microservices. Bounded contexts discovered linguistically do not automatically
+  become microservices or separate databases; they may share a deployable as modules with
+  clear imports. See cloud-native-domain-modelling for capability decomposition rules.
+directive_refs:
+  - VERSION_GOVERNANCE

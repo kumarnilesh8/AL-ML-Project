@@ -1,0 +1,129 @@
+schema_version: "1.0"
+id: gemini-chatbot-authoring
+title: Gemini Chatbot Authoring Best Practices
+scope: operations
+principles:
+  - "google_search and general web-search grounding MUST be disabled or fenced for domain-specific
+    chatbots; answer ONLY from the declared knowledge bases and connectors. When web search is
+    permitted, restrict it to official vendor/standards references (e.g. iso.org, cloud.google.com)
+    and NEVER use grounded web results to answer regulated, in-scope substance (financial data,
+    regulatory rules, customer records). This is a mandatory AppSec guardrail."
+  - "Connectors and tools MUST be declared with least-privilege scope: request only the permissions
+    and data fields the chatbot's published use cases require. Document each connector/tool with its
+    purpose, the minimum OAuth scopes or API roles requested, and the data classification of the
+    responses it returns."
+  - "Every knowledge base included in the agent configuration MUST carry a provenance record:
+    source name, owner, version or effective date, licence type (e.g. ISO standard — licensed
+    copy, internal IP, public domain), and the approval reference authorising its inclusion.
+    ISO standards or other copyrighted material MUST NOT be redistributed verbatim beyond the
+    terms of the applicable licence."
+  - "Use the standardised link syntax `connector://<name>` to reference a named connector and
+    `tool://<name>` to reference a named tool within agent configuration files and docstrings.
+    Never hard-code endpoint URLs or raw API base paths in agent instructions; resolve them
+    through the connector/tool registry at runtime."
+  - "Apply the grounding-strictness-vs-tool-access rule: the more powerful the tool access
+    (write operations, PII retrieval, financial data), the stricter the grounding constraints
+    must be. Read-only, non-sensitive tools MAY allow relaxed grounding; tools with write access
+    or access to regulated data MUST enforce knowledge-base-only grounding with no web fallback."
+  - "Curate on-scope 'suggested starter prompts' for every published chatbot persona: prompts
+    MUST reflect the chatbot's declared scope, be validated against the knowledge bases, and
+    exclude questions that would require the chatbot to operate outside its approved domain.
+    Review and update starter prompts whenever the underlying knowledge base or connector set
+    changes."
+
+patterns:
+  - name: Knowledge-Base Manifest Entry
+    description: "Each knowledge base referenced by the agent must have a provenance block.
+      Use this structure in the agent configuration or its companion manifest file."
+    bad_example: |
+      # vague reference — no licence, no version
+      knowledge_bases:
+        - name: iso_standards
+          source: internal_sharepoint
+    good_example: |
+      knowledge_bases:
+        - name: iso_standards
+          source: "connector://sharepoint-regnology"
+          documents:
+            - title: "ISO/IEC 27001:2022 Information Security Standard"
+              version: "2022"
+              licence: "ISO licensed copy — internal use only; redistribution prohibited"
+              owner: "Information Security team"
+              approval_ref: "INFOSEC-APPROVAL-2024-007"
+  - name: Connector and Tool Declaration
+    description: "Declare every connector and tool with explicit scope and data classification
+      so reviewers can verify least-privilege compliance."
+    bad_example: |
+      tools:
+        - type: function
+          name: get_customer_data
+          # no scope, no classification
+    good_example: |
+      tools:
+        - type: function
+          name: get_customer_data
+          uri: "tool://crm-customer-lookup"
+          scopes: ["crm.customer.read"]
+          data_classification: PII
+          purpose: "Retrieve account summary for authenticated user only"
+  - name: Starter Prompt Curation
+    description: "Starter prompts must be scoped, testable, and reviewed against the knowledge base."
+    bad_example: |
+      starter_prompts:
+        - "What is the latest news about our competitors?"
+        - "Summarise today's market data."
+    good_example: |
+      starter_prompts:
+        - "What are the key reporting deadlines for this quarter?"
+        - "Show me the onboarding checklist for new fund administrators."
+        - "Explain the difference between UCITS and AIF under our current compliance scope."
+
+anti_patterns:
+  - name: Unrestricted Web Search on Regulated Questions
+    description: "Allowing google_search to answer regulated or in-scope domain questions bypasses
+      knowledge-base governance and may surface unverified or non-compliant information."
+    bad_example: |
+      grounding:
+        google_search_retrieval:
+          dynamic_retrieval_config:
+            mode: MODE_DYNAMIC
+      # no fencing — agent will web-search any question including regulatory ones
+    good_example: |
+      grounding:
+        # web search disabled; agent answers only from approved knowledge bases
+        google_search_retrieval: null
+      knowledge_bases:
+        - name: regulatory_guidelines
+          source: "connector://sharepoint-compliance"
+  - name: Hardcoded Endpoint URLs in Instructions
+    description: "Embedding raw API endpoints in system instructions couples the agent to
+      infrastructure and circumvents the connector registry access-control layer."
+    bad_example: |
+      system_instruction: |
+        Call https://internal-api.example.com/v2/customers/{id} to get customer data.
+    good_example: |
+      system_instruction: |
+        Use tool://crm-customer-lookup to retrieve customer data for the authenticated user.
+  - name: Over-Privileged Connector Scopes
+    description: "Requesting broad scopes (e.g. full mailbox read, admin API) when the agent
+      only needs a narrow subset violates least-privilege and expands the blast radius of a
+      compromised agent."
+    bad_example: |
+      connectors:
+        - name: google_workspace
+          scopes: ["https://www.googleapis.com/auth/gmail.readonly",
+                   "https://www.googleapis.com/auth/admin.directory.user.readonly"]
+    good_example: |
+      connectors:
+        - name: google_workspace
+          uri: "connector://google-workspace-calendar"
+          scopes: ["https://www.googleapis.com/auth/calendar.readonly"]
+          purpose: "Read calendar availability for scheduling assistant only"
+
+quality_test: >
+  A compliant Gemini chatbot configuration: (1) has google_search disabled or explicitly fenced
+  for regulated domains; (2) lists every knowledge base with provenance, version, licence, and
+  approval reference; (3) declares all connectors and tools with connector:// or tool:// URIs,
+  minimum scopes, data classification, and purpose; (4) includes at least three on-scope starter
+  prompts reviewed against the declared knowledge bases; (5) applies stricter grounding
+  constraints for any tool with write access or access to regulated/PII data.

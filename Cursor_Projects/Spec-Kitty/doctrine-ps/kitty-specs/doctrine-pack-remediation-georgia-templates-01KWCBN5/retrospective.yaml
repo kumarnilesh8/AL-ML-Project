@@ -1,0 +1,217 @@
+schema_version: 1
+mission_id: 01KWCBN56MBA7JWB7W6CGDMVV1
+mission_slug: doctrine-pack-remediation-georgia-templates-01KWCBN5
+mission_number: 8
+friendly_name: Doctrine pack remediation & Georgia templates
+mission_type: software-dev
+target_branch: refactor/doctrine-daphne-and-onboard-built-in-overlap
+created_at: '2026-07-01T07:06:51.660485+00:00'
+created_by:
+  kind: runtime
+  id: spec-kitty-generator
+  display: Spec Kitty Generator
+provenance:
+  kind: runtime_post_completion
+  invoked_at: '2026-07-01T07:06:51.660485+00:00'
+  policy_resolved_from:
+    enabled: <default>
+    timing: <default>
+    failure_policy: <default>
+    write_record: <default>
+    generate_proposals: <default>
+    apply_proposals: <default>
+    permissions.write_record: <default>
+    permissions.inspect_mission_artifacts: <default>
+    permissions.propose_glossary_changes: <default>
+    permissions.propose_drg_changes: <default>
+    permissions.propose_doctrine_changes: <default>
+    permissions.apply_low_risk_changes: <default>
+    permissions.apply_structural_changes: <default>
+    precedence: <default>
+    generator: <default>
+policy_source:
+  enabled: <default>
+  timing: <default>
+  failure_policy: <default>
+  write_record: <default>
+  generate_proposals: <default>
+  apply_proposals: <default>
+  permissions.write_record: <default>
+  permissions.inspect_mission_artifacts: <default>
+  permissions.propose_glossary_changes: <default>
+  permissions.propose_drg_changes: <default>
+  permissions.propose_doctrine_changes: <default>
+  permissions.apply_low_risk_changes: <default>
+  permissions.apply_structural_changes: <default>
+  precedence: <default>
+  generator: <default>
+findings_status: has_findings
+helped:
+- id: h-001
+  category: implementation
+  summary: WP01 completed without rejection cycles
+  evidence_refs:
+  - e-012
+- id: h-002
+  category: implementation
+  summary: WP04 completed without rejection cycles
+  evidence_refs:
+  - e-012
+- id: h-003
+  category: implementation
+  summary: WP05 completed without rejection cycles
+  evidence_refs:
+  - e-012
+- id: h-004
+  category: implementation
+  summary: WP07 completed without rejection cycles
+  evidence_refs:
+  - e-012
+not_helpful:
+- id: n-008
+  category: doc
+  summary: analysis-report.md present with findings
+  evidence_refs:
+  - e-022
+  details: An analysis-report.md artifact is present for this mission. Review its findings to understand documented 
+    issues and decisions.
+- id: n-007
+  category: implementation
+  summary: WP03 needed 2 implementation cycles
+  evidence_refs:
+  - e-021
+  details: WP WP03 entered in_progress 2 times. Multiple implementation cycles suggest rework not captured as a 
+    documented review rejection; the WP scope or contract may need refinement.
+- id: n-004
+  category: process
+  summary: WP02 required 2 --force override(s) during workflow
+  evidence_refs:
+  - e-016
+  details: WP WP02 required 2 operator-driven --force lane transition(s). Force overrides typically indicate the runtime
+    guard failed or the operator routed around it; investigate the underlying cause.
+- id: n-003
+  category: process
+  summary: WP03 had 1 lane bounce(s) before approval
+  evidence_refs:
+  - e-015
+  details: WP WP03 moved backward across workflow lanes 1 time(s) outside the documented reviewer-feedback flow.
+- id: n-005
+  category: process
+  summary: WP03 required 2 --force override(s) during workflow
+  evidence_refs:
+  - e-017
+  details: WP WP03 required 2 operator-driven --force lane transition(s). Force overrides typically indicate the runtime
+    guard failed or the operator routed around it; investigate the underlying cause.
+- id: n-006
+  category: process
+  summary: WP06 required 2 --force override(s) during workflow
+  evidence_refs:
+  - e-018
+  details: WP WP06 required 2 operator-driven --force lane transition(s). Force overrides typically indicate the runtime
+    guard failed or the operator routed around it; investigate the underlying cause.
+- id: n-001
+  category: review_loop
+  summary: WP02 required 1 rejection cycle(s) before approval
+  evidence_refs:
+  - e-013
+  details: WP WP02 was sent back from review to planning 1 time(s).
+- id: n-002
+  category: review_loop
+  summary: WP06 required 1 rejection cycle(s) before approval
+  evidence_refs:
+  - e-014
+  details: WP WP06 was sent back from review to planning 1 time(s).
+gaps:
+- id: g-001
+  category: process
+  summary: Arbiter override needed for WP02 (1x)
+  evidence_refs:
+  - e-019
+  details: WP WP02 required 1 arbiter override(s). Arbiter overrides are an escape hatch; recurring use suggests the 
+    normal review path is blocked and the underlying policy/guard may need adjustment.
+- id: g-002
+  category: process
+  summary: Arbiter override needed for WP06 (1x)
+  evidence_refs:
+  - e-020
+  details: WP WP06 required 1 arbiter override(s). Arbiter overrides are an escape hatch; recurring use suggests the 
+    normal review path is blocked and the underlying policy/guard may need adjustment.
+proposals: []
+evidence_refs:
+- id: e-001
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/meta.json
+- id: e-002
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/spec.md
+- id: e-003
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/plan.md
+- id: e-004
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/tasks.md
+- id: e-005
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/tasks/WP01-drg-source-cleanup.md
+- id: e-006
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/tasks/WP02-drg-compiler-fix.md
+- id: e-007
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/tasks/WP03-gemini-templates.md
+- id: e-008
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/tasks/WP04-dedup-single-source.md
+- id: e-009
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/tasks/WP05-clarity-fixes.md
+- id: e-010
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/tasks/WP06-profile-paradigm-normalization.md
+- id: e-011
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/tasks/WP07-manifest-validation-gate.md
+- id: e-012
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/status.events.jsonl
+- id: e-013
+  kind: event_range
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/status.events.jsonl
+  range: 01KWCWS61CRGY6HK511K279ACT
+- id: e-014
+  kind: event_range
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/status.events.jsonl
+  range: 01KWCWV1H5BQZRVC71SMQM2DMR
+- id: e-015
+  kind: event_range
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/status.events.jsonl
+  range: 01KWCVSRR39KGT5868NPZXZFG8
+- id: e-016
+  kind: event_range
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/status.events.jsonl
+  range: 01KWCWS61CRGY6HK511K279ACT..01KWCXFQBADYV9QJBN48B4XJMT
+- id: e-017
+  kind: event_range
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/status.events.jsonl
+  range: 01KWCVEY5PJ0JMY3Q09EYV5BGR..01KWCVSRR39KGT5868NPZXZFG8
+- id: e-018
+  kind: event_range
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/status.events.jsonl
+  range: 01KWCWV1H5BQZRVC71SMQM2DMR..01KWCWYRCBQNX4E5HEEGQCWNER
+- id: e-019
+  kind: event_range
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/status.events.jsonl
+  range: 01KWCXFQBADYV9QJBN48B4XJMT
+- id: e-020
+  kind: event_range
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/status.events.jsonl
+  range: 01KWCWYRCBQNX4E5HEEGQCWNER
+- id: e-021
+  kind: event_range
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/status.events.jsonl
+  range: implementation_cycles
+- id: e-022
+  kind: file
+  path: kitty-specs/doctrine-pack-remediation-georgia-templates-01KWCBN5/analysis-report.md
+generator_version: '1.0'
+provenance_history: []

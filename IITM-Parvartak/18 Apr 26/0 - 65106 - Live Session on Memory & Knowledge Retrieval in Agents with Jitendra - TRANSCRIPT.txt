@@ -1,0 +1,5114 @@
+WEBVTT
+
+1
+00:02:30.010 --> 00:02:31.710
+Jitendra K: Hi guys, good evening.
+
+2
+00:02:32.770 --> 00:02:41.570
+Jitendra K: And warm welcome to another session on Agent EKI. So before we start, can we have a quick audio check? If my voice is audible, my screen is visible to you guys?
+
+3
+00:02:47.510 --> 00:02:49.370
+Jitendra K: Okay, thanks for the confirmation.
+
+4
+00:02:50.380 --> 00:02:56.050
+Jitendra K: So, before we start, there's an announcement, so those who are…
+
+5
+00:02:57.820 --> 00:03:01.739
+Jitendra K: in Indian time zone, I will take reference from Indian time zone only.
+
+6
+00:03:02.240 --> 00:03:11.350
+Jitendra K: There's an announcement, you might have received an email, that there would be a session which is going to be conducted at 6.30 p.m. Indian Standard Time tomorrow.
+
+7
+00:03:11.800 --> 00:03:16.189
+Jitendra K: Where you need to join in and explain all your blockers that you're facing with.
+
+8
+00:03:17.100 --> 00:03:22.809
+Jitendra K: the course content, quality, slides, etc, right? Apart from the usual one that I'm sharing.
+
+9
+00:03:22.990 --> 00:03:31.869
+Jitendra K: And also, speak about Vocarium Lab. If you are facing still LLM tokens being exhausted, and you don't have liberty to run an LLM model.
+
+10
+00:03:32.240 --> 00:03:39.669
+Jitendra K: So please, speak up. That will be your forum, right? So make sure that all your questions…
+
+11
+00:03:39.940 --> 00:03:42.039
+Jitendra K: All your blockers should be addressed.
+
+12
+00:03:44.340 --> 00:03:48.529
+Jitendra K: So, please join the session 30 minutes before, 30 minutes prior.
+
+13
+00:03:48.830 --> 00:03:55.190
+Jitendra K: Just in case, that will really going to help you to, you know.
+
+14
+00:03:55.740 --> 00:03:59.350
+Jitendra K: Speak up and open up with… the MRS team.
+
+15
+00:03:59.890 --> 00:04:06.189
+Jitendra K: So, make sure that you request it for LLM access properly. I think there are bits and pieces.
+
+16
+00:04:06.310 --> 00:04:11.310
+Jitendra K: You're just getting 5 cents every time, so make sure that you should have
+
+17
+00:04:11.760 --> 00:04:14.329
+Jitendra K: A proper provision on the top of it.
+
+18
+00:04:15.830 --> 00:04:17.529
+Jitendra K: Is that clear to everyone?
+
+19
+00:04:34.570 --> 00:04:37.030
+Jitendra K: Yeah, I will share the previous week file.
+
+20
+00:04:37.130 --> 00:04:40.339
+Jitendra K: Can somebody remind me what is the name of the previous week file?
+
+21
+00:04:41.540 --> 00:04:44.590
+Jitendra K: Or can somebody share with, in the chat?
+
+22
+00:04:46.370 --> 00:04:51.000
+Jitendra K: I think, I'm just generating a file sequence, so I have to check.
+
+23
+00:04:56.850 --> 00:05:05.090
+Jitendra K: Alright, so today we are going to start with another exciting topic, which is called memory management and knowledge management in AI Agent.
+
+24
+00:05:05.330 --> 00:05:10.159
+Jitendra K: And this is one of the topics that That is required to understand
+
+25
+00:05:10.410 --> 00:05:14.849
+Jitendra K: the context engineering on the top of your agentic AI pipeline.
+
+26
+00:05:15.200 --> 00:05:25.110
+Jitendra K: So when you talk about context engineering, it talks about memory, knowledge, And, different aspects of agentic lifecycle.
+
+27
+00:05:25.660 --> 00:05:36.690
+Jitendra K: So today, we are going to deep dive into one of the most critical and, frankly, underappreciated aspects of building production-grade AI agent, which is memory and knowledge management.
+
+28
+00:05:37.140 --> 00:05:45.959
+Jitendra K: So I want… I want to start with a simple observation. Let's say if you have an AI assistant, ChatGPT, Cloud Gemini, or any custom agent your team
+
+29
+00:05:46.320 --> 00:05:53.059
+Jitendra K: as build. So you have probably noticed something frustrating. These systems are remarkably intelligent in the moment.
+
+30
+00:05:53.240 --> 00:06:01.600
+Jitendra K: They can reason, analyze, write code, draft document. But the moment you close the conversation and come back the next day, everything is gone.
+
+31
+00:06:02.800 --> 00:06:06.589
+Jitendra K: Right? So the agent has no idea what you are, what you discuss.
+
+32
+00:06:06.820 --> 00:06:08.539
+Jitendra K: What decisions has been made?
+
+33
+00:06:08.840 --> 00:06:09.870
+Jitendra K: etc.
+
+34
+00:06:10.050 --> 00:06:16.390
+Jitendra K: And this is a fundamental challenge we are going to unpack today. We'll cover the architecture of agentic memory systems.
+
+35
+00:06:16.690 --> 00:06:26.659
+Jitendra K: The framework available to implement them, the retrieval pattern that makes them work, and the production consideration that most tutorials skip over entirely.
+
+36
+00:06:28.350 --> 00:06:33.360
+Jitendra K: So the agenda for today's tutorial will be, we'll cover the six major building blocks.
+
+37
+00:06:34.470 --> 00:06:36.350
+Jitendra K: Which is… these.
+
+38
+00:06:36.750 --> 00:06:42.640
+Jitendra K: the memory problem, understand why stateless agent fail. So, when we talk about stateless agent.
+
+39
+00:06:43.280 --> 00:06:45.430
+Jitendra K: So what do you understand by stateless?
+
+40
+00:06:45.780 --> 00:06:48.260
+Jitendra K: Have you guys heard about this term, stateless?
+
+41
+00:06:48.530 --> 00:06:49.530
+Jitendra K: earlier.
+
+42
+00:06:50.580 --> 00:06:52.119
+Jitendra K: So what is stateless?
+
+43
+00:06:57.800 --> 00:07:00.680
+Jitendra K: Okay, it does not store state info.
+
+44
+00:07:01.960 --> 00:07:03.240
+Jitendra K: Anything else?
+
+45
+00:07:11.340 --> 00:07:19.330
+Jitendra K: not carry forward from one session to another, state is not… So, stateless agents are the system that process each interaction independently.
+
+46
+00:07:19.900 --> 00:07:25.520
+Jitendra K: Retaining no memory contacts and formed between requests. So they operate in external present.
+
+47
+00:07:25.730 --> 00:07:34.330
+Jitendra K: Where each task start with a blank state, making them highly efficient for single-step action, but limited in context, multi-turn conversation.
+
+48
+00:07:34.700 --> 00:07:39.880
+Jitendra K: So, that means you don't have any… mechanism to…
+
+49
+00:07:40.810 --> 00:07:46.410
+Jitendra K: Use the previous history, previous executions on the stateless agent.
+
+50
+00:07:46.920 --> 00:07:51.529
+Jitendra K: So, the problem arises here. So, when you're creating
+
+51
+00:07:52.520 --> 00:07:58.950
+Jitendra K: When you're trying to use memory problem, the problem is understanding why a stateless agent fail in production environment.
+
+52
+00:07:59.440 --> 00:08:04.759
+Jitendra K: And this is not a theoretical topic, it will have real-world implications.
+
+53
+00:08:05.150 --> 00:08:08.539
+Jitendra K: Certain scenarios that illustrate why it matters for business outcome.
+
+54
+00:08:09.160 --> 00:08:16.379
+Jitendra K: Second is the memory architecture. So when you move into the memory architecture, it's a three-layer model for working memory. Short-term, long-term.
+
+55
+00:08:16.600 --> 00:08:20.930
+Jitendra K: And persistent memory, which is, again, a long-term memory, or mix of it.
+
+56
+00:08:21.370 --> 00:08:27.920
+Jitendra K: And there's a way we draw the parallel with human cognition, establish a design pattern you will use to maintain this.
+
+57
+00:08:28.860 --> 00:08:33.640
+Jitendra K: Then the third is your VectorDB and Rack pipeline. This is our engineering backbone.
+
+58
+00:08:34.970 --> 00:08:40.730
+Jitendra K: So, we'll cover how semantic retrieval works, how to choose the right vector store, and chunking strategy.
+
+59
+00:08:41.010 --> 00:08:44.070
+Jitendra K: And that silently make or break your rack pipeline.
+
+60
+00:08:45.050 --> 00:08:51.170
+Jitendra K: Then we move on to the context engineering, and this is where the retrieval strategies and new disciplinary
+
+61
+00:08:51.930 --> 00:09:01.319
+Jitendra K: mechanism that is going beyond the prompt management or prompt engineering. It's about designing the entire information architecture around the LLM context window.
+
+62
+00:09:01.840 --> 00:09:08.370
+Jitendra K: So you might have heard about context window for LLM models. There are different context window for different models.
+
+63
+00:09:08.610 --> 00:09:11.559
+Jitendra K: So if you have to compare the context window, maybe…
+
+64
+00:09:11.760 --> 00:09:13.709
+Jitendra K: I just want to give you the glimpse.
+
+65
+00:09:32.930 --> 00:09:35.140
+Jitendra K: So, we can go to the…
+
+66
+00:09:36.170 --> 00:09:41.529
+Jitendra K: Context length comparison, context length comparison between multiple models.
+
+67
+00:09:47.940 --> 00:09:53.000
+Jitendra K: So, OpenAI… GPT-4.1.
+
+68
+00:09:54.620 --> 00:10:02.950
+Jitendra K: have a 1 million contacts window. Similarly, Crowd and Tropic have… It's 4.5 Sonnet, 200,000 tokens.
+
+69
+00:10:03.280 --> 00:10:08.979
+Jitendra K: Gemini 2.5 Pro, 1 million. GPT-5, 40,000, 400,000 tokens.
+
+70
+00:10:10.010 --> 00:10:15.419
+Jitendra K: DeepSeek 128K tokens, Llama Series 128K sessions as well.
+
+71
+00:10:15.690 --> 00:10:20.919
+Jitendra K: Coher is 128K, so most of them are 128K, which is small context.
+
+72
+00:10:21.510 --> 00:10:29.029
+Jitendra K: And then you can see the comparison, why context matters, right? So the context is one of the important
+
+73
+00:10:29.330 --> 00:10:35.149
+Jitendra K: criteria that you're going to use in selecting the model, right? Which model you are going to use and why.
+
+74
+00:10:35.440 --> 00:10:41.389
+Jitendra K: So this is one of the important criteria. When you're using context window in productionization.
+
+75
+00:10:41.800 --> 00:10:47.529
+Jitendra K: When you're choosing one model over the other, you have to select the contacts window. You cannot deny this.
+
+76
+00:10:47.830 --> 00:10:50.650
+Jitendra K: Even if your model is generating
+
+77
+00:10:50.840 --> 00:10:56.639
+Jitendra K: Very good reasoning, very good mathematical model, very, very good in terms of Q&A, but context window is something
+
+78
+00:10:56.900 --> 00:10:59.189
+Jitendra K: Which is very, very important.
+
+79
+00:11:00.830 --> 00:11:08.879
+Jitendra K: So… We'll talk about that. Then we'll move on to the framework, deep drive. We will examine six frameworks.
+
+80
+00:11:09.140 --> 00:11:17.770
+Jitendra K: for memory management, which is called MAM0, Zap, Langchain memory, Llama Index, Lita Incogni.
+
+81
+00:11:18.140 --> 00:11:29.510
+Jitendra K: So we'll talk about Lita and Cogni as well, for… as a tool. So, there are 6 tools that we are going to explore today. Langchain, as I mentioned, have internal memory management.
+
+82
+00:11:29.880 --> 00:11:34.660
+Jitendra K: We'll revisit that part. MAM0 is a spatial package, and this is one of the
+
+83
+00:11:35.550 --> 00:11:37.900
+Jitendra K: I would say one of the…
+
+84
+00:11:38.610 --> 00:11:41.290
+Jitendra K: Highlighted package that we are going to use.
+
+85
+00:11:42.210 --> 00:11:49.880
+Jitendra K: The private ethical and roadmap, that means the data governance, because when you're building a memory system without thinking about data governance.
+
+86
+00:11:50.450 --> 00:11:55.380
+Jitendra K: you may end up into regulatory trouble. So we will understand what are the considerations of the same.
+
+87
+00:11:56.120 --> 00:11:58.800
+Jitendra K: Now, what are the problems that we are trying to solve?
+
+88
+00:11:59.660 --> 00:12:08.140
+Jitendra K: So basically, Imagine a customer service agent, not a human, an AI agent, handle around 500 conversations per day.
+
+89
+00:12:09.040 --> 00:12:16.530
+Jitendra K: So what it does is it resolves billing issue, answer product queries, escalate complex cases to human agent.
+
+90
+00:12:16.770 --> 00:12:21.269
+Jitendra K: And the team is happy with it. The resolution rates are good, the response quality is high.
+
+91
+00:12:21.610 --> 00:12:27.430
+Jitendra K: Then a customer tell, let us call her, Chain, and customer support.
+
+92
+00:12:27.940 --> 00:12:34.540
+Jitendra K: about a duplicate charges on her credit card. The agent walked through diagnostics steps, identified the root cause.
+
+93
+00:12:34.880 --> 00:12:39.129
+Jitendra K: Okay, a payment gateway timeout has that with cross… causes this…
+
+94
+00:12:39.280 --> 00:12:42.200
+Jitendra K: To happen, issue a refund and confirm resolution.
+
+95
+00:12:42.610 --> 00:12:45.429
+Jitendra K: Clean interaction, good outcome, everything is satisfied.
+
+96
+00:12:45.800 --> 00:12:56.939
+Jitendra K: Two weeks later, Jane contacts support again. Some type, same type of issue, another duplicate charge, same card, same root cause, but the agent has absolutely no memory of the previous conversation.
+
+97
+00:12:57.280 --> 00:13:01.509
+Jitendra K: It asks the same dialogue question, requires the same account verification.
+
+98
+00:13:01.630 --> 00:13:04.970
+Jitendra K: Walk through some troubleshooting steps from the scratch.
+
+99
+00:13:05.230 --> 00:13:11.899
+Jitendra K: And Jane responded, I've already explained all of… This two weeks ago.
+
+100
+00:13:12.090 --> 00:13:17.049
+Jitendra K: Why do I have to go through this again? The single sentence captured the entire problem.
+
+101
+00:13:17.660 --> 00:13:23.759
+Jitendra K: So the agent is technically capable, it can diagnose issue, it can process refund, it can communicate clearly.
+
+102
+00:13:24.020 --> 00:13:25.410
+Jitendra K: Where's the goldfish?
+
+103
+00:13:25.720 --> 00:13:30.099
+Jitendra K: Every conversation starts from zero. Context window open. Conversation happened.
+
+104
+00:13:30.290 --> 00:13:32.699
+Jitendra K: Contacts window closed, everything disappear.
+
+105
+00:13:34.610 --> 00:13:41.869
+Jitendra K: Now, multiply this across 500 conversations a day. Think about how many of these cases been resolved.
+
+106
+00:13:42.150 --> 00:13:45.719
+Jitendra K: And returning to an unsatisfactory response from the consumer.
+
+107
+00:13:46.200 --> 00:13:51.369
+Jitendra K: Think about accumulated frustration, the waste time, the missed opportunity for proactive services.
+
+108
+00:13:51.840 --> 00:13:56.249
+Jitendra K: And this is just a stats on 500 plus conversation, without memory.
+
+109
+00:13:56.400 --> 00:14:00.249
+Jitendra K: And that is not just a technical limitation, it's a business problem.
+
+110
+00:14:00.540 --> 00:14:01.320
+Jitendra K: Right?
+
+111
+00:14:01.690 --> 00:14:07.700
+Jitendra K: So your doctor remember your medical history, your lawyer remember your case detail, their values is not just knowledge.
+
+112
+00:14:08.220 --> 00:14:13.830
+Jitendra K: So, whenever you are visiting a personalized… your home doctor, he will not ask you, who are you?
+
+113
+00:14:15.150 --> 00:14:16.040
+Jitendra K: Right?
+
+114
+00:14:16.550 --> 00:14:20.400
+Jitendra K: he will… Continue with the previous conversation where you left.
+
+115
+00:14:22.340 --> 00:14:29.490
+Jitendra K: And that context makes them faster, more accurate, and more effective with every visit. While you expect the same from AI Agent.
+
+116
+00:14:29.680 --> 00:14:32.019
+Jitendra K: That can handle ongoing relationship.
+
+117
+00:14:34.080 --> 00:14:39.399
+Jitendra K: So that is the whole idea of this problem. So why memory matters the most?
+
+118
+00:14:40.500 --> 00:14:48.600
+Jitendra K: The memory is one of the important considerations to understand a contextual understanding on data, and this is the most obvious benefit.
+
+119
+00:14:48.940 --> 00:14:56.879
+Jitendra K: An agent with memory can recall facts about user, their preferences, Their past personas, decisions.
+
+120
+00:14:57.320 --> 00:15:02.520
+Jitendra K: So, for example, in our previous case, when Jane's support or contact support staff.
+
+121
+00:15:02.910 --> 00:15:09.129
+Jitendra K: The agent should already know her account history, her previous conversation, her previous issues.
+
+122
+00:15:09.390 --> 00:15:11.629
+Jitendra K: And her communication preferences.
+
+123
+00:15:12.530 --> 00:15:17.079
+Jitendra K: So you should be able to say, I see you had a similar issue two weeks ago.
+
+124
+00:15:17.210 --> 00:15:21.779
+Jitendra K: The same card, let me check if the same root cause has been applied for this time as well.
+
+125
+00:15:22.040 --> 00:15:28.110
+Jitendra K: So this single sentence will transform the interaction from frustrating to impressive response from the AI agent.
+
+126
+00:15:29.710 --> 00:15:38.200
+Jitendra K: Similarly, the operational efficiency will improve, the ROI will become measurable if an agent can resolve a repeat issue in 30 seconds instead of 10 minutes.
+
+127
+00:15:38.440 --> 00:15:41.149
+Jitendra K: Because it remembered the previous diagnosis.
+
+128
+00:15:41.510 --> 00:15:44.920
+Jitendra K: That is 20 times more improvement in resolution time.
+
+129
+00:15:45.150 --> 00:15:51.259
+Jitendra K: To scale that across thousands of interactions, and you look for a significant cost saving in terms of compute.
+
+130
+00:15:51.480 --> 00:15:56.100
+Jitendra K: API calls and human escalation. The amount of false positives has been reduced.
+
+131
+00:15:57.170 --> 00:16:03.569
+Jitendra K: Personalization, that means you're giving a user a kind of a personalization touch, memory-enabled agent to tailor
+
+132
+00:16:03.700 --> 00:16:11.400
+Jitendra K: the responses based upon accumulated context. And you might be seeing this in your Cloud and ChatGPT models, right?
+
+133
+00:16:11.580 --> 00:16:17.470
+Jitendra K: So you might have some conversation that you have Done months ago.
+
+134
+00:16:17.800 --> 00:16:20.559
+Jitendra K: But all of a sudden, it starts taking references.
+
+135
+00:16:21.180 --> 00:16:27.579
+Jitendra K: So, agent is not just about remembering the fact, but adapting tone, detail level, and approach based upon what
+
+136
+00:16:27.740 --> 00:16:31.300
+Jitendra K: He has worked in the past. If a customer prefers email over chat.
+
+137
+00:16:31.460 --> 00:16:34.169
+Jitendra K: Prefer detailed explanation over brief answers.
+
+138
+00:16:34.930 --> 00:16:38.879
+Jitendra K: or if… The customer has no technical background.
+
+139
+00:16:39.070 --> 00:16:42.249
+Jitendra K: Don't use technical jargons to elaborate.
+
+140
+00:16:43.260 --> 00:16:44.040
+Jitendra K: Right?
+
+141
+00:16:44.290 --> 00:16:47.960
+Jitendra K: So that is the entire translation use case.
+
+142
+00:16:48.460 --> 00:16:52.980
+Jitendra K: Knowledge building, on the other hand, is the most powerful and most difficult aspect.
+
+143
+00:16:53.420 --> 00:16:57.450
+Jitendra K: So, over a period of time, an agent with effective memory does not
+
+144
+00:16:57.760 --> 00:17:01.360
+Jitendra K: just recall individual interaction. It also starts to…
+
+145
+00:17:01.480 --> 00:17:06.670
+Jitendra K: recognize the patterns. So it noticed the GAD gateways, timeouts.
+
+146
+00:17:06.810 --> 00:17:09.410
+Jitendra K: And more common are certain card types.
+
+147
+00:17:09.700 --> 00:17:17.829
+Jitendra K: So it identifies that a specific product version generates more support tickets, so this emergent knowledge, built from hundreds or thousands of interactions.
+
+148
+00:17:18.030 --> 00:17:22.130
+Jitendra K: It's something that… No amount of pre-training can provide.
+
+149
+00:17:29.300 --> 00:17:34.519
+Jitendra K: So, types of memories now. So, let's try to understand and get into the architecture.
+
+150
+00:17:34.750 --> 00:17:42.600
+Jitendra K: So, agent memory loses, or loosely, Know how to… Use Human Memory Works.
+
+151
+00:17:42.910 --> 00:17:49.570
+Jitendra K: And, so, look at the pyramid on the right. You can see it's having a 4-layer.
+
+152
+00:17:49.790 --> 00:17:53.899
+Jitendra K: And the key principle is that you move down to the pyramid.
+
+153
+00:17:54.100 --> 00:17:58.429
+Jitendra K: The storage capacity increases, but access speed decreases.
+
+154
+00:18:00.390 --> 00:18:03.490
+Jitendra K: So this is exactly how computer memory hierarchy works.
+
+155
+00:18:03.970 --> 00:18:06.230
+Jitendra K: From CPU, cache, to RAM,
+
+156
+00:18:06.390 --> 00:18:10.530
+Jitendra K: to SSD disk, and this is how we should think about agentic memory as well.
+
+157
+00:18:11.640 --> 00:18:13.739
+Jitendra K: So, working memory sits at the top.
+
+158
+00:18:14.030 --> 00:18:19.869
+Jitendra K: So, this is the LLM context window, the active workspace where the model holds instruction.
+
+159
+00:18:20.040 --> 00:18:24.810
+Jitendra K: Conversational history, tool output, and retrieve document information.
+
+160
+00:18:25.370 --> 00:18:29.570
+Jitendra K: So it has to be fast, high fidelity, and complete temporary.
+
+161
+00:18:30.530 --> 00:18:34.380
+Jitendra K: When the conversation ends, working memory is gone.
+
+162
+00:18:34.680 --> 00:18:38.330
+Jitendra K: think of this as a whiteboard in a meeting room. Everything written on that
+
+163
+00:18:38.810 --> 00:18:41.280
+Jitendra K: Is visible and useful during the meeting.
+
+164
+00:18:41.420 --> 00:18:44.340
+Jitendra K: But someone wipe it, clean it, when the room is vacated.
+
+165
+00:18:44.870 --> 00:18:51.190
+Jitendra K: Short-term memory is the next layer down, and this is a persistent across a single session or a task.
+
+166
+00:18:52.620 --> 00:18:57.070
+Jitendra K: But not indefinitely. Think of this as a scratch pad, which you emit
+
+167
+00:18:57.500 --> 00:19:03.029
+Jitendra K: So Scratchpad is used for intermediate result, working hypothesis, partial analysis.
+
+168
+00:19:03.340 --> 00:19:09.589
+Jitendra K: So if an agent is analyzing a codebase across multiple files, it might store file examined so far.
+
+169
+00:19:09.760 --> 00:19:15.320
+Jitendra K: And pattern identify in a short-term memory, so it does not re-examine the same file.
+
+170
+00:19:15.590 --> 00:19:17.340
+Jitendra K: For the next ready.
+
+171
+00:19:18.140 --> 00:19:23.400
+Jitendra K: So, implementation was straightforward. Typically, a key value stored, like Ritis, or DynamoDB, or…
+
+172
+00:19:23.920 --> 00:19:30.180
+Jitendra K: Some other, persistent storage will be used to use the session memory.
+
+173
+00:19:31.300 --> 00:19:37.340
+Jitendra K: Long-term memory is where the real intelligence accumulated. So this is a persistent memory.
+
+174
+00:19:37.470 --> 00:19:41.400
+Jitendra K: Indefinitely and store learning facts, user preferences.
+
+175
+00:19:41.610 --> 00:19:46.039
+Jitendra K: What kind of issue has been resolved? What's a successful strategy to communicate?
+
+176
+00:19:46.250 --> 00:19:48.559
+Jitendra K: And also adapt to our domain knowledge.
+
+177
+00:19:49.520 --> 00:19:58.950
+Jitendra K: that build up interaction by interaction. So this is where the vector database come in, and we spent significant time on this layer because it is the most complex and the most impactful layer.
+
+178
+00:19:59.720 --> 00:20:02.749
+Jitendra K: And the backbone of the pyramid is external knowledge.
+
+179
+00:20:03.150 --> 00:20:05.890
+Jitendra K: which is include Document, Database API.
+
+180
+00:20:06.200 --> 00:20:09.679
+Jitendra K: And other sources of data that agent can access, but…
+
+181
+00:20:10.380 --> 00:20:13.199
+Jitendra K: does not own, and this is a domain of RAC.
+
+182
+00:20:13.950 --> 00:20:20.920
+Jitendra K: where… We have already talked about several examples to plug in rack, With your agent.
+
+183
+00:20:21.380 --> 00:20:25.720
+Jitendra K: And this critical design is not choosing one layer over the other.
+
+184
+00:20:26.360 --> 00:20:29.579
+Jitendra K: Here, we are designing how these layers interact.
+
+185
+00:20:29.820 --> 00:20:32.450
+Jitendra K: How does information flow from working memory?
+
+186
+00:20:32.580 --> 00:20:34.359
+Jitendra K: Into a long-term storage.
+
+187
+00:20:38.440 --> 00:20:40.940
+Jitendra K: So, working memory and the context window.
+
+188
+00:20:41.300 --> 00:20:44.979
+Jitendra K: So let's try to drill into the first layer, working memory.
+
+189
+00:20:45.340 --> 00:20:48.159
+Jitendra K: Which is essentially the LLM contextual window.
+
+190
+00:20:48.500 --> 00:20:53.260
+Jitendra K: So, I've already shown you, if you look into each model.
+
+191
+00:20:53.680 --> 00:20:59.099
+Jitendra K: Like, GBT-4 Turbo gives you 128K tokens. ClawDoc for you 200K tokens.
+
+192
+00:20:59.260 --> 00:21:02.329
+Jitendra K: Germany has pushed past 1 million token.
+
+193
+00:21:02.590 --> 00:21:09.970
+Jitendra K: And this sounds like enormous amount of space, and many of… use cases… That…
+
+194
+00:21:10.250 --> 00:21:12.550
+Jitendra K: Users are using to interact with them.
+
+195
+00:21:12.950 --> 00:21:26.170
+Jitendra K: they are going to use these memories, right? But for an agent processing a 50-page contract while referring company policy, previous analysis, and user conversation history, it fill up faster that… that…
+
+196
+00:21:26.310 --> 00:21:28.060
+Jitendra K: Than what you can expect.
+
+197
+00:21:28.670 --> 00:21:33.430
+Jitendra K: And here is a crucial insight that I would like to internalize.
+
+198
+00:21:33.580 --> 00:21:36.639
+Jitendra K: Bigger context window do not solve the underlying problem.
+
+199
+00:21:37.130 --> 00:21:40.650
+Jitendra K: They just put it… push it forward, or further out.
+
+200
+00:21:41.000 --> 00:21:45.869
+Jitendra K: You can still… cannot fit a year of customer interaction into a single context window.
+
+201
+00:21:46.020 --> 00:21:49.479
+Jitendra K: No matter how big it is. Even if you… if you…
+
+202
+00:21:49.800 --> 00:21:52.209
+Jitendra K: Code, there's a compelling research.
+
+203
+00:21:53.170 --> 00:21:56.690
+Jitendra K: We see that LLM pay less attention to the information.
+
+204
+00:21:56.810 --> 00:22:07.260
+Jitendra K: In the middle of very long context. So shuffling everything into a giant context window is not just impractical, but also it degrades the response quality of the agents.
+
+205
+00:22:09.550 --> 00:22:15.900
+Jitendra K: So imagine the whiteboard analogy that I have just talked about. The whiteboard analogy is useful here. Imagine that you have a meeting room.
+
+206
+00:22:16.220 --> 00:22:20.960
+Jitendra K: With an enormous whiteboard, floor to ceiling, wall-to-wall. And you might think that
+
+207
+00:22:22.040 --> 00:22:24.959
+Jitendra K: You might think that it solves all your space problem.
+
+208
+00:22:25.240 --> 00:22:27.649
+Jitendra K: But in practice, a whiteboard at large
+
+209
+00:22:27.980 --> 00:22:30.680
+Jitendra K: It's harder to use, not easier, because…
+
+210
+00:22:30.900 --> 00:22:45.309
+Jitendra K: You cannot see the relevant information without physically walking over to it. So important details get lost among irrelevant ones. So physical sites create a many-problem rather than a solution. And this is exactly what happened with a large context window.
+
+211
+00:22:45.560 --> 00:22:50.640
+Jitendra K: The model has to allocate attention across all the tokens, and this attention budget is finite.
+
+212
+00:22:50.850 --> 00:22:56.590
+Jitendra K: And every relevant token you include in attention, that's stolen from the token that actually matters.
+
+213
+00:23:03.320 --> 00:23:11.229
+Jitendra K: Now… short-term memory, which is the least glamori, I would say least, bother about.
+
+214
+00:23:11.630 --> 00:23:16.920
+Jitendra K: But it is often the easiest win in terms of intermediate user experience improvement.
+
+215
+00:23:17.690 --> 00:23:24.500
+Jitendra K: So the implementation pattern, you can see on the right, I'm using a Redis Caching on a system
+
+216
+00:23:25.200 --> 00:23:29.859
+Jitendra K: So you have a key value store, which is radish caching, which is the most common choice.
+
+217
+00:23:29.990 --> 00:23:34.969
+Jitendra K: So here, I'm going to key by session ID with a KTL that controls automatic cleanup.
+
+218
+00:23:35.330 --> 00:23:39.009
+Jitendra K: When the session end or the TTL expire, the memory is purged.
+
+219
+00:23:39.280 --> 00:23:41.590
+Jitendra K: Nothing fancy, but incredibly effective.
+
+220
+00:23:42.820 --> 00:23:47.349
+Jitendra K: So let's say you have a code review agent that is analyzing a large code base.
+
+221
+00:23:47.770 --> 00:23:51.629
+Jitendra K: So without short-term memory, if the conversation exceeds the context window.
+
+222
+00:23:51.890 --> 00:23:56.570
+Jitendra K: The agent might reexamine the file, which has already been analyzed.
+
+223
+00:23:57.080 --> 00:23:59.380
+Jitendra K: While short-term memory will store it.
+
+224
+00:23:59.940 --> 00:24:03.329
+Jitendra K: And it will also list down the issue found so far.
+
+225
+00:24:04.070 --> 00:24:09.749
+Jitendra K: And then each… for each new return, it can take a reference to this stage without reprocessing.
+
+226
+00:24:13.610 --> 00:24:17.309
+Jitendra K: Right, so this is the short-term memory that is very, very useful for.
+
+227
+00:24:17.420 --> 00:24:18.720
+Jitendra K: These kind of tasks.
+
+228
+00:24:19.760 --> 00:24:23.419
+Jitendra K: Long-term memory, which is split into three parts.
+
+229
+00:24:24.020 --> 00:24:26.130
+Jitendra K: So, we got into the layer that's
+
+230
+00:24:26.350 --> 00:24:29.090
+Jitendra K: Separated a chatbot from intelligent Agent.
+
+231
+00:24:29.650 --> 00:24:33.600
+Jitendra K: Which is called long-term memory, which is persistent indefinitely.
+
+232
+00:24:33.980 --> 00:24:37.159
+Jitendra K: And it is where the agent intelligence accumulated over a period of time.
+
+233
+00:24:37.780 --> 00:24:41.439
+Jitendra K: It is useful to categorize long-term memory into three types.
+
+234
+00:24:41.790 --> 00:24:45.659
+Jitendra K: Which is called episodic memory, semantic memory, and procedural memory.
+
+235
+00:24:46.240 --> 00:24:50.080
+Jitendra K: So, episodic memory is stored past event and interaction.
+
+236
+00:24:51.190 --> 00:24:52.969
+Jitendra K: This is what happened.
+
+237
+00:24:53.310 --> 00:24:54.510
+Jitendra K: it will store.
+
+238
+00:24:54.810 --> 00:24:55.700
+Jitendra K: the knowledge.
+
+239
+00:24:56.070 --> 00:25:03.809
+Jitendra K: So remember, the customer, Jane, reported a duplicate charge on certain date, The root cause was…
+
+240
+00:25:04.070 --> 00:25:06.410
+Jitendra K: Root cause was a gateway timeout.
+
+241
+00:25:06.760 --> 00:25:10.900
+Jitendra K: And the resolution was a refund. So Jane was satisfied with this outcome.
+
+242
+00:25:11.430 --> 00:25:18.150
+Jitendra K: So each of these episodes record a specific event with a timestamp, per participant and the outcome.
+
+243
+00:25:19.600 --> 00:25:26.170
+Jitendra K: So, episode memory is what enables an agent to say, the last time this happened, We resolve it.
+
+244
+00:25:26.550 --> 00:25:29.700
+Jitendra K: Around at that time, and we have issued a refund.
+
+245
+00:25:32.530 --> 00:25:39.629
+Jitendra K: So, for that purpose, episode memory is great. Semantic memory store general knowledge and learn fact.
+
+246
+00:25:40.310 --> 00:25:45.790
+Jitendra K: That means absurd memory talk about what happened, semantic memory talk about what is true.
+
+247
+00:25:46.620 --> 00:25:53.580
+Jitendra K: So, Payment Gateway has 30-second timeout. Duplicate charges are most common with Visa cards on European Gateway.
+
+248
+00:25:53.790 --> 00:25:58.810
+Jitendra K: And refunds typically process within 5 business days. They are not tied to a specific event.
+
+249
+00:25:59.100 --> 00:26:03.159
+Jitendra K: They are generalized knowledge that agent has either been trained
+
+250
+00:26:03.520 --> 00:26:06.810
+Jitendra K: Or extracted from multiple episodic reports.
+
+251
+00:26:07.160 --> 00:26:12.110
+Jitendra K: So, semantic memory is enabling us to do a proactive suggestion.
+
+252
+00:26:12.510 --> 00:26:18.850
+Jitendra K: This looks like a gateway timeout issue we have seen in… with most of the European visa transactions.
+
+253
+00:26:19.090 --> 00:26:24.000
+Jitendra K: So let's use the… fact… To answer the user query.
+
+254
+00:26:29.280 --> 00:26:34.370
+Jitendra K: We will use something called NoSQL for creating the long-term memory.
+
+255
+00:26:34.690 --> 00:26:40.100
+Jitendra K: Procedural memory, on the other hand, stores workflow routines and successful strategies.
+
+256
+00:26:40.730 --> 00:26:43.139
+Jitendra K: So, it talks about how to do it.
+
+257
+00:26:44.050 --> 00:26:49.679
+Jitendra K: So, the first episode of memory talks about what happened. Cementing memory talks about what is true.
+
+258
+00:26:50.050 --> 00:26:51.810
+Jitendra K: Procedural memory talks about.
+
+259
+00:26:51.960 --> 00:26:53.319
+Jitendra K: How to do it.
+
+260
+00:26:53.960 --> 00:26:56.010
+Jitendra K: When a duplicate charge is reported.
+
+261
+00:26:56.120 --> 00:26:59.209
+Jitendra K: First verification should happen with transaction ID.
+
+262
+00:26:59.710 --> 00:27:06.820
+Jitendra K: Then you have to check the gateway locks that determine if the refund is appropriate, Prosell memory, in particular.
+
+263
+00:27:07.260 --> 00:27:12.060
+Jitendra K: We'll utilize that knowledge, because it captures not just the fact.
+
+264
+00:27:12.270 --> 00:27:17.349
+Jitendra K: But the decision-making patterns, the sequence of action that leads to successful outcomes.
+
+265
+00:27:17.920 --> 00:27:21.920
+Jitendra K: So, in practice, most production systems blend all three types.
+
+266
+00:27:22.400 --> 00:27:28.730
+Jitendra K: So let's say if I'm creating a customer service agent, which retrieves episode memory about a specific customer.
+
+267
+00:27:28.930 --> 00:27:36.570
+Jitendra K: Combine them with systematic… semantic knowledge about common issue, and then apply a procedural knowledge about resolution.
+
+268
+00:27:37.000 --> 00:27:42.570
+Jitendra K: That means I required a vector database that does not inherit, distinguish these types
+
+269
+00:27:42.790 --> 00:27:45.979
+Jitendra K: But in metadata, I can be able to separate them out.
+
+270
+00:27:46.730 --> 00:27:51.950
+Jitendra K: So a key challenge with long-term memory is not a storage, but essentially a solved problem.
+
+271
+00:27:52.400 --> 00:27:54.289
+Jitendra K: The challenge is retrieval.
+
+272
+00:27:54.640 --> 00:27:59.320
+Jitendra K: How do you find the right memory at the right time, without flooding the context window with noise?
+
+273
+00:27:59.840 --> 00:28:02.749
+Jitendra K: And that is where the vector database is instrumental.
+
+274
+00:28:04.700 --> 00:28:09.589
+Jitendra K: So we'll talk about memory architecture, combining all the three layers we can tell you in retrieval.
+
+275
+00:28:09.860 --> 00:28:15.690
+Jitendra K: So before we dive into the vector database, let me show you how these three layers work together in production system.
+
+276
+00:28:16.080 --> 00:28:20.639
+Jitendra K: And this is the flow of the production system, where you have the user, which sends a query.
+
+277
+00:28:20.970 --> 00:28:25.149
+Jitendra K: And the agent received it in the working memory, in the first layer called intract.
+
+278
+00:28:25.460 --> 00:28:30.540
+Jitendra K: And this is a starting point. A raw user input plus any system instruction.
+
+279
+00:28:30.710 --> 00:28:32.900
+Jitendra K: Which is already there in the context window.
+
+280
+00:28:33.540 --> 00:28:37.569
+Jitendra K: Then it will move on to the Phase 2, which is called Extract, and this…
+
+281
+00:28:38.550 --> 00:28:44.610
+Jitendra K: This is where the system identifies relevant facts, entities, preferences, and intent from the conversation.
+
+282
+00:28:45.030 --> 00:28:50.010
+Jitendra K: This can be as simple as regex-based entity extraction, or as sophisticated as
+
+283
+00:28:50.190 --> 00:28:53.700
+Jitendra K: Using LLM to identify key facts worth remembering.
+
+284
+00:28:54.180 --> 00:28:59.199
+Jitendra K: For example, let's say, from… I have a sentence, which says.
+
+285
+00:28:59.390 --> 00:29:03.280
+Jitendra K: I've been a customer for 3 years, and I prefer email communication.
+
+286
+00:29:04.550 --> 00:29:11.470
+Jitendra K: So this… this is where I should instruct my agent that the preference for customer is Email.
+
+287
+00:29:14.080 --> 00:29:16.230
+Jitendra K: They will prefer email rather than…
+
+288
+00:29:20.730 --> 00:29:22.590
+Jitendra K: Any other mode of communication?
+
+289
+00:29:23.510 --> 00:29:29.349
+Jitendra K: Right? So the first thing that I have to do is to store this preference in the personas of the user memory.
+
+290
+00:29:31.090 --> 00:29:34.480
+Jitendra K: So the store will trigger relevant information is persistent.
+
+291
+00:29:34.630 --> 00:29:40.570
+Jitendra K: Persisted to this appropriate memory layer, and session-specific data goes to a short-term memory.
+
+292
+00:29:40.940 --> 00:29:43.759
+Jitendra K: The facts which need to be worth remembering.
+
+293
+00:29:43.920 --> 00:29:45.170
+Jitendra K: Across session.
+
+294
+00:29:45.510 --> 00:29:50.660
+Jitendra K: Which include your metadata, customer ID, timestamp, category, source, conversation.
+
+295
+00:29:51.730 --> 00:29:57.669
+Jitendra K: Then the retrieval layer will trigger, where you have a new conversation begins, or a new query arrives.
+
+296
+00:29:57.790 --> 00:30:02.390
+Jitendra K: The system will search a long-term memory for relevant past memories.
+
+297
+00:30:03.570 --> 00:30:09.790
+Jitendra K: This is where you need to use vector similarity search, metadata filtering, and relevance ranking come into play.
+
+298
+00:30:10.570 --> 00:30:15.149
+Jitendra K: To select the memory which has been formatted and added to the context window along the side.
+
+299
+00:30:15.490 --> 00:30:22.080
+Jitendra K: the current user input. The agent now has both immediate query and the relevant historical context.
+
+300
+00:30:22.340 --> 00:30:24.480
+Jitendra K: To generate an informed response.
+
+301
+00:30:25.420 --> 00:30:29.620
+Jitendra K: So, all these five processes are very important to generate
+
+302
+00:30:29.800 --> 00:30:34.550
+Jitendra K: The factual, consistent output throughout the agentic lifecycle.
+
+303
+00:30:37.690 --> 00:30:44.300
+Jitendra K: Now we move on to the vector DB for memory management. So vector database are the engineering backbone of long-term memory.
+
+304
+00:30:45.010 --> 00:30:50.660
+Jitendra K: So, traditional database store and retrieve data by exact match. If you store a customer record.
+
+305
+00:30:50.910 --> 00:30:55.589
+Jitendra K: with certain ID, then you have to use that ID to extract the other information, other columns.
+
+306
+00:30:55.810 --> 00:30:59.499
+Jitendra K: And this works well for structured data with known identifiers.
+
+307
+00:31:00.020 --> 00:31:03.000
+Jitendra K: But memory retrieval is… fuzzy.
+
+308
+00:31:03.250 --> 00:31:07.919
+Jitendra K: when a customer say, I had That billing problem again.
+
+309
+00:31:08.640 --> 00:31:13.670
+Jitendra K: So, which customer you are talking about? Which billing problem? What's the data billing problem?
+
+310
+00:31:14.030 --> 00:31:16.099
+Jitendra K: So that becomes a context of search.
+
+311
+00:31:16.280 --> 00:31:19.969
+Jitendra K: The system needs to find out a previous conversational history.
+
+312
+00:31:20.180 --> 00:31:24.640
+Jitendra K: Even if the exact words were completely different. The previous conversation might have
+
+313
+00:31:24.890 --> 00:31:30.530
+Jitendra K: These are different phrases, that you have charged a duplicate, Charges on my credit card.
+
+314
+00:31:31.320 --> 00:31:33.529
+Jitendra K: Instead of saying, I had a billing problem.
+
+315
+00:31:34.980 --> 00:31:39.450
+Jitendra K: Right? So zero keyword overlap, but semantically, they are about the same thing.
+
+316
+00:31:41.580 --> 00:31:49.200
+Jitendra K: So the idea of vector database is to solve this problem by storing information Has a high dimensional emitting.
+
+317
+00:31:49.700 --> 00:31:52.349
+Jitendra K: Generate a numerical representation of meaning.
+
+318
+00:31:52.970 --> 00:31:58.280
+Jitendra K: And use the embedding models like OpenAI Text Embedding 003, Cohort Embedding V3,
+
+319
+00:31:58.520 --> 00:32:04.880
+Jitendra K: When you store a piece of text, it converted into a vector, typically 768 or 1538 dimension.
+
+320
+00:32:06.060 --> 00:32:09.929
+Jitendra K: And this will capture the semantic content. The magic is that
+
+321
+00:32:10.490 --> 00:32:18.910
+Jitendra K: When similar meaning end up with similar vector, regardless of the specific keyword, it will still Generate the context.
+
+322
+00:32:19.210 --> 00:32:24.040
+Jitendra K: the process flow, Will they still go through this five-stage process?
+
+323
+00:32:24.460 --> 00:32:27.180
+Jitendra K: Where the tax input goes to an embedding model.
+
+324
+00:32:27.630 --> 00:32:31.969
+Jitendra K: To produce a vector representation, numerical representation of your context.
+
+325
+00:32:32.280 --> 00:32:34.710
+Jitendra K: And that vector is stored in a database.
+
+326
+00:32:35.140 --> 00:32:36.780
+Jitendra K: At query time.
+
+327
+00:32:37.030 --> 00:32:42.599
+Jitendra K: The query is embedding the same way as a similarity search has been invoked, typically cosign similarity.
+
+328
+00:32:43.500 --> 00:32:47.010
+Jitendra K: And then it finds a vector stored closest to the query parameter.
+
+329
+00:32:48.580 --> 00:32:54.659
+Jitendra K: Right? So, for example, I'm asking a query billing issue with a credit card ending with 4521.
+
+330
+00:32:55.030 --> 00:33:02.450
+Jitendra K: And I will have the session ID, and I will know who's the customer, Who's interacting with.
+
+331
+00:33:02.700 --> 00:33:06.080
+Jitendra K: And it will say duplicate charges earlier as well.
+
+332
+00:33:06.700 --> 00:33:08.530
+Jitendra K: That's a perfect semantic match.
+
+333
+00:33:08.770 --> 00:33:11.460
+Jitendra K: And I would like to see what resolution has been given.
+
+334
+00:33:12.000 --> 00:33:14.609
+Jitendra K: By the previous agent at that point of time.
+
+335
+00:33:16.380 --> 00:33:20.609
+Jitendra K: So that I will not… Dispute my own response.
+
+336
+00:33:20.820 --> 00:33:25.460
+Jitendra K: if I'm creating A dispute among these responses.
+
+337
+00:33:26.120 --> 00:33:27.630
+Jitendra K: what I'm going to lose.
+
+338
+00:33:27.880 --> 00:33:32.740
+Jitendra K: I'm going to lose the trust of the customer. I'm going to lose the factual consistency of the responses.
+
+339
+00:33:33.240 --> 00:33:37.730
+Jitendra K: And this is important because we are du- we are… making…
+
+340
+00:33:37.940 --> 00:33:41.169
+Jitendra K: the radiantic system to replace human SMEs.
+
+341
+00:33:41.290 --> 00:33:44.039
+Jitendra K: The agent call center executives.
+
+342
+00:33:44.980 --> 00:33:48.469
+Jitendra K: Which is using some systems earlier, right? Like ServiceNow…
+
+343
+00:33:48.990 --> 00:33:54.190
+Jitendra K: some call tracking mechanism. There are some other tools
+
+344
+00:33:54.390 --> 00:33:59.309
+Jitendra K: That they are using to maintain this as a human, but as a human, we can read it.
+
+345
+00:34:00.980 --> 00:34:06.079
+Jitendra K: Right? But how the agent will interact, that is what we are trying to look forward.
+
+346
+00:34:10.170 --> 00:34:16.500
+Jitendra K: All right. Now, what are the vector database landscape? So, which vector database should we use?
+
+347
+00:34:17.010 --> 00:34:20.949
+Jitendra K: Now, this is important when we have to compare the vector database landscape.
+
+348
+00:34:21.610 --> 00:34:24.800
+Jitendra K: And this is one of the most common questions.
+
+349
+00:34:26.159 --> 00:34:30.129
+Jitendra K: for most of the teams, it matters less than you think.
+
+350
+00:34:31.000 --> 00:34:37.500
+Jitendra K: So, the memory architecture and retrieval logic matter far more than the stored backend… storage backend.
+
+351
+00:34:39.650 --> 00:34:49.629
+Jitendra K: So we already use ChromaDB, which is an open source, lightweight, excellent for prototyping and development. It runs in a process, so you do not need a separate server.
+
+352
+00:34:49.969 --> 00:34:56.129
+Jitendra K: The API is clean and intuitive. The limitation is that it does not design for large-scale production workload.
+
+353
+00:34:56.409 --> 00:34:58.069
+Jitendra K: With millions of vectors.
+
+354
+00:34:58.570 --> 00:35:04.249
+Jitendra K: Pinecone, fully managed services, you do not run any infrastructure at scale well.
+
+355
+00:35:04.400 --> 00:35:06.330
+Jitendra K: Support metadata filtering.
+
+356
+00:35:06.560 --> 00:35:09.499
+Jitendra K: And has a native hybrid search.
+
+357
+00:35:09.830 --> 00:35:13.199
+Jitendra K: The trade-off is vendor lock in the cost and the scale.
+
+358
+00:35:14.010 --> 00:35:19.499
+Jitendra K: VV8, on the other hand, is an open source with commercial cloud offering. It is standard.
+
+359
+00:35:19.830 --> 00:35:22.750
+Jitendra K: Our standout feature is native hybrid search.
+
+360
+00:35:23.010 --> 00:35:28.199
+Jitendra K: Combining vector similarity with BM25, keyword matching in a single query.
+
+361
+00:35:28.460 --> 00:35:33.409
+Jitendra K: It also has a strong schema system and supports multiple vectorization strategy.
+
+362
+00:35:33.810 --> 00:35:37.369
+Jitendra K: If you know what you need as a hybrid search.
+
+363
+00:35:37.920 --> 00:35:40.449
+Jitendra K: And for most agents, you can use it.
+
+364
+00:35:41.340 --> 00:35:45.370
+Jitendra K: Quadrant is an open source written in Rust programming.
+
+365
+00:35:45.600 --> 00:35:48.830
+Jitendra K: Focus on performance. It handles high throughput.
+
+366
+00:35:49.120 --> 00:35:53.039
+Jitendra K: workload, and clean API, and good choice.
+
+367
+00:35:53.690 --> 00:35:56.789
+Jitendra K: When you are having a performance as your primary concern.
+
+368
+00:35:57.700 --> 00:36:00.989
+Jitendra K: Postgres vector, Postgres SQL extension.
+
+369
+00:36:01.550 --> 00:36:09.330
+Jitendra K: And this is probably the most pragmatic choice for many teams, if you're already running Postgres, and most teams are.
+
+370
+00:36:09.510 --> 00:36:14.040
+Jitendra K: familiar with the write-ups. So PGVector will let you to add vector similarity search.
+
+371
+00:36:14.230 --> 00:36:17.630
+Jitendra K: To your existing database without introducing a new data store.
+
+372
+00:36:19.490 --> 00:36:20.590
+Jitendra K: Mill was…
+
+373
+00:36:21.200 --> 00:36:28.380
+Jitendra K: open source, designed for large-scale similarity search. If you're dealing with billions of vector, Miliverse is worth evaluating.
+
+374
+00:36:29.220 --> 00:36:34.820
+Jitendra K: So my pragmatic advice would be, Go for ChromaDB or FAS.
+
+375
+00:36:35.380 --> 00:36:36.730
+Jitendra K: for prototyping.
+
+376
+00:36:37.500 --> 00:36:41.400
+Jitendra K: When you go to production, use Pinecone if you want to manage infrastructure.
+
+377
+00:36:41.740 --> 00:36:45.410
+Jitendra K: PGVector, if you want to minimize your data storage footprint.
+
+378
+00:36:45.700 --> 00:36:50.460
+Jitendra K: Or deviate if you would like to go for hybrid search, which is keyword plus semantic.
+
+379
+00:36:52.270 --> 00:36:57.430
+Jitendra K: These are Cloud Vendor, Cloud Era, Databricks, and Snowflake. They have nothing to do with vector database.
+
+380
+00:36:58.660 --> 00:37:00.319
+Jitendra K: They're all cloud vendors.
+
+381
+00:37:02.180 --> 00:37:05.190
+Jitendra K: We are talking about vector database, we are not comparing the cloud.
+
+382
+00:37:07.210 --> 00:37:16.169
+Jitendra K: So, that is the whole idea here, right? You can swap the backend later without rethinking the whole system, so do not let this decision paralyze you.
+
+383
+00:37:16.420 --> 00:37:18.540
+Jitendra K: So you can switch between these…
+
+384
+00:37:19.190 --> 00:37:21.500
+Jitendra K: Rector store, depending upon your need.
+
+385
+00:37:24.680 --> 00:37:31.530
+Jitendra K: Now, we'll talk about the two important terms, which is called semantic and keyword search, and combinedly, they become hybrid.
+
+386
+00:37:33.830 --> 00:37:37.690
+Jitendra K: So before we combine these two approaches, let us understand what each does.
+
+387
+00:37:38.120 --> 00:37:40.410
+Jitendra K: A keyword search is a traditional approach.
+
+388
+00:37:41.490 --> 00:37:47.340
+Jitendra K: So, where you're going to use algorithms like… VM25, TF IDF.
+
+389
+00:37:47.810 --> 00:37:52.580
+Jitendra K: Elasticsearch, so it matches a document based upon the exact token overlap.
+
+390
+00:37:53.110 --> 00:37:59.010
+Jitendra K: So if you search for order 123, it finds a document containing the exact string 123, order 1 to 3.
+
+391
+00:38:00.380 --> 00:38:07.059
+Jitendra K: We'll come to a hybrid search, I think you're asking way ahead of time. Just give me a moment. Let me explain first each.
+
+392
+00:38:08.160 --> 00:38:10.340
+Jitendra K: So this is… where…
+
+393
+00:38:10.640 --> 00:38:19.330
+Jitendra K: you're going to have an exact overlap. Keyword search is just like an overlap. Ctrl-F in your PDF, right? So when you're doing a Ctrl-F in your PDF,
+
+394
+00:38:19.550 --> 00:38:22.309
+Jitendra K: You're looking for a token, a specific word.
+
+395
+00:38:22.470 --> 00:38:25.510
+Jitendra K: Right? So it completely misses the semantic relationship.
+
+396
+00:38:30.200 --> 00:38:34.170
+Jitendra K: Right? So if you have a similar meaning, Somewhere in the document.
+
+397
+00:38:34.530 --> 00:38:38.489
+Jitendra K: We are not able to perform the search with keyword… keyword search.
+
+398
+00:38:39.010 --> 00:38:43.330
+Jitendra K: Keyword search is just limited to a specific set of keywords.
+
+399
+00:38:44.060 --> 00:38:46.140
+Jitendra K: Semantic search, on the other hand.
+
+400
+00:38:47.380 --> 00:38:50.660
+Jitendra K: Relies on vector approach, vector-based approach.
+
+401
+00:38:51.260 --> 00:38:53.870
+Jitendra K: So it matches by meaning, not by token.
+
+402
+00:38:54.880 --> 00:38:58.749
+Jitendra K: So basically, let's say if you're searching for a billing… a billing problem.
+
+403
+00:38:59.630 --> 00:39:06.730
+Jitendra K: You will find duplicate charges, which is similarly positioned as billing problem, because the embedding captures semantic overlap.
+
+404
+00:39:07.720 --> 00:39:13.000
+Jitendra K: And this is powerful for natural language queries, phrases, or paraphrases.
+
+405
+00:39:13.410 --> 00:39:19.320
+Jitendra K: And any situation where a user described things in their own words, rather than exact terminologies.
+
+406
+00:39:21.060 --> 00:39:25.559
+Jitendra K: But a limitation is… It can miss exact identifiers.
+
+407
+00:39:26.230 --> 00:39:28.500
+Jitendra K: Let's say a semantic search for order.
+
+408
+00:39:28.610 --> 00:39:32.330
+Jitendra K: 123 might return document about other orders as well.
+
+409
+00:39:34.220 --> 00:39:35.040
+Jitendra K: Alright?
+
+410
+00:39:35.150 --> 00:39:38.449
+Jitendra K: So, both approaches have some pros and cons.
+
+411
+00:39:39.720 --> 00:39:44.510
+Jitendra K: So what if I'm going to join them together, and call something as hybrid search?
+
+412
+00:39:44.890 --> 00:39:47.190
+Jitendra K: Which is keyword search plus semantic search.
+
+413
+00:39:49.860 --> 00:39:53.590
+Jitendra K: Right, if I'm going to use a hybrid search, combining…
+
+414
+00:39:54.260 --> 00:39:58.370
+Jitendra K: Board vector similarity with a keyword matching algorithms
+
+415
+00:39:58.690 --> 00:40:02.560
+Jitendra K: It will give you the best… Of both the worlds.
+
+416
+00:40:03.490 --> 00:40:08.710
+Jitendra K: And the most common fusion technique is called reciprocal rank fusion, or RRF.
+
+417
+00:40:11.340 --> 00:40:15.420
+Jitendra K: So when you run two searches in parallel, a vector search that return result.
+
+418
+00:40:15.940 --> 00:40:20.790
+Jitendra K: Ranked by semantic filtering, or semantic similarity, and a keyword search that return.
+
+419
+00:40:21.240 --> 00:40:27.609
+Jitendra K: ranked by BM25 score. So each Result gets a basic score.
+
+420
+00:40:27.990 --> 00:40:30.780
+Jitendra K: On its position in a each rank list.
+
+421
+00:40:32.130 --> 00:40:35.119
+Jitendra K: So you are combining the scores and re-rank.
+
+422
+00:40:37.970 --> 00:40:40.579
+Jitendra K: Right? So that is the whole idea of hybrid search.
+
+423
+00:40:41.470 --> 00:40:48.719
+Jitendra K: So, in practice, VB8 and some newer Elasticsearch configuration support hybrid search.
+
+424
+00:40:49.800 --> 00:40:53.690
+Jitendra K: So, when you save… your Fusion logic.
+
+425
+00:40:54.150 --> 00:40:58.050
+Jitendra K: You can start with using this hybrid search.
+
+426
+00:41:02.250 --> 00:41:11.340
+Jitendra K: Now, everything that we have discussed so far, vector database, memory retrieval, context building, is actually a part of your pipeline. The broader pipeline is RAC.
+
+427
+00:41:13.500 --> 00:41:19.939
+Jitendra K: Right? So we are solving everything from contacts to memories, just to help write pipeline, right? Nothing else.
+
+428
+00:41:21.330 --> 00:41:22.719
+Jitendra K: Did you agree or not?
+
+429
+00:41:24.760 --> 00:41:26.129
+Jitendra K: Yes or no, guys?
+
+430
+00:41:28.220 --> 00:41:34.329
+Jitendra K: Whatever we have discussed so far for context management, memory management, is basically for solving the rack
+
+431
+00:41:35.330 --> 00:41:40.280
+Jitendra K: pipeline, right? To make sure that the answer that we are going to get from LAG will be…
+
+432
+00:41:41.800 --> 00:41:43.330
+Jitendra K: factually true.
+
+433
+00:41:43.460 --> 00:41:44.790
+Jitendra K: consistent.
+
+434
+00:41:45.510 --> 00:41:47.649
+Jitendra K: And satisfactory for the user.
+
+435
+00:41:51.400 --> 00:41:56.370
+Jitendra K: That means your feedback that you're going to receive from the user should be hiding.
+
+436
+00:41:56.890 --> 00:42:03.420
+Jitendra K: And that is where RLHF and all the policies function we are going to discuss in the next upcoming tutorials.
+
+437
+00:42:03.950 --> 00:42:07.099
+Jitendra K: How to understand and resonate with the user inputs.
+
+438
+00:42:08.510 --> 00:42:11.190
+Jitendra K: Using a policy functions, etc.
+
+439
+00:42:12.010 --> 00:42:14.320
+Jitendra K: But let's spark this discussion aside.
+
+440
+00:42:14.560 --> 00:42:18.390
+Jitendra K: So everything what we have discussed so far, vector database, memory context.
+
+441
+00:42:19.060 --> 00:42:21.300
+Jitendra K: Memory retrieval and the context building.
+
+442
+00:42:21.480 --> 00:42:27.600
+Jitendra K: It's actually a part of a broader pattern that industry has settled on a calling called retrieval augment generation.
+
+443
+00:42:28.100 --> 00:42:36.240
+Jitendra K: So retrieval augment generation, or a RAG, boils down to a simple insight, instead of expecting the LLM to know everything from its training data.
+
+444
+00:42:36.700 --> 00:42:39.060
+Jitendra K: You give it away to look things up.
+
+445
+00:42:39.180 --> 00:42:44.369
+Jitendra K: before it responds. The model gets a question, It searched for relevant information.
+
+446
+00:42:45.240 --> 00:42:50.610
+Jitendra K: From external sources, and then generate a response, inform By what it found.
+
+447
+00:42:52.790 --> 00:42:57.710
+Jitendra K: So basically, an LLM without RAG is a student taking a close book exam.
+
+448
+00:42:59.150 --> 00:43:04.849
+Jitendra K: An element with a rag is licked is like taking an open book exam. The student reasoning ability
+
+449
+00:43:05.340 --> 00:43:09.480
+Jitendra K: It's the same in both cases, but the quality of answer is dramatically better.
+
+450
+00:43:09.610 --> 00:43:12.119
+Jitendra K: When they can reference their notes.
+
+451
+00:43:15.610 --> 00:43:19.889
+Jitendra K: So you can see the flow on the top, the green color building blocks.
+
+452
+00:43:20.080 --> 00:43:23.169
+Jitendra K: A 5-stage pipeline. The query comes.
+
+453
+00:43:23.790 --> 00:43:27.509
+Jitendra K: From the user, it got embedded into a vector store.
+
+454
+00:43:27.820 --> 00:43:31.060
+Jitendra K: The vector is then used to retrieve relevant chunks.
+
+455
+00:43:31.430 --> 00:43:32.909
+Jitendra K: From the knowledge store.
+
+456
+00:43:33.320 --> 00:43:39.259
+Jitendra K: Those churns are going to be augmented with data combined with the original query into a structure prompt.
+
+457
+00:43:39.720 --> 00:43:45.039
+Jitendra K: Then the LLM will generate the response, grounded in the retrieval information.
+
+458
+00:43:45.790 --> 00:43:48.529
+Jitendra K: So, first and the foremost thing is your indexing phase.
+
+459
+00:43:51.190 --> 00:43:58.070
+Jitendra K: And this is going to happen offline, because any query arrives, you take your knowledge, document, past interaction, policy.
+
+460
+00:43:58.400 --> 00:44:01.099
+Jitendra K: Product manuals, whatever your agent needs.
+
+461
+00:44:01.570 --> 00:44:07.530
+Jitendra K: Break into our chunks, Embedded each chunks, and store the embedding in your vector database with metadata.
+
+462
+00:44:08.270 --> 00:44:14.379
+Jitendra K: During the retrieval phase, this is what is going to happen at the query time. The user query is embedded.
+
+463
+00:44:14.620 --> 00:44:18.520
+Jitendra K: And the vector database will return the most semantic, similar chunks.
+
+464
+00:44:18.960 --> 00:44:22.559
+Jitendra K: By applying additional filtering on metadata.
+
+465
+00:44:23.030 --> 00:44:26.390
+Jitendra K: let's say the session-based IDs, customer IDs.
+
+466
+00:44:26.580 --> 00:44:31.169
+Jitendra K: Document type, date range. That will narrow the result further.
+
+467
+00:44:31.410 --> 00:44:36.670
+Jitendra K: That means you're trying to apply filter on your indexes, the document that you retry.
+
+468
+00:44:37.550 --> 00:44:44.290
+Jitendra K: There's a generation phase where the retrieval chunks are injected into LLM prompt alongside the user question.
+
+469
+00:44:44.810 --> 00:44:50.929
+Jitendra K: The prompt instructs the model to base its response on the provided context, reducing hallucination.
+
+470
+00:44:51.110 --> 00:44:53.700
+Jitendra K: Ensuring the factual ground… grounding.
+
+471
+00:44:54.130 --> 00:44:59.139
+Jitendra K: And this is what 90% of the organizations are doing these days. They are relying on RAT.
+
+472
+00:44:59.800 --> 00:45:04.259
+Jitendra K: Rather than burning money on PAFTA and LORAS that we had discussed earlier.
+
+473
+00:45:04.540 --> 00:45:08.809
+Jitendra K: They're not training the LLM from the scratch. Some organizations, 10% of them are doing.
+
+474
+00:45:09.330 --> 00:45:11.570
+Jitendra K: But most of the organizations are doing RAC.
+
+475
+00:45:18.170 --> 00:45:22.630
+Jitendra K: I believe regular RAG is for particular domain or use case, but this regular…
+
+476
+00:45:22.770 --> 00:45:28.709
+Jitendra K: So, we are talking about RAT++ here, right? So, what about if I'm going to use one more additional
+
+477
+00:45:29.950 --> 00:45:36.679
+Jitendra K: memory, which talks about a pass interaction and preferences. So I'm not replacing RAG, it's just a RAG++.
+
+478
+00:45:37.540 --> 00:45:39.120
+Jitendra K: This is not a new rag.
+
+479
+00:45:49.230 --> 00:45:54.679
+Jitendra K: I can see the knowledge base, hallucinate, even though confidence is 90.
+
+480
+00:45:55.140 --> 00:46:02.520
+Jitendra K: Yeah, we'll talk about a parameter. I think your parameters are not good that you're using to test your LLM model. Your parameters are not good.
+
+481
+00:46:02.690 --> 00:46:04.500
+Jitendra K: It just gives you the glimpse.
+
+482
+00:46:05.670 --> 00:46:10.889
+Jitendra K: the confidence… I don't know what is your formula for confidence, which formula you are using for confidence.
+
+483
+00:46:11.140 --> 00:46:15.070
+Jitendra K: But it has to be predefined parameters. So we will discuss about AIOps.
+
+484
+00:46:15.450 --> 00:46:18.039
+Jitendra K: And we'll deep dive into these formulas.
+
+485
+00:46:18.250 --> 00:46:22.510
+Jitendra K: Now, how do you define confidence? If you are using LLM to define confidence.
+
+486
+00:46:22.830 --> 00:46:24.840
+Jitendra K: Then you're ending up into a data leak.
+
+487
+00:46:25.120 --> 00:46:27.059
+Jitendra K: You're… you are using the same critic.
+
+488
+00:46:27.760 --> 00:46:33.649
+Jitendra K: Same model to generate answer, and same model to criticize as well. And that's not a good approach.
+
+489
+00:46:38.690 --> 00:46:44.259
+Jitendra K: Alright, so retrieval phase… This is where the query time
+
+490
+00:46:45.140 --> 00:46:50.550
+Jitendra K: happen. The user query is emitted, and the vector database returns the most semantic similar chunks.
+
+491
+00:46:50.830 --> 00:46:53.040
+Jitendra K: With additional filtering by metadata.
+
+492
+00:46:53.580 --> 00:46:57.639
+Jitendra K: During the generation phase, the retrieval chunks are injected into LLM model.
+
+493
+00:46:57.890 --> 00:47:00.270
+Jitendra K: Prompt side along with the user question.
+
+494
+00:47:00.390 --> 00:47:05.710
+Jitendra K: And the prompt instructs the model to base its response on the provided context.
+
+495
+00:47:06.000 --> 00:47:08.919
+Jitendra K: That will reduce hallucination and ensure factual crowness.
+
+496
+00:47:10.600 --> 00:47:15.220
+Jitendra K: So this is what… Typically, a racked pipeline does.
+
+497
+00:47:16.160 --> 00:47:21.539
+Jitendra K: And we have already know that rack pipeline, end-to-end flow. Let me go slightly deeper.
+
+498
+00:47:21.760 --> 00:47:25.429
+Jitendra K: So here you can see that we have the indexing pipeline.
+
+499
+00:47:25.540 --> 00:47:30.139
+Jitendra K: Where a document chunks will convert into embedding vectors, store, and index.
+
+500
+00:47:30.900 --> 00:47:33.539
+Jitendra K: You can see on the left, indexing pipeline.
+
+501
+00:47:34.450 --> 00:47:39.049
+Jitendra K: Step 1 is loading document, including PDF, HTML, markdowns.
+
+502
+00:47:39.370 --> 00:47:41.519
+Jitendra K: Confluence pages, Slack threads…
+
+503
+00:47:41.830 --> 00:47:48.600
+Jitendra K: Whatever your knowledge sources are, step two is to split them into optimally sized chunks with an overlap.
+
+504
+00:47:49.000 --> 00:47:54.330
+Jitendra K: And we'll send the next… Next chunks to a query pipeline.
+
+505
+00:47:54.960 --> 00:47:59.330
+Jitendra K: So… Query augmentation, that is where the user raw query
+
+506
+00:47:59.690 --> 00:48:03.329
+Jitendra K: Which might be ambiguous or incomplete. So technically.
+
+507
+00:48:04.440 --> 00:48:07.380
+Jitendra K: You're going to use query writing,
+
+508
+00:48:07.650 --> 00:48:12.660
+Jitendra K: We'll talk about one technique called HYD, hypothetical Document Embedding.
+
+509
+00:48:12.830 --> 00:48:14.979
+Jitendra K: Which can improve retrieval quality.
+
+510
+00:48:15.670 --> 00:48:16.700
+Jitendra K: as well.
+
+511
+00:48:16.970 --> 00:48:19.889
+Jitendra K: We'll talk about DSPY in the upcoming tutorials.
+
+512
+00:48:20.230 --> 00:48:23.939
+Jitendra K: And that is where we'll discuss how to modify the query.
+
+513
+00:48:24.130 --> 00:48:25.210
+Jitendra K: on the fly.
+
+514
+00:48:29.950 --> 00:48:30.840
+Jitendra K: Alright.
+
+515
+00:48:31.210 --> 00:48:34.449
+Jitendra K: Now, why your rack system failed silently?
+
+516
+00:48:34.900 --> 00:48:41.669
+Jitendra K: Because of these underlying reasons, it could be a bad chunking strategy, which could be too large or too small.
+
+517
+00:48:42.420 --> 00:48:45.039
+Jitendra K: So, chunking is how you break
+
+518
+00:48:45.710 --> 00:48:50.579
+Jitendra K: Source document into pieces, small enough to embed and retrieve independently.
+
+519
+00:48:51.160 --> 00:48:54.880
+Jitendra K: So it's like a mechanical, it sounds like a mechanical, but a choice you make
+
+520
+00:48:55.310 --> 00:48:57.240
+Jitendra K: We'll have a ripple downstream effect.
+
+521
+00:48:58.340 --> 00:49:04.400
+Jitendra K: In a way that… That means, let's say, if you are using two small chunks.
+
+522
+00:49:04.740 --> 00:49:08.050
+Jitendra K: You get focus embedding that are great for precise matching.
+
+523
+00:49:08.590 --> 00:49:15.889
+Jitendra K: The vector for a 50 token chunk captures a very specific meaning, making it easy to find and extract matches.
+
+524
+00:49:16.150 --> 00:49:18.769
+Jitendra K: The problem is that the sentence about
+
+525
+00:49:19.630 --> 00:49:21.889
+Jitendra K: Or the sentence will be incomplete.
+
+526
+00:49:22.180 --> 00:49:23.759
+Jitendra K: So you lose context.
+
+527
+00:49:27.720 --> 00:49:35.469
+Jitendra K: Too large, you get a rich context, that is great for LLM to generate comprehensive answers, a 200 or 2,000 token chunk.
+
+528
+00:49:35.700 --> 00:49:42.200
+Jitendra K: Probably contains everything the model need. But embedding for a chunk is an average of many different topics.
+
+529
+00:49:42.420 --> 00:49:43.940
+Jitendra K: And make it noisy.
+
+530
+00:49:44.990 --> 00:49:47.289
+Jitendra K: Hard to match precise.
+
+531
+00:49:47.770 --> 00:49:52.749
+Jitendra K: That means you have more context window space that will add noise to your data.
+
+532
+00:49:53.710 --> 00:49:59.269
+Jitendra K: So, basically, this table show… The recommendation, the starting point for different document types.
+
+533
+00:49:59.800 --> 00:50:05.389
+Jitendra K: General document have 400 tokens with 88 token overlap, 20% of it.
+
+534
+00:50:05.860 --> 00:50:12.009
+Jitendra K: Technical documents, slightly smaller at 300 tokens. Transcript larger at 600 tokens.
+
+535
+00:50:12.170 --> 00:50:16.970
+Jitendra K: Because conversational time, or conversational text is more… refused.
+
+536
+00:50:17.140 --> 00:50:23.219
+Jitendra K: And policy documents have 350 tokens. This can change, I'm just using a general overview.
+
+537
+00:50:28.300 --> 00:50:31.529
+Jitendra K: Now, the context engineering, which we have already
+
+538
+00:50:31.670 --> 00:50:35.859
+Jitendra K: talked about. It's about designing what does Model C and when.
+
+539
+00:50:38.310 --> 00:50:45.800
+Jitendra K: So this is the term that has gained significant traction in the last year, 2024-25, not 26 as well.
+
+540
+00:50:46.490 --> 00:50:51.830
+Jitendra K: And I think it represents a fundamental shift in how we think about building a LLM application.
+
+541
+00:50:52.240 --> 00:50:55.420
+Jitendra K: The card on the top captured the key distinction.
+
+542
+00:50:55.820 --> 00:50:57.120
+Jitendra K: Prompt engineering.
+
+543
+00:50:57.570 --> 00:50:59.720
+Jitendra K: Is how you phrase
+
+544
+00:51:00.210 --> 00:51:08.759
+Jitendra K: and structure instruction for the LLM. Writing clear prompt, adding example, using chain of thought reasoning, using few-shot learning.
+
+545
+00:51:09.010 --> 00:51:20.469
+Jitendra K: These are important techniques, and they improve output quality. But prompt engineering alone cannot fix the fundamental limitation of this disconnected model. So context engineering is a discipline.
+
+546
+00:51:20.880 --> 00:51:22.179
+Jitendra K: of design.
+
+547
+00:51:22.440 --> 00:51:28.720
+Jitendra K: That entire architecture required to feed the LLM the right set of information at the right time.
+
+548
+00:51:28.930 --> 00:51:33.690
+Jitendra K: It's all about building the bridges that connect a disconnected model to the outside world.
+
+549
+00:51:34.450 --> 00:51:39.129
+Jitendra K: Which includes retrieval system, memory layers, tool integration, and yes, prompt design.
+
+550
+00:51:40.150 --> 00:51:44.749
+Jitendra K: So, prompt design is how you ask the question. Context engineering is, like.
+
+551
+00:51:44.900 --> 00:51:49.439
+Jitendra K: Making sure the model has the right textbook, the right calculator, and the right notes.
+
+552
+00:51:49.780 --> 00:51:56.580
+Jitendra K: from your previous conversation before start thinking. The quality of LLM output depends, enormously on.
+
+553
+00:51:57.850 --> 00:51:59.040
+Jitendra K: context.
+
+554
+00:52:00.980 --> 00:52:02.400
+Jitendra K: Rather than prompt.
+
+555
+00:52:08.230 --> 00:52:17.570
+Jitendra K: So prompt techniques like chain of thought, few-shot learning, React are more effective when combined with retrieval document and user history, and domain-specific data.
+
+556
+00:52:18.010 --> 00:52:23.290
+Jitendra K: Without viral engineering context, even the most sophisticated prompting technique is limited.
+
+557
+00:52:23.480 --> 00:52:26.519
+Jitendra K: What… with what the model can see.
+
+558
+00:52:26.870 --> 00:52:29.399
+Jitendra K: So, in practice, context engineering means
+
+559
+00:52:29.670 --> 00:52:32.679
+Jitendra K: Treating the context window as a scare source.
+
+560
+00:52:34.370 --> 00:52:37.150
+Jitendra K: And then… design.
+
+561
+00:52:37.710 --> 00:52:41.730
+Jitendra K: Your retrieval memory tool prompting strategies effectively.
+
+562
+00:52:41.840 --> 00:52:44.970
+Jitendra K: Based upon that. So it's all about reducing the noise.
+
+563
+00:52:45.130 --> 00:52:47.850
+Jitendra K: Reducing the relevant token in the context
+
+564
+00:52:47.970 --> 00:52:50.580
+Jitendra K: Where the attention mechanism will get wasted.
+
+565
+00:52:59.900 --> 00:53:08.220
+Jitendra K: Alright, so context window failure modes now. Now, this is a critical challenge. If the context engineering is all about managing the context window.
+
+566
+00:53:08.520 --> 00:53:12.570
+Jitendra K: Then we need to understand how it is… how it can go wrong.
+
+567
+00:53:13.630 --> 00:53:16.590
+Jitendra K: So, there are 4 failure modes.
+
+568
+00:53:16.920 --> 00:53:18.329
+Jitendra K: They are patterns.
+
+569
+00:53:18.850 --> 00:53:21.109
+Jitendra K: that I observed in production system.
+
+570
+00:53:21.450 --> 00:53:23.499
+Jitendra K: The first is context poisoning.
+
+571
+00:53:23.960 --> 00:53:26.360
+Jitendra K: This is the most dangerous, because it is…
+
+572
+00:53:27.040 --> 00:53:32.119
+Jitendra K: Self-reinforcing, if incorrect, or hallucination information enter the context.
+
+573
+00:53:32.910 --> 00:53:38.700
+Jitendra K: It maybe happened due to bad retrieval, maybe from previous agent response that gets stored as a memory.
+
+574
+00:53:39.010 --> 00:53:41.679
+Jitendra K: The agent built on a faulty context.
+
+575
+00:53:42.090 --> 00:53:44.990
+Jitendra K: Subsequent responses compounded the error.
+
+576
+00:53:45.670 --> 00:53:52.499
+Jitendra K: So basically, the classical example is that the agent hallucinate And return some…
+
+577
+00:53:52.870 --> 00:53:57.270
+Jitendra K: Inconsistent response in the previous session, and you store it.
+
+578
+00:53:58.960 --> 00:54:04.560
+Jitendra K: Context distraction, this is where you inject Too much historical context.
+
+579
+00:54:04.880 --> 00:54:10.570
+Jitendra K: The agent becomes burdened by past information, conversational history, tool output, summaries.
+
+580
+00:54:10.900 --> 00:54:15.780
+Jitendra K: And start over relying on repetitive past behavior instead of reasoning freshness.
+
+581
+00:54:17.380 --> 00:54:21.160
+Jitendra K: about the current situation. This symptoms where the agent
+
+582
+00:54:22.320 --> 00:54:25.930
+Jitendra K: We'll similarly give you very different answers.
+
+583
+00:54:27.870 --> 00:54:33.990
+Jitendra K: Context confusion. This will occur when irrelevant tools or documents crowded the context window.
+
+584
+00:54:34.300 --> 00:54:39.760
+Jitendra K: The Model C tool description for tool, it does not need document about a topic.
+
+585
+00:54:40.700 --> 00:54:45.660
+Jitendra K: The result is wrong tool selection, misapplied instruction, or confused reasoning.
+
+586
+00:54:46.580 --> 00:54:50.290
+Jitendra K: Context class… This is our trickiest failure mode.
+
+587
+00:54:50.600 --> 00:54:57.140
+Jitendra K: This happens when contradictory information exists with the context, maybe the old policy Which you haven't changed.
+
+588
+00:54:58.760 --> 00:55:03.059
+Jitendra K: Right? Maybe two different customer records having conflicting information.
+
+589
+00:55:03.910 --> 00:55:09.460
+Jitendra K: Maybe the model got stuck between conflicting assumption and either picked one arbitrary originator?
+
+590
+00:55:09.610 --> 00:55:11.970
+Jitendra K: Hatch an unhelpful response.
+
+591
+00:55:14.040 --> 00:55:17.450
+Jitendra K: So this is where you are going to have a context window failed.
+
+592
+00:55:18.230 --> 00:55:21.280
+Jitendra K: Right? So context window will fail based upon that.
+
+593
+00:55:23.900 --> 00:55:27.099
+Jitendra K: Then we talk about 6 pillars of context engineering.
+
+594
+00:55:27.430 --> 00:55:32.579
+Jitendra K: So, this is where, there's a best document which has been rolled by BV-8.
+
+595
+00:55:33.210 --> 00:55:35.089
+Jitendra K: I will cover that in a while.
+
+596
+00:55:35.630 --> 00:55:40.879
+Jitendra K: And then we'll take some examples on the top of it. So, let me cover this part.
+
+597
+00:55:44.860 --> 00:55:47.100
+Jitendra K: Is chunking model agnostic?
+
+598
+00:55:47.330 --> 00:55:52.199
+Jitendra K: It's not… It's not model agnostic.
+
+599
+00:55:56.630 --> 00:55:59.680
+Jitendra K: Okay, so we'll talk about this context window again.
+
+600
+00:56:00.840 --> 00:56:04.420
+Jitendra K: So basically, in the context window, what I'm trying to do here is…
+
+601
+00:56:10.510 --> 00:56:19.830
+Jitendra K: So… To build a reliable agent, you need a system that combines context window with a long-term memory.
+
+602
+00:56:20.500 --> 00:56:25.959
+Jitendra K: Retrieval from external sources, like vector database, and selectively decide what to include at each system.
+
+603
+00:56:26.670 --> 00:56:32.430
+Jitendra K: So the context engineering is… or context window, all LM has been…
+
+604
+00:56:33.690 --> 00:56:38.020
+Jitendra K: all LLMs, including, best of the best reasoning model.
+
+605
+00:56:38.710 --> 00:56:41.270
+Jitendra K: We have seen that they have finite context window.
+
+606
+00:56:42.460 --> 00:56:45.140
+Jitendra K: So the core idea here is you have to integrate
+
+607
+00:56:45.290 --> 00:56:47.189
+Jitendra K: Your system in such a manner.
+
+608
+00:56:47.630 --> 00:56:52.749
+Jitendra K: That whatever context you're going to use, While generating the answer.
+
+609
+00:56:53.060 --> 00:56:58.040
+Jitendra K: should have… these… Building principles.
+
+610
+00:57:02.900 --> 00:57:03.700
+Jitendra K: Right?
+
+611
+00:57:04.120 --> 00:57:08.280
+Jitendra K: So these bidding principles will be utilized to generate an answer.
+
+612
+00:57:09.370 --> 00:57:20.180
+Jitendra K: Without that, your system will… be ineffective. That means you're not going to have sufficient amount of responses…
+
+613
+00:57:20.680 --> 00:57:25.699
+Jitendra K: your model will start hallucinating. So, context window is the model adaptive workspace.
+
+614
+00:57:26.060 --> 00:57:29.449
+Jitendra K: Where it holds instruction and information from the current task.
+
+615
+00:57:30.050 --> 00:57:33.900
+Jitendra K: Even word numbers and pieces of punctuations.
+
+616
+00:57:34.260 --> 00:57:36.219
+Jitendra K: That it will consume in the space.
+
+617
+00:57:37.450 --> 00:57:44.140
+Jitendra K: Now, if I have to compare the context versus prompt engineering, context engineering versus prompt engineering.
+
+618
+00:57:44.530 --> 00:57:51.019
+Jitendra K: So, prompt engineering focus on how you phrase and structure instruction for the LLM to generate the best result.
+
+619
+00:57:51.540 --> 00:57:58.230
+Jitendra K: Such as writing… Clever prompts, adding example, or asking the model to think step by step.
+
+620
+00:57:59.080 --> 00:58:05.110
+Jitendra K: While the important point is prompting alone cannot fix the fundamental limitation of disconnected model.
+
+621
+00:58:06.300 --> 00:58:14.120
+Jitendra K: Context engineering, on the other hand, is a discipline of designing the architect that feeds an LLM the right information at the right time.
+
+622
+00:58:14.490 --> 00:58:20.140
+Jitendra K: It's about building the bridges that connect a disconnected model to the outside world.
+
+623
+00:58:20.360 --> 00:58:26.249
+Jitendra K: Retrieving the external data using tools, memories, to generate a more factual output.
+
+624
+00:58:27.800 --> 00:58:32.349
+Jitendra K: So, in simple words, I would say prompt engineering is how you ask the question.
+
+625
+00:58:32.530 --> 00:58:40.469
+Jitendra K: While context engineering is making sure the model has access to the right textbook calculators, and even previous conversation.
+
+626
+00:58:43.760 --> 00:58:46.840
+Jitendra K: So, we have seen the common failures.
+
+627
+00:58:46.980 --> 00:58:50.349
+Jitendra K: about the same. We discussed about this part.
+
+628
+00:58:51.060 --> 00:58:57.610
+Jitendra K: Now, what are the strategies and, how you are going to do that? What are the different ways that you are going to create a strategy?
+
+629
+00:58:58.340 --> 00:59:01.409
+Jitendra K: So basically, the first and foremost thing
+
+630
+00:59:02.950 --> 00:59:05.539
+Jitendra K: Agent sits at the center of the context engineering.
+
+631
+00:59:06.710 --> 00:59:12.229
+Jitendra K: They are both user of context, drawing from the retrieval data, history, and external knowledge.
+
+632
+00:59:13.370 --> 00:59:19.000
+Jitendra K: So in a single agent tech system, one agent handled the full pipeline, deciding when to search, summarize, or generate.
+
+633
+00:59:19.280 --> 00:59:24.870
+Jitendra K: In case of multi-agentic system, multiple agent can take On a specialized role.
+
+634
+00:59:25.540 --> 00:59:27.729
+Jitendra K: That play into a larger goal.
+
+635
+00:59:28.160 --> 00:59:34.350
+Jitendra K: So, in both cases, how context is built and shared determine how well the system performs.
+
+636
+00:59:36.960 --> 00:59:40.460
+Jitendra K: So this is your strategy to perform.
+
+637
+00:59:41.780 --> 00:59:43.950
+Jitendra K: the whole pipeline.
+
+638
+00:59:45.170 --> 00:59:49.690
+Jitendra K: Now, one important point is query augmentation. So, when you say query augmentation.
+
+639
+00:59:50.110 --> 00:59:54.820
+Jitendra K: So, query augmentation is a process of refining the user
+
+640
+00:59:55.020 --> 01:00:00.239
+Jitendra K: Initial input for downstream tasks, like querying a database or presenting it to an agent.
+
+641
+01:00:01.660 --> 01:00:08.409
+Jitendra K: But an extremely important point is, no amount of sophisticated algorithm, re-ranking model, or even clever prompting
+
+642
+01:00:08.580 --> 01:00:14.530
+Jitendra K: Can truly make up For misunderstood user intent.
+
+643
+01:00:15.420 --> 01:00:20.730
+Jitendra K: There are two things. The first is… User does not interact with
+
+644
+01:00:21.680 --> 01:00:27.990
+Jitendra K: bots or input boxes in an ideal manner, so… or… Second could be…
+
+645
+01:00:28.330 --> 01:00:31.169
+Jitendra K: different part of your AI system need to understand
+
+646
+01:00:31.280 --> 01:00:35.109
+Jitendra K: the user query in different ways. That means your router is not performing well.
+
+647
+01:00:37.900 --> 01:00:43.520
+Jitendra K: So this is a very systematic breakdown on… you're…
+
+648
+01:00:43.990 --> 01:00:47.460
+Jitendra K: Existing models that you're using to generate a reply.
+
+649
+01:00:48.000 --> 01:00:55.420
+Jitendra K: So basically, as I mentioned, when you have to decide, different… pieces together.
+
+650
+01:00:55.660 --> 01:01:01.490
+Jitendra K: You have to rely on different… right… Style of writing prompting.
+
+651
+01:01:02.040 --> 01:01:06.719
+Jitendra K: Definitely one of the hyperparameters that you have to fine-tune is your chunking strategy.
+
+652
+01:01:07.140 --> 01:01:10.959
+Jitendra K: And then… Memory management within your model.
+
+653
+01:01:15.150 --> 01:01:18.579
+Jitendra K: Right, so these things are becoming very, very important and pivot.
+
+654
+01:01:18.710 --> 01:01:22.880
+Jitendra K: Or making your… Model, quite interactive.
+
+655
+01:01:28.800 --> 01:01:29.690
+Jitendra K: Alright.
+
+656
+01:01:31.540 --> 01:01:34.830
+Jitendra K: Now, we'll move on to the memory framework.
+
+657
+01:01:35.920 --> 01:01:37.150
+Jitendra K: landscape.
+
+658
+01:01:37.580 --> 01:01:39.780
+Jitendra K: And we'll talk about 6 tools.
+
+659
+01:01:39.950 --> 01:01:43.500
+Jitendra K: And these tools, as listed here, you can see on my screen.
+
+660
+01:01:43.960 --> 01:01:48.060
+Jitendra K: We'll start with MAM0. This is not MAMO, this is MAM0.
+
+661
+01:01:49.130 --> 01:01:50.570
+Jitendra K: We'll also use Zap.
+
+662
+01:01:51.060 --> 01:02:00.029
+Jitendra K: We will revisit Langchain flexible module for… memory management, Llama Index… Lita, and Cogni.
+
+663
+01:02:03.680 --> 01:02:08.260
+Jitendra K: So, how many of you have heard about these two, or these three?
+
+664
+01:02:12.540 --> 01:02:13.919
+Jitendra K: Have you heard about Zap?
+
+665
+01:02:20.410 --> 01:02:21.370
+Jitendra K: Okay…
+
+666
+01:02:52.000 --> 01:02:54.529
+Jitendra K: Okay, so we'll talk about each of them.
+
+667
+01:02:55.130 --> 01:02:58.699
+Jitendra K: The first module is called MAMO, so… sorry, MAM0.
+
+668
+01:02:59.060 --> 01:03:03.469
+Jitendra K: So, MAMZO has been designed as a dedicated memory layer for AI applications.
+
+669
+01:03:03.770 --> 01:03:07.030
+Jitendra K: So the core philosophy is the memory should be intelligent.
+
+670
+01:03:07.220 --> 01:03:10.340
+Jitendra K: Not just storing raw conversation, or logs.
+
+671
+01:03:10.740 --> 01:03:13.570
+Jitendra K: But also extracting and organizing relevant fact.
+
+672
+01:03:14.760 --> 01:03:21.240
+Jitendra K: So the standard feature is multi-level memory scoping. You can define memory as at a user level.
+
+673
+01:03:21.490 --> 01:03:25.529
+Jitendra K: Fact about a specific user that persists across all sessions.
+
+674
+01:03:26.270 --> 01:03:31.270
+Jitendra K: And at a session level, you can add up the context during the current interaction.
+
+675
+01:03:32.360 --> 01:03:35.580
+Jitendra K: For example, a user-level memory might store
+
+676
+01:03:35.860 --> 01:03:39.629
+Jitendra K: Prefer detailed technical explanation for a particular type of a user.
+
+677
+01:03:41.030 --> 01:03:51.250
+Jitendra K: And a session-level memory store, that this user preferred detailed technical explanation, so I will… In my response.
+
+678
+01:03:51.450 --> 01:03:55.610
+Jitendra K: I will have a detailed technical explanation for their queries.
+
+679
+01:03:56.740 --> 01:04:01.719
+Jitendra K: Some user might be business user, they write… they need a layman format of responses.
+
+680
+01:04:02.200 --> 01:04:07.119
+Jitendra K: Because I've observed that the user's a business user, I've already seen his resume as well.
+
+681
+01:04:07.370 --> 01:04:10.830
+Jitendra K: that he's working for some XYZ company as a business analyst.
+
+682
+01:04:11.340 --> 01:04:16.529
+Jitendra K: So I will assume that this user does not like technical jargon, so let's be a layman.
+
+683
+01:04:17.430 --> 01:04:20.520
+Jitendra K: Terms to answer the questions for the user.
+
+684
+01:04:22.310 --> 01:04:23.090
+Jitendra K: Right?
+
+685
+01:04:23.220 --> 01:04:25.499
+Jitendra K: So MAM0 will help you to do this.
+
+686
+01:04:25.950 --> 01:04:27.380
+Jitendra K: memory management.
+
+687
+01:04:29.190 --> 01:04:32.239
+Jitendra K: Zap is another tool.
+
+688
+01:04:32.450 --> 01:04:37.439
+Jitendra K: It primarily focused on extracting structured information from an unstructured conversation.
+
+689
+01:04:38.500 --> 01:04:41.709
+Jitendra K: And the most compelling feature is progressive summarization.
+
+690
+01:04:41.900 --> 01:04:47.249
+Jitendra K: So as conversations grow, ZAP automatically condense older part of the conversation history.
+
+691
+01:04:47.480 --> 01:04:52.559
+Jitendra K: while preserving the key information. And this is critically for long-running conversation.
+
+692
+01:04:52.840 --> 01:04:54.760
+Jitendra K: That would otherwise exceed.
+
+693
+01:04:57.500 --> 01:04:59.080
+Jitendra K: Context window limit.
+
+694
+01:05:00.470 --> 01:05:03.610
+Jitendra K: Lang-chain memory is the most flexible one.
+
+695
+01:05:04.080 --> 01:05:09.889
+Jitendra K: Because it comes with ecosystem, It's not an external memory system, but a memory module.
+
+696
+01:05:10.100 --> 01:05:12.829
+Jitendra K: With a broader Langchain ecosystem support.
+
+697
+01:05:16.400 --> 01:05:20.940
+Jitendra K: So the key advantage is variety. Langchain offers multiple memory types.
+
+698
+01:05:21.470 --> 01:05:25.520
+Jitendra K: Which include conversational buffer memory that stored the full conversation.
+
+699
+01:05:26.030 --> 01:05:31.699
+Jitendra K: conversational summarization memory, which uses an LM to summarize the conversation.
+
+700
+01:05:31.860 --> 01:05:36.499
+Jitendra K: Entity memory to track specific entity mentioned in the conversation.
+
+701
+01:05:36.850 --> 01:05:42.229
+Jitendra K: Conversational knowledge graph memory that builds a knowledge graph from conversational contents.
+
+702
+01:05:42.560 --> 01:05:49.390
+Jitendra K: And these memory types can be backed by different storage systems, and memory for development, You can use,
+
+703
+01:05:50.420 --> 01:05:53.960
+Jitendra K: Lang-chain-based memory for more powerful integration.
+
+704
+01:05:54.940 --> 01:05:57.779
+Jitendra K: Llama Index Memory is a very distinguished…
+
+705
+01:05:59.350 --> 01:06:02.820
+Jitendra K: We call it Integrate Memory with Llama Index Data Framework.
+
+706
+01:06:03.650 --> 01:06:07.830
+Jitendra K: So, Llama Index Memory… works particularly…
+
+707
+01:06:08.490 --> 01:06:11.600
+Jitendra K: Or agent, with a structured information and document.
+
+708
+01:06:15.610 --> 01:06:26.110
+Jitendra K: And this is particularly valuable for researcher agents, analyst agents, or any application where the agent needs to build cumulative knowledge from document analysis. So if an agent analyzes a financial report.
+
+709
+01:06:26.380 --> 01:06:29.669
+Jitendra K: In a session one, and the market analysis in Session 2,
+
+710
+01:06:29.870 --> 01:06:33.180
+Jitendra K: The Llama Index memory can maintain both contexts across.
+
+711
+01:06:38.510 --> 01:06:42.979
+Jitendra K: Now we'll talk about a too important tool called MAMGPT Lead Lita.
+
+712
+01:06:43.720 --> 01:06:50.669
+Jitendra K: Salita, formerly known as MAMGPT, And it takes most architectural unique approaches to agentic memory.
+
+713
+01:06:50.960 --> 01:06:56.649
+Jitendra K: It draws direct inspiration from operating system design. The core concept is a tiered model
+
+714
+01:06:56.830 --> 01:07:01.190
+Jitendra K: A tiered memory hierarchy that mirrors how OS manage memory.
+
+715
+01:07:01.470 --> 01:07:04.669
+Jitendra K: So the LMContext window is treated as a RAM.
+
+716
+01:07:05.130 --> 01:07:09.839
+Jitendra K: Fast, limited, and volatile. External resources like vector, store, file, database.
+
+717
+01:07:10.020 --> 01:07:13.860
+Jitendra K: It's treated like a disk, slow, unlimited, or persistent.
+
+718
+01:07:14.210 --> 01:07:20.650
+Jitendra K: And the system managed moving information between these tiers, just like an OS managed virtual memory.
+
+719
+01:07:21.990 --> 01:07:25.509
+Jitendra K: Cogni, on the other hand, has a different angle entirely.
+
+720
+01:07:25.980 --> 01:07:31.609
+Jitendra K: It builds around knowledge graph rather than pure vector search. The key insight behind Cogni is that
+
+721
+01:07:32.910 --> 01:07:39.740
+Jitendra K: It stores the fact in a form of a relationship, which is a part of is a and has a relationship.
+
+722
+01:07:40.190 --> 01:07:44.990
+Jitendra K: So, Cogni built knowledge graph from unstructured data, document conversations.
+
+723
+01:07:45.300 --> 01:07:48.860
+Jitendra K: Tag external resources to identify the linkage.
+
+724
+01:07:54.190 --> 01:07:56.859
+Jitendra K: So all these things are important for that part.
+
+725
+01:08:02.560 --> 01:08:05.220
+Jitendra K: Now, let's talk about the memory consolidation.
+
+726
+01:08:05.370 --> 01:08:07.639
+Jitendra K: So let's talk about a problem.
+
+727
+01:08:08.050 --> 01:08:15.170
+Jitendra K: that most… tutorial skips. What happens when your memory system works too well?
+
+728
+01:08:16.359 --> 01:08:20.590
+Jitendra K: Agent that remembered everything eventually drawn into old memories.
+
+729
+01:08:21.300 --> 01:08:27.040
+Jitendra K: So consider a customer service agent, again, that store every interaction verb item.
+
+730
+01:08:27.630 --> 01:08:32.100
+Jitendra K: After a year, a single customer might have hundreds or thousands of store memories.
+
+731
+01:08:32.890 --> 01:08:38.399
+Jitendra K: And retrieving from the volume is slow, expensive, and noisy. And most of these memories are not relevant.
+
+732
+01:08:40.060 --> 01:08:43.269
+Jitendra K: Right? To whatever customer is asking about right now.
+
+733
+01:08:43.910 --> 01:08:50.699
+Jitendra K: So the retrieval system returned 50 results, most of them are marginally relevant, and the context window gets shuffled.
+
+734
+01:08:50.979 --> 01:08:53.810
+Jitendra K: Oh, sorry, stuff with, historical clutter.
+
+735
+01:08:54.560 --> 01:08:57.559
+Jitendra K: This is where the memory consolidation comes into play.
+
+736
+01:08:57.760 --> 01:09:01.320
+Jitendra K: Compressing many specific memory into high-level summaries.
+
+737
+01:09:02.010 --> 01:09:07.499
+Jitendra K: The analogy with human memory is direct here. You do not remember every meal you have eaten.
+
+738
+01:09:08.630 --> 01:09:11.749
+Jitendra K: In the last year. But you know which food you like.
+
+739
+01:09:14.770 --> 01:09:15.620
+Jitendra K: Right?
+
+740
+01:09:16.120 --> 01:09:21.100
+Jitendra K: So basically, the idea is to consolidate. The process… should be consolidated.
+
+741
+01:09:21.460 --> 01:09:24.260
+Jitendra K: The LLM should summarize the pattern, the key fact.
+
+742
+01:09:24.840 --> 01:09:27.679
+Jitendra K: Preserve only those factors which are useful for long term.
+
+743
+01:09:27.880 --> 01:09:29.770
+Jitendra K: That means there should be some policy.
+
+744
+01:09:29.939 --> 01:09:31.450
+Jitendra K: retention policy.
+
+745
+01:09:32.100 --> 01:09:40.080
+Jitendra K: Right? Your brain has been designed for that. You do not understand because your subconscious mind is doing that for you, the wiring of your brain.
+
+746
+01:09:41.490 --> 01:09:42.300
+Jitendra K: Right?
+
+747
+01:09:42.680 --> 01:09:47.449
+Jitendra K: So, the whole idea is to consolidate the memory, just to understand the facts.
+
+748
+01:09:47.870 --> 01:09:50.539
+Jitendra K: Just to understand the differences.
+
+749
+01:09:50.880 --> 01:10:00.439
+Jitendra K: Giving more recency-based responses, rather than relying on tool Large, deep drives.
+
+750
+01:10:08.750 --> 01:10:14.180
+Jitendra K: So, that is where you need to design a factor system, and some of the common retrieval augment generation
+
+751
+01:10:14.730 --> 01:10:17.609
+Jitendra K: which goes wrong in productions. You might have heard…
+
+752
+01:10:18.270 --> 01:10:25.229
+Jitendra K: about this term, that RAG fails in production. So why RAG is failing in production when it is doing good in UAT?
+
+753
+01:10:26.290 --> 01:10:28.419
+Jitendra K: So why is that it's failing in production?
+
+754
+01:10:28.710 --> 01:10:30.620
+Jitendra K: What are the common rack failures?
+
+755
+01:10:31.790 --> 01:10:34.020
+Jitendra K: The most common is retrieval noise.
+
+756
+01:10:34.770 --> 01:10:39.409
+Jitendra K: The system retrieval chunks that are semantically adjacent to the query.
+
+757
+01:10:39.580 --> 01:10:43.980
+Jitendra K: But not actually useful. A user might ask about refund processing time.
+
+758
+01:10:44.190 --> 01:10:48.760
+Jitendra K: And the retriever return chunks about refund policies, refund eligibility.
+
+759
+01:10:48.910 --> 01:10:51.069
+Jitendra K: How to submit a refund request.
+
+760
+01:10:53.160 --> 01:10:56.519
+Jitendra K: Right, so that is where the retrieval noise will come into play.
+
+761
+01:10:57.520 --> 01:11:00.589
+Jitendra K: Long con… lost contacts, bad chunking.
+
+762
+01:11:01.200 --> 01:11:09.610
+Jitendra K: So, policy documents say process… Within 5 business days, in one… So basically.
+
+763
+01:11:10.290 --> 01:11:17.000
+Jitendra K: When you lost the context from bad chunking, that means you're losing the relationship between the chunks.
+
+764
+01:11:17.480 --> 01:11:18.930
+Jitendra K: To generate an answer.
+
+765
+01:11:20.430 --> 01:11:24.550
+Jitendra K: Similarly, the context window shuffling, Sorry, stuffing.
+
+766
+01:11:24.800 --> 01:11:28.790
+Jitendra K: Happen when you retrieve too many chunks and models struggle to synthesize them.
+
+767
+01:11:29.230 --> 01:11:30.820
+Jitendra K: So you lost in the middle.
+
+768
+01:11:31.480 --> 01:11:36.739
+Jitendra K: That means you do not able to understand which token to be focused upon.
+
+769
+01:11:37.620 --> 01:11:39.830
+Jitendra K: And they are marginally relevant ones.
+
+770
+01:11:45.610 --> 01:11:53.610
+Jitendra K: So, we'll talk about AIOps, what metrics and aspects to be major. We'll talk about AIOps in the upcoming tutorial. That is where you will learn
+
+771
+01:11:53.880 --> 01:11:55.090
+Jitendra K: those metrics.
+
+772
+01:11:56.650 --> 01:12:04.169
+Jitendra K: In order to maintain contact accuracy, I think you need to combo of graphs. No, it's not like that. It's not graph and vector TB and RAG.
+
+773
+01:12:05.350 --> 01:12:08.740
+Jitendra K: It's not hard and fast that you should use Graph every time.
+
+774
+01:12:09.900 --> 01:12:14.920
+Jitendra K: or VectorDB every time. It's about… you have to fix whatever you're doing.
+
+775
+01:12:15.830 --> 01:12:19.150
+Jitendra K: Right? Even with vector store, even with chunking, even with…
+
+776
+01:12:19.660 --> 01:12:24.180
+Jitendra K: Indexing, selection of the right vector stores, etc. is important.
+
+777
+01:12:24.350 --> 01:12:28.419
+Jitendra K: We cannot blindly say that if your GRAG is failing, replace it with GraphRag.
+
+778
+01:12:29.050 --> 01:12:35.160
+Jitendra K: That's not a right statement, because GraphReg will have their own series of consequences.
+
+779
+01:12:44.850 --> 01:12:48.059
+Jitendra K: Can't we do parallel processing by splitting context?
+
+780
+01:12:49.590 --> 01:12:51.590
+Jitendra K: Parallel processing we are doing here, right?
+
+781
+01:12:51.790 --> 01:12:53.520
+Jitendra K: When we're generating a response.
+
+782
+01:12:54.410 --> 01:12:56.900
+Jitendra K: So, LLMs are doing parallel processing.
+
+783
+01:12:57.460 --> 01:13:00.300
+Jitendra K: Will then we can replace RAG in the future.
+
+784
+01:13:04.560 --> 01:13:06.790
+Jitendra K: LLM Vicki, you mean to say…
+
+785
+01:13:07.790 --> 01:13:10.839
+Jitendra K: The latest embedding model, or what exactly it is?
+
+786
+01:13:16.160 --> 01:13:19.430
+Jitendra K: Okay, yeah, that's a debate, I mean, it can.
+
+787
+01:13:19.640 --> 01:13:21.000
+Jitendra K: For sure, it can.
+
+788
+01:13:22.020 --> 01:13:27.550
+Jitendra K: But it has to… Maybe… Still a long way to go.
+
+789
+01:13:28.600 --> 01:13:30.320
+Jitendra K: It can replace, yes.
+
+790
+01:13:40.310 --> 01:13:46.450
+Jitendra K: Alright, so… common rate failures. Now, let me move on to the ethical part of it.
+
+791
+01:13:46.600 --> 01:13:50.330
+Jitendra K: Privacy, ethical consideration, and governance criteria.
+
+792
+01:13:50.970 --> 01:13:56.270
+Jitendra K: So when we talk about agentic memories, we are managing some sensitive information as well.
+
+793
+01:13:56.650 --> 01:13:57.470
+Jitendra K: Right?
+
+794
+01:13:57.690 --> 01:14:02.409
+Jitendra K: So, agentic memory raises a privacy question that most implementation either
+
+795
+01:14:02.610 --> 01:14:07.670
+Jitendra K: gloss over, or do nothing about until a customer regulatory ask.
+
+796
+01:14:08.850 --> 01:14:14.559
+Jitendra K: That means you need to first define a data scope. This is the first question to answer explicitly.
+
+797
+01:14:14.940 --> 01:14:17.279
+Jitendra K: What should your agent remember?
+
+798
+01:14:19.540 --> 01:14:24.289
+Jitendra K: Is it going to remember the customer preferences, interaction history, or other useful fact?
+
+799
+01:14:24.680 --> 01:14:26.680
+Jitendra K: Or generally expected one.
+
+800
+01:14:28.730 --> 01:14:35.570
+Jitendra K: But the agent remembered that the customer mentioned a medical condition during a support call. Should we remember financial detail sharing?
+
+801
+01:14:35.780 --> 01:14:36.770
+Jitendra K: as well?
+
+802
+01:14:37.330 --> 01:14:43.069
+Jitendra K: The answer is, it depends upon your domain, your regulatory environment, and your user expectations.
+
+803
+01:14:43.580 --> 01:14:46.410
+Jitendra K: Have this conversation with your team early.
+
+804
+01:14:47.040 --> 01:14:49.439
+Jitendra K: And then design your system effectively.
+
+805
+01:14:50.760 --> 01:15:01.080
+Jitendra K: You're… Memory policy should also be a GDPR compliance. That means… You should… Apply…
+
+806
+01:15:01.780 --> 01:15:08.349
+Jitendra K: GDPR compliance policy directly to agentic memory. If a user requests data deletion after a certain time.
+
+807
+01:15:08.990 --> 01:15:15.429
+Jitendra K: You need to push their memory from a vector database, including any consolidated summaries that reference them.
+
+808
+01:15:18.810 --> 01:15:26.040
+Jitendra K: Transparency, users should know what an agent remember about them. Consider providing What do you…
+
+809
+01:15:26.180 --> 01:15:35.349
+Jitendra K: know about me. Capabilities that surface store memories in plain language. That means transparency is where you need to ensure
+
+810
+01:15:35.660 --> 01:15:39.129
+Jitendra K: That you need to surface out a memory in a plain language.
+
+811
+01:15:39.760 --> 01:15:44.000
+Jitendra K: Access control, So let's say the same example.
+
+812
+01:15:44.320 --> 01:15:49.610
+Jitendra K: The customer service agent should not have access to memories from the sales agent interaction.
+
+813
+01:15:50.370 --> 01:15:53.060
+Jitendra K: Unless explicit authorization been given.
+
+814
+01:15:54.880 --> 01:16:00.260
+Jitendra K: Right? That means I cannot be able to… Hijacked one system.
+
+815
+01:16:00.930 --> 01:16:05.219
+Jitendra K: Where I have stored all the customer preferences and sell it to someone else.
+
+816
+01:16:07.440 --> 01:16:08.749
+Jitendra K: Right, so this is all…
+
+817
+01:16:09.170 --> 01:16:13.919
+Jitendra K: a part of your privacy, ethical, and data governance, which is a part of your responsible AI framework.
+
+818
+01:16:20.630 --> 01:16:26.720
+Jitendra K: Alright, so I think, we have covered this… all… slides.
+
+819
+01:16:26.900 --> 01:16:29.010
+Jitendra K: Now, we'll move on to the working demo.
+
+820
+01:16:31.170 --> 01:16:37.139
+Jitendra K: So before that, let's take a quick break of 20 minutes. Yeah, I will share the PPTs and all.
+
+821
+01:16:40.500 --> 01:16:43.169
+Jitendra K: So, let me share this PPT.
+
+822
+01:17:14.640 --> 01:17:18.239
+Jitendra K: Yeah, so both the PPT has been shared, so you can take a reference.
+
+823
+01:17:21.300 --> 01:17:30.299
+Jitendra K: Okay, so… Now, the second part of this tutorial, we will cover the code walkthrough on this implementation.
+
+824
+01:17:30.810 --> 01:17:33.959
+Jitendra K: I will show you how to implement this in practice.
+
+825
+01:17:34.620 --> 01:17:36.660
+Jitendra K: We haven't talked about AMCP yet.
+
+826
+01:17:36.980 --> 01:17:41.899
+Jitendra K: So we have to cover MCP, A2A, A2C, and other protocols.
+
+827
+01:17:42.370 --> 01:17:49.760
+Jitendra K: Which we'll cover in the upcoming tutorials, but apart from this, is any other question that you have?
+
+828
+01:17:51.650 --> 01:17:53.090
+Jitendra K: Before we take a break.
+
+829
+01:18:04.290 --> 01:18:05.940
+Jitendra K: Any other question, guys?
+
+830
+01:18:21.310 --> 01:18:22.590
+Jitendra K: which PDF?
+
+831
+01:19:14.310 --> 01:19:18.560
+Jitendra K: Yeah, PDF, I think, if I convert this into PDF, it will remove.
+
+832
+01:19:19.330 --> 01:19:21.430
+Jitendra K: Some of the part of it.
+
+833
+01:19:22.650 --> 01:19:27.450
+Jitendra K: So if you have a OneNote install, please use it. It will directly…
+
+834
+01:19:27.590 --> 01:19:29.020
+Jitendra K: Work on the top of it.
+
+835
+01:19:29.280 --> 01:19:33.609
+Jitendra K: And this is the file, Iron Python notebook file, I think somebody's asking.
+
+836
+01:19:34.200 --> 01:19:36.970
+Jitendra K: The last class, this is the Ident Python notebook file.
+
+837
+01:19:37.220 --> 01:19:38.450
+Jitendra K: For the last plus.
+
+838
+01:19:38.810 --> 01:19:43.529
+Jitendra K: I think this has to be uploaded by TAs, not by me, so please,
+
+839
+01:19:43.880 --> 01:19:48.829
+Jitendra K: Make sure that you ask this question tomorrow. There's a call at 6.30, why they are not uploading.
+
+840
+01:19:48.930 --> 01:19:51.459
+Jitendra K: Even the trainers are sharing the file in the chat.
+
+841
+01:20:05.760 --> 01:20:09.100
+Jitendra K: Alright guys, so let's take a quick break of 20 minutes.
+
+842
+01:20:10.960 --> 01:20:13.130
+Jitendra K: Yes, you need to contact TAs.
+
+843
+01:20:14.290 --> 01:20:18.040
+Jitendra K: For that, and I've shared every file in the chat, so I think…
+
+844
+01:20:19.060 --> 01:20:24.209
+Jitendra K: As a trainer, that is the best thing I can do, and TA has to download this and then upload it again.
+
+845
+01:20:27.500 --> 01:20:31.930
+Jitendra K: Alright, let's take a quick 20 minutes break, and then we can start. I will set up a timer.
+
+846
+01:45:59.870 --> 01:46:03.470
+Jitendra K: Hi guys, I hope you're back. Can we have a quick confirmation?
+
+847
+01:46:19.600 --> 01:46:26.040
+Jitendra K: Okay, great. So… Now, we will talk about the demonstrations on the…
+
+848
+01:46:26.140 --> 01:46:29.329
+Jitendra K: Concept that we have discussed for context engineering and knowledge.
+
+849
+01:46:30.030 --> 01:46:36.630
+Jitendra K: rack buildup for agentic memory management. And we will use the tools that we have listed.
+
+850
+01:46:37.000 --> 01:46:38.060
+Jitendra K: For the same.
+
+851
+01:47:08.640 --> 01:47:10.810
+Jitendra K: Okay, let me launch the terminal.
+
+852
+01:48:07.850 --> 01:48:11.639
+Jitendra K: No, it's a hierarchy of files, so you can see…
+
+853
+01:48:12.080 --> 01:48:15.600
+Jitendra K: I'm having 3 folders, 1 file.
+
+854
+01:48:16.240 --> 01:48:20.410
+Jitendra K: In fact, 1, 2, 3 files. 1, 2, 3, 4 folders.
+
+855
+01:48:21.200 --> 01:48:25.800
+Jitendra K: And this is the main folder, and each folder has their own… modules.
+
+856
+01:48:26.630 --> 01:48:29.770
+Jitendra K: So you should maintain this hierarchy when you're running the code.
+
+857
+01:48:30.290 --> 01:48:34.910
+Jitendra K: Do not, remove the code hierarchy.
+
+858
+01:48:36.820 --> 01:48:43.100
+Jitendra K: Because, I'm importing the module from… other… submodules.
+
+859
+01:49:17.550 --> 01:49:21.900
+Jitendra K: No, no, just extract the zip file as it is. Do not change any layout.
+
+860
+01:49:22.020 --> 01:49:26.489
+Jitendra K: Even if you move any file to the respective folders, it will throw an error.
+
+861
+01:49:27.810 --> 01:49:31.169
+Jitendra K: Either then you have to change the code and then rerun it.
+
+862
+01:49:41.940 --> 01:49:44.490
+Jitendra K: Yeah, so this is, like, modules…
+
+863
+01:49:45.200 --> 01:49:48.430
+Jitendra K: Which has been composed inside some modules.
+
+864
+01:49:49.490 --> 01:49:52.710
+Jitendra K: Let's say tool.py is now a part of a core module.
+
+865
+01:49:53.350 --> 01:49:59.069
+Jitendra K: So if I create another same file with the sameNetpool.py in frameworks, it will be a framework module.
+
+866
+01:50:07.620 --> 01:50:10.530
+Jitendra K: I think the model may take some time.
+
+867
+01:50:10.760 --> 01:50:13.929
+Jitendra K: So I will share this requirement.txt file with everyone.
+
+868
+01:50:14.260 --> 01:50:17.220
+Jitendra K: So please run this in your machine and be prepared.
+
+869
+01:50:17.900 --> 01:50:20.580
+Jitendra K: We'll use this… Dermal.
+
+870
+01:50:24.210 --> 01:50:27.900
+Jitendra K: So, we are running today in VS Code, so I cannot share the link.
+
+871
+01:50:30.960 --> 01:50:34.319
+Jitendra K: So use this file, and then make sure that you have
+
+872
+01:50:35.910 --> 01:50:40.240
+Jitendra K: install this package. I will share the… Main file as well.
+
+873
+01:55:28.950 --> 01:55:31.869
+Jitendra K: Alright, so this has been run very successfully.
+
+874
+01:55:32.320 --> 01:55:35.730
+Jitendra K: Almost, like, 30 seconds to run and execute this agent.
+
+875
+01:55:36.400 --> 01:55:38.990
+Jitendra K: So let me explain what are we trying to achieve here.
+
+876
+01:55:42.220 --> 01:55:48.999
+Jitendra K: So, first and foremost thing, you have to understand the flow of this program. What is inside the, Python main file?
+
+877
+01:55:49.820 --> 01:55:52.880
+Jitendra K: So, which is the main worker file that we are going to use?
+
+878
+01:55:53.200 --> 01:55:59.040
+Jitendra K: So basically, inside the main file, you have got a set of frameworks, and scenarios.
+
+879
+01:56:00.750 --> 01:56:04.320
+Jitendra K: And some of that data from internet that I'm going to download on the fly.
+
+880
+01:56:05.900 --> 01:56:12.460
+Jitendra K: So, it will set up your OpenAI key parameters, parse the PDF pipelines.
+
+881
+01:56:12.630 --> 01:56:20.469
+Jitendra K: Instantiate the framework. Here, I'm initializing MAM0 only. Set up the street memory for running the agents.
+
+882
+01:56:20.620 --> 01:56:27.069
+Jitendra K: And then performing different setups, right? So here you can see that the first module that I'm going to call is main.
+
+883
+01:56:27.270 --> 01:56:34.880
+Jitendra K: which it'll in turn call the core module an initialized app configuration. This is where the configuration use singleton class.
+
+884
+01:56:36.530 --> 01:56:38.319
+Jitendra K: So this is my Singleton class.
+
+885
+01:56:40.270 --> 01:56:48.669
+Jitendra K: And this is served as a single source of truth for every setting in the project. Where any module writes, they get the same app configuration.
+
+886
+01:56:48.820 --> 01:56:51.219
+Jitendra K: To our data class in initialization.
+
+887
+01:56:51.610 --> 01:56:53.990
+Jitendra K: So, I'll pull up the key here.
+
+888
+01:56:54.390 --> 01:56:56.350
+Jitendra K: And put it here, and then…
+
+889
+01:56:56.550 --> 01:57:02.739
+Jitendra K: I will prefer the parameters, which model I would like to use, what I'm bidding vectors, what's the dimension of it.
+
+890
+01:57:02.860 --> 01:57:06.369
+Jitendra K: what's the chunk size? I'm keeping the chunk size to be…
+
+891
+01:57:06.790 --> 01:57:11.530
+Jitendra K: 512, the overlap, I'm keeping it to be 54, near about 12%.
+
+892
+01:57:12.090 --> 01:57:22.100
+Jitendra K: And, the maximum short-term turns that I'm keeping is 20. How many conversation turns the sliding window keeps, by default, is 20. Data directory
+
+893
+01:57:22.230 --> 01:57:27.710
+Jitendra K: for storing the artifacts for your file system, the downloaded PDF and chunk manifest.
+
+894
+01:57:27.850 --> 01:57:29.459
+Jitendra K: I will keep it in the local.
+
+895
+01:57:30.040 --> 01:57:31.079
+Jitendra K: Which is here.
+
+896
+01:57:31.590 --> 01:57:38.940
+Jitendra K: Then, the second module is the PDF processor, where I'm going to… Inject documents.
+
+897
+01:57:39.220 --> 01:57:45.910
+Jitendra K: It will download the PDF. I've instructed which PDF to be downloaded, I have set up the URLs.
+
+898
+01:57:46.380 --> 01:57:50.230
+Jitendra K: So that it can be able to search from those URLs and inject.
+
+899
+01:57:51.180 --> 01:57:55.320
+Jitendra K: Right? And the second thing is, once it downloads, it will…
+
+900
+01:57:56.050 --> 01:57:59.960
+Jitendra K: extract the pages using pyPDF2 function.
+
+901
+01:58:00.500 --> 01:58:04.229
+Jitendra K: to Prime your PDF, It's a very advanced package.
+
+902
+01:58:05.660 --> 01:58:09.840
+Jitendra K: Where it will use to pull raw data text from the each pages.
+
+903
+01:58:10.170 --> 01:58:14.969
+Jitendra K: It return a list of dictionary, including a page number, contents.
+
+904
+01:58:15.640 --> 01:58:19.489
+Jitendra K: And, it is a very common function that we can use to extract.
+
+905
+01:58:19.980 --> 01:58:23.149
+Jitendra K: Now, I will create a chunk after extracting.
+
+906
+01:58:23.620 --> 01:58:29.880
+Jitendra K: The chunk will… there's a tokenization, or we are splitting, with the encoding…
+
+907
+01:58:30.310 --> 01:58:38.830
+Jitendra K: mechanism that I'm using is CL100K base that will encode a tokenizer used by GPT-4 and GPT-3. I think there's a question
+
+908
+01:58:39.090 --> 01:58:40.649
+Jitendra K: Is there any preference?
+
+909
+01:58:41.610 --> 01:58:50.599
+Jitendra K: So the answer is, for encoding, chunking, you need not to have any preference. For encoding, you need to have preference. CL100K is a…
+
+910
+01:58:50.720 --> 01:58:55.669
+Jitendra K: a specific encoding for GPT-4 and GPT-3.5. So this algorithm will…
+
+911
+01:58:56.070 --> 01:59:02.330
+Jitendra K: Walk through each page's token array with a sliding window, and each chunk takes 512 token.
+
+912
+01:59:02.800 --> 01:59:05.330
+Jitendra K: And I step forward by 4.48.
+
+913
+01:59:05.440 --> 01:59:09.100
+Jitendra K: which create an overlapping window. So this overlap will ensure that
+
+914
+01:59:09.290 --> 01:59:14.129
+Jitendra K: The sentence split across chunk boundaries still appear in at least
+
+915
+01:59:14.510 --> 01:59:22.110
+Jitendra K: one complete token chunk. So each chunk has a chunk ID, Source page references.
+
+916
+01:59:22.490 --> 01:59:27.250
+Jitendra K: And, the cosine similarity matching.
+
+917
+01:59:27.360 --> 01:59:30.760
+Jitendra K: That is required for delving into this.
+
+918
+01:59:31.240 --> 01:59:32.690
+Jitendra K: Junk Management.
+
+919
+01:59:34.100 --> 01:59:37.760
+Jitendra K: Then you've got embedding. After chunking, you are going to use embed.
+
+920
+01:59:39.870 --> 01:59:43.569
+Jitendra K: SambitChunk will be utilized for the purpose of…
+
+921
+01:59:44.980 --> 01:59:51.000
+Jitendra K: the embed chunk that I'm using is a batch chunk, 20 at a time, and send them to an OpenAI embedding.
+
+922
+01:59:51.180 --> 01:59:57.010
+Jitendra K: Each chunk at a 1536 dimension vector appended as a chunk embedding, and these vectors are
+
+923
+01:59:57.410 --> 02:00:06.110
+Jitendra K: what PDF search used for cosine similarity matching. And after embedding the function God, going to call… Download PDF.
+
+924
+02:00:06.300 --> 02:00:09.310
+Jitendra K: which is going to be…
+
+925
+02:00:09.830 --> 02:00:12.490
+Jitendra K: Basically, the URL that we have injected.
+
+926
+02:00:13.720 --> 02:00:20.009
+Jitendra K: Now, after embedding, once you convert this into embedding vectors, the second module that we are going to talk about is
+
+927
+02:00:21.470 --> 02:00:23.459
+Jitendra K: Base memory management.
+
+928
+02:00:24.080 --> 02:00:28.580
+Jitendra K: So I'll go to basememory.py, This is the module.
+
+929
+02:00:29.060 --> 02:00:34.310
+Jitendra K: And this is the abstraction… this is the abstract contract that all six frameworks implement.
+
+930
+02:00:34.850 --> 02:00:36.540
+Jitendra K: So basically, I'm going to have
+
+931
+02:00:37.510 --> 02:00:42.459
+Jitendra K: every base class for each module. For MAM0, I'm going to use ENTRY.
+
+932
+02:00:43.020 --> 02:00:44.939
+Jitendra K: Base memory framework.
+
+933
+02:00:45.310 --> 02:00:48.290
+Jitendra K: And then all the artifacts I will pass to this module.
+
+934
+02:00:49.310 --> 02:00:51.130
+Jitendra K: So what this module does is…
+
+935
+02:00:55.860 --> 02:01:01.219
+Jitendra K: it will create A sequence of my memory, like this.
+
+936
+02:01:02.160 --> 02:01:07.779
+Jitendra K: So it creates a kind of a abstract contract that all six frameworks will implement.
+
+937
+02:01:08.160 --> 02:01:11.790
+Jitendra K: So, define four abstract methods and 1 concrete agentic loop.
+
+938
+02:01:12.720 --> 02:01:19.329
+Jitendra K: So, the method requires storage, Persistent information to long-term memory, recall.
+
+939
+02:01:19.440 --> 02:01:22.480
+Jitendra K: Which require the most relevant memory for a given query.
+
+940
+02:01:22.870 --> 02:01:28.749
+Jitendra K: Fogart key, remove a specific memory, summarization history, which compress conversational history.
+
+941
+02:01:28.880 --> 02:01:31.639
+Jitendra K: Into a summary, and then the concrete chat method.
+
+942
+02:01:32.810 --> 02:01:35.780
+Jitendra K: So I will use this, the recall query.
+
+943
+02:01:36.410 --> 02:01:41.739
+Jitendra K: The framework searched its long-term memory stored using user message as a query.
+
+944
+02:01:42.050 --> 02:01:45.830
+Jitendra K: Each framework does it differently, like vector search, graph.
+
+945
+02:01:46.090 --> 02:01:50.950
+Jitendra K: Entity matching. So, memory entry is different for these different functions.
+
+946
+02:01:51.350 --> 02:01:57.900
+Jitendra K: BuildMessage will create a constructor, that a message array that goes to the OpenAI.
+
+947
+02:01:58.080 --> 02:02:04.160
+Jitendra K: will… have 20 turns of conversational history using sliding window.
+
+948
+02:02:04.360 --> 02:02:06.209
+Jitendra K: Then the current user message.
+
+949
+02:02:06.910 --> 02:02:08.339
+Jitendra K: will be stored.
+
+950
+02:02:08.830 --> 02:02:13.440
+Jitendra K: And the recall memory are injected into a system prompt, so the LLM can reference them manually.
+
+951
+02:02:13.920 --> 02:02:17.940
+Jitendra K: Then the open API call the message array assigned to chat completion.
+
+952
+02:02:18.380 --> 02:02:22.130
+Jitendra K: Create function where the tools access will be invoked.
+
+953
+02:02:22.530 --> 02:02:26.769
+Jitendra K: And then the tool, dispatch will happen during this call.
+
+954
+02:02:27.130 --> 02:02:30.050
+Jitendra K: So the core idea here is, we have got
+
+955
+02:02:30.190 --> 02:02:33.950
+Jitendra K: Several tools as well, which is going to work along with memory.
+
+956
+02:02:34.130 --> 02:02:39.760
+Jitendra K: And these tools have been residing into this tool.py file. So you've got 6 tools.
+
+957
+02:02:39.960 --> 02:02:45.030
+Jitendra K: One first tool is for PDF search, semantic search over the injected PDF document.
+
+958
+02:02:45.170 --> 02:02:50.950
+Jitendra K: So basically, how it works is, you're going to write a natural language query, like this.
+
+959
+02:03:15.890 --> 02:03:21.180
+Jitendra K: Yeah, what is the current NVIDIA stock price? Calculate what is the 5% allocations.
+
+960
+02:03:21.470 --> 02:03:24.449
+Jitendra K: of a $100 million US dollar portfolio.
+
+961
+02:03:24.680 --> 02:03:28.380
+Jitendra K: would be worth at this price? This is my query, right?
+
+962
+02:03:28.730 --> 02:03:34.719
+Jitendra K: So when I'm writing this query, it takes a natural language query string, and option top K parameter.
+
+963
+02:03:34.980 --> 02:03:42.999
+Jitendra K: So to embed a query using OpenAI embedding, same model that we are using during injection, and then compute a core kind similarity against every query chunk.
+
+964
+02:03:43.210 --> 02:03:45.070
+Jitendra K: Pre-computed embedding vector.
+
+965
+02:03:45.790 --> 02:03:52.849
+Jitendra K: And it result… will be top K chunks, with the page number, chunk ID, scores.
+
+966
+02:03:53.090 --> 02:03:55.770
+Jitendra K: In the first 600 character of the text.
+
+967
+02:03:56.720 --> 02:04:01.509
+Jitendra K: So without this tool, LLM would rely on its own training data for question about PDF.
+
+968
+02:04:01.780 --> 02:04:05.640
+Jitendra K: So this is where I'm going to use Rack Pipeline. The chunk module is…
+
+969
+02:04:06.060 --> 02:04:10.070
+Jitendra K: Using the external knowledge to generate the context.
+
+970
+02:04:10.610 --> 02:04:12.790
+Jitendra K: The calculator is a second tool.
+
+971
+02:04:15.360 --> 02:04:16.720
+Jitendra K: that I'm using.
+
+972
+02:04:18.630 --> 02:04:22.649
+Jitendra K: Which will perform some basic mathematical, arithmetic operations.
+
+973
+02:04:23.420 --> 02:04:27.580
+Jitendra K: Which is required during the answer generation part.
+
+974
+02:04:27.920 --> 02:04:38.039
+Jitendra K: Web lookup, which may require any news, price, Or maybe… trending about… certain stock.
+
+975
+02:04:39.200 --> 02:04:41.759
+Jitendra K: Top trending stocks, news headlines.
+
+976
+02:04:42.130 --> 02:04:49.310
+Jitendra K: Maybe a worse media news, best new media news, sentiment analysis, I can do all these things with the help of web lookup.
+
+977
+02:04:50.130 --> 02:04:56.640
+Jitendra K: Knowledge store, which is a persistent key-value function for saving and retrieving the fact that those conversation trends.
+
+978
+02:04:56.860 --> 02:05:01.040
+Jitendra K: So you can see that I'm also showcasing what memory has been stored.
+
+979
+02:05:04.970 --> 02:05:11.660
+Jitendra K: And keep on updating as well, with every… Session, with every, comments.
+
+980
+02:05:12.170 --> 02:05:14.179
+Jitendra K: Right, so the account has been increased.
+
+981
+02:05:20.290 --> 02:05:28.529
+Jitendra K: Then I'm using a knowledge store, which will keep a track of, the knowledge which has been inside inside my key-value pair.
+
+982
+02:05:28.830 --> 02:05:32.939
+Jitendra K: The email compose that will draft and send email to stakeholders.
+
+983
+02:05:33.150 --> 02:05:39.319
+Jitendra K: It will take subject, body parameters, and create an email record with a unique 8-character ID.
+
+984
+02:05:39.510 --> 02:05:41.680
+Jitendra K: And a timestamp to append.
+
+985
+02:05:43.460 --> 02:05:47.070
+Jitendra K: So, the first memory framework is MAM0.
+
+986
+02:05:54.810 --> 02:05:56.169
+Jitendra K: Which is here.
+
+987
+02:05:59.920 --> 02:06:01.460
+Jitendra K: So this framework…
+
+988
+02:06:04.740 --> 02:06:09.369
+Jitendra K: have 3 separate stories. One is user, session, and agent stores.
+
+989
+02:06:09.800 --> 02:06:14.189
+Jitendra K: So, agents, user store, Talk about permanent fact about the user.
+
+990
+02:06:14.790 --> 02:06:21.810
+Jitendra K: Like, their designation, their preferences, their country of operation, their types of questions, etc.
+
+991
+02:06:22.090 --> 02:06:29.510
+Jitendra K: Session store will specifically set up the context specific to a current session. So let's say I'm analyzing the NVIDIA stock.
+
+992
+02:06:30.950 --> 02:06:35.589
+Jitendra K: So clearly, when you summarize which prompt to summarize that you store.
+
+993
+02:06:35.790 --> 02:06:39.750
+Jitendra K: you will get that answer. Agent store…
+
+994
+02:06:40.130 --> 02:06:47.820
+Jitendra K: We'll learn, from different agent what they respond and how they respond, what are the artifacts that is there.
+
+995
+02:06:51.780 --> 02:06:58.530
+Jitendra K: So I will try to talk about a second framework now. Maybe I have to run this, and then I can show you. I have to run all.
+
+996
+02:07:02.720 --> 02:07:06.499
+Jitendra K: It will use all possible combination. Let me run this.
+
+997
+02:07:28.260 --> 02:07:31.680
+Jitendra K: This will be interesting to see how the tools are doing.
+
+998
+02:07:32.130 --> 02:07:36.750
+Jitendra K: maybe some of… That will fail, because I've seen some installation errors.
+
+999
+02:07:38.210 --> 02:07:40.339
+Jitendra K: But let's see how many have them pass.
+
+1000
+02:07:41.280 --> 02:07:44.500
+Jitendra K: MAM0 is working fine, I can see the previous run.
+
+1001
+02:08:06.660 --> 02:08:08.369
+Jitendra K: Now it is calling the Zap.
+
+1002
+02:08:13.220 --> 02:08:15.839
+Jitendra K: So you can see that stored memory has 4 fact.
+
+1003
+02:08:16.980 --> 02:08:19.329
+Jitendra K: For second call, it is having two entity.
+
+1004
+02:08:19.580 --> 02:08:21.530
+Jitendra K: Zap is using Knowledge Crafts.
+
+1005
+02:08:22.360 --> 02:08:24.389
+Jitendra K: It talks about entities as well.
+
+1006
+02:08:34.570 --> 02:08:36.300
+Jitendra K: I'm asking the same question.
+
+1007
+02:08:36.650 --> 02:08:41.070
+Jitendra K: And try to correlate which tool is the best. That's the simplest thing I can say here.
+
+1008
+02:08:43.940 --> 02:08:48.019
+Jitendra K: And again, I will leave it up to you to decide which one you would like to use and why.
+
+1009
+02:09:32.210 --> 02:09:35.399
+Jitendra K: So I'm doing some calculations, let us use this calculator.
+
+1010
+02:09:38.150 --> 02:09:43.560
+Jitendra K: So this is slightly slow because of the entities… graph traversal.
+
+1011
+02:09:48.110 --> 02:09:52.000
+Jitendra K: this tool is using. I haven't created any graph by myself.
+
+1012
+02:09:52.940 --> 02:09:57.469
+Jitendra K: Now, it is using Llama Index. So, Llama Index is great for two reasons.
+
+1013
+02:09:57.900 --> 02:10:03.759
+Jitendra K: Because the Langchain inbuilt mechanism, where you can be able to do a cross-references.
+
+1014
+02:10:04.150 --> 02:10:08.860
+Jitendra K: Between different sort of documents, and it is fast as well, as compared to ZAP.
+
+1015
+02:10:22.010 --> 02:10:24.739
+Jitendra K: So this is a summary of the conversation.
+
+1016
+02:10:25.500 --> 02:10:29.210
+Jitendra K: So this talks about, the summary of conversation.
+
+1017
+02:10:29.820 --> 02:10:32.020
+Jitendra K: Now I will move on to the LITA tool.
+
+1018
+02:10:36.420 --> 02:10:38.630
+Jitendra K: And it is running as well.
+
+1019
+02:10:43.120 --> 02:10:45.390
+Jitendra K: So I think this is working fine.
+
+1020
+02:10:46.000 --> 02:10:49.039
+Jitendra K: I don't think so any issue. I will share the updated code.
+
+1021
+02:10:49.640 --> 02:10:52.510
+Jitendra K: So that I want everybody to run in their laptop.
+
+1022
+02:10:52.640 --> 02:10:54.430
+Jitendra K: And then show the result.
+
+1023
+02:10:54.930 --> 02:10:56.220
+Jitendra K: interpreted.
+
+1024
+02:11:09.940 --> 02:11:15.000
+Jitendra K: Okay, let's move on to the code again. So, the changes that I made in the code.
+
+1025
+02:11:18.800 --> 02:11:23.990
+Jitendra K: So you need to first… create.env file in your…
+
+1026
+02:11:24.620 --> 02:11:30.999
+Jitendra K: I've shared the code with you, right? You need to create your own ENV file, and then copy the… your credential.
+
+1027
+02:11:31.450 --> 02:11:33.540
+Jitendra K: by passing OpenAPI key.
+
+1028
+02:11:33.750 --> 02:11:41.430
+Jitendra K: inside your ENV file, So just create this file, copy your key, whatever you have.
+
+1029
+02:11:41.650 --> 02:11:43.929
+Jitendra K: And put it in the same file, save it.
+
+1030
+02:11:44.400 --> 02:11:47.759
+Jitendra K: It should be in the same level as your main file.
+
+1031
+02:11:48.080 --> 02:11:52.050
+Jitendra K: Right? You should not put ENV file inside some… someone else.
+
+1032
+02:11:52.720 --> 02:12:00.330
+Jitendra K: So ENV file should be at your local, directory one level, level 1 level, right? Level… base level, I would say.
+
+1033
+02:12:00.980 --> 02:12:04.529
+Jitendra K: Then go to main.py file and add these two lines.
+
+1034
+02:12:05.620 --> 02:12:07.329
+Jitendra K: That's it you're required to do.
+
+1035
+02:12:09.010 --> 02:12:10.660
+Jitendra K: Descart these two lines.
+
+1036
+02:12:12.990 --> 02:12:15.799
+Jitendra K: From .env import.
+
+1037
+02:12:18.000 --> 02:12:21.760
+Jitendra K: Load.env and load.env, parenthesis.
+
+1038
+02:12:22.540 --> 02:12:27.280
+Jitendra K: And then you can run the function by using these commands. I will share the commands as well.
+
+1039
+02:12:28.010 --> 02:12:35.750
+Jitendra K: So this will be useful for running single combo. You can change… Based upon your tool name.
+
+1040
+02:12:35.970 --> 02:12:38.340
+Jitendra K: let's say if I have to replace MAM0 with
+
+1041
+02:12:38.600 --> 02:12:43.690
+Jitendra K: Cogni, or Cogni with Latti, I can do it here itself.
+
+1042
+02:12:44.090 --> 02:12:47.969
+Jitendra K: So there's a way that you can pass this parameter using framework, framework.
+
+1043
+02:12:48.360 --> 02:12:50.389
+Jitendra K: Sorry, hyphen hyphen framework.
+
+1044
+02:12:50.790 --> 02:12:52.760
+Jitendra K: And the scenario that you're going to run.
+
+1045
+02:12:52.970 --> 02:12:55.489
+Jitendra K: And this will run all of it in combination.
+
+1046
+02:12:55.960 --> 02:12:58.249
+Jitendra K: Respect of the tool name.
+
+1047
+02:12:58.660 --> 02:13:04.010
+Jitendra K: So I want everybody to run this… On your local machine.
+
+1048
+02:13:04.800 --> 02:13:09.229
+Jitendra K: And I want you to debate about the quality of output.
+
+1049
+02:13:09.790 --> 02:13:15.380
+Jitendra K: Let, I will not… talk about it. You just go to the output.
+
+1050
+02:13:15.840 --> 02:13:18.580
+Jitendra K: And let me know which tool you feel is the best.
+
+1051
+02:13:19.960 --> 02:13:22.110
+Jitendra K: So just do this exercise.
+
+1052
+02:13:22.580 --> 02:13:24.770
+Jitendra K: And I will be waiting for your response.
+
+1053
+02:13:25.410 --> 02:13:32.000
+Jitendra K: don't use any ChatGPT to copy the output and then ask ChatGPT to do this analysis as well.
+
+1054
+02:13:32.380 --> 02:13:33.869
+Jitendra K: Do it by your own.
+
+1055
+02:13:34.100 --> 02:13:36.960
+Jitendra K: And let me know which one is the best, and why.
+
+1056
+02:14:05.790 --> 02:14:13.330
+Jitendra K: No need to share the updated code, I have just given you the changes, right? You just need to change 3 lines in main.py.
+
+1057
+02:14:13.860 --> 02:14:15.749
+Jitendra K: Which I've already pinged you.
+
+1058
+02:14:17.050 --> 02:14:20.809
+Jitendra K: And you have to create your own environmental file.env file.
+
+1059
+02:23:07.470 --> 02:23:11.389
+Jitendra K: Alright, guys, I hope this is running. Instead of running all 18,
+
+1060
+02:23:11.850 --> 02:23:18.779
+Jitendra K: He can create a multi-session customer support or researcher agent with knowledge evaluation.
+
+1061
+02:23:19.460 --> 02:23:23.870
+Jitendra K: Or can go with specific type of module. With a,
+
+1062
+02:23:25.160 --> 02:23:29.600
+Jitendra K: Hyphen hyphen option, that means the parameters that you're passing to a main function.
+
+1063
+02:23:30.400 --> 02:23:33.379
+Jitendra K: You can go with scenario-specific combination as well.
+
+1064
+02:23:45.160 --> 02:23:49.770
+Jitendra K: You have to copy it, right? So, create ENV file.
+
+1065
+02:23:50.710 --> 02:23:55.599
+Jitendra K: Use this string and then copy your API key and put it there.
+
+1066
+02:24:17.280 --> 02:24:21.550
+Jitendra K: So this is a very nice… Written code, you can see…
+
+1067
+02:24:22.010 --> 02:24:29.420
+Jitendra K: All of the printed programming, abstract method, abstract classes, A proper configuration file.
+
+1068
+02:24:29.990 --> 02:24:34.869
+Jitendra K: with the core module segregations, right? And then the entry methods.
+
+1069
+02:24:35.480 --> 02:24:42.670
+Jitendra K: README file, and then followed by a proper dependencies on requirement or TXT.
+
+1070
+02:24:43.160 --> 02:24:49.449
+Jitendra K: So this is how you should write a proper code in any agentic orchestration framework.
+
+1071
+02:24:52.720 --> 02:24:57.159
+Jitendra K: But yeah, the question is now, which tool you prefer?
+
+1072
+02:24:58.080 --> 02:25:01.420
+Jitendra K: And what do you think, which tool is best, better?
+
+1073
+02:25:03.600 --> 02:25:08.719
+Jitendra K: Let's take an example of financial analysts. Which tool do you feel that is better, and why?
+
+1074
+02:29:37.380 --> 02:29:41.219
+Jitendra K: Alright, so if I have to define in a very simple term.
+
+1075
+02:29:41.500 --> 02:29:45.629
+Jitendra K: If I have to create a framework, which tool should I use, and what is…
+
+1076
+02:29:46.590 --> 02:29:49.110
+Jitendra K: That, so this is the answer for it.
+
+1077
+02:29:49.850 --> 02:29:57.520
+Jitendra K: So, it depends upon your use case, right? What is your primary need? So, let's say your primary need is to create a conversational bot.
+
+1078
+02:29:57.980 --> 02:30:04.450
+Jitendra K: Where you're addressing this particular bot for resolving your user queries, like, chat, Support.
+
+1079
+02:30:05.490 --> 02:30:10.919
+Jitendra K: right, L1 agent, L2 agents, right? Which is performing the specific
+
+1080
+02:30:11.100 --> 02:30:18.169
+Jitendra K: roles, and they typically deal with user preferences. So, for that, you can go with MAM0, multi-level scoping.
+
+1081
+02:30:18.800 --> 02:30:27.840
+Jitendra K: For long chat, which is having 100-plus turn sessions, and when you have to maintain a pretty long, cumbersome chat, go for Zap.
+
+1082
+02:30:28.110 --> 02:30:30.640
+Jitendra K: Which will give you a progressive summary of.
+
+1083
+02:30:30.990 --> 02:30:32.920
+Jitendra K: Each of the session-based chat.
+
+1084
+02:30:33.550 --> 02:30:39.430
+Jitendra K: If you have to maintain the knowledge using document parsing, relationship between the attributes.
+
+1085
+02:30:39.770 --> 02:30:47.869
+Jitendra K: then you have two choices. I mean, if you are preserving the relationship, then go for Cogni as a knowledge graph, because document will have an entities.
+
+1086
+02:30:48.640 --> 02:30:52.359
+Jitendra K: Entities, will be your nodes in the form of a graph.
+
+1087
+02:30:53.550 --> 02:30:56.210
+Jitendra K: If you are… do not want to preserve relationship.
+
+1088
+02:30:56.550 --> 02:31:03.130
+Jitendra K: then you can go with a simpler version, Llama Index, which is, I would say, an oversimplified version of Cogni itself.
+
+1089
+02:31:03.480 --> 02:31:06.929
+Jitendra K: So instead of Knowledge Graph, you're still using document parsing.
+
+1090
+02:31:07.250 --> 02:31:12.829
+Jitendra K: But here, you're establishing a relationship at a document level, not at an entity level.
+
+1091
+02:31:13.120 --> 02:31:15.010
+Jitendra K: So that will be useful as well.
+
+1092
+02:31:15.890 --> 02:31:20.410
+Jitendra K: You can go with multis… need multiple strategies.
+
+1093
+02:31:20.850 --> 02:31:24.000
+Jitendra K: Along with MAM0, you can go with
+
+1094
+02:31:24.130 --> 02:31:27.729
+Jitendra K: Langchain, hybrid four-way memory you can create.
+
+1095
+02:31:28.060 --> 02:31:32.370
+Jitendra K: When you required progressive summary plus multiple strategy, go with LATA.
+
+1096
+02:31:33.440 --> 02:31:40.070
+Jitendra K: So this is what the… individual… Capabilities are.
+
+1097
+02:31:40.990 --> 02:31:46.769
+Jitendra K: And each… Attribute will… going to govern different aspects of it.
+
+1098
+02:31:47.080 --> 02:31:52.010
+Jitendra K: So I have some framework converse comparison as well, when to use what.
+
+1099
+02:31:52.290 --> 02:31:54.210
+Jitendra K: So you can use this as well.
+
+1100
+02:31:54.640 --> 02:32:00.799
+Jitendra K: You can understand the formulas, and depending upon their capabilities, call out.
+
+1101
+02:32:01.220 --> 02:32:08.100
+Jitendra K: And also, you can compare them, so that it will ease off your search criteria when you're deploying in production.
+
+1102
+02:32:16.990 --> 02:32:20.180
+Jitendra K: Yeah, I will share this HTML as well.
+
+1103
+02:32:23.790 --> 02:32:30.620
+Jitendra K: So basically, the idea is, now we started with architecture, right? So this is the architecture component of AI agents.
+
+1104
+02:32:30.770 --> 02:32:36.540
+Jitendra K: So, as I mentioned, when you're dealing with any agentic AI problem statement.
+
+1105
+02:32:36.720 --> 02:32:42.840
+Jitendra K: You have to think through architecture as well. Your job is not just to write line graphs and you're done.
+
+1106
+02:32:42.970 --> 02:32:43.800
+Jitendra K: Right?
+
+1107
+02:32:44.360 --> 02:32:47.010
+Jitendra K: So, who are going to deploy this?
+
+1108
+02:32:47.120 --> 02:32:49.380
+Jitendra K: Is it you or something else?
+
+1109
+02:32:49.790 --> 02:32:51.840
+Jitendra K: Someone else from your team.
+
+1110
+02:32:52.520 --> 02:32:58.219
+Jitendra K: If you're a manager, you need to have end-to-end control over your project, including deployment.
+
+1111
+02:32:58.580 --> 02:33:03.940
+Jitendra K: Including your user acceptance criteria. Including your user communications.
+
+1112
+02:33:04.320 --> 02:33:08.339
+Jitendra K: Right? So assume that you're working as a manager. I hope,
+
+1113
+02:33:09.220 --> 02:33:15.969
+Jitendra K: How many of you are individual contributors, by the way? You're going to work in just an application development? Just say yes.
+
+1114
+02:33:19.850 --> 02:33:22.170
+Jitendra K: Okay, just an application developer.
+
+1115
+02:33:26.320 --> 02:33:31.069
+Jitendra K: So it will be good for your future perspective, right? What are you going to do in future?
+
+1116
+02:33:31.350 --> 02:33:34.470
+Jitendra K: You are also looking for some promotions and stuff, right?
+
+1117
+02:33:34.680 --> 02:33:39.959
+Jitendra K: In future. Right now, you're gonna start with something, which is good, but what about your future perspective?
+
+1118
+02:33:40.350 --> 02:33:42.789
+Jitendra K: A full-stack architect, that's correct.
+
+1119
+02:33:43.170 --> 02:33:48.389
+Jitendra K: That is important to understand this building principle, because if we do not know
+
+1120
+02:33:49.130 --> 02:33:56.910
+Jitendra K: that these tools exist. Somebody else will know it, right? And then he will use it against you, that your application is very basic.
+
+1121
+02:34:00.220 --> 02:34:02.319
+Jitendra K: And this is a competitive space, right?
+
+1122
+02:34:02.950 --> 02:34:10.290
+Jitendra K: If you're creating something, it has to be with all the reasoning and all the parameters which is available in the market.
+
+1123
+02:34:10.770 --> 02:34:17.219
+Jitendra K: With all due… Technical stacks and all sort of propositions that you require to operate.
+
+1124
+02:34:19.450 --> 02:34:36.289
+Jitendra K: What are the production-level deployment setup for each of these memory? Do I need enterprise variant of these? Of course, you required enterprise grade, because these are just for POC purposes, so you need to use cloud setups where these services will be configured.
+
+1125
+02:34:36.970 --> 02:34:43.689
+Jitendra K: Some of them are free, so that means you… either you have two options. You can set up your own clusters.
+
+1126
+02:34:44.680 --> 02:34:48.930
+Jitendra K: Similar to Kubernetes, CLI.
+
+1127
+02:34:49.130 --> 02:34:51.850
+Jitendra K: Or use your own managing stance to deal with it.
+
+1128
+02:35:14.950 --> 02:35:21.729
+Jitendra K: So, the core idea of these frameworks is to ensure that you have sufficient understanding on the
+
+1129
+02:35:22.100 --> 02:35:26.880
+Jitendra K: Memory management of… the context, because context window
+
+1130
+02:35:27.400 --> 02:35:32.869
+Jitendra K: is a go… Is a… I think it's a gold, right? Gold mine for you. If you extract it.
+
+1131
+02:35:33.540 --> 02:35:35.610
+Jitendra K: you will get benefit. If you delay it.
+
+1132
+02:35:35.910 --> 02:35:38.060
+Jitendra K: If you're not using it effectively.
+
+1133
+02:35:38.200 --> 02:35:40.129
+Jitendra K: You will end up into a losing site.
+
+1134
+02:35:40.470 --> 02:35:41.290
+Jitendra K: Right?
+
+1135
+02:35:41.740 --> 02:35:47.250
+Jitendra K: So, basically, context window is one of the important criteria of your LLM.
+
+1136
+02:35:49.010 --> 02:35:54.909
+Jitendra K: quality responses. So whatever you are doing from agent, you're using LLMs, right? Behind the scene.
+
+1137
+02:35:55.550 --> 02:36:03.209
+Jitendra K: So, we have understood how to write rack pipeline, how to create hybrid search, how to operate on VectorDB,
+
+1138
+02:36:03.500 --> 02:36:08.159
+Jitendra K: But are these systems… is effective. Are they working effectively?
+
+1139
+02:36:08.330 --> 02:36:13.750
+Jitendra K: Are they working together? That is the most important criteria, right? And the context will be the answer.
+
+1140
+02:36:13.950 --> 02:36:22.999
+Jitendra K: Because until and unless you deploy it, you will not be able to understand the room of improvisation. So I'm saying that it will fail. So assume it is going to fail, for sure.
+
+1141
+02:36:23.840 --> 02:36:31.259
+Jitendra K: Right? Because I'm talking about my industrial experience. So, your basic rack will fail drastically. It is of no use.
+
+1142
+02:36:31.540 --> 02:36:36.170
+Jitendra K: Even if you show 100 demo to non-technical users, and they are saying.
+
+1143
+02:36:36.330 --> 02:36:38.750
+Jitendra K: They're applauding you, don't trust them.
+
+1144
+02:36:39.320 --> 02:36:40.560
+Jitendra K: It will fail.
+
+1145
+02:36:40.730 --> 02:36:42.430
+Jitendra K: Drastically in production.
+
+1146
+02:36:44.270 --> 02:36:49.000
+Jitendra K: As simple as that. So you need to go into architecture reviews, you need to go into
+
+1147
+02:36:49.310 --> 02:36:54.939
+Jitendra K: Stress testing reviews, etc, before you can qualify your system to be deployed.
+
+1148
+02:36:55.340 --> 02:36:57.969
+Jitendra K: Or production ready, right?
+
+1149
+02:36:58.220 --> 02:37:01.669
+Jitendra K: This is one of the crux of every organization.
+
+1150
+02:37:02.120 --> 02:37:07.470
+Jitendra K: They need a proper… governance plus…
+
+1151
+02:37:08.370 --> 02:37:11.729
+Jitendra K: scalability criterias to ensure that your rack
+
+1152
+02:37:12.080 --> 02:37:18.789
+Jitendra K: Or your agent should not break in production. So, the effort that you're putting to create agent is just 2%.
+
+1153
+02:37:19.140 --> 02:37:23.549
+Jitendra K: The effort that you're putting to maintain the agent in production is 98%.
+
+1154
+02:37:26.230 --> 02:37:28.769
+Jitendra K: Yeah, thanks, thanks, Alan, yeah.
+
+1155
+02:37:37.520 --> 02:37:44.260
+Jitendra K: Yeah, I think we can work. I think you are in US, so basically we can work on this proposal for sure.
+
+1156
+02:37:51.590 --> 02:37:53.279
+Jitendra K: So the core idea is…
+
+1157
+02:37:53.510 --> 02:38:05.460
+Jitendra K: You have to think through architecture now, right? So, architectural pieces, which framework you need to use, what consideration you need to do, and all, is very important and vital for your
+
+1158
+02:38:05.970 --> 02:38:07.780
+Jitendra K: use cases.
+
+1159
+02:38:10.700 --> 02:38:11.990
+Jitendra K: So, any question?
+
+1160
+02:38:12.660 --> 02:38:14.320
+Jitendra K: Guys, anything?
+
+1161
+02:39:07.760 --> 02:39:16.269
+Jitendra K: You just need to go to Environmental File, and then change this line. That's it. ENV file. You can add as many as LLM configuration here.
+
+1162
+02:39:16.850 --> 02:39:20.010
+Jitendra K: So I'm just using OpenAI at this point of time.
+
+1163
+02:39:20.910 --> 02:39:25.759
+Jitendra K: So, this is my… API key that I have endorsed.
+
+1164
+02:39:25.930 --> 02:39:31.360
+Jitendra K: But yes, you have to call, you have to make changes in some of the API calls as well.
+
+1165
+02:39:31.740 --> 02:39:37.749
+Jitendra K: when you're running the LLM calls inside a framework. So you need to change from OpenAI to Gemini.
+
+1166
+02:40:04.040 --> 02:40:09.939
+Jitendra K: Alright, so let's try to revisit our curriculum. What is our curriculum saying? Where did we stand?
+
+1167
+02:40:10.280 --> 02:40:25.720
+Jitendra K: So we are into… 1, 2… 3, 4, 5, 6… 7, 8… 9, 10, 11, 12, 13… 14, 15…
+
+1168
+02:40:26.220 --> 02:40:29.970
+Jitendra K: 16, 17, 18, 19, 20.
+
+1169
+02:40:30.570 --> 02:40:33.060
+Jitendra K: 21, 22, 23.
+
+1170
+02:40:34.030 --> 02:40:37.770
+Jitendra K: 24… 25th. So this is 25th class.
+
+1171
+02:40:38.730 --> 02:40:43.200
+Jitendra K: And, we have covered almost 75 hours of tutorial.
+
+1172
+02:40:43.660 --> 02:40:48.230
+Jitendra K: Now we are left with… remaining… Weeks.
+
+1173
+02:40:49.090 --> 02:40:53.899
+Jitendra K: So, the remaining week looks like this. We have covered memory, knowledge, retrieval, and agent.
+
+1174
+02:40:54.500 --> 02:40:59.050
+Jitendra K: Again, there's repetitive, but I will take different topic.
+
+1175
+02:41:00.810 --> 02:41:05.270
+Jitendra K: The topic that we are going to talk about is MCP and A2A.
+
+1176
+02:41:05.410 --> 02:41:09.090
+Jitendra K: So, this is important, I'm… I'm not, trying to…
+
+1177
+02:41:09.670 --> 02:41:13.420
+Jitendra K: sandwich a topic here, because…
+
+1178
+02:41:13.990 --> 02:41:20.059
+Jitendra K: This is important, because if you do not understand MCP and A2A, We cannot discuss about…
+
+1179
+02:41:21.160 --> 02:41:28.029
+Jitendra K: learning and adaptation, right? So learning and adaptation with agent and modeler techniques is very important.
+
+1180
+02:41:28.190 --> 02:41:35.869
+Jitendra K: If you just, look for advanced rack and keep on just using rack and RAG on server, it is not useful.
+
+1181
+02:41:36.400 --> 02:41:43.679
+Jitendra K: So I have to change this pedagogy a bit. I think we need to take some different approach.
+
+1182
+02:41:44.030 --> 02:41:44.960
+Jitendra K: to learn.
+
+1183
+02:41:45.860 --> 02:41:51.390
+Jitendra K: And then we will move on to… so let me explain what are the remaining topics that we have.
+
+1184
+02:41:51.940 --> 02:41:59.199
+Jitendra K: So, we'll start with… MCP… We usually start with protocols, as simple as that.
+
+1185
+02:41:59.480 --> 02:42:02.480
+Jitendra K: So without delaying anything, I will start with protocols.
+
+1186
+02:42:03.270 --> 02:42:17.080
+Jitendra K: And the protocol stack… requires… These topics to be covered, MCP, Model Context, Protocol, A2A, agent-to-agent communication.
+
+1187
+02:42:18.900 --> 02:42:22.470
+Jitendra K: A to C Agent-to-client communication, which is user.
+
+1188
+02:42:23.350 --> 02:42:26.409
+Jitendra K: We'll also talk about guardrails.
+
+1189
+02:42:30.620 --> 02:42:32.330
+Jitendra K: PIA detection.
+
+1190
+02:42:34.790 --> 02:42:39.829
+Jitendra K: And, there's something called… No, this is, tomorrow.
+
+1191
+02:42:40.590 --> 02:42:44.760
+Jitendra K: We'll have two sessions for it. So, MCP will cover tomorrow.
+
+1192
+02:42:46.030 --> 02:42:47.979
+Jitendra K: A2A will cover next week.
+
+1193
+02:42:48.860 --> 02:42:49.880
+Jitendra K: etc.
+
+1194
+02:42:50.190 --> 02:42:55.280
+Jitendra K: So, PII, sensitive detector, and there's something called jailbreaking phenomenas.
+
+1195
+02:43:02.880 --> 02:43:04.829
+Jitendra K: So these are a very important topics.
+
+1196
+02:43:06.730 --> 02:43:10.110
+Jitendra K: Once we cover this… Then we move on to…
+
+1197
+02:43:18.310 --> 02:43:25.690
+Jitendra K: Prompt engineering and adaptive instruction. I think we haven't covered prompt engineering as well, so it is important to understand.
+
+1198
+02:43:25.960 --> 02:43:30.330
+Jitendra K: How to write good prompts. We'll talk about chain of thought, tree of thought.
+
+1199
+02:43:32.800 --> 02:43:35.130
+Jitendra K: React patterns, etc.
+
+1200
+02:43:36.720 --> 02:43:40.499
+Jitendra K: We'll take some good examples on system prompt and user prompts.
+
+1201
+02:43:41.190 --> 02:43:44.130
+Jitendra K: Then we'll move on to… the…
+
+1202
+02:43:46.550 --> 02:43:51.590
+Jitendra K: DSPY packages, which is called Learning and Adaptation, plus AutoRad.
+
+1203
+02:43:57.810 --> 02:43:59.719
+Jitendra K: Then we'll move on to…
+
+1204
+02:44:01.090 --> 02:44:07.150
+Jitendra K: I think I will skip this part. This is coming again and again, I don't know why, but, let it be.
+
+1205
+02:44:07.560 --> 02:44:14.140
+Jitendra K: So we'll talk about something called… We will revisit… Puloras…
+
+1206
+02:44:15.700 --> 02:44:19.099
+Jitendra K: With some more examples to fine-tune the models.
+
+1207
+02:44:20.330 --> 02:44:24.260
+Jitendra K: And then, we will move on to AIOps, Agentic Ops.
+
+1208
+02:44:28.780 --> 02:44:32.170
+Jitendra K: And then, finally, we have to cover Rue AI.
+
+1209
+02:44:41.990 --> 02:44:43.210
+Jitendra K: Autogen…
+
+1210
+02:44:47.860 --> 02:44:53.660
+Jitendra K: And it can… And then we'll take some more examples, some real-world studies.
+
+1211
+02:44:53.910 --> 02:44:58.099
+Jitendra K: Which is a part of ethical and safety governance, and real-world applications as well.
+
+1212
+02:44:58.710 --> 02:45:01.219
+Jitendra K: Right, and then move on to the capstone project.
+
+1213
+02:45:12.530 --> 02:45:19.960
+Jitendra K: So this is a topic that has been left over, so we'll cover this topic first, then we move on to the prompt, COT,
+
+1214
+02:45:20.070 --> 02:45:23.530
+Jitendra K: The prompt effectively, how to write prompt effectively.
+
+1215
+02:45:23.940 --> 02:45:29.339
+Jitendra K: Then move on to DSPY AutoRack, Qloras, Agentic Ops, and then the other frameworks.
+
+1216
+02:45:31.320 --> 02:45:39.050
+Jitendra K: Regarding… memory consolidation framework like MAM0, ZAP, how should we approach the review and summarize cycle?
+
+1217
+02:45:39.450 --> 02:45:43.199
+Jitendra K: So this is review and summarize cycle for a user, or for overall?
+
+1218
+02:45:43.430 --> 02:45:45.529
+Jitendra K: If it is overall, then go for…
+
+1219
+02:45:46.430 --> 02:45:52.269
+Jitendra K: MAM0, if it is for a particular user, then you go for, Corgi and,
+
+1220
+02:45:52.760 --> 02:45:59.889
+Jitendra K: I haven't given you the suits, right? So go for it. So basically, if you would like to compare them, then…
+
+1221
+02:46:00.160 --> 02:46:03.410
+Jitendra K: you can use this tracker, so you can go for ZAP as well.
+
+1222
+02:46:04.590 --> 02:46:09.550
+Jitendra K: Can you cover FinOps and optimization aspect around integrated open source platform?
+
+1223
+02:46:12.520 --> 02:46:20.650
+Jitendra K: Yeah, we'll talk about agentic skills as well, if time permits. So that's a new emergent technology, agentic skills.
+
+1224
+02:46:20.940 --> 02:46:25.130
+Jitendra K: And then we'll talk about open claw models, if time permits.
+
+1225
+02:46:38.040 --> 02:46:40.749
+Jitendra K: Sure, sure, we can discuss.
+
+1226
+02:46:44.600 --> 02:46:48.370
+Jitendra K: Yeah, genetic skills is not a part of your curriculum, but I will cover.
+
+1227
+02:46:57.220 --> 02:47:00.239
+Jitendra K: So, we'll cover open claw, for sure.
+
+1228
+02:47:00.980 --> 02:47:06.350
+Jitendra K: Any other question apart from this? So, this is your 360 degree agent TKI course.
+
+1229
+02:47:06.610 --> 02:47:12.670
+Jitendra K: Anything else that you feel is missing here in the curriculum? I don't think so anything is… Listing.
+
+1230
+02:47:21.600 --> 02:47:24.030
+Jitendra K: Yeah, and a 10 we will cover in EDK.
+
+1231
+02:47:29.940 --> 02:47:35.559
+Jitendra K: Okay, now we'll talk about MCP in the next tutorial, that means tomorrow, so we'll start with a fresh topic.
+
+1232
+02:47:35.960 --> 02:47:40.609
+Jitendra K: I think we just have 8 more minutes, so I will not start a new topic right now.
+
+1233
+02:47:41.150 --> 02:47:46.870
+Jitendra K: So the homework for you should be to, run the demo that we have shared with you.
+
+1234
+02:47:47.000 --> 02:47:50.850
+Jitendra K: Go with every module, understand what each modules are doing.
+
+1235
+02:47:51.160 --> 02:47:58.210
+Jitendra K: And then compare them, right, for your use cases. You can extend this use case to any other requirement as well.
+
+1236
+02:48:11.920 --> 02:48:20.079
+Jitendra K: Yeah, we'll talk about real-world issues with agent API. That is what we require to understand how the agent will continuously learn
+
+1237
+02:48:20.470 --> 02:48:21.340
+Jitendra K: And adapt.
+
+1238
+02:48:21.700 --> 02:48:23.590
+Jitendra K: In the pipeline design.
+
+1239
+02:48:25.910 --> 02:48:32.680
+Jitendra K: Alright, so if there's no other question, let's call it a day. Any other question, guys? Any further question before we wind up?
+
+1240
+02:48:45.960 --> 02:48:52.090
+Jitendra K: So please use your time to go through the codes, right? If you feel that code is…
+
+1241
+02:48:52.670 --> 02:48:56.140
+Jitendra K: Not, you're not able to understand it.
+
+1242
+02:48:56.890 --> 02:49:04.250
+Jitendra K: put the code into your chat GPT, and then ask him to create a modeler work… word diagram.
+
+1243
+02:49:08.280 --> 02:49:09.050
+Jitendra K: Okay.
+
+1244
+02:49:10.230 --> 02:49:12.760
+Jitendra K: You can abort this, I think it is…
+
+1245
+02:49:13.760 --> 02:49:16.159
+Jitendra K: Not able to resolve one dependency.
+
+1246
+02:49:16.290 --> 02:49:21.710
+Jitendra K: I think, oh, great.
+
+1247
+02:49:22.930 --> 02:49:25.450
+Jitendra K: Bognitoch Almost, that's interesting.
+
+1248
+02:49:26.700 --> 02:49:29.619
+Jitendra K: 45 seconds, 31 seconds…
+
+1249
+02:49:33.700 --> 02:49:37.000
+Jitendra K: 25 seconds. Zap is 18 seconds only.
+
+1250
+02:49:38.130 --> 02:49:41.180
+Jitendra K: And this is for financial scenario, right?
+
+1251
+02:49:51.420 --> 02:49:54.900
+Jitendra K: No customer support scenario and financial, this is separately.
+
+1252
+02:49:58.290 --> 02:49:59.640
+Jitendra K: Fair enough, I think.
+
+1253
+02:50:00.740 --> 02:50:04.559
+Jitendra K: But with latency only, we cannot understand.
+
+1254
+02:50:05.070 --> 02:50:06.280
+Jitendra K: the whole flow.
+
+1255
+02:50:07.220 --> 02:50:10.819
+Jitendra K: That means, we need to cover other wider aspects as well.
+
+1256
+02:50:18.560 --> 02:50:24.009
+Jitendra K: Today, you mentioned about approach, where critic and generator have different models.
+
+1257
+02:50:24.740 --> 02:50:26.850
+Jitendra K: So, you can go with,
+
+1258
+02:50:28.210 --> 02:50:32.629
+Jitendra K: different models, in a sense. Let's say, if I'm using a…
+
+1259
+02:50:33.620 --> 02:50:37.630
+Jitendra K: generator as GPT-4, then I can go with Pritik as Claude.
+
+1260
+02:50:39.450 --> 02:50:43.939
+Jitendra K: Or maybe I can switch between the two models, which is cheaper.
+
+1261
+02:50:44.350 --> 02:50:52.979
+Jitendra K: Because Generator required elaborative answers, and critic required very specific scenarios to be utilized, so I can go with a lower and cheaper model.
+
+1262
+02:50:53.270 --> 02:50:55.759
+Jitendra K: For doing the critic analysis.
+
+1263
+02:50:57.640 --> 02:51:03.820
+Jitendra K: But the critic analysis that you are going to do does not depend upon the model. It depends upon your prompts.
+
+1264
+02:51:04.000 --> 02:51:05.680
+Jitendra K: What are you evaluating?
+
+1265
+02:51:07.090 --> 02:51:11.900
+Jitendra K: Right? You can use any model, but the problem is with the prompts.
+
+1266
+02:51:12.690 --> 02:51:17.210
+Jitendra K: Or problem is with your functions that you selected for evaluation as well.
+
+1267
+02:51:17.590 --> 02:51:20.619
+Jitendra K: What are you evaluating? That is the most important part.
+
+1268
+02:51:21.970 --> 02:51:26.079
+Jitendra K: Right, so we'll talk about that, how to decide cost functions.
+
+1269
+02:51:26.420 --> 02:51:29.760
+Jitendra K: What are the different objectives that you have to trace?
+
+1270
+02:51:30.410 --> 02:51:34.940
+Jitendra K: And for that, we have to use Lang-Smith, LangFuse, and set off…
+
+1271
+02:51:35.730 --> 02:51:40.260
+Jitendra K: Objective functions that we are going to use to fine-tune the model.
+
+1272
+02:51:49.270 --> 02:51:54.179
+Jitendra K: So just, for token saving, you can say, okay, I can change my critic.
+
+1273
+02:51:54.890 --> 02:51:57.990
+Jitendra K: I will go with a small model, which is fine, but…
+
+1274
+02:51:58.490 --> 02:52:00.899
+Jitendra K: Ultimately, what are you trying to achieve?
+
+1275
+02:52:02.000 --> 02:52:08.429
+Jitendra K: That is… the most important questions, right? So, which function you are using, which cost objective.
+
+1276
+02:52:08.770 --> 02:52:11.790
+Jitendra K: How did you evaluate your prompt response, etc.
+
+1277
+02:52:16.320 --> 02:52:20.770
+Jitendra K: Alright guys, I think this is pretty much what we have for today, so thank you for attending.
+
+1278
+02:52:21.180 --> 02:52:27.290
+Jitendra K: And then… We will meet in the next tutorial. Tomorrow, thank you.
+

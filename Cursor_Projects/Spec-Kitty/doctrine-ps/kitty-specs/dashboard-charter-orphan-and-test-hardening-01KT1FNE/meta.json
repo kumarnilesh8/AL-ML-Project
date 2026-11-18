@@ -1,0 +1,15 @@
+{
+  "coordination_branch": "kitty/mission-dashboard-charter-orphan-and-test-hardening-01KT1FNE",
+  "created_at": "2026-06-01T11:38:50.158189+00:00",
+  "friendly_name": "Charter Orphan Indicator & Test Fix",
+  "mission_id": "01KT1FNEDDCWCRXPQ1TA0WQBHZ",
+  "mission_number": null,
+  "mission_slug": "dashboard-charter-orphan-and-test-hardening-01KT1FNE",
+  "mission_type": "software-dev",
+  "purpose_context": "Mission #5 (dashboard-governance-config) shipped the charter remove action for orphaned entries but left a UX gap: entries whose artefact no longer exists in the pack render as bare links with no visual signal. This mission adds a 'not found' indicator badge to orphaned entries and resolves a pre-existing failing Vitest test in reviews.routes.test.ts (unrelated to mission #5 changes) that has been carrying forward since before the overhaul branch.",
+  "purpose_tldr": "Display a 'not found' badge on orphaned charter entries and fix the pre-existing reviews-routes test failure",
+  "slug": "dashboard-charter-orphan-and-test-hardening-01KT1FNE",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "vcs": "git",
+  "vcs_locked_at": "2026-06-01T11:52:27.301025+00:00"
+}

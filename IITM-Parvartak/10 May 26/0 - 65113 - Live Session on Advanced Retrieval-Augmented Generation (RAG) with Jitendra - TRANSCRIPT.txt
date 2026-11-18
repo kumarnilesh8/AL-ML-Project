@@ -1,0 +1,4870 @@
+WEBVTT
+
+1
+00:04:01.320 --> 00:04:03.189
+Jitendra K: Hi guys, good evening.
+
+2
+00:04:03.480 --> 00:04:06.329
+Jitendra K: And warm welcome to another module on Agent AKI.
+
+3
+00:04:06.460 --> 00:04:12.079
+Jitendra K: So before we start, can we have a quick audio check if my voice is audible to everyone, and my screen is visible as well?
+
+4
+00:04:20.640 --> 00:04:21.699
+Jitendra K: Okay, great.
+
+5
+00:04:25.950 --> 00:04:29.489
+Jitendra K: Thank you. So, we'll just continue with our tutorials.
+
+6
+00:04:30.180 --> 00:04:34.159
+Jitendra K: So, in today's tutorial, we are going to talk about,
+
+7
+00:04:34.970 --> 00:04:37.950
+Jitendra K: AI design patterns, so I think we have
+
+8
+00:04:38.210 --> 00:04:45.529
+Jitendra K: revisited earlier as well, where we have taken some small examples. Now we'll take a deep dive on the agentic AI patterns.
+
+9
+00:04:46.120 --> 00:04:49.879
+Jitendra K: And on the top of it, we will also talk about some more…
+
+10
+00:04:50.010 --> 00:04:55.159
+Jitendra K: In-depth analysis on choosing which design patterns is useful for
+
+11
+00:04:55.530 --> 00:05:01.229
+Jitendra K: Creating the… the agentic orchestration when we talk about real-world scenarios.
+
+12
+00:05:01.750 --> 00:05:11.489
+Jitendra K: So before we move on to that part, let me discuss one more topic, which is very interesting. In fact, this is one of the recent topics in Agent AKI.
+
+13
+00:05:11.680 --> 00:05:19.750
+Jitendra K: Called vector-less RAG. So, when we talk about vector-less rag, so that means we are talking about rag without vectors, or vector stores.
+
+14
+00:05:20.290 --> 00:05:25.939
+Jitendra K: That means we do not… no longer required to convert document to our vectors.
+
+15
+00:05:26.150 --> 00:05:29.320
+Jitendra K: But we can still do search on the top-off.
+
+16
+00:05:29.670 --> 00:05:33.600
+Jitendra K: the… PDFs or your documents.
+
+17
+00:05:34.030 --> 00:05:39.709
+Jitendra K: So, vector-less rack is a new concept, and it is one of the emerging concepts in AI agents as well.
+
+18
+00:05:40.230 --> 00:05:44.170
+Jitendra K: And this will help you to create good amount of…
+
+19
+00:05:44.520 --> 00:05:47.909
+Jitendra K: Control over the rack quality retrieval output.
+
+20
+00:05:48.540 --> 00:05:52.840
+Jitendra K: So, when we talk about vector-less RAT, There are different…
+
+21
+00:05:53.210 --> 00:05:56.169
+Jitendra K: motivation why Vectorless RAG has been built.
+
+22
+00:05:56.470 --> 00:06:01.470
+Jitendra K: So one of the top motivations is, when you talk… when you talk about any document search.
+
+23
+00:06:01.950 --> 00:06:06.480
+Jitendra K: It's actually a hierarchical search. That means you need a several hierarchy of
+
+24
+00:06:07.300 --> 00:06:12.379
+Jitendra K: Documents to be a part of, the reasoning-based summaries.
+
+25
+00:06:12.750 --> 00:06:19.490
+Jitendra K: But when we talk about vectors, they are lost. That means, sometimes You might be…
+
+26
+00:06:19.860 --> 00:06:24.599
+Jitendra K: Using the vectors, which is not in the context of the search, of the query.
+
+27
+00:06:24.840 --> 00:06:30.099
+Jitendra K: And that will add a kind of a noise to your data, or to your response, rather than
+
+28
+00:06:30.550 --> 00:06:39.130
+Jitendra K: the context. So that means the context will be lost When you're using a simple… Vector X, right?
+
+29
+00:06:39.290 --> 00:06:45.910
+Jitendra K: So, vector-less rag is a new concept, which is depending upon one of the core concepts called page index.
+
+30
+00:06:46.230 --> 00:06:53.100
+Jitendra K: We'll talk about page index, and what is exactly the page index is all about, but assume that you're creating a page index
+
+31
+00:06:53.430 --> 00:06:58.160
+Jitendra K: To create a chronological sequencing or structuring on that data.
+
+32
+00:06:58.470 --> 00:07:02.529
+Jitendra K: Or your document in a hierarchical manner, and then you can able to
+
+33
+00:07:02.660 --> 00:07:07.020
+Jitendra K: Utilize the context to search. That means you will have a better logic.
+
+34
+00:07:07.290 --> 00:07:12.420
+Jitendra K: Better capabilities, better reasoning to generate the answer.
+
+35
+00:07:13.060 --> 00:07:19.580
+Jitendra K: So, vector-less rag, what it does is, it will use three-step process. The first step is.
+
+36
+00:07:20.100 --> 00:07:21.469
+Jitendra K: You're going to have…
+
+37
+00:07:24.550 --> 00:07:27.980
+Jitendra K: You're going to have a set of documents, or corpus.
+
+38
+00:07:28.330 --> 00:07:36.670
+Jitendra K: And then, it will use a tree structure or index of documents and perform a reasoning-based retrieval through tree search.
+
+39
+00:07:37.410 --> 00:07:45.689
+Jitendra K: So, one of the core limitations with traditional vector-based RAG is vector-based RAG retrieve information using semantic embeddings.
+
+40
+00:07:45.880 --> 00:07:49.900
+Jitendra K: And similarity search over chunk text store in a vector database.
+
+41
+00:07:50.190 --> 00:07:58.629
+Jitendra K: While it may be typically effective in many scenarios, but this approach faces structural and reasoning limitation when applied to a long.
+
+42
+00:07:58.820 --> 00:08:01.379
+Jitendra K: Complex or high-structured documents.
+
+43
+00:08:02.790 --> 00:08:05.310
+Jitendra K: So, when you query knowledge mismatch.
+
+44
+00:08:05.810 --> 00:08:11.140
+Jitendra K: The semantic similarity assumes the closest embedding, In most relevant cases.
+
+45
+00:08:11.290 --> 00:08:16.459
+Jitendra K: But the user queries often express intent rather than matching the document wording.
+
+46
+00:08:17.470 --> 00:08:21.540
+Jitendra K: Similarly, you will lose the relevance of response.
+
+47
+00:08:21.950 --> 00:08:24.299
+Jitendra K: So the relevance of the response will be…
+
+48
+00:08:24.590 --> 00:08:29.030
+Jitendra K: In case of domain agnostic text, like legal, technical document.
+
+49
+00:08:29.260 --> 00:08:35.050
+Jitendra K: Many passages appear semantically similar, but they are different and critical in actual values.
+
+50
+00:08:36.690 --> 00:08:49.539
+Jitendra K: Also, you are using a hard chunking, which breaks the context. Fixed-sized chunking can split sentences, tables, or sections, and fragment them, meaningful and reducing the contextual integrities of your search.
+
+51
+00:08:50.500 --> 00:08:59.899
+Jitendra K: It is also limited in terms of multi-step reasoning. Retrieval is based on one-shot similarity search and cannot be dynamically explored. Document structure step-by-step.
+
+52
+00:09:01.530 --> 00:09:07.470
+Jitendra K: And in this approach, with vector RAG, you don't have any awareness of conversational history.
+
+53
+00:09:07.650 --> 00:09:13.129
+Jitendra K: So each query is embedded independently, make it difficult to incorporate prior questions and answers.
+
+54
+00:09:13.260 --> 00:09:18.829
+Jitendra K: Or even the evolving context. That means you will have a poor handling of document references.
+
+55
+00:09:19.240 --> 00:09:24.800
+Jitendra K: Including appendix, tables, references, citations, etc.
+
+56
+00:09:25.340 --> 00:09:30.579
+Jitendra K: And also the high cost of infrastructure and computation cost, which is one of the vector store.
+
+57
+00:09:31.060 --> 00:09:32.719
+Jitendra K: disadvantage, I would say.
+
+58
+00:09:33.770 --> 00:09:39.960
+Jitendra K: Now, the workflow of vector rag, vector-less rags, Is actually making…
+
+59
+00:09:40.700 --> 00:09:44.929
+Jitendra K: A huge difference in the way that we are searching a document.
+
+60
+00:09:45.380 --> 00:09:49.419
+Jitendra K: Or a text from a document. So, vector, let's write, use page index.
+
+61
+00:09:49.820 --> 00:09:56.460
+Jitendra K: Which is a reasoning-driven retrieval approach, and it's been designed to work on the limitation of traditional vector database.
+
+62
+00:09:56.820 --> 00:10:03.150
+Jitendra K: So instead of using mathematical similarity, it organized a document in the form of parsers or trees.
+
+63
+00:10:03.470 --> 00:10:06.889
+Jitendra K: And allow the model to logically decide where to look into
+
+64
+00:10:07.730 --> 00:10:10.299
+Jitendra K: The next similar, or how…
+
+65
+00:10:10.520 --> 00:10:14.079
+Jitendra K: Which sections and which paragraphs they need to look forward.
+
+66
+00:10:14.720 --> 00:10:20.970
+Jitendra K: So basically, what PageIndex will do, it will create a tree, And parse the document.
+
+67
+00:10:21.110 --> 00:10:24.519
+Jitendra K: In a sequence, using a root node documentation.
+
+68
+00:10:24.990 --> 00:10:31.289
+Jitendra K: So, what it does is, internally, the document is first divided into meaningful pages instead of random text chunks.
+
+69
+00:10:31.540 --> 00:10:37.679
+Jitendra K: And this keeps related information together, and split content based on headings, subheadings, and topics.
+
+70
+00:10:38.000 --> 00:10:44.140
+Jitendra K: Make sure that each page cover one clear idea. Avoid breaking sentences or concept in the middle.
+
+71
+00:10:44.580 --> 00:10:46.350
+Jitendra K: After splitting the document.
+
+72
+00:10:46.510 --> 00:10:53.300
+Jitendra K: A tree structure is created to organize it properly, the root represents the entire document, then the bidding notes.
+
+73
+00:10:53.590 --> 00:10:58.409
+Jitendra K: Represent the sections and the subsections, and the final note will represent the individual pages.
+
+74
+00:10:58.880 --> 00:11:01.230
+Jitendra K: And then, once you run a query.
+
+75
+00:11:01.450 --> 00:11:08.629
+Jitendra K: When the question has been asked, It will use those Nodes to retrieve the information.
+
+76
+00:11:09.600 --> 00:11:15.729
+Jitendra K: So when a question is asked, the model first tries to understand what the user is looking for, identify the important keywords and concept.
+
+77
+00:11:16.020 --> 00:11:22.249
+Jitendra K: And predict which section might contain the answer, and choose the relevant Branches to explore.
+
+78
+00:11:22.960 --> 00:11:31.719
+Jitendra K: Could make search hierarchical, sequential, And reasoning Rather than simple semantics match.
+
+79
+00:11:32.330 --> 00:11:36.519
+Jitendra K: So, page index use reasoning loop to refine retrieval.
+
+80
+00:11:36.800 --> 00:11:42.939
+Jitendra K: It reads the selected page, evaluate if the answer is sufficient, move steeper, sideways, or backtrack if needed.
+
+81
+00:11:44.060 --> 00:11:49.729
+Jitendra K: And the answer generation will select those relevant pages, combine information from chosen pages.
+
+82
+00:11:49.940 --> 00:11:52.589
+Jitendra K: And ensure the answer matches the document content.
+
+83
+00:11:53.660 --> 00:12:00.709
+Jitendra K: Now, the question is how to use this whole functionality. Is there any algorithm or anything that can help us to do so?
+
+84
+00:12:00.920 --> 00:12:03.840
+Jitendra K: So the answer is, there's an algorithm called Page Index.
+
+85
+00:12:04.810 --> 00:12:06.890
+Jitendra K: Which we can able to install.
+
+86
+00:12:07.330 --> 00:12:12.880
+Jitendra K: And with the help of this, we can able to manage the whole…
+
+87
+00:12:13.210 --> 00:12:18.130
+Jitendra K: Parsing logic, or all the document insertion logic.
+
+88
+00:12:18.430 --> 00:12:25.469
+Jitendra K: But I think they'll… So this is one of the libraries which has been developed.
+
+89
+00:12:25.570 --> 00:12:29.100
+Jitendra K: which is called Page Index, and this is available as a free source.
+
+90
+00:12:29.390 --> 00:12:37.919
+Jitendra K: It required a hosting environment, and you need to set up your page similar to Chroma API key, you need to set up this page index API key as well.
+
+91
+00:12:47.950 --> 00:12:55.839
+Jitendra K: So, basically, vector-less drag, Or… Reasoning-based retrieval, Is one of the…
+
+92
+00:12:57.420 --> 00:13:00.070
+Jitendra K: Best approach, where you can able to
+
+93
+00:13:02.170 --> 00:13:08.239
+Jitendra K: use the document search with a skeleton of tree. That means you can create a reasoning around it.
+
+94
+00:13:08.490 --> 00:13:13.930
+Jitendra K: And then use page indexes to retrieve the relevant chunks from the document.
+
+95
+00:13:14.340 --> 00:13:21.249
+Jitendra K: Now, instead of chunking your document, you are using… and instead of chunk your document, embit the chunks and retrieve the top K.
+
+96
+00:13:21.430 --> 00:13:27.499
+Jitendra K: and feed them to the LLM, the pipeline of Vector Rack page index takes a radical, different approach.
+
+97
+00:13:28.250 --> 00:13:35.199
+Jitendra K: So, we are using and treating a document as a flat sequence of chunks, and it builds a semantic skeleton tree.
+
+98
+00:13:35.730 --> 00:13:38.390
+Jitendra K: As a hierarchical map of every section.
+
+99
+00:13:39.230 --> 00:13:42.300
+Jitendra K: So the indexing will be done once per document.
+
+100
+00:13:42.590 --> 00:13:44.630
+Jitendra K: That means your document will be…
+
+101
+00:13:44.900 --> 00:13:48.630
+Jitendra K: A single document, and it will be indexed based upon that.
+
+102
+00:13:49.160 --> 00:13:54.000
+Jitendra K: So, each node will get a title, a node ID, a line boundaries, and a summary.
+
+103
+00:13:54.430 --> 00:13:59.049
+Jitendra K: So it will convert everything into a JSON. So Retriever will happen
+
+104
+00:13:59.280 --> 00:14:03.960
+Jitendra K: per query. So whenever a user is asking a question, page index handle
+
+105
+00:14:04.150 --> 00:14:08.290
+Jitendra K: the entire tree of summary to LLMs, and say which note contains the answer.
+
+106
+00:14:08.590 --> 00:14:15.650
+Jitendra K: So this is unlike a vector rack, which relies on mathematical similarity between the query and the chunk embeddings to build a relevant context.
+
+107
+00:14:16.200 --> 00:14:23.299
+Jitendra K: So the LLM read the summary, not the full text, and return a short list of node ID. Page index, then use the line boundaries.
+
+108
+00:14:23.580 --> 00:14:29.510
+Jitendra K: to slice the extract continuously, and then full section of the original Markdown file.
+
+109
+00:14:29.630 --> 00:14:33.210
+Jitendra K: is then passed to synthesize the response via LLM.
+
+110
+00:14:34.160 --> 00:14:43.150
+Jitendra K: So, the whole idea here is, it is quite effective Compared to Vector, Right.
+
+111
+00:14:43.490 --> 00:14:49.110
+Jitendra K: Where the query and the pair similarity need to be determined. But in this case.
+
+112
+00:14:49.290 --> 00:14:58.860
+Jitendra K: We're not talking about any query and paragraph pairs, but we'd rather talk about node IDs at a document level itself.
+
+113
+00:14:59.940 --> 00:15:02.459
+Jitendra K: Right? So this is what the page index will do.
+
+114
+00:15:09.850 --> 00:15:13.569
+Jitendra K: Let me check some questions. Is it a cloud-based service?
+
+115
+00:15:14.080 --> 00:15:16.580
+Jitendra K: Yes, it is a cloud-based service as of now.
+
+116
+00:15:16.930 --> 00:15:24.340
+Jitendra K: The space index is built-in memory or persistent. It is not in build memory, but it required a good amount of computes.
+
+117
+00:15:27.800 --> 00:15:33.730
+Jitendra K: It will perform vector creation at the end of our entire… no, it will not create any vector creation.
+
+118
+00:15:34.700 --> 00:15:37.109
+Jitendra K: It will just summarize the context.
+
+119
+00:15:37.680 --> 00:15:42.820
+Jitendra K: Also, tree structure is built once using an algo-like page index or another LLM.
+
+120
+00:15:43.810 --> 00:15:52.629
+Jitendra K: the tree structures build once using a… once you parse the document, it will create a tree. For one document, you will have one node ID.
+
+121
+00:15:55.050 --> 00:15:57.869
+Jitendra K: Use case, where to use this and what to use this.
+
+122
+00:15:59.480 --> 00:16:06.460
+Jitendra K: Use case, it means what? So whenever you're not getting better response from RAG, you have to go with page index-based method.
+
+123
+00:16:06.850 --> 00:16:13.469
+Jitendra K: It just reduced overhead of creating the vector for everything, however, the final content from…
+
+124
+00:16:15.170 --> 00:16:25.640
+Jitendra K: No, when I'm saying that you have an index on the top of every subsection, then why we require vectors to create? Am I saying that we are creating a vector here?
+
+125
+00:16:26.800 --> 00:16:30.949
+Jitendra K: Your document is in the form of a tree. I'm not talking about vectors here.
+
+126
+00:16:37.110 --> 00:16:43.280
+Jitendra K: Now, page rank is different. This is Page Index. PageRank is for… website ranking.
+
+127
+00:16:43.510 --> 00:16:47.090
+Jitendra K: HTML pages. Here we are talking about page index.
+
+128
+00:16:49.050 --> 00:16:54.900
+Jitendra K: Alright, so what I'm going to do is, we'll take one simple example to understand this whole algorithm.
+
+129
+00:16:55.190 --> 00:17:00.659
+Jitendra K: And then we'll deep dive into one more example to understand some complex part of it.
+
+130
+00:17:01.090 --> 00:17:07.450
+Jitendra K: So, as I mentioned, For retrieval, When you're performing a rack.
+
+131
+00:17:07.700 --> 00:17:11.440
+Jitendra K: Using vector rack, or using vector stores.
+
+132
+00:17:12.010 --> 00:17:19.799
+Jitendra K: you are looking for semantic similarity, which may not be equal to relevance. So, similarity… similar… semantic similarity is not always equal to relevance.
+
+133
+00:17:20.170 --> 00:17:25.280
+Jitendra K: So, because I'm embedding cluster text, That sounds like… the same.
+
+134
+00:17:25.980 --> 00:17:31.419
+Jitendra K: But in actual, you may have different domain-agnostic vectors, which may lose the context.
+
+135
+00:17:32.040 --> 00:17:35.889
+Jitendra K: Because LLM has not been trained on domain-agnostic vectors, right?
+
+136
+00:17:36.110 --> 00:17:44.649
+Jitendra K: So chunking destroys the structure. Let's say if I'm having a great policy and clinical guidelines, they are different. A legal contract may be different.
+
+137
+00:17:44.940 --> 00:17:51.290
+Jitendra K: They might have sections, subsections, definitions, schedules, etc, paragraphs, cross-references.
+
+138
+00:17:51.940 --> 00:17:58.239
+Jitendra K: So, if I can able to create something meaningful to parse these documents in some order.
+
+139
+00:17:58.430 --> 00:18:02.490
+Jitendra K: Before search, that is the most important thing that I can do.
+
+140
+00:18:02.770 --> 00:18:06.059
+Jitendra K: That means I'm using a page index reasoning-based tree structure.
+
+141
+00:18:06.360 --> 00:18:07.730
+Jitendra K: And,
+
+142
+00:18:08.050 --> 00:18:13.779
+Jitendra K: During the indexing phase, I will build a hierarchical table of content, a kind of a tree from a document.
+
+143
+00:18:14.000 --> 00:18:18.140
+Jitendra K: So the model first identified the most relevant section using a document hierarchy.
+
+144
+00:18:18.280 --> 00:18:22.570
+Jitendra K: Then navigate to a section to generate a precise citation references.
+
+145
+00:18:22.750 --> 00:18:29.460
+Jitendra K: And each node in the tree carries a title, an LLM-generated summary, and a pointer to full text of the section.
+
+146
+00:18:29.740 --> 00:18:34.690
+Jitendra K: So there are no embedding, no chunks, no vector store, just a JSON tree per document.
+
+147
+00:18:36.200 --> 00:18:43.409
+Jitendra K: During the retrieval phase, when the query arrived, LLM is shown the tree, titles, summaries.
+
+148
+00:18:43.690 --> 00:18:46.040
+Jitendra K: No, it is not going to have full text.
+
+149
+00:18:46.860 --> 00:18:51.939
+Jitendra K: And then the query will ask the reason about which nodes are likely to contain the answer.
+
+150
+00:18:52.190 --> 00:18:56.230
+Jitendra K: The page index performed the retrieval in two steps, generate a table of content tree.
+
+151
+00:18:56.400 --> 00:18:58.569
+Jitendra K: It's like you're reading a Word document.
+
+152
+00:18:59.570 --> 00:19:05.929
+Jitendra K: So when you're reading a Word document, what are you doing? You have some query in your mind, and then you click on the table of content.
+
+153
+00:19:06.260 --> 00:19:09.220
+Jitendra K: A table of content is a tree structure of indexes.
+
+154
+00:19:09.370 --> 00:19:12.740
+Jitendra K: That perform the reasoning-based retrieval throughout tree search.
+
+155
+00:19:13.190 --> 00:19:18.109
+Jitendra K: And then select a node, pull text, which has been pulled and passed through the generator.
+
+156
+00:19:18.450 --> 00:19:21.929
+Jitendra K: And then, it will also perform cross-reference
+
+157
+00:19:22.640 --> 00:19:26.470
+Jitendra K: Because retrieval is a reasoning loop, rather than a single similarity lookup.
+
+158
+00:19:26.630 --> 00:19:32.349
+Jitendra K: So when the models see that I need to refer to appendix, citations, or some other paragraphs.
+
+159
+00:19:32.930 --> 00:19:39.800
+Jitendra K: Then, inside a retriever node, it will navigate to the tree to pull that information from Appendix.
+
+160
+00:19:40.540 --> 00:19:42.370
+Jitendra K: And so in the page index.
+
+161
+00:19:43.110 --> 00:19:46.009
+Jitendra K: The query asks for the total value of
+
+162
+00:19:46.620 --> 00:19:52.530
+Jitendra K: These, linkages, and the main section only report that particular task.
+
+163
+00:19:54.360 --> 00:19:55.360
+Jitendra K: Nope.
+
+164
+00:19:58.450 --> 00:20:04.190
+Jitendra K: We'll go back to our example, where we have seen how to create this page index.
+
+165
+00:20:10.920 --> 00:20:13.109
+Jitendra K: So first, let's install this.
+
+166
+00:20:27.150 --> 00:20:30.200
+Jitendra K: Let me just create an API key.
+
+167
+00:21:11.040 --> 00:21:14.580
+Jitendra K: Let me invoke this… EPA.
+
+168
+00:21:15.400 --> 00:21:18.240
+Jitendra K: I will have to invoke OpenAI API as well.
+
+169
+00:21:42.240 --> 00:21:44.219
+Jitendra K: Okay, so I have this document.
+
+170
+00:21:48.890 --> 00:21:51.579
+Jitendra K: Which is talking about some deep-seq,
+
+171
+00:21:52.770 --> 00:21:57.550
+Jitendra K: Model and, the architectures, and some of the important
+
+172
+00:21:58.180 --> 00:22:03.140
+Jitendra K: building blocks of DeepSeek, and then it talks about these algorithms, right?
+
+173
+00:22:03.400 --> 00:22:08.030
+Jitendra K: So I'll simply go there, and then… Click on Assertion.
+
+174
+00:22:08.210 --> 00:22:09.840
+Jitendra K: It'll download this file.
+
+175
+00:22:10.210 --> 00:22:14.669
+Jitendra K: And then it will… Submit this file in my current directory.
+
+176
+00:22:15.020 --> 00:22:18.169
+Jitendra K: I will generate a page index tree structure.
+
+177
+00:22:21.830 --> 00:22:25.270
+Jitendra K: And then, I'm going to go into the reasoning step.
+
+178
+00:22:26.160 --> 00:22:33.320
+Jitendra K: So the design stamp that I'm doing is, I'm going to use LLM for tree search and identify the nodes that might contain the relevant context.
+
+179
+00:22:33.840 --> 00:22:38.970
+Jitendra K: So I'm going to first… Click on… A query?
+
+180
+00:22:40.870 --> 00:22:43.719
+Jitendra K: Okay, trees, not defined tree.
+
+181
+00:23:45.090 --> 00:23:47.840
+Jitendra K: Okay, this is working. Now let me explain the code.
+
+182
+00:24:04.960 --> 00:24:11.769
+Jitendra K: Okay, again, so we have got some dependencies on the packages, so we will start with the page index packages.
+
+183
+00:24:11.890 --> 00:24:14.270
+Jitendra K: That is what the first thing we have done here.
+
+184
+00:24:14.440 --> 00:24:18.510
+Jitendra K: To download that package, and then start working on the top of it.
+
+185
+00:24:21.590 --> 00:24:22.560
+Jitendra K: Nope.
+
+186
+00:24:30.420 --> 00:24:33.000
+Jitendra K: Let me show you the tree structure first.
+
+187
+00:24:33.380 --> 00:24:34.220
+Jitendra K: Okay.
+
+188
+00:24:34.600 --> 00:24:37.960
+Jitendra K: Now, what we are going to do is, so here…
+
+189
+00:24:38.700 --> 00:24:40.669
+Jitendra K: You can see that the E section
+
+190
+00:24:40.960 --> 00:24:43.369
+Jitendra K: has been converted into a JSON format.
+
+191
+00:24:44.770 --> 00:24:52.870
+Jitendra K: So the first and foremost thing, what I did is, I have… created… The…
+
+192
+00:24:53.950 --> 00:24:59.400
+Jitendra K: way to consume that API, and this is a server-side capability of PageIndex Client.
+
+193
+00:24:59.640 --> 00:25:02.570
+Jitendra K: So, page index client, which I'm using here.
+
+194
+00:25:02.940 --> 00:25:07.869
+Jitendra K: is the main class, which has been used to interact with PageIndex API, which is…
+
+195
+00:25:07.980 --> 00:25:10.140
+Jitendra K: where I'm going to submit a document.
+
+196
+00:25:10.550 --> 00:25:13.090
+Jitendra K: and fetch the tree in a JSON format.
+
+197
+00:25:13.270 --> 00:25:16.790
+Jitendra K: Then I've got util function that will look like,
+
+198
+00:25:17.470 --> 00:25:24.149
+Jitendra K: helper module that will provide a library, it will display a tree structure, remove the fields from node, and create a node mapping.
+
+199
+00:25:24.320 --> 00:25:26.640
+Jitendra K: And wrap the text for printing purpose.
+
+200
+00:25:27.150 --> 00:25:34.330
+Jitendra K: Then I'm creating my API key to manage this. So API key is, for demo purposes, so I'm just invoking the environment.
+
+201
+00:25:34.540 --> 00:25:41.990
+Jitendra K: page index client, I'm passing to initialize with the key. All the subsequent API call will be authorized with this key.
+
+202
+00:25:42.510 --> 00:25:47.569
+Jitendra K: Then I'm also importing the LLM OpenAI key as well, and
+
+203
+00:25:48.230 --> 00:25:50.750
+Jitendra K: I'm making the clock all asynchronous.
+
+204
+00:25:51.180 --> 00:25:55.110
+Jitendra K: So, so that I can able to await, later.
+
+205
+00:25:55.220 --> 00:26:00.320
+Jitendra K: So, create an asynchronous OpenAI client every call, and it is…
+
+206
+00:26:00.460 --> 00:26:04.379
+Jitendra K: Fine for demo, but not in production, because you need to reuse the client.
+
+207
+00:26:04.590 --> 00:26:11.979
+Jitendra K: So, here I'm passing the client complete create, which will be a user message to choose the model type.
+
+208
+00:26:12.260 --> 00:26:16.760
+Jitendra K: With the roles, and… Deterministic temperatures.
+
+209
+00:26:17.510 --> 00:26:20.460
+Jitendra K: And then, I have created a page index.
+
+210
+00:26:21.540 --> 00:26:26.530
+Jitendra K: by… loading this… document.
+
+211
+00:26:27.040 --> 00:26:31.320
+Jitendra K: Which is a technical document, storing this into my local directory.
+
+212
+00:26:31.860 --> 00:26:37.990
+Jitendra K: and get the downloaded PDF bytes, and the finally will be returned into binary mode.
+
+213
+00:26:38.220 --> 00:26:40.039
+Jitendra K: And the confirmation will be print.
+
+214
+00:26:40.670 --> 00:26:44.870
+Jitendra K: Now, I'm also looking for generating the tree structure.
+
+215
+00:26:45.140 --> 00:26:51.860
+Jitendra K: So I will say, is document retrieval ready? Check whether regeneration is complete. This is a blocking polling check.
+
+216
+00:26:52.610 --> 00:26:57.960
+Jitendra K: And, I would like to… call this function getTree.
+
+217
+00:26:58.550 --> 00:27:07.240
+Jitendra K: that will retrieve the tree parameters, indicate we want a summary of each node, likely to be generated by LLM, summarization steps at the backend.
+
+218
+00:27:07.610 --> 00:27:09.480
+Jitendra K: So this tree will store like this.
+
+219
+00:27:11.340 --> 00:27:13.200
+Jitendra K: So I've got experimental setup.
+
+220
+00:27:13.780 --> 00:27:15.000
+Jitendra K: So, section…
+
+221
+00:27:21.100 --> 00:27:23.169
+Jitendra K: E sections has been there.
+
+222
+00:27:23.530 --> 00:27:26.249
+Jitendra K: So I'm just taking reference to some of the sections.
+
+223
+00:27:26.460 --> 00:27:28.489
+Jitendra K: with a node ID, which is unique.
+
+224
+00:27:28.970 --> 00:27:32.249
+Jitendra K: You can see that this is what each section talks about.
+
+225
+00:27:33.590 --> 00:27:35.210
+Jitendra K: Now, this is our tree.
+
+226
+00:27:35.840 --> 00:27:37.859
+Jitendra K: But not in JSON format.
+
+227
+00:27:38.380 --> 00:27:42.199
+Jitendra K: So you can see that everything is there, with title, note, page index.
+
+228
+00:27:42.630 --> 00:27:45.019
+Jitendra K: And the summary, which is generated by LLM.
+
+229
+00:27:46.020 --> 00:27:53.649
+Jitendra K: So that means this algorithm may increase the amount of tokens that you're going to consume from LLM point of view, which is fine.
+
+230
+00:27:54.030 --> 00:28:00.509
+Jitendra K: Because as the… as we increase, go towards enterprise LLMs, they are…
+
+231
+00:28:01.360 --> 00:28:06.360
+Jitendra K: Using… we are paying for, Millions of tokens, right?
+
+232
+00:28:06.540 --> 00:28:14.160
+Jitendra K: At the end. So, I think this will not make much difference. So, once you create a data structure, and you store this tree.
+
+233
+00:28:14.500 --> 00:28:19.159
+Jitendra K: Your job is done, then you can just reuse it as many a time as you want.
+
+234
+00:28:19.500 --> 00:28:27.149
+Jitendra K: Now, I will generate a tree, and then reasoning over the tree. So I'm saying that import the JSON, run some query on the top of it.
+
+235
+00:28:27.630 --> 00:28:30.139
+Jitendra K: So I'm asking what is the conclusion in this document?
+
+236
+00:28:30.670 --> 00:28:37.160
+Jitendra K: So, basically, And then I'm pushing a natural language question, and then I'm copying the tree.
+
+237
+00:28:40.340 --> 00:28:44.069
+Jitendra K: Creating a shallow copy, and then utilities to remove.
+
+238
+00:28:44.720 --> 00:28:45.980
+Jitendra K: the field text.
+
+239
+00:28:47.090 --> 00:28:52.259
+Jitendra K: And then, I would like to represent the resulting object in a lightweight tree manner.
+
+240
+00:28:53.760 --> 00:28:58.690
+Jitendra K: Now I've got the… I've also got the nodemap, which will create a node mapping.
+
+241
+00:28:59.020 --> 00:29:01.760
+Jitendra K: flat dictionary mapping using Node ID.
+
+242
+00:29:02.510 --> 00:29:03.940
+Jitendra K: Including the text.
+
+243
+00:29:04.190 --> 00:29:06.289
+Jitendra K: Now, I will parse the LLM strings.
+
+244
+00:29:06.590 --> 00:29:09.120
+Jitendra K: output to our Python dictionary.
+
+245
+00:29:09.600 --> 00:29:14.330
+Jitendra K: And finally, I will generate the answer, which will be a node list.
+
+246
+00:29:14.650 --> 00:29:18.660
+Jitendra K: And using that node list, I will… extract
+
+247
+00:29:19.390 --> 00:29:23.930
+Jitendra K: And generate expression that'll fetch the text field for each relevant node.
+
+248
+00:29:24.140 --> 00:29:27.360
+Jitendra K: And the texts are joined with a double,
+
+249
+00:29:27.740 --> 00:29:30.329
+Jitendra K: Lines to form a single element content.
+
+250
+00:29:30.740 --> 00:29:37.840
+Jitendra K: So here you can see that this is a reasoning process. The question asks for the conclusion of this document. Typically, conclusions are found in a section.
+
+251
+00:29:38.050 --> 00:29:41.689
+Jitendra K: Explicit label as conclusion or section summarizing the findings.
+
+252
+00:29:41.880 --> 00:29:47.589
+Jitendra K: In this documentary, 006 is most appropriate.
+
+253
+00:29:47.890 --> 00:29:51.930
+Jitendra K: Which talks about primary sections for conclusion, additionally, the abstract.
+
+254
+00:29:52.310 --> 00:29:57.769
+Jitendra K: Also contains summary of the main finding and the conclusion. The decision section 34 also contains…
+
+255
+00:29:58.000 --> 00:30:01.399
+Jitendra K: Interpretative conclusion and takeaways.
+
+256
+00:30:01.620 --> 00:30:05.989
+Jitendra K: So it is going to combine all the sections, and then it says, we present a deep-sea
+
+257
+00:30:06.140 --> 00:30:09.800
+Jitendra K: R10 and Deep Sea Carbon, which rely on
+
+258
+00:30:09.910 --> 00:30:14.950
+Jitendra K: Large-scale reinforcement learning to incentivize models using behavior.
+
+259
+00:30:15.190 --> 00:30:18.629
+Jitendra K: Our results demonstrate the pre-training checkpoints, etc.
+
+260
+00:30:20.370 --> 00:30:25.070
+Jitendra K: So, this is a nice summary. Sixth conclusion has been made.
+
+261
+00:30:25.230 --> 00:30:28.580
+Jitendra K: And, including the future works and limitations.
+
+262
+00:30:28.960 --> 00:30:38.010
+Jitendra K: So you can see that if I'm going to run a simple vector search on the top of this LLM, on the top of this, with the help of vector store.
+
+263
+00:30:38.250 --> 00:30:41.010
+Jitendra K: It may or may not be that accurate.
+
+264
+00:30:41.430 --> 00:30:47.710
+Jitendra K: But here, I can see that it do a very thorough scan on all the notes, and then generate an answer by compiling.
+
+265
+00:30:48.080 --> 00:30:53.419
+Jitendra K: all the available… Data points, also called
+
+266
+00:30:54.070 --> 00:30:57.650
+Jitendra K: Chunks of paragraphs into the
+
+267
+00:30:59.770 --> 00:31:05.000
+Jitendra K: tree that I'm using to search. A tree is nothing but a document. Per document, I will have one tree.
+
+268
+00:31:06.390 --> 00:31:18.109
+Jitendra K: Now, I will generate the answer based upon the retrieval context, so it will say the query and the relevant context, and generate a precise answer. So this is what a precise answer looks like, proper bullet points, and proper…
+
+269
+00:31:18.610 --> 00:31:23.340
+Jitendra K: Summaration using… Few word summary, etc.
+
+270
+00:31:23.830 --> 00:31:28.660
+Jitendra K: So this is what… page index can do for you. So, page index is…
+
+271
+00:31:29.420 --> 00:31:32.120
+Jitendra K: One way that you can able to utilize
+
+272
+00:31:32.580 --> 00:31:41.530
+Jitendra K: the… and replace the rag… a vector rack, instead of using the vector-less rack, you can go… sorry, instead of using the vector rack, you can go with vector-less rack.
+
+273
+00:31:46.340 --> 00:31:54.010
+Jitendra K: It would be great if you can see a template, or… yeah, this is what I'm showing, right? This is a template of your document.
+
+274
+00:31:56.030 --> 00:31:57.399
+Jitendra K: This is a template.
+
+275
+00:32:03.580 --> 00:32:07.609
+Jitendra K: I'm going to share this notebook, so I want everybody to look into this.
+
+276
+00:32:09.470 --> 00:32:11.299
+Jitendra K: And let me know if it is…
+
+277
+00:32:12.380 --> 00:32:15.850
+Jitendra K: Clear, not clear, too hard to understand.
+
+278
+00:32:16.230 --> 00:32:17.530
+Jitendra K: Going over the top.
+
+279
+00:32:19.880 --> 00:32:22.009
+Jitendra K: Please let me know if there's any question.
+
+280
+00:32:26.780 --> 00:32:30.070
+Jitendra K: Graph will serve different purpose here, so graph…
+
+281
+00:32:30.500 --> 00:32:33.029
+Jitendra K: We are talking about ontology, right?
+
+282
+00:32:34.060 --> 00:32:39.829
+Jitendra K: And, if you have to compare page index with Ontology, we are doing slightly similar concept.
+
+283
+00:32:40.180 --> 00:32:42.449
+Jitendra K: But without using graph property.
+
+284
+00:32:43.050 --> 00:32:48.469
+Jitendra K: So, we are using graph property inside the generation part as well, but here we are not doing it.
+
+285
+00:32:51.210 --> 00:32:55.930
+Jitendra K: If we have to compare page index, with…
+
+286
+00:32:56.400 --> 00:32:58.379
+Jitendra K: GraphRag, they are a different approach.
+
+287
+00:32:59.660 --> 00:33:02.069
+Jitendra K: Alright, both are used for refining the…
+
+288
+00:33:02.280 --> 00:33:05.109
+Jitendra K: Limitation of NAVE and agentic rack.
+
+289
+00:33:06.760 --> 00:33:13.820
+Jitendra K: Now, all the difference is… GraphRag will use graph property of retrieval and traversal.
+
+290
+00:33:14.650 --> 00:33:17.469
+Jitendra K: Right? So, that's the only difference, I would say.
+
+291
+00:33:18.330 --> 00:33:24.289
+Jitendra K: But here, we are managing the tree. It's not a graph, it's a tree, right? We are saying it's a complete tree.
+
+292
+00:33:25.340 --> 00:33:28.470
+Jitendra K: So we are using a property of… Search.
+
+293
+00:33:29.970 --> 00:33:37.390
+Jitendra K: So, the strength of GraphFrag, I would say, is it is useful for cross-document entity linkage, but here we are talking about single document.
+
+294
+00:33:45.120 --> 00:33:49.489
+Jitendra K: So, page index, I would say it's a reasoning-centric, and GraphFrag is index-centric.
+
+295
+00:33:50.200 --> 00:33:57.400
+Jitendra K: So, the… main idea here is that data structures. So, graphs use, knowledge graphs.
+
+296
+00:33:57.920 --> 00:34:03.219
+Jitendra K: graph networks and, page index use, JSON, hierarchical JSON, in a form of a tree.
+
+297
+00:34:03.750 --> 00:34:11.840
+Jitendra K: So, I would say graph write is still costly as compared to page index. Retrieval mechanism, also different. Graph use…
+
+298
+00:34:12.699 --> 00:34:17.660
+Jitendra K: Global search, so it will drive entity subgroups for global search queries.
+
+299
+00:34:17.989 --> 00:34:24.909
+Jitendra K: And then, page index, use top to down. Prune structures. Decide which notes are relevant, and extract the full document.
+
+300
+00:34:25.310 --> 00:34:27.989
+Jitendra K: From those which is having those nodes.
+
+301
+00:34:28.540 --> 00:34:34.979
+Jitendra K: Right? So the query mechanism will reason over the tree structure, but in graph, we require traversal algorithms.
+
+302
+00:34:35.239 --> 00:34:41.709
+Jitendra K: Which will consume a subgraph and summaries, and pre-computed committees, linkage, and retrieve the original chunks from it.
+
+303
+00:34:57.290 --> 00:35:01.799
+Jitendra K: How will it work if we have more number of documents? So, for each document, you have to create one tree.
+
+304
+00:35:02.010 --> 00:35:04.309
+Jitendra K: We'll take one example for that as well.
+
+305
+00:35:12.230 --> 00:35:18.139
+Jitendra K: So I will, just… I will wait for 5 more minutes, just run this example, and let me know if there's any…
+
+306
+00:35:18.430 --> 00:35:25.549
+Jitendra K: Questions around… The same. If not, then we can proceed with the… another demo.
+
+307
+00:35:39.370 --> 00:35:42.870
+Jitendra K: Latency-wise, I would say VectorDB will be faster.
+
+308
+00:35:43.860 --> 00:35:45.629
+Jitendra K: As compared to page index.
+
+309
+00:36:00.720 --> 00:36:05.399
+Jitendra K: Can we use both vector and vector?
+
+310
+00:36:06.730 --> 00:36:10.780
+Jitendra K: What do you mean? You mean to… I need to create another example with vector, or…
+
+311
+00:36:35.850 --> 00:36:38.310
+Jitendra K: Yeah, we'll take some example on that.
+
+312
+00:36:40.990 --> 00:36:48.550
+Jitendra K: Yeah, first, run this example, and like, you know, everybody should, in the class should be on the same page, so first, let's respect others as well.
+
+313
+00:36:51.160 --> 00:36:57.170
+Jitendra K: So, I will spend… please spend 5 more minutes, and then let me know if this example is clear.
+
+314
+00:36:59.730 --> 00:37:00.550
+Jitendra K: Yeah.
+
+315
+00:37:14.770 --> 00:37:21.719
+Jitendra K: We'll take another example, don't worry about it, but let's… everybody should be on the same page. I think few peoples are…
+
+316
+00:37:22.000 --> 00:37:29.290
+Jitendra K: far behind in the class, I can see their silence are… Not self-explanatory.
+
+317
+00:38:46.530 --> 00:38:50.339
+Jitendra K: This is a source code for this algorithm. Please go through it if you want.
+
+318
+00:39:04.440 --> 00:39:07.700
+Jitendra K: No, we have talked about, right? So, here we are not…
+
+319
+00:39:09.660 --> 00:39:15.539
+Jitendra K: We are not here, doing two things simultaneously. We are saying very clearly, I'm saying very clearly, that
+
+320
+00:39:16.190 --> 00:39:22.290
+Jitendra K: The purpose of vector index… Vector-less rag is to improve the overall search.
+
+321
+00:39:26.540 --> 00:39:30.570
+Jitendra K: That means it is one of the ways that you can be able to improve your response.
+
+322
+00:39:31.090 --> 00:39:35.090
+Jitendra K: So why should you run two pipelines to generate the same response?
+
+323
+00:39:47.640 --> 00:39:54.780
+Jitendra K: Maybe it will be very soon that, people… industry will stop using vector stores.
+
+324
+00:39:59.170 --> 00:40:04.389
+Jitendra K: Does vector less mean the page index does not? Yeah, that is what I'm saying.
+
+325
+00:40:05.000 --> 00:40:06.510
+Jitendra K: It does not use embedding.
+
+326
+00:40:08.810 --> 00:40:14.959
+Jitendra K: I think you have joined late, so I have given the answer. So, it is using a JSON-like structure.
+
+327
+00:40:15.480 --> 00:40:18.049
+Jitendra K: But I eliminated summarization as well.
+
+328
+00:40:18.670 --> 00:40:23.410
+Jitendra K: So you can see the title, conclusion, summary, All are stored here.
+
+329
+00:40:23.560 --> 00:40:25.050
+Jitendra K: The summary is there, right?
+
+330
+00:40:25.800 --> 00:40:27.730
+Jitendra K: So if you're reading the summary.
+
+331
+00:40:28.110 --> 00:40:32.810
+Jitendra K: And using powerful context to manage these summaries.
+
+332
+00:40:34.190 --> 00:40:41.600
+Jitendra K: You will be able to identify the question, intent, and then you retrieve only that node.
+
+333
+00:40:41.960 --> 00:40:45.449
+Jitendra K: Which will have that summary, right? So that is what we are doing here.
+
+334
+00:40:45.930 --> 00:40:48.650
+Jitendra K: The contextual search has been improved a lot.
+
+335
+00:40:49.380 --> 00:40:52.679
+Jitendra K: Which is very, very limited with vector stores.
+
+336
+00:41:02.080 --> 00:41:05.560
+Jitendra K: So you do not need a VectorDB and an embedding model.
+
+337
+00:41:05.890 --> 00:41:07.909
+Jitendra K: That is the whole purpose of Vectorless.
+
+338
+00:41:09.330 --> 00:41:13.950
+Jitendra K: I'm getting processing document, okay, so… if you're getting this error…
+
+339
+00:41:22.620 --> 00:41:26.160
+Jitendra K: Are you passing your own API key for both, or…
+
+340
+00:41:30.840 --> 00:41:31.660
+Jitendra K: Okay.
+
+341
+00:41:32.840 --> 00:41:38.559
+Jitendra K: So, in which line you're getting the error? The same line earlier that I'm getting, right? In this 9…
+
+342
+00:41:39.390 --> 00:41:40.530
+Jitendra K: 9 cell.
+
+343
+00:41:48.410 --> 00:41:51.479
+Jitendra K: Okay, I think, can you please try it again?
+
+344
+00:41:52.870 --> 00:42:00.420
+Jitendra K: This part, you can ignore, you can run this part, and I'll remove the else condition. Can you show me the error, what error you're getting?
+
+345
+00:42:02.860 --> 00:42:05.300
+Jitendra K: I'll remove the other condition, so…
+
+346
+00:42:11.210 --> 00:42:13.410
+Jitendra K: So maybe I have to save this first.
+
+347
+00:42:28.500 --> 00:42:31.640
+Jitendra K: Just use this condition and let me know if there's an error.
+
+348
+00:43:03.170 --> 00:43:08.530
+Jitendra K: Tree is not defined, but you're not running here. They should run first.
+
+349
+00:43:11.320 --> 00:43:16.400
+Jitendra K: So, if it is executing, is this cell executing properly without any error?
+
+350
+00:43:17.880 --> 00:43:20.080
+Jitendra K: So, why tree is not invoking?
+
+351
+00:43:24.790 --> 00:43:27.439
+Jitendra K: So, tree should be there if you're invoking it.
+
+352
+00:43:33.320 --> 00:43:35.280
+Jitendra K: How many of you are facing the same error?
+
+353
+00:43:50.080 --> 00:43:56.240
+Jitendra K: Okay, I think Prince C… It will execute…
+
+354
+00:44:05.480 --> 00:44:10.380
+Jitendra K: Yeah, just try with… no, no, it's not… mandatory.
+
+355
+00:44:12.890 --> 00:44:14.399
+Jitendra K: But I think it should be.
+
+356
+00:44:21.250 --> 00:44:27.399
+Jitendra K: Hmm, I think, the API that you're hitting have some limit, I think, per user.
+
+357
+00:44:31.330 --> 00:44:37.280
+Jitendra K: Can we try with simple document? Just try to download some 2- or 3-page document, and then we try this.
+
+358
+00:44:41.700 --> 00:44:42.810
+Jitendra K: Okay, great.
+
+359
+00:45:34.150 --> 00:45:37.439
+Jitendra K: That is the whole module, so…
+
+360
+00:45:37.920 --> 00:45:42.480
+Jitendra K: You can refer to this code, what exactly they are doing to construct.
+
+361
+00:45:43.500 --> 00:45:44.940
+Jitendra K: There's the whole module.
+
+362
+00:45:46.090 --> 00:45:48.919
+Jitendra K: You can go through this module and see the examples.
+
+363
+00:45:56.780 --> 00:46:03.990
+Jitendra K: Generally, it will be having TOC table of content, and it will use table of content to generalize.
+
+364
+00:46:24.450 --> 00:46:29.199
+Jitendra K: So everybody's able to run now the previous example. Shall we move on to the next example?
+
+365
+00:46:42.660 --> 00:46:47.500
+Jitendra K: So this way, we are going to run this now. Let me install…
+
+366
+00:46:59.170 --> 00:47:01.250
+Jitendra K: This is installing the packages.
+
+367
+00:48:50.380 --> 00:48:53.359
+Jitendra K: Just added one section to check the latencies.
+
+368
+00:48:56.020 --> 00:48:58.479
+Jitendra K: And now I'm using multiple documents.
+
+369
+00:48:59.390 --> 00:49:03.339
+Jitendra K: And then we'll create a separate node structure in the form of a hash.
+
+370
+00:49:04.340 --> 00:49:07.289
+Jitendra K: Then I will build all the tree in parallel.
+
+371
+00:49:08.870 --> 00:49:14.360
+Jitendra K: Metadata… And whether your PHG?
+
+372
+00:53:56.760 --> 00:53:58.390
+Jitendra K: I think it is working.
+
+373
+00:54:40.870 --> 00:54:44.450
+Jitendra K: Okay, limit has reached, so that means it's a paid…
+
+374
+00:54:45.060 --> 00:54:51.700
+Jitendra K: account, so we cannot run it for multiple documents. That's the… Issue here…
+
+375
+00:54:55.620 --> 00:54:57.210
+Jitendra K: What is the rate limit?
+
+376
+00:55:21.500 --> 00:55:28.840
+Jitendra K: 86, 36… 9, 180 minus 8, and then 15.
+
+377
+00:55:29.990 --> 00:55:31.069
+Jitendra K: Both crews.
+
+378
+00:55:32.880 --> 00:55:34.770
+Jitendra K: With 13 credits is there.
+
+379
+00:55:35.360 --> 00:55:36.989
+Jitendra K: Go change my account.
+
+380
+00:57:49.450 --> 00:57:53.779
+Jitendra K: So in this example, we are taking a few documents, so maybe…
+
+381
+00:57:55.240 --> 00:57:57.990
+Jitendra K: 200 credit, I don't know what is the…
+
+382
+00:57:58.090 --> 00:58:00.650
+Jitendra K: Tokens, one credit is equal to.
+
+383
+00:58:14.770 --> 00:58:23.710
+Jitendra K: Okay, so let it be run. We'll go to the code. So the code, is again very similar to what we have done earlier, but here we are using some more packages.
+
+384
+00:58:24.010 --> 00:58:31.450
+Jitendra K: Including… Concurrent thread pools that will manage each document as one thread.
+
+385
+00:58:31.710 --> 00:58:37.680
+Jitendra K: then, this code I'm just using, secret keys from Google Collab.
+
+386
+00:58:38.390 --> 00:58:42.669
+Jitendra K: And loading it at a runtime. And then I have a data loader class.
+
+387
+00:58:42.820 --> 00:58:49.480
+Jitendra K: That will simply… a data class record per call metrics, and then I have a method called add.
+
+388
+00:58:49.790 --> 00:58:54.210
+Jitendra K: That was… that will let us easily some starts across multiple calls.
+
+389
+00:58:54.420 --> 00:58:58.029
+Jitendra K: Which will be used for aggregating the total cost, latency of the pipeline.
+
+390
+00:58:58.340 --> 00:59:03.629
+Jitendra K: Then I've got call LLM, that means I'm using asynchronous LLM calls.
+
+391
+00:59:04.120 --> 00:59:06.609
+Jitendra K: That will send a prompt to the chosen model.
+
+392
+00:59:06.950 --> 00:59:16.339
+Jitendra K: And optionally forcing the JSN output. So it will measure, the exact token's count from the API response. It will compute a cost and return both the
+
+393
+00:59:16.620 --> 00:59:23.639
+Jitendra K: answer text and the call status object. So every LLM call in the notebook goes through this function, so everything is tracked.
+
+394
+00:59:24.070 --> 00:59:28.459
+Jitendra K: Then I've got a corpus, very simple corpus, 3 PDF.
+
+395
+00:59:29.250 --> 00:59:31.809
+Jitendra K: With varying land, all technical in nature.
+
+396
+00:59:32.550 --> 00:59:35.189
+Jitendra K: So, I will create a tree structure, cache.
+
+397
+00:59:35.450 --> 00:59:37.469
+Jitendra K: Which will use a hash maps.
+
+398
+00:59:37.780 --> 00:59:43.610
+Jitendra K: It'll use SHA256, file contents using a key to cache.
+
+399
+00:59:43.980 --> 00:59:48.050
+Jitendra K: So that if PDF changes, the tree is rebuild automatically.
+
+400
+00:59:48.830 --> 00:59:51.720
+Jitendra K: Then I'm downloading a file.
+
+401
+00:59:52.570 --> 00:59:58.049
+Jitendra K: Using this URL, which I have passed in the previous call.
+
+402
+00:59:58.330 --> 01:00:04.059
+Jitendra K: Then I will load the pre, and I will download the PDF, submit it to a page index.
+
+403
+01:00:04.490 --> 01:00:11.919
+Jitendra K: Until the tree is ready, and fetch the tree, pickles the whole payload, pickle, serializing of all payloads.
+
+404
+01:00:12.180 --> 01:00:14.810
+Jitendra K: And then run the cache which has been generated.
+
+405
+01:00:16.060 --> 01:00:22.470
+Jitendra K: Then I'm also using a thread pool executor here, so, which is basically…
+
+406
+01:00:22.810 --> 01:00:29.050
+Jitendra K: to load the tree for all three documents in parallel, the resulting document will create a dictionary map.
+
+407
+01:00:29.360 --> 01:00:35.899
+Jitendra K: Using a dockkey tool, loaded the payload. And it will enrich entries with titles and dockkey for later use.
+
+408
+01:00:38.350 --> 01:00:41.660
+Jitendra K: So, this is done, I think. Corpus is ready.
+
+409
+01:00:41.780 --> 01:00:45.029
+Jitendra K: So we have injected a document in a hierarchical structure.
+
+410
+01:00:45.270 --> 01:00:51.530
+Jitendra K: Now, we'll use a cross-document reasoning router. First, let me see… These are the document.
+
+411
+01:00:51.710 --> 01:00:54.700
+Jitendra K: Now, we'll use a cross-document reasoning router.
+
+412
+01:00:54.880 --> 01:01:02.679
+Jitendra K: So, because each document has to go through different search paths with each node IDs, which is nothing but a document ID itself.
+
+413
+01:01:03.030 --> 01:01:10.419
+Jitendra K: Then I will create a summary containing each document title and a list of the first 25 notes. This will keep our outer prompt small.
+
+414
+01:01:10.620 --> 01:01:14.450
+Jitendra K: Then I've got a router query. Router query suggested…
+
+415
+01:01:15.420 --> 01:01:22.700
+Jitendra K: that you're a corpus router, given a question on corpus overview, decide which documents are most likely to contain the answers. The query, I will expect.
+
+416
+01:01:23.050 --> 01:01:25.129
+Jitendra K: I will have a key of document.
+
+417
+01:01:25.400 --> 01:01:29.569
+Jitendra K: Which is in, again, in list format.
+
+418
+01:01:30.440 --> 01:01:41.640
+Jitendra K: Now, I'm ready to get the prompt, so I'll pass the first prompt, given a question and a tree of summaries, ask that I'm to select all the notes likely to contain the answers, and after retrieval.
+
+419
+01:01:41.890 --> 01:01:49.630
+Jitendra K: The text of these notes, check whether the text references other than sections, including appendix, reference, cross-references.
+
+420
+01:01:50.450 --> 01:01:54.399
+Jitendra K: Can we find all the details in that?
+
+421
+01:01:55.520 --> 01:02:01.399
+Jitendra K: So, this is what it is doing, and then it will generate a retrieval mechanism.
+
+422
+01:02:02.150 --> 01:02:06.540
+Jitendra K: So I'm just using a system prompt to write this, and then some helper function.
+
+423
+01:02:06.840 --> 01:02:14.189
+Jitendra K: to capture the keywords from the query, and then match it with my node IDs or node map.
+
+424
+01:02:15.730 --> 01:02:20.609
+Jitendra K: Now I will pass on the first… So, let me run end-to-end.
+
+425
+01:02:20.960 --> 01:02:22.840
+Jitendra K: Page index pipeline now.
+
+426
+01:02:23.430 --> 01:02:28.399
+Jitendra K: So, in this pipeline, I'm creating a simple class called rag response.
+
+427
+01:02:29.040 --> 01:02:30.960
+Jitendra K: Which will result…
+
+428
+01:02:31.290 --> 01:02:35.480
+Jitendra K: the data and routes the query to one or more documents. If the router returns nothing.
+
+429
+01:02:35.610 --> 01:02:38.110
+Jitendra K: It'll fall back to the searching order document.
+
+430
+01:02:45.600 --> 01:02:57.939
+Jitendra K: Now, here I'm comparing this with vector store. I mean, I think somebody is asking, can we compare both? So here I'm comparing the vector rack baseline. So I'm keeping it as a baseline.
+
+431
+01:02:58.220 --> 01:03:05.830
+Jitendra K: So I'm using a text-emitting 3 large model with a dimension of very large, 3076, chunking of 500 within 10% overlap.
+
+432
+01:03:06.110 --> 01:03:08.580
+Jitendra K: And then creating a vector store.
+
+433
+01:03:09.010 --> 01:03:11.859
+Jitendra K: So I created a vector index on 389 chunks.
+
+434
+01:03:12.890 --> 01:03:16.339
+Jitendra K: Now, the latency can compare which one is faster as well.
+
+435
+01:03:16.940 --> 01:03:18.769
+Jitendra K: So I'm creating an emitting batch.
+
+436
+01:03:19.330 --> 01:03:22.600
+Jitendra K: Cause the asynchronous open API call.
+
+437
+01:03:22.980 --> 01:03:25.730
+Jitendra K: And then, written a numpy matrix.
+
+438
+01:03:26.290 --> 01:03:28.119
+Jitendra K: Which is nothing but my biddings.
+
+439
+01:03:28.660 --> 01:03:36.190
+Jitendra K: So, I split the token into 500 tokens with 550%… sorry, 10% overlap, which is 50 tokens per… Say.
+
+440
+01:03:36.830 --> 01:03:43.679
+Jitendra K: Then, I'm going to build indexes on the top of it as well, so this is the fast index that I've created, a flat index.
+
+441
+01:03:44.440 --> 01:03:50.259
+Jitendra K: Now I'm calling… The vectorRackQuery function, which will embed the queries.
+
+442
+01:03:50.600 --> 01:03:52.380
+Jitendra K: And search the FAS index.
+
+443
+01:03:52.640 --> 01:03:55.590
+Jitendra K: And then retrieve the top K chunks.
+
+444
+01:03:55.790 --> 01:03:59.350
+Jitendra K: Build a context and generate answers, and return the exact result.
+
+445
+01:04:01.790 --> 01:04:10.679
+Jitendra K: Now, this is the evaluation hardness, a simple LLM as a judge prompt that scored faithfulness, answer relevance, and context precision on a scale of 1 to 5, for both methods.
+
+446
+01:04:12.550 --> 01:04:17.470
+Jitendra K: Now, these are the questions that I'm going to ask, some benchmark questions, so I will say…
+
+447
+01:04:19.420 --> 01:04:21.340
+Jitendra K: Run both models one by one.
+
+448
+01:04:26.660 --> 01:04:29.829
+Jitendra K: There's no model, I would say, no method I'm talking about.
+
+449
+01:04:30.920 --> 01:04:35.419
+Jitendra K: Call both methods one by one, and let's see what is the result.
+
+450
+01:04:38.270 --> 01:04:40.030
+Jitendra K: So it'll gather all the stats?
+
+451
+01:05:01.720 --> 01:05:05.620
+Jitendra K: Still, $4, but I don't know why it is reaching the limit.
+
+452
+01:05:08.660 --> 01:05:10.030
+Jitendra K: Oh, 4.1.
+
+453
+01:05:10.990 --> 01:05:12.829
+Jitendra K: Let me go with photo.
+
+454
+01:05:40.070 --> 01:05:43.399
+Jitendra K: Where's a judge model… church models…
+
+455
+01:05:44.720 --> 01:05:47.000
+Jitendra K: This model is a default model.
+
+456
+01:10:42.590 --> 01:10:44.509
+Jitendra K: Yeah, I'm just pasting a link.
+
+457
+01:12:25.980 --> 01:12:28.540
+Jitendra K: Great, it was completed.
+
+458
+01:12:29.130 --> 01:12:31.730
+Jitendra K: Now we'll create a dashboard result.
+
+459
+01:12:33.380 --> 01:12:42.320
+Jitendra K: Okay, so if you look into the faithfulness… relevancy… Context precision, average latency, Average cost?
+
+460
+01:12:42.520 --> 01:12:43.870
+Jitendra K: An average token.
+
+461
+01:12:44.200 --> 01:12:45.950
+Jitendra K: So there are different metrics.
+
+462
+01:12:46.420 --> 01:12:50.130
+Jitendra K: So I will say faithfulness has been improved with the help of Page Index.
+
+463
+01:12:50.490 --> 01:12:52.310
+Jitendra K: As compared to Vector Store.
+
+464
+01:12:52.770 --> 01:12:54.989
+Jitendra K: Answer elements is almost same.
+
+465
+01:12:56.140 --> 01:13:00.370
+Jitendra K: Context precision has also improved much, 4.167.
+
+466
+01:13:00.600 --> 01:13:03.220
+Jitendra K: Vector store, still have 4.
+
+467
+01:13:03.960 --> 01:13:09.419
+Jitendra K: Average latency is high for page index because of our limitations in info and all.
+
+468
+01:13:09.810 --> 01:13:13.189
+Jitendra K: Well, VectorStore is all local, so this is fine.
+
+469
+01:13:13.760 --> 01:13:20.980
+Jitendra K: Average cost is slightly higher, I would say 3 times as compared to vector.
+
+470
+01:13:21.240 --> 01:13:25.320
+Jitendra K: And then the average token consumption is also high, because the cost is high.
+
+471
+01:13:25.480 --> 01:13:40.500
+Jitendra K: But not that high. I will not say this is drastically high, or relatively high. It is quite similar. I mean, just a fraction of sense. If you're generating a… if you're running this vector store, if you're not getting the right answer.
+
+472
+01:13:41.060 --> 01:13:51.959
+Jitendra K: you will run it multiple times, right? So it will read through the same latencies and the same response. But overall, I would say the winner is PageIndex, which improved the faithfulness, context, and
+
+473
+01:13:52.590 --> 01:13:57.339
+Jitendra K: The precision, not relevance, but at least the precision has been improved.
+
+474
+01:13:59.840 --> 01:14:04.899
+Jitendra K: I can compare the bar graph… So, context precision.
+
+475
+01:14:05.150 --> 01:14:09.170
+Jitendra K: Is improved, answer relevance is as it is, faithfulness is improved.
+
+476
+01:14:10.820 --> 01:14:12.529
+Jitendra K: Power question heat map.
+
+477
+01:14:12.810 --> 01:14:14.609
+Jitendra K: This is what you're getting.
+
+478
+01:14:15.750 --> 01:14:17.870
+Jitendra K: So the answer has been improved.
+
+479
+01:14:19.280 --> 01:14:23.080
+Jitendra K: on… this side of Rose.
+
+480
+01:14:24.030 --> 01:14:26.890
+Jitendra K: There, you can see some… Twist.
+
+481
+01:14:27.650 --> 01:14:32.879
+Jitendra K: But here, overall, if I have to compare, this is… page index is better.
+
+482
+01:14:34.050 --> 01:14:35.790
+Jitendra K: Quality versus cost.
+
+483
+01:14:35.990 --> 01:14:44.550
+Jitendra K: I think… If we compare the page index versus vector rag,
+
+484
+01:14:45.030 --> 01:14:50.099
+Jitendra K: the cost is slightly high as compared to Vector Ag, but
+
+485
+01:14:50.790 --> 01:14:53.079
+Jitendra K: The quality has been improved overall.
+
+486
+01:15:03.570 --> 01:15:05.650
+Jitendra K: Yeah, just some more QHX.
+
+487
+01:15:06.380 --> 01:15:07.430
+Jitendra K: Nothing else.
+
+488
+01:15:07.910 --> 01:15:12.440
+Jitendra K: So this is, what… the,
+
+489
+01:15:15.580 --> 01:15:28.129
+Jitendra K: index page can do for you, and this is one of the good algorithms, I would say, Page Index will do for you. So, Page Index is one of the recent tech stack in Gen AI.
+
+490
+01:15:28.730 --> 01:15:34.200
+Jitendra K: use cases where the organization are talking about using
+
+491
+01:15:34.540 --> 01:15:38.790
+Jitendra K: vector-less rack to improve the quality of response and making
+
+492
+01:15:38.990 --> 01:15:41.550
+Jitendra K: Sure that you will have a proper…
+
+493
+01:15:41.930 --> 01:15:45.650
+Jitendra K: Comprehension on faithfulness and precision, including.
+
+494
+01:15:45.940 --> 01:15:47.000
+Jitendra K: Recall.
+
+495
+01:15:47.400 --> 01:15:52.439
+Jitendra K: So that is the whole experimentation, right, we have conducted just now to prove the point that
+
+496
+01:15:52.940 --> 01:15:55.460
+Jitendra K: If you're working on some…
+
+497
+01:15:58.320 --> 01:16:05.170
+Jitendra K: very, very difficult documents, very complex document, and RAG is not able to help you to
+
+498
+01:16:05.570 --> 01:16:09.149
+Jitendra K: get the right answer every time, so you can try pageant access.
+
+499
+01:16:09.420 --> 01:16:10.670
+Jitendra K: On the top of it.
+
+500
+01:16:13.420 --> 01:16:14.980
+Jitendra K: So, any question on this?
+
+501
+01:16:15.160 --> 01:16:17.860
+Jitendra K: Any… any comments, any questions?
+
+502
+01:16:23.440 --> 01:16:27.130
+Jitendra K: So you can look into this article as well, from Microsoft.
+
+503
+01:16:28.010 --> 01:16:32.560
+Jitendra K: So once you… once these, become commercial.
+
+504
+01:16:33.000 --> 01:16:36.289
+Jitendra K: Every cloud will start using their solution around it.
+
+505
+01:16:37.030 --> 01:16:41.680
+Jitendra K: So, I think Microsoft Azure will have this… Submission…
+
+506
+01:16:41.840 --> 01:16:47.020
+Jitendra K: Similarly, Google Vertex will start using it, and then you'll see Amazon follow the same.
+
+507
+01:16:50.110 --> 01:16:56.040
+Jitendra K: And it's just a recent… Tagstack, launched in the month of March, so still…
+
+508
+01:16:56.930 --> 01:17:02.259
+Jitendra K: End of the March, I would say. So, still, it's a very nascent phase, and…
+
+509
+01:17:04.080 --> 01:17:09.530
+Jitendra K: it can go up to that. But what if… what are you going to save, if you're not getting the right answer?
+
+510
+01:17:09.880 --> 01:17:13.340
+Jitendra K: 7 times, or even if it is 10 times… Oh, yeah.
+
+511
+01:17:13.950 --> 01:17:21.039
+Jitendra K: What are you going to do with your production ready rack if a user itself is saying, I don't want this, because it is not giving the right answer?
+
+512
+01:17:28.060 --> 01:17:32.840
+Jitendra K: It's all about, Creating a robust application.
+
+513
+01:17:33.220 --> 01:17:35.050
+Jitendra K: It's not about saving the cost.
+
+514
+01:17:39.330 --> 01:17:42.289
+Jitendra K: Cost is there. Of course, cost is there.
+
+515
+01:17:43.270 --> 01:17:44.030
+Jitendra K: Word.
+
+516
+01:17:44.360 --> 01:17:46.819
+Jitendra K: What are you going to develop,
+
+517
+01:17:47.160 --> 01:17:50.399
+Jitendra K: If user itself is not trusting your application.
+
+518
+01:17:52.960 --> 01:17:59.130
+Jitendra K: Yeah, with compute, it can reduce… it can reduce the latency, for sure. So right now, we are using a basic version.
+
+519
+01:17:59.390 --> 01:18:07.620
+Jitendra K: Free version, right? So with… You can add vertical scaling criteria so that it can become more powerful.
+
+520
+01:18:09.940 --> 01:18:16.450
+Jitendra K: And that's the reason, cloud vendors start using this solution immediately after the launch.
+
+521
+01:18:38.130 --> 01:18:40.790
+Jitendra K: So, any more question on this, guys? Anything…
+
+522
+01:18:41.900 --> 01:18:46.240
+Jitendra K: So the conclusion is, you can still go with vector rack.
+
+523
+01:18:47.080 --> 01:18:49.760
+Jitendra K: But if you find an opportunity to improve
+
+524
+01:18:49.910 --> 01:18:52.250
+Jitendra K: Any further, go with page index.
+
+525
+01:18:52.450 --> 01:18:53.680
+Jitendra K: Vectorless Rec.
+
+526
+01:18:54.820 --> 01:19:01.520
+Jitendra K: Right? So that means… We have learned one more way of improving the overall rack pipelines.
+
+527
+01:19:04.450 --> 01:19:10.409
+Jitendra K: Autonomous system with real-time low latency constraint will be better to use vector list drive and page index.
+
+528
+01:19:11.440 --> 01:19:18.410
+Jitendra K: Yeah, that's correct. So, wherever you are using RAG, you have an option to use vector-less now.
+
+529
+01:19:19.410 --> 01:19:23.630
+Jitendra K: But you have to be judicious where you're going to use and why.
+
+530
+01:19:24.090 --> 01:19:28.660
+Jitendra K: First, try to benchmark your performance of your Vector rug?
+
+531
+01:19:28.920 --> 01:19:32.690
+Jitendra K: If your vector rack is doing good, then why are you going to replace, first of all?
+
+532
+01:19:36.700 --> 01:19:41.720
+Jitendra K: Like… So, always create a baseline on your approach.
+
+533
+01:19:42.510 --> 01:19:51.100
+Jitendra K: So, this is your baseline. Number of queries… Number of right answers.
+
+534
+01:19:53.840 --> 01:19:56.550
+Jitendra K: As per us human, or SMEs?
+
+535
+01:19:57.120 --> 01:19:59.060
+Jitendra K: And number of queries that you've run.
+
+536
+01:20:03.080 --> 01:20:09.950
+Jitendra K: If you're getting 80% 85% with your vector rag.
+
+537
+01:20:10.370 --> 01:20:12.319
+Jitendra K: Then why are you investing on…
+
+538
+01:20:14.340 --> 01:20:17.930
+Jitendra K: Vectorless to improve it to by 2% or 5%.
+
+539
+01:20:20.190 --> 01:20:24.690
+Jitendra K: Right? That is your business… call. I cannot comment on that.
+
+540
+01:20:24.930 --> 01:20:29.100
+Jitendra K: What kind of budget you have, what kind of users you have, what kind of…
+
+541
+01:20:29.660 --> 01:20:33.369
+Jitendra K: process you're into, so I have no idea about it, so…
+
+542
+01:20:33.480 --> 01:20:36.559
+Jitendra K: It depends upon your budget, it depends upon so many factors.
+
+543
+01:20:37.510 --> 01:20:38.330
+Jitendra K: So…
+
+544
+01:20:39.170 --> 01:20:46.269
+Jitendra K: But yeah, this is one way that you can improve your rack, right? So, I have given you that answer, how to improve your rack.
+
+545
+01:20:54.710 --> 01:20:57.080
+Jitendra K: Is it clear to everyone now?
+
+546
+01:21:15.640 --> 01:21:21.470
+Jitendra K: Alright, thank you. So, we will move on to the new topic, basically.
+
+547
+01:21:22.090 --> 01:21:28.010
+Jitendra K: We will take a break, and then we'll come back, and then we'll start with a new topic. We'll continue with design patterns.
+
+548
+01:21:28.490 --> 01:21:32.279
+Jitendra K: And we have several design patterns to consider as a part of
+
+549
+01:21:33.970 --> 01:21:38.029
+Jitendra K: This tutorial… we'll continue with this tutorial in the next week as well.
+
+550
+01:21:38.200 --> 01:21:41.780
+Jitendra K: They have 14 design patterns that you will compare.
+
+551
+01:21:42.270 --> 01:21:48.280
+Jitendra K: Which include, single-agent pattern to multi-agentic patterns.
+
+552
+01:21:48.580 --> 01:21:53.569
+Jitendra K: And, some bit of… Hierarchical and routers as well.
+
+553
+01:21:57.460 --> 01:22:03.900
+Jitendra K: And then we'll compare each of them in terms of, the methodologies and… designs.
+
+554
+01:22:10.850 --> 01:22:21.379
+Jitendra K: Just that we need to take a monthly subscription, there's no pay and use option for page index. Yeah, I don't have that idea, but yes, it could be.
+
+555
+01:22:22.060 --> 01:22:28.580
+Jitendra K: So… They might be collaborating with cloud and other vendors as well, right?
+
+556
+01:22:28.970 --> 01:22:34.060
+Jitendra K: So, this is just at an ascent level, and they might have
+
+557
+01:22:35.290 --> 01:22:40.699
+Jitendra K: Some, you know, solution in… maybe in a few months or few weeks from now.
+
+558
+01:22:44.140 --> 01:22:47.859
+Jitendra K: About the, commercial part of it, how to use it.
+
+559
+01:22:50.520 --> 01:22:57.930
+Jitendra K: But, I'm damn sure we can be able to host this in our local as well. All we require is to maintain this hash, nothing else, nothing fancy.
+
+560
+01:22:58.250 --> 01:23:02.959
+Jitendra K: We're just maintaining a JSON, right? So to maintain a JSON, why you required a cloud, first of all?
+
+561
+01:23:06.250 --> 01:23:16.199
+Jitendra K: So you can create your own containers and, your own hash lips to maintain this as well. And maybe you can develop your own infra.
+
+562
+01:23:18.060 --> 01:23:19.839
+Jitendra K: Yeah, thanks, Ashigant, so…
+
+563
+01:23:20.310 --> 01:23:26.489
+Jitendra K: Yeah, so that is where we have to work towards some new concept. I would like to talk about open claw as well.
+
+564
+01:23:26.820 --> 01:23:33.829
+Jitendra K: But maybe we'll talk in some more time, open claw and skills, agentic skills.
+
+565
+01:23:34.220 --> 01:23:38.770
+Jitendra K: from Claude, so I have to… Give those tutorials as well.
+
+566
+01:23:39.110 --> 01:23:43.279
+Jitendra K: But first, let's finish the basic ones, and then we move on to some more advanced.
+
+567
+01:23:45.790 --> 01:23:49.840
+Jitendra K: So I think majority of the class want to use RAG.
+
+568
+01:23:50.010 --> 01:23:54.129
+Jitendra K: So let's go with convention, and then we'll explore more topics.
+
+569
+01:23:54.980 --> 01:23:57.899
+Jitendra K: So first, let's try to finish RAG.
+
+570
+01:23:58.280 --> 01:24:00.469
+Jitendra K: So 90% of the strain will be…
+
+571
+01:24:00.940 --> 01:24:02.830
+Jitendra K: Okay with that, that they have…
+
+572
+01:24:03.390 --> 01:24:05.610
+Jitendra K: achieve at least the knowledge of RAG.
+
+573
+01:24:05.860 --> 01:24:11.789
+Jitendra K: Advanced topic, if somebody is not able to understand, they can even at least listen, and then…
+
+574
+01:24:12.130 --> 01:24:14.289
+Jitendra K: Use it for futuristic purpose.
+
+575
+01:24:16.050 --> 01:24:27.029
+Jitendra K: So, we will revisit, again, Pafts, LoRAS, QLORAS, again, with some more advanced technique, like GRPU as well. So, we have some more topics to be covered, right? But…
+
+576
+01:24:27.170 --> 01:24:31.880
+Jitendra K: Considering the fact that Let's not go… Very complex.
+
+577
+01:24:32.770 --> 01:24:39.760
+Jitendra K: try to ensure that we have only the students who are motivated enough to learn. They should be focused on this.
+
+578
+01:24:42.770 --> 01:24:49.699
+Jitendra K: All right, so let's take a break of 20 minutes. Once we come back, then we'll start with our design patterns.
+
+579
+01:24:49.890 --> 01:24:53.320
+Jitendra K: And then we'll cover maybe 2 or 3 design patterns today.
+
+580
+01:24:53.980 --> 01:24:58.239
+Jitendra K: And, we'll take some example to understand each of… each one of them.
+
+581
+01:24:58.450 --> 01:25:06.290
+Jitendra K: So, design pattern is one of the important, considerations when we have to Deal with, the…
+
+582
+01:25:06.420 --> 01:25:12.850
+Jitendra K: Design… sorry, when we have to deal with the architectural footprint, of enterprise solutions.
+
+583
+01:25:13.020 --> 01:25:18.480
+Jitendra K: So when you're dealing with any enterprise solution, the first thing you have to discuss with your
+
+584
+01:25:19.300 --> 01:25:27.860
+Jitendra K: within your organization is what kind of architecture you're using to deploy your agents, right? So deployment of the agent will follow some architectural patterns.
+
+585
+01:25:28.190 --> 01:25:35.339
+Jitendra K: I'm using supervisory pattern in my organization. Maybe you may go with adapter or network.
+
+586
+01:25:35.770 --> 01:25:42.750
+Jitendra K: Right? So, it depends upon different types of users, what kind of use cases you're trying to solve.
+
+587
+01:25:42.930 --> 01:25:45.100
+Jitendra K: Every design pattern will have their own
+
+588
+01:25:45.240 --> 01:25:47.800
+Jitendra K: pros and cons. So we'll compare it, and then…
+
+589
+01:25:48.200 --> 01:25:51.180
+Jitendra K: I will leave it up to you what you would like to use and why.
+
+590
+01:25:52.420 --> 01:25:58.830
+Jitendra K: So let's take a quick break, and then we'll come back, we'll start with the design pattern, and then, we'll conclude 2 or 3.
+
+591
+01:25:58.970 --> 01:26:03.140
+Jitendra K: And then we'll take some more hands-on examples on the top of it.
+
+592
+01:26:03.290 --> 01:26:07.360
+Jitendra K: So let's take a 20 minutes break. I will initiate a timer.
+
+593
+01:26:09.320 --> 01:26:10.399
+Jitendra K: Thank you, guys.
+
+594
+01:46:24.720 --> 01:46:28.050
+Jitendra K: Hi guys, I hope you're back. Can we have a quick confirmation?
+
+595
+01:46:34.670 --> 01:46:41.589
+Jitendra K: All right, thank you. So we'll continue with our sec- primary topic, which is design patterns.
+
+596
+01:46:42.040 --> 01:46:46.910
+Jitendra K: That we need to utilize for creating our enterprise-level agents.
+
+597
+01:46:47.500 --> 01:46:51.219
+Jitendra K: Now, design patterns is very similar to
+
+598
+01:46:51.400 --> 01:46:56.269
+Jitendra K: the software design patterns, right? So, first, we have to understand why we require design patterns.
+
+599
+01:46:56.960 --> 01:46:59.649
+Jitendra K: So, design patterns is…
+
+600
+01:46:59.900 --> 01:47:09.879
+Jitendra K: gonna be one of the whole architecture that you're going to build, and try to break down several parameters in terms of reasoning.
+
+601
+01:47:10.180 --> 01:47:15.530
+Jitendra K: And, the best practices that you need to invoke when you're trying to generate those agents.
+
+602
+01:47:15.910 --> 01:47:20.040
+Jitendra K: So, one of the important tasks thing that you have to consider the end pattern is…
+
+603
+01:47:20.420 --> 01:47:23.500
+Jitendra K: When you're performing a very recursive task.
+
+604
+01:47:23.990 --> 01:47:29.079
+Jitendra K: Let's say question and answer improvement, question and answer system, creating a chatbot.
+
+605
+01:47:29.230 --> 01:47:35.770
+Jitendra K: Which will improve the answer. So that means, if you're going to use the patterns like React, Agent.
+
+606
+01:47:36.530 --> 01:47:43.280
+Jitendra K: per query, It will try to use multiple loops to improve the answers.
+
+607
+01:47:43.930 --> 01:47:52.680
+Jitendra K: Right? So… so that's the whole idea of using the design patterns. That means… You need to perform several…
+
+608
+01:47:54.020 --> 01:47:57.380
+Jitendra K: Ways to improve the response over a period of time.
+
+609
+01:47:58.380 --> 01:48:06.059
+Jitendra K: Right? So basically, the idea is we need to have scaling, we need to require cost variance, we require to reduce latencies.
+
+610
+01:48:06.230 --> 01:48:12.500
+Jitendra K: And we need to use some patterns to utilize the product-ready, or production-ready agents.
+
+611
+01:48:14.040 --> 01:48:18.299
+Jitendra K: So when you're building an agent from the scratch, you need to consider architectures.
+
+612
+01:48:18.960 --> 01:48:29.080
+Jitendra K: So what are the anatomy of agents? So, we already know that when we talk about agents, agents have different components. The main component is your LLM API, which is the brain's reasoning core of
+
+613
+01:48:29.430 --> 01:48:31.970
+Jitendra K: Or the frontier model of your planning?
+
+614
+01:48:32.760 --> 01:48:38.209
+Jitendra K: And, this is the main module that you're going to use throughout your agentic life cycles.
+
+615
+01:48:38.590 --> 01:48:44.500
+Jitendra K: Tools, which required function call, API, RAG retrievals, code interpretations.
+
+616
+01:48:44.850 --> 01:48:47.519
+Jitendra K: Database calls, etc.
+
+617
+01:48:47.690 --> 01:48:53.000
+Jitendra K: or even your vector stores will be a part of your tool, which you are going to host in MCP.
+
+618
+01:48:53.710 --> 01:49:00.299
+Jitendra K: The memory management is very important. We haven't talked about memory management yet. We'll cover MAM0.
+
+619
+01:49:00.790 --> 01:49:06.449
+Jitendra K: In the upcoming tutorials, but memory is of two types, basically.
+
+620
+01:49:06.910 --> 01:49:09.250
+Jitendra K: When we talk about long-term and short-term.
+
+621
+01:49:09.740 --> 01:49:14.489
+Jitendra K: Which can be further split into episodal or procedural memories.
+
+622
+01:49:14.770 --> 01:49:21.510
+Jitendra K: So to manage that, you required some sort of design patterns. The planners need to decompose your goals.
+
+623
+01:49:21.910 --> 01:49:25.820
+Jitendra K: create a sequence of DAGs, and, maybe…
+
+624
+01:49:26.560 --> 01:49:29.730
+Jitendra K: Implicit and explicit instructions to write.
+
+625
+01:49:29.910 --> 01:49:33.420
+Jitendra K: Those plans and execute it comprehensively.
+
+626
+01:49:33.720 --> 01:49:40.010
+Jitendra K: You're also required to apply some input-output validation using guardrails, enforcing the policies.
+
+627
+01:49:40.340 --> 01:49:48.810
+Jitendra K: make sure that there's no PIA-sensitive information, etc, should be a part of your guardrail system. So when you're combining all this
+
+628
+01:49:50.050 --> 01:49:54.530
+Jitendra K: scenarios, he required a… Patterns to follow.
+
+629
+01:49:55.840 --> 01:49:58.079
+Jitendra K: So, we'll cover some of the
+
+630
+01:49:58.200 --> 01:50:07.830
+Jitendra K: important design patterns in today's tutorial. So they are broadly come… Up with 4 sub… main types.
+
+631
+01:50:08.220 --> 01:50:12.550
+Jitendra K: Which includes single agent, multi-agent reflection and search, and the workflow.
+
+632
+01:50:13.240 --> 01:50:20.909
+Jitendra K: So, when we talk about single agent, we will use React, plan, and execute, reboot, LLM compiler, cell discovery patterns.
+
+633
+01:50:21.160 --> 01:50:28.270
+Jitendra K: For multi-agentic system, we required supervisory patterns, network patterns, hierarchical teams, or router handoffs.
+
+634
+01:50:28.720 --> 01:50:35.489
+Jitendra K: For reflection and improving the search result, you need basic reflection, tree of thoughts, and LATs package.
+
+635
+01:50:35.660 --> 01:50:38.400
+Jitendra K: Workflow creation in required deterministic workflow.
+
+636
+01:50:38.580 --> 01:50:43.420
+Jitendra K: So, let's try to cover single agent, or single agent patterns first.
+
+637
+01:50:45.160 --> 01:50:50.149
+Jitendra K: Now, the question that you need to ask yourself before you're choosing any pattern is.
+
+638
+01:50:50.550 --> 01:50:52.739
+Jitendra K: You have to ask these 5 questions.
+
+639
+01:50:53.040 --> 01:50:55.739
+Jitendra K: The first question is, is the task deterministic?
+
+640
+01:50:56.160 --> 01:50:57.970
+Jitendra K: That means, is it following a step?
+
+641
+01:50:58.130 --> 01:51:00.449
+Jitendra K: By step, with the known criterias.
+
+642
+01:51:00.790 --> 01:51:03.300
+Jitendra K: If the steps are known and stable.
+
+643
+01:51:03.480 --> 01:51:07.060
+Jitendra K: You can go with workflow. You do not require even agents.
+
+644
+01:51:07.500 --> 01:51:12.280
+Jitendra K: to create, right? Because agent will use LLM in a loop.
+
+645
+01:51:13.100 --> 01:51:16.079
+Jitendra K: So, your condition and everything is fixed.
+
+646
+01:51:16.180 --> 01:51:19.450
+Jitendra K: While you required agent to be created, you can go with workflows.
+
+647
+01:51:20.600 --> 01:51:25.430
+Jitendra K: The second question that you can ask is answer verifiable, if the output can be checked.
+
+648
+01:51:25.960 --> 01:51:27.690
+Jitendra K: Based upon user input.
+
+649
+01:51:28.320 --> 01:51:36.170
+Jitendra K: Then you can go with reflection or light shine pattern, which will improve the response after getting the feedback.
+
+650
+01:51:37.130 --> 01:51:43.630
+Jitendra K: Are the subtitles can be done and executed in a parallelized manner, so they are independent steps.
+
+651
+01:51:44.090 --> 01:51:51.979
+Jitendra K: Then you can go with, review and react patterns, and then you can follow systematic procedures of React
+
+652
+01:51:52.290 --> 01:51:54.269
+Jitendra K: Which include plan and execute.
+
+653
+01:51:55.930 --> 01:51:57.320
+Jitendra K: You need to also ask…
+
+654
+01:51:57.490 --> 01:52:02.939
+Jitendra K: I have a clear understanding how wide is your search space, how many documents, how many candidates.
+
+655
+01:52:03.420 --> 01:52:09.760
+Jitendra K: How many references that you're going to make when you're dealing with The questions from the user.
+
+656
+01:52:10.300 --> 01:52:14.159
+Jitendra K: What should be the latency of your whole app?
+
+657
+01:52:14.430 --> 01:52:18.490
+Jitendra K: When you're designing such sort of conversational AI modules.
+
+658
+01:52:19.250 --> 01:52:22.979
+Jitendra K: So, let's try to cover the single agentic pattern, and we will cover React.
+
+659
+01:52:24.110 --> 01:52:28.670
+Jitendra K: review LLM compiler and cell discovery patterns as a part of this.
+
+660
+01:52:29.390 --> 01:52:35.179
+Jitendra K: Now, if you have to talk about React pattern, so I think we have already discussed this, but let's try to look
+
+661
+01:52:35.380 --> 01:52:41.869
+Jitendra K: this again. So when I say REACT pattern, REACT stands for Reasoning and Action.
+
+662
+01:52:42.400 --> 01:52:44.450
+Jitendra K: So, it's a… one of the…
+
+663
+01:52:44.670 --> 01:52:47.559
+Jitendra K: Design pattern, which talks about
+
+664
+01:52:48.680 --> 01:52:53.730
+Jitendra K: How the agent will improve by… iterative reasoning.
+
+665
+01:52:53.970 --> 01:52:58.800
+Jitendra K: Right? So basically, when I say react, it is one of the…
+
+666
+01:52:59.780 --> 01:53:04.700
+Jitendra K: Prompting technique that improved agent reliability by looping through 3-step.
+
+667
+01:53:05.090 --> 01:53:08.399
+Jitendra K: Which is thought, action, and observation.
+
+668
+01:53:08.860 --> 01:53:13.899
+Jitendra K: During the thought process, the LLM will break down a task, analyze what needs to be done.
+
+669
+01:53:14.480 --> 01:53:20.520
+Jitendra K: During the action phase, it will use a tool, search engine, And, set off…
+
+670
+01:53:21.030 --> 01:53:25.850
+Jitendra K: User-defined functions and database or vector store enact on the environment.
+
+671
+01:53:26.260 --> 01:53:34.169
+Jitendra K: Observation, the agent will observe the result of the action, then cycle back to the new thought to determine if the more steps are needed.
+
+672
+01:53:34.880 --> 01:53:40.509
+Jitendra K: So, building this type of… Agent from the scratch.
+
+673
+01:53:41.090 --> 01:53:47.359
+Jitendra K: you need to use React Loop using a system prompt that describes the cycle. So this will be a part of your system prompt.
+
+674
+01:53:47.990 --> 01:53:48.810
+Jitendra K: Right?
+
+675
+01:53:49.050 --> 01:53:55.580
+Jitendra K: So you can implement this with the help of a line graph, a system-by-step-by-step approach. We define the agentic state.
+
+676
+01:53:55.770 --> 01:53:58.180
+Jitendra K: Setting up the tools and building the graph node.
+
+677
+01:53:58.390 --> 01:54:03.350
+Jitendra K: And then you can use an instruction to… promote, react.
+
+678
+01:54:04.020 --> 01:54:06.559
+Jitendra K: So, Langraph, by default, following React.
+
+679
+01:54:07.200 --> 01:54:13.330
+Jitendra K: But… In your system prompt, when you're writing the instruction, you can follow the procedure as well.
+
+680
+01:54:13.800 --> 01:54:21.699
+Jitendra K: So, using React, you can be able to use, persistent and memory to manage long-running tasks and tool interaction as well.
+
+681
+01:54:22.290 --> 01:54:26.040
+Jitendra K: The react pattern… Will help you to…
+
+682
+01:54:26.470 --> 01:54:30.300
+Jitendra K: Work on different types of personas.
+
+683
+01:54:30.790 --> 01:54:34.430
+Jitendra K: And, you can able to build… quite a good…
+
+684
+01:54:35.440 --> 01:54:39.359
+Jitendra K: Amount of, control over your agent's reasoning.
+
+685
+01:54:39.510 --> 01:54:41.900
+Jitendra K: Capability, specifically, when you're dealing with…
+
+686
+01:54:42.260 --> 01:54:52.399
+Jitendra K: single agent, or, single agent or multi-agent system, right? So, the idea, core idea of React is very simple. You need to use
+
+687
+01:54:52.780 --> 01:54:56.199
+Jitendra K: some… Thought, action, observation, loop.
+
+688
+01:54:56.970 --> 01:55:03.049
+Jitendra K: And tool integration, and natural language interfaces to tool, and structure… generating a structure responses.
+
+689
+01:55:04.930 --> 01:55:08.430
+Jitendra K: So, first and foremost thing,
+
+690
+01:55:08.750 --> 01:55:10.960
+Jitendra K: First, you are going to develop this.
+
+691
+01:55:11.400 --> 01:55:20.289
+Jitendra K: You have an implementation framework, some foundational setup, tool integration, system management, and then you move on to the deployment strategy.
+
+692
+01:55:20.400 --> 01:55:23.420
+Jitendra K: Which will be focused on improving the responses.
+
+693
+01:55:23.670 --> 01:55:26.420
+Jitendra K: Based upon these prompt parameters.
+
+694
+01:55:27.120 --> 01:55:34.439
+Jitendra K: So, again, agentic memory is… for a stack.
+
+695
+01:55:35.100 --> 01:55:39.429
+Jitendra K: You have a context window, you have a short-term, you have a long-term, you have an external knowledge.
+
+696
+01:55:39.700 --> 01:55:46.069
+Jitendra K: So the four-core operation, every memory system will do a read-write operation, update and forget operation as well.
+
+697
+01:55:46.340 --> 01:55:50.959
+Jitendra K: So when memory flows at runtime on every single run.
+
+698
+01:55:51.380 --> 01:55:55.919
+Jitendra K: What need to be stored, what need to be deleted, will be decided by this React pattern as well.
+
+699
+01:55:56.240 --> 01:56:03.370
+Jitendra K: So it's a very common pattern, which has been used to… perform…
+
+700
+01:56:03.640 --> 01:56:10.039
+Jitendra K: Orchestration between the agent, as well as creating a single agent at a core using system prompt.
+
+701
+01:56:11.350 --> 01:56:16.940
+Jitendra K: So that's the whole idea for React. So React is… Advance.
+
+702
+01:56:17.050 --> 01:56:19.740
+Jitendra K: But, yes, you can use,
+
+703
+01:56:20.320 --> 01:56:26.790
+Jitendra K: React for writing basic prompts as well, right? That means if you're writing an instruction prompt.
+
+704
+01:56:26.900 --> 01:56:28.150
+Jitendra K: You can go with it.
+
+705
+01:56:45.160 --> 01:56:47.790
+Jitendra K: Let me show you one diagram.
+
+706
+01:56:50.320 --> 01:56:55.259
+Jitendra K: So, this is what I'm saying. So, a React pattern will typically look like this.
+
+707
+01:56:58.050 --> 01:57:01.959
+Jitendra K: When you're using a memory comprehension along with action space.
+
+708
+01:57:02.440 --> 01:57:07.899
+Jitendra K: So with that, you mean, I mean to say that you can able to use React for…
+
+709
+01:57:08.160 --> 01:57:16.680
+Jitendra K: Doing a lot of complex task breakdown, managing the memories, as well as go step-by-step in terms of,
+
+710
+01:57:16.870 --> 01:57:24.069
+Jitendra K: The frameworks that you are going to reutilize for writing the Different types of agents.
+
+711
+01:57:46.220 --> 01:57:50.370
+Jitendra K: Okay, so we'll… what we'll do is, we'll take one example to understand React.
+
+712
+01:57:50.910 --> 01:57:56.100
+Jitendra K: And then we'll build a very simple design pattern, with a simple example to understand.
+
+713
+01:57:56.260 --> 01:57:59.960
+Jitendra K: What this, type of design pattern is capable of doing.
+
+714
+01:58:00.240 --> 01:58:06.180
+Jitendra K: And, once we run this, then we'll compare with the other design pattern as we progress.
+
+715
+01:58:06.320 --> 01:58:12.380
+Jitendra K: So first, we will take one simple example, create a very simple React style of Deploying the agents.
+
+716
+01:58:12.540 --> 01:58:18.179
+Jitendra K: And then, once we have a comprehensive understanding what exactly this pattern does.
+
+717
+01:58:18.300 --> 01:58:23.990
+Jitendra K: And we can be able to use. Now, one of the important considerations is You need to…
+
+718
+01:58:24.150 --> 01:58:27.239
+Jitendra K: Be very specific about the limits.
+
+719
+01:58:27.620 --> 01:58:34.210
+Jitendra K: So when you're using, when you're using a loop, it has to be…
+
+720
+01:58:34.880 --> 01:58:37.939
+Jitendra K: deterministic. That means you should have a condition
+
+721
+01:58:38.380 --> 01:58:41.049
+Jitendra K: To reiterate with the maximum number of time.
+
+722
+01:58:41.510 --> 01:58:48.369
+Jitendra K: Otherwise, this will exhaust your tokens, and it will give you a hard time to benchmark this pattern as well.
+
+723
+01:58:49.630 --> 01:58:59.710
+Jitendra K: So the whole idea of this is, you need to loop, repeat until model emit final answer, and this will be your cost function.
+
+724
+01:59:00.710 --> 01:59:05.290
+Jitendra K: That you're going to use. So let's say if I'm going to run this React pattern to improve the precision.
+
+725
+01:59:06.110 --> 01:59:07.400
+Jitendra K: at the rate K.
+
+726
+01:59:08.050 --> 01:59:11.380
+Jitendra K: So I can run the… this React pattern.
+
+727
+01:59:11.520 --> 01:59:14.650
+Jitendra K: Until I achieve the satisfactory precision at the rate K.
+
+728
+01:59:15.250 --> 01:59:23.050
+Jitendra K: Or, I may have a human in the loop, where the human is performing some task with the help of my system prompt and some agents.
+
+729
+01:59:23.180 --> 01:59:29.709
+Jitendra K: And then he's, rephrasing his questions and doing some task on the top of it.
+
+730
+01:59:29.810 --> 01:59:37.650
+Jitendra K: So my pattern that I'm using should be accommodative in terms of, Changing the course of actions.
+
+731
+01:59:37.760 --> 01:59:39.590
+Jitendra K: When the user feedback
+
+732
+01:59:39.880 --> 01:59:45.909
+Jitendra K: is not aligned with this objective, right? So that means you can define a predefined objective, or you can
+
+733
+01:59:46.450 --> 01:59:52.179
+Jitendra K: go with a runtime objective as well, based upon the user feedbacks. User feedbacks are nothing but…
+
+734
+01:59:52.530 --> 02:00:01.460
+Jitendra K: When you're communicating with ChatGPT, you might have writing and rephrasing every time when you're dealing with that.
+
+735
+02:00:01.650 --> 02:00:08.119
+Jitendra K: That's the exact scenario where your React button will, work towards achieving the goal.
+
+736
+02:00:08.720 --> 02:00:11.499
+Jitendra K: Right, so let's take an example to understand this.
+
+737
+02:00:12.030 --> 02:00:13.370
+Jitendra K: React pattern.
+
+738
+02:00:13.550 --> 02:00:17.019
+Jitendra K: So what sort of libraries, what sort of functions, what sort of…
+
+739
+02:00:17.890 --> 02:00:21.670
+Jitendra K: Python classes that we require this to implement.
+
+740
+02:01:16.590 --> 02:01:18.889
+Jitendra K: So let me import some modules.
+
+741
+02:01:24.780 --> 02:01:27.079
+Jitendra K: ChromaDB is not found.
+
+742
+02:03:16.260 --> 02:03:20.330
+Jitendra K: Now I'll pass on the configurations, and then start injecting some document.
+
+743
+02:03:23.110 --> 02:03:24.860
+Jitendra K: This is a configuration.
+
+744
+02:03:25.230 --> 02:03:28.660
+Jitendra K: I will start injecting the PDF to ChromaDB.
+
+745
+02:03:29.860 --> 02:03:32.540
+Jitendra K: And defining the chunking strategies.
+
+746
+02:03:32.940 --> 02:03:39.109
+Jitendra K: And then create some tools that I'm going to use inside the… Action search space.
+
+747
+02:03:43.550 --> 02:03:45.559
+Jitendra K: Now I'm going to register the tools.
+
+748
+02:03:46.850 --> 02:03:51.259
+Jitendra K: I will go the code again, so let me first finish the run.
+
+749
+02:03:51.990 --> 02:03:54.100
+Jitendra K: So I will use a tool registry.
+
+750
+02:03:55.940 --> 02:03:57.520
+Jitendra K: This is the tools…
+
+751
+02:04:08.950 --> 02:04:11.589
+Jitendra K: Then I will write a React loop.
+
+752
+02:06:00.600 --> 02:06:06.630
+Jitendra K: Okay, so let me… Also, explain what we are trying to achieve with this example.
+
+753
+02:06:06.980 --> 02:06:10.619
+Jitendra K: And, what are we trying to?
+
+754
+02:06:10.730 --> 02:06:12.000
+Jitendra K: deliver here.
+
+755
+02:06:12.670 --> 02:06:16.960
+Jitendra K: So the core idea of React is… Simple enough.
+
+756
+02:06:17.530 --> 02:06:21.940
+Jitendra K: The first and foremost thing we have… our…
+
+757
+02:06:23.430 --> 02:06:28.709
+Jitendra K: So this is a single agent, no agents involved here, no other agent involved here.
+
+758
+02:06:28.980 --> 02:06:33.349
+Jitendra K: This is an example of a single agent. So what I did is, I just configured the…
+
+759
+02:06:33.670 --> 02:06:39.049
+Jitendra K: parameters to run the model after uploading some of the modules from Python.
+
+760
+02:06:39.410 --> 02:06:43.780
+Jitendra K: Including Chrome RTP setup and utility functions to register my embeddings.
+
+761
+02:06:44.190 --> 02:06:51.169
+Jitendra K: Then I'm declaring that which model I'm going to use, so I'm going with, cheap and fast supporting tool calling.
+
+762
+02:06:51.540 --> 02:06:55.609
+Jitendra K: Then this is the document, famous document about attention is all you need.
+
+763
+02:06:55.830 --> 02:06:59.459
+Jitendra K: And then the injection pipelines invoke, which will…
+
+764
+02:07:00.020 --> 02:07:02.479
+Jitendra K: I'll create a dump of this document.
+
+765
+02:07:02.840 --> 02:07:06.780
+Jitendra K: And then create a data dictionary, here in my local.
+
+766
+02:07:06.980 --> 02:07:12.400
+Jitendra K: And then… Downloader… PDF file by HTTP.
+
+767
+02:07:12.580 --> 02:07:17.179
+Jitendra K: And then extract the pages per file, open the PDF with
+
+768
+02:07:17.500 --> 02:07:23.009
+Jitendra K: primary PDF functions, enumerate to all the, pages.
+
+769
+02:07:23.520 --> 02:07:27.610
+Jitendra K: And then extracted, return a list of page number and text tuples.
+
+770
+02:07:29.050 --> 02:07:33.959
+Jitendra K: I will start with chunking a simple fixed-size sliding window chunker.
+
+771
+02:07:34.200 --> 02:07:46.029
+Jitendra K: Start with 0, takes us up a string of land size. After each chunk, the next start position is end overlap, meaning the last overlap character of the previous chunks are repetitive at the beginning of the next chunk.
+
+772
+02:07:46.200 --> 02:07:50.540
+Jitendra K: So it'll reach a stop condition when and reaches the text.
+
+773
+02:07:52.250 --> 02:07:55.029
+Jitendra K: I will also create build or load collection.
+
+774
+02:07:55.330 --> 02:07:59.430
+Jitendra K: This is the main injection function. It will create it in a ChromaDB.
+
+775
+02:07:59.680 --> 02:08:02.930
+Jitendra K: Selection object with a persistent storage.
+
+776
+02:08:03.360 --> 02:08:09.009
+Jitendra K: And I will store it as an index. And the type of index that I'm implementing is HNSW.
+
+777
+02:08:09.270 --> 02:08:12.910
+Jitendra K: Which will use cosine similarity on the document collection.
+
+778
+02:08:15.170 --> 02:08:22.899
+Jitendra K: If PDF is not external link, local… yes, that's correct. So, I'm downloading it by using the URL.
+
+779
+02:08:23.270 --> 02:08:25.899
+Jitendra K: You can directly upload it as well.
+
+780
+02:08:26.380 --> 02:08:30.300
+Jitendra K: Now, I'm creating a collection If the collection already exists.
+
+781
+02:08:30.900 --> 02:08:35.340
+Jitendra K: I will delete it, and then use,
+
+782
+02:08:36.050 --> 02:08:40.140
+Jitendra K: the configuration, which will tell Chroma to use cosine for similarity.
+
+783
+02:08:40.470 --> 02:08:43.580
+Jitendra K: And I changed W index to be built on the top of it.
+
+784
+02:08:43.800 --> 02:08:46.810
+Jitendra K: So if collection count is greater than zero.
+
+785
+02:08:47.390 --> 02:08:52.399
+Jitendra K: If the chunk is already existing, we skip this injection and return immediately.
+
+786
+02:08:53.180 --> 02:09:04.169
+Jitendra K: then… I will run… the… parsing logic, I will add document in batches to avoid hit rate limit.
+
+787
+02:09:04.300 --> 02:09:07.759
+Jitendra K: or memory spike, I will add create collection.add.
+
+788
+02:09:08.040 --> 02:09:09.850
+Jitendra K: Functionality to run this.
+
+789
+02:09:10.540 --> 02:09:14.870
+Jitendra K: Then I'm creating a tools which will help me to
+
+790
+02:09:15.340 --> 02:09:23.789
+Jitendra K: do some tasks. So I'm setting up runtime promo selection, so the tool function can access it without global state and import time.
+
+791
+02:09:24.210 --> 02:09:29.100
+Jitendra K: And then I'm creating a search query that will search over this metadata.
+
+792
+02:09:29.430 --> 02:09:34.859
+Jitendra K: Using, the user queries and determine the cosine distance.
+
+793
+02:09:35.880 --> 02:09:39.950
+Jitendra K: Based upon my query parameters. So, keyword search will be my term.
+
+794
+02:09:41.450 --> 02:09:48.779
+Jitendra K: Which will use Chroma to get where the document filter contains a list of substring matches on the top of document text.
+
+795
+02:09:49.140 --> 02:09:53.359
+Jitendra K: And then I've got some functions to calculate numerical
+
+796
+02:09:53.810 --> 02:09:58.729
+Jitendra K: values, if I have to do some bit of calculation, a safe arithmetic evaluation.
+
+797
+02:09:59.110 --> 02:10:03.259
+Jitendra K: Then I'm registering this tool, so this is a tool rice tree that I'm using.
+
+798
+02:10:03.610 --> 02:10:11.480
+Jitendra K: The tool registry will map the tool name as a string to actual function, which will be used by React Loop to execute the calls.
+
+799
+02:10:11.910 --> 02:10:14.750
+Jitendra K: The tool schema is a JSON, which will describe
+
+800
+02:10:18.660 --> 02:10:21.109
+Jitendra K: So here I'm describing the function.
+
+801
+02:10:21.660 --> 02:10:25.270
+Jitendra K: In the format expected by OpenAI tool parameter.
+
+802
+02:10:25.510 --> 02:10:29.380
+Jitendra K: And that is where LLMC, when it will decide
+
+803
+02:10:29.720 --> 02:10:32.950
+Jitendra K: Which tool to be called, and description is crucial.
+
+804
+02:10:34.560 --> 02:10:37.210
+Jitendra K: Because it will read this description.
+
+805
+02:10:37.630 --> 02:10:42.240
+Jitendra K: Accordingly, it will decide what tool needs to be called at runtime.
+
+806
+02:10:42.660 --> 02:10:49.890
+Jitendra K: Then I've got a React loop. So in the React loop, I'm using a system prompt. A system message sets the agent personality and guardrails.
+
+807
+02:10:50.240 --> 02:10:55.479
+Jitendra K: We will encourage to retrieve citation, honest answers, and concise answers.
+
+808
+02:10:55.830 --> 02:11:00.149
+Jitendra K: that I'm running this… react… in a loop.
+
+809
+02:11:01.270 --> 02:11:08.730
+Jitendra K: And then using, the parameter, including query and… OpenAI configurations.
+
+810
+02:11:10.510 --> 02:11:13.819
+Jitendra K: And keeping the verbose flag to be true, so that I can debug.
+
+811
+02:11:14.080 --> 02:11:16.840
+Jitendra K: What is happening inside the, this loop?
+
+812
+02:11:17.330 --> 02:11:21.180
+Jitendra K: then I would like to initiate a conversation in a loop
+
+813
+02:11:22.780 --> 02:11:25.760
+Jitendra K: And I'll define a maximum steps, React step.
+
+814
+02:11:26.020 --> 02:11:28.609
+Jitendra K: So that my token should not be overflow.
+
+815
+02:11:29.110 --> 02:11:32.509
+Jitendra K: And should not, use extensively.
+
+816
+02:11:33.060 --> 02:11:36.389
+Jitendra K: And, this is the condition that I'm passing.
+
+817
+02:11:36.650 --> 02:11:45.330
+Jitendra K: And then, based upon that, I will call the LLM with the current conversation and the tool definition. Tool choice auto means I'm keeping
+
+818
+02:11:45.970 --> 02:11:49.820
+Jitendra K: is perfectly… To be decided by the model.
+
+819
+02:11:50.060 --> 02:11:54.869
+Jitendra K: And then temperature, I'm keeping it non-deterministic… sorry, deterministic. That means zero.
+
+820
+02:11:55.320 --> 02:12:00.350
+Jitendra K: Then, I have a branch, Model 1 to call one or more tools.
+
+821
+02:12:00.740 --> 02:12:12.179
+Jitendra K: Then it will iterate over each requested tool, augment the JSON, and parse them. Execute the tool if the unknown errors are returned, then cache the exceptions, and…
+
+822
+02:12:12.370 --> 02:12:14.820
+Jitendra K: modified the… prompt.
+
+823
+02:12:15.460 --> 02:12:21.190
+Jitendra K: So the question that I'm passing to this whole React style is…
+
+824
+02:12:21.860 --> 02:12:24.540
+Jitendra K: I'm asking some technical question on the document.
+
+825
+02:12:24.850 --> 02:12:26.990
+Jitendra K: Some numerical calculations.
+
+826
+02:12:27.450 --> 02:12:32.040
+Jitendra K: Some bit of comparison, and some citation references.
+
+827
+02:12:32.610 --> 02:12:35.330
+Jitendra K: Some fact check. And then define this…
+
+828
+02:12:35.590 --> 02:12:38.069
+Jitendra K: Scoping parameters, and running this loop.
+
+829
+02:12:38.490 --> 02:12:42.830
+Jitendra K: So in the first question, when I'm asking what is multi-head retention and why it is useful.
+
+830
+02:12:43.110 --> 02:12:46.100
+Jitendra K: So it is start… Creating a thought.
+
+831
+02:12:46.500 --> 02:12:49.639
+Jitendra K: Note, model decide to call search paper.
+
+832
+02:12:50.280 --> 02:12:56.290
+Jitendra K: It will return 5 pages. These are concrete designated at once, and project resulting in final value.
+
+833
+02:12:56.490 --> 02:12:58.129
+Jitendra K: And generate some answer.
+
+834
+02:12:58.260 --> 02:13:00.189
+Jitendra K: Exec… this is the answer.
+
+835
+02:13:00.550 --> 02:13:02.789
+Jitendra K: And then it go into the React steps.
+
+836
+02:13:05.920 --> 02:13:11.359
+Jitendra K: So this is how this whole React framework works. So the core of this program is this.
+
+837
+02:13:12.470 --> 02:13:13.660
+Jitendra K: System prompt.
+
+838
+02:13:15.900 --> 02:13:18.810
+Jitendra K: So in the system prompt, I'm defining the personality.
+
+839
+02:13:18.990 --> 02:13:23.450
+Jitendra K: The conditions and the tools, declarations.
+
+840
+02:13:23.730 --> 02:13:28.830
+Jitendra K: And then some sort of… Rules, or so-called constraints, to operate.
+
+841
+02:13:38.220 --> 02:13:40.289
+Jitendra K: Is it clear to everyone?
+
+842
+02:13:49.010 --> 02:13:51.499
+Jitendra K: No, we are not writing the document,
+
+843
+02:13:51.630 --> 02:13:58.510
+Jitendra K: description. Here, I'm not writing any document description, I'm documenting the… Description of a tool.
+
+844
+02:13:59.860 --> 02:14:04.440
+Jitendra K: This is not document description. This is a document description… this is a description of a tool.
+
+845
+02:14:11.010 --> 02:14:13.219
+Jitendra K: So, can you guys quickly try this out?
+
+846
+02:14:21.760 --> 02:14:23.480
+Jitendra K: Where, exactly.
+
+847
+02:14:24.480 --> 02:14:30.270
+Jitendra K: Yeah, I can say semantic search over a document. I can say paper as well, this will work same.
+
+848
+02:14:43.220 --> 02:14:48.120
+Jitendra K: Okay, share the CoLab link, so can you guys quickly go over it?
+
+849
+02:14:48.320 --> 02:14:51.020
+Jitendra K: Just take 15 minutes, and let me know if…
+
+850
+02:14:51.640 --> 02:14:53.420
+Jitendra K: Everybody is able to run this.
+
+851
+02:14:54.340 --> 02:14:56.209
+Jitendra K: I will wait for your response.
+
+852
+02:15:10.200 --> 02:15:11.970
+Jitendra K: Just run from this cell.
+
+853
+02:28:42.380 --> 02:28:45.019
+Jitendra K: Alright guys, I hope you're able to run this.
+
+854
+02:28:45.250 --> 02:28:46.610
+Jitendra K: Any question?
+
+855
+02:28:53.180 --> 02:28:57.510
+Jitendra K: Any question on this part? Are you guys clear, everybody?
+
+856
+02:29:14.280 --> 02:29:16.460
+Jitendra K: Can we have a quick yes? No?
+
+857
+02:29:31.190 --> 02:29:32.170
+Jitendra K: regret.
+
+858
+02:29:32.680 --> 02:29:39.009
+Jitendra K: So, I think everybody's able to run this now, and you got a gist of what this framework does.
+
+859
+02:29:39.510 --> 02:29:46.870
+Jitendra K: Now, we'll move on to the second design pattern called REBU, which is called Reasoning Without Observation.
+
+860
+02:29:49.220 --> 02:29:52.170
+Jitendra K: So, reasoning without observation has been…
+
+861
+02:29:54.000 --> 02:29:59.250
+Jitendra K: a pivotal paper, or I would say a pivotal approach to save the cost of execution.
+
+862
+02:30:00.010 --> 02:30:04.700
+Jitendra K: So to decouple the reasoning from observation, that means you will have a few LLM calls.
+
+863
+02:30:04.900 --> 02:30:08.260
+Jitendra K: So in React, we have seen that every time, whenever we are doing
+
+864
+02:30:08.550 --> 02:30:13.790
+Jitendra K: the validation and action space configuration we require to call RLM.
+
+865
+02:30:15.110 --> 02:30:17.679
+Jitendra K: So that means the higher the token, higher the cost.
+
+866
+02:30:19.070 --> 02:30:27.100
+Jitendra K: So… The advantage with Rebo is it will drop the LLM calls significantly from 40% to 60%.
+
+867
+02:30:27.580 --> 02:30:31.769
+Jitendra K: And it will have easy-to-use fine-tunable parameters, and you can…
+
+868
+02:30:32.260 --> 02:30:35.259
+Jitendra K: Plan and inspect, and then cache there.
+
+869
+02:30:35.440 --> 02:30:36.480
+Jitendra K: output.
+
+870
+02:30:36.890 --> 02:30:38.730
+Jitendra K: So that he can reuse it.
+
+871
+02:30:40.670 --> 02:30:48.540
+Jitendra K: So, the whole idea of this pattern is very simple. When you're comparing the two styles of writing, the prompt or
+
+872
+02:30:48.680 --> 02:30:49.690
+Jitendra K: Agent.
+
+873
+02:30:50.210 --> 02:30:53.870
+Jitendra K: React used this sequence to generate an answer.
+
+874
+02:30:54.910 --> 02:30:58.070
+Jitendra K: Well, Rebu will use this sequence.
+
+875
+02:30:59.150 --> 02:31:02.149
+Jitendra K: That means it will plan perfectly before.
+
+876
+02:31:02.300 --> 02:31:03.710
+Jitendra K: calling anything.
+
+877
+02:31:04.420 --> 02:31:06.019
+Jitendra K: as a part of Next Step.
+
+878
+02:31:06.760 --> 02:31:11.639
+Jitendra K: That means few LLM calls, few token consumption, lower billing.
+
+879
+02:31:12.900 --> 02:31:16.629
+Jitendra K: So there are 3 common components of REVU. The planner.
+
+880
+02:31:16.800 --> 02:31:21.760
+Jitendra K: One LLM call, generate a number of plans, where each step references prior.
+
+881
+02:31:23.090 --> 02:31:33.170
+Jitendra K: Then it will create a worker, pure executor, which will look for that particular question, search criterias.
+
+882
+02:31:33.440 --> 02:31:41.000
+Jitendra K: And then you have got a solver. Solver will use one LLM call at the end. And see the original question, that full plan implementation?
+
+883
+02:31:41.220 --> 02:31:44.289
+Jitendra K: And all the observations which have been produced by the final answer.
+
+884
+02:31:44.530 --> 02:31:47.600
+Jitendra K: That means, the number of…
+
+885
+02:31:48.060 --> 02:31:51.270
+Jitendra K: Pops will reduce, the token cost will reduce.
+
+886
+02:31:51.380 --> 02:31:55.230
+Jitendra K: Latency will be mostly depending upon your tool.
+
+887
+02:31:55.730 --> 02:31:57.009
+Jitendra K: it will…
+
+888
+02:32:01.060 --> 02:32:07.000
+Jitendra K: be… Plan auditably, that means you can explicitly replay the artifacts.
+
+889
+02:32:07.690 --> 02:32:13.680
+Jitendra K: So, the only disadvantage of this pattern is, it is… Fixed.
+
+890
+02:32:14.520 --> 02:32:17.940
+Jitendra K: plan is fixed. Once it is created, you cannot reflect.
+
+891
+02:32:19.190 --> 02:32:22.220
+Jitendra K: But in React, you can replan every turn.
+
+892
+02:32:23.400 --> 02:32:33.889
+Jitendra K: So, basically, when to use what now? So, Rebu is good for tasks which is predictable, like compliance, document extraction, ETL tasks.
+
+893
+02:32:34.370 --> 02:32:40.590
+Jitendra K: where the talks… token cost does matter. High QPS, cost query per…
+
+894
+02:32:42.190 --> 02:32:46.820
+Jitendra K: And the bad jobs on-prem inference budget, that is more useful.
+
+895
+02:32:47.150 --> 02:32:50.189
+Jitendra K: So, Rebo is gonna be drastically…
+
+896
+02:32:51.430 --> 02:32:57.139
+Jitendra K: Wrong when the tool outputs are unpredictable and plan need to react.
+
+897
+02:32:58.450 --> 02:33:01.200
+Jitendra K: And a task… We are planning.
+
+898
+02:33:01.780 --> 02:33:05.599
+Jitendra K: will… Should have a clear instruction beforehand.
+
+899
+02:33:06.370 --> 02:33:09.330
+Jitendra K: That means you cannot use Planner in a loop.
+
+900
+02:33:09.530 --> 02:33:11.339
+Jitendra K: You cannot use the Laminar loop.
+
+901
+02:33:12.700 --> 02:33:19.020
+Jitendra K: So use React Rebo when you are very sure about again…
+
+902
+02:33:19.540 --> 02:33:22.690
+Jitendra K: What kind of question will be asked by the users, and…
+
+903
+02:33:23.020 --> 02:33:28.609
+Jitendra K: You have a very defined set of… Tools, very thoroughly tested.
+
+904
+02:33:28.970 --> 02:33:31.039
+Jitendra K: No exceptions at all.
+
+905
+02:33:31.560 --> 02:33:35.159
+Jitendra K: And then you are going to deploy it to save the token cost.
+
+906
+02:33:36.280 --> 02:33:43.130
+Jitendra K: Otherwise, you can continue with React until your system gets… mature enough.
+
+907
+02:33:43.460 --> 02:33:46.189
+Jitendra K: To qualify, and then you can go with review.
+
+908
+02:33:47.330 --> 02:33:48.940
+Jitendra K: Or you can go with hybrid.
+
+909
+02:33:49.370 --> 02:33:50.640
+Jitendra K: Awesome task.
+
+910
+02:33:52.740 --> 02:33:58.240
+Jitendra K: So let's try to understand… How to implement a reboot pattern.
+
+911
+02:33:59.240 --> 02:34:02.490
+Jitendra K: So again, we will use the same example, same document.
+
+912
+02:34:03.280 --> 02:34:06.860
+Jitendra K: And, same PDF parsing and chunking technique.
+
+913
+02:34:09.420 --> 02:34:12.910
+Jitendra K: And then we'll implement the tool with Revo.
+
+914
+02:34:14.020 --> 02:34:15.490
+Jitendra K: So let me run this.
+
+915
+02:34:23.030 --> 02:34:25.530
+Jitendra K: The wire is not installed.
+
+916
+02:39:56.630 --> 02:39:59.369
+Jitendra K: So it may run fast as compared to React.
+
+917
+02:40:00.270 --> 02:40:06.050
+Jitendra K: But the quality of answer may be less reactive as compared to the previous version.
+
+918
+02:40:14.190 --> 02:40:18.540
+Jitendra K: Okay, so the changes that we have made here in this whole prompt…
+
+919
+02:40:19.470 --> 02:40:23.560
+Jitendra K: This only change that I have made in this example is this.
+
+920
+02:40:24.960 --> 02:40:27.480
+Jitendra K: the planner prompt. It's very descriptive now.
+
+921
+02:40:28.090 --> 02:40:29.780
+Jitendra K: Very, very elaborative.
+
+922
+02:40:30.350 --> 02:40:34.540
+Jitendra K: With a set of exceptions and a set of instructions that I've added.
+
+923
+02:40:35.330 --> 02:40:42.469
+Jitendra K: Right? And the solver prompt will simply take the instruction and then try to search it. And remaining code is adjectives. Nothing…
+
+924
+02:40:43.020 --> 02:40:45.299
+Jitendra K: More has been changed here, right?
+
+925
+02:40:45.420 --> 02:40:51.040
+Jitendra K: And then I'm tracking this whole setup with the help of this tool calling.
+
+926
+02:40:51.770 --> 02:40:56.459
+Jitendra K: So the core idea here is, when you're using some sort of
+
+927
+02:40:57.030 --> 02:41:01.960
+Jitendra K: design patterns, you will have… different…
+
+928
+02:41:02.790 --> 02:41:08.449
+Jitendra K: ways to execute, right? So that means, your objective, primary objective.
+
+929
+02:41:08.690 --> 02:41:13.450
+Jitendra K: We'll determine which kind of design pattern you would like to use and why.
+
+930
+02:41:13.570 --> 02:41:17.090
+Jitendra K: And depending upon that, you will have to generate this.
+
+931
+02:41:17.360 --> 02:41:18.460
+Jitendra K: Ideology.
+
+932
+02:41:23.640 --> 02:41:27.650
+Jitendra K: So, any question on this, Rice? Any question on this part?
+
+933
+02:41:43.110 --> 02:41:47.950
+Jitendra K: Just want to check, from… since you guys are here, I think 46th trend.
+
+934
+02:41:48.170 --> 02:41:57.029
+Jitendra K: How many of you are still… you're working on Gen AI projects, and may I know which company are you into? Are you based out of India or some… somewhere else?
+
+935
+02:41:57.760 --> 02:42:03.629
+Jitendra K: How many of you are working in Gen AI projects? I mean, any agentic AI projects or Gen AI projects?
+
+936
+02:42:11.460 --> 02:42:19.540
+Jitendra K: Okay, card mix… Yeah, I know, Ellen, you're working on Identify for network automation.
+
+937
+02:42:20.490 --> 02:42:22.949
+Jitendra K: SCL Bangalore, okay.
+
+938
+02:42:24.740 --> 02:42:29.640
+Jitendra K: Working with SEO… I work with agenticators, great.
+
+939
+02:42:30.560 --> 02:42:34.620
+Jitendra K: So, how much experience do you have, Arga and Ananta?
+
+940
+02:42:37.050 --> 02:42:40.329
+Jitendra K: I'm working between jobs, and I'm working… I'm…
+
+941
+02:42:40.680 --> 02:42:44.609
+Jitendra K: In between jobs, but I'm working really in my own time. Okay, great.
+
+942
+02:42:45.310 --> 02:42:51.389
+Jitendra K: I think Shobay, you are out of India, right? You're in U.S.
+
+943
+02:42:53.600 --> 02:42:57.950
+Jitendra K: Primula, working for Accenture for AI Agent AI Automation.
+
+944
+02:42:58.940 --> 02:43:03.940
+Jitendra K: Okay, Montreal in Canada, I'm working for creating agent for software testing process. Okay, great.
+
+945
+02:43:04.740 --> 02:43:09.589
+Jitendra K: Working on agent for customer operation execution, giving agent.
+
+946
+02:43:10.230 --> 02:43:13.119
+Jitendra K: Genai is a POC.
+
+947
+02:43:13.530 --> 02:43:17.949
+Jitendra K: EVV tools for food reviews. Okay, okay, you're in India.
+
+948
+02:43:18.320 --> 02:43:19.769
+Jitendra K: I'm a SAP Lab.
+
+949
+02:43:20.880 --> 02:43:26.570
+Jitendra K: Okay, great. So, you're using a SAP, core service, Suman, or…
+
+950
+02:43:27.430 --> 02:43:33.940
+Jitendra K: Yeah, I can share the LinkedIn profile. Please share… I mean, please send a request to me, I will…
+
+951
+02:43:35.010 --> 02:43:39.100
+Jitendra K: I will… approve the request. I mean, I will accept the request, and thanks.
+
+952
+02:43:40.350 --> 02:43:42.230
+Jitendra K: Or being in a network.
+
+953
+02:43:53.340 --> 02:43:54.759
+Jitendra K: Yeah, just for clarifying.
+
+954
+02:43:58.490 --> 02:44:02.130
+Jitendra K: We're trying to use SAP Orchestrator to Llama.
+
+955
+02:44:02.380 --> 02:44:08.249
+Jitendra K: Okay, great. So, SAP, so you must be well aware about, Juul…
+
+956
+02:44:08.740 --> 02:44:10.980
+Jitendra K: tool which has been launched by SAP, right?
+
+957
+02:44:13.370 --> 02:44:29.849
+Jitendra K: Oh, great. So, you had been trained on that, or any, open source that you're using to learn SAP? I hope you're a good hands-on, I mean, you might be using HANAs and stuff earlier, but for doing the training in SAP, what are the
+
+958
+02:44:31.130 --> 02:44:35.320
+Jitendra K: Okay, we're all implemented an application Juul. Juul is very recently launched, right?
+
+959
+02:44:35.920 --> 02:44:37.550
+Jitendra K: Very friendly launch.
+
+960
+02:44:39.170 --> 02:44:42.280
+Jitendra K: In fact, I have attended the seminar in…
+
+961
+02:44:43.430 --> 02:44:48.880
+Jitendra K: SAP, and there I came to know Jules. So, how difficult it is to work in SAP?
+
+962
+02:44:50.240 --> 02:44:56.810
+Jitendra K: I know it's a… Not much difficult, apart from configuration, but…
+
+963
+02:44:59.270 --> 02:45:02.080
+Jitendra K: My university with a company called Telephonia.
+
+964
+02:45:02.470 --> 02:45:14.520
+Jitendra K: Like, Airtel, US or Latin America, okay. So, Alan, your university passed out, or you're still… okay, you are a PhD, you're pursuing your PhD full-time, right?
+
+965
+02:45:18.260 --> 02:45:19.180
+Jitendra K: Okay.
+
+966
+02:45:25.110 --> 02:45:31.809
+Jitendra K: That's awesome. So please send, the request over LinkedIn, I would like to connect with you guys,
+
+967
+02:45:32.320 --> 02:45:36.109
+Jitendra K: Let's form a community of,
+
+968
+02:45:36.500 --> 02:45:42.590
+Jitendra K: people who's working on existing products in Agent AI as well, so let's create another…
+
+969
+02:45:52.450 --> 02:45:57.089
+Jitendra K: Yeah, SAP is, domain agnostic, but yeah, it's a great tool, as…
+
+970
+02:45:57.230 --> 02:46:03.139
+Jitendra K: If I have to compare, let's say Oracle SAP, the whole reason why Oracle
+
+971
+02:46:03.980 --> 02:46:09.180
+Jitendra K: Is lagging because they don't have… That capabilities, in terms of…
+
+972
+02:46:09.630 --> 02:46:13.329
+Jitendra K: Providing the enrichment for GenAI-based collaborations.
+
+973
+02:46:28.650 --> 02:46:34.489
+Jitendra K: Yeah, Sritesh, so we are… we are… we are discussing how many of you are working on GenAI project.
+
+974
+02:46:35.070 --> 02:46:44.270
+Jitendra K: And, are you out of India or within India? I just want to know some of the details, just because we can form a squad or group over LinkedIn.
+
+975
+02:46:44.720 --> 02:46:48.400
+Jitendra K: That will give us a good idea about those who are…
+
+976
+02:46:49.830 --> 02:46:55.189
+Jitendra K: Oh, you're in Spain, Barcelona. Oh, that's great. I thought you were in the US. Oh, you're in Spain.
+
+977
+02:46:59.180 --> 02:47:01.469
+Jitendra K: Irvine is based out of Washington, D.C.
+
+978
+02:47:03.250 --> 02:47:13.770
+Jitendra K: Yeah, SaaS analytical platform I have heard about. I have used machine learning in SaaS, but never tried Agent AI. What is your experience with SaaS analytical platform on Agent AI?
+
+979
+02:47:15.980 --> 02:47:18.609
+Jitendra K: I use SAS for machine learning, not…
+
+980
+02:47:19.780 --> 02:47:24.229
+Jitendra K: Not to create any agents on SaaS.
+
+981
+02:47:37.960 --> 02:47:39.090
+Jitendra K: Provoc.
+
+982
+02:47:39.200 --> 02:47:41.509
+Jitendra K: cursory is in the US.
+
+983
+02:47:42.490 --> 02:47:45.410
+Jitendra K: But now, learning identification. Okay, great.
+
+984
+02:47:45.790 --> 02:47:48.220
+Jitendra K: Only Lesh is in your either way.
+
+985
+02:47:49.300 --> 02:47:50.250
+Jitendra K: Okay.
+
+986
+02:48:03.050 --> 02:48:13.459
+Jitendra K: Yeah, SAS… have created text-to-SQL agents, and then you can query And generate answers on insights.
+
+987
+02:48:18.170 --> 02:48:23.129
+Jitendra K: Quite fascinating, I think. We have a very diversified class here.
+
+988
+02:48:23.760 --> 02:48:26.620
+Jitendra K: So, sausab… Burned…
+
+989
+02:48:35.730 --> 02:48:36.800
+Jitendra K: Okay, great.
+
+990
+02:48:38.460 --> 02:48:42.699
+Jitendra K: Yeah, so telecom will definitely going to have more use cases.
+
+991
+02:48:43.000 --> 02:48:47.080
+Jitendra K: I will share you one case study, which I found to be interesting as well.
+
+992
+02:48:47.580 --> 02:48:51.380
+Jitendra K: Empowering the defenders for AI cybersecurity, this is…
+
+993
+02:48:51.880 --> 02:48:54.980
+Jitendra K: the great paper from World Economic Forum.
+
+994
+02:48:55.430 --> 02:48:56.959
+Jitendra K: I'm gonna share this with you.
+
+995
+02:49:05.900 --> 02:49:11.699
+Jitendra K: I'm working on… oh, Data Break India, that's great, Ramiz. So, you're working on Data Break.
+
+996
+02:49:12.240 --> 02:49:15.910
+Jitendra K: But work with agentic AI to solve a customer problem.
+
+997
+02:49:16.280 --> 02:49:20.860
+Jitendra K: Databrick have launched, very good.
+
+998
+02:49:21.260 --> 02:49:27.229
+Jitendra K: tools to deploy agents, and they are using Gini-based, bots.
+
+999
+02:49:27.820 --> 02:49:31.280
+Jitendra K: So, in fact, we are using Databrick in our organization as well.
+
+1000
+02:49:35.160 --> 02:49:38.089
+Jitendra K: The campus immersion by Amarus, it is planned.
+
+1001
+02:49:39.310 --> 02:49:44.299
+Jitendra K: campus immersion, but I'm not very sure about that.
+
+1002
+02:49:46.320 --> 02:49:51.579
+Jitendra K: Yeah, let me share that document. In Plune Global Payment, working on AI Core.
+
+1003
+02:49:51.750 --> 02:49:56.580
+Jitendra K: Mostly with rags and compliance. Which company in Pune, Global Payment,
+
+1004
+02:50:01.180 --> 02:50:03.449
+Jitendra K: Which company in Pune, Anirud?
+
+1005
+02:50:19.460 --> 02:50:22.969
+Jitendra K: Or Global Payments, or GK, okay.
+
+1006
+02:50:24.440 --> 02:50:25.870
+Jitendra K: Okay, awesome.
+
+1007
+02:50:27.360 --> 02:50:31.580
+Jitendra K: Oh, so they are using, agents… you're using agents to…
+
+1008
+02:50:31.980 --> 02:50:37.080
+Jitendra K: Do some transaction screening, or what is the use case?
+
+1009
+02:50:38.500 --> 02:50:43.880
+Jitendra K: I mean, I'm just asking out of the curiosity, not to give any information which is…
+
+1010
+02:50:44.360 --> 02:50:47.639
+Jitendra K: Non-public, but yes, just out of curiosity, I'm asking.
+
+1011
+02:51:03.050 --> 02:51:07.049
+Jitendra K: Non-agentic grad for support as of now. Okay, great, okay.
+
+1012
+02:51:08.510 --> 02:51:13.460
+Jitendra K: Yeah, that's… that's fascinating. So, I would definitely want to connect you guys over LinkedIn.
+
+1013
+02:51:13.880 --> 02:51:20.820
+Jitendra K: And let's try to… And is this community, because there are other batches also I will include.
+
+1014
+02:51:21.080 --> 02:51:23.199
+Jitendra K: So let's form a good squad.
+
+1015
+02:51:24.020 --> 02:51:31.219
+Jitendra K: We have a SaaS platform, with Agent Tech AI, with Workflow LLM, a customer tool integration called AEX.
+
+1016
+02:51:31.540 --> 02:51:37.139
+Jitendra K: Wherein business workflow, automation can be created based on customer business use cases.
+
+1017
+02:51:38.000 --> 02:51:40.969
+Jitendra K: Okay, great. It's a centralized platform.
+
+1018
+02:51:46.580 --> 02:51:51.650
+Jitendra K: Yeah, so can you include me in the WhatsApp group if you have… Authority.
+
+1019
+02:51:57.380 --> 02:51:59.970
+Jitendra K: Please use this number and include me in the WhatsApp.
+
+1020
+02:52:02.340 --> 02:52:03.290
+Jitendra K: Yeah.
+
+1021
+02:52:03.720 --> 02:52:09.199
+Jitendra K: I will be pleased to join this. I… yeah, you can do bitching about me, I don't mind.
+
+1022
+02:52:18.780 --> 02:52:20.959
+Jitendra K: Yeah, let me share this PowerPoint.
+
+1023
+02:52:24.430 --> 02:52:25.580
+Jitendra K: Yeah.
+
+1024
+02:52:31.770 --> 02:52:36.879
+Jitendra K: No, the whole idea is I would like to share more paper, academic papers, and that group.
+
+1025
+02:52:37.290 --> 02:52:45.110
+Jitendra K: So that, you guys can… because now we are working… going to work on some more advanced things, right? Going forward.
+
+1026
+02:52:45.420 --> 02:52:50.339
+Jitendra K: So, I just want to share you some of the materials as well.
+
+1027
+02:52:51.390 --> 02:52:53.809
+Jitendra K: Let's say if we are able to cover…
+
+1028
+02:52:55.960 --> 02:52:59.780
+Jitendra K: Yeah, yeah, if you can please create a LinkedIn group, that would be awesome.
+
+1029
+02:53:01.650 --> 02:53:05.630
+Jitendra K: And those who are maybe exploring for jobs and, let's say, some…
+
+1030
+02:53:05.990 --> 02:53:12.060
+Jitendra K: Some of the students may be looking for referrals. That will help us to get things moving.
+
+1031
+02:53:12.250 --> 02:53:13.300
+Jitendra K: there as well.
+
+1032
+02:53:19.200 --> 02:53:21.890
+Jitendra K: Yeah, so this is the PowerPoint slide.
+
+1033
+02:53:32.390 --> 02:53:41.060
+Jitendra K: Awesome, so… So basically, we have very diverse students here in this class, so from different background, different…
+
+1034
+02:53:41.580 --> 02:53:44.270
+Jitendra K: Countries, different zones.
+
+1035
+02:53:48.260 --> 02:53:53.899
+Jitendra K: Different tools, different… use cases, that's good, I mean…
+
+1036
+02:53:55.370 --> 02:53:59.010
+Jitendra K: So we compile it, like, I would say the average,
+
+1037
+02:53:59.730 --> 02:54:05.639
+Jitendra K: experience of this class is more than, I think, 12 to 13 years, right? 12 to 15 years.
+
+1038
+02:54:06.170 --> 02:54:09.239
+Jitendra K: All are here above 12 to 15 years, right?
+
+1039
+02:54:14.960 --> 02:54:15.870
+Jitendra K: Okay.
+
+1040
+02:54:18.660 --> 02:54:21.169
+Jitendra K: Yeah, your PhD experience will also count.
+
+1041
+02:54:21.450 --> 02:54:25.440
+Jitendra K: A 3-year… Another young PhD, okay.
+
+1042
+02:54:26.760 --> 02:54:28.409
+Jitendra K: Yeah, work experience.
+
+1043
+02:54:38.040 --> 02:54:45.309
+Jitendra K: Yeah, please add all the people in the group, so that we can form Oh, shh.
+
+1044
+02:54:45.490 --> 02:54:47.799
+Jitendra K: Years, 25 years, that's awesome.
+
+1045
+02:55:12.990 --> 02:55:19.229
+Jitendra K: Yeah, so we have, some product managers as well, which is good, so…
+
+1046
+02:55:19.560 --> 02:55:23.289
+Jitendra K: Definitely, we would like to have more discussion going forward.
+
+1047
+02:55:23.620 --> 02:55:27.950
+Jitendra K: So, that definitely we have to unmute some of the…
+
+1048
+02:55:28.480 --> 02:55:35.070
+Jitendra K: Respected product managers in our class. They will share their experience for sure, because they will be the one who's guiding
+
+1049
+02:55:35.570 --> 02:55:42.170
+Jitendra K: I'm also in… 16, 17 years of experience lab.
+
+1050
+02:55:42.840 --> 02:55:45.479
+Jitendra K: So, yeah, they are senior to me. That's thrilled to know.
+
+1051
+02:55:49.180 --> 02:55:53.050
+Jitendra K: For 20 years in data analytics, so… okay, great.
+
+1052
+02:55:55.830 --> 02:56:00.230
+Jitendra K: 20 years in the entire data analytics. That's awesome, yeah.
+
+1053
+02:56:06.990 --> 02:56:10.289
+Jitendra K: Yeah, so why don't we connect all in LinkedIn, and
+
+1054
+02:56:10.660 --> 02:56:16.800
+Jitendra K: We will form a group, and then probably We will…
+
+1055
+02:56:17.120 --> 02:56:19.390
+Jitendra K: Create some more enrichment over there.
+
+1056
+02:56:19.960 --> 02:56:22.870
+Jitendra K: Thank you, Sritesh. Thanks for forming the squad.
+
+1057
+02:56:24.810 --> 02:56:27.850
+Jitendra K: Or 24 is here in software development, same.
+
+1058
+02:56:28.130 --> 02:56:31.309
+Jitendra K: So I just want to hear one-line answer from you.
+
+1059
+02:56:31.830 --> 02:56:37.150
+Jitendra K: As far as the industrial trend, what do you think that… is it gonna be more… layoff?
+
+1060
+02:56:37.860 --> 02:56:42.850
+Jitendra K: Or is it gonna be more job creation with the help of Agent AI?
+
+1061
+02:56:43.060 --> 02:56:44.170
+Jitendra K: What do you think?
+
+1062
+02:56:47.120 --> 02:56:49.000
+Jitendra K: More operation, okay?
+
+1063
+02:56:50.280 --> 02:56:53.610
+Jitendra K: I will not ask the reason, layoff, okay?
+
+1064
+02:57:04.190 --> 02:57:05.770
+Jitendra K: More job creation.
+
+1065
+02:57:06.420 --> 02:57:07.410
+Jitendra K: layoff.
+
+1066
+02:57:13.260 --> 02:57:15.240
+Jitendra K: Yeah, layoffs are happening, but…
+
+1067
+02:57:15.670 --> 02:57:20.380
+Jitendra K: My suspect is, organizations are laying off because they would like to invest on
+
+1068
+02:57:21.540 --> 02:57:29.930
+Jitendra K: Gen AI and Agentica Initiative, and AI initiative, to be very honest, and they required good amount of…
+
+1069
+02:57:30.670 --> 02:57:32.079
+Jitendra K: Money to operate.
+
+1070
+02:57:45.960 --> 02:57:54.969
+Jitendra K: Yeah, that's correct. They need to… they are investing heavily on data centers and hardware, GPUs, and that's the whole idea that this industry has been disrupted.
+
+1071
+02:57:55.520 --> 02:58:00.940
+Jitendra K: Because of the cost of operations has been pretty high for managing the
+
+1072
+02:58:01.970 --> 02:58:06.739
+Jitendra K: Agents, and that's the reason now organizations are moving to a small, and…
+
+1073
+02:58:07.020 --> 02:58:09.699
+Jitendra K: They're finding ways to reduce the cost.
+
+1074
+02:58:09.890 --> 02:58:15.059
+Jitendra K: But again, they would like to become more profitable, and they know that the coding
+
+1075
+02:58:15.340 --> 02:58:21.669
+Jitendra K: QA and other jobs can be easily done by agents, right? So that is the whole idea.
+
+1076
+02:58:22.580 --> 02:58:26.990
+Jitendra K: Based upon the hype, it was first reduced in anticipation. However, as I see.
+
+1077
+02:58:27.690 --> 02:58:31.839
+Jitendra K: We are getting into a complex world with more enterprise problem getting.
+
+1078
+02:58:33.920 --> 02:58:45.110
+Jitendra K: it should add job to manage the solution, that's correct. So basically, every organization will have, some bit of coding agents now, right? So we all use GitHub Copilots and Clark.
+
+1079
+02:58:45.470 --> 02:58:46.910
+Jitendra K: Or to write up.
+
+1080
+02:58:47.680 --> 02:58:52.139
+Jitendra K: Now, in every organization, they have rolled out at least Microsoft 365,
+
+1081
+02:58:52.860 --> 02:59:02.679
+Jitendra K: and MS6365 to write codes and debug it. You have got code scanners like SonarCube and all, which is automated, code rabbits.
+
+1082
+02:59:03.130 --> 02:59:06.090
+Jitendra K: For doing the code reviews, right?
+
+1083
+02:59:06.430 --> 02:59:15.540
+Jitendra K: So that means the Scrum Master job is done, porting job is done, QA job is done, and CICD job is also under track.
+
+1084
+02:59:16.060 --> 02:59:20.570
+Jitendra K: So, I don't know where the industry will last now.
+
+1085
+02:59:21.260 --> 02:59:25.249
+Jitendra K: Now, this is a… basically, this is, once in…
+
+1086
+02:59:25.800 --> 02:59:28.490
+Jitendra K: 100 years, I would say, not even decade.
+
+1087
+02:59:31.960 --> 02:59:35.080
+Jitendra K: In US, it depends on how far the AI bubble will go.
+
+1088
+02:59:36.140 --> 02:59:40.900
+Jitendra K: Yeah, that's correct, and I think,
+
+1089
+02:59:41.560 --> 02:59:47.490
+Jitendra K: The correct answer is in 2025, we call it as a bubble, but now agents are getting mature and mature.
+
+1090
+02:59:48.150 --> 02:59:49.569
+Jitendra K: To be very honest.
+
+1091
+02:59:49.740 --> 02:59:53.310
+Jitendra K: Agents are getting… getting results, revenues now.
+
+1092
+03:00:01.250 --> 03:00:05.770
+Jitendra K: I can share you some fact sheet about agents are generating revenue.
+
+1093
+03:00:14.850 --> 03:00:20.319
+Jitendra K: Cost will be the key driver, where variability of tools will result in hybrid agent.
+
+1094
+03:00:20.720 --> 03:00:23.310
+Jitendra K: That can deploy, like, codebase.
+
+1095
+03:00:25.070 --> 03:00:27.749
+Jitendra K: I would say, my opinion is…
+
+1096
+03:00:28.260 --> 03:00:32.020
+Jitendra K: You will get limited quality engineers.
+
+1097
+03:00:32.350 --> 03:00:33.580
+Jitendra K: For sure.
+
+1098
+03:00:33.930 --> 03:00:36.099
+Jitendra K: Which are hyper-personalized to use.
+
+1099
+03:00:36.390 --> 03:00:39.569
+Jitendra K: Tools and agents to do the task.
+
+1100
+03:00:40.180 --> 03:00:45.989
+Jitendra K: So whatever way you're doing the task, it should be the faster. That means the code
+
+1101
+03:00:46.380 --> 03:00:50.350
+Jitendra K: that you are writing in months. It should take now days to write.
+
+1102
+03:00:50.780 --> 03:00:53.090
+Jitendra K: So, of course, the cycle of…
+
+1103
+03:00:53.440 --> 03:00:55.389
+Jitendra K: What do you call that,
+
+1104
+03:00:55.990 --> 03:00:59.399
+Jitendra K: Development lifecycle of projects has been shrink.
+
+1105
+03:00:59.730 --> 03:01:03.230
+Jitendra K: To few months, rather than… waters.
+
+1106
+03:01:04.170 --> 03:01:08.899
+Jitendra K: And that is the only change I can see. Apart from that, yes.
+
+1107
+03:01:09.190 --> 03:01:12.059
+Jitendra K: Everybody is looking for quality engineers now.
+
+1108
+03:01:12.650 --> 03:01:16.499
+Jitendra K: Quality means who should have end-to-end understanding.
+
+1109
+03:01:16.960 --> 03:01:20.790
+Jitendra K: to use, GenAI tech stack, and then…
+
+1110
+03:01:21.230 --> 03:01:23.899
+Jitendra K: They should be able to do wonders for the automation.
+
+1111
+03:01:29.580 --> 03:01:34.959
+Jitendra K: Yeah, Codex, Cloud, both are good tools. GitHub Copilot is awesome, as well.
+
+1112
+03:01:35.620 --> 03:01:38.450
+Jitendra K: So that, that means…
+
+1113
+03:01:45.070 --> 03:01:52.200
+Jitendra K: I'm not sure, I feel like any other discussion initially will lay off, but at some point, they might meet people with different skill segment.
+
+1114
+03:01:52.630 --> 03:01:54.979
+Jitendra K: The extension of slots on MDI.
+
+1115
+03:01:55.760 --> 03:01:59.530
+Jitendra K: Yeah, I think, now,
+
+1116
+03:02:02.390 --> 03:02:10.920
+Jitendra K: with the… I mean, changing the landscape, there are a lot of new things which is going to appear, and there are new jobs which is going to create, like.
+
+1117
+03:02:11.340 --> 03:02:15.440
+Jitendra K: There's a prompt engineering job, which never existed 5 years back.
+
+1118
+03:02:15.840 --> 03:02:18.630
+Jitendra K: Now, prompt engineer's job is in demand.
+
+1119
+03:02:19.480 --> 03:02:26.169
+Jitendra K: Prompt engineering, AI agent developers, which we already know, agentic developers, job is also required.
+
+1120
+03:02:26.410 --> 03:02:31.609
+Jitendra K: Similarly, you may require a few LLM ops guys to manage
+
+1121
+03:02:31.970 --> 03:02:35.170
+Jitendra K: the… and maintenance part of LLMs, and…
+
+1122
+03:02:35.350 --> 03:02:38.859
+Jitendra K: You need a senior architect's roles as well.
+
+1123
+03:02:39.370 --> 03:02:44.450
+Jitendra K: That means he required a good amount of, hold on…
+
+1124
+03:02:46.150 --> 03:02:52.439
+Jitendra K: the architectural overview, or hybrid cloud infrastructures, or you need to take a decision.
+
+1125
+03:02:52.660 --> 03:02:55.019
+Jitendra K: In which direction you're,
+
+1126
+03:02:55.980 --> 03:03:02.810
+Jitendra K: investment will go towards in Gen AI tech stack. So that is one of the emerging jobs in the market now.
+
+1127
+03:03:03.200 --> 03:03:06.210
+Jitendra K: Senior Solution Architect is one of the demanding jobs.
+
+1128
+03:03:10.530 --> 03:03:14.769
+Jitendra K: And of course, you can hire fully-stacked developers to do the job for you.
+
+1129
+03:03:15.300 --> 03:03:20.850
+Jitendra K: But the main crux is senior solution architect who will decide, based upon
+
+1130
+03:03:21.320 --> 03:03:27.789
+Jitendra K: What tech stack, and what kind of commercials the organization will use to operate.
+
+1131
+03:03:35.420 --> 03:03:38.369
+Jitendra K: Open code OLAMAS model, get us correct.
+
+1132
+03:03:42.070 --> 03:03:47.289
+Jitendra K: I saw Infosys posting for AIOps automated CRC recently. Yeah, that's correct, I mean…
+
+1133
+03:03:47.480 --> 03:03:52.039
+Jitendra K: This is where the cost saving will come for organization. If they deploy agents rather than
+
+1134
+03:03:52.620 --> 03:03:56.680
+Jitendra K: Hiring the tech… That will…
+
+1135
+03:03:56.830 --> 03:04:00.379
+Jitendra K: Do a lot of change in the industrial benchmarks.
+
+1136
+03:04:02.980 --> 03:04:05.580
+Jitendra K: Yeah, I would request everybody to please join.
+
+1137
+03:04:06.050 --> 03:04:10.279
+Jitendra K: this group, which has been created by Shittitesh, so thanks, Shitesh, for creating this.
+
+1138
+03:04:10.990 --> 03:04:14.390
+Jitendra K: I think that's… that's your old photo in the chat.
+
+1139
+03:04:19.230 --> 03:04:21.160
+Jitendra K: They're competing with humans.
+
+1140
+03:04:22.500 --> 03:04:27.720
+Jitendra K: Yes, agents are definitely maturing. Adopt seems already in trouble.
+
+1141
+03:04:28.970 --> 03:04:39.899
+Jitendra K: Credit Enterprise adoption of AI will take time to do security and… No, I think that's a lame reason. There's no security and, policy issue. I know there's a security and policy issue.
+
+1142
+03:04:40.230 --> 03:04:46.339
+Jitendra K: but that's not a right reason not to use and invest on Agentic AI.
+
+1143
+03:04:47.090 --> 03:04:52.230
+Jitendra K: Because as we progress, the system will improve for sure, right? So…
+
+1144
+03:04:52.700 --> 03:04:55.850
+Jitendra K: There's no doubt that this is one of the potential industries.
+
+1145
+03:04:57.040 --> 03:05:02.900
+Jitendra K: So, there's no doubt about it now anymore. This is going to be mature as we progress.
+
+1146
+03:05:03.080 --> 03:05:12.080
+Jitendra K: But how, I understand that security and vulnerability is one of the biggest… task, but…
+
+1147
+03:05:12.310 --> 03:05:16.369
+Jitendra K: Yes, I mean… This has also been a part of…
+
+1148
+03:05:17.460 --> 03:05:20.819
+Jitendra K: earlier issues as well, right? So it's not new.
+
+1149
+03:05:33.500 --> 03:05:36.619
+Jitendra K: Both IT people do not qualify for product engineering jobs.
+
+1150
+03:05:37.090 --> 03:05:42.889
+Jitendra K: No, IT people does qualify for prompt engineering as well, if you know that how to…
+
+1151
+03:05:43.090 --> 03:05:46.830
+Jitendra K: Refine the prompts, how to fine-tune it, and then how to debug it.
+
+1152
+03:05:47.640 --> 03:05:49.380
+Jitendra K: That is more than enough.
+
+1153
+03:05:50.070 --> 03:05:55.669
+Jitendra K: The prompt engineerings… our prompt engineers are to host… are those who are managing the system prompt, user prompt.
+
+1154
+03:05:55.970 --> 03:06:01.670
+Jitendra K: And then they will… able to give a right reasoning on directions on the top of it.
+
+1155
+03:06:02.440 --> 03:06:07.630
+Jitendra K: So, definitely, I mean, be…
+
+1156
+03:06:07.860 --> 03:06:10.590
+Jitendra K: Industry has been disrupt, for sure.
+
+1157
+03:06:10.750 --> 03:06:12.890
+Jitendra K: There's a lot of buzz around…
+
+1158
+03:06:13.540 --> 03:06:18.210
+Jitendra K: Automated solution, automatic provisioning, and, using
+
+1159
+03:06:18.900 --> 03:06:24.679
+Jitendra K: The best of the best agents to deploy and run the… run the whole ecosystem.
+
+1160
+03:06:25.780 --> 03:06:29.990
+Jitendra K: But… Definitely, it's a long way to go, that is what I can see.
+
+1161
+03:06:30.100 --> 03:06:31.879
+Jitendra K: It's still a long way to go.
+
+1162
+03:06:32.610 --> 03:06:43.270
+Jitendra K: So… So, more than that, you need to have domain expertise, as well as
+
+1163
+03:06:43.420 --> 03:06:49.570
+Jitendra K: Debugging skills, you should be… Smart enough to…
+
+1164
+03:06:49.670 --> 03:06:57.830
+Jitendra K: Accommodate the tools, and learn it, and then learn in an agile manner, and then try to accommodate the changes faster.
+
+1165
+03:06:58.840 --> 03:07:07.470
+Jitendra K: And then, most probably, you should be a solution… sorry, problem solver, rather than… A developer, or…
+
+1166
+03:07:08.330 --> 03:07:14.490
+Jitendra K: Right? So, it's now all about problem solving. Now, this is the… I think…
+
+1167
+03:07:14.800 --> 03:07:23.409
+Jitendra K: This is where the industry need experts, where… I mean, if they're hiring someone, they should be a problem solver for them.
+
+1168
+03:07:28.580 --> 03:07:29.400
+Jitendra K: Yep.
+
+1169
+03:07:31.560 --> 03:07:36.900
+Jitendra K: Now, I think even the interviews… That is Conductor Lear.
+
+1170
+03:07:37.510 --> 03:07:51.409
+Jitendra K: based upon DSA system design. System design is still in demand, by the way, but DSA interviews will no longer be useful, because you have a coding agent who can… even the Facebook Meta recruitment team has changed the way.
+
+1171
+03:07:51.640 --> 03:07:54.990
+Jitendra K: that they are using, DSA challenges, right?
+
+1172
+03:07:55.210 --> 03:07:59.140
+Jitendra K: Now, they are allowing the candidate to use their own bots
+
+1173
+03:07:59.930 --> 03:08:05.450
+Jitendra K: Along with a tool that they have, let's say, if you're solving hacker rank challenges.
+
+1174
+03:08:05.600 --> 03:08:11.530
+Jitendra K: So now they are allowing the candidate to use some sort of bots to… Utilize.
+
+1175
+03:08:12.340 --> 03:08:16.490
+Jitendra K: We got DSA, the primary…
+
+1176
+03:08:17.150 --> 03:08:19.470
+Jitendra K: thing that DSA will help you to write.
+
+1177
+03:08:19.830 --> 03:08:22.940
+Jitendra K: niche quotes, right? Which is no longer required.
+
+1178
+03:08:23.190 --> 03:08:29.019
+Jitendra K: So a user or a developer do not need to know, the best way to write code.
+
+1179
+03:08:31.990 --> 03:08:35.980
+Jitendra K: You should… should you have some idea about it, I'm not denying that.
+
+1180
+03:08:36.250 --> 03:08:39.789
+Jitendra K: But it should not be expert on the topic of it.
+
+1181
+03:08:44.730 --> 03:08:50.510
+Jitendra K: So instead of that, I think the key focus has been changed to architecture and system design, and the cloud configurations.
+
+1182
+03:08:52.660 --> 03:08:56.399
+Jitendra K: DSS turned for… Data structures algorithm.
+
+1183
+03:09:04.760 --> 03:09:10.760
+Jitendra K: If you're good in DSA, then well I'm good, but if you're not, then that's also okay nowadays.
+
+1184
+03:09:21.320 --> 03:09:24.529
+Jitendra K: Yeah, at entry level, that's… that's correct, it is.
+
+1185
+03:09:25.500 --> 03:09:29.270
+Jitendra K: So, at entry level, if you're expert in ESA system design.
+
+1186
+03:09:29.780 --> 03:09:34.840
+Jitendra K: You can crack, cloud-agnostic interviews, then it is well and good.
+
+1187
+03:09:35.470 --> 03:09:38.080
+Jitendra K: No, the… end up…
+
+1188
+03:09:38.710 --> 03:09:46.940
+Jitendra K: I mean, when we start our career, we are focusing on C and C++. The same way now, those who are college grad, they start learning
+
+1189
+03:09:47.170 --> 03:09:54.740
+Jitendra K: how to create agents, how to use open clause models, etc. So they're going to test heavily on those skills.
+
+1190
+03:10:04.280 --> 03:10:10.360
+Jitendra K: So I think it's not even fully stack job, it's become… Totally a problem-solver job.
+
+1191
+03:10:12.490 --> 03:10:13.739
+Jitendra K: Yeah, that's correct.
+
+1192
+03:10:25.590 --> 03:10:31.269
+Jitendra K: Alright guys, so thank you for creating this forum. We will continue to have more discussion around it.
+
+1193
+03:10:31.370 --> 03:10:37.450
+Jitendra K: So what we can do is, on the next class, we will create a 30-minute talk on the industrial changes, and…
+
+1194
+03:10:37.740 --> 03:10:42.509
+Jitendra K: Try to encourage everybody to participate and share their ideas as well during the group.
+
+1195
+03:10:43.030 --> 03:10:47.300
+Jitendra K: That will help us to find… Some way of,
+
+1196
+03:10:48.610 --> 03:10:53.210
+Jitendra K: You know, creating a discussion forum, and… Help us to…
+
+1197
+03:10:53.320 --> 03:10:59.530
+Jitendra K: Get a different perspective, because we are diversified by Location, as well as,
+
+1198
+03:11:00.310 --> 03:11:03.020
+Jitendra K: The domain that we are working into.
+
+1199
+03:11:06.470 --> 03:11:08.490
+Jitendra K: Yeah, yeah, sure.
+
+1200
+03:11:09.180 --> 03:11:17.380
+Jitendra K: So, I will add you guys, since we have created LinkedIn, so I will add you in more LinkedIn communities, so that we can get some more ideas on the top of it.
+
+1201
+03:11:28.590 --> 03:11:32.209
+Jitendra K: Yeah, kids are more smarter than us, that's for sure.
+
+1202
+03:11:34.040 --> 03:11:38.340
+Jitendra K: And I think, Neuralink is… Ultimately.
+
+1203
+03:11:39.680 --> 03:11:47.640
+Jitendra K: going to make humans smarter, but I don't know if it has been implemented, and… It is gonna be…
+
+1204
+03:11:48.520 --> 03:11:51.300
+Jitendra K: one of the… Best thing that…
+
+1205
+03:11:52.570 --> 03:11:55.800
+Jitendra K: Can be done for humans to survive in this era.
+
+1206
+03:12:00.910 --> 03:12:02.520
+Jitendra K: Thank you, thank you, guys.
+
+1207
+03:12:06.370 --> 03:12:08.050
+Jitendra K: Thank you all, so…
+
+1208
+03:12:14.910 --> 03:12:17.680
+Jitendra K: No, it's all not about differentiation, I mean…
+
+1209
+03:12:17.820 --> 03:12:19.899
+Jitendra K: If you have interest in some…
+
+1210
+03:12:20.900 --> 03:12:26.920
+Jitendra K: Kind of… it's not about softwares and… you know, industry.
+
+1211
+03:12:27.100 --> 03:12:33.099
+Jitendra K: It's all about making humans more smarter, so… So one way is…
+
+1212
+03:12:33.470 --> 03:12:36.779
+Jitendra K: your own efforts. Second way is…
+
+1213
+03:12:37.120 --> 03:12:39.359
+Jitendra K: Getting something which will help you.
+
+1214
+03:12:46.340 --> 03:12:52.720
+Jitendra K: Thank you, guys. So, we will meet in the next tutorial with our continuation discussion on design patterns.
+
+1215
+03:12:52.920 --> 03:12:54.949
+Jitendra K: And we will take more examples.
+
+1216
+03:13:02.930 --> 03:13:09.140
+Jitendra K: Yeah, that is true, but it may make a world seamlessly similar, I agree.
+
+1217
+03:13:14.500 --> 03:13:18.679
+Jitendra K: Okay, guys, thank you, and have a pleasant evening ahead. We'll meet in the next tutorial.
+

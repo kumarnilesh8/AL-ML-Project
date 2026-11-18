@@ -1,0 +1,15 @@
+Coa Account Name	New Volume Result	Scenario ID	Analysis Scenario Code	Time Bucket Code	Time Band Row ID	Leg Type	Deal Ccy Code	Table Name	Sum(Notional Balance Eob)		Query
+Murabaha Financing-D	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	0	D	USD	LOANDEPO	0		select COA_ACCOUNT_NAME,new_volume_result,scenario_id,analysis_scenario_code,TIME_BUCKET_CODE,TIME_BAND_ROW_ID,leg_type,DEAL_CCY_CODE,table_name,sum(notional_balance_eob)
+Foreign Banks-A	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	0	D	EUR	ACCOUNT	61328973.6926015		from T_ALM_BUCKETS where cash_flow_approach_code='Rate' 
+Sukuk Investments-L	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	1	D	USD	SECURITY_POSITIONS	3727828689.81177		group by COA_ACCOUNT_NAME,new_volume_result,scenario_id,analysis_scenario_code,TIME_BAND_ROW_ID,leg_type,DEAL_CCY_CODE,table_name,TIME_BUCKET_CODE
+Instalment sale-F	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	1	D	EUR	LOANDEPO	1348179325.2781		
+Project Murabaha-F	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	1	D	USD	LOANDEPO	193460379.409748		
+Other Liabilities - staff cost-K	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	1	D	XDR	ACCOUNT	-246938.27		
+Foreign Banks-A	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	1	D	QAR	ACCOUNT	0		
+Instalment sale-F	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	1	D	XDR	LOANDEPO	48013859.41		
+Instalment sale-F	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	2	D	EUR	LOANDEPO	1348179325.2781		
+Foreign Banks-A	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	1	D	IDR	ACCOUNT	0		
+Foreign Banks-A	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	2	D	IDR	ACCOUNT	0		
+Istisnaa assets-S	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	3	D	USD	LOANDEPO	4609750822.7401		
+Other Liabilities - Vendor Account-K	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	3	D	XDR	ACCOUNT	-2813269.23		
+Other Liabilities - staff cost-K	F	383	Rate_Hedge_Scenario	IR_SEG_GRANULAR	3	D	XDR	ACCOUNT	-246938.27		

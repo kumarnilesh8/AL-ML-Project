@@ -1,0 +1,15 @@
+{
+  "baseline_merge_commit": "a953fd7f5e4fefd9399ba30ca63ea58aeca11596",
+  "created_at": "2026-05-28T08:20:08.516153+00:00",
+  "friendly_name": "Organisational Bindings",
+  "mission_id": "01KSPTPR63VP3XCPPPCWHDPWZV",
+  "mission_number": 3,
+  "mission_slug": "organizational-bindings-01KSPTPR",
+  "mission_type": "software-dev",
+  "purpose_context": "Add a corporate enrichment layer to the pack-governance dashboard that attaches RACI-style accountability metadata (department, SPOC, accountability type, involvement rationale) to each doctrine domain. Data is managed through a new Organisational Bindings dashboard page and persisted to docs/org-bindings.yaml, kept separate from the distributable pack.",
+  "purpose_tldr": "RACI accountability layer for doctrine domains with dedicated dashboard management page",
+  "slug": "organizational-bindings-01KSPTPR",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "vcs": "git",
+  "vcs_locked_at": "2026-05-28T11:26:10.944968+00:00"
+}

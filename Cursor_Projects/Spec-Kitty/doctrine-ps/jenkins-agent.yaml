@@ -1,0 +1,71 @@
+# =============================================================================
+# Regnology Agent Doctrine — Jenkins Kubernetes Agent Pod Spec
+# pack distribution pipeline (regnology-stack-distribution-pipeline-01KSWHFT)
+#
+# Referenced by Jenkinsfile via:
+#   agent { kubernetes { yamlFile 'jenkins-agent.yaml' defaultContainer 'tools' } }
+#
+# Containers:
+#   tools  — Debian base with GNU tar, curl, zip, sha256sum (all stages default)
+#   sonar  — SonarScanner CLI sidecar (Security Scan stage, DIRECTIVE_043 §1)
+#
+# Security context:
+#   fsGroup: 1000 — non-root filesystem ownership; required for workspace volume
+#   writes from inside containers (Directive 043 — Least Privilege).
+#
+# Follows the Regnology PS Jenkins pod spec convention (pack/templates/ci/).
+# =============================================================================
+
+apiVersion: v1
+kind: Pod
+spec:
+  securityContext:
+    fsGroup: 1000
+
+  containers:
+
+    # -------------------------------------------------------------------------
+    # tools container — all pipeline stages run here by default.
+    # Provides: bash, curl, tar (GNU), zip, sha256sum, apt-get for zip guard.
+    # CycloneDX CLI must be installed separately (Security Scan degrades to
+    # UNSTABLE on first deploys until toolchain is confirmed — see Jenkinsfile
+    # catchError transition plan comment).
+    # -------------------------------------------------------------------------
+    - name: tools
+      image: debian:bookworm-slim
+      imagePullPolicy: IfNotPresent
+      tty: true
+      command:
+        - "sleep"
+      args:
+        - "99d"
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "500m"
+        limits:
+          memory: "1Gi"
+          cpu: "1"
+
+    # -------------------------------------------------------------------------
+    # sonar container — SonarQube SAST (DIRECTIVE_043 §1).
+    # Only actively invoked when sonar-scanner is called in the Security Scan
+    # stage. The stage is wrapped in catchError(buildResult: 'UNSTABLE') for
+    # first-deploy resilience; once the AppSec team registers the project,
+    # remove catchError and make the stage hard-blocking.
+    # -------------------------------------------------------------------------
+    - name: sonar
+      image: sonarsource/sonar-scanner-cli:latest
+      imagePullPolicy: IfNotPresent
+      tty: true
+      command:
+        - "sleep"
+      args:
+        - "99d"
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "500m"
+        limits:
+          memory: "1Gi"
+          cpu: "1"

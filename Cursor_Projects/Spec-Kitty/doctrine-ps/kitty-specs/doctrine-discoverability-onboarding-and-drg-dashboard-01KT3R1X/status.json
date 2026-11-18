@@ -1,0 +1,56 @@
+{
+  "event_count": 36,
+  "last_event_id": "01KT3YGG56TEFQ7B29FSY15702",
+  "materialized_at": "2026-06-02T10:36:45.606197+00:00",
+  "mission_number": "",
+  "mission_slug": "doctrine-discoverability-onboarding-and-drg-dashboard-01KT3R1X",
+  "mission_type": "software-dev",
+  "summary": {
+    "approved": 0,
+    "blocked": 0,
+    "canceled": 0,
+    "claimed": 0,
+    "done": 5,
+    "for_review": 0,
+    "in_progress": 0,
+    "in_review": 0,
+    "planned": 0
+  },
+  "work_packages": {
+    "WP01": {
+      "actor": "merge",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KT3YGG06KET6FWX6NFSDH76E",
+      "last_transition_at": "2026-06-02T10:36:45.446064+00:00"
+    },
+    "WP02": {
+      "actor": "merge",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KT3YGG2VVQHH3YZVBT3ZTZR5",
+      "last_transition_at": "2026-06-02T10:36:45.531904+00:00"
+    },
+    "WP03": {
+      "actor": "merge",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KT3YGG474SP12Z1JTX84E6PQ",
+      "last_transition_at": "2026-06-02T10:36:45.575470+00:00"
+    },
+    "WP04": {
+      "actor": "merge",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KT3YGG3KP8DXDCGG6GGB2AK9",
+      "last_transition_at": "2026-06-02T10:36:45.555398+00:00"
+    },
+    "WP05": {
+      "actor": "merge",
+      "force_count": 2,
+      "lane": "done",
+      "last_event_id": "01KT3YGG56TEFQ7B29FSY15702",
+      "last_transition_at": "2026-06-02T10:36:45.606197+00:00"
+    }
+  }
+}

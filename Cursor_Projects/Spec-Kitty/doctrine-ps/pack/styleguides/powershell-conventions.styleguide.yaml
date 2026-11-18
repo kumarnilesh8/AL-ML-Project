@@ -1,0 +1,128 @@
+schema_version: "1.0"
+id: powershell-conventions
+title: PowerShell conventions
+scope: code
+principles:
+  - "Target PowerShell 7+ (`pwsh`) by default; use Windows PowerShell 5.1 only when the engagement charter requires legacy support."
+  - "Use approved Verb-Noun cmdlet names; `$camelCase` variables; `-PascalCase` parameters."
+  - "Reusable modules MUST use a module manifest (`.psd1`) and Public/Private function layout."
+  - "Keep structured objects in the pipeline; defer formatting with Format-* or Out-* until the final output step."
+  - "Author tests with Pester Describe/It blocks and wire a Test task in build.ps1."
+  - "Run PSScriptAnalyzer on module and script paths before handoff."
+  - "Enable Set-StrictMode -Version Latest in scripts and modules unless a documented exception exists."
+  - "Entry scripts MUST declare `#Requires -Version 7.0` (or higher when required)."
+  - "Do not commit secrets, credentials, or connection strings; declare gallery dependencies in the module manifest or a documented lock."
+  - "Do not use Invoke-Expression on untrusted or externally supplied input."
+patterns:
+  - name: Recommended Tooling
+    description: "Use PSScriptAnalyzer for static analysis and Pester 5.x for testing on every PowerShell project. Configure a .PSScriptAnalyzerSettings.psd1 for project-wide rule customisation. Wire both into build.ps1 as Lint and Test tasks. See the pester and psscriptanalyzer toolguides for installation and usage."
+    bad_example: |
+      # No linter, no tests — ship and hope
+      Copy-Item ./MyModule.psm1 \\server\deploy\
+    good_example: |
+      # Lint, test, then ship
+      ./build.ps1 -Task Lint
+      ./build.ps1 -Task Test
+      ./build.ps1 -Task Build
+  - name: Comment-Based Help
+    description: "All public functions must include comment-based help with .SYNOPSIS, .PARAMETER, .EXAMPLE, and .OUTPUTS sections. This enables Get-Help discoverability and self-documenting modules."
+    bad_example: |
+      function Get-Data {
+          param($Path)
+          Get-Content $Path
+      }
+    good_example: |
+      function Get-Data {
+          <#
+          .SYNOPSIS
+              Reads structured data from the specified path.
+          .PARAMETER Path
+              File path to read.
+          .EXAMPLE
+              Get-Data -Path './config.json'
+          .OUTPUTS
+              [PSCustomObject]
+          #>
+          [CmdletBinding()]
+          [OutputType([PSCustomObject])]
+          param(
+              [Parameter(Mandatory)]
+              [ValidateNotNullOrEmpty()]
+              [string]$Path
+          )
+          Get-Content $Path -Raw | ConvertFrom-Json
+      }
+  - name: Pipeline Object Preservation
+    description: "Preserve objects through the pipeline so downstream cmdlets can filter, sort, and select on properties."
+    bad_example: |
+      Get-Process | Format-Table | Select-Object Name
+    good_example: |
+      Get-Process |
+          Select-Object Name, CPU, Id |
+          Sort-Object CPU -Descending |
+          Format-Table -AutoSize
+  - name: Pester Describe/It Structure
+    description: "Group tests by function or script under Describe; use It for individual behaviours."
+    bad_example: |
+      Invoke-Pester -ScriptBlock {
+          $result = Get-Greeting -Name 'Ada'
+          if ($result -ne 'Hello, Ada') { throw 'failed' }
+      }
+    good_example: |
+      Describe 'Get-Greeting' {
+          It 'returns a personalised greeting' {
+              Get-Greeting -Name 'Ada' | Should -Be 'Hello, Ada'
+          }
+      }
+  - name: try/catch with -ErrorAction Stop
+    description: "Use terminating errors in try/catch blocks so failures are caught predictably."
+    bad_example: |
+      try {
+          Get-Content -Path $Path
+      } catch {
+          Write-Warning $_.Exception.Message
+      }
+    good_example: |
+      try {
+          Get-Content -Path $Path -ErrorAction Stop
+      } catch {
+          Write-Error "Failed to read '$Path': $($_.Exception.Message)"
+          throw
+      }
+anti_patterns:
+  - name: Invoke-Expression on Untrusted Input
+    description: "Dynamic execution of untrusted strings enables injection; parse or invoke cmdlets directly instead."
+    bad_example: |
+      $userCommand = Read-Host 'Enter command'
+      Invoke-Expression $userCommand
+    good_example: |
+      param(
+          [ValidateSet('Start', 'Stop')]
+          [string]$Action
+      )
+      & "$PSScriptRoot/Public/Invoke-ServiceAction.ps1" -Action $Action
+  - name: Secrets in Source
+    description: "Credentials and tokens must not live in tracked scripts; use secret stores or CI variables."
+    bad_example: |
+      $apiKey = 'sk-live-0123456789abcdef'
+      Invoke-RestMethod -Uri $uri -Headers @{ Authorization = "Bearer $apiKey" }
+    good_example: |
+      $apiKey = Get-Secret -Name 'deployment-api-key' -AsPlainText
+      Invoke-RestMethod -Uri $uri -Headers @{ Authorization = "Bearer $apiKey" }
+  - name: Mid-Pipeline Formatting
+    description: "Formatting cmdlets emit formatted strings, not objects, breaking downstream property access."
+    bad_example: |
+      Get-Service |
+          Format-Table Name, Status |
+          Where-Object Status -eq 'Running'
+    good_example: |
+      Get-Service |
+          Where-Object Status -eq 'Running' |
+          Select-Object Name, Status |
+          Format-Table -AutoSize
+quality_test: >
+  A compliant module passes PSScriptAnalyzer on Public/, Private/, and root scripts;
+  Pester tests pass via build.ps1 Test or Invoke-Pester; module manifests exist for
+  reusable modules; entry scripts declare #Requires -Version 7.0; all public functions
+  include comment-based help. Human-readable background: docs/references/powershell-primer.md.
+  Companion template: powershell-module-layout.

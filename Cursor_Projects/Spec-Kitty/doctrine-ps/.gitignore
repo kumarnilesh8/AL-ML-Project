@@ -1,0 +1,92 @@
+# IDE
+.vscode/
+.idea/
+*.iml
+.DS_Store
+
+# Local Cursor overrides (contain machine-specific paths/secrets)
+.cursor/mcp.json
+
+# Generated agent harness surfaces are ignored below. Preserve shared canon in
+# tools/surfaces/ instead of committing generated .cursor/ or .claude/ output.
+.claude/settings.local.json
+.claude/.mcp.json
+
+# Temporary files
+tmp/
+*.tmp
+*.bak
+*.swp
+*~
+
+# Layered-validation scratch dirs (make validate-layered / Jenkins layered stage).
+# Normally trap-cleaned, but guard against leftovers if a run is hard-killed.
+.tmp-assembled.*
+.base-pack-clone/
+
+# Local clone of the All-Company base pack for `spec-kitty doctor doctrine`
+# (see .kittify/config.yaml doctrine.org.packs). Cloned manually, never committed.
+# Lives under .kittify/ (not a top-level dir) so it's co-located with the rest
+# of the spec-kitty runtime/config state.
+.kittify/doctrine-cache/
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.regnology-mcp
+local/
+
+# work/ is a local orchestration workspace — not for version control
+work/
+
+# Spec Kitty lane worktrees — created locally per mission, never committed
+.worktrees/
+
+# Dashboard review artifacts — written by the live server during testing, not version-controlled
+pack/.reviews/
+
+# Node.js dependencies (tools/pack-dashboard)
+node_modules/
+tools/pack-dashboard/node_modules/
+
+# Added by Spec Kitty CLI (auto-managed)
+.claude/
+.codex/
+.vibe/
+.pi/
+.letta/
+.opencode/
+.windsurf/
+.gemini/
+.cursor/
+.qwen/
+.kilocode/
+.augment/
+.roo/
+.amazonq/
+.kiro/
+.agent/
+.github/copilot/
+.kittify/.dashboard
+.kittify/charter/context-state.json
+.kittify/charter/directives.yaml
+.kittify/charter/governance.yaml
+.kittify/charter/metadata.yaml
+.kittify/charter/references.yaml
+.kittify/dossiers/
+.kittify/events/
+.kittify/merge-state.json
+.kittify/missions/__pycache__/
+.kittify/runtime/
+.kittify/workspaces/
+
+# Packaged pack distributables (build outputs of `doctrine pack build`)
+regnology-default-*.tar.gz
+regnology-default-*.zip
+
+# Generated pack integrity manifest (built by generate_manifest during packaging; see EDR-001)
+pack/META/
+.kittify/sync-state.json

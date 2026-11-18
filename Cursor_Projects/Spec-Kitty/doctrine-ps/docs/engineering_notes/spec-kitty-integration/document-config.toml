@@ -1,0 +1,21 @@
+[metadata]
+title          = "Spec Kitty Doctrine Integration"
+subtitle       = "Integration Options and Recommendations for Regnology PS"
+author         = "Architect Alphonso / Editor Eddy"
+author-title   = "Regnology Professional Services"
+organisation   = "Regnology — Professional Services"
+date           = "2026-05-13"
+classification = "FOR INTERNAL USE ONLY"
+version        = "1.0.0"
+
+[variants]
+executive-summary = [
+    "executive-summary.md",
+    "system-landscape-diagram.md",
+]
+full = [
+    "executive-summary.md",
+    "system-landscape-diagram.md",
+    "../2026-05-12-spec-kitty-doctrine-integration-options.md",
+    "../2026-05-19-org-layer-landed-full-replacement-assessment.md",
+]

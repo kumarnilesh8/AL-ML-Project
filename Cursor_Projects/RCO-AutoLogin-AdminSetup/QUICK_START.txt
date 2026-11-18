@@ -1,0 +1,84 @@
+===============================================================
+        RCO AUTO LOGIN - QUICK START GUIDE
+===============================================================
+
+STEP 1: INSTALL DEPENDENCIES
+-----------------------------
+Open Command Prompt in this folder and run:
+    pip install -r requirements.txt
+
+STEP 2: START THE SERVER
+-------------------------
+Option A - Double-click:
+    start_server.bat
+
+Option B - Command line:
+    python app.py
+
+STEP 3: OPEN WEB INTERFACE
+---------------------------
+In your web browser, go to:
+    http://localhost:5000
+
+STEP 4: SHARE WITH OTHERS (Optional)
+-------------------------------------
+When the server starts, you'll see a Network URL like:
+    http://192.168.1.100:5000
+
+Share this URL with other users on your network.
+They can access the control panel from their computers!
+
+IMPORTANT: Keep the Command Prompt window open while 
+the server is running. The server stops if you close it.
+
+===============================================================
+TROUBLESHOOTING
+===============================================================
+
+Problem: Port 5000 already in use
+Solution: Edit app.py and change port=5000 to port=5001
+
+Problem: Can't access from other computers
+Solution: 
+  1. Check Windows Firewall settings
+  2. Allow incoming connections on port 5000
+  3. Make sure both computers are on same network
+
+Problem: Script fails to run
+Solution:
+  1. Make sure Chrome browser is installed
+  2. Check the Status section for error details
+  3. Verify the Python scripts are in the folder
+
+===============================================================
+FEATURES
+===============================================================
+
+✓ Run individual scripts with one button click
+✓ Run both scripts sequentially  
+✓ Real-time status monitoring
+✓ View script output and errors
+✓ Share with team members on network
+✓ Beautiful, modern web interface
+
+===============================================================
+SECURITY NOTE
+===============================================================
+
+The web interface is accessible to anyone on your local
+network. Make sure you trust all users with network access.
+
+===============================================================
+For detailed documentation, see README.md
+===============================================================
+
+
+
+
+
+
+
+
+
+
+

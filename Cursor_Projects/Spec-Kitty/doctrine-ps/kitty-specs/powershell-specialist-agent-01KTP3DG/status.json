@@ -1,0 +1,70 @@
+{
+  "event_count": 41,
+  "last_event_id": "01KTP638YAF7N5470H00XCN69Y",
+  "materialized_at": "2026-06-09T12:35:40.618933+00:00",
+  "mission_number": "",
+  "mission_slug": "powershell-specialist-agent-01KTP3DG",
+  "mission_type": "software-dev",
+  "summary": {
+    "approved": 0,
+    "blocked": 0,
+    "canceled": 0,
+    "claimed": 0,
+    "done": 7,
+    "for_review": 0,
+    "in_progress": 0,
+    "in_review": 0,
+    "planned": 0
+  },
+  "work_packages": {
+    "WP01": {
+      "actor": "user",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KTP5N4K34XXBP8K8MEA0VM6G",
+      "last_transition_at": "2026-06-09T12:27:57.411218+00:00"
+    },
+    "WP02": {
+      "actor": "user",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KTP5N66BHQWK6BNH1E8VQWBK",
+      "last_transition_at": "2026-06-09T12:27:59.051678+00:00"
+    },
+    "WP03": {
+      "actor": "user",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KTP5N7NYB2PGZHGF93TW8383",
+      "last_transition_at": "2026-06-09T12:28:00.574181+00:00"
+    },
+    "WP04": {
+      "actor": "user",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KTP5N94S7R84VV1DDY2E49WD",
+      "last_transition_at": "2026-06-09T12:28:02.073289+00:00"
+    },
+    "WP05": {
+      "actor": "user",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KTP5NAMNFN69APHF4BJGTA16",
+      "last_transition_at": "2026-06-09T12:28:03.605185+00:00"
+    },
+    "WP06": {
+      "actor": "user",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KTP5NC3GTMN6F9HD78ZZCJJJ",
+      "last_transition_at": "2026-06-09T12:28:05.104961+00:00"
+    },
+    "WP07": {
+      "actor": "user",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KTP638YAF7N5470H00XCN69Y",
+      "last_transition_at": "2026-06-09T12:35:40.618933+00:00"
+    }
+  }
+}

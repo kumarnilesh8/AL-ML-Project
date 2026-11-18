@@ -1,0 +1,111 @@
+schema_version: 1
+mission_id: 01KS56B1RXDA4JCMAZ6T4NHJ20
+mission_slug: pack-dashboard-domain-tags-builtin-01KS56B1
+mission_number: 2
+friendly_name: Pack Dashboard — Domain Tags and Built-in Doctrine
+mission_type: software-dev
+target_branch: overhaul/migrate_to_kitty
+created_at: '2026-05-21T13:40:15.001618+00:00'
+created_by:
+  kind: human
+  id: cli
+  display: spec-kitty retrospect
+provenance:
+  kind: explicit_create
+  invoked_at: '2026-05-21T13:40:15.001618+00:00'
+  policy_resolved_from:
+    enabled: <default>
+    timing: <default>
+    failure_policy: <default>
+    write_record: <default>
+    generate_proposals: <default>
+    apply_proposals: <default>
+    permissions.write_record: <default>
+    permissions.inspect_mission_artifacts: <default>
+    permissions.propose_glossary_changes: <default>
+    permissions.propose_drg_changes: <default>
+    permissions.propose_doctrine_changes: <default>
+    permissions.apply_low_risk_changes: <default>
+    permissions.apply_structural_changes: <default>
+    precedence: <default>
+    generator: <default>
+  command: spec-kitty retrospect create
+policy_source:
+  enabled: <default>
+  timing: <default>
+  failure_policy: <default>
+  write_record: <default>
+  generate_proposals: <default>
+  apply_proposals: <default>
+  permissions.write_record: <default>
+  permissions.inspect_mission_artifacts: <default>
+  permissions.propose_glossary_changes: <default>
+  permissions.propose_drg_changes: <default>
+  permissions.propose_doctrine_changes: <default>
+  permissions.apply_low_risk_changes: <default>
+  permissions.apply_structural_changes: <default>
+  precedence: <default>
+  generator: <default>
+findings_status: has_findings
+helped: []
+not_helpful: []
+gaps:
+- id: g-001
+  category: spec_quality
+  summary: Unresolved clarification marker in spec.md (line 46)
+  evidence_refs:
+  - e-002
+  details: Found '[NEEDS CLARIFICATION:' marker at line 46 of spec.md. This indicates a specification gap that was not 
+    resolved before implementation.
+proposals: []
+evidence_refs:
+- id: e-001
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/meta.json
+- id: e-002
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/spec.md
+- id: e-003
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/plan.md
+- id: e-004
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks.md
+- id: e-005
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP01-domain-vocab-server-config.md
+- id: e-006
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP02-artifact-tags-server.md
+- id: e-007
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP03-domain-service-chips-list-column.md
+- id: e-008
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP04-editable-chips-yaml-editor.md
+- id: e-009
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP05-by-domain-dashboard.md
+- id: e-010
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP06-builtin-scanner-server.md
+- id: e-011
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP07-builtin-routes-source-field.md
+- id: e-012
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP08-builtin-table-kind-list.md
+- id: e-013
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP09-builtin-detail-view.md
+- id: e-014
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP10-builtin-chip-resolution.md
+- id: e-015
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/tasks/WP11-platform-defaults-dashboard.md
+- id: e-016
+  kind: file
+  path: kitty-specs/pack-dashboard-domain-tags-builtin-01KS56B1/status.events.jsonl
+generator_version: '1.0'
+provenance_history: []

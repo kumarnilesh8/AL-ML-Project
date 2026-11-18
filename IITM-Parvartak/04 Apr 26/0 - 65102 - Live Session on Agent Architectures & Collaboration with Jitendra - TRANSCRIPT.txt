@@ -1,0 +1,6206 @@
+WEBVTT
+
+1
+00:00:55.290 --> 00:00:58.889
+Jitendra K: Hi guys, good evening, and welcome to another module.
+
+2
+00:00:59.250 --> 00:01:04.640
+Jitendra K: So before we start, let's wait for a couple of more minutes, I can see if candidates are joining in.
+
+3
+00:01:04.940 --> 00:01:07.530
+Jitendra K: Let them join, and then we can start the session.
+
+4
+00:02:37.910 --> 00:02:41.090
+Jitendra K: So, hello everyone. So we are in the module.
+
+5
+00:02:42.540 --> 00:02:44.680
+Jitendra K: Number 16.
+
+6
+00:02:45.040 --> 00:02:50.449
+Jitendra K: And, this week, we are going to talk about fine-tuning, and then we'll start with RAG pipelines.
+
+7
+00:02:50.620 --> 00:02:57.560
+Jitendra K: So we'll try to complete a topic, for the last tutorial that we discussed about PAFT and LORAS, which is…
+
+8
+00:02:57.990 --> 00:03:03.590
+Jitendra K: solve the essential technique that we have learned to fine-tune the transformers or LLM models.
+
+9
+00:03:03.920 --> 00:03:07.229
+Jitendra K: So we'll continue with some hands-on and some more…
+
+10
+00:03:07.470 --> 00:03:12.050
+Jitendra K: Architectures and some papers that we are going to discuss in today's tutorial.
+
+11
+00:03:12.430 --> 00:03:17.309
+Jitendra K: And I would like to talk about some more variants of theft and LORAS in this class.
+
+12
+00:03:17.660 --> 00:03:23.339
+Jitendra K: Now, if I have to explain you all this evaluation, in terms of the last
+
+13
+00:03:23.970 --> 00:03:29.790
+Jitendra K: several years. So this is a tree, where you can see that from 2019 onwards.
+
+14
+00:03:30.300 --> 00:03:36.410
+Jitendra K: This technique has been developed as a part of evolutionary development of LLM and,
+
+15
+00:03:37.710 --> 00:03:47.660
+Jitendra K: At that point of time, there's no LLM in 2019, but there are still techniques, right, which we'll use to fine-tune BERT and other shallow language models.
+
+16
+00:03:47.890 --> 00:03:55.640
+Jitendra K: So that means the foundation has been set up in the year 2019 onwards, where the first technique which has been developed is sequential adapter.
+
+17
+00:03:55.970 --> 00:04:02.569
+Jitendra K: And then, from adapter, it has been moved on to residuals, fusion, another type of technique.
+
+18
+00:04:03.930 --> 00:04:08.640
+Jitendra K: So you can see that these techniques are pretty… scattered.
+
+19
+00:04:09.000 --> 00:04:13.059
+Jitendra K: Right? So it is not very easy to find which technique is optimal.
+
+20
+00:04:13.310 --> 00:04:22.780
+Jitendra K: But if I have to just give you my experience, I would say this technique is much, much better. And then you can see the variants of Loras in this tree.
+
+21
+00:04:23.040 --> 00:04:33.510
+Jitendra K: And out of these variants of LoRa's adaptive LoRa, Delta, LoRa, Even… Q, Laura is very important.
+
+22
+00:04:33.940 --> 00:04:42.749
+Jitendra K: For adapter, I would say… There are a few techniques which is very, very useful, like MPT, then IEA3,
+
+23
+00:04:43.070 --> 00:04:48.810
+Jitendra K: And attention fusion is there until a certain extent, but it has been
+
+24
+00:04:49.650 --> 00:04:53.360
+Jitendra K: Not into that great consideration afterwards.
+
+25
+00:04:53.800 --> 00:05:00.509
+Jitendra K: So… and then from this tree, this particular branch, You can see Compactor…
+
+26
+00:05:00.770 --> 00:05:04.710
+Jitendra K: And, there's something called Autopathft, which is also useful.
+
+27
+00:05:05.240 --> 00:05:13.849
+Jitendra K: So there's something called flash attention these days, which is also emerging, which is also a part of adaptive fine-tuning.
+
+28
+00:05:15.140 --> 00:05:22.069
+Jitendra K: But what we are going to do is, instead of going too much deep into these techniques, we will just try to complete this topic
+
+29
+00:05:22.910 --> 00:05:24.090
+Jitendra K: And,
+
+30
+00:05:25.440 --> 00:05:35.609
+Jitendra K: try to understand, how can we create our own LLM model from the scratch with the help of Paft and LuRAS. And that is the ultimate purpose that we are going to use, right?
+
+31
+00:05:35.760 --> 00:05:43.390
+Jitendra K: So this paper will talk about multiple ways in which you can be able to develop these algorithms, and there are different
+
+32
+00:05:45.820 --> 00:05:49.950
+Jitendra K: Heuristics on which you can able to utilize this algorithm for.
+
+33
+00:05:50.090 --> 00:05:54.100
+Jitendra K: Ultimately, we are fine-tuning transformers. They are tension layers.
+
+34
+00:05:54.870 --> 00:06:00.569
+Jitendra K: So, just a quick recap, we have talked about transformers in the last tutorial, and the transformer will help us too.
+
+35
+00:06:00.810 --> 00:06:01.820
+Jitendra K: perform.
+
+36
+00:06:02.750 --> 00:06:13.059
+Jitendra K: the transformer is using the tension layer to perform the analysis on the text, right? So with the help of this technique, we are just fine-tuning the transformer layer.
+
+37
+00:06:18.780 --> 00:06:26.959
+Jitendra K: Okay, I can see some questions. Let me go and address. I have been practicing multi-agent orchestration architecture, so for the agent I've built.
+
+38
+00:06:27.780 --> 00:06:39.300
+Jitendra K: Okay, Caribbe… Yeah, we'll talk about orchestration layer, but I do not know what is dynamic AI orchestration.
+
+39
+00:06:40.900 --> 00:06:46.180
+Jitendra K: I'm hearing it for the first time. What is dynamic AI orchestration?
+
+40
+00:06:46.560 --> 00:06:51.419
+Jitendra K: Even with a dynamic orchestration, right? There's no AI component to it.
+
+41
+00:06:57.200 --> 00:07:03.300
+Jitendra K: Orchestration itself is dynamic. The purpose of orchestration is to make sure that the agents are coordinated dynamically.
+
+42
+00:07:08.540 --> 00:07:16.060
+Jitendra K: Yeah, there are different types of orchestration. So, first we have to understand what is orchestration. I hope you guys does not know what is even orchestration.
+
+43
+00:07:16.210 --> 00:07:21.119
+Jitendra K: So before moving on to the types of orchestration, we have to understand orchestration itself first.
+
+44
+00:07:21.580 --> 00:07:26.939
+Jitendra K: And then we were able to understand how to use Memories management more effectively.
+
+45
+00:07:27.280 --> 00:07:32.060
+Jitendra K: How to use protocols to ensure the communication between the agents are seamless.
+
+46
+00:07:32.280 --> 00:07:37.729
+Jitendra K: And then, depending upon that, there are several tools, like AsynQ, Temporal.
+
+47
+00:07:37.920 --> 00:07:40.520
+Jitendra K: That, anyway, we are going to use and discover.
+
+48
+00:07:41.810 --> 00:07:45.999
+Jitendra K: Alright, yeah, the link to the paper, let me share this link.
+
+49
+00:07:48.430 --> 00:07:52.589
+Jitendra K: This is the paper link. So you can go through this paper if you have time.
+
+50
+00:07:52.930 --> 00:07:56.999
+Jitendra K: And even… Interest to go through all these equations.
+
+51
+00:07:57.360 --> 00:07:58.880
+Jitendra K: Then you can go through it.
+
+52
+00:07:59.510 --> 00:08:03.649
+Jitendra K: But one thing I would like to talk about is, this is something,
+
+53
+00:08:04.420 --> 00:08:10.070
+Jitendra K: is important from two perspectives. One is architectural, second is
+
+54
+00:08:10.890 --> 00:08:17.710
+Jitendra K: You understand, how to… there are several techniques that you can be able to use to fine-tune your approach.
+
+55
+00:08:18.050 --> 00:08:20.620
+Jitendra K: Specifically, we are using RAG.
+
+56
+00:08:20.890 --> 00:08:25.950
+Jitendra K: But other than that, are there any techniques? So these are the techniques that we are discussing here, right?
+
+57
+00:08:26.210 --> 00:08:27.850
+Jitendra K: So, this will…
+
+58
+00:08:27.970 --> 00:08:35.389
+Jitendra K: be very costly affair. I know that it required very good amount of memories and GPUs enablement.
+
+59
+00:08:35.659 --> 00:08:37.959
+Jitendra K: And that makes this technique so costly.
+
+60
+00:08:38.120 --> 00:08:41.289
+Jitendra K: The organization are preferring to go with RAG, and…
+
+61
+00:08:42.049 --> 00:08:44.550
+Jitendra K: not using Paft and LoRa to an extent.
+
+62
+00:08:45.010 --> 00:08:49.720
+Jitendra K: But… If you're working for a product-based company, they're least bothered about
+
+63
+00:08:50.710 --> 00:08:55.840
+Jitendra K: cost. They will be focusing on quality generation.
+
+64
+00:08:56.080 --> 00:08:59.860
+Jitendra K: So in those scenarios, you have to deal with this technique, for sure.
+
+65
+00:09:00.160 --> 00:09:05.700
+Jitendra K: Right? So, if you don't know how to use this technique, Then, it will be, again.
+
+66
+00:09:06.700 --> 00:09:10.620
+Jitendra K: A blocker for you, so that's the reason we are just taking these classes.
+
+67
+00:09:11.400 --> 00:09:18.610
+Jitendra K: All right, so I think everybody is in the same page, can we have a quick thumbs up? Any question on the last class? Anything that you would like to ask?
+
+68
+00:09:18.900 --> 00:09:22.130
+Jitendra K: Before we move on to the advanced tutorial today.
+
+69
+00:09:29.460 --> 00:09:31.319
+Jitendra K: Alright, how about the others?
+
+70
+00:09:32.680 --> 00:09:38.290
+Jitendra K: Have you guys revised the transformer? Any question on the architecture of transformer? You understand the layers?
+
+71
+00:09:38.850 --> 00:09:40.780
+Jitendra K: Do you understand your tension mechanism?
+
+72
+00:09:41.710 --> 00:09:44.350
+Jitendra K: How many variables are there in attention layer?
+
+73
+00:09:47.210 --> 00:09:48.829
+Jitendra K: 3, okay?
+
+74
+00:09:50.230 --> 00:09:52.780
+Jitendra K: QKB parameters, right?
+
+75
+00:09:56.800 --> 00:10:04.950
+Jitendra K: Alright, so I assume that, everything is fine, now we are going to… talk about… the…
+
+76
+00:10:05.940 --> 00:10:09.030
+Jitendra K: techniques now. I can see on my screen.
+
+77
+00:10:09.710 --> 00:10:14.269
+Jitendra K: There are several layers that we are trying to do fine-tuning.
+
+78
+00:10:14.720 --> 00:10:18.710
+Jitendra K: So, we are targeting multi-heart attention layer of transformers.
+
+79
+00:10:18.870 --> 00:10:22.460
+Jitendra K: And we have just tried to use downgrade projection.
+
+80
+00:10:23.060 --> 00:10:31.279
+Jitendra K: That means we are not touching all the layers or all the parameter of multi-head attention, but we are using something called weight freezing.
+
+81
+00:10:31.940 --> 00:10:37.660
+Jitendra K: That means we are saying, let's try to go with deltas instead of touching all the weights parameter.
+
+82
+00:10:38.440 --> 00:10:45.170
+Jitendra K: So I'm going to just use maybe 1% or less than 1% of the parameters to fine-tune my model.
+
+83
+00:10:45.430 --> 00:10:47.210
+Jitendra K: With a downgrade projection.
+
+84
+00:10:47.700 --> 00:10:50.870
+Jitendra K: And for that, I required adapters to operate.
+
+85
+00:10:51.470 --> 00:11:00.800
+Jitendra K: And this is where I'm going to use different types of technique, which is sequential, prefix, and Low rank.
+
+86
+00:11:01.170 --> 00:11:07.330
+Jitendra K: So here, I'm injecting two low-rank metrics Two low-ranked metrics.
+
+87
+00:11:07.980 --> 00:11:12.650
+Jitendra K: To perform downgrade projection, and the rest of the things remain unchanged.
+
+88
+00:11:13.150 --> 00:11:14.590
+Jitendra K: The attention hurts.
+
+89
+00:11:14.700 --> 00:11:18.490
+Jitendra K: The weights at the attention layer will remain untouched.
+
+90
+00:11:19.600 --> 00:11:21.850
+Jitendra K: The hidden state will remain untouched.
+
+91
+00:11:22.110 --> 00:11:27.960
+Jitendra K: And everything is just reminant. It's like your stabilizer that you're using in your electronic devices.
+
+92
+00:11:28.180 --> 00:11:31.069
+Jitendra K: From 220V, you downgrade that.
+
+93
+00:11:31.230 --> 00:11:39.949
+Jitendra K: volatile supply to fix Using a transformer, right? So, you also have a transformer in your mobile chargers.
+
+94
+00:11:40.220 --> 00:11:54.590
+Jitendra K: So that will help you to step down the voltage to the extent which can be consumed by your electronic devices. If you plug in 220V directly to your mobile charge… mobile device battery, you will see the consequences.
+
+95
+00:11:55.610 --> 00:11:57.700
+Jitendra K: Right? So the idea is…
+
+96
+00:11:58.200 --> 00:12:02.980
+Jitendra K: to downgrade, to fit to the need. So the same thing we are applying here.
+
+97
+00:12:03.210 --> 00:12:04.500
+Jitendra K: We're applying.
+
+98
+00:12:05.020 --> 00:12:09.970
+Jitendra K: Some mechanism to make sure the retention layer will adapt.
+
+99
+00:12:10.230 --> 00:12:15.310
+Jitendra K: To the domain-agnostic vectors, instead of fine-tuning from the scratch.
+
+100
+00:12:17.680 --> 00:12:32.010
+Jitendra K: Now, the problem with fine-tuning is it is expensive. I do agree, and everybody agrees in the industry. So, fine-tuning is expensive. Fine-tuning is expensive, but as I mentioned, when it is required, you have to pay that cost.
+
+101
+00:12:32.770 --> 00:12:34.840
+Jitendra K: So, who are doing the fine-tuning?
+
+102
+00:12:35.430 --> 00:12:39.320
+Jitendra K: My organization is doing fine-tuning for many models.
+
+103
+00:12:40.100 --> 00:12:48.390
+Jitendra K: And, we are doing fine-tuning for many models, and then we are trying to adapt to our domain-agnostic words, instead of just relying on clear… the RAG architecture.
+
+104
+00:12:48.700 --> 00:12:49.990
+Jitendra K: So, fine-tuning…
+
+105
+00:12:50.160 --> 00:12:57.380
+Jitendra K: let's say if you're trying to fine-tune a GPT-3 model, which is open source of label, with a 175 billion parameter.
+
+106
+00:12:57.960 --> 00:13:03.419
+Jitendra K: So PAFT, if you're using a PAFT approach, it will freeze 99% of the model weight.
+
+107
+00:13:03.800 --> 00:13:06.250
+Jitendra K: And just train tiny adapters.
+
+108
+00:13:06.880 --> 00:13:08.060
+Jitendra K: to achieve.
+
+109
+00:13:08.260 --> 00:13:10.629
+Jitendra K: This… a whole objective?
+
+110
+00:13:11.010 --> 00:13:12.970
+Jitendra K: Which we're able to perform.
+
+111
+00:13:13.080 --> 00:13:15.649
+Jitendra K: Exemplary on most of the benchmarks.
+
+112
+00:13:16.360 --> 00:13:25.930
+Jitendra K: So, Tiny Lama, on the other hand, let's say if you are using Llama 2 code model, 70 billion, which are 80GB in FP16 memory space.
+
+113
+00:13:26.160 --> 00:13:29.260
+Jitendra K: Which is floating point precision 16 bits.
+
+114
+00:13:29.960 --> 00:13:33.750
+Jitendra K: you might have 280 GB of… weights…
+
+115
+00:13:34.650 --> 00:13:38.560
+Jitendra K: So the total model is 280 GB.
+
+116
+00:13:40.340 --> 00:13:44.810
+Jitendra K: That means… when I'm using a 280 GB,
+
+117
+00:13:45.730 --> 00:13:49.570
+Jitendra K: of weights to fine-tune. It'll be more expensive.
+
+118
+00:13:50.330 --> 00:13:58.560
+Jitendra K: The problem is, when I'm fine… full fine-tuning on Llama 270, it needs 280 GB, GPU memory.
+
+119
+00:13:59.020 --> 00:14:05.639
+Jitendra K: Which is equals to $320,000 cost in hardware. So Pav solved this by training only.
+
+120
+00:14:06.040 --> 00:14:11.650
+Jitendra K: 0.1, which is a fraction of 1%, and 2% maximum of the parameter.
+
+121
+00:14:11.910 --> 00:14:17.269
+Jitendra K: So you can see that it's… the memory caused catastrophic forgetting, which is a…
+
+122
+00:14:17.400 --> 00:14:23.009
+Jitendra K: One of the important terminology associated with your LLM fine-tuning.
+
+123
+00:14:23.240 --> 00:14:27.569
+Jitendra K: full fine-tuning I'm talking about. There's something called catastrophic targeting.
+
+124
+00:14:28.040 --> 00:14:34.680
+Jitendra K: And there's one more… important phenomena associated with full fine-tuning, which is called one copy per task.
+
+125
+00:14:35.340 --> 00:14:42.859
+Jitendra K: Now, Paft freeze 99% and swap adapter, only to use 4 to time… 4 to 8 times of memory saving.
+
+126
+00:14:43.530 --> 00:14:48.410
+Jitendra K: So this is where you are going to use this technique for ADAPT.
+
+127
+00:14:49.000 --> 00:14:52.279
+Jitendra K: Now, here you can see that I'm using several taxonomy.
+
+128
+00:14:52.890 --> 00:14:57.089
+Jitendra K: all 8 techniques into 3 families. So the Laura family have 6 methods.
+
+129
+00:14:57.360 --> 00:15:00.960
+Jitendra K: All decomposed weights updates are the low-rank metrics.
+
+130
+00:15:01.200 --> 00:15:06.090
+Jitendra K: But they are different in scaling criterias, so I'm just using a scaling criterias.
+
+131
+00:15:06.270 --> 00:15:12.990
+Jitendra K: So you can see the scaling criterias are different for each technique, and that's the whole idea that they are different.
+
+132
+00:15:14.010 --> 00:15:15.040
+Jitendra K: So…
+
+133
+00:15:15.630 --> 00:15:26.350
+Jitendra K: The magnitude and direction of split is different for different technique, and that makes this technique so useful for different types of use scenarios.
+
+134
+00:15:27.340 --> 00:15:30.750
+Jitendra K: So, fundamentally, the prompt, the,
+
+135
+00:15:31.430 --> 00:15:35.530
+Jitendra K: Techniques that we are going to use is… quite…
+
+136
+00:15:36.080 --> 00:15:41.890
+Jitendra K: Similar in terms of root, but they are different in terms of scaling factors.
+
+137
+00:15:42.700 --> 00:15:51.690
+Jitendra K: Similarly, there's something called prompt-based fine-tuning, and you're going to use soft token-based fine-tuning. Prompt tuning is fundamentally a different paradigm.
+
+138
+00:15:52.190 --> 00:15:54.240
+Jitendra K: Which we are going to discuss as well.
+
+139
+00:15:54.470 --> 00:15:55.950
+Jitendra K: If you're combining
+
+140
+00:15:56.090 --> 00:16:02.829
+Jitendra K: these two techniques, you can use SOTA, which is DORA plus SRS LoRa, for both the state-of-the-art.
+
+141
+00:16:04.090 --> 00:16:08.170
+Jitendra K: Now, let me explain what is LoRa. So, LoRa is the foundational
+
+142
+00:16:08.620 --> 00:16:13.780
+Jitendra K: package for everything, you can see that I'm using weight freezing.
+
+143
+00:16:14.250 --> 00:16:15.650
+Jitendra K: D cross K.
+
+144
+00:16:15.910 --> 00:16:21.339
+Jitendra K: and the bias term D across R, and multiply by the rank.
+
+145
+00:16:21.760 --> 00:16:26.149
+Jitendra K: The right column walks through the core insight, low interest in dimensionality.
+
+146
+00:16:26.490 --> 00:16:32.350
+Jitendra K: So how it works is, it will freeze the original weights, train DNA, initialization.
+
+147
+00:16:32.670 --> 00:16:39.319
+Jitendra K: B starts with 0, so delta W starts at 0, and then it scales using this factor, alpha by R.
+
+148
+00:16:40.340 --> 00:16:47.129
+Jitendra K: So the idea is, I would say the core insight is pre-trained vectors lives in a low-dimensional subspace.
+
+149
+00:16:47.820 --> 00:16:53.170
+Jitendra K: And the task will adapt only to a small projection of these two metrics.
+
+150
+00:16:54.000 --> 00:17:00.159
+Jitendra K: So we are freezing the original weights entirely, and decompose the updated weights using delta.
+
+151
+00:17:00.700 --> 00:17:01.560
+Jitendra K: W.
+
+152
+00:17:01.740 --> 00:17:05.119
+Jitendra K: Right? And then performing this matrix manipulation.
+
+153
+00:17:05.560 --> 00:17:08.409
+Jitendra K: To rank this final matrix.
+
+154
+00:17:09.050 --> 00:17:12.700
+Jitendra K: And this is a foundation technique which has been invented in the year 2021.
+
+155
+00:17:13.079 --> 00:17:18.490
+Jitendra K: So this is the first technique of adaptation which has been developed by data scientists.
+
+156
+00:17:19.040 --> 00:17:26.129
+Jitendra K: Then there's a debate around the number of innovations around NF4 quantization method.
+
+157
+00:17:26.800 --> 00:17:34.109
+Jitendra K: Optimal 4-bit quantization, double quantization, which can save… The memory and page operation.
+
+158
+00:17:34.660 --> 00:17:37.009
+Jitendra K: The reason being is, when we're performing.
+
+159
+00:17:37.410 --> 00:17:43.910
+Jitendra K: the retraining, you are dealing with adaptive momentum algorithm. So, adaptive momentum is one of the algorithms.
+
+160
+00:17:44.350 --> 00:17:50.910
+Jitendra K: That you are using to perform backpropagation. How many of you know adaptive momentum, by the way?
+
+161
+00:17:51.940 --> 00:17:56.610
+Jitendra K: Atom Optimizer. Have you used it earlier in your… any of the projects?
+
+162
+00:18:02.210 --> 00:18:03.160
+Jitendra K: Okay?
+
+163
+00:18:09.510 --> 00:18:14.609
+Jitendra K: So, if you're family with deep learning models, this is one of the favorite techniques called adaptive momentum.
+
+164
+00:18:15.130 --> 00:18:19.890
+Jitendra K: Now, adaptive momentum, as the name suggests, comes under momentum-based learning.
+
+165
+00:18:20.060 --> 00:18:24.930
+Jitendra K: Right, so momentum-based learning is very different from Sequential-based learning.
+
+166
+00:18:25.220 --> 00:18:31.129
+Jitendra K: Now, the concept of momentum comes from mechanics, mechanical world. You might have heard about momentum…
+
+167
+00:18:31.480 --> 00:18:40.179
+Jitendra K: in, well, while solving the mechanical problems, right? Mechanics, or… When you're using,
+
+168
+00:18:43.210 --> 00:18:47.540
+Jitendra K: To project your physical devices, stress testing, etc.
+
+169
+00:18:47.760 --> 00:18:54.660
+Jitendra K: So, momentum, adaptive… how the momentum can be adaptive. That means we are talking about loss.
+
+170
+00:18:56.230 --> 00:18:59.220
+Jitendra K: If I have to show you visually adaptive momentum.
+
+171
+00:19:00.730 --> 00:19:03.820
+Jitendra K: Let me show you a visual definition.
+
+172
+00:19:20.420 --> 00:19:22.599
+Jitendra K: Let me show you quickly…
+
+173
+00:19:29.370 --> 00:19:37.110
+Jitendra K: So this is how the machine learning model operates. So your objective is to find global minima. So when you're working on any model, any…
+
+174
+00:19:37.570 --> 00:19:41.360
+Jitendra K: Machine learning, statistical model, whatever you're working on.
+
+175
+00:19:41.610 --> 00:19:48.750
+Jitendra K: you always try to create a region of saturation, right? So this is a typical function of your
+
+176
+00:19:49.300 --> 00:19:51.399
+Jitendra K: A convex function of your problem.
+
+177
+00:19:51.980 --> 00:19:57.280
+Jitendra K: Now, why I'm calling this convex… Because… offers.
+
+178
+00:19:57.510 --> 00:19:58.480
+Jitendra K: property.
+
+179
+00:19:59.140 --> 00:20:01.449
+Jitendra K: The physical appearance, you can say, right?
+
+180
+00:20:01.560 --> 00:20:12.230
+Jitendra K: So, there are two types of functions, convex and concave… sorry, convex and non-convex functions that I'm going to use. Now, this is a convex function, which is having
+
+181
+00:20:12.910 --> 00:20:14.490
+Jitendra K: Multiple solution.
+
+182
+00:20:14.740 --> 00:20:19.470
+Jitendra K: And when you're running the algorithm, your objective is to find global minima.
+
+183
+00:20:19.620 --> 00:20:20.740
+Jitendra K: Which is here.
+
+184
+00:20:20.960 --> 00:20:27.540
+Jitendra K: But there are many local minimas which is also present. So your solution gets stuck into local minima in finite amount of time.
+
+185
+00:20:28.300 --> 00:20:34.849
+Jitendra K: So, basically, what adaptive momentum, or these gradient-based algorithms does is it will able to understand
+
+186
+00:20:36.120 --> 00:20:40.050
+Jitendra K: The error distribution, and try to adhere to it.
+
+187
+00:20:40.900 --> 00:20:43.449
+Jitendra K: So, adaptive momentum is one such technique.
+
+188
+00:20:43.890 --> 00:20:46.040
+Jitendra K: Which will help you to find
+
+189
+00:20:46.280 --> 00:20:50.499
+Jitendra K: This global minima with a proper optimal criterias.
+
+190
+00:20:50.720 --> 00:20:55.459
+Jitendra K: So basically, Just to give you a very simple answer.
+
+191
+00:20:56.940 --> 00:21:01.399
+Jitendra K: The algorithm operates on two perf… The two regions.
+
+192
+00:21:02.400 --> 00:21:08.810
+Jitendra K: Which is Depending upon your learning rate, LR, Alpha?
+
+193
+00:21:11.180 --> 00:21:15.579
+Jitendra K: And… Your error rate, which is a gradient.
+
+194
+00:21:16.100 --> 00:21:22.050
+Jitendra K: So when you're taking the gradient, which is a delta, or derivative of your loss function.
+
+195
+00:21:22.890 --> 00:21:25.909
+Jitendra K: You would like to find out the direction of movement.
+
+196
+00:21:27.000 --> 00:21:31.190
+Jitendra K: On which you can get an optimal solution all the time.
+
+197
+00:21:31.590 --> 00:21:36.840
+Jitendra K: And that is something which we'll offer by… Adaptive momentum.
+
+198
+00:21:38.810 --> 00:21:43.399
+Jitendra K: Momentum… Borrows the idea from physics.
+
+199
+00:21:44.080 --> 00:21:46.710
+Jitendra K: So you can say that… in physics.
+
+200
+00:21:46.930 --> 00:21:51.009
+Jitendra K: If you are using a rolling sphere, like this.
+
+201
+00:21:52.180 --> 00:21:55.019
+Jitendra K: So you can see on my screen, there's a rolling sphere, which is…
+
+202
+00:21:55.290 --> 00:21:57.830
+Jitendra K: Rolling on the surface, which is concave.
+
+203
+00:21:58.340 --> 00:22:00.590
+Jitendra K: So the gradient descent with momentum
+
+204
+00:22:02.050 --> 00:22:07.540
+Jitendra K: is this phenomenon? Imagine this is a rolling spear down a ball inside a frictionless bowl.
+
+205
+00:22:07.820 --> 00:22:12.030
+Jitendra K: Instead of stopping at the bottom, the momentum, it will accumulate, push it forward.
+
+206
+00:22:12.280 --> 00:22:18.510
+Jitendra K: the ball keep rolling back and forth. We can apply the same concept to our radiant descent algorithm.
+
+207
+00:22:18.700 --> 00:22:20.750
+Jitendra K: In each step, what we are doing.
+
+208
+00:22:22.380 --> 00:22:25.070
+Jitendra K: Precisely what we are doing in gradient descent.
+
+209
+00:22:25.580 --> 00:22:30.469
+Jitendra K: We are saying my delta, which is my learning rate, is equals to…
+
+210
+00:22:33.310 --> 00:22:37.080
+Jitendra K: Learning rate alpha multiplied by gradient.
+
+211
+00:22:38.740 --> 00:22:42.250
+Jitendra K: D, L bar D, P.
+
+212
+00:22:45.760 --> 00:22:47.750
+Jitendra K: Plus previous deltas.
+
+213
+00:22:50.860 --> 00:22:52.430
+Jitendra K: At a given time step.
+
+214
+00:22:52.830 --> 00:22:58.430
+Jitendra K: So to learn from the previous step. So there's an association with the learning rate with the previous step.
+
+215
+00:22:59.100 --> 00:23:02.309
+Jitendra K: So basically, if I'm going to sum up all the gradient.
+
+216
+00:23:03.560 --> 00:23:06.950
+Jitendra K: It will determine the path of errors.
+
+217
+00:23:07.250 --> 00:23:12.209
+Jitendra K: And I would like to reduce that path. And that is what adaptive momentum
+
+218
+00:23:12.360 --> 00:23:15.010
+Jitendra K: will do for you. The algorithm will do for you.
+
+219
+00:23:15.460 --> 00:23:20.600
+Jitendra K: So it will be able to use a learning rate at a slow pace, I mean, to begin with.
+
+220
+00:23:20.910 --> 00:23:25.459
+Jitendra K: And then it will understand your environmental constraint and adapt to it.
+
+221
+00:23:25.680 --> 00:23:28.070
+Jitendra K: Based upon the momentum criterias.
+
+222
+00:23:28.420 --> 00:23:36.629
+Jitendra K: To find a subtle point, And if you launch the trajectory with different projection.
+
+223
+00:23:36.800 --> 00:23:44.499
+Jitendra K: you will get the same solution. And that is what we want to avoid, to achieve in the machine learning problems.
+
+224
+00:23:45.270 --> 00:23:50.829
+Jitendra K: So your solution should not stuck into local minima, but it will find a global minima all the time.
+
+225
+00:23:51.080 --> 00:23:58.640
+Jitendra K: And that is called adaptive momentum for you. So adaptive momentum is a gradient descent algorithm, which will use momentum technique to improve.
+
+226
+00:23:59.140 --> 00:24:00.390
+Jitendra K: the model outcome.
+
+227
+00:24:09.960 --> 00:24:16.449
+Jitendra K: Yeah, so here we are not discussing machine learning, so unfortunately I cannot give you any example, but it required
+
+228
+00:24:16.610 --> 00:24:20.820
+Jitendra K: Coding walkthrough to fine-tune alpha and momentum.
+
+229
+00:24:21.580 --> 00:24:26.999
+Jitendra K: So… I can best share you the code, you can self-learn it.
+
+230
+00:24:28.220 --> 00:24:36.440
+Jitendra K: Alright, so let's move on to our original topic. So, we are talking about quantization of LoRas. So, Q LoRa, quantization of LoRa.
+
+231
+00:24:36.630 --> 00:24:42.129
+Jitendra K: So here we are talking about QLORA, quantized LoRa, which will help us to save.
+
+232
+00:24:43.120 --> 00:24:55.359
+Jitendra K: Cost… Or I would say, here we are just doing… The adaptation in terms of… information… gain, right?
+
+233
+00:24:55.520 --> 00:25:00.419
+Jitendra K: So… Quantization will help you to save memory.
+
+234
+00:25:02.530 --> 00:25:03.810
+Jitendra K: So you can see that.
+
+235
+00:25:05.460 --> 00:25:06.909
+Jitendra K: my architecture.
+
+236
+00:25:07.650 --> 00:25:10.540
+Jitendra K: Is using much reduced memory.
+
+237
+00:25:10.830 --> 00:25:12.579
+Jitendra K: with higher precision.
+
+238
+00:25:12.840 --> 00:25:19.409
+Jitendra K: That means… I'm just losing few quality, 1%, less than 1% on the most benchmark, but…
+
+239
+00:25:19.920 --> 00:25:23.399
+Jitendra K: When it comes to memory reduction, it is almost 75%.
+
+240
+00:25:23.590 --> 00:25:26.619
+Jitendra K: And that's the whole idea of quantization of bits.
+
+241
+00:25:27.330 --> 00:25:33.219
+Jitendra K: Because your model will operate on weights, and each weight will have certain floating-point precisions.
+
+242
+00:25:33.540 --> 00:25:42.360
+Jitendra K: And if I'm using floating-point precision as 4 instead of 16, I can save 75% of the memory.
+
+243
+00:25:44.470 --> 00:25:45.460
+Jitendra K: Now…
+
+244
+00:25:45.680 --> 00:25:53.300
+Jitendra K: We'll do a side-by-side comparison on standard RS LoRa, which is another technique which has been developed in 2023.
+
+245
+00:25:53.460 --> 00:25:58.250
+Jitendra K: The only… Factor which has been changed in this technique is the scaling factor.
+
+246
+00:25:59.070 --> 00:26:02.560
+Jitendra K: So, mathematically, you're adjusting the random metrics.
+
+247
+00:26:03.590 --> 00:26:08.289
+Jitendra K: And, you're taking a ratio dividing by the square root of R.
+
+248
+00:26:08.670 --> 00:26:10.600
+Jitendra K: So instead of… instead of R,
+
+249
+00:26:10.760 --> 00:26:15.390
+Jitendra K: normalizing the adapter, I'm just keeping the output to be independent of the RAM.
+
+250
+00:26:16.250 --> 00:26:18.169
+Jitendra K: This means you can safely use
+
+251
+00:26:18.590 --> 00:26:22.090
+Jitendra K: are at a scale of 32, 64, or 128.
+
+252
+00:26:22.870 --> 00:26:27.060
+Jitendra K: So this is, again, how this technique has been developed.
+
+253
+00:26:27.510 --> 00:26:32.850
+Jitendra K: So that means, in the year 2023, somebody…
+
+254
+00:26:33.260 --> 00:26:39.889
+Jitendra K: is using this technique, which has been developed, and then try to optimize it. And that's how it came across as a solution.
+
+255
+00:26:41.020 --> 00:26:46.690
+Jitendra K: Right? Similarly, there's something called DORA, which is… decomposition…
+
+256
+00:26:46.900 --> 00:26:51.629
+Jitendra K: On rank adapter, so decomposition will use original weight.
+
+257
+00:26:51.840 --> 00:26:58.050
+Jitendra K: And magnitude of a scalar. And then you can see that there are some other calculation which has been done.
+
+258
+00:26:58.400 --> 00:27:04.760
+Jitendra K: So why we are decomposing? Because full fine-tuning will implicitly learn separate magnitude and direction changes.
+
+259
+00:27:04.930 --> 00:27:11.090
+Jitendra K: So, standard LoRaq kind of conflates them into a single matrix, BA.
+
+260
+00:27:11.750 --> 00:27:16.289
+Jitendra K: And forcing the optimizer to solve a hard problem. So I've just shown you this diagram, right?
+
+261
+00:27:16.430 --> 00:27:18.350
+Jitendra K: So this is what the solver does.
+
+262
+00:27:18.760 --> 00:27:24.890
+Jitendra K: In a nutshell. So here, I'm talking about improving… the…
+
+263
+00:27:25.130 --> 00:27:33.569
+Jitendra K: efficacy of the model, or I would say fine-tuning the model, With a… Limited amount of errors.
+
+264
+00:27:33.920 --> 00:27:36.579
+Jitendra K: Or with a small amount of errors.
+
+265
+00:27:38.250 --> 00:27:48.900
+Jitendra K: Now, with DORA, we move on to Adaptive LoRa, which kind of very budget adaptive algorithms, so…
+
+266
+00:27:49.070 --> 00:27:56.620
+Jitendra K: This works pretty well on… several scales. You can see these are the scales of invariant.
+
+267
+00:27:57.260 --> 00:28:03.069
+Jitendra K: So… if I have to just explain you this mathematical fundamental.
+
+268
+00:28:03.690 --> 00:28:06.750
+Jitendra K: Very simple, you can think of this as adaptive LoRa.
+
+269
+00:28:06.890 --> 00:28:08.780
+Jitendra K: With a scaling factor, it adapts.
+
+270
+00:28:09.030 --> 00:28:11.590
+Jitendra K: Right? So basically, it is adapting
+
+271
+00:28:11.970 --> 00:28:17.119
+Jitendra K: To fine-tune the very precise attention layer at the model level.
+
+272
+00:28:17.530 --> 00:28:22.309
+Jitendra K: The key idea remains the same with LoRa, but they are using pruning, adaptive pruning.
+
+273
+00:28:22.590 --> 00:28:26.800
+Jitendra K: As one of the factors called beta to fine-tune the whole objective.
+
+274
+00:28:27.940 --> 00:28:31.980
+Jitendra K: So there are some different other techniques. Yeah, I will share this slide.
+
+275
+00:28:32.100 --> 00:28:36.290
+Jitendra K: So, we will just do a comparison, slightly a comparison here.
+
+276
+00:28:36.420 --> 00:28:44.009
+Jitendra K: And then we will try to… look for… More fundamentals using code.
+
+277
+00:28:44.370 --> 00:28:51.800
+Jitendra K: So the core idea here is remain the same, that we are using The concept of…
+
+278
+00:28:56.190 --> 00:28:58.580
+Jitendra K: Let me open this slide again.
+
+279
+00:29:04.220 --> 00:29:05.010
+Jitendra K: Yeah.
+
+280
+00:29:05.370 --> 00:29:07.329
+Jitendra K: So we're using the concept of…
+
+281
+00:29:07.880 --> 00:29:12.139
+Jitendra K: two things to compare these algorithms. One is base precision.
+
+282
+00:29:12.890 --> 00:29:17.000
+Jitendra K: That'll save us the… Cost of storing the weights.
+
+283
+00:29:17.610 --> 00:29:24.409
+Jitendra K: Number of trainable parameters that we are targeting at the architecture of transformer, attention layer, by freezing them.
+
+284
+00:29:25.170 --> 00:29:28.300
+Jitendra K: And also, Bit manipulation.
+
+285
+00:29:28.890 --> 00:29:31.750
+Jitendra K: Which is… Very, very useful.
+
+286
+00:29:32.070 --> 00:29:34.530
+Jitendra K: And very, very expensive as well.
+
+287
+00:29:34.910 --> 00:29:42.400
+Jitendra K: Because if you think of matrix multiplication, I'm talking about magnitude Which may go up to…
+
+288
+00:29:42.630 --> 00:29:46.589
+Jitendra K: Billions of digits, billions of matrix multiplication at a time.
+
+289
+00:29:47.850 --> 00:29:50.150
+Jitendra K: Right? So, imagine that kind of…
+
+290
+00:29:51.500 --> 00:29:54.760
+Jitendra K: Multiplication you're doing with a magnitude and direction.
+
+291
+00:29:55.070 --> 00:30:00.870
+Jitendra K: And then you're using adaptive momentum to fine-tune the model As a back propagation.
+
+292
+00:30:01.330 --> 00:30:02.909
+Jitendra K: Then the whole…
+
+293
+00:30:03.490 --> 00:30:10.809
+Jitendra K: thing will become too much costly, and it cannot be handled without GPUs. And how many GPUs are required to operate?
+
+294
+00:30:10.990 --> 00:30:12.610
+Jitendra K: That is still subjective.
+
+295
+00:30:13.020 --> 00:30:16.740
+Jitendra K: So it is best for Different types of…
+
+296
+00:30:17.810 --> 00:30:30.530
+Jitendra K: techniques, different types of use cases, different types of parametric optimization problems, etc, that you can adapt to it, right? So, basically, your objective is to fine-tune the model, which is existing.
+
+297
+00:30:30.750 --> 00:30:34.909
+Jitendra K: In the open source, and then reuse that for your own purpose.
+
+298
+00:30:37.560 --> 00:30:41.129
+Jitendra K: Right, so that tech… these techniques are important for that purpose.
+
+299
+00:30:41.750 --> 00:30:45.319
+Jitendra K: So, what are we going to do is, we will revisit our code.
+
+300
+00:30:52.550 --> 00:30:55.769
+Jitendra K: This is giving some out-of-memory error.
+
+301
+00:31:29.360 --> 00:31:30.929
+Jitendra K: I'm gonna fix this.
+
+302
+00:32:00.580 --> 00:32:06.169
+Jitendra K: I have a pre-executed notebook, let me open that so that it will save the time of execution.
+
+303
+00:32:08.240 --> 00:32:10.759
+Jitendra K: Just give me a moment, I'm just fetching it up.
+
+304
+00:33:35.610 --> 00:33:40.389
+Jitendra K: I'm just searching for my… Notebook, one second, guys, I think it has been lost.
+
+305
+00:33:41.170 --> 00:33:43.989
+Jitendra K: Buried in somewhere. Let me just open this.
+
+306
+00:33:56.200 --> 00:34:02.810
+Jitendra K: So basically, what you need to do is, let me show you the commercial, what you need to operate. So you required a casual LM model.
+
+307
+00:34:03.440 --> 00:34:04.670
+Jitendra K: From Hugging Face.
+
+308
+00:34:06.080 --> 00:34:09.800
+Jitendra K: This is the library that I'm going to use for casual language modeling.
+
+309
+00:34:10.159 --> 00:34:12.649
+Jitendra K: And this is an open source accounting phase library.
+
+310
+00:34:13.620 --> 00:34:16.960
+Jitendra K: So there are two types of language modeling, causal and masked.
+
+311
+00:34:17.719 --> 00:34:29.220
+Jitendra K: So, there are different quotes you can see, if you want to take a reference. But in a very simple term, what I'm trying to do is, I'm just showing you how to use causal modeling.
+
+312
+00:34:29.510 --> 00:34:32.120
+Jitendra K: Which are the most frequently used for tax generation.
+
+313
+00:34:32.380 --> 00:34:37.760
+Jitendra K: And you can… Fine-tune your own model.
+
+314
+00:34:37.870 --> 00:34:40.729
+Jitendra K: With the help of… this technique.
+
+315
+00:34:41.480 --> 00:34:42.939
+Jitendra K: And this is actually…
+
+316
+00:34:43.239 --> 00:34:49.829
+Jitendra K: A class, and you can see that there are different variations of fine-tuning available on this notebook.
+
+317
+00:34:50.350 --> 00:34:55.019
+Jitendra K: And even GPT-2 and GPT-3 has been fine-tuned with this approach.
+
+318
+00:34:55.960 --> 00:35:02.050
+Jitendra K: So, people, I mean, GPT-4 and GPT-5 is not open source.
+
+319
+00:35:02.650 --> 00:35:08.920
+Jitendra K: So, you cannot fine-tune, or parameter fine-tune GPT-3 and GPT… sorry, GPT-4 and GPT-5.
+
+320
+00:35:09.460 --> 00:35:16.169
+Jitendra K: But if you can fine-tune the earlier variant, that will fit to your problem statement, that is valid.
+
+321
+00:35:16.600 --> 00:35:21.000
+Jitendra K: But there are other open source models, like… Quence models available.
+
+322
+00:35:21.570 --> 00:35:23.459
+Jitendra K: There are different,
+
+323
+00:35:24.240 --> 00:35:38.610
+Jitendra K: deep-seq model that you can try and fine-tune. So these techniques are best for fine-tuning this, but you're required to operate on this auto mode for Cordial LM, which is one of our technique, one of the libraries that we're going to use for that purpose.
+
+324
+00:35:40.300 --> 00:35:45.720
+Jitendra K: So that's one thing that he required. Second thing, You also need,
+
+325
+00:35:52.870 --> 00:35:57.170
+Jitendra K: You also need… These libraries to be installed.
+
+326
+00:36:01.280 --> 00:36:04.650
+Jitendra K: which include… Acceleration.
+
+327
+00:36:04.920 --> 00:36:07.719
+Jitendra K: the path library, this again from Plugging Face.
+
+328
+00:36:08.150 --> 00:36:15.460
+Jitendra K: The protobuf, which will help you to maybe streamline the data along with A notebook instance.
+
+329
+00:36:16.170 --> 00:36:22.420
+Jitendra K: And also, he required… to use some scoring criteria, and I'm using a rogue score.
+
+330
+00:36:22.880 --> 00:36:27.120
+Jitendra K: So, Rogue Score, if you… how many of you know Rogue and,
+
+331
+00:36:27.660 --> 00:36:31.379
+Jitendra K: Other side of NLP-based evaluation technique.
+
+332
+00:36:33.360 --> 00:36:35.549
+Jitendra K: Have you heard about RogueScore earlier?
+
+333
+00:36:36.000 --> 00:36:37.210
+Jitendra K: In LLP.
+
+334
+00:36:43.960 --> 00:36:45.980
+Jitendra K: Yeah, Rogue and B-L-E-U.
+
+335
+00:36:48.440 --> 00:36:52.280
+Jitendra K: Okay, so Rogue stands for Requal Oriented Understudy for…
+
+336
+00:36:52.400 --> 00:36:56.499
+Jitendra K: testing evaluation. Just start of an LP matrix to evaluate
+
+337
+00:36:57.120 --> 00:37:03.880
+Jitendra K: The quality of summarization and machine translation by comparing the genetic text against the human-produced references.
+
+338
+00:37:04.480 --> 00:37:11.149
+Jitendra K: So this is the primary measure. Earlier in NLP world, this is how NLP world operates. Earlier.
+
+339
+00:37:11.260 --> 00:37:15.170
+Jitendra K: Similarly, now we are living in the era of GPTs and LLMs.
+
+340
+00:37:16.760 --> 00:37:22.279
+Jitendra K: But it's still a purpose these models are serving. It remains the same, right? Quite common.
+
+341
+00:37:22.530 --> 00:37:24.380
+Jitendra K: We are using the same technique.
+
+342
+00:37:24.500 --> 00:37:25.820
+Jitendra K: to perform this.
+
+343
+00:37:26.290 --> 00:37:29.850
+Jitendra K: So I think I got this Runnable notebook.
+
+344
+00:37:35.580 --> 00:37:38.020
+Jitendra K: This is running fine.
+
+345
+00:37:39.400 --> 00:37:43.510
+Jitendra K: Now I can explain you the code only, instead of rerunning this.
+
+346
+00:37:44.520 --> 00:37:47.449
+Jitendra K: Yeah, everything runs fine in this notebook.
+
+347
+00:37:48.540 --> 00:37:49.300
+Jitendra K: Yep.
+
+348
+00:37:53.130 --> 00:38:00.160
+Jitendra K: Okay, so let's go back and try to understand this code from the scratch. So we'll try to understand this code from the scratch.
+
+349
+00:38:00.260 --> 00:38:01.520
+Jitendra K: And,
+
+350
+00:38:15.180 --> 00:38:21.119
+Jitendra K: Yeah, so first and foremost thing, we will try to understand a dependency. So here, I'm using certain dependencies.
+
+351
+00:38:21.590 --> 00:38:27.969
+Jitendra K: To be very clear with. So I'm using a transformer, which is a 4.44 version.
+
+352
+00:38:28.260 --> 00:38:33.580
+Jitendra K: I'm using a Paft library, so this path library is a part of your hugging Face.
+
+353
+00:38:34.070 --> 00:38:37.949
+Jitendra K: If you go here, And search for theft.
+
+354
+00:38:40.440 --> 00:38:43.690
+Jitendra K: You will see that Taft is an internal library.
+
+355
+00:38:44.100 --> 00:38:45.420
+Jitendra K: Of hugging Face.
+
+356
+00:38:45.680 --> 00:38:49.619
+Jitendra K: So you can download this library from Hugging Face, and there are different papers.
+
+357
+00:38:49.890 --> 00:38:51.500
+Jitendra K: That you're gonna use for?
+
+358
+00:38:51.720 --> 00:38:56.629
+Jitendra K: Understanding… This technique into much more detail.
+
+359
+00:38:57.050 --> 00:38:59.189
+Jitendra K: And they have, several…
+
+360
+00:39:01.840 --> 00:39:07.989
+Jitendra K: OLAB, I would say, they are having certain notebooks that we can be able to take as a reference to understand this technique.
+
+361
+00:39:09.020 --> 00:39:20.030
+Jitendra K: In a nutshell, what I'm trying to do is, I'm just explaining you that these are the things that are required. The dataset is also available in Plugging Face. You can download this data via URL,
+
+362
+00:39:20.300 --> 00:39:21.500
+Jitendra K: And,
+
+363
+00:39:21.900 --> 00:39:27.989
+Jitendra K: we'll see what kind of data set that we are going to use. It's basically a Q&A dataset, given a paragraph.
+
+364
+00:39:28.480 --> 00:39:33.179
+Jitendra K: or a bunch of paragraphs, I would like to generate an answer. And that should qualify
+
+365
+00:39:33.500 --> 00:39:39.369
+Jitendra K: the existing labels, which has been given by SMEs, right? So some SMEs are saying that I need
+
+366
+00:39:39.520 --> 00:39:55.750
+Jitendra K: I think the answer is in this format. Some, I assume you will say the answer is in this format, should be in this format. So there's always a human biasness in the response itself, so then how will it justify whether the LM-generated response is fitting to the business requirement or not? And that's… that's a very important thing.
+
+367
+00:39:56.320 --> 00:40:06.429
+Jitendra K: That, this data set will help us to solve. Basically, it will have a label associated with the right answers, with a proper reasoning, like, why this answer is appropriate.
+
+368
+00:40:06.940 --> 00:40:08.310
+Jitendra K: So we have to match that.
+
+369
+00:40:08.670 --> 00:40:12.179
+Jitendra K: Right? So for that, we are using this whole case study.
+
+370
+00:40:12.480 --> 00:40:19.480
+Jitendra K: Now, I'm going to import certain bunch of packages, including open, operating system, time, warning, math.
+
+371
+00:40:20.810 --> 00:40:27.259
+Jitendra K: Some sort of structures to maintain the memories, which is dictionary, list, and option.
+
+372
+00:40:27.660 --> 00:40:33.819
+Jitendra K: And I'm using a data class, which I can able to extend, With albov packages.
+
+373
+00:40:34.250 --> 00:40:42.289
+Jitendra K: Now, needless to say that I'm using transformer packages, auto model cordial LM, which is… which is why I'm using this
+
+374
+00:40:42.560 --> 00:40:44.040
+Jitendra K: Hugging Face Library.
+
+375
+00:40:45.300 --> 00:40:51.070
+Jitendra K: I'm also using, the trainable Arguments and, their parameters.
+
+376
+00:40:51.220 --> 00:40:56.519
+Jitendra K: And this is the PEFT method, and I'm going to talk about several types of PAFT method. So I'm just…
+
+377
+00:40:57.580 --> 00:41:04.480
+Jitendra K: exporting all the classes from Path Library, including adaptive, Basic LoRa, prompt tuning and Configuration.
+
+378
+00:41:04.810 --> 00:41:07.499
+Jitendra K: And, some other types of LoRa's method.
+
+379
+00:41:07.730 --> 00:41:13.539
+Jitendra K: I'm keeping the warning to be ignorable, making the minimal log level up to 2.
+
+380
+00:41:14.110 --> 00:41:22.129
+Jitendra K: And then I'm checking if I have any GPU to operate. So it is saying I have a Tesla T4 memory with 14.7 GB.
+
+381
+00:41:22.610 --> 00:41:30.290
+Jitendra K: PyTorch with a CUDA architecture support, which is 12.1. That means I have everything to operate. Maybe I required a better GPU.
+
+382
+00:41:30.670 --> 00:41:36.639
+Jitendra K: A hundred or A400 would be useful for this use case, but anyway, nonetheless.
+
+383
+00:41:37.070 --> 00:41:40.130
+Jitendra K: It takes more time to execute as compared to it.
+
+384
+00:41:41.480 --> 00:41:49.339
+Jitendra K: Now, we are using a data class and downloading the model. So this is the model that I'm downloading, Tiny Llama WeChat. So this is a good model.
+
+385
+00:41:49.650 --> 00:41:52.890
+Jitendra K: for chat generation. So that means you can use…
+
+386
+00:41:53.030 --> 00:41:59.279
+Jitendra K: This model for creating chatbots, and Q&A kind of scenarios.
+
+387
+00:41:59.430 --> 00:42:03.499
+Jitendra K: So if I have to show you this model, which is available in Hugging Face.
+
+388
+00:42:04.020 --> 00:42:08.080
+Jitendra K: So, you can see that this is… A 3 trillion token model.
+
+389
+00:42:08.460 --> 00:42:12.660
+Jitendra K: And 1.1 billion Lava model on 3 trillion tokens.
+
+390
+00:42:13.210 --> 00:42:20.739
+Jitendra K: And, this model has been fine-tuned on the top of Tiny Llama 1.1 original model.
+
+391
+00:42:21.680 --> 00:42:24.440
+Jitendra K: And, this is… what…
+
+392
+00:42:25.500 --> 00:42:29.879
+Jitendra K: It does, in a nutshell. You can be able to go through it and see.
+
+393
+00:42:30.770 --> 00:42:34.939
+Jitendra K: What are the different parameters? And you can see the downloads.
+
+394
+00:42:35.170 --> 00:42:37.360
+Jitendra K: Last month is pretty huge.
+
+395
+00:42:39.730 --> 00:42:42.050
+Jitendra K: That means it is one of the best models.
+
+396
+00:42:43.220 --> 00:42:48.669
+Jitendra K: So you can look into the code if you want, but I will definitely say you can skip this.
+
+397
+00:42:49.530 --> 00:42:55.220
+Jitendra K: It will be too much overwhelming if you go through the code and Stuff, but just remember that
+
+398
+00:42:55.480 --> 00:42:59.890
+Jitendra K: This model is tiny, with 1.1 billion parameter.
+
+399
+00:43:00.450 --> 00:43:05.500
+Jitendra K: The token consumption is 30 billion with 143K steps.
+
+400
+00:43:05.870 --> 00:43:08.620
+Jitendra K: And this is what, decomposition looks like.
+
+401
+00:43:10.930 --> 00:43:17.719
+Jitendra K: Alright, now we have… We are going to use,
+
+402
+00:43:18.860 --> 00:43:20.859
+Jitendra K: We are going to go back to the code.
+
+403
+00:43:21.320 --> 00:43:30.240
+Jitendra K: So we have these modules installed, and one of the modules that I'm using here is… data class.
+
+404
+00:43:30.720 --> 00:43:34.680
+Jitendra K: Now, this data class… I'm using…
+
+405
+00:43:35.340 --> 00:43:39.420
+Jitendra K: A tiny llama model with 1.1 billion parameters.
+
+406
+00:43:39.550 --> 00:43:44.280
+Jitendra K: And it is small enough to train all experiments on the T4 in a single session.
+
+407
+00:43:44.900 --> 00:43:52.060
+Jitendra K: So, I'm using a tiny model just to showcase. You can use better models as well. Distilled model, that should be fine.
+
+408
+00:43:52.500 --> 00:44:02.799
+Jitendra K: So, this tiny model is still large enough that PAF… to demonstrate the PAF technique, which will produce some meaningful quantitative or qualitative improvement over the cat.
+
+409
+00:44:03.250 --> 00:44:08.999
+Jitendra K: So I'm using a DALI instruction dataset that align well with the model format. So what is DALI?
+
+410
+00:44:09.840 --> 00:44:12.869
+Jitendra K: It only is a set of 15,000 Q&A.
+
+411
+00:44:13.280 --> 00:44:14.700
+Jitendra K: For a particular topic.
+
+412
+00:44:15.300 --> 00:44:18.659
+Jitendra K: And you can again go back to Hugging Face and see this.
+
+413
+00:44:28.210 --> 00:44:31.990
+Jitendra K: So this is what it looks like. So this is the data.
+
+414
+00:44:32.160 --> 00:44:35.720
+Jitendra K: And the response and the category, the topic of that discussion.
+
+415
+00:44:37.540 --> 00:44:43.420
+Jitendra K: Alright, so you can see that this is the human-like interaction that has been saved inside Dolly dataset.
+
+416
+00:44:44.230 --> 00:44:49.820
+Jitendra K: So, I'm using certain parameters, like maximum sequence, so all your data set has.
+
+417
+00:44:50.380 --> 00:44:51.730
+Jitendra K: 95 length.
+
+418
+00:44:51.950 --> 00:44:53.040
+Jitendra K: token.
+
+419
+00:44:53.680 --> 00:45:01.559
+Jitendra K: During pre-processing, it is setting up 512, which capture 95% of the sample without truncating the character.
+
+420
+00:45:02.050 --> 00:45:03.900
+Jitendra K: So I'm just keeping it moderate.
+
+421
+00:45:04.680 --> 00:45:06.090
+Jitendra K: Now I'm having…
+
+422
+00:45:06.670 --> 00:45:15.819
+Jitendra K: Other parameter, including LoRa R, which is 16, LoRa Alpha, which is 32, and LoRa dropout, 5%.
+
+423
+00:45:16.380 --> 00:45:21.449
+Jitendra K: So I'm using the rank, So remember the paper that I've showed to you?
+
+424
+00:45:21.810 --> 00:45:24.250
+Jitendra K: It's heavily dependent upon the two metrics.
+
+425
+00:45:24.960 --> 00:45:25.760
+Jitendra K: Right?
+
+426
+00:45:25.940 --> 00:45:27.860
+Jitendra K: So, when using the two metrics.
+
+427
+00:45:28.420 --> 00:45:31.660
+Jitendra K: It is very important to govern the dimension of the two metrics.
+
+428
+00:45:34.810 --> 00:45:40.600
+Jitendra K: So, to govern those dimensions, I'm saying the rank control the adapter expressiveness.
+
+429
+00:45:41.040 --> 00:45:48.279
+Jitendra K: For Tiny Llama, with hidden dimension of 2048, each adapter layer goes from 2048 to 2048,
+
+430
+00:45:48.780 --> 00:45:50.329
+Jitendra K: That is multiple creative.
+
+431
+00:45:50.610 --> 00:45:55.690
+Jitendra K: And if you multiply 2048 with 2048, you will get 4.2 million parameter.
+
+432
+00:45:56.170 --> 00:46:04.960
+Jitendra K: And if you say 2048 into 16 multi-year attention, plus 16 into 2048, it will become 65K million parameter.
+
+433
+00:46:07.270 --> 00:46:08.340
+Jitendra K: per layer.
+
+434
+00:46:08.450 --> 00:46:15.649
+Jitendra K: So, low rank, 428 is cheaper, but less expressive. So, higher rank, 32 to 64 capture more complex adaptation.
+
+435
+00:46:16.020 --> 00:46:19.389
+Jitendra K: But costs more memory. So I'm just going with a mediocre range.
+
+436
+00:46:19.920 --> 00:46:25.100
+Jitendra K: So the technique that I'm using is alpha R scaling. The Raptor output is scaled by…
+
+437
+00:46:25.280 --> 00:46:27.400
+Jitendra K: A factor called alpha by R.
+
+438
+00:46:28.100 --> 00:46:33.290
+Jitendra K: So alpha by R, if I'm making alpha by R, it will be 32 by 16.
+
+439
+00:46:34.940 --> 00:46:36.180
+Jitendra K: Which is 2.
+
+440
+00:46:36.680 --> 00:46:39.960
+Jitendra K: This means that adapter contribute to output.
+
+441
+00:46:40.180 --> 00:46:44.740
+Jitendra K: 2 times. The raw product of B cross A will be 2 times.
+
+442
+00:46:45.080 --> 00:46:50.639
+Jitendra K: So, alpha is the learning rate, multiplied by the… Learning rate multiplier.
+
+443
+00:46:50.800 --> 00:46:54.179
+Jitendra K: And higher the alpha, stronger adaptation signal.
+
+444
+00:46:54.570 --> 00:46:56.970
+Jitendra K: So the ratio alpha by R is what…
+
+445
+00:46:57.280 --> 00:47:00.979
+Jitendra K: matter, not absolute value. We have to maintain this ratio.
+
+446
+00:47:01.640 --> 00:47:08.260
+Jitendra K: So, I'm keeping a dropout rate to avoid overfitting, so I'm applying adapter output.
+
+447
+00:47:08.400 --> 00:47:13.390
+Jitendra K: Which will act like a regularization technique to prevent a small adapter from overfitting.
+
+448
+00:47:13.700 --> 00:47:17.289
+Jitendra K: So, randomly, I'm dropping 5% of the adapter during training.
+
+449
+00:47:17.530 --> 00:47:24.879
+Jitendra K: lower… than typical dropout, because LoRa already have strong implications regulation from LoRank.
+
+450
+00:47:26.250 --> 00:47:34.259
+Jitendra K: Now… The target projection that I'm using, target module selection, they are all linear layer in LAM architecture.
+
+451
+00:47:34.410 --> 00:47:36.540
+Jitendra K: The Llama is also a transformer, right?
+
+452
+00:47:37.040 --> 00:47:39.330
+Jitendra K: So I'm using query value.
+
+453
+00:47:40.090 --> 00:47:44.259
+Jitendra K: projection in self-attention. These determine what the mod attempts to.
+
+454
+00:47:44.530 --> 00:47:48.409
+Jitendra K: Adapting them to change the model attention pattern for the new task.
+
+455
+00:47:48.840 --> 00:47:54.140
+Jitendra K: Using the output projection after attention, adapting this change how attended.
+
+456
+00:47:54.260 --> 00:47:57.280
+Jitendra K: Information is projected back to the residual stream.
+
+457
+00:47:57.570 --> 00:48:03.000
+Jitendra K: And then using a gate projection, upstream projection, and downstream projection. These are some…
+
+458
+00:48:03.440 --> 00:48:10.140
+Jitendra K: Typical parameters of a tiny llama. That will project back, adapting these changes to the model reasoning capability.
+
+459
+00:48:11.270 --> 00:48:20.409
+Jitendra K: So, adapting all 7 layers… Adding 3 times more to enable parameters, but It will show improvement.
+
+460
+00:48:21.030 --> 00:48:26.439
+Jitendra K: Now, coming back to the… training instance.
+
+461
+00:48:26.940 --> 00:48:29.120
+Jitendra K: I'm using certain epoch.
+
+462
+00:48:29.560 --> 00:48:35.329
+Jitendra K: So, Epoch… I'm keeping the batch size to be 4, small, gradient accumulation to be 4.
+
+463
+00:48:35.590 --> 00:48:39.610
+Jitendra K: So this is a physical batch that will fit into my T4 GPU.
+
+464
+00:48:39.910 --> 00:48:46.369
+Jitendra K: So I'm using gradient accumulation 4 means gradient from 4 mini batches are summed before an optimizer step, which is Adam.
+
+465
+00:48:47.400 --> 00:48:50.959
+Jitendra K: So it'll use the effective batch of 4 cross 4, which is 16.
+
+466
+00:48:51.190 --> 00:48:54.470
+Jitendra K: And this gives some gradient quality as batch 16.
+
+467
+00:48:54.750 --> 00:48:58.279
+Jitendra K: Will be useful for creating a better reasoning.
+
+468
+00:48:59.780 --> 00:49:05.209
+Jitendra K: Now, after that, I'm creating a BNB, which is byte-by-byte configuration.
+
+469
+00:49:05.840 --> 00:49:11.580
+Jitendra K: And, I'm loading… The first parameter, which is true.
+
+470
+00:49:11.960 --> 00:49:17.039
+Jitendra K: Which style from pre-trained to quantize weight to a 4-bit during loading, not during training.
+
+471
+00:49:17.950 --> 00:49:26.430
+Jitendra K: Bit by bit, second parameter is quantization type, and F4, normal float 4, which is designed for normal distributed neural network weights.
+
+472
+00:49:26.760 --> 00:49:29.850
+Jitendra K: And it assigns 16 quantization level at position.
+
+473
+00:49:30.170 --> 00:49:33.829
+Jitendra K: That minimizes information loss for by distribution.
+
+474
+00:49:34.090 --> 00:49:38.900
+Jitendra K: So, FP4 or INT4, R…
+
+475
+00:49:39.430 --> 00:49:45.999
+Jitendra K: quite empirical in terms of distribution criteria, so you can go with either. But I'm using an F4.
+
+476
+00:49:46.870 --> 00:49:51.439
+Jitendra K: Then, I'm using a double quantization scheme. Again, this is…
+
+477
+00:49:52.110 --> 00:49:56.069
+Jitendra K: Producing FP32 constant per 64 weights.
+
+478
+00:49:57.730 --> 00:50:06.290
+Jitendra K: Alpha is a scaling factor, and learning rate… so, scaling with learning rate, right? So, if you're using a multi-head attention and operating in that
+
+479
+00:50:06.530 --> 00:50:07.890
+Jitendra K: transform a layer.
+
+480
+00:50:09.020 --> 00:50:12.760
+Jitendra K: So each matrix multiplication will exemplify the weights, right?
+
+481
+00:50:12.890 --> 00:50:14.800
+Jitendra K: So, scaling is very important.
+
+482
+00:50:15.320 --> 00:50:22.359
+Jitendra K: So scaling will keep a track of how many parameters you are using to update. So these are the projections.
+
+483
+00:50:22.770 --> 00:50:24.479
+Jitendra K: So this is my projection layer.
+
+484
+00:50:25.570 --> 00:50:34.960
+Jitendra K: of the model that I'm trying to target, fine-tune. So on this projection layer, you have multiple such attention, right? So if you multiply it, it will become too expensive.
+
+485
+00:50:36.470 --> 00:50:46.159
+Jitendra K: So, without quantization, So, if I'm using without quantization, 1.1 billion parameter.
+
+486
+00:50:47.500 --> 00:50:49.770
+Jitendra K: Multiply by 2 bytes.
+
+487
+00:50:52.940 --> 00:50:56.710
+Jitendra K: on the scheme of FP16, floating point 16.
+
+488
+00:50:57.740 --> 00:51:00.680
+Jitendra K: It will require 2.2 GB of memory.
+
+489
+00:51:02.410 --> 00:51:08.780
+Jitendra K: with an F4, 1.1 byte.
+
+490
+00:51:08.930 --> 00:51:12.810
+Jitendra K: Oh, sorry, billion, multiplied by 0.5 byte.
+
+491
+00:51:13.520 --> 00:51:14.889
+Jitendra K: Which is 4 bit.
+
+492
+00:51:17.390 --> 00:51:20.810
+Jitendra K: It will require 550 megabytes of memory.
+
+493
+00:51:22.520 --> 00:51:33.460
+Jitendra K: With double quantization, I will be able to reduce more effectively by 77% of the memory. Same thing if I'm going to do a projection.
+
+494
+00:51:34.030 --> 00:51:38.089
+Jitendra K: at this layer, right? So alpha is a scaling factor.
+
+495
+00:51:38.310 --> 00:51:41.080
+Jitendra K: So the adapter will scale.
+
+496
+00:51:42.550 --> 00:51:45.679
+Jitendra K: That means that after contribution to the output is…
+
+497
+00:51:45.900 --> 00:51:47.910
+Jitendra K: Based upon this ratio, which is 2.
+
+498
+00:51:48.220 --> 00:51:52.100
+Jitendra K: alpha upon R, which is 32 by 16, which is 2. That means
+
+499
+00:51:52.320 --> 00:51:56.029
+Jitendra K: The adapter contribution to the output is 2 times the raw.
+
+500
+00:51:56.350 --> 00:51:59.820
+Jitendra K: B cross A product, dot product, that you're taking.
+
+501
+00:52:00.370 --> 00:52:03.690
+Jitendra K: So, alpha is the learning rate for adapter. Higher the learning.
+
+502
+00:52:04.370 --> 00:52:10.380
+Jitendra K: strong the adaptation signal. The ratio alpha by R is very important to maintain.
+
+503
+00:52:14.000 --> 00:52:21.109
+Jitendra K: Okay, now, this is clear, right? We are operating on salmon layers. We are using some hyperparameters.
+
+504
+00:52:22.500 --> 00:52:27.190
+Jitendra K: We are working on some quantization techniques. So these three things are clear to everyone in this code.
+
+505
+00:52:31.060 --> 00:52:35.489
+Jitendra K: So what are we trying to do, first of all? Can we… can somebody explain me what are we trying to do?
+
+506
+00:52:35.660 --> 00:52:36.829
+Jitendra K: In this port.
+
+507
+00:52:37.570 --> 00:52:39.490
+Jitendra K: What are the models we are targeting?
+
+508
+00:52:48.480 --> 00:52:49.860
+Jitendra K: Tiny Llama.
+
+509
+00:52:51.120 --> 00:52:53.360
+Jitendra K: Okay, what is the parameter of Tiny Llama?
+
+510
+00:52:59.610 --> 00:53:02.079
+Jitendra K: 1.1 billion. Okay, great.
+
+511
+00:53:02.910 --> 00:53:08.079
+Jitendra K: Then what will… What this technique will help us to do?
+
+512
+00:53:08.900 --> 00:53:11.330
+Jitendra K: If I'm applying a path on tiny number.
+
+513
+00:53:12.370 --> 00:53:14.969
+Jitendra K: It will improve the performance of the model, great.
+
+514
+00:53:15.320 --> 00:53:18.800
+Jitendra K: How… how we can able to benchmark this performance?
+
+515
+00:53:32.300 --> 00:53:33.880
+Jitendra K: No, with a start-off?
+
+516
+00:53:34.170 --> 00:53:35.469
+Jitendra K: training labels.
+
+517
+00:53:37.320 --> 00:53:40.780
+Jitendra K: Alright, so we have fixed training labels that we are using for.
+
+518
+00:53:41.580 --> 00:53:44.469
+Jitendra K: By measuring the performance of this model as well.
+
+519
+00:53:45.890 --> 00:53:52.549
+Jitendra K: Alright, so until this point, I think everything is clear, that these are the model, this is what the quantization technique is.
+
+520
+00:53:52.970 --> 00:53:57.760
+Jitendra K: Now, let's move on to the… Data loading and preparation.
+
+521
+00:53:58.370 --> 00:54:04.820
+Jitendra K: So, I'm going to load my dataset. I'm saying, I would like to load my dataset into the memory.
+
+522
+00:54:05.550 --> 00:54:11.789
+Jitendra K: So, I'm saying data set… dot filter lambda with an instruction greater than 10.
+
+523
+00:54:12.440 --> 00:54:19.930
+Jitendra K: So I'm removing the empty or a non-empty example, which might be there inside my data set, olly 15K.
+
+524
+00:54:20.190 --> 00:54:22.099
+Jitendra K: Which has fewer entry with a short
+
+525
+00:54:22.250 --> 00:54:25.029
+Jitendra K: Instruction, like, yes and no responses.
+
+526
+00:54:25.520 --> 00:54:29.309
+Jitendra K: It'll add noise to the training, so I'm removing such entries.
+
+527
+00:54:30.040 --> 00:54:32.430
+Jitendra K: I'm also changing the format.
+
+528
+00:54:32.780 --> 00:54:36.780
+Jitendra K: So, Tiny Llama was pre-trained with ChatML format.
+
+529
+00:54:37.300 --> 00:54:40.090
+Jitendra K: 30U System User Assistant Tags.
+
+530
+00:54:40.570 --> 00:54:43.430
+Jitendra K: with end of the turn, forward slash S.
+
+531
+00:54:43.760 --> 00:54:48.720
+Jitendra K: The formatting of our training dataset is the same template the model was pre-turned on.
+
+532
+00:54:49.380 --> 00:54:52.159
+Jitendra K: And in case of mismatched template.
+
+533
+00:54:53.190 --> 00:55:00.309
+Jitendra K: which might be there, I'm just trying to avoid it with this help of this cleaning. I'm just cleaning my data a bit.
+
+534
+00:55:01.500 --> 00:55:08.960
+Jitendra K: Then, I'm splitting my data, so I take the first 1500 rows, shuffled example, and this is subject for fast iteration.
+
+535
+00:55:09.730 --> 00:55:16.110
+Jitendra K: Then I'm applying the format chat, this is the function that I'm applying using a map.
+
+536
+00:55:16.900 --> 00:55:22.640
+Jitendra K: to remove the unnecessary, strips, or I would say unnecessary templates, alignments.
+
+537
+00:55:23.100 --> 00:55:31.000
+Jitendra K: And then removing… Dropping the original column instruction based upon context, response, and category.
+
+538
+00:55:31.810 --> 00:55:37.930
+Jitendra K: For the empty, responses or one-line responses inside my data.
+
+539
+00:55:38.480 --> 00:55:44.089
+Jitendra K: So after doing the cleaning, I have got 1500 samples for training, 200 for evaluation.
+
+540
+00:55:45.170 --> 00:55:49.479
+Jitendra K: And the categories are these. The topic of discussion is… are these.
+
+541
+00:55:51.260 --> 00:55:57.399
+Jitendra K: Now, once I have created the data, now I would like to perform pre-processing.
+
+542
+00:55:58.450 --> 00:56:04.950
+Jitendra K: So, pre-processing the data required tokenization, and… vectorization.
+
+543
+00:56:08.470 --> 00:56:16.940
+Jitendra K: So, I will load the sentence piece tokenizer that Tiny Llama uses. So, sentence piece is a word tokenizer.
+
+544
+00:56:17.260 --> 00:56:20.749
+Jitendra K: That operates on a raw text without pre-tokenization.
+
+545
+00:56:21.350 --> 00:56:24.720
+Jitendra K: The vocab size here is 32,000 tokens.
+
+546
+00:56:25.340 --> 00:56:28.170
+Jitendra K: So I'm keeping the padding sequence ready.
+
+547
+00:56:28.570 --> 00:56:31.630
+Jitendra K: And the, I'm keeping the direction to be right.
+
+548
+00:56:32.050 --> 00:56:35.540
+Jitendra K: The Llama model does not have dedicated padding tokens.
+
+549
+00:56:36.840 --> 00:56:41.729
+Jitendra K: So this works because paradig positions are masked both in attention and lost computation.
+
+550
+00:56:42.020 --> 00:56:49.840
+Jitendra K: So I'm just trying to make sure that if I'm using a padding as right, all the sentences inside my data set will have a
+
+551
+00:56:50.570 --> 00:56:51.630
+Jitendra K: unique length.
+
+552
+00:56:53.780 --> 00:57:04.060
+Jitendra K: So, padding sequence on the right, it is required for cordial LM model, or cordial large language model. Left padding would shift all token position.
+
+553
+00:57:04.270 --> 00:57:08.920
+Jitendra K: Because my quadrule LM model, is also working on.
+
+554
+00:57:09.270 --> 00:57:11.700
+Jitendra K: indexes, original encoding.
+
+555
+00:57:16.320 --> 00:57:22.220
+Jitendra K: Now, what I'm going to do is, I would like to create one more function called tokenizeFM.
+
+556
+00:57:22.460 --> 00:57:25.380
+Jitendra K: This function, tokenization function.
+
+557
+00:57:25.860 --> 00:57:31.530
+Jitendra K: So this will take a sequence longer than 512 token and cut from right.
+
+558
+00:57:32.350 --> 00:57:39.269
+Jitendra K: And then, all sequences are padded to exactly 500 token. This will help me do batching without dynamic shapes.
+
+559
+00:57:39.590 --> 00:57:42.259
+Jitendra K: And then I'm keeping a copy of this.
+
+560
+00:57:42.610 --> 00:57:44.220
+Jitendra K: modified data.
+
+561
+00:57:48.260 --> 00:57:53.550
+Jitendra K: No… The utility function, the first utility function that I'm using is…
+
+562
+00:57:56.590 --> 00:57:58.239
+Jitendra K: A parameter summary.
+
+563
+00:57:58.960 --> 00:58:10.179
+Jitendra K: The parameter summary is… that means it will generate some summary on the percentage. Let's say if I have to summarize my paragraph to 50%, I can do it.
+
+564
+00:58:11.060 --> 00:58:13.840
+Jitendra K: Now, first and foremost thing, I'm loading the base model.
+
+565
+00:58:13.990 --> 00:58:16.750
+Jitendra K: Now, from where? From Hugging Face.
+
+566
+00:58:16.970 --> 00:58:19.170
+Jitendra K: So I'm going to load my base model.
+
+567
+00:58:19.280 --> 00:58:22.980
+Jitendra K: And apply the 4-bit quantization definition.
+
+568
+00:58:23.560 --> 00:58:30.470
+Jitendra K: So during loading, each weight tensor is read from the disk in FP16 and quantized to an F4, which is 4-bit.
+
+569
+00:58:31.010 --> 00:58:33.690
+Jitendra K: And I will store this in packet format.
+
+570
+00:58:34.220 --> 00:58:36.030
+Jitendra K: 2 weights per byte.
+
+571
+00:58:36.730 --> 00:58:40.240
+Jitendra K: and then I'm accelerating this whole process.
+
+572
+00:58:40.640 --> 00:58:41.900
+Jitendra K: With the help of…
+
+573
+00:58:46.470 --> 00:58:48.760
+Jitendra K: There's Waze Accelerator gone.
+
+574
+00:58:49.900 --> 00:58:54.739
+Jitendra K: Device map parameter… there should be one device map parameter.
+
+575
+00:59:01.490 --> 00:59:04.849
+Jitendra K: Yeah Device map parameter to be auto.
+
+576
+00:59:05.210 --> 00:59:11.930
+Jitendra K: So I'm accelerating the library, automatically place model layers on the available device. So for single GPU, it put everything on GPU.
+
+577
+00:59:12.090 --> 00:59:25.189
+Jitendra K: Multiple GPU, it will shift first GPU overflow to next strategy, like this. So, since I'm using a single GPU, so I'm just keeping it as scaling. This is different than the previous scaling factor that we had discussed. This is GPU scaling I'm talking about.
+
+578
+00:59:25.450 --> 00:59:30.530
+Jitendra K: that will… Help me to execute the model.
+
+579
+00:59:30.880 --> 00:59:33.159
+Jitendra K: From Hugging Face, Hub.
+
+580
+00:59:35.200 --> 00:59:41.420
+Jitendra K: Now, I'm calling one important parameter called repair model for kilobyte training.
+
+581
+00:59:42.040 --> 00:59:47.960
+Jitendra K: kilobit training. So I'm freezing all the model parameter, enable the gradient checkpoint instead of storing all
+
+582
+00:59:48.160 --> 00:59:50.630
+Jitendra K: Intermediate activation for backward pass.
+
+583
+00:59:50.780 --> 00:59:57.000
+Jitendra K: And store the checkpoint activation recomputer rest during backwards. So it will save 50% of the memory.
+
+584
+00:59:57.600 --> 00:59:58.769
+Jitendra K: And the cost.
+
+585
+01:00:03.540 --> 01:00:06.469
+Jitendra K: Now, I'm going to enable the arguments.
+
+586
+01:00:06.570 --> 01:00:11.890
+Jitendra K: The argument include… The argument include…
+
+587
+01:00:12.050 --> 01:00:15.079
+Jitendra K: the page Adam 8-bit, so this is one of the…
+
+588
+01:00:15.440 --> 01:00:21.630
+Jitendra K: Qualora Innovation. The standard item stored three… two-state answer per parameter.
+
+589
+01:00:23.030 --> 01:00:30.280
+Jitendra K: For 6.8 million trainable parameter, LoRa parameter will become… 8 times higher.
+
+590
+01:00:31.360 --> 01:00:34.640
+Jitendra K: So there is a technique which has been introduced by NVIDIA,
+
+591
+01:00:35.130 --> 01:00:37.370
+Jitendra K: Which is called Page Adam 8-Bit.
+
+592
+01:00:37.490 --> 01:00:39.119
+Jitendra K: So we are just using it.
+
+593
+01:00:42.540 --> 01:00:46.490
+Jitendra K: Now, after that, I'm going to start my training, so I would say…
+
+594
+01:00:46.790 --> 01:00:49.659
+Jitendra K: At each training step, let's try to collate.
+
+595
+01:00:53.160 --> 01:00:59.369
+Jitendra K: And try to see, the peak memory tracker, so that we can measure this experiment as well.
+
+596
+01:00:59.600 --> 01:01:05.670
+Jitendra K: We are also trying to run the full training loop for each epoch, for each batch, forward pass, calculating the loss.
+
+597
+01:01:06.190 --> 01:01:10.720
+Jitendra K: And then calculating the gradient during loss, backward propagation.
+
+598
+01:01:10.900 --> 01:01:13.810
+Jitendra K: And we'll try to see how the models are improving.
+
+599
+01:01:14.470 --> 01:01:20.789
+Jitendra K: Right? Because we have produced some 300, 200 examples as a test sample.
+
+600
+01:01:21.730 --> 01:01:26.389
+Jitendra K: Now, the experiment one I'm going to start with. So, experiment one talks about…
+
+601
+01:01:27.290 --> 01:01:33.869
+Jitendra K: the standard LoRa. So, standard LoRa, if I have to explain A simple mathematics.
+
+602
+01:01:34.580 --> 01:01:37.570
+Jitendra K: I'm… I've done a weight freezing on my…
+
+603
+01:01:38.200 --> 01:01:47.259
+Jitendra K: original model, so I will say I'm just updating the… Beats… of the frozen model.
+
+604
+01:01:47.600 --> 01:01:51.440
+Jitendra K: by adding… alpha by R.
+
+605
+01:01:52.480 --> 01:01:54.280
+Jitendra K: Which is my scaling ratio.
+
+606
+01:01:54.670 --> 01:02:01.340
+Jitendra K: And then multiply this with the two metrics that I have injected, which is B and A, dot products.
+
+607
+01:02:02.170 --> 01:02:03.550
+Jitendra K: So where B…
+
+608
+01:02:08.880 --> 01:02:11.960
+Jitendra K: Is initialized to zero earlier, all 0.
+
+609
+01:02:12.440 --> 01:02:16.580
+Jitendra K: an A initialized from… N.
+
+610
+01:02:17.050 --> 01:02:26.210
+Jitendra K: So, for Tiny Larma, I'm going to use… dimension and K to be… 2048.
+
+611
+01:02:28.300 --> 01:02:31.209
+Jitendra K: And our scaling factor to be, let's say, 16.
+
+612
+01:02:31.980 --> 01:02:34.709
+Jitendra K: So, original layer will have 2048,
+
+613
+01:02:36.080 --> 01:02:39.599
+Jitendra K: Multiply by 2048. If you calculate this.
+
+614
+01:02:39.880 --> 01:02:41.800
+Jitendra K: It will be close to Ford.
+
+615
+01:02:42.300 --> 01:02:43.700
+Jitendra K: million parameter.
+
+616
+01:02:44.430 --> 01:02:47.330
+Jitendra K: A LoRa adapter will have 2048.
+
+617
+01:02:47.710 --> 01:02:49.260
+Jitendra K: into 16.
+
+618
+01:02:49.400 --> 01:02:52.689
+Jitendra K: At each retention layer, 16 into 2048.
+
+619
+01:02:53.150 --> 01:02:55.920
+Jitendra K: It will be 655,000 parameter.
+
+620
+01:02:57.590 --> 01:03:00.570
+Jitendra K: And the compression ratio that I'm applying is 64-bit.
+
+621
+01:03:00.940 --> 01:03:06.940
+Jitendra K: That means the trainable percentage will remain, after applying all this calculation, will be 0.
+
+622
+01:03:07.090 --> 01:03:09.939
+Jitendra K: 1… sorry, 615%.
+
+623
+01:03:10.780 --> 01:03:13.270
+Jitendra K: Of the 1.1 billion parameter.
+
+624
+01:03:15.750 --> 01:03:19.529
+Jitendra K: So, total trainable percentage is less than 1%.
+
+625
+01:03:20.390 --> 01:03:21.200
+Jitendra K: Right?
+
+626
+01:03:21.340 --> 01:03:27.500
+Jitendra K: So, I will start experimenting with LoRa, standard LoRa, vanilla LoRa, you can say.
+
+627
+01:03:27.940 --> 01:03:30.829
+Jitendra K: And the configuration that I'm passing is alpha by R.
+
+628
+01:03:33.160 --> 01:03:35.299
+Jitendra K: Now, if you look into the result.
+
+629
+01:03:36.890 --> 01:03:38.719
+Jitendra K: I'm going to look into this part.
+
+630
+01:03:39.120 --> 01:03:43.560
+Jitendra K: Training loss, evaluation loss, and try to see if it is overfit, underfit.
+
+631
+01:03:44.570 --> 01:03:47.110
+Jitendra K: And I will also print some sample.
+
+632
+01:03:47.510 --> 01:03:52.569
+Jitendra K: So I'm asking what is machine learning as a question, and try to summarize it with 200 words.
+
+633
+01:03:54.260 --> 01:03:55.990
+Jitendra K: If you look into the output.
+
+634
+01:04:00.350 --> 01:04:02.620
+Jitendra K: The 4-bit quantization
+
+635
+01:04:03.490 --> 01:04:13.029
+Jitendra K: doesn't hurt training quality, because LoRa Adapt operates in full precision. If you look into this output, this looks significant.
+
+636
+01:04:13.350 --> 01:04:15.390
+Jitendra K: And the… if you read,
+
+637
+01:04:16.250 --> 01:04:21.329
+Jitendra K: Maybe this line or this sentence, it looks fine, right?
+
+638
+01:04:23.210 --> 01:04:27.200
+Jitendra K: So, basically, if I have to just explain this… output.
+
+639
+01:04:27.500 --> 01:04:29.470
+Jitendra K: We are looking from two lenses.
+
+640
+01:04:29.700 --> 01:04:32.709
+Jitendra K: One is, how steep is the training?
+
+641
+01:04:32.950 --> 01:04:34.789
+Jitendra K: How fast is the training?
+
+642
+01:04:38.370 --> 01:04:43.910
+Jitendra K: And the second is whether my… Model is showing any overfitting.
+
+643
+01:04:46.010 --> 01:04:50.230
+Jitendra K: So I can see that both are… Quite negligible here.
+
+644
+01:04:50.590 --> 01:04:58.019
+Jitendra K: And the peak GPU, or I would say performance that we have obtained, or peak GPU consumption that we have obtained is…
+
+645
+01:04:58.310 --> 01:05:01.740
+Jitendra K: 6,842 megabytes.
+
+646
+01:05:04.800 --> 01:05:07.959
+Jitendra K: And the trainable parameter is very few, less than 1%.
+
+647
+01:05:13.770 --> 01:05:17.759
+Jitendra K: So this is the first experiment that we have done, and we will continue to compare
+
+648
+01:05:18.320 --> 01:05:20.429
+Jitendra K: This experiment with the other ones.
+
+649
+01:05:21.590 --> 01:05:28.969
+Jitendra K: Because what are we trying to achieve here is, we are trying to achieve Better maintain accuracy.
+
+650
+01:05:29.400 --> 01:05:31.819
+Jitendra K: With a small training parameters.
+
+651
+01:05:32.120 --> 01:05:36.780
+Jitendra K: If your training parameters shrink, Maybe from 0.6 and 5.
+
+652
+01:05:36.960 --> 01:05:40.919
+Jitendra K: To other values, which are lower than that, and your accuracy improves.
+
+653
+01:05:41.230 --> 01:05:43.019
+Jitendra K: That means that technique is better.
+
+654
+01:05:44.910 --> 01:05:45.880
+Jitendra K: Isn't it?
+
+655
+01:05:46.680 --> 01:05:49.500
+Jitendra K: So that is what we are trying to achieve with experimentation.
+
+656
+01:05:49.820 --> 01:05:54.469
+Jitendra K: We're running some 6 experimentation to compare this outcome, and we'll summarize
+
+657
+01:05:55.230 --> 01:05:59.739
+Jitendra K: The end, which one is better for this dataset.
+
+658
+01:05:59.930 --> 01:06:02.769
+Jitendra K: Right? Overall, you cannot justify any training.
+
+659
+01:06:03.230 --> 01:06:06.609
+Jitendra K: I would say, training technique.
+
+660
+01:06:07.530 --> 01:06:10.369
+Jitendra K: But it depends upon your data, what kind of…
+
+661
+01:06:11.430 --> 01:06:16.840
+Jitendra K: problem we're trying to solve. Depending upon that, we're trying to look forward, so that you can deploy this method
+
+662
+01:06:17.070 --> 01:06:22.899
+Jitendra K: As a final… To your production pipeline, and then reuse for other purposes.
+
+663
+01:06:26.710 --> 01:06:32.259
+Jitendra K: When RAG is not sufficient, load of fine-tune is required. Yeah, that's correct. So RAG is,
+
+664
+01:06:33.410 --> 01:06:35.149
+Jitendra K: One technique to improve.
+
+665
+01:06:36.150 --> 01:06:39.919
+Jitendra K: But it's not just about RAG, so it is having much more.
+
+666
+01:06:43.830 --> 01:06:51.389
+Jitendra K: If you want to train a model in some specific domain, dataset is not publicly private, how to prepare data and whatever the method is there.
+
+667
+01:06:52.030 --> 01:06:57.530
+Jitendra K: You have to use your, SMEs, or your BAs, or your…
+
+668
+01:06:58.520 --> 01:07:03.510
+Jitendra K: SMEs, whatever, who is working with, right? So they should provide you the data.
+
+669
+01:07:04.690 --> 01:07:05.959
+Jitendra K: In this format.
+
+670
+01:07:13.990 --> 01:07:20.499
+Jitendra K: Alright, so… let's try to look for the evaluation loss. Evaluation loss is 1.98.
+
+671
+01:07:21.100 --> 01:07:23.020
+Jitendra K: This is a perplexity score.
+
+672
+01:07:23.420 --> 01:07:29.540
+Jitendra K: Which tell you the model average uncertainty per token, which is equivalent to choosing between 7 options.
+
+673
+01:07:29.940 --> 01:07:33.499
+Jitendra K: This number will help you to compare across experimentation.
+
+674
+01:07:33.630 --> 01:07:38.990
+Jitendra K: So this model achieved… this technique achieved 1.98. Just look for this.
+
+675
+01:07:40.230 --> 01:07:46.080
+Jitendra K: The training progress… Training loss that you can see on my screen.
+
+676
+01:07:47.800 --> 01:07:53.509
+Jitendra K: the training loss… is… Close to 2.14.
+
+677
+01:07:54.500 --> 01:08:00.669
+Jitendra K: And then… You have got these validation losses, which is very close to training loss.
+
+678
+01:08:01.010 --> 01:08:03.749
+Jitendra K: That means the model does not show any more fitting, either.
+
+679
+01:08:04.690 --> 01:08:09.900
+Jitendra K: The peak GPU, which is 6842, break down to 554Me.
+
+680
+01:08:11.240 --> 01:08:20.649
+Jitendra K: So that means your CUDA will have certain overhead when you're performing a mattex multiplication, so this will reach up to the speed.
+
+681
+01:08:21.680 --> 01:08:30.670
+Jitendra K: So, in general, I would say the model learned the instruction format correctly, given a question. It produced a structured, factual, accurate definition of machine learning.
+
+682
+01:08:30.899 --> 01:08:37.800
+Jitendra K: Sometimes the base model would handle less cleanly without LoRa adapter, teaching the chat model conversational structure.
+
+683
+01:08:39.279 --> 01:08:41.260
+Jitendra K: Let's move on to the second technique.
+
+684
+01:08:41.490 --> 01:08:47.520
+Jitendra K: And the second technique that we are going to use is… Q LoRa, quantized LoRa.
+
+685
+01:08:47.840 --> 01:08:55.279
+Jitendra K: And the change that we are going to make here is… We are going to… Reduce the number of…
+
+686
+01:08:55.930 --> 01:08:59.029
+Jitendra K: parameter that we are going to use in A.
+
+687
+01:08:59.890 --> 01:09:06.799
+Jitendra K: And then I'm going to use double quantization from F32 to F38, which will save 0.4 bit per parameter.
+
+688
+01:09:07.830 --> 01:09:11.820
+Jitendra K: And I'm going to use page optimization on adaptive momentum.
+
+689
+01:09:13.310 --> 01:09:17.239
+Jitendra K: That will spill to its CPU on out-of-memory errors.
+
+690
+01:09:19.090 --> 01:09:22.040
+Jitendra K: Okay, so I will look for this.
+
+691
+01:09:23.319 --> 01:09:27.119
+Jitendra K: So, first and foremost thing, I would like to see…
+
+692
+01:09:30.939 --> 01:09:33.219
+Jitendra K: What are the parameters that we are governing?
+
+693
+01:09:35.479 --> 01:09:37.939
+Jitendra K: So again, the parameter that we are governing
+
+694
+01:09:42.859 --> 01:09:44.700
+Jitendra K: Okay, let me go back.
+
+695
+01:09:49.010 --> 01:09:49.910
+Jitendra K: Yeah.
+
+696
+01:09:50.270 --> 01:09:52.509
+Jitendra K: So the parameter that we are governing is…
+
+697
+01:10:03.590 --> 01:10:04.750
+Jitendra K: 4-bit.
+
+698
+01:10:06.110 --> 01:10:08.729
+Jitendra K: So each parameter stores 0.5 bytes.
+
+699
+01:10:11.560 --> 01:10:19.090
+Jitendra K: So if I use 1.1 billion parameter model, which is tiny lm, and multiply with this 0.5, it will be…
+
+700
+01:10:19.440 --> 01:10:21.140
+Jitendra K: 554MB.
+
+701
+01:10:23.290 --> 01:10:30.220
+Jitendra K: So, FP16… Will be just double, 1.1 billion.
+
+702
+01:10:30.670 --> 01:10:38.390
+Jitendra K: Into 2, which is… 2216 megabyte, so I'm saving 75% of the
+
+703
+01:10:39.460 --> 01:10:43.790
+Jitendra K: Or, weights as compared to previous version.
+
+704
+01:10:44.560 --> 01:10:52.459
+Jitendra K: So, QLoRa, the 4-bit quantization, doesn't hurt training quality, because LoRa adapts Adapter operate in full precision.
+
+705
+01:10:53.230 --> 01:10:55.390
+Jitendra K: So the base model only need to provide
+
+706
+01:10:56.980 --> 01:10:59.430
+Jitendra K: A good starting point for forward pass.
+
+707
+01:11:01.630 --> 01:11:07.150
+Jitendra K: So the output that I'm getting with this configuration of QLura.
+
+708
+01:11:11.140 --> 01:11:16.769
+Jitendra K: is… The same as my previous model, the only change that I'm making is the quantization.
+
+709
+01:11:18.580 --> 01:11:21.160
+Jitendra K: So this is the result. If I compare…
+
+710
+01:11:21.570 --> 01:11:25.709
+Jitendra K: The, the output with my previous version.
+
+711
+01:11:26.230 --> 01:11:34.659
+Jitendra K: This model is also showing good amount of Match with overlapping criterias.
+
+712
+01:11:34.980 --> 01:11:42.260
+Jitendra K: Evaluation loss is almost similar, training loss is almost similar. The time it took is… 2.22nd.
+
+713
+01:11:44.730 --> 01:11:47.149
+Jitendra K: Which is very similar to the previous version.
+
+714
+01:11:47.300 --> 01:11:50.009
+Jitendra K: But only the save part is, I'm saving.
+
+715
+01:11:50.580 --> 01:11:52.410
+Jitendra K: 75% off.
+
+716
+01:11:55.580 --> 01:12:00.339
+Jitendra K: memory… In terms of GPU execution, which is VRAM.
+
+717
+01:12:00.950 --> 01:12:05.030
+Jitendra K: Which will help me to reduce The amount of…
+
+718
+01:12:05.360 --> 01:12:09.440
+Jitendra K: cost that I'm bearing on the GPU as a service.
+
+719
+01:12:13.010 --> 01:12:15.280
+Jitendra K: I will go to the la- few last…
+
+720
+01:12:15.520 --> 01:12:18.870
+Jitendra K: experimentation, which is called R-LoRa, RS LoRa.
+
+721
+01:12:19.570 --> 01:12:27.610
+Jitendra K: So, standard LoRa will use Alpha by R. RS LoRa will use… Alpha by Rutar.
+
+722
+01:12:28.190 --> 01:12:29.740
+Jitendra K: And that's the only difference.
+
+723
+01:12:33.660 --> 01:12:40.939
+Jitendra K: Sulfur by root R, here I'm using 128 divided by… Under root of 64.
+
+724
+01:12:41.750 --> 01:12:47.129
+Jitendra K: So, under root of 64 is 8, Which is 128x8.
+
+725
+01:12:47.640 --> 01:12:48.959
+Jitendra K: Which is 16.
+
+726
+01:12:51.870 --> 01:12:54.230
+Jitendra K: So the scaling factor comes out to be 16.
+
+727
+01:12:54.890 --> 01:13:03.300
+Jitendra K: So, I'm just using the expect, so, with RS LoRa, you can increase the rank from 16 to 128 without changing the learning rate, alpha.
+
+728
+01:13:03.440 --> 01:13:06.990
+Jitendra K: or any other hyperparameter. So without RS LoRa.
+
+729
+01:13:07.100 --> 01:13:11.509
+Jitendra K: You can increase rank, which required proportional increase to alpha.
+
+730
+01:13:11.640 --> 01:13:15.400
+Jitendra K: And maintain the same signal strength which required for fine-tuning.
+
+731
+01:13:15.510 --> 01:13:18.869
+Jitendra K: And that's the reason you will see the output.
+
+732
+01:13:21.150 --> 01:13:24.670
+Jitendra K: A signal boosts by 8%… 8 times stronger.
+
+733
+01:13:25.200 --> 01:13:32.150
+Jitendra K: And the output does not change either. Not change much either, right?
+
+734
+01:13:32.620 --> 01:13:40.940
+Jitendra K: And then, you're getting the total trainable parameter on the higher side, slightly higher side, from 0.67 to 2.371.
+
+735
+01:13:41.180 --> 01:13:43.670
+Jitendra K: Which may increase your cost, of course.
+
+736
+01:13:43.970 --> 01:13:47.100
+Jitendra K: But you're getting 8 times stronger signal.
+
+737
+01:13:51.010 --> 01:14:00.370
+Jitendra K: Now, we'll cover the last adaptive LORA, adaptive budget allocation. So, adaptive budget allocation, I will skip DORA because it is not very useful.
+
+738
+01:14:00.940 --> 01:14:07.599
+Jitendra K: So this is the SVD parameterization, which is called singular valve decomposition, which is relying on this algorithm.
+
+739
+01:14:07.860 --> 01:14:15.820
+Jitendra K: So instead of saying, I would like to use weights plus… B dot A.
+
+740
+01:14:16.710 --> 01:14:18.029
+Jitendra K: The two metrics.
+
+741
+01:14:18.740 --> 01:14:26.200
+Jitendra K: I will use… W plus… P dot… Q.
+
+742
+01:14:28.360 --> 01:14:30.389
+Jitendra K: So this is an important scoring.
+
+743
+01:14:30.780 --> 01:14:34.640
+Jitendra K: So, I'm using and combining some signals.
+
+744
+01:14:35.540 --> 01:14:36.800
+Jitendra K: On the top of it.
+
+745
+01:14:37.810 --> 01:14:52.900
+Jitendra K: So, basically, If I have to explain, my… Cost function as… will use… this equation.
+
+746
+01:14:59.410 --> 01:15:04.559
+Jitendra K: And as bar, in this case, is an exponential moving average of losses.
+
+747
+01:15:04.730 --> 01:15:08.320
+Jitendra K: That combines the signal absolute magnitude of the singular value.
+
+748
+01:15:08.700 --> 01:15:13.099
+Jitendra K: Larger, It is becoming more important for the current representation.
+
+749
+01:15:14.120 --> 01:15:16.819
+Jitendra K: So that means I'm just improving the overall
+
+750
+01:15:22.000 --> 01:15:28.409
+Jitendra K: mechanism… During the back propagation to adapt to my budget.
+
+751
+01:15:29.100 --> 01:15:31.670
+Jitendra K: And that's why it's called adaptive widget allocation.
+
+752
+01:15:34.210 --> 01:15:35.960
+Jitendra K: So let's see how it is…
+
+753
+01:15:36.680 --> 01:15:41.670
+Jitendra K: I'm damn sure the accuracy of the model should drop in this scenario.
+
+754
+01:15:41.870 --> 01:15:45.480
+Jitendra K: But let's see… Yes, it dropped.
+
+755
+01:15:46.280 --> 01:15:51.490
+Jitendra K: And even the… Validation loss is also increased as compared to it.
+
+756
+01:15:51.820 --> 01:15:58.600
+Jitendra K: Total trainable parameter is 1.4, as compared to original LoRa, which is 0.675.
+
+757
+01:15:59.270 --> 01:16:02.740
+Jitendra K: And, this is what we are getting as a output.
+
+758
+01:16:04.300 --> 01:16:06.139
+Jitendra K: So I think, this is…
+
+759
+01:16:06.830 --> 01:16:10.420
+Jitendra K: Sufficient, and these 4 or 5 techniques are sufficient.
+
+760
+01:16:10.640 --> 01:16:15.620
+Jitendra K: But let me give you the final result on… each technique.
+
+761
+01:16:16.300 --> 01:16:21.400
+Jitendra K: If I have to just give you the final result on each technique, That we have discussed.
+
+762
+01:16:26.660 --> 01:16:32.070
+Jitendra K: So, I would say… The best is still RS LoRa.
+
+763
+01:16:32.310 --> 01:16:34.499
+Jitendra K: hybrid LoRa that we are using.
+
+764
+01:16:36.770 --> 01:16:42.150
+Jitendra K: So, basically, we're just comparing the different PPEF technique, method for large language model retraining.
+
+765
+01:16:42.570 --> 01:16:48.219
+Jitendra K: So we understand that each and every technique is very useful for certain purposes.
+
+766
+01:16:48.590 --> 01:16:56.630
+Jitendra K: But the winner that… came across, with the help of evidence that we have collected with evaluation laws, is…
+
+767
+01:16:56.820 --> 01:16:58.660
+Jitendra K: DORA plus RS LoRa.
+
+768
+01:17:01.800 --> 01:17:09.150
+Jitendra K: When it comes to… few trainable parameters. I think DORA is giving more proper
+
+769
+01:17:09.770 --> 01:17:17.589
+Jitendra K: response in terms of future enabled instances. Then comes Adaptive LoRa, followed by RS LoRa, and then RS LoRa, different version.
+
+770
+01:17:19.380 --> 01:17:22.040
+Jitendra K: You can see the prompt tuning is coming at the last.
+
+771
+01:17:26.060 --> 01:17:28.739
+Jitendra K: Right, so basically, this is the drawback.
+
+772
+01:17:29.140 --> 01:17:30.290
+Jitendra K: from tuning.
+
+773
+01:17:31.380 --> 01:17:37.500
+Jitendra K: Which I'm sure I'm going to discuss in the upcoming tutorial, but this is something which I would like to show it as well.
+
+774
+01:17:39.690 --> 01:17:41.780
+Jitendra K: Now let me look into the question.
+
+775
+01:17:50.710 --> 01:17:57.619
+Jitendra K: Yeah, so it depends upon your budget, right? So, which model you would like to download, what kind of problem you're solving.
+
+776
+01:17:58.200 --> 01:18:04.619
+Jitendra K: If you're using a chatbot, you can go with Mistral, Llama model. If you're using for code writing.
+
+777
+01:18:05.130 --> 01:18:06.810
+Jitendra K: You can go with Quinn.
+
+778
+01:18:07.280 --> 01:18:10.959
+Jitendra K: models, right? So it depends upon your problem that you're trying to solve.
+
+779
+01:18:12.020 --> 01:18:18.870
+Jitendra K: Will it not different based on scale and complexity of data for enterprise, instead of fine-tuning how the POC…
+
+780
+01:18:20.220 --> 01:18:21.170
+Jitendra K: There we go.
+
+781
+01:18:21.950 --> 01:18:26.919
+Jitendra K: Yeah, so again, as I mentioned, if you are going to use,
+
+782
+01:18:28.550 --> 01:18:33.029
+Jitendra K: different type of databases, let's say you're using
+
+783
+01:18:34.490 --> 01:18:43.980
+Jitendra K: EHR data, as you mentioned, right? I don't know what exactly it is comprised of, but let's say it talks about the policies of hospitals and chains.
+
+784
+01:18:44.610 --> 01:18:48.789
+Jitendra K: And, definitely would like to use some domain agnostic
+
+785
+01:18:49.660 --> 01:18:53.379
+Jitendra K: use cases, let's say, medicine aims versus…
+
+786
+01:18:55.210 --> 01:18:59.690
+Jitendra K: Patient diagnostic diseases, which is very specific to medical care.
+
+787
+01:18:59.800 --> 01:19:06.679
+Jitendra K: So those are available in the internet as well, I mean, so the model has already been trained. So, you have to identify where the gap
+
+788
+01:19:07.090 --> 01:19:11.750
+Jitendra K: And then adapt to this technique. Don't try to find problem for a solution.
+
+789
+01:19:12.710 --> 01:19:14.890
+Jitendra K: So this is already solved, right?
+
+790
+01:19:15.080 --> 01:19:19.380
+Jitendra K: So we are not here to create a… Problem for a solution.
+
+791
+01:19:19.910 --> 01:19:23.230
+Jitendra K: We are trying to solve from the first principle point of view.
+
+792
+01:19:23.360 --> 01:19:32.059
+Jitendra K: So if it is required that you're facing some issue with your quality generation, then you can try this technique. It's not advisable to go with
+
+793
+01:19:32.490 --> 01:19:35.840
+Jitendra K: This technique, and once you have a model.
+
+794
+01:19:36.370 --> 01:19:41.519
+Jitendra K: you just start retraining the model. That's not fair. So you should just try it out.
+
+795
+01:19:41.790 --> 01:19:46.930
+Jitendra K: If you feel that my models are not giving appropriate results, then there's an opportunity to fine-tune.
+
+796
+01:19:47.320 --> 01:19:50.330
+Jitendra K: And that is something which you have to understand.
+
+797
+01:19:50.970 --> 01:19:55.799
+Jitendra K: So you should have several benchmarks, right? Like evaluation losses.
+
+798
+01:19:56.230 --> 01:20:02.790
+Jitendra K: So this will give you some indication that my model is getting better and better with lower errors, right?
+
+799
+01:20:03.010 --> 01:20:09.650
+Jitendra K: So when you're using a RAG, and if RAG is working fine, then why you should try PEFT and LORAS? As simple as that.
+
+800
+01:20:10.380 --> 01:20:15.680
+Jitendra K: So you can try this technique. Once you feel that there's a gap in my output.
+
+801
+01:20:25.140 --> 01:20:27.570
+Jitendra K: Yes, data preparations are key.
+
+802
+01:20:28.190 --> 01:20:33.480
+Jitendra K: So you need to prepare the data in the same format, which can be assumed… which can be consumed by your algorithm.
+
+803
+01:20:39.170 --> 01:20:46.390
+Jitendra K: Yeah, every cloud agnostic is selling this solution, and their solutions… are good.
+
+804
+01:20:46.500 --> 01:20:50.510
+Jitendra K: Because they are investing million dollars for solving this.
+
+805
+01:20:52.430 --> 01:20:57.449
+Jitendra K: But I'm just giving you… The way that you can train as an open source.
+
+806
+01:20:57.560 --> 01:20:58.450
+Jitendra K: as well.
+
+807
+01:21:08.470 --> 01:21:14.599
+Jitendra K: Yeah, you can try a more epoch, for sure. I don't have budget, my GPU is, overwhelming.
+
+808
+01:21:15.210 --> 01:21:17.439
+Jitendra K: That's the reason I just run with peer minimum.
+
+809
+01:21:18.480 --> 01:21:21.579
+Jitendra K: If you have run pod, just go with 100 epoch as well.
+
+810
+01:21:31.980 --> 01:21:34.420
+Jitendra K: Alright, so I've shared a code,
+
+811
+01:21:34.820 --> 01:21:37.250
+Jitendra K: So, just a quick recap what we have learned.
+
+812
+01:21:38.640 --> 01:21:45.000
+Jitendra K: We have learned how to adapt the model from the scratch, how to train the LLM model from the scratch.
+
+813
+01:21:45.560 --> 01:21:51.020
+Jitendra K: Right, so this is what we have developed in this tutorial. We understand the intuition behind it.
+
+814
+01:21:51.280 --> 01:21:57.390
+Jitendra K: We understand the techniques behind it, we understand the mathematics behind it, we understand how to compare different techniques.
+
+815
+01:21:57.800 --> 01:22:01.039
+Jitendra K: And how to scale up your data for experimentation.
+
+816
+01:22:01.470 --> 01:22:05.970
+Jitendra K: So if there's any question, I will be happy to take away. Otherwise, we can take a break.
+
+817
+01:22:06.330 --> 01:22:10.649
+Jitendra K: And then when we come back, we'll start with some other topic.
+
+818
+01:22:14.190 --> 01:22:18.220
+Jitendra K: Post-fine-tuning how to organize. So you are going to replace the model.
+
+819
+01:22:18.910 --> 01:22:19.920
+Jitendra K: That's it.
+
+820
+01:22:20.480 --> 01:22:24.190
+Jitendra K: They're going to replace the model which you have downloaded from Hugging Face.
+
+821
+01:22:29.420 --> 01:22:33.090
+Jitendra K: Yeah, I've shared the notebook, just scroll up, you will see.
+
+822
+01:22:33.310 --> 01:22:34.400
+Jitendra K: the notebook.
+
+823
+01:22:40.680 --> 01:22:46.120
+Jitendra K: Replace the model at your inference level, inference pipeline. So you're using some model, right?
+
+824
+01:22:46.640 --> 01:22:48.420
+Jitendra K: At inference pipeline.
+
+825
+01:22:49.890 --> 01:22:51.679
+Jitendra K: So that pipeline you have to change.
+
+826
+01:22:53.830 --> 01:23:00.199
+Jitendra K: the API is the tokens that you're passing the parameter to LL model, right? You're hosting the model somewhere.
+
+827
+01:23:00.700 --> 01:23:05.680
+Jitendra K: So you need to chain that… model H5 file.
+
+828
+01:23:05.890 --> 01:23:07.439
+Jitendra K: And replace it with this.
+
+829
+01:23:08.130 --> 01:23:09.580
+Jitendra K: new updated model.
+
+830
+01:23:19.370 --> 01:23:21.250
+Jitendra K: Yeah, I will show you later.
+
+831
+01:23:26.030 --> 01:23:29.219
+Jitendra K: Because there's no AMLOF pipeline I have developed in this quote.
+
+832
+01:23:40.890 --> 01:23:45.559
+Jitendra K: Alright, so if there's no question, let's take a break of 20 minutes.
+
+833
+01:23:46.520 --> 01:23:52.400
+Jitendra K: Then we can start with, rack pipeline, and today we are going to start with vanilla rack.
+
+834
+01:23:53.220 --> 01:23:56.460
+Jitendra K: And, we'll take some example to…
+
+835
+01:23:57.690 --> 01:24:02.119
+Jitendra K: Create a vanilla rag from the scratch, and then we move on to…
+
+836
+01:24:02.420 --> 01:24:05.790
+Jitendra K: Agentic rag and stuff in the upcoming tutorial.
+
+837
+01:24:06.870 --> 01:24:14.280
+Jitendra K: So… I think, you guys are familiar with Langraph now, right? You have revised Langraph?
+
+838
+01:24:14.740 --> 01:24:16.709
+Jitendra K: The last tutorial that we discussed.
+
+839
+01:24:18.150 --> 01:24:20.379
+Jitendra K: So we are going to use line graphs in this.
+
+840
+01:24:26.010 --> 01:24:29.839
+Jitendra K: All right, so let's take a quick 20-minute break, and then we can come back. Thank you.
+
+841
+01:50:26.590 --> 01:50:30.550
+Jitendra K: Bye guys, I hope you resume. Can we have a quick… Follow.
+
+842
+01:50:42.960 --> 01:50:44.539
+Jitendra K: I'm audible to you guys.
+
+843
+01:50:48.410 --> 01:50:53.000
+Jitendra K: Alright, so before we went on to the break, we talked about,
+
+844
+01:50:53.240 --> 01:50:57.429
+Jitendra K: the path technique, and I've shared some more reading material so that in case
+
+845
+01:50:57.940 --> 01:51:04.419
+Jitendra K: If you're struggling to understand some part of it, please refer to these blocks and the original paper.
+
+846
+01:51:04.600 --> 01:51:08.470
+Jitendra K: But again, as I mentioned, the original motivation is to give you
+
+847
+01:51:09.380 --> 01:51:16.939
+Jitendra K: the walkthrough on the technique which is available. So those who are not familiar with deep learning, I know that it will be overwhelming for them.
+
+848
+01:51:17.320 --> 01:51:23.370
+Jitendra K: Because, that's a prerequisite, that you should have. You should understand, how…
+
+849
+01:51:23.980 --> 01:51:28.180
+Jitendra K: Transformer architecture work, what are the freezing layers, and…
+
+850
+01:51:28.680 --> 01:51:33.900
+Jitendra K: What layer we are targeting to perform The efficient fine-tuning.
+
+851
+01:51:36.300 --> 01:51:41.309
+Jitendra K: Alright, so, just, go through those websites that I've shared, and if…
+
+852
+01:51:41.600 --> 01:51:45.060
+Jitendra K: You still feel some issues, please do ask question.
+
+853
+01:51:45.880 --> 01:51:57.059
+Jitendra K: Okay, now we'll start, now we'll continue with our RAG discussion that we have made in the last-loss tutorial, and we understand that RAG is one of the essential techniques that we're going to use for
+
+854
+01:51:57.480 --> 01:52:02.040
+Jitendra K: performing the analysis. So here we are talking about the first type of RAG.
+
+855
+01:52:02.460 --> 01:52:04.110
+Jitendra K: Which is called vanillaride.
+
+856
+01:52:04.370 --> 01:52:13.560
+Jitendra K: or NAVRAG. So, NAVRAG… If I have to just explain to you the architecture of NAVRAG,
+
+857
+01:52:13.690 --> 01:52:16.359
+Jitendra K: Let me show you the stuff.
+
+858
+01:52:30.330 --> 01:52:32.679
+Jitendra K: Yeah, so we are talking about a nave rack.
+
+859
+01:52:33.460 --> 01:52:38.030
+Jitendra K: Which is a simple vanilla rag, or… Basic rack.
+
+860
+01:52:38.420 --> 01:52:40.489
+Jitendra K: Which comprise of this architecture.
+
+861
+01:52:41.120 --> 01:52:48.549
+Jitendra K: So, NAVRAG is the simplest version of RAG ecosystem. To offer a straightforward method for combining retrieval data with LLM model.
+
+862
+01:52:48.780 --> 01:52:55.209
+Jitendra K: to efficiently respond to the user. You can see on my screen, a basic system has some component.
+
+863
+01:52:55.920 --> 01:52:59.349
+Jitendra K: Which include document chunking, the process begins with document.
+
+864
+01:52:59.650 --> 01:53:04.950
+Jitendra K: Which split into smaller chunks, and this is essential because smaller chunks are easily to manage.
+
+865
+01:53:05.650 --> 01:53:14.129
+Jitendra K: And process, right? For instance, when you have a long document, it breaks down into segments, making it easier for the system to retry relevant information later.
+
+866
+01:53:14.740 --> 01:53:22.590
+Jitendra K: Then you will have a choice of embedding model, which is most critical part of your rank system. So it converts both the document chunks and the user query
+
+867
+01:53:22.910 --> 01:53:27.389
+Jitendra K: Into a numerical form, which is often called as embedding vectors.
+
+868
+01:53:27.630 --> 01:53:38.029
+Jitendra K: And this conversion is necessary because computer or your program does not understand numeric… Just does not understand any textual data. It has to be converted into a numerical representation.
+
+869
+01:53:38.590 --> 01:53:47.530
+Jitendra K: So the embedding model used advanced machine learning techniques to represent the meaning of the text in a mathematical manner. For example, when a user asks a question.
+
+870
+01:53:47.810 --> 01:53:53.170
+Jitendra K: The model will transform this question into a set of numbers that capture the semantics of the query.
+
+871
+01:53:54.410 --> 01:54:00.809
+Jitendra K: So, once you convert this into an embedding vector… Which is why this step.
+
+872
+01:54:05.430 --> 01:54:09.419
+Jitendra K: Then the third will be… Your vector database.
+
+873
+01:54:10.180 --> 01:54:14.650
+Jitendra K: So when the document chunks and convert into embedding, they are stored into a vector database.
+
+874
+01:54:14.990 --> 01:54:21.270
+Jitendra K: The vector database are designed to efficiently store and retrieve these embeddings. So when a user submit a query.
+
+875
+01:54:21.660 --> 01:54:27.540
+Jitendra K: The system uses… The vector database to find the most relevant document chunks.
+
+876
+01:54:27.980 --> 01:54:30.439
+Jitendra K: By comparing the embedding of the query.
+
+877
+01:54:31.170 --> 01:54:34.809
+Jitendra K: With those stored in the database, in terms of similarity search.
+
+878
+01:54:35.140 --> 01:54:39.229
+Jitendra K: So everything that you're doing with Director Database is a similarity search, nothing else.
+
+879
+01:54:39.680 --> 01:54:44.939
+Jitendra K: There's no reasoning, nothing, if you think… But vector database are smart.
+
+880
+01:54:45.130 --> 01:54:47.120
+Jitendra K: They are very dumb machines.
+
+881
+01:54:47.480 --> 01:54:50.959
+Jitendra K: They're storing your vectors, you're querying it.
+
+882
+01:54:51.180 --> 01:54:55.380
+Jitendra K: And then, based upon that, you're just getting the response.
+
+883
+01:54:55.730 --> 01:54:58.539
+Jitendra K: The response is in the form of a similarity search.
+
+884
+01:55:00.180 --> 01:55:07.449
+Jitendra K: Then, the fourth layer is called retrieval, so after that database identifies the relevant document.
+
+885
+01:55:08.170 --> 01:55:13.640
+Jitendra K: the chunks, they are retrieved. So this retrieval process is crucial, because it narrows down the
+
+886
+01:55:14.050 --> 01:55:18.170
+Jitendra K: Information that will be used to generate the final response.
+
+887
+01:55:18.600 --> 01:55:25.509
+Jitendra K: So, essentially, it is… acts like a filter that will ensure that only the most relevant data is passed on to the next stage.
+
+888
+01:55:27.610 --> 01:55:33.699
+Jitendra K: So this is the retrieval layer, RAG. Retrieval, augmentation, and then generation part.
+
+889
+01:55:34.400 --> 01:55:40.420
+Jitendra K: Now, the fourth… fifth component of your RAC pipeline is your LLM model itself, large language model.
+
+890
+01:55:40.840 --> 01:55:47.490
+Jitendra K: So the large language model Will help you to generate response.
+
+891
+01:55:50.180 --> 01:55:53.360
+Jitendra K: So basically, what large language model will do is, it takes…
+
+892
+01:55:54.110 --> 01:55:57.309
+Jitendra K: Over the relevant chunks, which has been retrieved.
+
+893
+01:55:57.990 --> 01:56:04.149
+Jitendra K: And the job of this model is to understand and retrieve information and generate a coherent response to the user query.
+
+894
+01:56:04.690 --> 01:56:12.579
+Jitendra K: So the LLM user uses the user query and relevant chunks to provide a response that is not only relevant, but also contextually appropriate.
+
+895
+01:56:13.260 --> 01:56:19.560
+Jitendra K: So this model is responsible for interpreting the data and formulation, a response in natural language.
+
+896
+01:56:19.840 --> 01:56:22.010
+Jitendra K: That a user can easily understand.
+
+897
+01:56:23.920 --> 01:56:32.940
+Jitendra K: So the response will use your query parameters. So your query parameters, your relevant chunks, are the two important considerations.
+
+898
+01:56:33.240 --> 01:56:34.949
+Jitendra K: For generating the response.
+
+899
+01:56:36.520 --> 01:56:41.670
+Jitendra K: Finally, the system generates a response based upon the information processed by the LLM.
+
+900
+01:56:41.810 --> 01:56:50.110
+Jitendra K: And this response is then Delivered back to the user, providing them with information they were going to have…
+
+901
+01:56:50.520 --> 01:56:57.750
+Jitendra K: A very clear answer, a very concise answer, and it understands the flow of data, and then…
+
+902
+01:56:57.910 --> 01:56:59.099
+Jitendra K: All these things.
+
+903
+01:56:59.680 --> 01:57:06.120
+Jitendra K: Now, some of the advantages of using NAVE RAG is simplicity of implementation. It's pretty straightforward to set up.
+
+904
+01:57:07.300 --> 01:57:11.650
+Jitendra K: You need not to think of… more complex scenarios.
+
+905
+01:57:12.680 --> 01:57:17.869
+Jitendra K: You can enhance language model without needing intricate modifications or additional components.
+
+906
+01:57:18.160 --> 01:57:20.349
+Jitendra K: And no need for fine-tuning as well.
+
+907
+01:57:20.710 --> 01:57:28.150
+Jitendra K: So one of the significant advantages of RAG is, it does not require fine-tuning of the LLM. So this not only saves the time.
+
+908
+01:57:28.620 --> 01:57:31.450
+Jitendra K: But also reduce your cost, operation cost.
+
+909
+01:57:31.720 --> 01:57:34.370
+Jitendra K: And allow faster deployment of that system.
+
+910
+01:57:35.060 --> 01:57:40.939
+Jitendra K: So, while leveraging external up-to-date information, NAVRAC significantly improved the accuracy response
+
+911
+01:57:41.230 --> 01:57:46.130
+Jitendra K: And this will ensure that output are not only relevant, but also reflect the latest data available.
+
+912
+01:57:47.950 --> 01:57:53.390
+Jitendra K: RAG… NAVE RAG will reduce hallucination, so RAG mitigate the common issue of LLM.
+
+913
+01:57:53.750 --> 01:57:57.860
+Jitendra K: Generating incorrect and fabricated information brought grounding responses.
+
+914
+01:57:58.260 --> 01:58:01.499
+Jitendra K: So here, I'm just creating a real factual data.
+
+915
+01:58:01.880 --> 01:58:03.749
+Jitendra K: Retrieval during the process.
+
+916
+01:58:04.940 --> 01:58:12.770
+Jitendra K: The simplicity of NAVRAC makes it easier to scale across different applications, and it can adapt without significant changes to centralize
+
+917
+01:58:13.120 --> 01:58:18.460
+Jitendra K: retrieval or generative components. So this is flexible, and it will allow the model
+
+918
+01:58:18.820 --> 01:58:22.310
+Jitendra K: To be deployed across various domains with minimal customization.
+
+919
+01:58:23.870 --> 01:58:29.609
+Jitendra K: The drawback of NAVRAC is it is limited in processing.
+
+920
+01:58:31.530 --> 01:58:36.190
+Jitendra K: So the retrieve information is used directly without further processing or refining.
+
+921
+01:58:36.560 --> 01:58:40.530
+Jitendra K: Which may lead to coherence issue in genital response.
+
+922
+01:58:41.360 --> 01:58:44.890
+Jitendra K: The second bigger issue is dependency on retriever quality.
+
+923
+01:58:45.340 --> 01:58:49.210
+Jitendra K: The quality of the final output heavily depends upon the retrieval module.
+
+924
+01:58:50.470 --> 01:58:57.889
+Jitendra K: So, here, the ability to find most relevant information. If you're having a poor retrieval, it can lead to less accurate and…
+
+925
+01:58:58.050 --> 01:58:59.760
+Jitendra K: Irrelevant responses.
+
+926
+01:59:01.710 --> 01:59:09.199
+Jitendra K: Scalability is an issue. As a dataset grows, the retrieval process becomes slower, affecting the overall performance and response time.
+
+927
+01:59:11.460 --> 01:59:16.419
+Jitendra K: Context. NAVRAC may struggle to understand the broader context of a query.
+
+928
+01:59:17.240 --> 01:59:19.159
+Jitendra K: And this may lead to response
+
+929
+01:59:20.140 --> 01:59:23.100
+Jitendra K: Which may be half correct, inaccurate.
+
+930
+01:59:23.340 --> 01:59:28.750
+Jitendra K: And my thought be fully aligned with the user intent. By examining these advantages and drawback.
+
+931
+01:59:29.080 --> 01:59:35.159
+Jitendra K: We can comprehensively create a use case that… where to use NAVRANG.
+
+932
+01:59:36.050 --> 01:59:40.209
+Jitendra K: Right, so basically, nave rack… if the name says, it's Knave.
+
+933
+01:59:40.320 --> 01:59:50.059
+Jitendra K: does not have… any, sophisticated process to enhance the overall
+
+934
+01:59:50.430 --> 01:59:53.279
+Jitendra K: Retrieval quality. So it's a very basic setup.
+
+935
+01:59:53.560 --> 01:59:54.800
+Jitendra K: That we are going to have.
+
+936
+01:59:55.600 --> 01:59:59.740
+Jitendra K: So what we are going to do next is, I will show you the code of NAVRAC,
+
+937
+02:00:02.130 --> 02:00:05.340
+Jitendra K: And that will help you to understand the component of NAVRAG.
+
+938
+02:00:05.730 --> 02:00:09.480
+Jitendra K: In the overall pipeline. So we'll start with…
+
+939
+02:00:10.010 --> 02:00:15.320
+Jitendra K: the document… I have a few documents from Wikipedia, which I have downloaded.
+
+940
+02:00:15.570 --> 02:00:19.559
+Jitendra K: I will just parse this document back to the NAVRAC pipeline.
+
+941
+02:00:20.360 --> 02:00:28.369
+Jitendra K: And here, I'm going to use GPT-40 model for performing this analysis. So let's first go into the deep dive of the code.
+
+942
+02:00:29.000 --> 02:00:34.359
+Jitendra K: And then we'll move on to the implementation and the… inference setup.
+
+943
+02:00:39.050 --> 02:00:40.800
+Jitendra K: Okay, so let's start with…
+
+944
+02:00:41.570 --> 02:00:49.589
+Jitendra K: the code walkthrough. So, the first and foremost thing that I'm doing here is, I would like to introduce you to some important pipeline parameter.
+
+945
+02:00:50.690 --> 02:00:52.500
+Jitendra K: So I'm going to perform…
+
+946
+02:00:57.340 --> 02:00:59.019
+Jitendra K: Let me show you the flow.
+
+947
+02:01:15.780 --> 02:01:20.429
+Jitendra K: Yeah, some of the concepts I will cover in today's tutorial, some of them I will skip.
+
+948
+02:01:20.550 --> 02:01:26.259
+Jitendra K: Although it's a part of my pipeline, but I will skip, because I know It'll be too much.
+
+949
+02:01:26.800 --> 02:01:28.040
+Jitendra K: to digest.
+
+950
+02:01:28.570 --> 02:01:32.420
+Jitendra K: So, concept like Heidi, I will ex… I will not cover.
+
+951
+02:01:34.050 --> 02:01:39.669
+Jitendra K: I will cover MAM0 and BM25, so these are two concepts that I would like to talk about.
+
+952
+02:01:40.090 --> 02:01:46.799
+Jitendra K: I will talk about reciprocal… reciprocal fusion and mean marginal relevance.
+
+953
+02:01:48.320 --> 02:01:50.849
+Jitendra K: We will not cover this part.
+
+954
+02:01:53.700 --> 02:01:55.640
+Jitendra K: So this will be… I will ignore.
+
+955
+02:01:56.350 --> 02:01:59.310
+Jitendra K: So this is anyway, we'll cover in Agentic Ops.
+
+956
+02:02:00.610 --> 02:02:06.100
+Jitendra K: So, I think we already discussed the chunking strategy, embedding models, indexing technique.
+
+957
+02:02:06.260 --> 02:02:09.949
+Jitendra K: So, how many of you remember the difference between IVF and flat index?
+
+958
+02:02:10.540 --> 02:02:12.629
+Jitendra K: Can somebody tell me what is the difference?
+
+959
+02:02:18.290 --> 02:02:19.639
+Jitendra K: Do you guys remember?
+
+960
+02:02:20.560 --> 02:02:22.729
+Jitendra K: What are different types of indexing techniques?
+
+961
+02:02:26.740 --> 02:02:28.519
+Jitendra K: So that is brute force.
+
+962
+02:02:28.630 --> 02:02:29.560
+Jitendra K: Okay.
+
+963
+02:02:30.480 --> 02:02:32.019
+Jitendra K: So, which one is better?
+
+964
+02:02:33.210 --> 02:02:34.870
+Jitendra K: IVF is hierarchical.
+
+965
+02:02:47.280 --> 02:02:49.080
+Jitendra K: IVF use cluster.
+
+966
+02:02:55.330 --> 02:02:56.270
+Jitendra K: Okay.
+
+967
+02:02:57.790 --> 02:03:04.529
+Jitendra K: Okay, sure. So, let's go into the code now. So, what are we going to do is, we are going to use some default mechanism as well.
+
+968
+02:03:04.860 --> 02:03:07.140
+Jitendra K: So let's go with the code first.
+
+969
+02:03:07.600 --> 02:03:09.779
+Jitendra K: And then we visit this diagram again.
+
+970
+02:03:10.590 --> 02:03:18.229
+Jitendra K: So this is the architecture of vanilla rack, name rack. So I have a few documents that I have manually inserted.
+
+971
+02:03:19.140 --> 02:03:23.170
+Jitendra K: And, these are all Wikipedia documents. I'm converting them into chunks.
+
+972
+02:03:23.830 --> 02:03:28.029
+Jitendra K: Using some strategies, so I have 4 different strategies of chunking.
+
+973
+02:03:29.000 --> 02:03:33.080
+Jitendra K: Then I'm using an embedding model to store the vectors.
+
+974
+02:03:33.600 --> 02:03:39.199
+Jitendra K: of chunks, and converting into numerical representation. I'm going to use OpenAI 3 small.
+
+975
+02:03:39.470 --> 02:03:41.979
+Jitendra K: which is compatible with GPT-4.0.
+
+976
+02:03:42.580 --> 02:03:47.329
+Jitendra K: And I'm going to use FAS indexes, including flight and IVF.
+
+977
+02:03:48.220 --> 02:03:52.149
+Jitendra K: So my query pipeline will start with user input.
+
+978
+02:03:53.050 --> 02:03:58.329
+Jitendra K: I will skip this part. This is basically a module that will use reinforcement learning to expand query.
+
+979
+02:03:58.560 --> 02:04:00.650
+Jitendra K: So I will skip this part.
+
+980
+02:04:00.980 --> 02:04:07.509
+Jitendra K: Then we are managing the short memories and long memories during conversation, and I'm going to use a package called Mandy Rule.
+
+981
+02:04:07.790 --> 02:04:08.940
+Jitendra K: For doing this.
+
+982
+02:04:09.350 --> 02:04:15.999
+Jitendra K: then I'm having a query… matching with a keyword, and I'm going to use BM25.
+
+983
+02:04:16.300 --> 02:04:18.840
+Jitendra K: Now, how many of you know BM25?
+
+984
+02:04:19.260 --> 02:04:21.549
+Jitendra K: Have you heard about BM25 earlier?
+
+985
+02:04:24.160 --> 02:04:27.539
+Jitendra K: It's not a Mercedes model, but yes, it's a technique.
+
+986
+02:04:29.720 --> 02:04:31.650
+Jitendra K: BassWatch 25, yes.
+
+987
+02:04:32.450 --> 02:04:35.010
+Jitendra K: So what is the purpose of Bass Match 25?
+
+988
+02:04:42.840 --> 02:04:44.949
+Jitendra K: Rank the top 25 topic.
+
+989
+02:04:45.280 --> 02:04:46.230
+Jitendra K: Okay.
+
+990
+02:04:52.740 --> 02:04:54.010
+Jitendra K: Anything else?
+
+991
+02:04:58.480 --> 02:05:01.010
+Jitendra K: So, BM25 is a bagawatt model.
+
+992
+02:05:01.970 --> 02:05:07.630
+Jitendra K: Bag-of-words model, but so it's a traditional search algorithm.
+
+993
+02:05:08.230 --> 02:05:11.579
+Jitendra K: So BM's 25 stands for Best Matching 25.
+
+994
+02:05:12.020 --> 02:05:19.789
+Jitendra K: So it will help you to retrieve the best topic To match the parameter.
+
+995
+02:05:20.520 --> 02:05:25.810
+Jitendra K: So BM25 is a ranking function used by a search engine to estimate the relevance of a document.
+
+996
+02:05:26.020 --> 02:05:30.600
+Jitendra K: to a given search query. It has been used by Google as well, and developed by Google itself.
+
+997
+02:05:31.100 --> 02:05:33.739
+Jitendra K: So BM25 is a part of a traditional search.
+
+998
+02:05:35.240 --> 02:05:42.139
+Jitendra K: So before… TF IDF, there's something called BF, bag of words model.
+
+999
+02:05:43.770 --> 02:05:50.100
+Jitendra K: So, term frequency… An inverse document frequency has been used.
+
+1000
+02:05:50.550 --> 02:05:53.799
+Jitendra K: in the… DFIDF model.
+
+1001
+02:05:54.420 --> 02:05:57.619
+Jitendra K: So… but BM25 is much more than that.
+
+1002
+02:05:58.510 --> 02:06:01.209
+Jitendra K: I mean, it's an earlier version of it.
+
+1003
+02:06:02.350 --> 02:06:06.100
+Jitendra K: Now, let me explain the maths involved in that technique.
+
+1004
+02:06:06.610 --> 02:06:09.570
+Jitendra K: So, we understand that it's a traditional search algorithm.
+
+1005
+02:06:10.900 --> 02:06:19.029
+Jitendra K: Now, before we dive into the maths, we need to understand a few concepts that build BM25. So, top 3 concepts that include BM25,
+
+1006
+02:06:25.020 --> 02:06:26.730
+Jitendra K: is something called TF.
+
+1007
+02:06:28.020 --> 02:06:29.510
+Jitendra K: term frequency.
+
+1008
+02:06:31.030 --> 02:06:37.720
+Jitendra K: So, term frequency is simply a number of times a particular term appears in the document.
+
+1009
+02:06:38.820 --> 02:06:42.769
+Jitendra K: So let's say I open one document, let's say some PDF file.
+
+1010
+02:06:48.700 --> 02:06:50.790
+Jitendra K: Let me use this user manual.
+
+1011
+02:06:59.500 --> 02:07:03.870
+Jitendra K: So I would like to count how many times Oracle appear in this document.
+
+1012
+02:07:10.370 --> 02:07:12.609
+Jitendra K: So, it is showing me discount.
+
+1013
+02:07:24.040 --> 02:07:26.690
+Jitendra K: keep on increasing, I think just…
+
+1014
+02:07:30.780 --> 02:07:34.020
+Jitendra K: Yeah, so this is the count of that particular keyword.
+
+1015
+02:07:34.400 --> 02:07:38.139
+Jitendra K: Now, imagine that you're maintaining a dictionary in a form of a hash.
+
+1016
+02:07:39.930 --> 02:07:42.440
+Jitendra K: You say my key is nothing but a term?
+
+1017
+02:07:47.170 --> 02:07:49.459
+Jitendra K: And the value is their frequency.
+
+1018
+02:07:53.010 --> 02:07:58.379
+Jitendra K: That is called term frequency. So, term frequency is simply the number of times a particular term appears.
+
+1019
+02:07:58.540 --> 02:08:04.470
+Jitendra K: In the document, and we assume that the number of times a term appears in a document is correlated to their relevance.
+
+1020
+02:08:05.410 --> 02:08:12.160
+Jitendra K: The frequency is not calculated for a particular term, or a particular document, but I can use it for…
+
+1021
+02:08:12.950 --> 02:08:19.320
+Jitendra K: Overall… corpus as well. That means my corpus will comprise of multiple documents.
+
+1022
+02:08:20.750 --> 02:08:30.400
+Jitendra K: Now, there's something called inverse document frequency, which is IDF, which is a normalization term, because if… if I'm reading this document, I understand that
+
+1023
+02:08:30.890 --> 02:08:33.710
+Jitendra K: It is talking about some Oracle tool.
+
+1024
+02:08:33.900 --> 02:08:36.619
+Jitendra K: Very clearly, based upon the frequency.
+
+1025
+02:08:37.110 --> 02:08:41.379
+Jitendra K: But if I'm going to ask some question related to this tool.
+
+1026
+02:08:41.610 --> 02:08:46.730
+Jitendra K: It will always try to use higher frequent words, like oracle, to generate an answer.
+
+1027
+02:08:47.670 --> 02:08:50.479
+Jitendra K: Because the importance of that word is high.
+
+1028
+02:08:50.800 --> 02:08:58.599
+Jitendra K: And to normalize that particular importance, I need to use… Scaling or normalization.
+
+1029
+02:08:59.110 --> 02:09:03.959
+Jitendra K: So, to use as normalization, I'm using inverse document frequency.
+
+1030
+02:09:04.140 --> 02:09:10.280
+Jitendra K: So here we calculate the importance of the term across the entire set of our document, and we calculate in how many documents
+
+1031
+02:09:10.470 --> 02:09:11.769
+Jitendra K: The term up here.
+
+1032
+02:09:12.120 --> 02:09:14.549
+Jitendra K: Rear terms are giving more importance.
+
+1033
+02:09:14.990 --> 02:09:19.380
+Jitendra K: That means their IDF is bigger, and common terms are given, like, less importance.
+
+1034
+02:09:24.320 --> 02:09:27.680
+Jitendra K: So, our algorithm will have certain formulas.
+
+1035
+02:09:28.480 --> 02:09:30.799
+Jitendra K: And this is the formula that we are going to use.
+
+1036
+02:09:39.440 --> 02:09:44.620
+Jitendra K: So your document… query score, which is called DQ,
+
+1037
+02:09:45.630 --> 02:09:50.869
+Jitendra K: The equation returns a score for a given document. Higher the score means more relevant a document is.
+
+1038
+02:09:51.440 --> 02:09:57.170
+Jitendra K: So you can use it in web pages, right? So let's say if you're typing earlier in Google.
+
+1039
+02:09:57.520 --> 02:10:02.759
+Jitendra K: There's a box that you're typing your query, and it will give you some web page links.
+
+1040
+02:10:05.010 --> 02:10:08.749
+Jitendra K: So this is where BM25 has been used.
+
+1041
+02:10:09.400 --> 02:10:11.220
+Jitendra K: The drill, you will suggest?
+
+1042
+02:10:12.250 --> 02:10:13.869
+Jitendra K: Type in your query.
+
+1043
+02:10:14.450 --> 02:10:18.709
+Jitendra K: And Google will return you the web pages which are suitable for your response.
+
+1044
+02:10:19.180 --> 02:10:20.930
+Jitendra K: Which is a document itself.
+
+1045
+02:10:28.960 --> 02:10:35.230
+Jitendra K: So basically, what I'm trying to say is, BM25, is an algorithm.
+
+1046
+02:10:35.610 --> 02:10:37.990
+Jitendra K: That will use the combination of both.
+
+1047
+02:10:40.010 --> 02:10:42.960
+Jitendra K: So, it will use a hybrid implementation.
+
+1048
+02:10:43.990 --> 02:10:45.500
+Jitendra K: Show you the equation.
+
+1049
+02:10:46.580 --> 02:10:48.050
+Jitendra K: This is the equation.
+
+1050
+02:10:48.890 --> 02:10:55.469
+Jitendra K: So we can see that when we multiply IDF with TF and use the document length normalization denominator.
+
+1051
+02:10:55.660 --> 02:10:59.069
+Jitendra K: And then adding the score of all the terms in the query.
+
+1052
+02:11:00.250 --> 02:11:04.150
+Jitendra K: So it will help me to create search engine and databases.
+
+1053
+02:11:05.340 --> 02:11:07.730
+Jitendra K: I can also use Elasticsearch.
+
+1054
+02:11:08.460 --> 02:11:12.890
+Jitendra K: like, open source solar, These platforms are using this.
+
+1055
+02:11:13.410 --> 02:11:18.179
+Jitendra K: I can be able to filter domain-specific Peels based upon that.
+
+1056
+02:11:18.860 --> 02:11:28.010
+Jitendra K: The only disadvantage of this Technique is, it does not understand semantic meaning, of the world.
+
+1057
+02:11:30.540 --> 02:11:36.469
+Jitendra K: The semantic meaning of the word has not been understood by this algorithm. Just a frequency and number-based algorithm.
+
+1058
+02:11:39.770 --> 02:11:46.080
+Jitendra K: So, we are going to use this algorithm for keyword search in our rack pipeline. That is what I'm trying to say.
+
+1059
+02:11:46.470 --> 02:11:48.929
+Jitendra K: So we are using this keyword search.
+
+1060
+02:11:50.250 --> 02:11:51.540
+Jitendra K: Keyword matching.
+
+1061
+02:11:52.070 --> 02:11:56.590
+Jitendra K: And then we are using something called reciprocal rack fusion and MMR re-ranking.
+
+1062
+02:11:56.840 --> 02:12:00.439
+Jitendra K: So, how many of you know clearly what a reciprocal rank fusion is?
+
+1063
+02:12:03.600 --> 02:12:09.130
+Jitendra K: What is the core fundamental of… reciprocal rank fusion.
+
+1064
+02:12:24.600 --> 02:12:25.789
+Jitendra K: No idea.
+
+1065
+02:12:30.730 --> 02:12:33.939
+Jitendra K: So, reciprocal rank fusion is an unsupervised technique.
+
+1066
+02:12:34.280 --> 02:12:40.880
+Jitendra K: To merge multiple ranked lists of documents into a single, High relevant list.
+
+1067
+02:12:42.340 --> 02:12:51.910
+Jitendra K: So… We can go… With some understanding on… ranking strategy.
+
+1068
+02:12:52.680 --> 02:12:56.010
+Jitendra K: So let me explain this with the help of an example.
+
+1069
+02:12:59.450 --> 02:13:06.460
+Jitendra K: So, when you're using reciprocal rank fusion, which is your… Cost evaluation technique.
+
+1070
+02:13:07.120 --> 02:13:12.699
+Jitendra K: That means you are using this technique to understand The quality of retrieval.
+
+1071
+02:13:13.230 --> 02:13:19.630
+Jitendra K: So, reciprocal rank fusion is a rank aggregation technique, and it's been designed to merge multiple ranked lists
+
+1072
+02:13:20.180 --> 02:13:25.490
+Jitendra K: From diversified retrieval system into a single cohesive ranking.
+
+1073
+02:13:26.600 --> 02:13:32.969
+Jitendra K: So, the method is particularly valuable in hybrid search scenario, when you're combining output from a different retrieval model.
+
+1074
+02:13:33.120 --> 02:13:40.039
+Jitendra K: Such as lexical, semantic, Which can lead to more comprehensive and inaccurate information retrieval.
+
+1075
+02:13:40.440 --> 02:13:44.059
+Jitendra K: So, in case of multi-source scenario, I would like to use RF.
+
+1076
+02:13:45.330 --> 02:13:51.760
+Jitendra K: The concept of RRF is… RF operates on a principle that document appearing at the highest rank
+
+1077
+02:13:52.270 --> 02:13:57.289
+Jitendra K: Across multiple retrieval models or methods are likely to be more relevant.
+
+1078
+02:13:58.230 --> 02:14:00.890
+Jitendra K: So, instead of relying on raw score.
+
+1079
+02:14:01.130 --> 02:14:03.909
+Jitendra K: Which may not be directly compared across the system.
+
+1080
+02:14:04.290 --> 02:14:10.289
+Jitendra K: RFU's rank of the document to combine And compute a combined score.
+
+1081
+02:14:15.600 --> 02:14:17.390
+Jitendra K: So, the formula again…
+
+1082
+02:14:21.230 --> 02:14:24.469
+Jitendra K: we are going to use this RF score.
+
+1083
+02:14:28.320 --> 02:14:34.500
+Jitendra K: is given by… Reciprocal rank fusion is given by…
+
+1084
+02:14:41.760 --> 02:14:50.420
+Jitendra K: summation of… 1 over K plus… R…
+
+1085
+02:14:51.330 --> 02:14:55.180
+Jitendra K: D. So this is the document. Rank of the document.
+
+1086
+02:14:55.470 --> 02:14:58.230
+Jitendra K: Where R belongs to real number.
+
+1087
+02:14:59.330 --> 02:15:04.559
+Jitendra K: So R is the set of individual ranking. R of D denotes the rank of a document in
+
+1088
+02:15:05.210 --> 02:15:06.620
+Jitendra K: In the search.
+
+1089
+02:15:06.770 --> 02:15:12.960
+Jitendra K: And K is the constant, commonly set to 60, that damps the impact of lower-ranked document.
+
+1090
+02:15:17.460 --> 02:15:22.270
+Jitendra K: So, basically, what I'm trying to say is, it's a simple…
+
+1091
+02:15:22.400 --> 02:15:25.469
+Jitendra K: Algorithm, which will give you the relevance of a document.
+
+1092
+02:15:26.150 --> 02:15:27.609
+Jitendra K: To generate an answer.
+
+1093
+02:15:29.150 --> 02:15:32.069
+Jitendra K: Right? So higher the relevance, better the response.
+
+1094
+02:15:33.020 --> 02:15:38.580
+Jitendra K: So we are going to use this method to check The retrieval strategy.
+
+1095
+02:15:41.470 --> 02:15:44.689
+Jitendra K: Now, we'll talk about a third technique called MMR.
+
+1096
+02:15:46.620 --> 02:15:52.630
+Jitendra K: So, how many of you have heard about MMR in NLP, or any other algorithms.
+
+1097
+02:16:00.440 --> 02:16:01.780
+Jitendra K: What is MMR?
+
+1098
+02:16:02.950 --> 02:16:06.289
+Jitendra K: Maximum margin relevance, but what exactly it does?
+
+1099
+02:16:14.870 --> 02:16:19.979
+Jitendra K: So, again, I can see, there's turned silence, so let me explain.
+
+1100
+02:16:20.280 --> 02:16:28.650
+Jitendra K: So, again, When we talk about MMR, it's another technique that will help you to create the…
+
+1101
+02:16:29.380 --> 02:16:32.219
+Jitendra K: Relevancy criteria to it.
+
+1102
+02:16:32.570 --> 02:16:37.850
+Jitendra K: So when you're dealing with large amount of information, relevance alone isn't enough, right?
+
+1103
+02:16:38.170 --> 02:16:43.520
+Jitendra K: So, let's imagine that you're searching for an article about climate change and getting 10 results.
+
+1104
+02:16:44.020 --> 02:16:45.640
+Jitendra K: Let all say the same thing.
+
+1105
+02:16:46.549 --> 02:16:49.150
+Jitendra K: While they are relevant, they are not diverse.
+
+1106
+02:16:49.990 --> 02:16:51.919
+Jitendra K: So you need to create a diversity.
+
+1107
+02:16:52.709 --> 02:16:56.790
+Jitendra K: Cover different aspect or topic, provide varied perspective.
+
+1108
+02:16:56.950 --> 02:17:00.479
+Jitendra K: And avoid redundancy, making the output more useful and engaging.
+
+1109
+02:17:02.650 --> 02:17:08.190
+Jitendra K: And that is what MMR does. Higher the MRR, higher the diversity of the response.
+
+1110
+02:17:13.219 --> 02:17:17.150
+Jitendra K: So is it clear to everyone, like, what are we trying to do here?
+
+1111
+02:17:20.320 --> 02:17:22.760
+Jitendra K: Now, we'll move on to the code again.
+
+1112
+02:17:34.910 --> 02:17:40.390
+Jitendra K: Okay, so once we install all this, now I'm going to introduce you to something called TickToken.
+
+1113
+02:17:41.459 --> 02:17:48.310
+Jitendra K: So, tick token, or tick token, is an OpenAI tokenizer, which will count a token for.
+
+1114
+02:17:49.160 --> 02:17:54.080
+Jitendra K: chunks… API request budgeting, cost calculation.
+
+1115
+02:17:54.490 --> 02:18:01.549
+Jitendra K: So I'm going to use tick token to just track how many tokens I'm passing to OpenAI model, which is, in this case, GPT-40.
+
+1116
+02:18:03.559 --> 02:18:07.190
+Jitendra K: Then I'm trying to import my task, OpenAI.
+
+1117
+02:18:07.430 --> 02:18:10.999
+Jitendra K: It'll convert text into 1533-dimensional vector.
+
+1118
+02:18:11.500 --> 02:18:16.240
+Jitendra K: using embedding.create, and then once I import it.
+
+1119
+02:18:17.200 --> 02:18:20.100
+Jitendra K: then I will just use chat.compilation.
+
+1120
+02:18:21.000 --> 02:18:26.070
+Jitendra K: I'm also importing FAS, which is Facebook Library for Efficient Similarity Search.
+
+1121
+02:18:26.510 --> 02:18:33.190
+Jitendra K: And can search up to 1 million vectors in milliseconds, support various types of indexing, IVF, PQ, etc.
+
+1122
+02:18:34.110 --> 02:18:39.590
+Jitendra K: I'm also importing BM25, which is keyword matching and semantic matching algorithm.
+
+1123
+02:18:39.950 --> 02:18:43.549
+Jitendra K: And this will give me the score in terms of relevance match.
+
+1124
+02:18:45.430 --> 02:18:51.380
+Jitendra K: MAM0, I would like to introduce you to this package, MAM0. MAM0 is a memory layer.
+
+1125
+02:18:51.610 --> 02:18:54.209
+Jitendra K: That stored a fact from conversation.
+
+1126
+02:18:55.809 --> 02:18:59.429
+Jitendra K: So I'm going to store some long-term context.
+
+1127
+02:18:59.549 --> 02:19:02.380
+Jitendra K: Across session, and for that, I required MAM0.
+
+1128
+02:19:03.219 --> 02:19:08.820
+Jitendra K: So I'm going to use MAM0 for managing the long-term on text.
+
+1129
+02:19:18.559 --> 02:19:25.930
+Jitendra K: No… Going on to the configuration part, so I have got data class, which automatically get an integer.
+
+1130
+02:19:26.350 --> 02:19:30.700
+Jitendra K: So, data class, without… constructor.
+
+1131
+02:19:32.000 --> 02:19:33.759
+Jitendra K: So I'm creating a data class.
+
+1132
+02:19:34.280 --> 02:19:39.230
+Jitendra K: So I'm saying, automatically create an init method with all the fields as parameter.
+
+1133
+02:19:39.559 --> 02:19:41.929
+Jitendra K: The first parameter is text parameter reading 3.
+
+1134
+02:19:42.190 --> 02:19:44.840
+Jitendra K: And the dimension of this is 1536.
+
+1135
+02:19:45.180 --> 02:19:50.249
+Jitendra K: Which is an OpenAI latest embedding model, which supports 1-36 dimensions per vector.
+
+1136
+02:19:50.750 --> 02:19:56.820
+Jitendra K: The cost with this model is, it is just 0.02 cents per 1 million token.
+
+1137
+02:19:57.610 --> 02:20:02.230
+Jitendra K: And can able to handle the context length of 8,000 plus tokens.
+
+1138
+02:20:04.050 --> 02:20:05.729
+Jitendra K: So I'm just enabling this.
+
+1139
+02:20:06.020 --> 02:20:08.820
+Jitendra K: And it is highly compatible with GPT-40 Mini.
+
+1140
+02:20:09.630 --> 02:20:14.010
+Jitendra K: Then I'm keeping a chunking strategy. Each document is chunked to 400 words.
+
+1141
+02:20:14.560 --> 02:20:16.620
+Jitendra K: With an overlap of 64.
+
+1142
+02:20:17.120 --> 02:20:21.019
+Jitendra K: Which is… 12.5% of my original.
+
+1143
+02:20:21.470 --> 02:20:22.660
+Jitendra K: chunk size.
+
+1144
+02:20:23.340 --> 02:20:27.310
+Jitendra K: So I'm trying to preserve context at boundary. So you can typically use
+
+1145
+02:20:27.840 --> 02:20:32.760
+Jitendra K: 10% to 20% chunk overlap, depending upon your chunk size.
+
+1146
+02:20:33.740 --> 02:20:38.799
+Jitendra K: So why overlap? Because a sentence will cut into half, which may lose the meaning.
+
+1147
+02:20:39.230 --> 02:20:45.740
+Jitendra K: So, OLA will ensure important fact or information should not be lost due to chunk boundaries.
+
+1148
+02:20:46.420 --> 02:20:49.380
+Jitendra K: Now, I'm keeping the fast index,
+
+1149
+02:20:49.750 --> 02:20:54.980
+Jitendra K: with different strategy, I'm keeping it flat. You can change it to IVF and IVF2.
+
+1150
+02:20:55.230 --> 02:20:58.799
+Jitendra K: Since this is a small, simple pipeline, I'm keeping it to be flat.
+
+1151
+02:20:59.270 --> 02:21:04.940
+Jitendra K: So, the flat will exact the search on operation time complexity as order of N.
+
+1152
+02:21:05.670 --> 02:21:09.420
+Jitendra K: And, inverted file index.
+
+1153
+02:21:10.540 --> 02:21:12.269
+Jitendra K: We'll have a better recall.
+
+1154
+02:21:13.020 --> 02:21:19.229
+Jitendra K: And product quantization compression is… Having, slightly better recall.
+
+1155
+02:21:19.690 --> 02:21:22.990
+Jitendra K: But I'm preferring flat. I can change it later.
+
+1156
+02:21:23.550 --> 02:21:29.279
+Jitendra K: I'm keeping some retrieval… Manifestos inside these variables.
+
+1157
+02:21:29.830 --> 02:21:33.840
+Jitendra K: I'm returning… The top 5 most relevant chunks.
+
+1158
+02:21:34.350 --> 02:21:38.149
+Jitendra K: Hybrid alpha, 70% weights on dense semantic.
+
+1159
+02:21:38.650 --> 02:21:42.800
+Jitendra K: 30% on, I'm keeping it… The sparse keyword.
+
+1160
+02:21:44.580 --> 02:21:47.980
+Jitendra K: MMR lambda, 70% relevance, and 30% diversity.
+
+1161
+02:21:48.140 --> 02:21:50.230
+Jitendra K: So that I should avoid duplication.
+
+1162
+02:21:50.880 --> 02:21:54.869
+Jitendra K: I'm using HYD generator hypothetical answer first.
+
+1163
+02:21:55.310 --> 02:21:56.960
+Jitendra K: I'm keeping it false.
+
+1164
+02:21:57.870 --> 02:22:01.270
+Jitendra K: I'm not enabling this function at this moment.
+
+1165
+02:22:03.260 --> 02:22:05.000
+Jitendra K: Now, I'm keeping the memory.
+
+1166
+02:22:08.650 --> 02:22:12.360
+Jitendra K: And, the configuration of the memory with that.
+
+1167
+02:22:13.240 --> 02:22:21.499
+Jitendra K: Now, I will start with document model. That means I will like to convert raw text, which could be thousands of words.
+
+1168
+02:22:22.410 --> 02:22:27.690
+Jitendra K: which came from Wikipedia article, and extract information like timestamp, author, category.
+
+1169
+02:22:28.090 --> 02:22:29.600
+Jitendra K: And I would like to assign
+
+1170
+02:22:30.010 --> 02:22:34.279
+Jitendra K: one hash ID to each document. So let's say if I'm managing
+
+1171
+02:22:34.950 --> 02:22:40.619
+Jitendra K: tons of documents, so each document will have a unique ID associated with it, and that is the MD5 hash.
+
+1172
+02:22:41.770 --> 02:22:47.410
+Jitendra K: So, MD5 hash… Will… Alpin Robotics.
+
+1173
+02:22:48.430 --> 02:22:49.950
+Jitendra K: Maintain indexes.
+
+1174
+02:22:50.250 --> 02:22:52.009
+Jitendra K: On the top of my document.
+
+1175
+02:22:53.300 --> 02:22:58.350
+Jitendra K: Now, the actual text contains 512 token. I have a unique index.
+
+1176
+02:22:59.000 --> 02:23:03.140
+Jitendra K: Chunk ID, token count, number of tokens for cost calculation.
+
+1177
+02:23:03.370 --> 02:23:05.599
+Jitendra K: I'm meeting dimension 1.36.
+
+1178
+02:23:06.400 --> 02:23:09.099
+Jitendra K: Now, I would like to instantiate the retrieval context.
+
+1179
+02:23:10.080 --> 02:23:16.069
+Jitendra K: So… or similarity score, I will prefer probabilical range 0 to 1.
+
+1180
+02:23:17.830 --> 02:23:20.739
+Jitendra K: And, I would like to use rag response class.
+
+1181
+02:23:20.930 --> 02:23:26.380
+Jitendra K: Which will… Simply take… the parameters.
+
+1182
+02:23:27.720 --> 02:23:31.519
+Jitendra K: From query, generator confidence, citation references.
+
+1183
+02:23:31.820 --> 02:23:36.230
+Jitendra K: Latencies, as well, it will give me per stage timing breakdown.
+
+1184
+02:23:36.380 --> 02:23:39.970
+Jitendra K: And citation for extracting the answer from source data.
+
+1185
+02:23:40.510 --> 02:23:47.619
+Jitendra K: Now, what I'm doing is I'm just creating some sample document around artificial intelligence, machine learning, retrieval augment generation.
+
+1186
+02:23:47.730 --> 02:23:54.020
+Jitendra K: as a topic, vector database, transformer architecture, prompt engineering. So these are my topics.
+
+1187
+02:23:54.320 --> 02:23:56.409
+Jitendra K: And for each topic, I have a paragraph.
+
+1188
+02:23:57.340 --> 02:24:04.329
+Jitendra K: So I'm maintaining this paragraph, or this knowledge base, using… Internal document object.
+
+1189
+02:24:04.870 --> 02:24:08.900
+Jitendra K: And then passing token count with tick token and stuff.
+
+1190
+02:24:10.410 --> 02:24:12.749
+Jitendra K: Now, I would like to perform a chunking.
+
+1191
+02:24:13.110 --> 02:24:20.120
+Jitendra K: And recursive chunking on my… input paragraphs. And for that, I'm just doing it here.
+
+1192
+02:24:21.060 --> 02:24:25.599
+Jitendra K: So, recursive split algorithm will utilize
+
+1193
+02:24:26.210 --> 02:24:29.930
+Jitendra K: Long paragraph and split them into multiple tokens.
+
+1194
+02:24:30.920 --> 02:24:33.400
+Jitendra K: So here, I'm also using sentence chunking.
+
+1195
+02:24:34.190 --> 02:24:36.740
+Jitendra K: Which could be also useful for this method.
+
+1196
+02:24:38.350 --> 02:24:41.260
+Jitendra K: So sanitized dunking will help me to…
+
+1197
+02:24:44.950 --> 02:24:49.379
+Jitendra K: Noted there, so I think it has to be share, reshare.
+
+1198
+02:24:50.920 --> 02:24:53.239
+Jitendra K: So just go down, and you will see this.
+
+1199
+02:25:05.850 --> 02:25:14.609
+Jitendra K: So, after chunking, I will have an embedding engine, which will convert my tokens to embedding vector, and I'm preferring text data 003.
+
+1200
+02:25:16.760 --> 02:25:21.189
+Jitendra K: So each token cost will have some amount associated with that.
+
+1201
+02:25:21.600 --> 02:25:24.900
+Jitendra K: The same text may appear multiple times.
+
+1202
+02:25:26.030 --> 02:25:32.110
+Jitendra K: and… If I'm doing an embedding caching, it will reduce the API call by 50-80%.
+
+1203
+02:25:34.730 --> 02:25:36.890
+Jitendra K: Now, I'm using a batch embedding layer.
+
+1204
+02:25:37.980 --> 02:25:44.330
+Jitendra K: So, in this layer, I'm just trying to use… A simple method.
+
+1205
+02:25:44.940 --> 02:25:47.470
+Jitendra K: To perform this analysis.
+
+1206
+02:25:48.480 --> 02:25:50.270
+Jitendra K: And, what it does is…
+
+1207
+02:25:50.520 --> 02:25:52.900
+Jitendra K: It will pass on my query vectors.
+
+1208
+02:25:53.390 --> 02:25:56.109
+Jitendra K: Do the embedding first, layer first.
+
+1209
+02:25:56.350 --> 02:26:03.190
+Jitendra K: So again, going back to my diagram… So what it does is…
+
+1210
+02:26:03.810 --> 02:26:06.410
+Jitendra K: It will use Hybrid retrieval engine.
+
+1211
+02:26:06.790 --> 02:26:10.270
+Jitendra K: Which will have a dense vector searched by cosine.
+
+1212
+02:26:11.390 --> 02:26:16.830
+Jitendra K: Shallow via keyword search, and then it used evaluation to generate an answer.
+
+1213
+02:26:17.170 --> 02:26:20.209
+Jitendra K: And then pass on this data to a prompt.
+
+1214
+02:26:20.900 --> 02:26:29.800
+Jitendra K: That will help us to define the governance, including groundness, citation reference, Confidence score, analyzations, etc.
+
+1215
+02:26:29.960 --> 02:26:33.399
+Jitendra K: So here we are just passing this parameter to a retrieval.
+
+1216
+02:26:33.850 --> 02:26:38.199
+Jitendra K: Excluding HYD, so you can ignore HYD at this point of time.
+
+1217
+02:26:38.600 --> 02:26:42.889
+Jitendra K: So once I generate this, Then you will see the prompt.
+
+1218
+02:26:43.650 --> 02:26:49.589
+Jitendra K: Now, this is my system prompt, which says, I need to answer This particular question.
+
+1219
+02:26:49.990 --> 02:26:52.329
+Jitendra K: Based upon these criterias.
+
+1220
+02:26:52.580 --> 02:26:58.820
+Jitendra K: which include… Answer should exclusive or provide content, that means it should avoid hallucination.
+
+1221
+02:26:59.190 --> 02:27:03.029
+Jitendra K: Citation reference should be there, better the citation reference.
+
+1222
+02:27:03.180 --> 02:27:06.010
+Jitendra K: Better the, evaluation?
+
+1223
+02:27:06.820 --> 02:27:09.109
+Jitendra K: And then finally, I'm also using…
+
+1224
+02:27:16.820 --> 02:27:22.540
+Jitendra K: Also, I'm using, conciseness. Aim for 2-3 paragraphs.
+
+1225
+02:27:23.120 --> 02:27:26.830
+Jitendra K: And, would like to show… some high…
+
+1226
+02:27:27.740 --> 02:27:30.790
+Jitendra K: direct answer by context. And this is all…
+
+1227
+02:27:30.970 --> 02:27:33.259
+Jitendra K: LLM instruction that I'm passing on.
+
+1228
+02:27:33.990 --> 02:27:38.620
+Jitendra K: And once I've done this, then I can consume this application.
+
+1229
+02:27:39.090 --> 02:27:43.540
+Jitendra K: So, you can see that the first and the formal step is, it loads my model.
+
+1230
+02:27:43.720 --> 02:27:46.920
+Jitendra K: enable the API key, and taking the query parameter.
+
+1231
+02:27:47.390 --> 02:27:53.079
+Jitendra K: So I'm asking what is the retrieval augment generation, and how it is reduced hallucination, and exactly in the
+
+1232
+02:27:53.470 --> 02:27:58.130
+Jitendra K: document it is going to give. So it is saying that it is coming from first document.
+
+1233
+02:27:58.760 --> 02:28:00.690
+Jitendra K: And these are the retrieved context.
+
+1234
+02:28:01.810 --> 02:28:03.750
+Jitendra K: And this is how it took.
+
+1235
+02:28:04.500 --> 02:28:08.590
+Jitendra K: to… Investigate which documents should go to.
+
+1236
+02:28:08.910 --> 02:28:09.900
+Jitendra K: Lookups.
+
+1237
+02:28:11.220 --> 02:28:13.619
+Jitendra K: For retrieval, it takes almost,
+
+1238
+02:28:15.210 --> 02:28:20.770
+Jitendra K: 2 seconds, generation it took, less than… 6 second…
+
+1239
+02:28:22.190 --> 02:28:29.040
+Jitendra K: And the total time to execute is 10 seconds. An evaluation has been completed in 1 second.
+
+1240
+02:28:29.690 --> 02:28:32.470
+Jitendra K: So, similarly, I have another question.
+
+1241
+02:28:33.030 --> 02:28:35.510
+Jitendra K: So it is showing me confidence to be increased.
+
+1242
+02:28:36.680 --> 02:28:39.169
+Jitendra K: With two different document citations.
+
+1243
+02:28:41.630 --> 02:28:44.230
+Jitendra K: And then, finally, the other query.
+
+1244
+02:28:44.550 --> 02:28:47.729
+Jitendra K: So maybe… okay, so this is saving failed.
+
+1245
+02:28:52.930 --> 02:28:56.779
+Jitendra K: Okay, let me share the file so that you can work around it.
+
+1246
+02:28:57.960 --> 02:29:03.540
+Jitendra K: So, please use the tokens, maybe, from your side.
+
+1247
+02:29:04.020 --> 02:29:06.080
+Jitendra K: So, I will share this file.
+
+1248
+02:29:06.340 --> 02:29:09.150
+Jitendra K: And just replace the OpenAI token.
+
+1249
+02:29:09.650 --> 02:29:10.590
+Jitendra K: From there.
+
+1250
+02:29:12.170 --> 02:29:15.939
+Jitendra K: Just to avoid any… unaccidental users.
+
+1251
+02:29:21.370 --> 02:29:24.929
+Jitendra K: So can you guys quickly try this vanilla rag?
+
+1252
+02:29:25.310 --> 02:29:26.830
+Jitendra K: And let me know your thoughts.
+
+1253
+02:29:27.670 --> 02:29:32.500
+Jitendra K: If you're able to… Recreate this, you understand this?
+
+1254
+02:29:33.380 --> 02:29:35.389
+Jitendra K: Or there's an issue with this?
+
+1255
+02:29:35.500 --> 02:29:36.599
+Jitendra K: Please let me know.
+
+1256
+02:29:39.660 --> 02:29:48.130
+Jitendra K: This is a very plain vanilla rag architecture, with a simple evaluation strategy, simple Pipeline design, simple documents.
+
+1257
+02:29:52.410 --> 02:29:56.639
+Jitendra K: Without any agents, without any multi-step reasoning, etc.
+
+1258
+02:29:57.050 --> 02:29:58.990
+Jitendra K: Without any state mechanism.
+
+1259
+02:30:14.590 --> 02:30:17.940
+Jitendra K: So just go through the code and let me know if there's any question.
+
+1260
+02:30:18.310 --> 02:30:21.840
+Jitendra K: Let's try to match this flow with the code.
+
+1261
+02:30:44.230 --> 02:30:48.139
+Jitendra K: How come it is possible? I've shared you the file, full file.
+
+1262
+02:30:50.580 --> 02:30:54.650
+Jitendra K: Even after downloading your means, say you're not able to see the code?
+
+1263
+02:31:01.720 --> 02:31:05.069
+Jitendra K: I think it, begin with, that quote, but…
+
+1264
+02:31:05.930 --> 02:31:07.760
+Jitendra K: After that, you can see this.
+
+1265
+02:31:08.240 --> 02:31:10.440
+Jitendra K: This is a LoRa code.
+
+1266
+02:31:11.530 --> 02:31:14.360
+Jitendra K: And then you have to go… Yeah.
+
+1267
+02:31:15.510 --> 02:31:16.789
+Jitendra K: In the last sale.
+
+1268
+02:31:24.710 --> 02:31:27.210
+Jitendra K: Okay, let me delete the other files.
+
+1269
+02:32:01.260 --> 02:32:02.789
+Jitendra K: Okay, now use this.
+
+1270
+02:32:20.860 --> 02:32:24.490
+Jitendra K: So it will have all the, only the…
+
+1271
+02:32:25.710 --> 02:32:29.789
+Jitendra K: And also, it will show you the output, which I have run last.
+
+1272
+02:32:58.760 --> 02:33:03.460
+Jitendra K: So, in the… I mean, in the next tutorial, we are going to cover advanced rack.
+
+1273
+02:33:03.890 --> 02:33:09.460
+Jitendra K: Which include, agentic rag as well. So we are going to stress on agentic rag creation.
+
+1274
+02:33:09.830 --> 02:33:15.360
+Jitendra K: And what are the things that you require to create agentic rack, as compared to plain vanilla rack?
+
+1275
+02:33:15.540 --> 02:33:18.769
+Jitendra K: And then, maybe the third class we'll talk about
+
+1276
+02:33:20.020 --> 02:33:23.809
+Jitendra K: GraphRag, which is most important class, so GraphRag is…
+
+1277
+02:33:24.080 --> 02:33:26.999
+Jitendra K: We need to use, some advanced…
+
+1278
+02:33:29.870 --> 02:33:34.650
+Jitendra K: knowledge base to construct GraphRec, which include Neo4J.
+
+1279
+02:33:34.860 --> 02:33:39.809
+Jitendra K: And we need to create an account in Neo4J and store the ontology-based search on the top of it.
+
+1280
+02:33:40.870 --> 02:33:42.949
+Jitendra K: A graph rag is next Saturday.
+
+1281
+02:34:00.430 --> 02:34:03.830
+Jitendra K: So please go through this code and let me know if there's an issue.
+
+1282
+02:34:04.060 --> 02:34:06.920
+Jitendra K: And by the way, how you're using API,
+
+1283
+02:34:07.150 --> 02:34:11.049
+Jitendra K: Have you purchased OpenAI API, or you're still relying on
+
+1284
+02:34:11.980 --> 02:34:17.030
+Jitendra K: the, Amira slabs to produce a token.
+
+1285
+02:34:27.980 --> 02:34:28.820
+Jitendra K: Great.
+
+1286
+02:34:30.430 --> 02:34:38.109
+Jitendra K: Yeah, so, keep your OpenAI key secret, otherwise you're… Tokens will be exhausted.
+
+1287
+02:34:41.090 --> 02:34:43.439
+Jitendra K: Okay, great. So if you have…
+
+1288
+02:34:43.690 --> 02:34:48.649
+Jitendra K: I think it's just a bare minimum $5 investment, so I would say go for it.
+
+1289
+02:34:49.100 --> 02:34:55.639
+Jitendra K: Instead of waiting for… These labs to give you all the token time.
+
+1290
+02:34:58.820 --> 02:35:05.750
+Jitendra K: Can I implement a vanilla rack for one of my production applications? The service needs to offer OEM manuals and revert back?
+
+1291
+02:35:06.070 --> 02:35:14.130
+Jitendra K: With relevant information. It depends upon the kind of question that your user is asking.
+
+1292
+02:35:14.510 --> 02:35:19.859
+Jitendra K: So, are they asking a very straightforward question, in the context of document?
+
+1293
+02:35:20.800 --> 02:35:22.010
+Jitendra K: Or…
+
+1294
+02:35:23.630 --> 02:35:29.229
+Jitendra K: So then, yeah, you can go for vanilla, right? If your users are not asking too many complex questions.
+
+1295
+02:35:29.600 --> 02:35:34.730
+Jitendra K: then you can go with vanilla, right? And it will give you a very good, response, for sure.
+
+1296
+02:35:42.230 --> 02:35:48.560
+Jitendra K: So if your user is, straightforward, they are just asking basic questions, then vanilla Rag is sufficient.
+
+1297
+02:35:48.970 --> 02:35:56.859
+Jitendra K: If your user, or maybe your application required to perform some investigations, So, multiple doc search.
+
+1298
+02:35:57.160 --> 02:36:02.220
+Jitendra K: multiple reasoning path, then it will be disaster. I mean, this application.
+
+1299
+02:36:02.970 --> 02:36:10.370
+Jitendra K: So you can already rely on Vanilla rack to generate a… Complex responses on regulatory and
+
+1300
+02:36:10.540 --> 02:36:12.610
+Jitendra K: Other type of scenarios.
+
+1301
+02:36:36.740 --> 02:36:40.899
+Jitendra K: Yes, multiple doc, and that's the whole purpose of MDHash.
+
+1302
+02:36:41.680 --> 02:36:43.809
+Jitendra K: So we have used AMD5.
+
+1303
+02:36:43.950 --> 02:36:46.540
+Jitendra K: To maintain the index on document.
+
+1304
+02:36:47.460 --> 02:36:50.159
+Jitendra K: And that will help you to maintain the documents.
+
+1305
+02:36:50.260 --> 02:36:52.429
+Jitendra K: In a more comprehensive manner.
+
+1306
+02:36:58.590 --> 02:37:00.630
+Jitendra K: So we are using indexes here.
+
+1307
+02:37:14.500 --> 02:37:20.780
+Jitendra K: How to train RAG on property document using OpenAir. This is what we are doing. You have to pass your document.
+
+1308
+02:37:24.700 --> 02:37:28.369
+Jitendra K: So you have to pass your document. You need to replace this function.
+
+1309
+02:37:28.870 --> 02:37:31.479
+Jitendra K: Which will use your PDF files.
+
+1310
+02:37:31.590 --> 02:37:34.510
+Jitendra K: Instead of this function, you need to use your PDF files.
+
+1311
+02:37:36.300 --> 02:37:37.749
+Jitendra K: So this is hard-coded.
+
+1312
+02:37:40.840 --> 02:37:47.360
+Jitendra K: If the documents are confidential, then you need to create your own models and store it in the server, which you trust.
+
+1313
+02:37:47.560 --> 02:37:49.109
+Jitendra K: Within your organization.
+
+1314
+02:37:56.080 --> 02:37:58.099
+Jitendra K: You have to ring fans yours.
+
+1315
+02:37:59.450 --> 02:38:00.780
+Jitendra K: automation data.
+
+1316
+02:38:00.950 --> 02:38:04.170
+Jitendra K: Use your automation servers, use your RAC pipeline.
+
+1317
+02:38:04.280 --> 02:38:07.600
+Jitendra K: within the organization, host it in some cloud, you have to invest.
+
+1318
+02:38:08.260 --> 02:38:11.570
+Jitendra K: Your organization needs to invest on cloud, in this case.
+
+1319
+02:38:12.090 --> 02:38:18.050
+Jitendra K: And cloud should follow the SLAs and service ad level agreements with your organization.
+
+1320
+02:38:20.160 --> 02:38:25.910
+Jitendra K: For investigation and incident in ServiceNow, what… Would be the right technique?
+
+1321
+02:38:26.260 --> 02:38:31.990
+Jitendra K: Which we can use if the incident described by the user is not as straightforward. Then we have to go with
+
+1322
+02:38:32.670 --> 02:38:36.020
+Jitendra K: Advanced rack, including agent take or graph.
+
+1323
+02:38:38.100 --> 02:38:42.010
+Jitendra K: So GraphFrag is the better fit for this purpose.
+
+1324
+02:38:55.320 --> 02:38:59.090
+Jitendra K: Yeah, so we have, used this tutorial itself, right?
+
+1325
+02:38:59.230 --> 02:39:02.869
+Jitendra K: So, this is… You can replicate to run pod.
+
+1326
+02:39:04.760 --> 02:39:07.980
+Jitendra K: Okay, you need the steps to enable one port, okay.
+
+1327
+02:39:12.830 --> 02:39:14.660
+Jitendra K: Yeah, I will share that steps.
+
+1328
+02:39:16.990 --> 02:39:21.609
+Jitendra K: Any RAF architecture reference for confidential document processing?
+
+1329
+02:39:24.060 --> 02:39:31.699
+Jitendra K: Again, it depends, right? If you're using a confidential document, I would not advise to use, public laptops, or…
+
+1330
+02:39:32.360 --> 02:39:36.229
+Jitendra K: public machines and using OpenAI API, but…
+
+1331
+02:39:37.100 --> 02:39:39.109
+Jitendra K: You need to purchase some cloud.
+
+1332
+02:39:39.340 --> 02:39:42.650
+Jitendra K: Agnostic, or at least use some trial version from cloud.
+
+1333
+02:39:43.390 --> 02:39:45.010
+Jitendra K: To try and test this.
+
+1334
+02:39:45.650 --> 02:39:52.899
+Jitendra K: Because if you load your data in cloud, then they will follow the SLA and the data breach protocols.
+
+1335
+02:39:53.710 --> 02:39:59.309
+Jitendra K: And if they catch… if they had been found that they are using your document, then you can…
+
+1336
+02:39:59.490 --> 02:40:02.760
+Jitendra K: File a case against them, and get million dollars from them.
+
+1337
+02:40:09.020 --> 02:40:14.150
+Jitendra K: So that depends upon… Your infrared readiness, infrastructure readiness.
+
+1338
+02:40:14.770 --> 02:40:18.309
+Jitendra K: So you need to go with either cloud or on-prem.
+
+1339
+02:40:19.360 --> 02:40:21.780
+Jitendra K: download the models from Hugging Face, or…
+
+1340
+02:40:22.000 --> 02:40:27.489
+Jitendra K: create some clusters that will use your APIs as an endpoint.
+
+1341
+02:40:36.760 --> 02:40:39.129
+Jitendra K: But the short answer is, go for cloud.
+
+1342
+02:40:40.170 --> 02:40:49.880
+Jitendra K: If you are having a… confidential document. Go for a cloud, enable trial version, use it…
+
+1343
+02:40:50.060 --> 02:40:55.090
+Jitendra K: go for your documentation, upload it in the cloud with a proper SLA agreement.
+
+1344
+02:40:55.640 --> 02:40:58.160
+Jitendra K: Make sure that you take a screenshot of that.
+
+1345
+02:40:59.230 --> 02:41:04.170
+Jitendra K: And then, downloaded agreement, and then… Work on this.
+
+1346
+02:41:04.430 --> 02:41:06.140
+Jitendra K: whole use case.
+
+1347
+02:41:11.550 --> 02:41:14.550
+Jitendra K: And I think, AWS Bedrock is better.
+
+1348
+02:41:15.780 --> 02:41:21.649
+Jitendra K: Azure Cognitive Services is also great, Databrick is also fine. Don't go with Alibaba Cloud.
+
+1349
+02:41:29.400 --> 02:41:32.959
+Jitendra K: I don't think so. They are… Top leader, either.
+
+1350
+02:41:34.890 --> 02:41:38.820
+Jitendra K: SageMaker is a notebook instance, I'm talking about Bedrock service.
+
+1351
+02:41:39.150 --> 02:41:40.679
+Jitendra K: They're your LLM host.
+
+1352
+02:41:43.270 --> 02:41:47.849
+Jitendra K: SageMaker is just a notebook instance for ML operation, ML experimentation.
+
+1353
+02:41:48.950 --> 02:41:51.170
+Jitendra K: That's another service, typically.
+
+1354
+02:41:52.030 --> 02:41:56.390
+Jitendra K: But whatever you're doing is in Bedrock Core, AWS Bedrock Core.
+
+1355
+02:41:58.360 --> 02:41:59.290
+Jitendra K: Yes.
+
+1356
+02:41:59.640 --> 02:42:00.599
+Jitendra K: You can.
+
+1357
+02:42:01.110 --> 02:42:05.290
+Jitendra K: You can deploy an open source model as well in Bedrock. So they are…
+
+1358
+02:42:05.590 --> 02:42:07.480
+Jitendra K: I can show you if you want.
+
+1359
+02:43:10.290 --> 02:43:12.559
+Jitendra K: Yeah, so this is my AWS account.
+
+1360
+02:43:13.510 --> 02:43:16.629
+Jitendra K: And this is my bedrock service.
+
+1361
+02:43:24.330 --> 02:43:28.710
+Jitendra K: My business is Bedrock Service, I have… Model catalog.
+
+1362
+02:43:31.740 --> 02:43:37.880
+Jitendra K: Inside model catalog, I have… Closed source and open source model.
+
+1363
+02:43:38.110 --> 02:43:43.870
+Jitendra K: If I go over deep-sea, they're all… Customizable.
+
+1364
+02:43:52.030 --> 02:43:55.240
+Jitendra K: Alright, so… this is just a…
+
+1365
+02:43:55.940 --> 02:43:59.080
+Jitendra K: platform that I'm using for my model training.
+
+1366
+02:44:01.090 --> 02:44:10.090
+Jitendra K: How to find if a specific document or property document are used for model training by public LL. For example, if you search any article…
+
+1367
+02:44:18.530 --> 02:44:27.639
+Jitendra K: No, I think, the legal angles, and all will definitely be your organization requirements.
+
+1368
+02:44:28.070 --> 02:44:36.300
+Jitendra K: And if they prove that here, pass on some information, from your… machine to LLM providers.
+
+1369
+02:44:36.720 --> 02:44:41.380
+Jitendra K: And of course, the first thing that they are going to do is to terminate, right? You know about it.
+
+1370
+02:44:41.560 --> 02:44:44.919
+Jitendra K: The second thing is, if you have to prove, that
+
+1371
+02:44:46.360 --> 02:44:52.430
+Jitendra K: I mean, they are also creating a disclaimer on the dataset that has been used.
+
+1372
+02:44:52.920 --> 02:44:58.450
+Jitendra K: So you can read the… Version updates in, in their, in their…
+
+1373
+02:44:59.140 --> 02:45:02.150
+Jitendra K: Research paper, or you can go for…
+
+1374
+02:45:03.110 --> 02:45:07.260
+Jitendra K: citation reference from Hugging Face, wherever the model is our hosting.
+
+1375
+02:45:07.740 --> 02:45:12.180
+Jitendra K: So you will get those ideas, right? Like, which model they are using for training.
+
+1376
+02:45:12.940 --> 02:45:21.819
+Jitendra K: But as soon as you pass on the file to the chat interface, It will become public.
+
+1377
+02:45:24.030 --> 02:45:30.660
+Jitendra K: Once you upload the file to the ChatGPT model, So it'll become public.
+
+1378
+02:45:32.850 --> 02:45:36.769
+Jitendra K: Until unless you are using some enterprise version with a proper SLA.
+
+1379
+02:45:41.660 --> 02:45:46.040
+Jitendra K: So if I'm using a cloud model, To write some code.
+
+1380
+02:45:46.230 --> 02:45:48.499
+Jitendra K: Some GitHub repository are uploaded.
+
+1381
+02:45:48.620 --> 02:45:50.500
+Jitendra K: It will become automatically public.
+
+1382
+02:45:57.220 --> 02:46:02.779
+Jitendra K: Copilot, if you're running it in your machine, it'll not. Office machine, office laptop.
+
+1383
+02:46:03.370 --> 02:46:06.749
+Jitendra K: It will not be able to send the files outside the server.
+
+1384
+02:46:07.230 --> 02:46:11.140
+Jitendra K: But if you are using it in your Windows laptop, then yes, it will be.
+
+1385
+02:46:11.550 --> 02:46:15.470
+Jitendra K: Enterprise will not go outside. It's just a service.
+
+1386
+02:46:20.470 --> 02:46:33.009
+Jitendra K: I have been practicing multi-agent architecture, so far the agent and the builds are predefined, like, research analyst, they invoke my orchestrator. Yeah, we'll talk about orchestration for sure, don't worry about it.
+
+1387
+02:46:33.300 --> 02:46:37.529
+Jitendra K: So we haven't reached to that topic yet, orchestration, because we are just…
+
+1388
+02:46:37.950 --> 02:46:40.610
+Jitendra K: Crawling at this moment. We are not walking, even.
+
+1389
+02:46:41.870 --> 02:46:45.250
+Jitendra K: So, this is, orchestration is an advanced topic.
+
+1390
+02:46:45.600 --> 02:46:47.049
+Jitendra K: We have to cover this.
+
+1391
+02:46:59.090 --> 02:47:02.220
+Jitendra K: Any other question, guys? Anything that you would like to ask?
+
+1392
+02:47:04.730 --> 02:47:08.459
+Jitendra K: Are you good with the code? If the code is understandable.
+
+1393
+02:47:16.360 --> 02:47:22.460
+Jitendra K: I know PAFT is… Tangent, going off tangent for you guys.
+
+1394
+02:47:24.250 --> 02:47:29.660
+Jitendra K: But this is, the advanced topic.
+
+1395
+02:47:29.780 --> 02:47:34.710
+Jitendra K: So, I… I understand there is a complexity in advanced topic without preparation.
+
+1396
+02:47:35.010 --> 02:47:38.590
+Jitendra K: It is not easy to digest, so you require preparation for that.
+
+1397
+02:47:46.140 --> 02:47:51.179
+Jitendra K: So, okay, so tomorrow we are going to talk about Agentic Rack, and Agentic Rack is,
+
+1398
+02:47:51.920 --> 02:47:58.830
+Jitendra K: The best thing that you will learn Because GraphRag… is very specific.
+
+1399
+02:48:00.060 --> 02:48:03.640
+Jitendra K: to a scenario. They're not going to use GraphRec for everything.
+
+1400
+02:48:03.950 --> 02:48:09.019
+Jitendra K: We're going to use GraphRec for very specific use cases, like hierarchical documentation.
+
+1401
+02:48:09.510 --> 02:48:12.520
+Jitendra K: For creating entities resolutions, etc.
+
+1402
+02:48:12.930 --> 02:48:16.319
+Jitendra K: But Agent Eg, you are going to use 99% of the time.
+
+1403
+02:48:16.450 --> 02:48:18.039
+Jitendra K: Forget about NAVE, right?
+
+1404
+02:48:19.400 --> 02:48:23.420
+Jitendra K: Right, so NAV rag is very basic, a vanilla rag is very basic.
+
+1405
+02:48:24.110 --> 02:48:26.960
+Jitendra K: You may use 1 or 2%, not more than that.
+
+1406
+02:48:27.660 --> 02:48:31.259
+Jitendra K: Agenting drag is something which you are going to use 95% and above.
+
+1407
+02:48:37.260 --> 02:48:41.120
+Jitendra K: Fine-tuning need and send deep… yeah, that's correct.
+
+1408
+02:48:42.180 --> 02:48:50.030
+Jitendra K: So, fine-tuning is… It's not even part of your curriculum, to be very honest.
+
+1409
+02:48:50.820 --> 02:48:52.629
+Jitendra K: I'm taking it as, like, extra.
+
+1410
+02:48:54.710 --> 02:48:58.209
+Jitendra K: If you look into your curriculum, it's very basic curriculum they have designed.
+
+1411
+02:48:59.590 --> 02:49:01.890
+Jitendra K: I don't know who has designed this curriculum, by the way.
+
+1412
+02:49:02.520 --> 02:49:07.250
+Jitendra K: But it's a very basic curriculum. If I follow that, you will… feel…
+
+1413
+02:49:08.340 --> 02:49:11.849
+Jitendra K: where I'm stuck now. Very basic, very basic.
+
+1414
+02:49:12.710 --> 02:49:14.110
+Jitendra K: Very minimalistic.
+
+1415
+02:49:15.290 --> 02:49:18.870
+Jitendra K: If you want, I can go with that as well, line by line.
+
+1416
+02:49:28.700 --> 02:49:32.900
+Jitendra K: So you want me to switch back to the basics, or you would like to continue with this?
+
+1417
+02:49:33.840 --> 02:49:37.520
+Jitendra K: I know Alan is a PhD, but how about other
+
+1418
+02:49:44.950 --> 02:49:48.960
+Jitendra K: You will feel that you're just getting 25% of your investment.
+
+1419
+02:49:49.340 --> 02:49:51.360
+Jitendra K: With a kind of curriculum
+
+1420
+02:49:51.490 --> 02:49:56.769
+Jitendra K: That has been designed by Amarus. I'm not blaming them, but this is a sad reality.
+
+1421
+02:49:59.480 --> 02:50:00.810
+Jitendra K: very basic.
+
+1422
+02:50:01.410 --> 02:50:04.290
+Jitendra K: Very minimalistic, with small examples.
+
+1423
+02:50:13.180 --> 02:50:15.880
+Jitendra K: Yeah, but the content is not updated.
+
+1424
+02:50:17.080 --> 02:50:18.889
+Jitendra K: Content is the same.
+
+1425
+02:50:24.130 --> 02:50:26.979
+Jitendra K: Yeah, nobody will teach you Paft, Laura.
+
+1426
+02:50:40.700 --> 02:50:44.550
+Jitendra K: They are not PhD-level topic, there's no PhD involved there.
+
+1427
+02:50:45.670 --> 02:50:49.909
+Jitendra K: The Afghan Laura is not a PhD holder of topics. It's a basic topic.
+
+1428
+02:50:50.530 --> 02:50:54.290
+Jitendra K: You should know what to do if regular ag pipeline fail, right?
+
+1429
+02:50:55.670 --> 02:50:59.519
+Jitendra K: If you do not know what to… how to fix your rack pipeline.
+
+1430
+02:51:02.210 --> 02:51:06.580
+Jitendra K: Then you will not be able to understand and explore these techniques, right?
+
+1431
+02:51:07.920 --> 02:51:09.970
+Jitendra K: These techniques is required.
+
+1432
+02:51:10.420 --> 02:51:11.890
+Jitendra K: Good understanding.
+
+1433
+02:51:20.410 --> 02:51:25.170
+Jitendra K: Yeah, recording will definitely help, so go back, I mean, you can…
+
+1434
+02:51:25.680 --> 02:51:29.600
+Jitendra K: Have access to recording, and you can definitely take a reference from it.
+
+1435
+02:51:33.700 --> 02:51:37.730
+Jitendra K: Yeah, that's correct, yeah. I know, this is something which is…
+
+1436
+02:51:38.570 --> 02:51:43.020
+Jitendra K: Overwhelming for some of you, but this is…
+
+1437
+02:51:43.620 --> 02:51:50.169
+Jitendra K: Something which is going to help you in longer run. Not right now, because your focus is to pick a job.
+
+1438
+02:51:50.300 --> 02:51:51.170
+Jitendra K: I know.
+
+1439
+02:51:51.750 --> 02:51:55.860
+Jitendra K: Your focus is to crack interviews, and even the interviewer will ask this question.
+
+1440
+02:51:56.610 --> 02:51:59.309
+Jitendra K: And you will come with a blank face outside.
+
+1441
+02:52:00.210 --> 02:52:03.219
+Jitendra K: He will ask you through a question on PAFTEN LORAS only.
+
+1442
+02:52:03.410 --> 02:52:06.710
+Jitendra K: Because this is the very… complex topics.
+
+1443
+02:52:06.930 --> 02:52:14.760
+Jitendra K: the gender view will try to gauge against you. Because everybody know RAG, everybody know… Identic rag, graph rack.
+
+1444
+02:52:14.900 --> 02:52:18.449
+Jitendra K: How… how he will differentiate on candidates.
+
+1445
+02:52:21.160 --> 02:52:22.359
+Jitendra K: By using this?
+
+1446
+02:52:22.700 --> 02:52:26.710
+Jitendra K: complex… mathematical topics.
+
+1447
+02:52:27.840 --> 02:52:28.590
+Jitendra K: Yep.
+
+1448
+02:52:28.950 --> 02:52:33.400
+Jitendra K: And when we are using shallow language model, these techniques are very, very useful.
+
+1449
+02:52:35.550 --> 02:52:38.479
+Jitendra K: So, shallow language models are relying on these techniques.
+
+1450
+02:52:39.250 --> 02:52:45.359
+Jitendra K: Which is the upcoming, trend in the agentic AI world.
+
+1451
+02:52:45.530 --> 02:52:48.300
+Jitendra K: The shallow language model will definitely going to rule.
+
+1452
+02:52:48.730 --> 02:52:51.389
+Jitendra K: The, the hygienic industry.
+
+1453
+02:52:53.080 --> 02:52:55.099
+Jitendra K: So, SLM is the new LLM.
+
+1454
+02:53:01.140 --> 02:53:02.000
+Jitendra K: Yep.
+
+1455
+02:53:02.620 --> 02:53:12.460
+Jitendra K: So, SLM is gonna be… One of the key topics in the upcoming Not upcoming, it's already there.
+
+1456
+02:53:13.100 --> 02:53:14.850
+Jitendra K: So, shallow language model.
+
+1457
+02:53:15.440 --> 02:53:19.840
+Jitendra K: is… the new fuel of AI.
+
+1458
+02:53:21.660 --> 02:53:24.820
+Jitendra K: You're not going to pay everything to NVIDIA, right?
+
+1459
+02:53:26.070 --> 02:53:31.950
+Jitendra K: NVIDIA is becoming large and large day by day, and we are just…
+
+1460
+02:53:32.850 --> 02:53:36.080
+Jitendra K: stuck in fine-tuning, and that's not good.
+
+1461
+02:53:52.130 --> 02:53:57.179
+Jitendra K: Yeah, we'll talk about, this part, but your homework for today is you need to go back.
+
+1462
+02:53:57.520 --> 02:54:03.490
+Jitendra K: And refer to the blog that I've shared on PAFT Laura, SKU, Laura, and ask questions in the next class.
+
+1463
+02:54:05.000 --> 02:54:08.649
+Jitendra K: There's no prerequisite for SLM, you need to understand,
+
+1464
+02:54:09.020 --> 02:54:12.450
+Jitendra K: the way that you can able to train a LLM model from the scratch.
+
+1465
+02:54:13.620 --> 02:54:16.840
+Jitendra K: So if you train LLM from the scratch, you can create SLM.
+
+1466
+02:54:21.210 --> 02:54:23.360
+Jitendra K: Where are quantization strategies.
+
+1467
+02:54:26.120 --> 02:54:29.129
+Jitendra K: So if you create a quantized state of your model.
+
+1468
+02:54:29.950 --> 02:54:35.640
+Jitendra K: without relying on GPU inference all the time, you're doing good, right?
+
+1469
+02:54:36.140 --> 02:54:40.039
+Jitendra K: If you imagine that someday you have 64GB of RAM,
+
+1470
+02:54:41.690 --> 02:54:47.389
+Jitendra K: And, 8GB of VRAM from GPU, that's all you require to operate.
+
+1471
+02:54:56.960 --> 02:54:59.450
+Jitendra K: Yeah, yeah, I've seen that.
+
+1472
+02:55:05.000 --> 02:55:07.320
+Jitendra K: Yeah, you can share the link with everyone.
+
+1473
+02:55:20.290 --> 02:55:23.379
+Jitendra K: Yeah, use this link to understand, the…
+
+1474
+02:55:25.150 --> 02:55:30.759
+Jitendra K: ahead, in terms of, how SLM or NanoLM will work, nanoGPT will work?
+
+1475
+02:55:31.200 --> 02:55:35.200
+Jitendra K: But definitely, I mean, for every task, you do not require LLM.
+
+1476
+02:55:36.870 --> 02:55:42.970
+Jitendra K: For 90% of the tasks, you may go with SLM. 10% of the time, you may require LLM, for sure.
+
+1477
+02:55:47.840 --> 02:55:53.220
+Jitendra K: And with this hybrid infrastructure, you can save millions of dollars that you're paying to NVIDIA.
+
+1478
+02:55:58.880 --> 02:56:00.540
+Jitendra K: to buy their GPUs.
+
+1479
+02:56:02.510 --> 02:56:07.190
+Jitendra K: Yeah, and Jeff Bezos, for maintaining your tokens in Amazon Bedrock.
+
+1480
+02:56:14.720 --> 02:56:18.179
+Jitendra K: Because they are the ruling the world, not me.
+
+1481
+02:56:23.210 --> 02:56:25.140
+Jitendra K: We're just a consumer, right?
+
+1482
+02:56:28.050 --> 02:56:33.930
+Jitendra K: And that's the reason organizations are slow in adopting this technical stack, because it requires cost.
+
+1483
+02:56:34.900 --> 02:56:36.530
+Jitendra K: And also data risk.
+
+1484
+02:56:38.020 --> 02:56:40.880
+Jitendra K: But yeah, there are a good amount of use cases.
+
+1485
+02:56:41.080 --> 02:56:43.120
+Jitendra K: That we have already.
+
+1486
+02:56:43.910 --> 02:56:51.800
+Jitendra K: Yeah, we'll cover Crew AI as well. Crew AI is your, your, part of your curriculum. Crew AI, Autogen.
+
+1487
+02:56:52.320 --> 02:56:55.410
+Jitendra K: Annotate in, as well as, we'll talk about
+
+1488
+02:56:55.690 --> 02:56:59.310
+Jitendra K: open claw, which is not a part of your curriculum, but I will cover it.
+
+1489
+02:57:01.120 --> 02:57:04.360
+Jitendra K: We will also talk about agentic skills.
+
+1490
+02:57:06.920 --> 02:57:11.149
+Jitendra K: how to create agent skills. It's not a part of your curriculum, but I will cover it.
+
+1491
+02:57:11.760 --> 02:57:13.610
+Jitendra K: It's all this thing we are going to cover.
+
+1492
+02:57:13.970 --> 02:57:15.529
+Jitendra K: In the upcoming career.
+
+1493
+02:57:19.970 --> 02:57:23.750
+Jitendra K: Thanks, thanks, Elam. Yeah, I would like to cover whatever I know.
+
+1494
+02:57:23.850 --> 02:57:27.430
+Jitendra K: As a teacher, so that you will also get some benefit out of it.
+
+1495
+02:57:30.400 --> 02:57:37.400
+Jitendra K: But two things you need to do is, you need to revise. If you're not understanding your topic, you need to ask questions. That's the two things that you can do.
+
+1496
+02:57:37.740 --> 02:57:39.190
+Jitendra K: To make your life easy.
+
+1497
+02:57:43.020 --> 02:57:48.629
+Jitendra K: go and do a revision, maybe come back next day and ask a question. That's fine, perfectly fine.
+
+1498
+02:57:49.480 --> 02:57:51.149
+Jitendra K: If you're not understanding…
+
+1499
+02:57:51.720 --> 02:57:58.750
+Jitendra K: some part of it, that's perfectly fine, you can take references. Some easy languages, you can take some blog references.
+
+1500
+02:57:59.720 --> 02:58:06.820
+Jitendra K: The blog references, I found that there are some good blogs. Medium is good towards data science.
+
+1501
+02:58:07.200 --> 02:58:13.659
+Jitendra K: And there are some more blocks these days, which are… In quite,
+
+1502
+02:58:15.050 --> 02:58:20.509
+Jitendra K: I would say attraction, so you can go for it. There are different types of
+
+1503
+02:58:21.330 --> 02:58:30.879
+Jitendra K: I really like Substack, which is a good blogger, so if you look into Substack, Blog, you can find…
+
+1504
+02:58:32.460 --> 02:58:35.309
+Jitendra K: a lot of, news around LLMs.
+
+1505
+02:58:36.100 --> 02:58:39.350
+Jitendra K: Just subscribe it, and then you will get a lot of stuff.
+
+1506
+02:58:51.110 --> 02:58:53.450
+Jitendra K: So you can see how detailed their blocks are.
+
+1507
+02:59:01.360 --> 02:59:04.079
+Jitendra K: I think this is what I have to share as well.
+
+1508
+02:59:05.490 --> 02:59:07.100
+Jitendra K: You can go with it.
+
+1509
+02:59:13.390 --> 02:59:17.179
+Jitendra K: Yeah, research paper, I know it's difficult to read.
+
+1510
+02:59:18.350 --> 02:59:21.610
+Jitendra K: But this is not a research paper, this is a blog.
+
+1511
+02:59:21.930 --> 02:59:28.160
+Jitendra K: Combination of multiple research papers, and in an easy and, self-digestible tone.
+
+1512
+02:59:28.880 --> 02:59:31.949
+Jitendra K: This is not a research paper, by the way. This is a…
+
+1513
+02:59:32.470 --> 02:59:35.750
+Jitendra K: Blog, which take references from this research paper.
+
+1514
+02:59:39.750 --> 02:59:44.580
+Jitendra K: In an easy language. So this is an easy language. You can also go for LinkedIn post.
+
+1515
+02:59:45.260 --> 02:59:52.939
+Jitendra K: Linkedin posts is also good. Many people are writing, including myself. I mean, a lot of people are writing LinkedIn posts, and…
+
+1516
+02:59:53.250 --> 03:00:03.679
+Jitendra K: You can look for it. But yes, the crux, I will give it to you. These things you need not to worry too much about. So I've already given you the mathematics and stuff.
+
+1517
+03:00:03.940 --> 03:00:06.790
+Jitendra K: All you can do is, you can just understand
+
+1518
+03:00:07.070 --> 03:00:11.309
+Jitendra K: With some more focused areas, like how contextual learning works.
+
+1519
+03:00:12.200 --> 03:00:16.930
+Jitendra K: What are the parameters of contextual learning? What's the…
+
+1520
+03:00:17.540 --> 03:00:21.110
+Jitendra K: Adaptive layer. We have already discussed about this part.
+
+1521
+03:00:21.580 --> 03:00:24.889
+Jitendra K: Now, you can go with, maybe…
+
+1522
+03:00:25.680 --> 03:00:27.400
+Jitendra K: This is what we have discussed.
+
+1523
+03:00:28.570 --> 03:00:34.629
+Jitendra K: Yeah, you can go with this projection layer, like, how the projection layer works in LoRa.
+
+1524
+03:00:35.360 --> 03:00:40.970
+Jitendra K: And you will get better idea. But… The question is,
+
+1525
+03:00:43.330 --> 03:00:48.670
+Jitendra K: The question here is, without hands-on, If you acquire concept.
+
+1526
+03:00:49.490 --> 03:00:51.740
+Jitendra K: That you will forgot very easily.
+
+1527
+03:00:52.870 --> 03:00:56.800
+Jitendra K: So, it is of no use if you just read it like a comic book.
+
+1528
+03:00:58.070 --> 03:01:02.380
+Jitendra K: Go with the example that I've shared with you, execute it line by line.
+
+1529
+03:01:02.750 --> 03:01:10.290
+Jitendra K: understand what this example is doing, and then maybe you can come back here. I know this is a crime crunch and all.
+
+1530
+03:01:10.930 --> 03:01:19.339
+Jitendra K: But this is one of the effective ways to learn from research paper. You have to implement it. Without implementation, you cannot understand.
+
+1531
+03:01:21.830 --> 03:01:27.169
+Jitendra K: And the best way to implement is, take a reference, implement, and then make notes.
+
+1532
+03:01:30.870 --> 03:01:34.110
+Jitendra K: Or put it in your notebook, whatever you feel comfortable with.
+
+1533
+03:01:42.200 --> 03:01:47.389
+Jitendra K: Alright guys, I think, we are slightly over time, so thank you for attending this class.
+
+1534
+03:01:47.780 --> 03:01:52.250
+Jitendra K: And, in tomorrow's session, we will talk about agentic rag. And agentic rag,
+
+1535
+03:01:52.960 --> 03:02:03.119
+Jitendra K: Thank you, thanks, Shubaya. So, Agentic RAG, as I mentioned, is the core of this curriculum. Don't miss the class, we'll take some good example.
+
+1536
+03:02:03.910 --> 03:02:08.820
+Jitendra K: I'm, of course, welcoming you for contribution as well, if you feel that
+
+1537
+03:02:09.530 --> 03:02:12.480
+Jitendra K: You have some document that you would like to share.
+
+1538
+03:02:14.230 --> 03:02:17.819
+Jitendra K: Which is non-proprietary, non-private.
+
+1539
+03:02:18.150 --> 03:02:24.719
+Jitendra K: Just share with me… Let's try to test Some questions which you feel…
+
+1540
+03:02:25.530 --> 03:02:31.750
+Jitendra K: That you know the right answer, but you feel that RAC is not generating the right answer.
+
+1541
+03:02:31.920 --> 03:02:36.830
+Jitendra K: Then we can think of how to fine-tune it, right? So this is the best way to learn.
+
+1542
+03:02:37.460 --> 03:02:39.450
+Jitendra K: And, perform this.
+
+1543
+03:02:39.590 --> 03:02:46.810
+Jitendra K: So we'll talk about agentic rack, where we are going to focus on single agent rack, then multi-agentic rack in tomorrow's tutorial.
+
+1544
+03:02:47.120 --> 03:02:53.439
+Jitendra K: We'll also try to cover some… additional vector store.
+
+1545
+03:02:53.580 --> 03:02:55.069
+Jitendra K: Which is VV8.
+
+1546
+03:02:55.570 --> 03:02:59.099
+Jitendra K: And, I would request everybody to create your account and VBA.
+
+1547
+03:02:59.450 --> 03:03:03.310
+Jitendra K: And we'll use VBA tomorrow for our demo purpose.
+
+1548
+03:03:03.580 --> 03:03:05.439
+Jitendra K: The Bviate link is this.
+
+1549
+03:03:05.880 --> 03:03:11.829
+Jitendra K: We can log in, You can create your account, and we'll access this tomorrow.
+
+1550
+03:03:12.840 --> 03:03:20.309
+Jitendra K: Because we need to understand how enterprise vector DB work and operate as well, so we'll use this for tomorrow class.
+
+1551
+03:03:21.800 --> 03:03:26.659
+Jitendra K: So that is all for today, guys. So thank you for attending this class. We'll meet tomorrow. Thank you.
+

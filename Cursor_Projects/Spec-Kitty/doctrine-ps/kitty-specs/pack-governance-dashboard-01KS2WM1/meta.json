@@ -1,0 +1,14 @@
+{
+  "created_at": "2026-05-20T14:28:48.467530+00:00",
+  "friendly_name": "Pack Governance Dashboard",
+  "mission_id": "01KS2WM1PKXSNB3C61G3M7YND5",
+  "mission_number": 1,
+  "mission_slug": "pack-governance-dashboard-01KS2WM1",
+  "mission_type": "software-dev",
+  "purpose_context": "Build a local Angular + Express webapp for inspecting, editing, reviewing, and validating spec-kitty pack artifacts. Stores review outcomes as disk files consumable by remediation agents.",
+  "purpose_tldr": "Local webapp for pack artifact governance with review-and-approve workflow",
+  "slug": "pack-governance-dashboard-01KS2WM1",
+  "source_description": "docs/engineering_notes/2026-05-20-pack-dashboard-mission-debrief.md",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "vcs": "git"
+}

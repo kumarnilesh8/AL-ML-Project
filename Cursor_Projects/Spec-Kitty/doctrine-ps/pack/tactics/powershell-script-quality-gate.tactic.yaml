@@ -1,0 +1,44 @@
+schema_version: "1.0"
+id: powershell-script-quality-gate
+name: PowerShell Script Quality Gate
+purpose: >
+  Run lint, strict-mode, and script-level security checks before handoff. Apply after
+  authoring or modifying PowerShell scripts and modules. Implements tiered C-001 AppSec
+  baseline; full Sonar/SBOM CI integration is the CI/CD pipeline owner's domain.
+steps:
+  - title: Run PSScriptAnalyzer
+    description: >
+      Invoke PSScriptAnalyzer against module roots, Public/, Private/, and standalone
+      scripts. Use the engagement-agreed ruleset or default PSScriptAnalyzer rules.
+      Resolve Errors; document justified Warnings. Example:
+      Invoke-ScriptAnalyzer -Path ./Public,./Private -Recurse -Severity Error,Warning.
+  - title: Enable Set-StrictMode guidance
+    description: >
+      Ensure scripts and modules set Set-StrictMode -Version Latest near entry points
+      (root .psm1 or top of .ps1). Document any scoped exceptions with rationale in
+      comments or engagement notes.
+  - title: Verify #Requires -Version 7.0
+    description: >
+      Confirm entry scripts and module scripts declare #Requires -Version 7.0 (or higher
+      when engagement mandates). Add the directive when missing on scripts executed directly.
+  - title: C-001 secret and credential checklist
+    description: >
+      Before handoff, verify: no hardcoded secrets or API keys in tracked files; no
+      ConvertTo-SecureString with plaintext passwords; no Invoke-Expression on untrusted
+      input; gallery dependencies declared in module manifest RequiredModules or a
+      documented requirements lock file.
+  - title: Record handoff notes
+    description: >
+      Summarize PSScriptAnalyzer result, test status, and any items requiring CI/CD pipeline
+      integration (Jenkinsfile, SonarQube, SBOM) when the charter classifies the artifact as
+      deliverable application software.
+failure_modes:
+  - "PSScriptAnalyzer not installed — Install-Module PSScriptAnalyzer -Scope CurrentUser."
+  - "Secrets found in repo — rotate credentials and move to secret store before merge."
+  - "StrictMode breaks legacy script — fix undefined variables or document charter exception."
+applies_to_languages:
+  - powershell
+notes: >
+  Tiered AppSec: this tactic enforces the script-level baseline. SonarQube, SBOM,
+  and Dependency-Track integration belong in the CI/AppSec pipeline when the engagement
+  charter classifies the artifact as deliverable application software.

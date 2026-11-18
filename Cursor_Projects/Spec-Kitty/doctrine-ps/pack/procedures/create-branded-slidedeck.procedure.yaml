@@ -1,0 +1,248 @@
+schema_version: "1.0"
+id: create-branded-slidedeck
+name: Create a Branded Slidedeck
+purpose: >
+  Produce a Reveal.js presentation from a Markdown source file that adheres to Regnology
+  brand guidelines. The canonical artifact is always slides.md — a plain Markdown file
+  readable and diffable without any tooling. Conversion to a rendered HTML slidedeck is
+  performed by the best available tool in the user's environment, or deferred to a
+  browser-based preview that requires no build step at all.
+entry_condition: >
+  A presentation topic, target audience, and core message have been identified. The creator
+  has access to the Reveal.js template at pack/templates/presentations/reveal-js/.
+exit_condition: >
+  A slides.md exists in docs/presentations/<topic>/, passes the style guide checklist, all
+  diagrams use the Regnology brand theme, and the deck renders correctly in at least one of:
+  the selected render path, or a browser opened on index.html.
+
+steps:
+  - title: Preflight — inventory available rendering tools
+    description: >
+      Before doing any creative work, determine which rendering path is available in the
+      user's environment. Run the following checks and record the result of each as
+      AVAILABLE or MISSING:
+
+        1. regnology-docgen pipeline: check that docker (or podman) is installed and
+           that the regnology-docgen repository is reachable (run `docker info` or
+           `podman info`; look for a `generate-slides` CLI or `ops/scripts/html_from_markdown.sh`).
+        2. pandoc: run `pandoc --version`.
+        3. Node + reveal-md: run `node --version` and `npx reveal-md --version` (or
+           `reveal-md --version` if installed globally).
+        4. python3: run `python3 --version` (needed if generating a helper script).
+        5. Existing convert_to_html_slidedeck script: look for `ops/convert_to_html_slidedeck.sh`,
+           `scripts/convert_to_html_slidedeck.sh`, or `Makefile` with a `slides` target in
+           the project root.
+
+      Select the render path in priority order:
+        A — regnology-docgen `generate-slides` (highest fidelity, fully embedded assets)
+        B — pandoc -t revealjs (standalone HTML from Markdown)
+        C — reveal-md (live preview + export)
+        D — browser file:// (open index.html directly — Reveal.js loads slides.md via
+            the Markdown plugin; zero build step; suitable for local use only)
+
+      Summarise the inventory and selected path in a brief preflight report presented to
+      the user before any further steps are taken.
+    actor: agent
+    on_success: >
+      Present the preflight report to the user. If Path D (browser only) was selected or
+      if any preferred tools are MISSING, proceed to the warning step. Otherwise skip the
+      warning step and continue to step 3.
+    on_failure: >
+      If the inventory commands themselves fail (permission errors, broken PATH), report
+      the failure and ask the user to verify their shell environment before continuing.
+
+  - title: Warn about missing tools and confirm render path
+    description: >
+      If the preferred render path is unavailable or if Path D (browser only) was selected,
+      present the user with the following structured warning and choice:
+
+      ---
+      PREFLIGHT WARNING — rendering tools inventory
+      ─────────────────────────────────────────────
+      Selected path: [path letter and name]
+
+      Missing tools that would enable a higher-quality render path:
+        [list each MISSING tool with its install hint]
+
+      Consequences of proceeding without these tools:
+        [describe what will be limited, e.g. "No standalone HTML export — slides
+         require a browser with file:// access. Sharing outside the team will need
+         an additional export step."]
+
+      Options:
+        1. Proceed as-is — continue with the selected path now. The deck will be
+           fully authored in Markdown; rendering limitations are accepted.
+        2. Wait — pause here while you install the missing tools, then re-run the
+           preflight step.
+      ---
+
+      Do not continue to step 3 until the user has explicitly chosen option 1 or 2.
+    actor: human
+    on_success: >
+      User chose option 1 (proceed as-is): record the accepted limitations in the work
+      log and continue to step 3.
+    on_failure: >
+      User chose option 2 (wait): pause the procedure here. Resume from step 1 once
+      the user signals that the tools are installed.
+
+  - title: Initialise the presentation from the pack template
+    description: >
+      Copy pack/templates/presentations/reveal-js/ to docs/presentations/<topic>/:
+
+        cp -r pack/templates/presentations/reveal-js/ docs/presentations/<topic>/
+        mv docs/presentations/<topic>/slides-template.md docs/presentations/<topic>/slides.md
+
+      Update the title in index.html to match the presentation topic.
+      The slides.md file is the single source of truth — all content lives here.
+      Do not modify regnology-brand.css or regnology.css; add a theme/custom.css for
+      any presentation-specific overrides.
+    actor: agent
+
+  - title: Outline the narrative in slides.md
+    description: >
+      Define the core message and main sections using Reveal.js Markdown conventions:
+        - `---` horizontal separator for new main topics
+        - `--` vertical separator for sub-topics or continuation slides
+        - H1 (`#`) for section titles, H2 (`##`) for slide titles within a section
+
+      Write the outline directly in slides.md. Clarity > density: each slide carries
+      minimal text; detailed explanations belong in speaker notes (lines beginning with
+      `Note:`) or a companion document.
+    actor: agent
+
+  - title: Draft slide content and speaker notes
+    description: >
+      Populate slides.md with content. Constraints from the style guide:
+        - Max 6 bullet points or 40 words of body text per slide
+        - `Note:` speaker notes on every content slide
+        - CSS helper classes from regnology.css: info-box, solution-box, three-columns,
+          columns, fragment, highlight
+
+      Tone: calm, precise, sincere — consistent with the Regnology brand voice framework
+      (Respectful, Formal, Enthusiastic-but-grounded, Serious). Apply the professional-communications
+      styleguide. Delegate prose drafting or editing to Comms Cleo if available.
+    actor: agent
+
+  - title: Identify visual opportunities
+    description: >
+      Review slides.md and identify slides where text can be replaced or enhanced by a
+      diagram. Insert a placeholder comment at each location:
+
+        <!-- DIAGRAM: [concept to visualise] — handoff to Diagram Daisy -->
+
+      Prefer diagrams for: process flows, system architectures, before/after comparisons,
+      and any slide with more than three related items that form a structure.
+    actor: agent
+
+  - title: Hand off to Diagram Daisy for diagrams
+    description: >
+      For each <!-- DIAGRAM: --> placeholder, invoke Diagram Daisy with:
+        - The concept and relationship structure to visualise
+        - The target slide context (section heading and neighbouring slides)
+        - The instruction to use the Regnology PlantUML or Mermaid brand theme from
+          pack/templates/branding/ (or regnology-docgen diagramming themes if available)
+        - Orientation (TD or LR) and complexity budget (max 10 nodes for clarity)
+
+      Daisy returns diagram-as-code (Mermaid or PlantUML). Confirm brand theme is applied
+      before integrating.
+    actor: agent
+
+  - title: Integrate diagrams and complete slides.md
+    description: >
+      Replace each <!-- DIAGRAM: --> placeholder in slides.md with the diagram-as-code
+      block from Diagram Daisy. Verify the classDef or theme include is present in every
+      Mermaid diagram. The file should now be a complete, self-contained Markdown document
+      that represents the full deck.
+    actor: agent
+
+  - title: Render or preview using the selected path
+    description: >
+      Use the render path confirmed in the preflight step:
+
+      PATH A — regnology-docgen generate-slides:
+        docker compose -f regnology-docgen/ops/docker-compose.yml exec docgen \
+          generate-slides docs/presentations/<topic>/slides.md \
+          docs/presentations/<topic>/index-rendered.html
+        (or use ops/scripts/convert.sh html slides.md <name>)
+
+      PATH B — pandoc (create or reuse convert_to_html_slidedeck script):
+        Check for ops/convert_to_html_slidedeck.sh. If absent, generate it:
+          #!/usr/bin/env bash
+          set -euo pipefail
+          INPUT="${1:-slides.md}"
+          OUTPUT="${2:-index-rendered.html}"
+          pandoc "$INPUT" -t revealjs --standalone \
+            --variable revealjs-url=https://cdn.jsdelivr.net/npm/reveal.js@5 \
+            --css theme/regnology.css \
+            --embed-resources \
+            -o "$OUTPUT"
+        Run: bash ops/convert_to_html_slidedeck.sh slides.md index-rendered.html
+
+      PATH C — reveal-md:
+        Check for ops/convert_to_html_slidedeck.sh. If absent, generate it:
+          #!/usr/bin/env bash
+          set -euo pipefail
+          INPUT="${1:-slides.md}"
+          OUTPUT_DIR="${2:-_rendered}"
+          npx reveal-md "$INPUT" --theme theme/regnology.css --static "$OUTPUT_DIR"
+        Run: bash ops/convert_to_html_slidedeck.sh slides.md
+
+      PATH D — browser file://:
+        Open docs/presentations/<topic>/index.html directly in a browser.
+        No build step required — Reveal.js loads slides.md via the Markdown plugin at runtime.
+        Note in the work log that no standalone export was produced.
+    actor: agent
+
+  - title: Final review against the style guide checklist
+    description: >
+      Validate the completed deck. All items must pass before closing the procedure:
+        - [ ] slides.md is the authoritative source; all content changes go here
+        - [ ] All slides have titles
+        - [ ] No slide exceeds 6 bullet points or 40 words of main text
+        - [ ] Note: speaker notes present on every content slide
+        - [ ] Horizontal (---) and vertical (--) transitions are used correctly
+        - [ ] Regnology brand tone maintained throughout
+        - [ ] All diagrams use the Regnology brand theme (classDef / theme include present)
+        - [ ] No hard-coded hex colors in slides.md, regnology.css, or custom.css
+        - [ ] If a convert_to_html_slidedeck script was generated, it is committed to ops/
+        - [ ] Rendered output (if produced) opens without errors
+    actor: human
+
+anti_patterns:
+  - name: Dense slides
+    description: >
+      Slides containing more than 6 bullet points or 40 words of body text. Detailed
+      explanations belong in speaker notes or a companion document, not on the slide.
+  - name: Skipping the preflight step
+    description: >
+      Starting content work before confirming which render path is available. This leads
+      to discovering mid-way that the intended export format is impossible and requires
+      backtracking or tool installation under time pressure.
+  - name: Hard-coded brand colors
+    description: >
+      Colors or fonts specified directly in slides.md, regnology.css, or custom.css
+      instead of referencing tokens from regnology-brand.css. Always use CSS custom
+      properties; never hard-code hex values.
+  - name: Modifying regnology.css or regnology-brand.css directly
+    description: >
+      Per-presentation style changes made inside the shared theme files instead of
+      a presentation-specific theme/custom.css shim. Changes to shared files affect
+      every deck that imports them.
+
+notes: >
+  slides.md is always the primary artifact. The rendered HTML is a derived output.
+  Commit slides.md; the rendered index-rendered.html may be gitignored if the render
+  can be reproduced from slides.md. The convert_to_html_slidedeck.sh script, if
+  generated, should be committed to ops/ so any team member can reproduce the output.
+
+  CSS import chain: regnology-brand.css (tokens) ← regnology.css (Reveal.js components)
+  ← theme/custom.css (per-presentation overrides, optional). Never modify regnology.css
+  for brand color changes — all token updates go in regnology-brand.css.
+
+references:
+  - type: styleguide
+    id: regnology-branding
+    reason: Brand color tokens, typography rules, and template variant selection
+  - type: styleguide
+    id: professional-communications
+    reason: Tone-of-voice framework for slide copy

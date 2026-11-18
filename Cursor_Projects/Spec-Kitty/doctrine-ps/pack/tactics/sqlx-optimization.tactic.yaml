@@ -1,0 +1,58 @@
+schema_version: "1.0"
+id: sqlx-optimization
+name: SQLX Optimization
+purpose: >
+  Identify and implement performance improvements in existing SQLX artifacts using the
+  Abacus CLI and data model metadata. Uses execution plan (DAG) analysis, static analyse
+  reports, and targeted code changes. Use after generation and validation when bottlenecks
+  are suspected (large decision tables, deep FU chains). Requires a runnable SQLX runtime.
+  Do not use for generating SQLX (sqlx-generation), validating compliance (sqlx-validation),
+  creating tests (sqlx-testing), or interpreting pseudo code (sqlx-pseudo-code-to-spec).
+steps:
+  - title: Baseline Model Assessment
+    description: >
+      Run abacus info on the model. Record counts of functional units, decision tables, and
+      dataset definitions. Identify large decision tables (high rule count) that may lack
+      optimized Java execution.
+
+  - title: Execution Plan Analysis
+    description: >
+      Run abacus dag-dump -c [COMPONENT_DIR] -o [OUTPUT_DIR]. Inspect the graph for critical
+      path (long sequential chains), fan-out nodes (exports imported by many downstream units),
+      synchronization bottlenecks, and units that could run in parallel but are coupled.
+
+  - title: Static Analysis for Data Flow
+    description: >
+      Run abacus analyse -f -o [OUTPUT_DIR]. Review problems.csv for SQL the optimizer
+      struggles with. Review occurrences.csv for redundant field selections across units.
+
+  - title: Select Optimization Hypotheses
+    description: >
+      Choose one or more hypotheses to test: H1 UDF promotion (add _DD.sqlx for large decision
+      tables to trigger Java UDF); H2 checkpoint insertion (CHECKPOINT at high fan-out nodes);
+      H3 DAG flattening (move filter/projection earlier); H4 column pruning (remove unused
+      fields from intermediate SELECTs per analyse output).
+
+  - title: Apply and Verify Changes
+    description: >
+      Implement the selected optimization in a copy of the SQLX code. Run abacus validate.
+      Optionally run abacus test to confirm logic integrity. Re-run dag-dump and analyse;
+      compare before/after abacus info (e.g. dataset definition counts, problem reductions).
+
+  - title: Produce Optimization Report
+    description: >
+      Document bottlenecks found, hypothesis tested, before/after metrics, files changed, and
+      traceability link to original calculation intent (Directive TRACEABLE_DECISIONS).
+
+failure_modes:
+  - "Optimizing without a passing validate baseline — always confirm abacus validate succeeds before DAG work."
+  - "Skipping before/after comparison — optimization must show measurable structural or analyse improvement."
+  - "Blind code changes without runtime — this tactic requires Abacus CLI and model metadata access."
+
+notes: >
+  Invoked by SQLX Specialist Simon (sqlx-specialist-simon) for Optimize tasks; the Spec Kitty
+  orchestration runtime may assign this after a generation cycle. Prerequisites: syntactically valid
+  model passing abacus validate, sqlx-mcp toolguide, styleguide sqlx-coding-standards. Run after
+  sqlx-generation and sqlx-validation. Related: safe-to-fail-experiment-design paradigm for
+  bounded hypothesis tests. Exit criteria: baseline recorded, at least one hypothesis tested with
+  before/after evidence, optimized artifacts pass abacus validate, optimization report produced.

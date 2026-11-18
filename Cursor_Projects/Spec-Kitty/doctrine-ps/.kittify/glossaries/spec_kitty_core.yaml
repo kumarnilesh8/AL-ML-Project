@@ -1,0 +1,130 @@
+terms:
+
+  # ── Artifact kinds ──────────────────────────────────────────────────────────
+
+  - surface: directive
+    definition: >
+      A non-negotiable constraint that governs agent behaviour. Directives declare what agents
+      must or must not do, independent of any specific task. They are enforced at the
+      organisation level via org-charter.yaml and loaded on-demand from the pack by agents
+      when the relevant situation arises.
+    status: active
+    confidence: 1.0
+
+  - surface: tactic
+    definition: >
+      A step-by-step procedural execution guide invoked by a directive. A directive declares
+      the constraint; the tactic describes how to fulfil it. Tactics are capability-domain
+      artifacts — they define what an agent can do, not what it must believe.
+    status: active
+    confidence: 1.0
+
+  - surface: styleguide
+    definition: >
+      A concrete set of writing, naming, or formatting rules scoped to a specific surface
+      (code, commits, documentation, communications). Styleguides belong to the behaviour
+      domain and are applied by agent profiles.
+    status: active
+    confidence: 1.0
+
+  - surface: toolguide
+    definition: >
+      A reference artifact describing how to use a specific tool in this organisation's
+      context. Covers setup, commands, usage examples, common pitfalls, fallback behaviour
+      when the tool is unavailable, and links to upstream sources. Toolguides belong to the
+      knowledge domain.
+    status: active
+    confidence: 1.0
+
+  - surface: paradigm
+    definition: >
+      A mental model or conceptual framework that agents load when approaching a class of
+      problem. Paradigms shape reasoning rather than prescribing steps. They belong to the
+      knowledge domain and are load-on-demand.
+    status: active
+    confidence: 1.0
+
+  - surface: procedure
+    definition: >
+      A multi-step workflow with defined entry conditions, exit conditions, named actors,
+      and anti-patterns. Heavier than a tactic; used when a human and an agent share
+      responsibility across sequential steps. Procedures belong to the capability domain.
+    status: active
+    confidence: 1.0
+
+  - surface: agent profile
+    definition: >
+      A role definition for a named agent persona. Declares purpose, capabilities, required
+      directives, preferred toolguides, collaboration contract (handoff-from, handoff-to),
+      and mode defaults. Agent profiles belong to the behaviour domain.
+    status: active
+    confidence: 1.0
+
+  - surface: mission step contract
+    definition: >
+      A formal contract governing what an agent may and may not do at a given step in the
+      spec-kitty mission lifecycle. Step contracts constrain agent actions to their assigned
+      phase and prevent scope overreach.
+    status: active
+    confidence: 1.0
+
+  - surface: template
+    definition: >
+      An output structure definition that agents use to produce consistently shaped artifacts.
+      Templates are the lowest-precedence layer of the governance stack; they define format,
+      not content or constraint.
+    status: active
+    confidence: 1.0
+
+  # ── System concepts ──────────────────────────────────────────────────────────
+
+  - surface: doctrine pack
+    definition: >
+      The unit of organisation-wide governance distribution in spec-kitty. A doctrine pack
+      is a versioned, schema-validated collection of typed YAML artifacts (directives,
+      tactics, styleguides, toolguides, paradigms, procedures, agent profiles) shipped via
+      `spec-kitty doctrine fetch` to every engagement repository.
+    status: active
+    confidence: 1.0
+
+  - surface: drg
+    definition: >
+      Doctrine Relationship Graph. A machine-readable directed graph encoding the
+      relationships between pack artifacts. Nodes are artifacts; edges express relations
+      (requires, suggests, applies, delegates_to, related_to). The DRG makes governance
+      queryable and surfaces dependency chains for impact analysis.
+    status: active
+    confidence: 1.0
+
+  - surface: org-charter
+    definition: >
+      The org-charter.yaml file in a doctrine pack. Declares which directives and toolguides
+      are required for all projects that adopt the pack, provides interview defaults for
+      charter generation, and sets governance policies (e.g. mandatory model tier). The
+      org-charter is the machine-readable expression of organisation-wide non-negotiables.
+    status: active
+    confidence: 1.0
+
+  - surface: mission
+    definition: >
+      A bounded unit of spec-kitty work spanning specification through merge. A mission
+      contains a spec, a plan, work packages, and a status event log. Missions advance
+      through lanes (planned → in_progress → for_review → done) gated by step contracts.
+    status: active
+    confidence: 1.0
+
+  - surface: work package
+    definition: >
+      The atomic unit of implementation work within a mission. A work package (WP) has a
+      single actor, a lane, and a set of tasks. Agents claim, implement, and submit work
+      packages for review one at a time.
+    status: active
+    confidence: 1.0
+
+  - surface: lane
+    definition: >
+      The current workflow state of a work package or mission. Standard lanes: planned,
+      claimed, in_progress, for_review, in_review, approved, done, blocked, canceled.
+      Lane transitions are gated by step contracts and recorded in the event log.
+    status: active
+    confidence: 1.0

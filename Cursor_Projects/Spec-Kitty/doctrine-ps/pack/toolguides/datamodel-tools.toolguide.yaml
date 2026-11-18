@@ -1,0 +1,21 @@
+schema_version: "1.0"
+id: datamodel-tools
+tool: datamodel-tools
+title: ABACUS360 Datamodel Tools
+guide_path: toolguides/datamodel-tools.md
+summary: >
+  Bitbucket repository providing canonical reference content for ABACUS360 data model
+  mapping work. Two content categories: (1) model operations — join definitions,
+  transformation rules, and data quality checks; (2) core datamodel reference guides —
+  entity overviews, field catalogues, domain value catalogues, and relationship maps.
+  Repository: https://bitbucket.regnology.net/projects/CONS/repos/datamodel-tools.
+  Requires Regnology VPN and Bitbucket CONS project access.
+  Access via regnology-mcp Bitbucket tools (bb_get_file, bb_list_repos) or direct
+  git clone. Always read README.md first to resolve directory structure before fetching
+  content. Use alongside google-cloud-mcp query_datamodel_definitions for live model
+  data; datamodel-tools provides the canonical operation specifications and reference guides.
+  Read-only — do not push or create branches.
+commands:
+  - bb_list_repos
+  - bb_get_file
+  - bb_list_branches

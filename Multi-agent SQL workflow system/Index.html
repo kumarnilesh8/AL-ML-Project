@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Regnology Sans";src:url("fonts/RegnologySans-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:"Regnology Sans";src:url("fonts/RegnologySans-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;}
+@font-face{font-family:"Regnology Sans";src:url("fonts/RegnologySans-Italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;background:#E1E6E6;font-family:"Regnology Sans",Arial,system-ui,sans-serif;}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes rowin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.blink{animation:blink 1s steps(1) infinite}
+::selection{background:#3CE55A;color:#012D3F;}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#c3cccc;border-radius:8px;border:2px solid transparent;background-clip:padding-box}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</helmet>
+
+<div style="height:100vh;display:flex;flex-direction:column;background:#E1E6E6;color:#012D3F;">
+
+  <sc-if value="{{ showCopyFallback }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;background:rgba(1,45,63,0.55);z-index:99;display:flex;align-items:center;justify-content:center;padding:32px;">
+      <div style="background:#fff;border-radius:14px;padding:22px;width:min(760px,100%);max-height:80vh;display:flex;flex-direction:column;gap:12px;box-shadow:0 18px 48px rgba(1,45,63,0.3);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <div>
+            <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#06A74E;font-weight:500;">Copy code</div>
+            <div style="font-size:16px;font-weight:500;margin-top:3px;">The browser blocked automatic copying</div>
+          </div>
+          <button onClick="{{ closeCopyFallback }}" style="background:transparent;border:none;color:#9FA8A9;font-size:20px;line-height:1;cursor:pointer;padding:2px 6px;" style-hover="color:#012D3F">×</button>
+        </div>
+        <div style="font-size:13px;color:#747A7A;">The code below is already selected — press <b style="font-weight:500;">⌘C</b> (Mac) or <b style="font-weight:500;">Ctrl+C</b> to copy it.</div>
+        <textarea readonly="readonly" ref="{{ fallbackRef }}" value="{{ copyFallbackText }}" spellcheck="false" style="flex:1;min-height:280px;resize:vertical;border:1px solid #E1E6E6;border-radius:10px;padding:12px 14px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.6;color:#012D3F;background:#FBFCFC;box-sizing:border-box;"></textarea>
+        <div style="display:flex;justify-content:flex-end;">
+          <button onClick="{{ closeCopyFallback }}" style="background:#06A74E;color:#fff;border:none;padding:10px 18px;border-radius:9px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;" style-hover="filter:brightness(0.94)">Done</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ TOP BAR ============ -->
+  <header style="height:58px;flex:none;background:#012D3F;display:flex;align-items:center;justify-content:space-between;padding:0 20px;color:#fff;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <img src="assets/logo/Regnology-Mark-positive.png" alt="Regnology" style="height:26px;width:auto;display:block;">
+      <div style="width:1px;height:24px;background:rgba(255,255,255,0.18);"></div>
+      <div style="display:flex;align-items:baseline;gap:9px;">
+        <span style="font-weight:500;font-size:15px;letter-spacing:.01em;">SQL Studio</span>
+        <span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9FA8A9;">Deployment Pipeline</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);padding:5px 11px;border-radius:999px;font-size:12.5px;">
+        <span style="width:14px;height:14px;background-color:#3CE55A;-webkit-mask:url(assets/icons/flow.svg) center/contain no-repeat;mask:url(assets/icons/flow.svg) center/contain no-repeat;"></span>
+        <span style="color:#cfe0e7;">Pipeline</span><input onInput="{{ onWorkspaceNameInput }}" value="{{ workspaceName }}" placeholder="Untitled" spellcheck="false" style="background:transparent;border:none;border-bottom:1px dashed rgba(255,255,255,0.28);color:#fff;font-family:inherit;font-size:12.5px;font-weight:500;padding:1px 2px;width:132px;outline:none;" style-focus="border-bottom-color:#3CE55A" style-hover="border-bottom-color:rgba(255,255,255,0.55)">
+      </div>
+      <button onClick="{{ reset }}" style="display:flex;align-items:center;gap:7px;background:transparent;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:6px 12px;border-radius:8px;font-family:inherit;font-size:12.5px;cursor:pointer;" style-hover="background:rgba(255,255,255,0.1)">
+        <span style="width:13px;height:13px;background-color:#fff;-webkit-mask:url(assets/icons/settings.svg) center/contain no-repeat;mask:url(assets/icons/settings.svg) center/contain no-repeat;"></span>New run
+      </button>
+      <div style="width:32px;height:32px;border-radius:999px;background:#06A74E;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;">RA</div>
+    </div>
+  </header>
+
+  <div style="flex:1;display:flex;min-height:0;">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside style="width:264px;flex:none;background:#fff;border-right:1px solid #E1E6E6;display:flex;flex-direction:column;overflow-y:auto;">
+      <div style="padding:16px 16px 8px;">
+        <div style="font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#9FA8A9;margin-bottom:10px;">Workspace</div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:#F0F4F4;color:#012D3F;font-size:13.5px;font-weight:500;">
+            <span style="width:16px;height:16px;background-color:#06A74E;-webkit-mask:url(assets/icons/flow.svg) center/contain no-repeat;mask:url(assets/icons/flow.svg) center/contain no-repeat;"></span>Active run
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:#747A7A;font-size:13.5px;" style-hover="background:#F6F8F8">
+            <span style="width:16px;height:16px;background-color:#747A7A;-webkit-mask:url(assets/icons/checklist.svg) center/contain no-repeat;mask:url(assets/icons/checklist.svg) center/contain no-repeat;"></span>Run history
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:#747A7A;font-size:13.5px;" style-hover="background:#F6F8F8">
+            <span style="width:16px;height:16px;background-color:#747A7A;-webkit-mask:url(assets/icons/book.svg) center/contain no-repeat;mask:url(assets/icons/book.svg) center/contain no-repeat;"></span>Templates
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:#E1E6E6;margin:8px 16px;"></div>
+
+      <div style="padding:8px 16px 16px;">
+        <div style="font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#9FA8A9;margin-bottom:12px;">Agent crew</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <sc-for list="{{ agents }}" as="ag" hint-placeholder-count="3">
+            <div style="border:1px solid #E1E6E6;border-radius:12px;padding:11px 12px;display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:32px;height:32px;flex:none;border-radius:9px;background:#F0F4F4;display:flex;align-items:center;justify-content:center;">
+                  <span style="width:17px;height:17px;background-color:{{ ag.iconColor }};-webkit-mask:url({{ ag.iconUrl }}) center/contain no-repeat;mask:url({{ ag.iconUrl }}) center/contain no-repeat;"></span>
+                </div>
+                <div style="min-width:0;">
+                  <div style="font-size:13px;font-weight:500;line-height:1.2;">{{ ag.name }}</div>
+                  <div style="font-size:11px;color:#9FA8A9;line-height:1.3;">{{ ag.role }}</div>
+                </div>
+              </div>
+              <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:6px;background:{{ ag.metaBg }};color:{{ ag.metaColor }};font-size:11px;font-weight:500;padding:3px 9px;border-radius:999px;">
+                <span style="width:6px;height:6px;border-radius:999px;background:{{ ag.metaColor }};"></span>{{ ag.metaLabel }}
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main style="flex:1;display:flex;flex-direction:column;min-width:0;">
+
+      <!-- Stepper -->
+      <div style="flex:none;padding:16px 24px 0;">
+        <div style="background:#fff;border:1px solid #E1E6E6;border-radius:14px;padding:14px 18px;display:flex;align-items:stretch;">
+          <sc-for list="{{ stages }}" as="st" hint-placeholder-count="4">
+            <div onClick="{{ st.onClick }}" style="flex:1;display:flex;align-items:center;gap:12px;cursor:{{ st.cursor }};opacity:{{ st.opacity }};">
+              <div style="width:34px;height:34px;flex:none;border-radius:10px;background:{{ st.badgeBg }};color:{{ st.badgeFg }};display:flex;align-items:center;justify-content:center;border:1.5px solid {{ st.badgeBorder }};">
+                <span style="width:17px;height:17px;background-color:{{ st.badgeFg }};-webkit-mask:url({{ st.iconUrl }}) center/contain no-repeat;mask:url({{ st.iconUrl }}) center/contain no-repeat;"></span>
+              </div>
+              <div style="min-width:0;">
+                <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#9FA8A9;">{{ st.sub }}</div>
+                <div style="font-size:13.5px;font-weight:500;color:{{ st.titleColor }};white-space:nowrap;">{{ st.label }}</div>
+              </div>
+              <div style="flex:1;height:2px;background:{{ st.lineColor }};margin:0 4px;min-width:16px;display:{{ st.lineDisplay }};"></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- Tab content -->
+      <div style="flex:1;overflow-y:auto;padding:20px 24px 28px;min-height:0;">
+
+        <!-- ===== INPUT ===== -->
+        <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:20px;align-items:start;">
+          <div style="background:#fff;border:1px solid #E1E6E6;border-radius:14px;padding:22px;">
+            <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#06A74E;font-weight:500;">Requirement</div>
+            <div style="font-size:20px;font-weight:500;margin:6px 0 4px;">What should the Query Architect build?</div>
+            <div style="font-size:13.5px;color:#747A7A;margin-bottom:16px;">Describe the requirement in plain language and attach the supporting spec. Files and chat are both accepted.</div>
+
+            <textarea onInput="{{ onReqTextInput }}" value="{{ reqText }}" placeholder="Describe the requirement — what the SQL should do, the target tables/grain, filters, calculations and any control totals. You can also attach files below." spellcheck="false" style="width:100%;min-height:120px;resize:vertical;border:1px solid #E1E6E6;border-radius:12px;padding:14px 15px;font-family:inherit;font-size:14px;line-height:1.6;color:#012D3F;background:#FBFCFC;box-sizing:border-box;" style-focus="outline:2px solid #06A74E;outline-offset:-1px"></textarea>
+
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;">
+              <sc-for list="{{ reqFiles }}" as="f" hint-placeholder-count="0">
+                <div style="display:flex;align-items:center;gap:9px;border:1px solid #E1E6E6;border-radius:9px;padding:8px 11px;background:#fff;">
+                  <span style="width:16px;height:16px;flex:none;background-color:{{ f.iconColor }};-webkit-mask:url({{ f.iconUrl }}) center/contain no-repeat;mask:url({{ f.iconUrl }}) center/contain no-repeat;"></span>
+                  <span style="font-size:12.5px;font-weight:500;">{{ f.name }}</span><span style="font-size:11px;color:{{ f.statusColor }};">{{ f.statusLabel }}</span>
+                  <button onClick="{{ f.onRemove }}" style="background:transparent;border:none;color:#9FA8A9;font-size:15px;cursor:pointer;line-height:1;padding:0 2px;" style-hover="color:#012D3F">×</button>
+                </div>
+              </sc-for>
+              <label style="display:flex;align-items:center;gap:7px;border:1px dashed #c3cccc;border-radius:9px;padding:8px 11px;color:#9FA8A9;font-size:12.5px;cursor:pointer;" style-hover="border-color:#06A74E;color:#06A74E">
+                <span style="width:14px;height:14px;background-color:currentColor;-webkit-mask:url(assets/icons/files.svg) center/contain no-repeat;mask:url(assets/icons/files.svg) center/contain no-repeat;"></span>{{ reqAddLabel }}
+                <input type="file" accept=".xlsx,.xls,.xlsm,.xlsb,.csv,.doc,.docx,.pdf,.txt,.rtf,.md" multiple="" onChange="{{ onReqUpload }}" style="display:none;">
+              </label>
+            </div>
+            <sc-if value="{{ reqEmpty }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:11.5px;color:#9FA8A9;margin-top:8px;">Attach the requirement — Excel (all formats), Word, PDF or text files. Or describe it in the box above.</div>
+            </sc-if>
+
+            <button onClick="{{ runAgent1 }}" disabled="{{ a1Running }}" style="margin-top:20px;display:inline-flex;align-items:center;gap:9px;background:{{ runBtnBg }};color:#fff;border:none;padding:12px 20px;border-radius:10px;font-family:inherit;font-size:14px;font-weight:500;cursor:{{ runBtnCursor }};" style-hover="filter:brightness(0.94)">
+              <span style="width:17px;height:17px;background-color:#fff;-webkit-mask:url(assets/icons/coding.svg) center/contain no-repeat;mask:url(assets/icons/coding.svg) center/contain no-repeat;"></span>
+              {{ runBtnLabel }}
+            </button>
+          </div>
+
+          <div style="background:#012D3F;color:#fff;border-radius:14px;padding:22px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+              <span style="width:18px;height:18px;background-color:#3CE55A;-webkit-mask:url(assets/icons/ai.svg) center/contain no-repeat;mask:url(assets/icons/ai.svg) center/contain no-repeat;"></span>
+              <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#3CE55A;font-weight:500;">Agent instructions</span>
+            </div>
+            <div style="font-size:16px;font-weight:500;margin-bottom:14px;">Standing rules · Query Architect</div>
+            <div style="display:flex;flex-direction:column;gap:11px;font-size:13px;color:#cfe0e7;line-height:1.5;">
+              <div style="display:flex;gap:9px;"><span style="color:#3CE55A;">▪</span>Answer only from the user's query, requirement and uploaded files.</div>
+              <div style="display:flex;gap:9px;"><span style="color: rgb(60, 229, 90);">▪</span>Generate standard, portable SQL .</div>
+              <div style="display:flex;gap:9px;"><span style="color:#3CE55A;">▪</span>Use bind variables for all runtime parameters.</div>
+              <div style="display:flex;gap:9px;"><span style="color:#3CE55A;">▪</span>Emit an explicit COMMIT after each DML block.</div>
+              <div style="display:flex;gap:9px;"><span style="color:#3CE55A;">▪</span>Ask for clarification when the requirement is ambiguous.</div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ===== SQL ===== -->
+        <sc-if value="{{ isSql }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:38px;height:38px;border-radius:10px;background:#F0F4F4;display:flex;align-items:center;justify-content:center;"><span style="width:19px;height:19px;background-color:#06A74E;-webkit-mask:url(assets/icons/coding.svg) center/contain no-repeat;mask:url(assets/icons/coding.svg) center/contain no-repeat;"></span></div>
+              <div><div style="font-size:16px;font-weight:500;">Query Architect</div><div style="font-size:12px;color:#9FA8A9;">Agent 1 · Oracle SQL + COMMIT</div></div>
+            </div>
+            <div style="display:inline-flex;align-items:center;gap:7px;background:{{ a1meta.bg }};color:{{ a1meta.color }};font-size:12.5px;font-weight:500;padding:5px 12px;border-radius:999px;"><span style="width:7px;height:7px;border-radius:999px;background:{{ a1meta.color }};"></span>{{ a1meta.label }}</div>
+          </div>
+
+          <sc-if value="{{ a1NotStarted }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px dashed #c3cccc;border-radius:14px;padding:48px;text-align:center;color:#9FA8A9;font-size:14px;">No query yet. Run the Query Architect from the Input tab.</div>
+          </sc-if>
+
+          <sc-if value="{{ a1Started }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:280px 1fr;gap:16px;align-items:start;">
+            <div style="background:#fff;border:1px solid #E1E6E6;border-radius:14px;padding:16px;">
+              <div style="font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9FA8A9;margin-bottom:12px;">Activity</div>
+              <div style="display:flex;flex-direction:column;gap:11px;">
+                <sc-for list="{{ a1LogLines }}" as="line" hint-placeholder-count="4">
+                  <div style="display:flex;gap:9px;font-size:12.5px;color:#3f5a66;line-height:1.4;animation:rowin .25s ease;">
+                    <span style="width:15px;height:15px;flex:none;margin-top:1px;background-color:#06A74E;-webkit-mask:url(assets/icons/effective.svg) center/contain no-repeat;mask:url(assets/icons/effective.svg) center/contain no-repeat;"></span>{{ line }}
+                  </div>
+                </sc-for>
+                <sc-if value="{{ a1Running }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;gap:9px;align-items:center;font-size:12.5px;color:#1788BE;"><span style="width:14px;height:14px;border:2px solid #cfe0e7;border-top-color:#1788BE;border-radius:999px;animation:spin .7s linear infinite;"></span>Generating…</div>
+                </sc-if>
+              </div>
+            </div>
+
+            <div style="border:1px solid #E1E6E6;border-radius:14px;overflow:hidden;background:#06283a;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#0a3145;border-bottom:1px solid rgba(255,255,255,0.08);">
+                <div style="display:flex;align-items:center;gap:8px;color:#cfe0e7;font-size:12.5px;"><span style="width:14px;height:14px;background-color:#5CB3DC;-webkit-mask:url(assets/icons/database.svg) center/contain no-repeat;mask:url(assets/icons/database.svg) center/contain no-repeat;"></span>{{ sqlFileName }}</div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="font-size:11px;color:#6C8A99;">Generated from your requirement</div>
+                  <button onClick="{{ copySql }}" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#cfe0e7;padding:4px 10px;border-radius:7px;font-family:inherit;font-size:11.5px;cursor:pointer;" style-hover="background:rgba(255,255,255,0.16);color:#fff">{{ copySqlLabel }}</button>
+                </div>
+              </div><div style="padding:16px;overflow:auto;max-height:52vh;">{{ sqlEl }}</div>
+              
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff;border:1px solid #E1E6E6;border-radius:14px;padding:14px 18px;flex-wrap:wrap;">
+            <div style="font-size:13px;color:#747A7A;">{{ a1GateText }}</div>
+            <div style="display:flex;gap:10px;">
+              <button onClick="{{ runAgent1 }}" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:#012D3F;border:1px solid #c3cccc;padding:10px 16px;border-radius:9px;font-family:inherit;font-size:13.5px;cursor:pointer;" style-hover="background:#F6F8F8">Regenerate</button>
+              <button onClick="{{ approveAgent1 }}" disabled="{{ a1ApproveDisabled }}" style="display:inline-flex;align-items:center;gap:8px;background:{{ a1ApproveBg }};color:#fff;border:none;padding:10px 18px;border-radius:9px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:{{ a1ApproveCursor }};" style-hover="filter:brightness(0.94)"><span style="width:15px;height:15px;background-color:#fff;-webkit-mask:url(assets/icons/effective.svg) center/contain no-repeat;mask:url(assets/icons/effective.svg) center/contain no-repeat;"></span>{{ a1ApproveLabel }}</button>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- ===== PACKAGE ===== -->
+        <sc-if value="{{ isPackage }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:38px;height:38px;border-radius:10px;background:#F0F4F4;display:flex;align-items:center;justify-content:center;"><span style="width:19px;height:19px;background-color:#06A74E;-webkit-mask:url(assets/icons/files.svg) center/contain no-repeat;mask:url(assets/icons/files.svg) center/contain no-repeat;"></span></div>
+              <div><div style="font-size:16px;font-weight:500;">Package Builder</div><div style="font-size:12px;color:#9FA8A9;">Agent 2 · PL/SQL deployment files</div></div>
+            </div>
+            <div style="display:inline-flex;align-items:center;gap:7px;background:{{ a2meta.bg }};color:{{ a2meta.color }};font-size:12.5px;font-weight:500;padding:5px 12px;border-radius:999px;"><span style="width:7px;height:7px;border-radius:999px;background:{{ a2meta.color }};"></span>{{ a2meta.label }}</div>
+          </div>
+
+          <sc-if value="{{ a2Locked }}" hint-placeholder-val="{{ true }}">
+            <div style="border:1px dashed #c3cccc;border-radius:14px;padding:48px;text-align:center;color:#9FA8A9;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:10px;"><span style="width:26px;height:26px;background-color:#c3cccc;-webkit-mask:url(assets/icons/shield-user.svg) center/contain no-repeat;mask:url(assets/icons/shield-user.svg) center/contain no-repeat;"></span>Locked — approve the generated SQL first.</div>
+          </sc-if>
+
+          <sc-if value="{{ a2Unlocked }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:start;">
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="background:#fff;border:1px solid #E1E6E6;border-radius:14px;padding:14px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px;">
+                  <span style="font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9FA8A9;">Package files</span>
+                  <sc-if value="{{ pkgAnyReady }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ downloadAllPkg }}" style="background:transparent;border:none;color:#06A74E;font-family:inherit;font-size:11.5px;cursor:pointer;text-decoration:underline;padding:0;" style-hover="color:#012D3F">Download all</button>
+                  </sc-if>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <sc-for list="{{ pkgFiles }}" as="f" hint-placeholder-count="4">
+                    <div onClick="{{ f.onClick }}" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;cursor:pointer;border:1px solid {{ f.border }};background:{{ f.bg }};">
+                      <span style="width:16px;height:16px;flex:none;background-color:{{ f.iconColor }};-webkit-mask:url({{ f.iconUrl }}) center/contain no-repeat;mask:url({{ f.iconUrl }}) center/contain no-repeat;"></span>
+                      <div style="min-width:0;flex:1;"><div style="font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ f.name }}</div><div style="font-size:11px;color:#9FA8A9;">{{ f.desc }}</div></div>
+                      <sc-if value="{{ f.ready }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ f.onDownload }}" title="Download file" style="flex:none;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;border:1px solid #E1E6E6;background:#fff;cursor:pointer;padding:0;" style-hover="border-color:#06A74E;background:#F3FAF6">
+                          <span style="width:13px;height:13px;background-color:#06A74E;-webkit-mask:url(assets/icons/deploy.svg) center/contain no-repeat;mask:url(assets/icons/deploy.svg) center/contain no-repeat;"></span>
+                        </button>
+                      </sc-if>
+                      <span style="width:15px;height:15px;flex:none;background-color:{{ f.statusColor }};-webkit-mask:url({{ f.statusIcon }}) center/contain no-repeat;mask:url({{ f.statusIcon }}) center/contain no-repeat;"></span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="background:#fff;border:1px solid #E1E6E6;border-radius:14px;padding:14px;">
+                <div style="font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9FA8A9;margin-bottom:11px;">Activity</div>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <sc-for list="{{ a2LogLines }}" as="line" hint-placeholder-count="3">
+                    <div style="display:flex;gap:9px;font-size:12.5px;color:#3f5a66;line-height:1.4;animation:rowin .25s ease;"><span style="width:15px;height:15px;flex:none;margin-top:1px;background-color:#06A74E;-webkit-mask:url(assets/icons/effective.svg) center/contain no-repeat;mask:url(assets/icons/effective.svg) center/contain no-repeat;"></span>{{ line }}</div>
+                  </sc-for>
+                  <sc-if value="{{ a2Running }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:9px;align-items:center;font-size:12.5px;color:#1788BE;"><span style="width:14px;height:14px;border:2px solid #cfe0e7;border-top-color:#1788BE;border-radius:999px;animation:spin .7s linear infinite;"></span>Building…</div></sc-if>
+                  <sc-if value="{{ a2Idle }}" hint-placeholder-val="{{ false }}"><button onClick="{{ runAgent2 }}" style="margin-top:2px;display:inline-flex;align-items:center;gap:8px;background:#06A74E;color:#fff;border:none;padding:10px 16px;border-radius:9px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;" style-hover="filter:brightness(0.94)"><span style="width:16px;height:16px;background-color:#fff;-webkit-mask:url(assets/icons/deploy.svg) center/contain no-repeat;mask:url(assets/icons/deploy.svg) center/contain no-repeat;"></span>Run Package Builder</button></sc-if>
+                </div>
+              </div>
+            </div>
+
+            <div style="border:1px solid #E1E6E6;border-radius:14px;overflow:hidden;background:#06283a;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#0a3145;border-bottom:1px solid rgba(255,255,255,0.08);">
+                <div style="display:flex;align-items:center;gap:8px;color:#cfe0e7;font-size:12.5px;"><span style="width:14px;height:14px;background-color:#5CB3DC;-webkit-mask:url(assets/icons/coding.svg) center/contain no-repeat;mask:url(assets/icons/coding.svg) center/contain no-repeat;"></span>{{ activePkgName }}</div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="font-size:11px;color:#6C8A99;">{{ activePkgKind }}</div>
+                  <button onClick="{{ copyPkg }}" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#cfe0e7;padding:4px 10px;border-radius:7px;font-family:inherit;font-size:11.5px;cursor:pointer;" style-hover="background:rgba(255,255,255,0.16);color:#fff">{{ copyPkgLabel }}</button>
+                </div>
+              </div>
+              <div style="padding:16px;overflow:auto;max-height:52vh;min-height:180px;">
+                <sc-if value="{{ pkgHasCode }}" hint-placeholder-val="{{ false }}">{{ pkgEl }}</sc-if>
+                <sc-if value="{{ pkgEmpty }}" hint-placeholder-val="{{ true }}"><div style="color:#6C8A99;font-size:13px;text-align:center;padding:40px;">Awaiting generation…</div></sc-if>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff;border:1px solid #E1E6E6;border-radius:14px;padding:14px 18px;flex-wrap:wrap;">
+            <div style="font-size:13px;color:#747A7A;">{{ a2GateText }}</div>
+            <button onClick="{{ approveAgent2 }}" disabled="{{ a2ApproveDisabled }}" style="display:inline-flex;align-items:center;gap:8px;background:{{ a2ApproveBg }};color:#fff;border:none;padding:10px 18px;border-radius:9px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:{{ a2ApproveCursor }};" style-hover="filter:brightness(0.94)"><span style="width:15px;height:15px;background-color:#fff;-webkit-mask:url(assets/icons/effective.svg) center/contain no-repeat;mask:url(assets/icons/effective.svg) center/contain no-repeat;"></span>{{ a2ApproveLabel }}</button>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- ===== DOC ===== -->
+        <sc-if value="{{ isDoc }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:38px;height:38px;border-radius:10px;background:#F0F4F4;display:flex;align-items:center;justify-content:center;"><span style="width:19px;height:19px;background-color:#06A74E;-webkit-mask:url(assets/icons/book.svg) center/contain no-repeat;mask:url(assets/icons/book.svg) center/contain no-repeat;"></span></div>
+              <div><div style="font-size:16px;font-weight:500;">Technical Deployment Document</div><div style="font-size:12px;color:#9FA8A9;">Agent 3 · Deployment document writer</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="display:inline-flex;align-items:center;gap:7px;background:{{ a3meta.bg }};color:{{ a3meta.color }};font-size:12.5px;font-weight:500;padding:5px 12px;border-radius:999px;"><span style="width:7px;height:7px;border-radius:999px;background:{{ a3meta.color }};"></span>{{ a3meta.label }}</div>
+              <sc-if value="{{ a3Ready }}" hint-placeholder-val="{{ false }}"><button onClick="{{ exportDocx }}" style="display:inline-flex;align-items:center;gap:8px;background:#012D3F;color:#fff;border:none;padding:8px 14px;border-radius:9px;font-family:inherit;font-size:13px;cursor:pointer;" style-hover="filter:brightness(1.15)"><span style="width:15px;height:15px;background-color:#3CE55A;-webkit-mask:url(assets/icons/files.svg) center/contain no-repeat;mask:url(assets/icons/files.svg) center/contain no-repeat;"></span>Export .docx</button></sc-if>
+            </div>
+          </div>
+
+          <sc-if value="{{ a3Idle }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start;">
+
+            <!-- setup form -->
+            <div style="background:#fff;border:1px solid #E1E6E6;border-radius:14px;padding:22px;">
+              <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#06A74E;font-weight:500;">Document setup</div>
+              <div style="font-size:19px;font-weight:500;margin:5px 0 4px;">Deployment document inputs</div>
+              <div style="font-size:13.5px;color:#3f5a66;line-height:1.65;margin-bottom:10px;">The purpose of this document is to create a deployment document for the <b style="font-weight:500;">technical audience in the Bank</b>. This agent runs independently — point it at this pipeline's approved package, or bring your own package created elsewhere.</div>
+              <ul style="margin:0 0 18px;padding-left:18px;font-size:12.5px;color:#747A7A;line-height:1.6;">
+                <li><div>- The document will consists of predefined Template in terms of text font, color, size, type, including content, logos and sequence of the document. A template is provided which lists the rules to be followed while creating the document.&nbsp;</div><div>- The structure of the document will also be provided which will contain index , content and topics to be included. Another sample template will be provided which will contain what topics needs to be covered and added in the document.&nbsp;</div></li>
+                <li>A <b style="font-weight:500;">structure</b> provides the index, content and topics to be covered — a sample template lists which topics must be added.</li>
+                <li>The <b style="font-weight:500;">SQL package and procedure</b> are translated into technical language to fill in the details under each topic.</li>
+              </ul>
+
+              <!-- 0. package source -->
+              <div style="border:1px solid #E1E6E6;border-radius:12px;padding:15px 16px;margin-bottom:12px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><span style="width:16px;height:16px;background-color:#06A74E;-webkit-mask:url(assets/icons/database.svg) center/contain no-repeat;mask:url(assets/icons/database.svg) center/contain no-repeat;"></span><div><div style="font-size:13.5px;font-weight:500;">Source package</div><div style="font-size:11.5px;color:#9FA8A9;">What the document describes</div></div></div>
+                <div style="display:flex;gap:10px;">
+                  <sc-for list="{{ srcOpts }}" as="o" hint-placeholder-count="2">
+                    <div onClick="{{ o.onClick }}" style="flex:1;border:1.5px solid {{ o.border }};background:{{ o.bg }};border-radius:10px;padding:12px 13px;cursor:{{ o.cursor }};opacity:{{ o.opacity }};">
+                      <div style="display:flex;align-items:center;gap:8px;"><span style="width:16px;height:16px;background-color:{{ o.iconColor }};-webkit-mask:url({{ o.iconUrl }}) center/contain no-repeat;mask:url({{ o.iconUrl }}) center/contain no-repeat;"></span><span style="font-size:13px;font-weight:500;color:{{ o.titleColor }};">{{ o.title }}</span></div>
+                      <div style="font-size:11.5px;color:#747A7A;line-height:1.45;margin-top:6px;">{{ o.desc }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <sc-if value="{{ srcIsUpload }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:12px;display:flex;flex-direction:column;gap:7px;">
+                    <sc-if value="{{ uploadHasFiles }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                        <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9FA8A9;">{{ uploadCountLabel }}</span>
+                        <button onClick="{{ clearUploads }}" style="background:transparent;border:none;color:#747A7A;font-family:inherit;font-size:11.5px;cursor:pointer;text-decoration:underline;padding:0;" style-hover="color:#C0392B">Remove all</button>
+                      </div>
+                    </sc-if>
+                    <sc-for list="{{ uploadFiles }}" as="f" hint-placeholder-count="0">
+                      <div style="display:flex;align-items:center;gap:9px;border:1px solid #E1E6E6;border-radius:9px;padding:8px 11px;background:#FBFCFC;">
+                        <span style="width:15px;height:15px;flex:none;background-color:{{ f.iconColor }};-webkit-mask:url({{ f.iconUrl }}) center/contain no-repeat;mask:url({{ f.iconUrl }}) center/contain no-repeat;"></span>
+                        <span style="font-size:12.5px;font-weight:500;flex:1;">{{ f.name }}</span><span style="font-size:11px;color:#9FA8A9;">{{ f.size }}</span>
+                        <button onClick="{{ f.onRemove }}" style="background:transparent;border:none;color:#9FA8A9;font-size:15px;cursor:pointer;line-height:1;padding:0 2px;" style-hover="color:#C0392B">×</button>
+                      </div>
+                    </sc-for>
+                    <sc-if value="{{ uploadEmpty }}" hint-placeholder-val="{{ true }}">
+                      <div style="font-size:11.5px;color:#9FA8A9;">No package files attached yet.</div>
+                    </sc-if>
+                    <label style="display:flex;align-items:center;gap:9px;border:1px dashed #c3cccc;border-radius:9px;padding:10px 12px;color:#9FA8A9;font-size:12px;cursor:pointer;" style-hover="border-color:#06A74E;color:#06A74E"><span style="width:15px;height:15px;background-color:currentColor;-webkit-mask:url(assets/icons/files.svg) center/contain no-repeat;mask:url(assets/icons/files.svg) center/contain no-repeat;"></span>Add .pks / .pkb / .sql package files<input type="file" accept=".pks,.pkb,.sql" multiple="" onChange="{{ onPkgUpload }}" style="display:none;"></label>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ srcIsPipeline }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin-top:12px;font-size:12.5px;color:{{ pipelineNoteColor }};line-height:1.5;background:{{ pipelineNoteBg }};border:1px solid {{ pipelineNoteBorder }};border-radius:9px;padding:10px 12px;">{{ pipelineNote }}</div>
+                </sc-if>
+              </div>
+
+              <!-- 1. template structure -->
+              <div style="border:1px solid #E1E6E6;border-radius:12px;padding:15px 16px;margin-bottom:12px;">
+                <div style="display:flex;align-items:center;gap:10px;"><span style="width:16px;height:16px;background-color:#06A74E;-webkit-mask:url(assets/icons/checklist.svg) center/contain no-repeat;mask:url(assets/icons/checklist.svg) center/contain no-repeat;"></span><div><div style="font-size:13.5px;font-weight:500;">Template structure</div><div style="font-size:11.5px;color:#9FA8A9;">Fixed template document · not editable</div></div></div>
+
+                <div style="display:flex;align-items:center;gap:11px;border:1px solid #DFF3E7;background:#F3FAF6;border-radius:9px;padding:10px 12px;margin-top:12px;">
+                  <span style="width:20px;height:20px;flex:none;background-color:#06A74E;-webkit-mask:url(assets/icons/book.svg) center/contain no-repeat;mask:url(assets/icons/book.svg) center/contain no-repeat;"></span>
+                  <div style="flex:1;min-width:0;"><div style="font-size:12.5px;font-weight:500;">{{ tplDocName }}</div><div style="font-size:11px;color:#06A74E;">Uploaded template · locked</div></div>
+                  <span style="width:15px;height:15px;flex:none;background-color:#06A74E;-webkit-mask:url(assets/icons/effective.svg) center/contain no-repeat;mask:url(assets/icons/effective.svg) center/contain no-repeat;"></span>
+                </div>
+
+                <div style="font-size:11.5px;color:#9FA8A9;margin:12px 0 7px;">Sections defined by the template (applied in this order):</div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                  <sc-for list="{{ tplChips }}" as="c" hint-placeholder-count="7"><span style="font-size:11.5px;background:#F0F4F4;color:#3f5a66;padding:4px 10px;border-radius:7px;">{{ c }}</span></sc-for>
+                </div>
+
+                <label style="display:flex;align-items:center;gap:9px;border:1px dashed #c3cccc;border-radius:9px;padding:10px 12px;color:#9FA8A9;font-size:12px;cursor:pointer;margin-top:12px;" style-hover="border-color:#06A74E;color:#06A74E">
+                  <span style="width:15px;height:15px;background-color:currentColor;-webkit-mask:url(assets/icons/files.svg) center/contain no-repeat;mask:url(assets/icons/files.svg) center/contain no-repeat;"></span>{{ tplUploadLabel }}
+                  <input type="file" accept=".docx,.doc,.dotx" onChange="{{ onTplUpload }}" style="display:none;">
+                </label>
+              </div>
+
+              <!-- 2. formatting & header instructions -->
+              <div style="border:1px solid #E1E6E6;border-radius:12px;padding:15px 16px;margin-bottom:12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                  <div style="display:flex;align-items:center;gap:10px;"><span style="width:16px;height:16px;background-color:#06A74E;-webkit-mask:url(assets/icons/adjust.svg) center/contain no-repeat;mask:url(assets/icons/adjust.svg) center/contain no-repeat;"></span><div><div style="font-size:13.5px;font-weight:500;">Formatting &amp; header instructions</div><div style="font-size:11.5px;color:#9FA8A9;">{{ fmtSourceLabel }}</div></div></div>
+                  <button onClick="{{ toggleFmt }}" style="background:{{ fmtBtnBg }};color:{{ fmtBtnFg }};border:1px solid {{ fmtBtnBorder }};padding:5px 11px;border-radius:8px;font-family:inherit;font-size:12px;cursor:pointer;">{{ fmtBtnLabel }}</button>
+                </div>
+                <sc-if value="{{ fmtCustom }}" hint-placeholder-val="{{ false }}">
+                  <textarea onInput="{{ onFmtInput }}" value="{{ cfgFormat }}" spellcheck="false" style="width:100%;margin-top:12px;min-height:110px;resize:vertical;border:1px solid #E1E6E6;border-radius:9px;padding:11px 12px;font-family:inherit;font-size:12.5px;line-height:1.6;color:#012D3F;background:#FBFCFC;box-sizing:border-box;" style-focus="outline:2px solid #06A74E;outline-offset:-1px"></textarea>
+                </sc-if>
+                <sc-if value="{{ fmtDefault }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:12.5px;color:#3f5a66;line-height:1.6;margin-top:10px;background:#FBFCFC;border:1px solid #EEF1F1;border-radius:8px;padding:10px 12px;white-space:pre-line;">{{ cfgFormat }}</div>
+                </sc-if>
+              </div>
+
+              <!-- 3. client logo -->
+              <div style="border:1px solid #E1E6E6;border-radius:12px;padding:15px 16px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><span style="width:16px;height:16px;background-color:#06A74E;-webkit-mask:url(assets/icons/effective.svg) center/contain no-repeat;mask:url(assets/icons/effective.svg) center/contain no-repeat;"></span><div><div style="font-size:13.5px;font-weight:500;">Client logo</div><div style="font-size:11.5px;color:#9FA8A9;">Shown in the document header</div></div></div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                  <sc-for list="{{ logoOpts }}" as="l" hint-placeholder-count="3">
+                    <div onClick="{{ l.onClick }}" style="flex:1;min-width:120px;border:1.5px solid {{ l.border }};background:{{ l.bg }};border-radius:10px;padding:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;">
+                      <div style="height:26px;display:flex;align-items:center;justify-content:center;">{{ l.preview }}</div>
+                      <div style="font-size:11.5px;color:{{ l.labelColor }};font-weight:500;">{{ l.label }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ logoIsClient }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
+                    <sc-if value="{{ hasLogoImg }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;align-items:center;gap:11px;border:1px solid #DFF3E7;background:#F3FAF6;border-radius:9px;padding:9px 11px;">
+                        {{ clientLogoThumbEl }}
+                        <div style="flex:1;min-width:0;"><div style="font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ cfgLogoName }}</div><div style="font-size:11px;color:#06A74E;">Uploaded</div></div>
+                        <button onClick="{{ clearLogo }}" style="background:transparent;border:none;color:#9FA8A9;font-size:16px;cursor:pointer;line-height:1;padding:2px 4px;" style-hover="color:#012D3F">×</button>
+                      </div>
+                    </sc-if>
+                    <label style="display:flex;align-items:center;gap:9px;border:1px dashed #c3cccc;border-radius:9px;padding:10px 12px;color:#9FA8A9;font-size:12px;cursor:pointer;" style-hover="border-color:#06A74E;color:#06A74E">
+                      <span style="width:15px;height:15px;background-color:currentColor;-webkit-mask:url(assets/icons/files.svg) center/contain no-repeat;mask:url(assets/icons/files.svg) center/contain no-repeat;"></span>{{ logoUploadLabel }}
+                      <input type="file" accept="image/png,image/svg+xml,image/jpeg" onChange="{{ onLogoUpload }}" style="display:none;">
+                    </label>
+                    <input onInput="{{ onClientNameInput }}" value="{{ cfgClientName }}" placeholder="Client name (used if no image is uploaded)" style="border:1px solid #E1E6E6;border-radius:9px;padding:9px 12px;font-family:inherit;font-size:13px;color:#012D3F;background:#FBFCFC;box-sizing:border-box;" style-focus="outline:2px solid #06A74E;outline-offset:-1px">
+                  </div>
+                </sc-if>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:12px;margin-top:20px;">
+                <button onClick="{{ runAgent3 }}" disabled="{{ genDisabled }}" style="display:inline-flex;align-items:center;gap:8px;background:{{ genBg }};color:#fff;border:none;padding:12px 20px;border-radius:10px;font-family:inherit;font-size:14px;font-weight:500;cursor:{{ genCursor }};" style-hover="filter:brightness(0.94)"><span style="width:17px;height:17px;background-color:#fff;-webkit-mask:url(assets/icons/book.svg) center/contain no-repeat;mask:url(assets/icons/book.svg) center/contain no-repeat;"></span>Generate document</button>
+                <button onClick="{{ resetConfig }}" style="background:transparent;border:none;color:#747A7A;font-family:inherit;font-size:12.5px;cursor:pointer;text-decoration:underline;">Reset to IsDB defaults</button>
+              </div>
+            </div>
+
+            <!-- preview / info rail -->
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="background:#012D3F;color:#fff;border-radius:14px;padding:18px;">
+                <div style="font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#3CE55A;font-weight:500;margin-bottom:8px;">Header preview</div>
+                <div style="background:#fff;border-radius:9px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                  <div style="min-width:0;"><div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#06A74E;font-weight:500;">Technical Deployment Document</div><div style="font-size:12px;font-weight:500;color:#012D3F;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ docPkgName }}</div></div>
+                  <div style="flex:none;">{{ headerLogoEl }}</div>
+                </div>
+                <div style="font-size:11.5px;color:#9FB6C1;line-height:1.5;margin-top:12px;">This is how the first page banner will render with your current logo choice.</div>
+              </div>
+              <div style="background:#fff;border:1px solid #E1E6E6;border-radius:14px;padding:16px;">
+                <div style="font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9FA8A9;margin-bottom:11px;">Inputs to the agent</div>
+                <div style="display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:#3f5a66;">
+                  <div style="display:flex;gap:9px;"><span style="width:15px;height:15px;flex:none;background-color:{{ pkgTickColor }};-webkit-mask:url(assets/icons/database.svg) center/contain no-repeat;mask:url(assets/icons/database.svg) center/contain no-repeat;"></span>{{ srcSummaryLabel }}</div>
+                  <div style="display:flex;gap:9px;"><span style="width:15px;height:15px;flex:none;background-color:{{ pkgTickColor }};-webkit-mask:url(assets/icons/files.svg) center/contain no-repeat;mask:url(assets/icons/files.svg) center/contain no-repeat;"></span>{{ srcFilesLabel }}</div>
+                  <div style="display:flex;gap:9px;"><span style="width:15px;height:15px;flex:none;background-color:{{ tplTickColor }};-webkit-mask:url(assets/icons/checklist.svg) center/contain no-repeat;mask:url(assets/icons/checklist.svg) center/contain no-repeat;"></span>{{ tplSourceLabel }}</div>
+                  <div style="display:flex;gap:9px;"><span style="width:15px;height:15px;flex:none;background-color:{{ fmtTickColor }};-webkit-mask:url(assets/icons/adjust.svg) center/contain no-repeat;mask:url(assets/icons/adjust.svg) center/contain no-repeat;"></span>{{ fmtSourceLabel }}</div>
+                  <div style="display:flex;gap:9px;"><span style="width:15px;height:15px;flex:none;background-color:#06A74E;-webkit-mask:url(assets/icons/effective.svg) center/contain no-repeat;mask:url(assets/icons/effective.svg) center/contain no-repeat;"></span>{{ logoSourceLabel }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ a3Working }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:260px 1fr;gap:16px;align-items:start;">
+            <div style="background:#fff;border:1px solid #E1E6E6;border-radius:14px;padding:14px;position:sticky;top:0;">
+              <div style="font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9FA8A9;margin-bottom:11px;">Activity</div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <sc-for list="{{ a3LogLines }}" as="line" hint-placeholder-count="3">
+                  <div style="display:flex;gap:9px;font-size:12.5px;color:#3f5a66;line-height:1.4;animation:rowin .25s ease;"><span style="width:15px;height:15px;flex:none;margin-top:1px;background-color:#06A74E;-webkit-mask:url(assets/icons/effective.svg) center/contain no-repeat;mask:url(assets/icons/effective.svg) center/contain no-repeat;"></span>{{ line }}</div>
+                </sc-for>
+                <sc-if value="{{ a3Running }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:9px;align-items:center;font-size:12.5px;color:#1788BE;"><span style="width:14px;height:14px;border:2px solid #cfe0e7;border-top-color:#1788BE;border-radius:999px;animation:spin .7s linear infinite;"></span>Writing…</div></sc-if>
+              </div>
+            </div>
+
+              <div style="background:#fff;border:1px solid #E1E6E6;border-radius:14px;box-shadow:0 6px 18px rgba(1,45,63,0.06);overflow:hidden;">
+                <div style="height:6px;background:#012D3F;"></div>
+                <div style="padding:34px 40px 44px;font-family:Arial,Helvetica,sans-serif;">
+                  <div style="border-bottom:2px solid #012D3F;padding-bottom:26px;margin-bottom:24px;">
+                    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:30px;">
+                      <div style="flex:none;">{{ docHeaderLogoEl }}</div>
+                      <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#747A7A;text-align:right;">Version {{ docVersion }}</div>
+                    </div>
+                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:48px;line-height:1.05;font-weight:700;color:#012D3F;letter-spacing:-.01em;">Technical Deployment Document</div>
+                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:24px;font-weight:400;color:#3f5a66;margin-top:14px;">{{ docSubtitle }}</div>
+                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#25323a;margin-top:18px;">prepared for {{ docClientName }}</div>
+                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#747A7A;margin-top:6px;">Version {{ docVersion }}&nbsp; |&nbsp; {{ docDateLabel }}</div>
+                  </div>
+                  {{ docEl }}
+                  <div style="margin-top:34px;padding-top:12px;border-top:1px solid #E1E6E6;display:flex;justify-content:space-between;font-family:'Regnology Sans',Arial,sans-serif;font-size:8px;color:#9FA8A9;">
+                    <span>Technical Deployment Document · {{ docPkgName }} · Version {{ docVersion }}</span>
+                    <span>{{ docFooterRight }}</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:800},&quot;streamSpeed&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Slow&quot;,&quot;Normal&quot;,&quot;Fast&quot;],&quot;default&quot;:&quot;Normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;showLineNumbers&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;autoAdvance&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  state = {
+    tab: 'input',
+    a1: 'idle', a2: 'locked', a3: 'idle',
+    a1log: 0, a2log: 0, a3log: 0,
+    sqlLines: 0,
+    activePkg: 0, pkgReady: 0, pkgLineCount: 0,
+    docReady: 0,
+    pkgSource: 'pipeline',
+    tplCustom: false, fmtCustom: false,
+    cfgTemplate: '',
+    cfgTplDocName: 'Deployment_Template.doc',
+    cfgFormat: '',
+    cfgLogo: 'regnology',
+    cfgClientName: 'Client name',
+    cfgLogoImg: null,
+    cfgLogoName: '',
+    extraFiles: [],
+    reqFiles: [],
+    reqText: '',
+    genSql: [],
+    genPkg: null,
+    genDoc: null,
+    copied: null,
+    wsName: '',
+    copyFallback: null,
+  };
+
+  DEFAULT_TEMPLATE = [
+    '1  Overview',
+    '2  Installation Steps',
+    '3  Downtime',
+    '4  Schedule',
+    '5  Impact',
+    '6  Rollback',
+    '7  Package',
+  ].join('\n');
+
+  DEFAULT_FORMAT = 'Document heading — follow the first page of the template\u2019s Word formatting style:\n\u2022 Technical Deployment Document (Arial, heading 48)\n\u2022 Subtitle (Arial, heading 24)\n\u2022 Prepared for <Client Name>\n\u2022 Version no. (Arial, heading 12)\n\n\u2022 Use the Regnology logo image from the format template \u2014 keep scale height and width at 100%; do not resize the original logo.\n\u2022 Place the Regnology image logo on the left side of the header \u2014 scale height and width 100%; do not resize.\n\u2022 Footer text in Regnology Sans 8; no logos in the footer.\n\u2022 Body: Arial body 24 for paragraph headings; Arial body 12 for sub-headings and paragraphs.';
+
+  _timers = [];
+
+  a1Log = [
+    'Parsing the requirement prompt and attachments',
+    'Extracting the entities, filters and metrics requested',
+    'Mapping requested fields to source columns',
+    'Choosing the aggregation grain',
+    'Drafting the INSERT…SELECT with the requested metrics',
+    'Adding bind variables and COMMIT',
+    'Validating SQL syntax · OK',
+  ];
+  a2Log = [
+    'Reading approved query from Query Architect',
+    'Detecting existing package / procedure definitions',
+    'Separating specification and body',
+    'Preparing deployment files',
+    'Building Fermat registration script',
+    'Generating GRANT + synonym script',
+    'Static analysis · 0 warnings',
+  ];
+  a3Log = [
+    'Loading fixed template document + section rules',
+    'Parsing package header, body and scripts',
+    'Identifying procedures and processing layers',
+    'Tracing tables read and written by the code',
+    'Writing Overview and Functional Impact',
+    'Deriving pre-checks, install steps and post-verification',
+    'Building Table of Content (Arial, heading 24)',
+  ];
+
+  sqlCode = `-- Monthly order revenue summary
+-- Generated from your requirement · portable SQL
+
+INSERT INTO order_revenue_summary (
+    period_month, region, product_category,
+    order_count, gross_revenue, avg_order_value, load_ts)
+SELECT
+    :p_period_month                              AS period_month,
+    o.region,
+    o.product_category,
+    COUNT(*)                                     AS order_count,
+    SUM(o.order_total)                           AS gross_revenue,
+    ROUND(SUM(o.order_total)
+          / NULLIF(COUNT(*), 0), 2)              AS avg_order_value,
+    SYSTIMESTAMP                                 AS load_ts
+FROM   orders o
+WHERE  o.period_month = :p_period_month
+AND    o.order_status = 'CONFIRMED'
+GROUP  BY o.region, o.product_category;
+
+COMMIT;`.split('\n');
+
+  pkgFiles = [
+    {
+      name: 'pkg_sales_summary.pks', desc: 'Package specification', kind: 'PL/SQL · spec', icon: 'assets/icons/coding.svg',
+      code: `CREATE OR REPLACE PACKAGE pkg_sales_summary AS
+  -- Monthly order revenue summary package
+  -- Version 1.0.0
+
+  PROCEDURE load_revenue_summary (p_period_month IN VARCHAR2);
+
+  FUNCTION  row_checksum (p_period_month IN VARCHAR2) RETURN VARCHAR2;
+END pkg_sales_summary;
+/`.split('\n'),
+    },
+    {
+      name: 'pkg_sales_summary.pkb', desc: 'Package body', kind: 'PL/SQL · body', icon: 'assets/icons/coding.svg',
+      code: `CREATE OR REPLACE PACKAGE BODY pkg_sales_summary AS
+
+  PROCEDURE load_revenue_summary (p_period_month IN VARCHAR2) IS
+    v_rows NUMBER := 0;
+  BEGIN
+    DELETE FROM order_revenue_summary
+    WHERE  period_month = p_period_month;
+
+    INSERT INTO order_revenue_summary (
+        period_month, region, product_category,
+        order_count, gross_revenue, avg_order_value, load_ts)
+    SELECT p_period_month, o.region, o.product_category,
+           COUNT(*),
+           SUM(o.order_total),
+           ROUND(SUM(o.order_total) / NULLIF(COUNT(*), 0), 2),
+           SYSTIMESTAMP
+    FROM   orders o
+    WHERE  o.period_month = p_period_month
+    AND    o.order_status = 'CONFIRMED'
+    GROUP  BY o.region, o.product_category;
+
+    v_rows := SQL%ROWCOUNT;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Loaded ' || v_rows || ' summary rows.');
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
+      RAISE;
+  END load_revenue_summary;
+
+  FUNCTION row_checksum (p_period_month IN VARCHAR2) RETURN VARCHAR2 IS
+    v_hash VARCHAR2(64);
+  BEGIN
+    SELECT STANDARD_HASH(
+             LISTAGG(region || product_category || gross_revenue, '|')
+             WITHIN GROUP (ORDER BY region), 'SHA256')
+    INTO   v_hash
+    FROM   order_revenue_summary
+    WHERE  period_month = p_period_month;
+    RETURN v_hash;
+  END row_checksum;
+
+END pkg_sales_summary;
+/`.split('\n'),
+    },
+    {
+      name: 'chk_sales_summary.sql', desc: 'Checksum query', kind: 'SQL · validation', icon: 'assets/icons/quality.svg',
+      code: `-- Checksum validation — monthly revenue summary
+-- Run post-load; compare against the control totals
+
+SELECT s.period_month,
+       COUNT(*)                 AS row_cnt,
+       SUM(s.gross_revenue)     AS ctrl_revenue,
+       pkg_sales_summary.row_checksum(s.period_month)
+                                AS sha256_hash
+FROM   order_revenue_summary s
+WHERE  s.period_month = :p_period_month
+GROUP  BY s.period_month;`.split('\n'),
+    },
+    {
+      name: 'grant_sales_summary.sql', desc: 'Grant rights', kind: 'SQL · privileges', icon: 'assets/icons/shield-user.svg',
+      code: `-- Object privileges — least privilege for consuming roles
+
+GRANT EXECUTE ON pkg_sales_summary      TO rl_etl_run;
+GRANT SELECT  ON order_revenue_summary  TO rl_report_read;
+GRANT SELECT  ON order_revenue_summary  TO rl_audit;
+
+-- Public synonym for the scheduler
+CREATE OR REPLACE PUBLIC SYNONYM pkg_sales_summary
+  FOR pkg_sales_summary;`.split('\n'),
+    },
+  ];
+
+  docSections = [
+    { tag: 'Section 1', title: '1  Overview', html:
+      `<p style="margin:0;font-size:12px;line-height:1.7;color:#25323a;font-family:Arial,Helvetica,sans-serif;">PKG_SALES_SUMMARY is a PL/SQL package that builds the monthly order-revenue summary requested in the requirement. It aggregates confirmed orders to region × product-category level for a supplied period, and for each group computes the order count, gross revenue and average order value. The result is written to the ORDER_REVENUE_SUMMARY table. The package is idempotent — an existing load for the same period is cleared before reinsertion — and finishes each run with an explicit COMMIT. A companion row_checksum function returns a SHA-256 hash so the loaded figures can be reconciled against the source control totals.</p>` },
+    { tag: 'Section 2', title: '2  Installation Steps', html:
+      `<p style="margin:0 0 10px;font-size:12px;line-height:1.7;color:#25323a;font-family:Arial,Helvetica,sans-serif;">The steps below were derived by reading the deployment scripts.</p>
+      <ol style="margin:0;padding-left:18px;font-size:12px;line-height:1.8;color:#25323a;font-family:Arial,Helvetica,sans-serif;">
+        <li>Connect to the target database as the deployment schema owner.</li>
+        <li>Deploy the package specification — run <code style="background:#F0F4F4;padding:1px 5px;border-radius:4px;">pkg_sales_summary.pks</code>; confirm <i>Package created</i>.</li>
+        <li>Deploy the package body — run <code style="background:#F0F4F4;padding:1px 5px;border-radius:4px;">pkg_sales_summary.pkb</code>; confirm <i>Package body created</i> and check <code style="background:#F0F4F4;padding:1px 5px;border-radius:4px;">SHOW ERRORS</code> is clean.</li>
+        <li>Apply object privileges and the public synonym — run <code style="background:#F0F4F4;padding:1px 5px;border-radius:4px;">grant_sales_summary.sql</code>.</li>
+        <li>Execute the load for the period — <code style="background:#F0F4F4;padding:1px 5px;border-radius:4px;">EXEC PKG_SALES_SUMMARY.load_revenue_summary('2026-06');</code></li>
+        <li>Run <code style="background:#F0F4F4;padding:1px 5px;border-radius:4px;">chk_sales_summary.sql</code> and record the returned row count and SHA-256 hash.</li>
+      </ol>` },
+    { tag: 'Section 3', title: '3  Downtime', html:
+      `<p style="margin:0;font-size:12px;line-height:1.7;color:#25323a;font-family:Arial,Helvetica,sans-serif;"><b style="font-weight:700;">No downtime is required.</b> The package is compiled and executed online; the summary table is not consumed by downstream reporting during the load window.</p>` },
+    { tag: 'Section 4', title: '4  Schedule', html:
+      `<p style="margin:0;font-size:12px;line-height:1.7;color:#25323a;font-family:Arial,Helvetica,sans-serif;">To be agreed with the technical team.</p>` },
+    { tag: 'Section 5', title: '5  Impact', html:
+      `<p style="margin:0 0 10px;font-size:12px;line-height:1.7;color:#25323a;font-family:Arial,Helvetica,sans-serif;">The deployment creates or replaces the PKG_SALES_SUMMARY package and its public synonym. At runtime the procedure reads from the source orders table and fully refreshes the summary table for the supplied period. The tables impacted by this package are:</p>
+      <table style="width:100%;border-collapse:collapse;font-size:12px;font-family:Arial,Helvetica,sans-serif;">
+        <tr style="background:#F5F7F7;"><th style="padding:7px 10px;border:1px solid #E1E6E6;text-align:left;font-weight:700;">Table</th><th style="padding:7px 10px;border:1px solid #E1E6E6;text-align:left;font-weight:700;">Access</th><th style="padding:7px 10px;border:1px solid #E1E6E6;text-align:left;font-weight:700;">Effect</th></tr>
+        <tr><td style="padding:7px 10px;border:1px solid #E1E6E6;">ORDER_REVENUE_SUMMARY</td><td style="padding:7px 10px;border:1px solid #E1E6E6;">Write</td><td style="padding:7px 10px;border:1px solid #E1E6E6;">DELETE + INSERT for the period</td></tr>
+        <tr><td style="padding:7px 10px;border:1px solid #E1E6E6;">ORDERS</td><td style="padding:7px 10px;border:1px solid #E1E6E6;">Read</td><td style="padding:7px 10px;border:1px solid #E1E6E6;">Source — not modified</td></tr>
+      </table>` },
+    { tag: 'Section 6', title: '6  Rollback', html:
+      `<p style="margin:0;font-size:12px;line-height:1.7;color:#25323a;font-family:Arial,Helvetica,sans-serif;">Before deployment, take a backup of the required objects — the existing PKG_SALES_SUMMARY specification and body, and an export of the current ORDER_REVENUE_SUMMARY rows for the affected period. If the change must be reversed, restore these objects from the backup. No rollback scripts are included in this document.</p>` },
+    { tag: 'Section 7', title: '7  Package', html:
+      `<p style="margin:0 0 12px;font-size:12px;line-height:1.7;color:#25323a;font-family:Arial,Helvetica,sans-serif;">The SQL package is attached to this document as an embedded object. Double-click an item to open the source; the code is not reproduced inline.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:11px;border:1px solid #E1E6E6;border-radius:8px;padding:10px 12px;background:#FBFCFC;font-family:Arial,Helvetica,sans-serif;"><span style="width:20px;height:20px;flex:none;background-color:#06A74E;-webkit-mask:url(assets/icons/coding.svg) center/contain no-repeat;mask:url(assets/icons/coding.svg) center/contain no-repeat;"></span><div style="flex:1;"><div style="font-size:12px;font-weight:700;">pkg_sales_summary.pks</div><div style="font-size:11px;color:#747A7A;">Embedded object · Package specification</div></div><span style="font-size:11px;color:#9FA8A9;">OLE object</span></div>
+        <div style="display:flex;align-items:center;gap:11px;border:1px solid #E1E6E6;border-radius:8px;padding:10px 12px;background:#FBFCFC;font-family:Arial,Helvetica,sans-serif;"><span style="width:20px;height:20px;flex:none;background-color:#06A74E;-webkit-mask:url(assets/icons/coding.svg) center/contain no-repeat;mask:url(assets/icons/coding.svg) center/contain no-repeat;"></span><div style="flex:1;"><div style="font-size:12px;font-weight:700;">pkg_sales_summary.pkb</div><div style="font-size:11px;color:#747A7A;">Embedded object · Package body</div></div><span style="font-size:11px;color:#9FA8A9;">OLE object</span></div>
+        <div style="display:flex;align-items:center;gap:11px;border:1px solid #E1E6E6;border-radius:8px;padding:10px 12px;background:#FBFCFC;font-family:Arial,Helvetica,sans-serif;"><span style="width:20px;height:20px;flex:none;background-color:#1788BE;-webkit-mask:url(assets/icons/quality.svg) center/contain no-repeat;mask:url(assets/icons/quality.svg) center/contain no-repeat;"></span><div style="flex:1;"><div style="font-size:12px;font-weight:700;">chk_sales_summary.sql</div><div style="font-size:11px;color:#747A7A;">Embedded object · Checksum query</div></div><span style="font-size:11px;color:#9FA8A9;">OLE object</span></div>
+      </div>` },
+  ];
+
+  tocEntries = [
+    { n: '1', label: 'Overview', lvl: 1 },
+    { n: '2', label: 'Deployment Objects', lvl: 1 },
+    { n: '2.1', label: 'Package Details', lvl: 2 },
+    { n: '2.2', label: 'Deployment Pre-Checks', lvl: 2 },
+    { n: '2.3', label: 'Deployment Post-Verification', lvl: 2 },
+    { n: '3', label: 'Installation Steps', lvl: 1 },
+    { n: '4', label: 'Downtime', lvl: 1 },
+    { n: '5', label: 'Schedule', lvl: 1 },
+    { n: '6', label: 'Impact', lvl: 1 },
+    { n: '6.1', label: 'Functional Impact', lvl: 2 },
+    { n: '6.2', label: 'Impacted Database Tables', lvl: 2 },
+    { n: '7', label: 'Rollback', lvl: 1 },
+    { n: '8', label: 'Package', lvl: 1 },
+  ];
+
+  componentWillUnmount() { this._timers.forEach((t) => { clearInterval(t); clearTimeout(t); }); }
+
+  speedMult() {
+    const s = this.props.streamSpeed || 'Normal';
+    return s === 'Slow' ? 1.9 : s === 'Fast' ? 0.4 : 1;
+  }
+
+  esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  hl(line) {
+    const idx = line.indexOf('--');
+    let code = line, comment = '';
+    if (idx >= 0) { code = line.slice(0, idx); comment = '<i style="color:#6C8A99;font-style:normal">' + this.esc(line.slice(idx)) + '</i>'; }
+    const e = this.esc(code);
+    const span = (t, c) => '<i style="color:' + c + ';font-style:normal">' + t + '</i>';
+    const kw = 'CREATE|OR|REPLACE|PACKAGE|BODY|PROCEDURE|FUNCTION|BEGIN|END|IS|AS|DECLARE|RETURN|INTO|SELECT|FROM|WHERE|INSERT|UPDATE|DELETE|MERGE|COMMIT|ROLLBACK|GRANT|EXECUTE|ON|TO|VALUES|AND|NOT|NULL|CASE|WHEN|THEN|ELSE|EXCEPTION|OTHERS|RAISE|NUMBER|VARCHAR2|DATE|IN|OUT|GROUP|BY|WITHIN|ORDER|PUBLIC|SYNONYM|FOR|SET|USING|DEFAULT|LIKE|BETWEEN|EXISTS|DISTINCT|HAVING|JOIN|LEFT|RIGHT|INNER|OUTER|TRUNCATE|ALTER|TABLE|VIEW|ADD|DROP|COLUMN';
+    const fn = 'SUM|COUNT|ROUND|NULLIF|LISTAGG|STANDARD_HASH|TO_DATE|TO_CHAR|SYSTIMESTAMP|SYSDATE|DBMS_OUTPUT|NVL|COALESCE|TRIM|SUBSTR|UPPER|LOWER|DECODE';
+    const re = new RegExp("('[^']*')|(:\\w+)|\\b(" + fn + ")\\b|\\b(" + kw + ")\\b", 'gi');
+    const out = e.replace(re, (m, str, bind, f, k) => {
+      if (str) return span(str, '#EEB44E');
+      if (bind) return span(bind, '#EEB44E');
+      if (f) return span(f, '#5CB3DC');
+      if (k) return span(k, '#3CE55A');
+      return m;
+    });
+    return out + comment;
+  }
+
+  codeEl(lines, cursor) {
+    const nums = this.props.showLineNumbers !== false;
+    const rows = lines.map((l, i) => React.createElement('div', { key: i, style: { display: 'flex', gap: '16px' } },
+      nums ? React.createElement('span', { style: { width: '26px', textAlign: 'right', color: '#3f6474', userSelect: 'none', flex: 'none' } }, String(i + 1)) : null,
+      React.createElement('span', { style: { flex: 1, whiteSpace: 'pre' }, dangerouslySetInnerHTML: { __html: this.hl(l) || '&nbsp;' } })
+    ));
+    if (cursor) rows.push(React.createElement('div', { key: 'c', style: { display: 'flex', gap: '16px' } },
+      nums ? React.createElement('span', { style: { width: '26px', flex: 'none' } }) : null,
+      React.createElement('span', { className: 'blink', style: { color: '#3CE55A' } }, '▍')));
+    return React.createElement('div', { style: { fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Consolas,monospace', fontSize: '12.5px', lineHeight: '1.7', color: '#CFE0E7' } }, rows);
+  }
+
+  streamReveal(total, key, speed, done) {
+    this.setState({ [key]: 0 });
+    if (total <= 0) { if (done) done(); return; }
+    const step = speed * this.speedMult();
+    const t0 = Date.now();
+    let fired = false;
+    const finish = () => { if (fired) return; fired = true; clearInterval(id); this.setState({ [key]: total }); if (done) done(); };
+    const id = setInterval(() => {
+      const i = Math.min(total, Math.floor((Date.now() - t0) / step) + 1);
+      if (i >= total) { finish(); return; }
+      this.setState({ [key]: i });
+    }, Math.max(50, step / 2));
+    this._timers.push(id);
+    const guard = setTimeout(finish, step * total + 1200);
+    this._timers.push(guard);
+  }
+
+  reqPayload() {
+    const s = this.state;
+    let out = 'Requirement:\n' + (s.reqText && s.reqText.trim() ? s.reqText.trim() : '(none typed)');
+    const withText = s.reqFiles.filter((f) => f.text);
+    if (withText.length) {
+      out += '\n\nAttached file contents:';
+      withText.forEach((f) => { out += '\n\n--- ' + f.name + ' ---\n' + f.text; });
+    }
+    const noText = s.reqFiles.filter((f) => !f.text);
+    if (noText.length) out += '\n\nAlso attached (names only): ' + noText.map((f) => f.name).join(', ');
+    return out;
+  }
+
+  async completeModel(opts) {
+    const user = (opts.messages || []).map((m) => m.content).join('\n\n');
+    const res = await fetch('/api/complete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: opts.system || '',
+        user,
+        maxOutputTokens: opts.max_tokens,
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 402) throw new Error(data.message || 'Monthly AI budget spent');
+    if (!res.ok) throw new Error(data.message || data.code || ('HTTP ' + res.status));
+    return data.text || '';
+  }
+
+  async runAgent1() {
+    if (this.state.a1 === 'running') return;
+    const s = this.state;
+    if (!(s.reqText && s.reqText.trim()) && s.reqFiles.length === 0) {
+      this.setState({ tab: 'sql', a1: 'ready', a1log: 0, genSql: ['-- No requirement provided.', '-- Type a requirement (or attach a file) on the Input tab, then run again.'] });
+      this.setState((p) => ({ sqlLines: p.genSql.length }));
+      this.streamReveal(this.a1Log.length, 'a1log', 260);
+      return;
+    }
+    this.setState({ tab: 'sql', a1: 'running', a1log: 0, sqlLines: 0, genSql: [] });
+    this.streamReveal(this.a1Log.length, 'a1log', 380);
+    let sql;
+    try {
+      const raw = await this.completeModel({
+        max_tokens: 32000,
+        system: 'You are the Query Architect in a SQL deployment tool. Convert the user\'s requirement into a single runnable SQL / Oracle PL-SQL script. RULES: (1) Use ONLY what the requirement and any provided file content state — never invent tables, columns, values, filters, joins, or business logic that are not present. (2) If the requirement is already a SQL statement, keep it verbatim apart from clean formatting and safe quoting. (3) Do NOT add SELECTs, aggregations, ORDER BY, or columns that were not requested. (4) For every INSERT / UPDATE / DELETE / MERGE, finish the script with a COMMIT; statement. (5) Output ONLY the SQL — no prose, no explanation, no markdown code fences.',
+        messages: [{ role: 'user', content: this.reqPayload() }],
+      });
+      sql = String(raw || '').trim().replace(/^```[a-z]*\s*/i, '').replace(/```\s*$/, '').trim();
+      if (!sql) sql = '-- The model returned no SQL. Please refine the requirement and try again.';
+    } catch (err) {
+      sql = '-- Unable to generate SQL.\n-- ' + (err && err.message ? err.message : String(err)) + '\n-- Please try again.';
+    }
+    const lines = sql.split('\n');
+    this.setState({ genSql: lines });
+    this.streamReveal(lines.length, 'sqlLines', 45, () => this.setState({ a1: 'ready' }));
+  }
+
+  approveAgent1() {
+    if (this.state.a1 !== 'ready') return;
+    this.setState((s) => ({ a1: 'approved', a2: s.a2 === 'locked' ? 'idle' : s.a2, tab: this.props.autoAdvance === false ? s.tab : 'package' }));
+  }
+
+  // ---- deterministic derivation from the generated SQL (no external info) ----
+  sqlText() { return (this.state.genSql || []).join('\n'); }
+
+  copyText(text, key) {
+    const flag = (ok) => {
+      this.setState({ copied: ok ? key : key + ':fail' });
+      const t = setTimeout(() => this.setState({ copied: null }), 1800);
+      this._timers.push(t);
+    };
+    const legacy = () => {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '0';
+        ta.style.left = '0';
+        ta.style.width = '1px';
+        ta.style.height = '1px';
+        ta.style.padding = '0';
+        ta.style.border = 'none';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        return ok;
+      } catch (e) { return false; }
+    };
+    // Try the async API, but genuinely fall back when it is blocked (sandboxed iframe).
+    let p = null;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext !== false) {
+        p = navigator.clipboard.writeText(text);
+      }
+    } catch (e) { p = null; }
+    if (p && typeof p.then === 'function') {
+      p.then(() => flag(true), () => { if (!legacy()) this.setState({ copyFallback: text }); else flag(true); });
+    } else if (!legacy()) {
+      this.setState({ copyFallback: text });
+    } else {
+      flag(true);
+    }
+  }
+
+  parseSql(t) {
+    const opm = t.match(/\b(update|insert|delete|merge|select|create|alter|truncate)\b/i);
+    const op = opm ? opm[1].toUpperCase() : 'SQL';
+    const tm = t.match(/\b(?:update|insert\s+into|delete\s+from|merge\s+into)\s+([a-z_][\w$."]*)/i) || t.match(/\bfrom\s+([a-z_][\w$."]*)/i) || t.match(/\b(?:table|view)\s+([a-z_][\w$."]*)/i);
+    const table = tm ? tm[1].replace(/"/g, '') : '';
+    const wm = t.match(/\bwhere\b([\s\S]*?)(;|$)/i);
+    const where = wm ? wm[1].trim() : '';
+    return { op, table, where };
+  }
+
+  pkgBase(table) {
+    const b = (table || '').split('.').pop().replace(/[^a-z0-9_]/gi, '').toLowerCase();
+    return b || 'deployment';
+  }
+
+  // Detect an existing package/procedure/function definition in the SQL
+  detectExisting(t) {
+    const specM = t.match(/create\s+(?:or\s+replace\s+)?package\s+(?!body\b)([a-z_][\w$."]*)/i);
+    const bodyM = t.match(/create\s+(?:or\s+replace\s+)?package\s+body\s+([a-z_][\w$."]*)/i);
+    const procM = t.match(/create\s+(?:or\s+replace\s+)?(?:procedure|function)\s+([a-z_][\w$."]*)/i);
+    if (!specM && !bodyM && !procM) return null;
+    const name = (bodyM || specM || procM)[1].replace(/"/g, '');
+    return { name: name, base: this.pkgBase(name), isPackage: !!(specM || bodyM), hasSpec: !!specM, hasBody: !!bodyM };
+  }
+
+  // Split a script into standalone statements on lines that are just "/"
+  splitSlash(t) {
+    const parts = [];
+    let cur = [];
+    t.split('\n').forEach((l) => {
+      if (l.trim() === '/') { cur.push(l); parts.push(cur.join('\n').trim()); cur = []; }
+      else cur.push(l);
+    });
+    if (cur.join('\n').trim()) parts.push(cur.join('\n').trim());
+    return parts.filter(Boolean);
+  }
+
+  buildPackage() {
+    const t = this.sqlText();
+    const p = this.parseSql(t);
+    const existing = this.detectExisting(t);
+
+    // If the query already defines a package/procedure, use it as-is — do not nest another wrapper.
+    if (existing) {
+      const base = existing.base;
+      const files = [];
+      const specPart = (t.match(/create\s+(?:or\s+replace\s+)?package\s+(?!body\b)[\s\S]*?(?:\n\/|$)/i) || [])[0];
+      const bodyPart = (t.match(/create\s+(?:or\s+replace\s+)?package\s+body[\s\S]*?(?:\n\/|$)/i) || [])[0];
+      if (existing.isPackage) {
+        if (specPart) files.push({ name: base + '.pks', desc: 'Package specification', kind: 'PL/SQL · spec', icon: 'assets/icons/coding.svg', code: specPart.trim().split('\n') });
+        if (bodyPart) files.push({ name: base + '.pkb', desc: 'Package body', kind: 'PL/SQL · body', icon: 'assets/icons/coding.svg', code: bodyPart.trim().split('\n') });
+        if (!files.length) files.push({ name: base + '.sql', desc: 'Package script', kind: 'PL/SQL', icon: 'assets/icons/coding.svg', code: t.trim().split('\n') });
+      } else {
+        // standalone procedure/function — keep as one script, no packaging
+        files.push({ name: base + '.sql', desc: 'Procedure / function', kind: 'PL/SQL', icon: 'assets/icons/coding.svg', code: t.trim().split('\n') });
+      }
+      const descE = (existing.isPackage ? 'Package ' : 'Procedure ') + existing.name;
+      const chkE = [
+        '-- Checksum / Fermat package registration',
+        '-- Registers ' + existing.name + ' in the Fermat metadata (cd_fdw_structure)',
+        '',
+        'BEGIN',
+        '   DELETE FROM cd_fdw_structure',
+        "   WHERE table_name = '" + existing.name + "';",
+        '',
+        '   pack_fermat.create_package(',
+        "     v_package_name    => '" + existing.name + "',",
+        '     v_fpm_id          => NULL,',
+        "     v_standard_custom => 'C',",
+        "     v_comp_code       => 'CUSTOM',",
+        "     v_description     => '" + descE + "');",
+        '',
+        '   COMMIT;',
+        'END;',
+        '/',
+      ];
+      files.push({ name: 'chk_' + base + '.sql', desc: 'Checksum query', kind: 'SQL · validation', icon: 'assets/icons/quality.svg', code: chkE });
+      files.push({ name: 'grant_' + base + '.sql', desc: 'Grant rights', kind: 'SQL · privileges', icon: 'assets/icons/shield-user.svg', code: ['-- Object privileges — least privilege for the deploy role', '', 'GRANT EXECUTE ON ' + existing.name + ' TO rl_deploy_run;', '', '-- Public synonym for the scheduler', 'CREATE OR REPLACE PUBLIC SYNONYM ' + base, '  FOR ' + existing.name + ';'] });
+      return files;
+    }
+
+    const base = this.pkgBase(p.table);
+    const pkg = 'pkg_' + base;
+    const proc = 'apply_' + base;
+    let dml = t.replace(/;?\s*commit\s*;?\s*$/i, '').trim();
+    const indented = dml.split('\n').map((l) => '    ' + l).join('\n');
+    const spec = ['CREATE OR REPLACE PACKAGE ' + pkg + ' AS', '  -- Generated from the requirement — deployment wrapper', '  PROCEDURE ' + proc + ';', 'END ' + pkg + ';', '/'];
+    const body = ['CREATE OR REPLACE PACKAGE BODY ' + pkg + ' AS', '', '  PROCEDURE ' + proc + ' IS', '    v_rows NUMBER := 0;', '  BEGIN', indented + (dml.endsWith(';') ? '' : ';'), '    v_rows := SQL%ROWCOUNT;', '    COMMIT;', "    DBMS_OUTPUT.PUT_LINE('Applied ' || v_rows || ' row(s).');", '  EXCEPTION', '    WHEN OTHERS THEN', '      ROLLBACK;', '      RAISE;', '  END ' + proc + ';', '', 'END ' + pkg + ';', '/'];
+    const desc = (p.op || 'SQL') + ' deployment' + (p.table ? ' for ' + p.table : '');
+    const chk = [
+      '-- Checksum / Fermat package registration',
+      '-- Registers ' + pkg + ' in the Fermat metadata (cd_fdw_structure)',
+      '',
+      'BEGIN',
+      '   DELETE FROM cd_fdw_structure',
+      "   WHERE table_name = '" + pkg + "';",
+      '',
+      '   pack_fermat.create_package(',
+      "     v_package_name    => '" + pkg + "',",
+      '     v_fpm_id          => NULL,',
+      "     v_standard_custom => 'C',",
+      "     v_comp_code       => 'CUSTOM',",
+      "     v_description     => '" + desc + "');",
+      '',
+      '   COMMIT;',
+      'END;',
+      '/',
+    ];
+    const grant = ['-- Object privileges — least privilege for the deploy role', '', 'GRANT EXECUTE ON ' + pkg + ' TO rl_deploy_run;', '', '-- Public synonym for the scheduler', 'CREATE OR REPLACE PUBLIC SYNONYM ' + pkg, '  FOR ' + pkg + ';'];
+    return [
+      { name: pkg + '.pks', desc: 'Package specification', kind: 'PL/SQL · spec', icon: 'assets/icons/coding.svg', code: spec },
+      { name: pkg + '.pkb', desc: 'Package body', kind: 'PL/SQL · body', icon: 'assets/icons/coding.svg', code: body },
+      { name: 'chk_' + base + '.sql', desc: 'Checksum query', kind: 'SQL · validation', icon: 'assets/icons/quality.svg', code: chk },
+      { name: 'grant_' + base + '.sql', desc: 'Grant rights', kind: 'SQL · privileges', icon: 'assets/icons/shield-user.svg', code: grant },
+    ];
+  }
+
+  runAgent2() {
+    if (this.state.a2 === 'running') return;
+    const pkg = this.buildPackage();
+    this.setState({ a2: 'running', a2log: 0, pkgReady: 0, activePkg: 0, pkgLineCount: 0, genPkg: pkg });
+    this.streamReveal(this.a2Log.length, 'a2log', 360, () => this.streamFiles(0));
+  }
+
+  streamFiles(idx) {
+    const pkg = this.state.genPkg || [];
+    if (idx >= pkg.length) { this.setState({ a2: 'ready' }); return; }
+    this.setState({ activePkg: idx, pkgLineCount: 0 });
+    this.streamReveal(pkg[idx].code.length, 'pkgLineCount', 20, () => {
+      this.setState({ pkgReady: idx + 1 });
+      const tm = setTimeout(() => this.streamFiles(idx + 1), 240 * this.speedMult());
+      this._timers.push(tm);
+    });
+  }
+
+  approveAgent2() {
+    if (this.state.a2 !== 'ready') return;
+    this.setState((s) => ({ a2: 'approved', a3: 'idle', pkgSource: 'pipeline', tab: this.props.autoAdvance === false ? s.tab : 'doc' }));
+  }
+
+  esc2(x) { return String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  uploadNames() {
+    return (this.state.extraFiles || []).map((f) => f.name);
+  }
+
+  removeExtraFile(i) {
+    this.setState((p) => ({ extraFiles: p.extraFiles.filter((_, idx) => idx !== i) }));
+  }
+
+  clearExtraFiles() { this.setState({ extraFiles: [] }); }
+
+  // ---------- Deployment document engine ----------
+  fA() { return 'font-family:Arial,Helvetica,sans-serif;'; }
+
+  docDate() {
+    const d = new Date();
+    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  pkgSourceText() {
+    if (this.state.pkgSource === 'pipeline') {
+      return (this.state.genPkg || []).map((f) => '--- ' + f.name + ' ---\n' + f.code.join('\n')).join('\n\n');
+    }
+    return (this.state.extraFiles || []).map((f) => '--- ' + f.name + ' ---\n' + (f.text || '(binary / not readable)')).join('\n\n');
+  }
+
+  docFileNames() {
+    if (this.state.pkgSource === 'pipeline') return (this.state.genPkg || []).map((f) => f.name);
+    return (this.state.extraFiles || []).map((f) => f.name);
+  }
+
+  // Deterministic analysis used as a fallback and to seed the model
+  analysePackage() {
+    const t = this.pkgSourceText();
+    const names = this.docFileNames();
+    const ex = this.detectExisting(t) || this.detectExisting(this.sqlText());
+    const pkgName = ex ? ex.name.toUpperCase() : (names[0] ? names[0].replace(/\.[a-z]+$/i, '').toUpperCase() : 'DEPLOYMENT PACKAGE');
+    const procs = [];
+    const pre = /\b(?:procedure|function)\s+([a-z_][\w$]*)/gi;
+    let m;
+    while ((m = pre.exec(t))) { const n = m[1].toUpperCase(); if (procs.indexOf(n) < 0) procs.push(n); }
+    const tables = [];
+    const tre = /\b(?:insert\s+into|update|delete\s+from|merge\s+into|from|join)\s+([a-z_][\w$]*(?:\.[a-z_][\w$]*)?)/gi;
+    while ((m = tre.exec(t))) {
+      const n = m[1].toUpperCase();
+      if (/^(DUAL|SELECT|WHERE|SET|VALUES|TABLE)$/.test(n)) continue;
+      if (tables.indexOf(n) < 0) tables.push(n);
+    }
+    const ops = [];
+    ['INSERT', 'UPDATE', 'DELETE', 'MERGE', 'TRUNCATE'].forEach((o) => { if (new RegExp('\\b' + o + '\\b', 'i').test(t)) ops.push(o); });
+    return { pkgName: pkgName, procs: procs.slice(0, 12), tables: tables.slice(0, 12), ops: ops, files: names, isPackage: !!(ex && ex.isPackage) };
+  }
+
+  // ---- HTML section helpers (Arial 12 body / Arial 24 headings per the template) ----
+  pHtml(s) { return '<p style="margin:0 0 10px;font-size:12px;line-height:1.7;color:#25323a;' + this.fA() + '">' + s + '</p>'; }
+  listHtml(items, ordered) {
+    const tag = ordered ? 'ol' : 'ul';
+    return '<' + tag + ' style="margin:0 0 6px;padding-left:20px;font-size:12px;line-height:1.8;color:#25323a;' + this.fA() + '">' + items.map((i) => '<li style="margin-bottom:4px;">' + i + '</li>').join('') + '</' + tag + '>';
+  }
+  tableHtml(head, rows) {
+    const th = head.map((h) => '<th style="padding:8px 10px;border:1px solid #E1E6E6;text-align:left;font-weight:700;background:#F5F7F7;">' + h + '</th>').join('');
+    const tr = rows.map((r) => '<tr>' + r.map((c, i) => '<td style="padding:8px 10px;border:1px solid #E1E6E6;vertical-align:top;' + (i === 0 ? 'font-weight:700;white-space:nowrap;' : '') + '">' + c + '</td>').join('') + '</tr>').join('');
+    return '<table style="width:100%;border-collapse:collapse;font-size:12px;' + this.fA() + '">' + '<tr>' + th + '</tr>' + tr + '</table>';
+  }
+  subHead(s) { return '<div style="font-size:14px;font-weight:700;color:#012D3F;margin:16px 0 8px;' + this.fA() + '">' + s + '</div>'; }
+
+  // Build the full document from an analysis object (model-supplied or deterministic)
+  composeDoc(a) {
+    const e = (x) => this.esc2(String(x == null ? '' : x));
+    const names = this.docFileNames();
+    const pkgName = e(a.pkgName);
+    const fileRows = names.length ? names : ['(no files)'];
+
+    const objectItems = [];
+    (a.objects && a.objects.length ? a.objects : names.map((n) => ({ type: /\.pks$/i.test(n) ? 'Package Header' : /\.pkb$/i.test(n) ? 'Package Body' : 'Script', name: n }))).forEach((o) => {
+      objectItems.push('<b style="font-weight:700;">' + e(o.type) + ':</b> ' + e(o.name));
+    });
+    (a.procs || []).forEach((p) => objectItems.push('<b style="font-weight:700;">Procedure:</b> ' + e(p) + ' (within package body)'));
+
+    const preChecks = (a.preChecks && a.preChecks.length) ? a.preChecks : [
+      'Ensure access to the target schema in the destination database environment.',
+      'Confirm that SQL Developer (or an equivalent client) is available and connected.',
+      'Verify that the existing ' + pkgName + ' package header and body scripts are accessible for backup.',
+      (a.tables || []).length ? 'Confirm that tables ' + (a.tables || []).map(e).join(', ') + ' are accessible in the schema.' : 'Confirm that all referenced tables are accessible in the schema.',
+      'Confirm that any lookup or configuration tables used by the package are populated for the reporting date and workspace.',
+    ];
+    const postChecks = (a.postChecks && a.postChecks.length) ? a.postChecks : [
+      'Confirm the ' + pkgName + ' package compiles without errors in the target schema.',
+      (a.procs || []).length ? 'Validate that procedure' + ((a.procs || []).length > 1 ? 's' : '') + ' ' + (a.procs || []).map(e).join(', ') + ' ' + ((a.procs || []).length > 1 ? 'are' : 'is') + ' visible under the package.' : 'Validate that all declared procedures are visible under the package.',
+      'Execute a test run against a non-production reporting date and inspect the impacted tables for expected values.',
+      'Confirm no compilation errors appear in the DBA_ERRORS view for the ' + pkgName + ' object.',
+    ];
+    const steps = (a.steps && a.steps.length) ? a.steps : [
+      'Open SQL Developer and connect to the target schema using the appropriate credentials.',
+      'Take a backup of the existing ' + pkgName + ' package header (PKS) by exporting the current DDL from the schema.',
+      'Take a backup of the existing ' + pkgName + ' package body (PKB) by exporting the current DDL from the schema.',
+    ].concat(names.map((n) => 'Open the updated ' + e(n) + ' script in SQL Developer and execute it against the target schema.')).concat([
+      'Verify that the package compiles without errors by checking the compilation status in SQL Developer or querying DBA_ERRORS.',
+      'Confirm that all procedures are accessible within the deployed package.',
+    ]);
+
+    const tableRows = (a.tableImpacts && a.tableImpacts.length)
+      ? a.tableImpacts.map((t) => [e(t.name), e(t.impact)])
+      : (a.tables || []).map((t) => [e(t), 'Referenced by the package; data-level changes are applied via the statements contained in the package body.']);
+
+    const overviewParas = (a.overview && a.overview.length) ? a.overview : [
+      'This deployment introduces the ' + pkgName + ' package into the target environment. The package encapsulates the logic described in the supplied requirement and is deployed as a standard Oracle PL/SQL object.',
+      'The package is executed against the target schema and performs its work using the statements contained in the package body. All changes are committed explicitly, and the procedure rolls back on error to leave the data in a consistent state.',
+    ];
+
+    const funcImpact = a.functionalImpact || ('This deployment updates the data held in ' + ((a.tables || []).length ? (a.tables || []).map(e).join(', ') : 'the tables referenced by the package') + '. The procedure applies the ' + ((a.ops || []).join(' / ') || 'DML') + ' operations defined in the package body and recalculates any dependent aggregate values.');
+
+    const downtime = a.downtime || 'There is <b style="font-weight:700;">NO requirement for any downtime</b>. This deployment involves only DDL changes to an Oracle PL/SQL package and does not require the application or any related services to be stopped. The package can be compiled and deployed during normal working hours without impact to other active sessions.';
+    const schedule = a.schedule || 'To be agreed with the technical team. Deployment can be performed during normal working hours given that no system downtime is required. It is recommended to coordinate the execution timing with the operations team to avoid conflicts with scheduled processing runs.';
+    const rollback = a.rollback || ('Before deployment, backups of the existing ' + pkgName + ' package header and body must be taken as described in the Installation Steps section. In the event that a rollback is required, the previous package header and body scripts can be re-executed in SQL Developer to restore the prior state of the package. No rollback scripts for data changes are required, as the procedure\u2019s DML operations are idempotent \u2014 re-running the prior package version against the same data will restore the expected state.');
+
+    const fileList = fileRows.map((n) => {
+      const d = /\.pks$/i.test(n) ? ' \u2014 Package Header (contains procedure declarations)' : /\.pkb$/i.test(n) ? ' \u2014 Package Body (contains full procedure logic)' : /^chk/i.test(n) ? ' \u2014 Registration / checksum script' : /^grant/i.test(n) ? ' \u2014 Object privileges and synonym script' : ' \u2014 Deployment script';
+      return '<b style="font-weight:700;">' + e(n) + '</b>' + d;
+    });
+
+    return [
+      { tag: 'Section 1', title: '1  Overview', html: overviewParas.map((p) => this.pHtml(e(p))).join('') },
+      { tag: 'Section 2', title: '2  Deployment Objects', html:
+        this.subHead('2.1  Package Details') +
+        this.pHtml('The following database object' + (objectItems.length > 1 ? 's' : '') + ' will be deployed as part of this release:') +
+        this.listHtml(objectItems) +
+        this.subHead('2.2  Deployment Pre-Checks') +
+        this.pHtml('Before executing the deployment, confirm the following:') +
+        this.listHtml(preChecks.map(e)) +
+        this.subHead('2.3  Deployment Post-Verification') +
+        this.pHtml('After deployment, verify the following to confirm successful installation:') +
+        this.listHtml(postChecks.map(e)) },
+      { tag: 'Section 3', title: '3  Installation Steps', html:
+        this.pHtml('Perform the following steps in sequence on the target database environment:') +
+        this.listHtml(steps.map(e), true) },
+      { tag: 'Section 4', title: '4  Downtime', html: this.pHtml(downtime) },
+      { tag: 'Section 5', title: '5  Schedule', html: this.pHtml(e(schedule)) },
+      { tag: 'Section 6', title: '6  Impact', html:
+        this.subHead('6.1  Functional Impact') +
+        this.pHtml(e(funcImpact)) +
+        this.subHead('6.2  Impacted Database Tables') +
+        this.pHtml('The following tables are directly affected by this deployment:') +
+        (tableRows.length ? this.tableHtml(['Table Name', 'Description of Impact'], tableRows) : this.pHtml('No tables were identified in the supplied package.')) +
+        '<div style="height:10px;"></div>' +
+        this.pHtml('No structural or schema-level changes (DDL) are made to any of the tables listed above. All changes are data-level updates (DML) performed by the statements within the package.') },
+      { tag: 'Section 7', title: '7  Rollback', html: this.pHtml(e(rollback)) },
+      { tag: 'Section 8', title: '8  Package', html:
+        this.pHtml('The following Oracle PL/SQL package scripts are included with this deployment and should be executed in the order listed. These files are provided separately and must not be edited prior to execution.') +
+        this.listHtml(fileList) +
+        this.pHtml('Both files are attached as deployment objects in the release package. Please refer to the attached scripts provided alongside this document for execution. Do not copy or embed the SQL code directly; always use the provided script files to ensure integrity of the deployment artefact.') },
+    ];
+  }
+
+  buildDoc() { return this.composeDoc(this.analysePackage()); }
+
+  docHtmlForExport() {
+    const s = this.state;
+    const secs = s.genDoc || [];
+    const pkgName = (s.genPkg && s.genPkg.length) ? s.genPkg[0].name.replace(/\.pks$/, '').toUpperCase() : (this.docFileNames()[0] || 'SQL PACKAGE');
+    const client = s.cfgClientName || 'the client';
+    const toc = this.tocEntries.map((t) => '<p style="margin:2px 0 2px ' + ((t.lvl - 1) * 22) + 'px;font-size:12pt;' + (t.lvl === 1 ? 'font-weight:bold;' : '') + '">' + t.n + '&nbsp;&nbsp;' + t.label + '</p>').join('');
+    const body = secs.map((sec) => '<h1 style="font-family:Arial;font-size:18pt;color:#012D3F;margin:22pt 0 8pt;">' + this.esc2(sec.title) + '</h1>' + sec.html).join('');
+    return '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Technical Deployment Document</title>'
+      + '<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->'
+      + '<style>@page{size:A4;margin:2cm;} body{font-family:Arial,sans-serif;font-size:12pt;color:#25323a;} h1{font-family:Arial;} table{border-collapse:collapse;width:100%;} td,th{border:1px solid #E1E6E6;padding:6pt;font-size:11pt;}</style></head><body>'
+      + '<p style="font-size:9pt;letter-spacing:2pt;color:#06A74E;font-weight:bold;">TECHNICAL DEPLOYMENT DOCUMENT</p>'
+      + '<h1 style="font-size:34pt;color:#012D3F;margin:6pt 0;">Technical Deployment Document</h1>'
+      + '<p style="font-size:16pt;color:#3f5a66;margin:0 0 14pt;">' + this.esc2(pkgName) + '</p>'
+      + '<p style="font-size:12pt;">prepared for ' + this.esc2(client) + '</p>'
+      + '<p style="font-size:11pt;color:#747A7A;">Version 1.0&nbsp; |&nbsp; ' + this.docDate() + '</p>'
+      + '<br style="page-break-before:always;">'
+      + '<h1 style="font-size:18pt;color:#012D3F;">Table of Contents</h1>' + toc
+      + '<h1 style="font-size:18pt;color:#012D3F;margin-top:20pt;">Version Overview</h1>'
+      + '<table><tr><th>Version</th><th>Creation Date</th><th>Section</th><th>Comments</th></tr><tr><td>1.0</td><td>' + this.docDate() + '</td><td>All</td><td>Initial Release</td></tr></table>'
+      + '<br style="page-break-before:always;">' + body + '</body></html>';
+  }
+
+  downloadFile(name, text) {
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+
+  downloadAllPkg() {
+    const pkg = (this.state.genPkg || []).filter((f, i) => i < this.state.pkgReady);
+    pkg.forEach((f, i) => {
+      const t = setTimeout(() => this.downloadFile(f.name, f.code.join('\n')), i * 400);
+      this._timers.push(t);
+    });
+  }
+
+  exportDocx() {
+    const s = this.state;
+    const pkgName = (s.genPkg && s.genPkg.length) ? s.genPkg[0].name.replace(/\.pks$/, '') : (this.docFileNames()[0] || 'deployment').replace(/\.[a-z]+$/i, '');
+    const fname = pkgName.replace(/[^\w\-]+/g, '_') + '_Deployment_Document.doc';
+    const html = this.docHtmlForExport();
+    const blob = new Blob(['\ufeff' + html], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fname;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+
+  async analyseWithModel() {
+    const base = this.analysePackage();
+    const code = this.pkgSourceText();
+    if (!code || code.length < 20) return base;
+    try {
+      const raw = await this.completeModel({
+        max_tokens: 4000,
+        system: 'You are a senior Oracle DBA writing the content of a Technical Deployment Document for a bank\u2019s technical audience. You are given the SQL / PL-SQL package that is being deployed. Analyse it and return ONLY a JSON object (no prose, no markdown fences) with these keys: {"pkgName":string,"objects":[{"type":string,"name":string}],"procs":[string],"overview":[string,string,string],"preChecks":[string],"postChecks":[string],"steps":[string],"functionalImpact":string,"downtime":string,"schedule":string,"rollback":string,"tableImpacts":[{"name":string,"impact":string}]}. RULES: describe ONLY what the supplied code actually does \u2014 never invent tables, procedures or business logic. "overview" must be 2\u20133 substantial paragraphs (60\u2013120 words each) explaining what the package does and the logical layers/steps of its processing. "tableImpacts" must list every table the code reads or writes with a specific one-sentence description of how it is affected. "steps" must be concrete, ordered SQL-Developer-level actions including backups of the existing objects. Plain text only in all strings \u2014 no HTML, no markdown.',
+        messages: [{ role: 'user', content: 'Package files: ' + this.docFileNames().join(', ') + '\n\nDetected (may be incomplete): ' + JSON.stringify({ pkgName: base.pkgName, procs: base.procs, tables: base.tables, ops: base.ops }) + '\n\nSOURCE:\n' + code.slice(0, 40000) }],
+      });
+      let s = String(raw || '').trim().replace(/^\u0060{3}[a-z]*\s*/i, '').replace(/\u0060{3}\s*$/, '').trim();
+      const i = s.indexOf('{'), j = s.lastIndexOf('}');
+      if (i >= 0 && j > i) s = s.slice(i, j + 1);
+      const parsed = JSON.parse(s);
+      return Object.assign({}, base, parsed, { files: base.files, ops: base.ops, tables: (parsed.tableImpacts || []).map((t) => t.name) .length ? (parsed.tableImpacts || []).map((t) => t.name) : base.tables });
+    } catch (err) {
+      return base;
+    }
+  }
+
+  async runAgent3() {
+    if (this.state.a3 === 'running') return;
+    if (this.state.pkgSource === 'pipeline' && this.state.a2 !== 'approved') return;
+    if (this.state.pkgSource === 'upload' && (this.state.extraFiles || []).length === 0) return;
+    this.setState({ a3: 'running', a3log: 0, docReady: 0, genDoc: this.buildDoc() });
+    const logN = this.a3Log.length;
+    // stream the activity log while the model analyses the package
+    const step0 = 300 * this.speedMult();
+    const tA = Date.now();
+    const logId = setInterval(() => {
+      this.setState({ a3log: Math.min(logN, Math.floor((Date.now() - tA) / step0) + 1) });
+    }, Math.max(60, step0 / 2));
+    this._timers.push(logId);
+    const analysis = await this.analyseWithModel();
+    clearInterval(logId);
+    this.setState({ a3log: logN });
+    const doc = this.composeDoc(analysis);
+    const total = doc.length;
+    this.setState({ docReady: 0, genDoc: doc });
+    const step = 260 * this.speedMult();
+    const t0 = Date.now();
+    const finish = () => { this.setState({ a3log: logN, docReady: doc.length, a3: 'ready' }); };
+    let a3fired = false;
+    const stop = () => { if (a3fired) return; a3fired = true; clearInterval(id); finish(); };
+    const id = setInterval(() => {
+      const i = Math.min(total, Math.floor((Date.now() - t0) / step) + 1);
+      if (i >= total) { stop(); return; }
+      this.setState({ docReady: i });
+    }, Math.max(60, step / 2));
+    this._timers.push(id);
+    const doneT = setTimeout(stop, step * total + 1200);
+    this._timers.push(doneT);
+    const onVis = () => { if (!document.hidden && Date.now() - t0 > step * total) stop(); };
+    document.addEventListener('visibilitychange', onVis);
+    setTimeout(() => document.removeEventListener('visibilitychange', onVis), step * total + 4000);
+  }
+
+  logoEl(h, dark) {
+    const s = this.state;
+    if (s.cfgLogo === 'client') {
+      if (s.cfgLogoImg) return React.createElement('img', { src: s.cfgLogoImg, alt: 'Client logo', style: { height: h + 'px', maxWidth: '160px', width: 'auto', objectFit: 'contain', display: 'block' } });
+      return React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '7px' } },
+        React.createElement('div', { style: { width: h + 'px', height: h + 'px', borderRadius: '6px', background: '#012D3F', color: '#3CE55A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 500, fontSize: (h * 0.5) + 'px', flex: 'none' } }, (s.cfgClientName || 'C').trim().charAt(0).toUpperCase()),
+        React.createElement('span', { style: { fontSize: (h * 0.62) + 'px', fontWeight: 500, color: dark ? '#fff' : '#012D3F', whiteSpace: 'nowrap', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis' } }, s.cfgClientName || 'Client name'));
+    }
+    if (s.cfgLogo === 'mark') return React.createElement('img', { src: dark ? 'assets/logo/Regnology-Mark-positive.png' : 'assets/logo/Regnology-Mark-positive.png', alt: 'Regnology', style: { height: h + 'px', width: 'auto', display: 'block' } });
+    return React.createElement('img', { src: 'assets/logo/Regnology-logo-positive.png', alt: 'Regnology', style: { height: h + 'px', width: 'auto', display: 'block' } });
+  }
+
+  resetConfig() {
+    this.setState({ tplCustom: false, fmtCustom: false, cfgTemplate: '', cfgFormat: '', cfgLogo: 'regnology', cfgClientName: 'Client name', cfgLogoImg: null, cfgLogoName: '' });
+  }
+
+  onLogoUpload(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => this.setState({ cfgLogo: 'client', cfgLogoImg: ev.target.result, cfgLogoName: file.name });
+    reader.readAsDataURL(file);
+  }
+
+  clearLogo() { this.setState({ cfgLogoImg: null, cfgLogoName: '' }); }
+
+  onTplUpload(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    this.setState({ cfgTplDocName: file.name });
+  }
+
+  fileIcon(name) {
+    const ext = (name.split('.').pop() || '').toLowerCase();
+    if (['xlsx', 'xls', 'xlsm', 'xlsb', 'csv'].includes(ext)) return { iconUrl: 'assets/icons/files.svg', iconColor: '#06A74E' };
+    if (['doc', 'docx', 'rtf'].includes(ext)) return { iconUrl: 'assets/icons/book.svg', iconColor: '#1788BE' };
+    if (ext === 'pdf') return { iconUrl: 'assets/icons/book.svg', iconColor: '#C0392B' };
+    return { iconUrl: 'assets/icons/sign.svg', iconColor: '#747A7A' };
+  }
+
+  onReqUpload(e) {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    const mapped = files.map((f) => {
+      const ic = this.fileIcon(f.name);
+      const kb = Math.max(1, Math.round(f.size / 1024));
+      return { name: f.name, size: kb + ' KB', iconUrl: ic.iconUrl, iconColor: ic.iconColor, file: f, text: '', status: 'reading' };
+    });
+    this.setState((p) => ({ reqFiles: p.reqFiles.concat(mapped) }));
+    mapped.forEach((m) => this.extractFile(m));
+    e.target.value = '';
+  }
+
+  setFileText(m, text, status) {
+    const clean = (text || '').replace(/\u0000/g, '').replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim().slice(0, 60000);
+    this.setState((p) => ({ reqFiles: p.reqFiles.map((rf) => (rf.name === m.name && rf.size === m.size) ? Object.assign({}, rf, { text: clean, status: status || (clean ? 'ready' : 'empty') }) : rf) }));
+  }
+
+  async extractFile(m) {
+    const ext = (m.name.split('.').pop() || '').toLowerCase();
+    try {
+      if (['txt', 'csv', 'sql', 'md', 'json', 'rtf', 'log', 'tsv'].includes(ext)) {
+        this.setFileText(m, await m.file.text());
+        return;
+      }
+      if (['xlsx', 'xls', 'xlsm', 'xlsb'].includes(ext)) {
+        if (!window.XLSX) { this.setFileText(m, '', 'error'); return; }
+        const buf = await m.file.arrayBuffer();
+        const wb = window.XLSX.read(buf, { type: 'array' });
+        let out = '';
+        wb.SheetNames.forEach((name) => {
+          const csv = window.XLSX.utils.sheet_to_csv(wb.Sheets[name], { blankrows: false });
+          if (csv.trim()) out += '# Sheet: ' + name + '\n' + csv + '\n\n';
+        });
+        this.setFileText(m, out);
+        return;
+      }
+      if (['docx', 'doc'].includes(ext)) {
+        if (!window.mammoth) { this.setFileText(m, '', 'error'); return; }
+        const buf = await m.file.arrayBuffer();
+        const res = await window.mammoth.extractRawText({ arrayBuffer: buf });
+        this.setFileText(m, res && res.value);
+        return;
+      }
+      if (ext === 'pdf') {
+        if (!window.pdfjsLib) { this.setFileText(m, '', 'error'); return; }
+        try { window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; } catch (e) {}
+        const buf = await m.file.arrayBuffer();
+        const pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
+        let out = '';
+        const max = Math.min(pdf.numPages, 30);
+        for (let i = 1; i <= max; i++) {
+          const page = await pdf.getPage(i);
+          const tc = await page.getTextContent();
+          out += tc.items.map((it) => it.str).join(' ') + '\n';
+        }
+        this.setFileText(m, out);
+        return;
+      }
+      // unknown — try plain text
+      this.setFileText(m, await m.file.text());
+    } catch (err) {
+      this.setFileText(m, '', 'error');
+    }
+  }
+
+  removeReqFile(i) {
+    this.setState((p) => ({ reqFiles: p.reqFiles.filter((_, idx) => idx !== i) }));
+  }
+
+  onPkgUpload(e) {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    const mapped = files.map((f) => {
+      const ext = (f.name.split('.').pop() || '').toLowerCase();
+      const iconUrl = ext === 'pks' || ext === 'pkb' ? 'assets/icons/coding.svg' : ext === 'sql' ? 'assets/icons/quality.svg' : 'assets/icons/files.svg';
+      const kb = Math.max(1, Math.round(f.size / 1024));
+      return { name: f.name, size: kb + ' KB', iconUrl, iconColor: '#1788BE', extra: true };
+    });
+    this.setState((p) => ({ extraFiles: p.extraFiles.concat(mapped) }));
+    // read the source so the document agent can analyse the real code
+    files.forEach((f, idx) => {
+      f.text().then((txt) => {
+        this.setState((p) => ({ extraFiles: p.extraFiles.map((rf) => (rf.name === mapped[idx].name && rf.size === mapped[idx].size && !rf.text) ? Object.assign({}, rf, { text: String(txt).slice(0, 60000) }) : rf) }));
+      }, () => {});
+    });
+    e.target.value = '';
+  }
+
+  reset() {
+    this._timers.forEach((t) => clearInterval(t));
+    this._timers = [];
+    this.setState({ tab: 'input', a1: 'idle', a2: 'locked', a3: 'idle', a1log: 0, a2log: 0, a3log: 0, sqlLines: 0, activePkg: 0, pkgReady: 0, pkgLineCount: 0, docReady: 0, pkgSource: 'pipeline', genSql: [], genPkg: null, genDoc: null });
+  }
+
+  meta(st) {
+    const m = {
+      idle: { label: 'Idle', color: '#747A7A', bg: '#EEF1F1' },
+      locked: { label: 'Locked', color: '#9FA8A9', bg: '#F2F4F4' },
+      running: { label: 'Working', color: '#1788BE', bg: '#E3F1F8' },
+      ready: { label: 'Needs review', color: '#B77400', bg: '#FBEFD8' },
+      approved: { label: 'Approved', color: '#06A74E', bg: '#DFF3E7' },
+    };
+    return m[st] || m.idle;
+  }
+
+  renderVals() {
+    const s = this.state;
+    const setTab = (t, locked) => () => { if (!locked) this.setState({ tab: t }); };
+    const pipelineReady = s.a2 === 'approved';
+    const srcResolved = s.pkgSource === 'upload' ? (s.extraFiles || []).length > 0 : pipelineReady;
+
+    // stepper
+    const inputComplete = s.a1 !== 'idle';
+    const sqlComplete = s.a1 === 'approved';
+    const pkgComplete = s.a2 === 'approved';
+    const docComplete = s.a3 === 'ready';
+    const mkStage = (key, n, label, sub, iconUrl, complete, locked, showLine) => {
+      const active = s.tab === key;
+      return {
+        onClick: setTab(key, locked), cursor: locked ? 'not-allowed' : 'pointer', opacity: locked ? '0.5' : '1',
+        n, label, sub, iconUrl,
+        badgeBg: complete ? '#DFF3E7' : active ? '#012D3F' : '#F0F4F4',
+        badgeFg: complete ? '#06A74E' : active ? '#FFFFFF' : '#9FA8A9',
+        badgeBorder: complete ? '#06A74E' : active ? '#012D3F' : '#E1E6E6',
+        titleColor: active || complete ? '#012D3F' : '#747A7A',
+        lineColor: complete ? '#06A74E' : '#E1E6E6',
+        lineDisplay: showLine ? 'block' : 'none',
+      };
+    };
+    const stages = [
+      mkStage('input', '1', 'Requirement', 'Input', 'assets/icons/chat.svg', inputComplete, false, true),
+      mkStage('sql', '2', 'SQL generation', 'Agent 1', 'assets/icons/coding.svg', sqlComplete, s.a1 === 'idle', true),
+      mkStage('package', '3', 'Packaging', 'Agent 2', 'assets/icons/files.svg', pkgComplete, s.a1 !== 'approved', true),
+      mkStage('doc', '4', 'Documentation', 'Agent 3', 'assets/icons/book.svg', docComplete, false, false),
+    ];
+
+    const agentDef = [
+      { name: 'Query Architect', role: 'Agent 1 · SQL', iconUrl: 'assets/icons/coding.svg', st: s.a1 },
+      { name: 'Package Builder', role: 'Agent 2 · Packaging', iconUrl: 'assets/icons/files.svg', st: s.a2 },
+      { name: 'Technical Deployment Document', role: 'Agent 3 · Docs', iconUrl: 'assets/icons/book.svg', st: s.a3 },
+    ];
+    const agents = agentDef.map((a) => { const m = this.meta(a.st); return { name: a.name, role: a.role, iconUrl: a.iconUrl, iconColor: a.st === 'running' ? '#1788BE' : a.st === 'approved' ? '#06A74E' : '#747A7A', metaLabel: m.label, metaColor: m.color, metaBg: m.bg }; });
+
+    // package files list styling
+    const pkgFiles = (s.genPkg || []).map((f, i) => {
+      const ready = i < s.pkgReady;
+      const active = i === s.activePkg;
+      const building = active && s.a2 === 'running' && !ready;
+      return {
+        name: f.name, desc: f.desc, onClick: () => this.setState({ activePkg: i }),
+        border: active ? '#06A74E' : '#E1E6E6', bg: active ? '#F3FAF6' : '#fff',
+        iconColor: ready ? '#06A74E' : building ? '#1788BE' : '#9FA8A9', iconUrl: f.icon,
+        statusColor: ready ? '#06A74E' : building ? '#1788BE' : '#c3cccc',
+        statusIcon: ready ? 'assets/icons/effective.svg' : 'assets/icons/time.svg',
+        ready: ready,
+        onDownload: (ev) => { if (ev && ev.stopPropagation) ev.stopPropagation(); this.downloadFile(f.name, f.code.join('\n')); },
+      };
+    });
+
+    // active package viewer
+    const ap = s.activePkg;
+    const af = (s.genPkg || [])[ap] || (s.genPkg || [])[0] || { name: '', kind: '', code: [] };
+    let visible = [];
+    if (ap < s.pkgReady) visible = af.code;
+    else if (ap === s.activePkg && s.a2 === 'running') visible = af.code.slice(0, s.pkgLineCount);
+    const pkgHasCode = visible.length > 0;
+
+    const allDone = s.genDoc && s.docReady >= s.genDoc.length;
+    const tocBlock = allDone ? React.createElement('section', { key: 'toc', style: { animation: 'rowin .3s ease', borderBottom: '1px solid #E1E6E6', paddingBottom: '22px', marginBottom: '4px', fontFamily: 'Arial,Helvetica,sans-serif' } },
+      React.createElement('div', { style: { fontSize: '24px', fontWeight: 700, color: '#012D3F', marginBottom: '14px' } }, 'Table of Contents'),
+      React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: '5px' } },
+        this.tocEntries.map((t, i) => React.createElement('div', { key: i, style: { display: 'flex', gap: '12px', fontSize: '12px', color: '#25323a', paddingLeft: (t.lvl - 1) * 22 + 'px' } },
+          React.createElement('span', { style: { width: '34px', flex: 'none', color: '#747A7A' } }, t.n),
+          React.createElement('span', { style: { flex: 1, borderBottom: '1px dotted #c3cccc', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', paddingBottom: '2px' } },
+            React.createElement('span', { style: { fontWeight: t.lvl === 1 ? 700 : 400 } }, t.label))
+        ))
+      )
+    ) : null;
+
+    const cellS = { padding: '8px 10px', border: '1px solid #E1E6E6', textAlign: 'left', fontSize: '12px' };
+    const versionBlock = allDone ? React.createElement('section', { key: 'ver', style: { animation: 'rowin .3s ease', fontFamily: 'Arial,Helvetica,sans-serif' } },
+      React.createElement('div', { style: { fontSize: '24px', fontWeight: 700, color: '#012D3F', marginBottom: '12px' } }, 'Version Overview'),
+      React.createElement('table', { style: { width: '100%', borderCollapse: 'collapse' } },
+        React.createElement('tbody', null,
+          React.createElement('tr', null, ['Version', 'Creation Date', 'Section', 'Comments'].map((h, i) => React.createElement('th', { key: i, style: Object.assign({}, cellS, { fontWeight: 700, background: '#F5F7F7' }) }, h))),
+          React.createElement('tr', null, ['1.0', this.docDate(), 'All', 'Initial Release'].map((c, i) => React.createElement('td', { key: i, style: cellS }, c)))
+        )
+      )
+    ) : null;
+
+    const docEl = React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: '26px', fontFamily: 'Arial,Helvetica,sans-serif' } },
+      tocBlock,
+      versionBlock,
+      (s.genDoc || []).slice(0, s.docReady).map((sec, i) => React.createElement('section', { key: i, style: { animation: 'rowin .3s ease' } },
+        React.createElement('div', { style: { fontSize: '10.5px', letterSpacing: '.18em', textTransform: 'uppercase', color: '#06A74E', fontWeight: 700, marginBottom: '5px', fontFamily: 'Arial,Helvetica,sans-serif' } }, sec.tag),
+        React.createElement('div', { style: { fontSize: '24px', fontWeight: 700, color: '#012D3F', marginBottom: '11px', fontFamily: 'Arial,Helvetica,sans-serif' } }, sec.title),
+        React.createElement('div', { dangerouslySetInnerHTML: { __html: sec.html } })
+      ))
+    );
+
+    const runLabel = s.a1 === 'running' ? 'Generating…' : s.a1 === 'idle' ? 'Run Query Architect' : 'Re-run Query Architect';
+
+    return {
+      isInput: s.tab === 'input', isSql: s.tab === 'sql', isPackage: s.tab === 'package', isDoc: s.tab === 'doc',
+      reset: () => this.reset(),
+      workspaceName: s.wsName || '',
+      onWorkspaceNameInput: (e) => this.setState({ wsName: e.target.value }),
+      stages, agents,
+
+      // input
+      runAgent1: () => this.runAgent1(),
+      a1Running: s.a1 === 'running',
+      reqFiles: s.reqFiles.map((f, i) => {
+        const st = f.status || 'ready';
+        const map = { reading: { l: 'reading…', c: '#1788BE' }, ready: { l: f.size + ' · read', c: '#06A74E' }, empty: { l: 'no text found', c: '#B77400' }, error: { l: 'unreadable', c: '#C0392B' } };
+        const info = map[st] || { l: f.size, c: '#9FA8A9' };
+        return { name: f.name, size: f.size, iconUrl: f.iconUrl, iconColor: f.iconColor, statusLabel: info.l, statusColor: info.c, onRemove: () => this.removeReqFile(i) };
+      }),
+      reqEmpty: s.reqFiles.length === 0,
+      reqText: s.reqText,
+      onReqTextInput: (e) => this.setState({ reqText: e.target.value }),
+      reqAddLabel: s.reqFiles.length ? 'Add another file' : 'Attach requirement files',
+      onReqUpload: (e) => this.onReqUpload(e),
+      runBtnLabel: runLabel,
+      runBtnBg: s.a1 === 'running' ? '#9FA8A9' : '#06A74E',
+      runBtnCursor: s.a1 === 'running' ? 'default' : 'pointer',
+
+      // sql
+      a1meta: this.meta(s.a1),
+      a1NotStarted: s.a1 === 'idle',
+      a1Started: s.a1 !== 'idle',
+      a1LogLines: this.a1Log.slice(0, s.a1log),
+      sqlEl: this.codeEl((s.genSql || []).slice(0, s.sqlLines), s.a1 === 'running'),
+      sqlFileName: (s.genSql && s.genSql.length && this.parseSql(this.sqlText()).table) ? (this.pkgBase(this.parseSql(this.sqlText()).table) + '.sql') : 'query.sql',
+      copySql: () => this.copyText(this.sqlText(), 'sql'),
+      showCopyFallback: !!s.copyFallback,
+      copyFallbackText: s.copyFallback || '',
+      closeCopyFallback: () => this.setState({ copyFallback: null }),
+      fallbackRef: (el) => { if (el && el.value) { try { el.focus(); el.select(); el.setSelectionRange(0, el.value.length); } catch (e) {} } },      copySqlLabel: s.copied === 'sql' ? 'Copied' : (s.copied === 'sql:fail' ? 'Press ⌘/Ctrl+C' : 'Copy'),
+      copyPkg: () => this.copyText(((s.genPkg || [])[s.activePkg] || { code: [] }).code.join('\n'), 'pkg'),
+      copyPkgLabel: s.copied === 'pkg' ? 'Copied' : (s.copied === 'pkg:fail' ? 'Press ⌘/Ctrl+C' : 'Copy'),
+      pkgAnyReady: s.pkgReady > 0,
+      downloadAllPkg: () => this.downloadAllPkg(),
+      approveAgent1: () => this.approveAgent1(),
+      a1ApproveDisabled: s.a1 !== 'ready',
+      a1ApproveBg: s.a1 === 'approved' ? '#06A74E' : s.a1 === 'ready' ? '#06A74E' : '#c3cccc',
+      a1ApproveCursor: s.a1 === 'ready' ? 'pointer' : 'default',
+      a1ApproveLabel: s.a1 === 'approved' ? 'Approved' : 'Approve & send to Package Builder',
+      a1GateText: s.a1 === 'approved' ? 'SQL approved — Package Builder unlocked.' : s.a1 === 'ready' ? 'Review the query, then approve to continue.' : 'Query is generating…',
+
+      // package
+      a2meta: this.meta(s.a2),
+      a2Locked: s.a2 === 'locked',
+      a2Unlocked: s.a2 !== 'locked',
+      a2Idle: s.a2 === 'idle',
+      a2Running: s.a2 === 'running',
+      a2LogLines: this.a2Log.slice(0, s.a2log),
+      runAgent2: () => this.runAgent2(),
+      pkgFiles,
+      activePkgName: af.name,
+      activePkgKind: af.kind,
+      pkgEl: pkgHasCode ? this.codeEl(visible, s.a2 === 'running' && ap >= s.pkgReady) : null,
+      pkgHasCode,
+      pkgEmpty: !pkgHasCode,
+      approveAgent2: () => this.approveAgent2(),
+      a2ApproveDisabled: s.a2 !== 'ready',
+      a2ApproveBg: s.a2 === 'ready' || s.a2 === 'approved' ? '#06A74E' : '#c3cccc',
+      a2ApproveCursor: s.a2 === 'ready' ? 'pointer' : 'default',
+      a2ApproveLabel: s.a2 === 'approved' ? 'Approved' : 'Approve & send to Doc agent',
+      a2GateText: s.a2 === 'approved' ? 'Package approved — Technical Deployment Document agent unlocked.' : s.a2 === 'ready' ? '4 files generated. Review, then approve.' : s.a2 === 'running' ? 'Building package files…' : 'Run the Package Builder to generate files.',
+
+      // doc
+      a3meta: this.meta(s.a3),
+      a3Idle: s.a3 === 'idle',
+      a3Working: s.a3 === 'running' || s.a3 === 'ready',
+      a3Running: s.a3 === 'running',
+      a3Ready: s.a3 === 'ready',
+      exportDocx: () => this.exportDocx(),
+      a3LogLines: this.a3Log.slice(0, s.a3log),
+      runAgent3: () => this.runAgent3(),
+      resetConfig: () => this.resetConfig(),
+      genDisabled: !srcResolved,
+      genBg: srcResolved ? '#06A74E' : '#c3cccc',
+      genCursor: srcResolved ? 'pointer' : 'not-allowed',
+      docEl,
+      docHeaderLogoEl: this.logoEl(28, false),
+      headerLogoEl: this.logoEl(20, false),
+      docVersion: '1.0.0',
+      docSubtitle: (s.genPkg && s.genPkg.length) ? (s.genPkg[0].name.replace(/\.pks$/, '').toUpperCase() + ' — ' + (this.parseSql(this.sqlText()).op || 'SQL') + ' deployment') : (s.pkgSource === 'upload' ? 'Uploaded package deployment' : 'SQL package deployment'),
+      docFooterRight: 'Regnology · Confidential — technical audience',
+      docPkgName: (s.genPkg && s.genPkg.length) ? s.genPkg[0].name.replace(/\.pks$/, '').toUpperCase() : 'SQL PACKAGE',
+      docDateLabel: this.docDate(),
+      docClientName: s.cfgClientName || 'the client',
+
+      // package source
+      srcOpts: [
+        { key: 'pipeline', title: 'From this pipeline', desc: pipelineReady ? 'Use the SQL + 4 files approved in Agents 1–2.' : 'Complete Agents 1–2 to approve a package first.', iconUrl: 'assets/icons/flow.svg', disabled: !pipelineReady },
+        { key: 'upload', title: 'Upload existing package', desc: 'Bring a package built outside this tool — generate the doc directly.', iconUrl: 'assets/icons/files.svg', disabled: false },
+      ].map((o) => ({ title: o.title, desc: o.desc, iconUrl: o.iconUrl,
+        onClick: o.disabled ? (() => {}) : (() => this.setState({ pkgSource: o.key })),
+        cursor: o.disabled ? 'not-allowed' : 'pointer', opacity: o.disabled ? '0.55' : '1',
+        border: s.pkgSource === o.key ? '#06A74E' : '#E1E6E6', bg: s.pkgSource === o.key ? '#F3FAF6' : '#fff',
+        iconColor: s.pkgSource === o.key ? '#06A74E' : '#9FA8A9', titleColor: s.pkgSource === o.key ? '#012D3F' : '#3f5a66' })),
+      srcIsUpload: s.pkgSource === 'upload',
+      srcIsPipeline: s.pkgSource === 'pipeline',
+      uploadFiles: (s.extraFiles || []).map((f, i) => Object.assign({}, f, { onRemove: () => this.removeExtraFile(i) })),
+      uploadEmpty: (s.extraFiles || []).length === 0,
+      uploadHasFiles: (s.extraFiles || []).length > 0,
+      uploadCountLabel: (s.extraFiles || []).length + ' file' + ((s.extraFiles || []).length === 1 ? '' : 's') + ' attached',
+      clearUploads: () => this.clearExtraFiles(),
+      onPkgUpload: (e) => this.onPkgUpload(e),
+      pipelineNote: pipelineReady ? 'Approved package from Agents 1–2 is attached — SQL query + 4 package files.' : 'No approved package yet. Run Agents 1–2, or switch to “Upload existing package”.',
+      pipelineNoteColor: pipelineReady ? '#25323a' : '#B77400',
+      pipelineNoteBg: pipelineReady ? '#F3FAF6' : '#FBEFD8',
+      pipelineNoteBorder: pipelineReady ? '#DFF3E7' : '#F3E2BE',
+      pkgTickColor: srcResolved ? '#06A74E' : '#c3cccc',
+      srcSummaryLabel: s.pkgSource === 'upload' ? 'Uploaded package' : (pipelineReady ? 'Approved SQL query' : 'Pipeline package (pending)'),
+      srcFilesLabel: s.pkgSource === 'upload' ? (((s.extraFiles || []).length) + ' uploaded file' + ((s.extraFiles || []).length === 1 ? '' : 's')) : ((s.genPkg || []).length + ' package files'),
+
+      // template input (fixed, uploaded template — not editable)
+      tplChips: this.DEFAULT_TEMPLATE.split('\n').map((l) => l.trim()).filter(Boolean),
+      tplDocName: s.cfgTplDocName,
+      onTplUpload: (e) => this.onTplUpload(e),
+      tplUploadLabel: 'Replace template document (.docx / .dotx)',
+      tplSourceLabel: 'Template · 8 sections',
+      tplTickColor: '#06A74E',
+
+      // format input
+      fmtCustom: s.fmtCustom, fmtDefault: !s.fmtCustom,
+      cfgFormat: s.cfgFormat || this.DEFAULT_FORMAT,
+      onFmtInput: (e) => this.setState({ cfgFormat: e.target.value }),
+      toggleFmt: () => this.setState((p) => ({ fmtCustom: !p.fmtCustom, cfgFormat: p.cfgFormat || this.DEFAULT_FORMAT })),
+      fmtBtnLabel: s.fmtCustom ? 'Use default' : 'Customize',
+      fmtBtnBg: s.fmtCustom ? '#012D3F' : '#fff', fmtBtnFg: s.fmtCustom ? '#fff' : '#06A74E', fmtBtnBorder: s.fmtCustom ? '#012D3F' : '#06A74E',
+      fmtSourceLabel: s.fmtCustom ? 'Custom formatting' : 'IsDB default style',
+      fmtTickColor: s.fmtCustom ? '#1788BE' : '#06A74E',
+
+      // logo input
+      logoOpts: [
+        { key: 'regnology', label: 'Regnology', preview: React.createElement('img', { src: 'assets/logo/Regnology-logo-positive.png', style: { height: '20px', width: 'auto' } }) },
+        { key: 'mark', label: 'Regnology mark', preview: React.createElement('img', { src: 'assets/logo/Regnology-Mark-positive.png', style: { height: '24px', width: 'auto' } }) },
+        { key: 'client', label: 'Client logo', preview: (s.cfgLogoImg ? React.createElement('img', { src: s.cfgLogoImg, style: { height: '24px', maxWidth: '80px', width: 'auto', objectFit: 'contain' } }) : React.createElement('div', { style: { width: '24px', height: '24px', borderRadius: '6px', background: '#012D3F', color: '#3CE55A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 500, fontSize: '13px' } }, (s.cfgClientName || 'C').trim().charAt(0).toUpperCase())) },
+      ].map((o) => ({ label: o.label, preview: o.preview, onClick: () => this.setState({ cfgLogo: o.key }),
+        border: s.cfgLogo === o.key ? '#06A74E' : '#E1E6E6', bg: s.cfgLogo === o.key ? '#F3FAF6' : '#fff', labelColor: s.cfgLogo === o.key ? '#06A74E' : '#747A7A' })),
+      logoIsClient: s.cfgLogo === 'client',
+      hasLogoImg: !!s.cfgLogoImg,
+      cfgLogoImg: s.cfgLogoImg,
+      clientLogoThumbEl: s.cfgLogoImg ? React.createElement('img', { src: s.cfgLogoImg, alt: 'logo', style: { height: '28px', maxWidth: '120px', width: 'auto', objectFit: 'contain', display: 'block' } }) : null,
+      cfgLogoName: s.cfgLogoName,
+      logoUploadLabel: s.cfgLogoImg ? 'Replace logo image (PNG / SVG / JPG)' : 'Upload logo image (PNG / SVG / JPG)',
+      onLogoUpload: (e) => this.onLogoUpload(e),
+      clearLogo: () => this.clearLogo(),
+      cfgClientName: s.cfgClientName,
+      onClientNameInput: (e) => this.setState({ cfgClientName: e.target.value }),
+      logoSourceLabel: s.cfgLogo === 'client' ? (s.cfgLogoImg ? ('Client logo · ' + s.cfgLogoName) : ('Client logo · ' + (s.cfgClientName || 'unnamed'))) : s.cfgLogo === 'mark' ? 'Regnology mark' : 'Regnology logo',
+    };
+  }
+}
+</script>
+</body>
+</html>

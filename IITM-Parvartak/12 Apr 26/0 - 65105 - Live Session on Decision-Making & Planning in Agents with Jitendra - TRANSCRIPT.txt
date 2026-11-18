@@ -1,0 +1,6098 @@
+WEBVTT
+
+1
+00:02:12.490 --> 00:02:17.149
+Jitendra K: Hey guys, good evening, and warm welcome to another module on Agent EKI.
+
+2
+00:02:17.600 --> 00:02:22.969
+Jitendra K: So before we start, can we have a quick audio check if my voice is audible to everyone and my screen is visible as well?
+
+3
+00:02:27.960 --> 00:02:30.089
+Jitendra K: Let me just enable the chart.
+
+4
+00:02:32.290 --> 00:02:34.400
+Jitendra K: No, so the participants.
+
+5
+00:02:41.760 --> 00:02:44.029
+Jitendra K: Alright, thank you, thanks for the confirmation.
+
+6
+00:02:58.870 --> 00:03:06.299
+Jitendra K: So, just a quick recap of what we have learned in the last tutorial. We have completed RAG. In fact, we have completed the three types of RAG.
+
+7
+00:03:06.500 --> 00:03:09.670
+Jitendra K: NAVE rag, Agentic rag, and GraphRag.
+
+8
+00:03:10.210 --> 00:03:13.480
+Jitendra K: So I hope you have revisited the code of GraphRag.
+
+9
+00:03:14.100 --> 00:03:21.399
+Jitendra K: And if there's any issue, please let me know, so that we can discuss on this. If not, then we can proceed with this new agenda.
+
+10
+00:03:23.760 --> 00:03:28.839
+Jitendra K: So the agenda for today's tutorial is, we are going to start with agentic AI Architecture.
+
+11
+00:03:28.970 --> 00:03:31.729
+Jitendra K: And why is NTKI architecture?
+
+12
+00:03:32.810 --> 00:03:40.690
+Jitendra K: Because it's a very structural element of the AI system that defines the interaction among several elements to accomplish intelligent activity.
+
+13
+00:03:41.680 --> 00:03:45.750
+Jitendra K: So, when we talk about Agent AI architecture, we are looking for
+
+14
+00:03:45.860 --> 00:03:50.069
+Jitendra K: A mechanism to provide a very structural approach for complex system building.
+
+15
+00:03:50.420 --> 00:03:56.750
+Jitendra K: Special that dictates data flow and controls over agent. Enable modularity, scalability, and maintainability.
+
+16
+00:03:56.860 --> 00:04:01.159
+Jitendra K: And also, it will impact, agentic capability and the performance in the interim.
+
+17
+00:04:01.390 --> 00:04:10.320
+Jitendra K: So the core idea of Agentic AI will help us to enable the complex behaviors, facilitate the learning and adaptations among agents.
+
+18
+00:04:10.530 --> 00:04:14.100
+Jitendra K: Enhance robustness, promote reusabilities, and
+
+19
+00:04:14.540 --> 00:04:20.000
+Jitendra K: Some more stuffs, which include the maintenance part of the agent.
+
+20
+00:04:21.680 --> 00:04:24.870
+Jitendra K: Now, if I have to talk about Identity KI system.
+
+21
+00:04:32.030 --> 00:04:41.089
+Jitendra K: I understand how it seems you're not able to deliver that kind of photos. So that will come from practice. You cannot become expert in one day. These things are very complex.
+
+22
+00:04:41.720 --> 00:04:46.090
+Jitendra K: You cannot expect yourself to become expert in one day, one class.
+
+23
+00:04:46.950 --> 00:04:48.489
+Jitendra K: I know there's a…
+
+24
+00:04:48.970 --> 00:04:59.050
+Jitendra K: Detailing required, and that is required practice, and some hands-on as well, from your side. Not just these classes, but also you need to acquire projects in your real world.
+
+25
+00:04:59.740 --> 00:05:01.190
+Jitendra K: Office hours.
+
+26
+00:05:01.970 --> 00:05:10.160
+Jitendra K: So, it cannot… you cannot become expert, like, a single click of a button in a single day, right, with just 4 hours, 3 hours of lectures.
+
+27
+00:05:10.800 --> 00:05:18.910
+Jitendra K: So you require time, practice, and then different sort of case studies, and then only you can become expert to create these agents by yourself.
+
+28
+00:05:22.560 --> 00:05:24.220
+Jitendra K: Is this clear now?
+
+29
+00:05:25.970 --> 00:05:26.630
+Jitendra K: Yeah.
+
+30
+00:05:44.100 --> 00:05:46.990
+Jitendra K: Alright, so we will cover the…
+
+31
+00:05:47.300 --> 00:05:50.670
+Jitendra K: essential part of agentic AI design tech system now.
+
+32
+00:05:51.620 --> 00:05:57.960
+Jitendra K: And then we'll start with several types of design patterns and utilize for the purpose of creating the grid agents.
+
+33
+00:05:58.430 --> 00:06:03.590
+Jitendra K: So, one of the important things that we have discussed so far is, Agentic AI system has three components.
+
+34
+00:06:04.000 --> 00:06:06.489
+Jitendra K: Which is the prompt, memory, and tools.
+
+35
+00:06:07.440 --> 00:06:16.109
+Jitendra K: So, prompts outline the agentic functionality, which include principle comprising of particular objective and limitation that you are going to start with.
+
+36
+00:06:16.440 --> 00:06:22.429
+Jitendra K: So we have got two types of prompt system and user prompts, where the user will write certain form of,
+
+37
+00:06:22.570 --> 00:06:26.350
+Jitendra K: Natural language query, and then interact with the agents.
+
+38
+00:06:26.680 --> 00:06:33.989
+Jitendra K: Memory will serve as an authentic store of knowledge, enabling learning from previous interaction, and well… and make well-informed choices.
+
+39
+00:06:34.150 --> 00:06:42.210
+Jitendra K: And the tool is, nothing but outside sources, like API or function, that allow the agent to execute different tasks and achieve its goal in better manner.
+
+40
+00:06:42.710 --> 00:06:49.319
+Jitendra K: So, with the help of these three, structures, you are going to align your agents to make it more comprehensive.
+
+41
+00:06:49.710 --> 00:06:59.510
+Jitendra K: So, we talked about some of the layers, which include core layer and standard layer. So, core layer drive the agentic decision making through sense, planning, and action.
+
+42
+00:06:59.710 --> 00:07:06.049
+Jitendra K: We have talked about SPAR framework, S-P-E-R, which stands for Science Plan Act 10.
+
+43
+00:07:06.180 --> 00:07:07.190
+Jitendra K: Reasoning.
+
+44
+00:07:07.900 --> 00:07:10.840
+Jitendra K: Which include perception, cognitive, and action layers.
+
+45
+00:07:11.000 --> 00:07:17.670
+Jitendra K: which will handle the input processing, reasoning, and execution. And the standard layer will ensure the agentic system should meet.
+
+46
+00:07:17.890 --> 00:07:21.880
+Jitendra K: Critical expertise on an architectural requirement.
+
+47
+00:07:22.400 --> 00:07:29.120
+Jitendra K: And standard layer comprise of integration with operational infrastructure layer that will support overall authentic functionality.
+
+48
+00:07:29.650 --> 00:07:34.719
+Jitendra K: So, we talked about some of the layers in the, I think in the previous tutorials.
+
+49
+00:07:35.170 --> 00:07:39.220
+Jitendra K: So let me share that slide, whatever we have discussed in that class.
+
+50
+00:07:43.580 --> 00:07:47.919
+Jitendra K: So we have talked about these three layers, which include perception.
+
+51
+00:07:51.900 --> 00:07:56.560
+Jitendra K: cognitive erection layers. So we have 2 more… 3 more layers after this.
+
+52
+00:07:56.790 --> 00:08:04.139
+Jitendra K: But let's try to revisit on these three layers. The perception layer, where the agent will take an input from the environment.
+
+53
+00:08:04.630 --> 00:08:13.289
+Jitendra K: So, perception is similar to your cognitive… sensors, eye, skin, your, your,
+
+54
+00:08:14.580 --> 00:08:23.060
+Jitendra K: sciences which take input from the environment. So, perception is like the same module, where we are taking the input from the environment.
+
+55
+00:08:23.160 --> 00:08:30.210
+Jitendra K: which act like a user interface, API intervention, sensors, data acquisitions, and data transformation.
+
+56
+00:08:30.450 --> 00:08:32.839
+Jitendra K: Cognitive will help us to do…
+
+57
+00:08:33.250 --> 00:08:38.580
+Jitendra K: Breakdown on the problem, what you're seeing from the system, what you perceive from the system.
+
+58
+00:08:38.770 --> 00:08:44.960
+Jitendra K: It should be well planned and curated. That means you're performing orchestration, state management, and memory management.
+
+59
+00:08:45.100 --> 00:08:47.900
+Jitendra K: And this is important for contextual reasoning setup.
+
+60
+00:08:48.380 --> 00:08:52.769
+Jitendra K: and continuous learning. So, because we are talking about autonomous agent, right?
+
+61
+00:08:53.210 --> 00:08:57.250
+Jitendra K: So, how autonomous agent will derive this behavior?
+
+62
+00:08:57.530 --> 00:09:02.390
+Jitendra K: That is all depend upon these three modules, which is perception, cognitive, and action.
+
+63
+00:09:02.730 --> 00:09:07.569
+Jitendra K: So if your perception is wrong, you're gathering wrong data from the environment.
+
+64
+00:09:08.020 --> 00:09:14.749
+Jitendra K: And, that will impact your planning, as well as it will impact your action, right? So perception is the biggest thing.
+
+65
+00:09:14.990 --> 00:09:21.150
+Jitendra K: you need to ensure that the quality of data, the kind of API sensors that you're using.
+
+66
+00:09:21.300 --> 00:09:27.490
+Jitendra K: The kind of data transformation that you're doing should be well resonate with your agentic design.
+
+67
+00:09:27.660 --> 00:09:34.800
+Jitendra K: And then the cognitive action, whatever we are doing to break down the problem systematically with the help of planning agent.
+
+68
+00:09:35.440 --> 00:09:40.170
+Jitendra K: and state memory management that we have seen in agentic orchestration using Langraph.
+
+69
+00:09:40.680 --> 00:09:45.019
+Jitendra K: Etc. Should be well-versed, and then your agent should have
+
+70
+00:09:45.310 --> 00:09:51.480
+Jitendra K: a clear orientation in terms of tool selection criterias, API selection criterias.
+
+71
+00:09:51.610 --> 00:09:59.490
+Jitendra K: As well as intent classification from the query mechanism. And then, finally, your action should be depending upon
+
+72
+00:09:59.680 --> 00:10:05.830
+Jitendra K: what sort of APIs, what sort of rack pipeline you are going to call, or what sort of prompt you are going to call.
+
+73
+00:10:05.950 --> 00:10:08.409
+Jitendra K: It should be within that particular.
+
+74
+00:10:09.040 --> 00:10:10.170
+Jitendra K: Alright, DDS.
+
+75
+00:10:11.280 --> 00:10:17.160
+Jitendra K: And then followed by the three standard… three more standard layers, which is integration, operational, and infrastructure.
+
+76
+00:10:18.570 --> 00:10:23.799
+Jitendra K: So in the integration layer, you are going to connect the agent with external system for communication and data flows.
+
+77
+00:10:24.150 --> 00:10:27.890
+Jitendra K: That means you're going to adapt to the new changes.
+
+78
+00:10:29.540 --> 00:10:36.309
+Jitendra K: And adaptation is very important, because whatever we are doing here, We are making agent…
+
+79
+00:10:36.920 --> 00:10:40.550
+Jitendra K: With a real-time capability, as real-time as possible.
+
+80
+00:10:40.750 --> 00:10:43.319
+Jitendra K: That means integration is one of the challenges.
+
+81
+00:10:43.440 --> 00:10:45.829
+Jitendra K: Let's take an example of regulatory
+
+82
+00:10:46.180 --> 00:10:51.850
+Jitendra K: rag that we have created in the last tutorial, we created, some fin rack, right?
+
+83
+00:10:52.040 --> 00:11:00.170
+Jitendra K: from multiple sources, multiple documents, it is reading and then generating an answer. But what if… if your document itself is outdated?
+
+84
+00:11:00.930 --> 00:11:06.040
+Jitendra K: That will impact the decision In a very haphazard manner, and you're…
+
+85
+00:11:06.520 --> 00:11:09.670
+Jitendra K: Whoever is your user who's consuming that app, or…
+
+86
+00:11:09.790 --> 00:11:16.060
+Jitendra K: Endpoint will get impacted because you're giving the wrong answer. You're giving the right answer, but outdated.
+
+87
+00:11:16.710 --> 00:11:20.320
+Jitendra K: That means integration is one of the critical challenges with AI.
+
+88
+00:11:20.810 --> 00:11:28.430
+Jitendra K: system, and you need to make it as real-time as possible. So let's say you need to identify your sources, you need to identify your
+
+89
+00:11:28.740 --> 00:11:32.170
+Jitendra K: Systems, or what is their…
+
+90
+00:11:32.780 --> 00:11:37.530
+Jitendra K: Handshake mechanism, and what kind of volume velocity they are going to play.
+
+91
+00:11:37.640 --> 00:11:46.920
+Jitendra K: And then, accordingly, you have to divide, your work within your data engineering team and identity team, which will work seamlessly, and then use these systems to perform
+
+92
+00:11:47.170 --> 00:11:48.990
+Jitendra K: As real-time as possible.
+
+93
+00:11:49.180 --> 00:11:57.010
+Jitendra K: That means there's an operational layer as well, which will manage the real-time performance, monitor activities, and enable continuous improvement on your agent tech reasoning.
+
+94
+00:11:57.300 --> 00:12:00.839
+Jitendra K: Capability. And one of the reasoning capability for your region would be…
+
+95
+00:12:01.220 --> 00:12:05.549
+Jitendra K: the recency of the data, because if you're creating
+
+96
+00:12:05.990 --> 00:12:12.360
+Jitendra K: Such sort of regulatory system, which may impact your bank or financial institution to a greater extent.
+
+97
+00:12:12.940 --> 00:12:16.900
+Jitendra K: That means you need to ensure that these two layers should be
+
+98
+00:12:17.170 --> 00:12:23.099
+Jitendra K: Properly well written, apart from the previous three layers that we have discussed.
+
+99
+00:12:24.180 --> 00:12:26.430
+Jitendra K: And the infrastructure layer, which provide
+
+100
+00:12:26.610 --> 00:12:34.600
+Jitendra K: computational power, inference power, storage efficiency, and reliable agent execution. That is very, very important for your agentic task.
+
+101
+00:12:35.010 --> 00:12:45.590
+Jitendra K: So, if your agents are taking unnecessary tools, unnecessary token consumption, that leads to… Increase in latency, throughput.
+
+102
+00:12:45.750 --> 00:12:49.160
+Jitendra K: Sorry. So you need to track them, what kind of…
+
+103
+00:12:49.700 --> 00:12:52.539
+Jitendra K: System that you're using for designing it.
+
+104
+00:13:04.150 --> 00:13:05.270
+Jitendra K: So…
+
+105
+00:13:05.490 --> 00:13:13.009
+Jitendra K: Yeah, so does Kafka, autoloader and Databrick come into play for real time? Yeah, that's correct. Kafka, messaging queue, autoloaders…
+
+106
+00:13:13.390 --> 00:13:15.990
+Jitendra K: These are all great systems which offer
+
+107
+00:13:16.250 --> 00:13:18.679
+Jitendra K: Real-time streaming capability on your data.
+
+108
+00:13:20.750 --> 00:13:23.340
+Jitendra K: This perception means how will you interact?
+
+109
+00:13:24.230 --> 00:13:25.610
+Jitendra K: with the agent.
+
+110
+00:13:26.000 --> 00:13:31.050
+Jitendra K: Perception means, similar to your… Eyes, right?
+
+111
+00:13:31.440 --> 00:13:35.040
+Jitendra K: So basically, if you're working on… some…
+
+112
+00:13:35.900 --> 00:13:38.299
+Jitendra K: Let's say you're playing some sports.
+
+113
+00:13:38.690 --> 00:13:41.849
+Jitendra K: What kind of information you will pursue?
+
+114
+00:13:42.300 --> 00:13:50.209
+Jitendra K: That depends upon the capability, right? That you have, the kind of designation that you're… if you're a… if you're playing a soccer.
+
+115
+00:13:50.520 --> 00:13:55.150
+Jitendra K: If you're a midfielder versus goalkeeper versus forward.
+
+116
+00:13:55.370 --> 00:13:59.710
+Jitendra K: Then you have different goals, right? So you will pursue the involvement depending upon the goal.
+
+117
+00:14:00.260 --> 00:14:01.829
+Jitendra K: So that is called perception.
+
+118
+00:14:03.070 --> 00:14:10.690
+Jitendra K: So, same way, perception has to be determined by the, by responsibility framework that you are going to utilize to assign tasks to agent.
+
+119
+00:14:10.850 --> 00:14:15.280
+Jitendra K: And then the agent will start pursuing that involvement, depending upon the roles and responsibility.
+
+120
+00:14:22.580 --> 00:14:29.010
+Jitendra K: So, this is the core interaction diagram, core linear interaction diagram. So, I would like to keep it simple.
+
+121
+00:14:29.310 --> 00:14:34.260
+Jitendra K: So basically, you have a user where you are going to type in the query.
+
+122
+00:14:34.550 --> 00:14:39.040
+Jitendra K: And the query will generate an output, and this is a subsequent cycle.
+
+123
+00:14:39.370 --> 00:14:40.910
+Jitendra K: So, perception.
+
+124
+00:14:41.220 --> 00:14:46.340
+Jitendra K: We'll have access to your multimedia data, multimodal data, sensors data.
+
+125
+00:14:46.510 --> 00:14:51.860
+Jitendra K: some real-time feeds, some PDF files, some knowledge base, some rack pipeline, etc.
+
+126
+00:14:52.180 --> 00:14:57.309
+Jitendra K: And then in the decision-making cognitive, you're going to allow memory and knowledge.
+
+127
+00:14:57.720 --> 00:15:03.229
+Jitendra K: to be calibrated, to make decisions. And then action is real-time monitoring.
+
+128
+00:15:03.520 --> 00:15:05.640
+Jitendra K: So that means you are going to use,
+
+129
+00:15:06.510 --> 00:15:10.759
+Jitendra K: These architecture design patterns to deal with your problem statement.
+
+130
+00:15:13.150 --> 00:15:24.799
+Jitendra K: how agent will take the real-time data. Agent are not magical box, which will take real-time data automatically. They're not, not a magical box, right? You have to create pipelines, and then you have to feed in the data.
+
+131
+00:15:25.050 --> 00:15:31.020
+Jitendra K: So, until unless they become humanoid, then they will start taking the real-time data automatically.
+
+132
+00:15:31.450 --> 00:15:35.400
+Jitendra K: Right now, you have to feed the data by using pipeline data pipelines.
+
+133
+00:15:35.760 --> 00:15:41.099
+Jitendra K: Continuous learning and improvement in Aging TKI, please explain,
+
+134
+00:15:41.590 --> 00:15:45.439
+Jitendra K: So, goals… okay, so let's take an example of this.
+
+135
+00:15:45.550 --> 00:15:50.109
+Jitendra K: So, we have taken so many examples on different, use cases.
+
+136
+00:15:50.300 --> 00:15:53.239
+Jitendra K: Let's go back to the agility example that we have used.
+
+137
+00:15:53.510 --> 00:15:55.380
+Jitendra K: And solved in the last tutorial.
+
+138
+00:15:55.900 --> 00:16:01.369
+Jitendra K: So what that example will do is, you're reading some financial document, regulatory document.
+
+139
+00:16:02.230 --> 00:16:04.830
+Jitendra K: And it is a… you…
+
+140
+00:16:05.380 --> 00:16:12.639
+Jitendra K: European Union, financial document that we have read. But let's say in the… that is of 2025,
+
+141
+00:16:12.940 --> 00:16:15.159
+Jitendra K: And if the document has certain updates.
+
+142
+00:16:15.400 --> 00:16:17.280
+Jitendra K: So, how will you update a document?
+
+143
+00:16:19.450 --> 00:16:21.769
+Jitendra K: So that is called continuous learning and improvement.
+
+144
+00:16:22.850 --> 00:16:27.969
+Jitendra K: So that will improve your Agentic AI response based upon the recency of that document.
+
+145
+00:16:30.820 --> 00:16:32.310
+Jitendra K: That's one example.
+
+146
+00:16:37.900 --> 00:16:44.320
+Jitendra K: Okay, so we have talked about all these things, like difference between single agent and multi-agent architecture. We have seen that
+
+147
+00:16:44.650 --> 00:16:54.080
+Jitendra K: There's something called the concept of supervisory agent, which will be able to locate and allocate and keep forward their tasks to a delegation.
+
+148
+00:16:54.300 --> 00:17:00.099
+Jitendra K: Downstream agents, and then they will be able to perform the task by splitting the task into multiple
+
+149
+00:17:00.480 --> 00:17:06.849
+Jitendra K: subproblems. So we have seen this, whole… Use of, or user stories.
+
+150
+00:17:07.089 --> 00:17:12.090
+Jitendra K: Now, today we are going to focus on These underlying item.
+
+151
+00:17:13.099 --> 00:17:19.009
+Jitendra K: Which include how to create a different sort of design pattern, and why it does matter.
+
+152
+00:17:19.869 --> 00:17:30.119
+Jitendra K: So, you might be… have some understanding on object-oriented design patterns, if you're from software industry. So, you might have used software design patterns, like factory…
+
+153
+00:17:30.240 --> 00:17:36.190
+Jitendra K: Singleton class, You understand the four core concepts, inheritance, polymorphism.
+
+154
+00:17:36.780 --> 00:17:43.970
+Jitendra K: abstraction and encapsulation, that is the object-oriented design, right? So, similarly, when we talk about agentic design.
+
+155
+00:17:44.290 --> 00:17:49.540
+Jitendra K: We are talking about reusability, reliability, scalability, cost efficiency, and composable.
+
+156
+00:17:49.830 --> 00:17:51.340
+Jitendra K: or composability.
+
+157
+00:17:51.490 --> 00:17:59.010
+Jitendra K: That means your agent should be reusable. You should avoid common reinvention of the wheel.
+
+158
+00:17:59.180 --> 00:18:02.070
+Jitendra K: For common aging scenario. Let's say if I have created
+
+159
+00:18:02.260 --> 00:18:04.709
+Jitendra K: some agent who can read PDF document.
+
+160
+00:18:05.580 --> 00:18:11.580
+Jitendra K: So, it should be reused, right? I cannot change the agent every day that,
+
+161
+00:18:12.890 --> 00:18:17.340
+Jitendra K: If I have created a PDF reader, Then it should be…
+
+162
+00:18:17.870 --> 00:18:21.800
+Jitendra K: form, right? I should not change it, I should not abate it too much.
+
+163
+00:18:22.510 --> 00:18:24.379
+Jitendra K: Depending upon my requirement.
+
+164
+00:18:24.680 --> 00:18:27.899
+Jitendra K: Second, if my agent is already
+
+165
+00:18:28.480 --> 00:18:32.359
+Jitendra K: develop, so I can able to reuse it and extend the capabilities.
+
+166
+00:18:32.930 --> 00:18:34.629
+Jitendra K: And make it more reliable.
+
+167
+00:18:35.160 --> 00:18:37.539
+Jitendra K: That means I should make it more structured.
+
+168
+00:18:37.740 --> 00:18:41.119
+Jitendra K: to reduce hallucination from LLM-generated outputs.
+
+169
+00:18:41.310 --> 00:18:48.250
+Jitendra K: I should improve the output quality with the human in the loop, feedback from the users.
+
+170
+00:18:48.580 --> 00:18:51.259
+Jitendra K: And also make the agentic behavior predictable.
+
+171
+00:18:52.550 --> 00:18:55.910
+Jitendra K: That means I'm trying to make it more deterministic systems.
+
+172
+00:18:56.220 --> 00:18:59.620
+Jitendra K: Scalability, that means you can able to
+
+173
+00:18:59.940 --> 00:19:06.889
+Jitendra K: Make it highly, decomposable frameworks if you're getting some complex queries.
+
+174
+00:19:07.080 --> 00:19:13.570
+Jitendra K: We should be able to utilize some parallel executable patterns to decompose the task into multiple sub-queries.
+
+175
+00:19:13.910 --> 00:19:15.580
+Jitendra K: It should be cost-efficient.
+
+176
+00:19:17.210 --> 00:19:23.890
+Jitendra K: So, cost efficiency means you should have a keen control over your token consumptions and latency.
+
+177
+00:19:24.160 --> 00:19:31.799
+Jitendra K: And then… You should be able to utilize the minimum token consumptions instead of running agents freely.
+
+178
+00:19:32.280 --> 00:19:36.559
+Jitendra K: Which will consume the tokens and giving you the hard billing cost.
+
+179
+00:19:36.830 --> 00:19:43.520
+Jitendra K: Composability, which is, again, we are going to talk about some design patterns, including reflection, React.
+
+180
+00:19:43.930 --> 00:19:45.360
+Jitendra K: And, reboot.
+
+181
+00:19:45.520 --> 00:19:48.719
+Jitendra K: For creating more sophisticated and composable system.
+
+182
+00:19:49.410 --> 00:19:52.490
+Jitendra K: So, we are going to talk about these 7 types of design patterns.
+
+183
+00:19:52.730 --> 00:19:56.720
+Jitendra K: which is reflection, React, reboot.
+
+184
+00:19:57.260 --> 00:20:05.050
+Jitendra K: plan and execution tool uses multi-agent orchestration and LLM compiler, which will execute your tasks parallel.
+
+185
+00:20:05.400 --> 00:20:08.829
+Jitendra K: So all these things we are going to discuss in detail with an example.
+
+186
+00:20:08.950 --> 00:20:11.129
+Jitendra K: So let's start with reflection pattern.
+
+187
+00:20:12.510 --> 00:20:14.720
+Jitendra K: Now, when I say reflection pattern.
+
+188
+00:20:15.180 --> 00:20:22.140
+Jitendra K: So, reflection, as the name suggests, you're reflecting on certain things. That means you're creating some sort of…
+
+189
+00:20:22.470 --> 00:20:27.100
+Jitendra K: Feedback mechanism evaluation to reflect the quality of response.
+
+190
+00:20:27.680 --> 00:20:35.369
+Jitendra K: So, when I say reflection pattern, reflection pattern is nothing but you are going to use Something called critics.
+
+191
+00:20:35.480 --> 00:20:43.169
+Jitendra K: tool critics, right? So refraction agents are nothing but they were able to use something called tool critics, or critic agents.
+
+192
+00:20:43.420 --> 00:20:48.820
+Jitendra K: That will able to understand the output of the one agent.
+
+193
+00:20:48.990 --> 00:20:54.789
+Jitendra K: And then, it will be able to use self-correction mechanism, where an agent will review and refine its own output.
+
+194
+00:20:55.140 --> 00:21:00.009
+Jitendra K: to improve the quality, accuracy, and reasoning part of the response. So instead of single pass.
+
+195
+00:21:00.340 --> 00:21:04.500
+Jitendra K: The AI will evaluate its initial output for errors or gaps.
+
+196
+00:21:04.790 --> 00:21:10.509
+Jitendra K: And then it will use some specialized prompt or second agent before generating a final refined output.
+
+197
+00:21:10.790 --> 00:21:14.630
+Jitendra K: There's a self-correction loop involved in reflection pattern.
+
+198
+00:21:16.450 --> 00:21:21.850
+Jitendra K: So, reflection pattern will definitely be one of the good use cases.
+
+199
+00:21:22.020 --> 00:21:30.629
+Jitendra K: Where the agent will use reflection patterns, which is a method where the model generates critics and refine its output.
+
+200
+00:21:30.760 --> 00:21:36.010
+Jitendra K: through an iterative self-refinement process. And this pattern enhanced the accuracy.
+
+201
+00:21:36.320 --> 00:21:41.210
+Jitendra K: and quality of the AI-generated output, right? So basically, it's like you're…
+
+202
+00:21:41.690 --> 00:21:47.290
+Jitendra K: Moderator who will evaluate the output before you're sending it to the client.
+
+203
+00:21:47.640 --> 00:21:55.050
+Jitendra K: So it is specifically effective for large language models, allowing them to catch mistakes, clarify ambiguities, and improve overall multiple
+
+204
+00:21:55.540 --> 00:22:01.559
+Jitendra K: overall… improve overall response over a multiple iterations. So, reflection pattern comprise of three steps.
+
+205
+00:22:01.970 --> 00:22:05.939
+Jitendra K: Which is called Generation, Self-Reflection, and iterative refinement.
+
+206
+00:22:09.530 --> 00:22:13.169
+Jitendra K: So, let me show you some of the use cases around it.
+
+207
+00:22:23.120 --> 00:22:25.490
+Jitendra K: So let's say you are creating an agent.
+
+208
+00:22:30.140 --> 00:22:31.050
+Jitendra K: this one.
+
+209
+00:22:42.300 --> 00:22:44.729
+Jitendra K: Let's say you're creating an agent to write a code.
+
+210
+00:22:47.870 --> 00:22:51.969
+Jitendra K: So you are instructing the agent to write a code on, let's say, Fibmeco series.
+
+211
+00:22:52.920 --> 00:22:59.160
+Jitendra K: Now, your AI agent, which you are using for coding, will start with… Splitting your task.
+
+212
+00:23:00.010 --> 00:23:03.449
+Jitendra K: And then write line by line. But let's say you're using a critic.
+
+213
+00:23:03.810 --> 00:23:05.939
+Jitendra K: That will able to evaluate your code.
+
+214
+00:23:06.280 --> 00:23:12.930
+Jitendra K: And maybe look for several opportunities to optimize the code. So there could be… time complexity.
+
+215
+00:23:15.490 --> 00:23:17.780
+Jitendra K: Space complexity constraint.
+
+216
+00:23:18.130 --> 00:23:23.319
+Jitendra K: that your agent will start evaluating against. That means it will have an instruction
+
+217
+00:23:23.790 --> 00:23:36.800
+Jitendra K: On the basis of which, you're going to use System Prompt to evaluate the response… From this… code write-up
+
+218
+00:23:37.820 --> 00:23:43.810
+Jitendra K: As your system gets complex, Right? Your agent should also evolve.
+
+219
+00:23:45.540 --> 00:23:50.770
+Jitendra K: That means it will look for some internet search, some sort of reading material.
+
+220
+00:23:51.150 --> 00:23:54.250
+Jitendra K: To understand deeply what this code is doing.
+
+221
+00:23:54.720 --> 00:23:58.409
+Jitendra K: And then, accordingly, it will be able to evaluate. That is called self-correction.
+
+222
+00:23:59.300 --> 00:24:08.120
+Jitendra K: So, basically, we haven't achieved self-correction yet in… I mean, 2026, there's no such agent which can do self-self-correction.
+
+223
+00:24:08.640 --> 00:24:14.640
+Jitendra K: So, which is basically gonna be happen in the upcoming… Months and year.
+
+224
+00:24:14.790 --> 00:24:21.410
+Jitendra K: So, reflection pattern… Is effective, because it allows for incremental improvement through iterative feedback.
+
+225
+00:24:21.650 --> 00:24:24.359
+Jitendra K: But repetitively reflecting on the output.
+
+226
+00:24:24.520 --> 00:24:30.919
+Jitendra K: We'll help you to identify the area for improvement, refine the text, and you can achieve better quality of responses.
+
+227
+00:24:32.740 --> 00:24:35.839
+Jitendra K: So, what are the key components of a reflection pattern?
+
+228
+00:24:36.190 --> 00:24:45.560
+Jitendra K: So, the reflection pattern comprises of three main components. We have got generations tab, Where the process begins by?
+
+229
+00:24:48.290 --> 00:24:50.939
+Jitendra K: Where the process will begin, when you are…
+
+230
+00:24:51.610 --> 00:24:54.200
+Jitendra K: When a user provides an initial prompt.
+
+231
+00:24:54.710 --> 00:25:02.420
+Jitendra K: Which could be requests to generate text, write codes, or solve a complex problem. For example, a prompt might ask the AI,
+
+232
+00:25:02.740 --> 00:25:08.300
+Jitendra K: To generate an essay on a historical figure, or to implement an algorithm in a specific programming language.
+
+233
+00:25:08.460 --> 00:25:13.300
+Jitendra K: So you're going to use… Things like zero short, two short learners.
+
+234
+00:25:13.660 --> 00:25:15.360
+Jitendra K: And then it will first generate
+
+235
+00:25:16.140 --> 00:25:19.719
+Jitendra K: When the AI generates a response without previous example or iteration.
+
+236
+00:25:20.130 --> 00:25:28.970
+Jitendra K: And the output produced is considered as a first route. While it may be relevant or coherent, it may still contain errors or lack of necessary details.
+
+237
+00:25:29.280 --> 00:25:30.509
+Jitendra K: And the goal is…
+
+238
+00:25:31.710 --> 00:25:37.889
+Jitendra K: Of generation step is to produce a candidate output that further evaluates and refine in subsequent steps.
+
+239
+00:25:38.420 --> 00:25:40.509
+Jitendra K: The second step is reflection.
+
+240
+00:25:45.300 --> 00:25:50.860
+Jitendra K: So the reflection step is critical phase, where the AI model reviews own generated output.
+
+241
+00:25:51.290 --> 00:25:59.189
+Jitendra K: So it will work like a self-critic. The model critics its own work, identify the area for improvement, such as factual errors, stylish issues.
+
+242
+00:25:59.580 --> 00:26:03.700
+Jitendra K: or logical inconsistency, and then the AI-generated feedback.
+
+243
+00:26:03.960 --> 00:26:10.620
+Jitendra K: Which can be included, like suggestions for restructuring the content, adding details, or correcting the mistakes.
+
+244
+00:26:10.810 --> 00:26:15.250
+Jitendra K: And you might have some evaluation criterias that will be defined based upon the
+
+245
+00:26:15.490 --> 00:26:21.169
+Jitendra K: Predefined criterias from the users, like grammatical accuracy, coherence relevant to the prompt.
+
+246
+00:26:21.390 --> 00:26:24.070
+Jitendra K: Or adherence to the specific format guidelines.
+
+247
+00:26:24.280 --> 00:26:28.540
+Jitendra K: That means you should have the evaluation criteria. So this is GRE.
+
+248
+00:26:28.870 --> 00:26:32.190
+Jitendra K: generate… Reflect and evaluate.
+
+249
+00:26:32.950 --> 00:26:39.069
+Jitendra K: And then, basically, you are going to do iterative adaptive learning. In this phase, the feedback generated
+
+250
+00:26:39.330 --> 00:26:44.460
+Jitendra K: During the reflection pattern is used to guide the next generation of the output as well.
+
+251
+00:26:44.820 --> 00:26:47.949
+Jitendra K: And that is where the adaptive learning is very important for.
+
+252
+00:26:48.450 --> 00:26:49.440
+Jitendra K: Regards.
+
+253
+00:26:49.660 --> 00:26:58.209
+Jitendra K: That means, with each iterative process, the AI learns, recognized pattern, its own mistake, and refine its understanding on the task requirement.
+
+254
+00:26:58.980 --> 00:27:04.379
+Jitendra K: And with the help of… Multiple iterations, the process can repeat for a fixed number of steps.
+
+255
+00:27:05.850 --> 00:27:09.300
+Jitendra K: Or until a specific stopping criteria is going to meet.
+
+256
+00:27:09.620 --> 00:27:15.450
+Jitendra K: So, reflection pattern will work like… a looping system.
+
+257
+00:27:17.520 --> 00:27:21.520
+Jitendra K: Where, from the input prompt from the user.
+
+258
+00:27:22.840 --> 00:27:26.130
+Jitendra K: You're going all the way to the feedback loop.
+
+259
+00:27:27.170 --> 00:27:28.410
+Jitendra K: And then reflect.
+
+260
+00:27:29.180 --> 00:27:30.909
+Jitendra K: That's already reflection pattern.
+
+261
+00:27:31.840 --> 00:27:36.490
+Jitendra K: Right, so the prompt, which is the initial input, given to the model.
+
+262
+00:27:36.710 --> 00:27:42.069
+Jitendra K: Which will serve, like, a starting point for the tax generation process generation.
+
+263
+00:27:42.410 --> 00:27:47.530
+Jitendra K: Where the process… the AI model creates a response based upon the prompt.
+
+264
+00:27:47.910 --> 00:27:55.110
+Jitendra K: Output texts, the generated response from the model, reflection, a step where generated output is analyzed, reviewed.
+
+265
+00:27:55.420 --> 00:27:57.570
+Jitendra K: And modify for quality improvement.
+
+266
+00:27:57.720 --> 00:28:02.910
+Jitendra K: And then, finally, you have a reflected text, the modified or adjusted output after reflection.
+
+267
+00:28:03.420 --> 00:28:06.389
+Jitendra K: On the initial generation part, and then you iterate.
+
+268
+00:28:06.670 --> 00:28:13.490
+Jitendra K: So the step one is your generation, step two is the output text, step three is your reflect, step four is…
+
+269
+00:28:14.580 --> 00:28:19.980
+Jitendra K: Feedback loop, and then you generate an output using this whole design pattern.
+
+270
+00:28:29.820 --> 00:28:35.189
+Jitendra K: How does different… how different is multi-agent when critic will give input to the other agent?
+
+271
+00:28:35.610 --> 00:28:40.289
+Jitendra K: Multi-agent is like your, your organization, right? You're working on a project.
+
+272
+00:28:40.970 --> 00:28:42.550
+Jitendra K: You're working on a project.
+
+273
+00:28:42.710 --> 00:28:45.950
+Jitendra K: And you have boss, you have subordinates, you have…
+
+274
+00:28:46.370 --> 00:28:53.480
+Jitendra K: developers, you have got designers, right? So that is a team internally, but Critic is like an auditor, external output.
+
+275
+00:28:53.780 --> 00:28:57.899
+Jitendra K: That is going to do the evaluation on your response, your work.
+
+276
+00:28:58.170 --> 00:29:05.470
+Jitendra K: You are claiming that I'm doing a good work to your boss, right? But auditors should be convinced whether you're doing really good for your organization or not.
+
+277
+00:29:06.250 --> 00:29:08.020
+Jitendra K: So that is the critic agent.
+
+278
+00:29:09.810 --> 00:29:16.259
+Jitendra K: So you can… you can fulfill a timesheet, you can say, I'm doing this, I'm doing this, but auditors should be convinced, right?
+
+279
+00:29:17.150 --> 00:29:19.519
+Jitendra K: If auditors are not convinced.
+
+280
+00:29:19.720 --> 00:29:24.529
+Jitendra K: And, that's the whole purpose of layoffs and all these things, which is happening these days.
+
+281
+00:29:25.250 --> 00:29:28.030
+Jitendra K: So, consider auditors like a critic.
+
+282
+00:29:28.860 --> 00:29:34.959
+Jitendra K: So, reflection part, done by agent, different from the agent generation, a response to the prompt.
+
+283
+00:29:35.530 --> 00:29:42.319
+Jitendra K: Is agent… sorry, let me read this question. Is reflection part done by agent different?
+
+284
+00:29:43.040 --> 00:29:48.080
+Jitendra K: from the agent generating a response to the problem. I didn't get your question what…
+
+285
+00:29:48.200 --> 00:29:52.779
+Jitendra K: If you can please elaborate, I didn't really do not understand what is the question.
+
+286
+00:29:53.040 --> 00:29:59.659
+Jitendra K: If we go… if you're doing fine-tuning for a specific domain for the main model, which is generating an equivalent
+
+287
+00:30:00.370 --> 00:30:03.199
+Jitendra K: Lee, we need Critic to fine-tune as well.
+
+288
+00:30:05.510 --> 00:30:15.250
+Jitendra K: So, this is, yes, of course. So, if you're doing… there's no domain-specific, agent I'm talking about here. I'm talking in general, this is our design patterns.
+
+289
+00:30:15.550 --> 00:30:18.880
+Jitendra K: Which you have to use in general. They are not domain-specific design patterns.
+
+290
+00:30:19.680 --> 00:30:21.719
+Jitendra K: So, if you're using a…
+
+291
+00:30:22.300 --> 00:30:27.090
+Jitendra K: response, you have your own user base, right? Otherwise, why are you creating a system?
+
+292
+00:30:27.280 --> 00:30:29.519
+Jitendra K: You're creating a system for your users.
+
+293
+00:30:29.880 --> 00:30:38.989
+Jitendra K: who's the domain-specific users. So their feedback is from domain-agnostic lenses, right? And then you're writing your critic according to your user feedback.
+
+294
+00:30:39.960 --> 00:30:43.320
+Jitendra K: Did it automatically use your user feedback in a domain?
+
+295
+00:30:44.160 --> 00:30:55.270
+Jitendra K: How system learned to stop iteration? You need to create policy for that. Like, I need to go for 5, maximum 5 iterations to refine the output, or 2 iterations for refining the output.
+
+296
+00:30:56.900 --> 00:31:05.939
+Jitendra K: Yeah, generate critical refine output, that's correct. Is reflection pattern an end part of today's operation? Of course it is. Reflection pattern is one of the critical part of
+
+297
+00:31:06.140 --> 00:31:09.430
+Jitendra K: these days, design patterns.
+
+298
+00:31:10.060 --> 00:31:17.370
+Jitendra K: Reflection pattern is done two different agents, one generating answer, the prompt, another reflection generated. Yeah, so both are system prompts.
+
+299
+00:31:18.020 --> 00:31:21.390
+Jitendra K: So, critic is general… Clear feedback.
+
+300
+00:31:22.610 --> 00:31:25.409
+Jitendra K: Feedback is from your user, critic is,
+
+301
+00:31:25.750 --> 00:31:28.019
+Jitendra K: He's the one who's refining your feedback.
+
+302
+00:31:28.740 --> 00:31:30.579
+Jitendra K: Taking action on your feedback.
+
+303
+00:31:38.700 --> 00:31:43.369
+Jitendra K: Okay, so reflection button is clear to everyone. Any question on this?
+
+304
+00:31:46.000 --> 00:31:48.639
+Jitendra K: No, it's not binary. It can be descriptive.
+
+305
+00:31:53.740 --> 00:31:55.120
+Jitendra K: Is it clear now?
+
+306
+00:31:55.560 --> 00:31:57.289
+Jitendra K: The water reflection button.
+
+307
+00:32:00.330 --> 00:32:05.209
+Jitendra K: Yeah, have I talked about other design patterns, first of all? So, why are you jumping on the topic?
+
+308
+00:32:05.800 --> 00:32:10.549
+Jitendra K: This is the first, design button that we are learning. You can combine, yes.
+
+309
+00:32:12.320 --> 00:32:14.230
+Jitendra K: Your question is ahead of time.
+
+310
+00:32:19.910 --> 00:32:22.909
+Jitendra K: Of course, we can combine two design patterns as well.
+
+311
+00:32:27.810 --> 00:32:34.450
+Jitendra K: Alright, so is this concept is clear to everyone. I want everybody to be loud and clear.
+
+312
+00:32:37.120 --> 00:32:40.790
+Jitendra K: Is reflection patterns clear? You understand the component.
+
+313
+00:32:45.340 --> 00:32:50.449
+Jitendra K: Alright, so we'll… Go back to the second design pattern now, which is…
+
+314
+00:32:55.280 --> 00:33:08.190
+Jitendra K: React. So React is one of the important design patterns that we're going to talk about in today's tutorial. And then we'll compare React with other design patterns. What is the purpose of React? What is the purpose of Review, and all.
+
+315
+00:33:08.690 --> 00:33:12.150
+Jitendra K: So React, as the name suggests, it is for reasoning and action.
+
+316
+00:33:12.920 --> 00:33:17.250
+Jitendra K: So, reasoning and action… Was basically…
+
+317
+00:33:17.360 --> 00:33:22.360
+Jitendra K: a kind of a design pattern that isn't developed by Yahoo, And they have created
+
+318
+00:33:23.510 --> 00:33:28.120
+Jitendra K: One prompt, one style of writing the prompt, which is called chain of thought.
+
+319
+00:33:28.940 --> 00:33:33.770
+Jitendra K: And that is where we… introduced to a react pattern.
+
+320
+00:33:34.510 --> 00:33:38.920
+Jitendra K: So React patterns operate in an iterative loop to solve complex problems.
+
+321
+00:33:39.600 --> 00:33:48.369
+Jitendra K: So the core idea of React is you're going to have agent that will continuously cycle through three distinct phases until the task is completed.
+
+322
+00:33:49.100 --> 00:33:52.870
+Jitendra K: Which is called Thought, Action, and Observation. T-A-O.
+
+323
+00:33:53.520 --> 00:33:59.069
+Jitendra K: the thought… The agent verbalized its initial reasoning, sorry, internal reasoning.
+
+324
+00:33:59.230 --> 00:34:03.709
+Jitendra K: Breaking the main goal into smaller subtasks, and then determine the next logical step.
+
+325
+00:34:04.750 --> 00:34:05.920
+Jitendra K: action.
+
+326
+00:34:06.170 --> 00:34:14.109
+Jitendra K: Will be based upon the thoughts the agents select and execute specific tools, like web search, database query, or calculation of certain stuff.
+
+327
+00:34:14.429 --> 00:34:18.950
+Jitendra K: And the observation where the system will feed the output of the agent back to the model.
+
+328
+00:34:19.120 --> 00:34:22.339
+Jitendra K: Which is then used to inform its next port.
+
+329
+00:34:22.820 --> 00:34:30.779
+Jitendra K: So, by virtue of these three mechanisms, you will reduce hallucination by grounding each reasoning step in factual output.
+
+330
+00:34:31.469 --> 00:34:36.649
+Jitendra K: You will create more adaptable pipelines, And make it more explainable.
+
+331
+00:34:37.880 --> 00:34:42.680
+Jitendra K: So, basically, React is one of such frameworks.
+
+332
+00:34:44.050 --> 00:34:47.780
+Jitendra K: That will help to create a great System.
+
+333
+00:34:48.159 --> 00:34:51.890
+Jitendra K: With the help of… The reasoning power of the model.
+
+334
+00:34:52.679 --> 00:34:54.960
+Jitendra K: So let's try to understand React.
+
+335
+00:35:00.150 --> 00:35:03.789
+Jitendra K: with… Some use case example…
+
+336
+00:35:25.160 --> 00:35:27.510
+Jitendra K: Second, let me open my visuals.
+
+337
+00:35:37.440 --> 00:35:40.720
+Jitendra K: Okay, so basically we are talking about React now.
+
+338
+00:35:43.570 --> 00:35:46.539
+Jitendra K: So, React pattern depends upon this.
+
+339
+00:35:46.850 --> 00:35:48.850
+Jitendra K: Let me show you…
+
+340
+00:37:16.080 --> 00:37:19.480
+Jitendra K: I just… I'm just looking for my diagram, one second.
+
+341
+00:37:31.590 --> 00:37:33.140
+Jitendra K: Okay, so here you go.
+
+342
+00:37:34.390 --> 00:37:39.570
+Jitendra K: So, I'm talking about this React pattern. So, this React pattern, you can see on my screen.
+
+343
+00:37:39.820 --> 00:37:43.700
+Jitendra K: So here, I'm talking about, two or three different propositions.
+
+344
+00:37:44.120 --> 00:37:53.179
+Jitendra K: So when you say react pattern, That means… I'm talking about, the workflow execution.
+
+345
+00:37:53.660 --> 00:38:01.950
+Jitendra K: So here, when we talk about React, That means… I'm looking for… the planning.
+
+346
+00:38:02.250 --> 00:38:05.989
+Jitendra K: And the generation agent, which will work in sync with the environment.
+
+347
+00:38:07.220 --> 00:38:14.880
+Jitendra K: So, React Framework, If I'm going to implement… With the help of…
+
+348
+00:38:15.290 --> 00:38:18.929
+Jitendra K: the available tool that we have discussed so far. Let's say Landgraph.
+
+349
+00:38:19.690 --> 00:38:22.790
+Jitendra K: So this is how I'm going to create a React framework.
+
+350
+00:38:23.120 --> 00:38:26.450
+Jitendra K: And this is one of the articles that I've shared with you as well yesterday.
+
+351
+00:38:26.600 --> 00:38:29.210
+Jitendra K: And I ask you to… Study this.
+
+352
+00:38:29.550 --> 00:38:35.919
+Jitendra K: So, this article, what it does is, it talks about the phases of React.
+
+353
+00:38:36.600 --> 00:38:40.579
+Jitendra K: Then let's start to understand the phases of React. So when you say React pattern.
+
+354
+00:38:42.310 --> 00:38:49.489
+Jitendra K: Or, reasoning and action pattern. That means we are talking about… Some sort of loop mechanism.
+
+355
+00:38:49.590 --> 00:38:51.400
+Jitendra K: So React is a loop.
+
+356
+00:38:51.520 --> 00:38:53.769
+Jitendra K: Right? Reasoning and action loop.
+
+357
+00:38:54.170 --> 00:38:58.719
+Jitendra K: So basically, you have 3 important stages for this pattern.
+
+358
+00:38:59.950 --> 00:39:01.860
+Jitendra K: The first stage is your thought.
+
+359
+00:39:03.630 --> 00:39:04.740
+Jitendra K: Which is T.
+
+360
+00:39:05.300 --> 00:39:08.270
+Jitendra K: So, thought, where LLM lies.
+
+361
+00:39:10.670 --> 00:39:11.930
+Jitendra K: lumber and Lights.
+
+362
+00:39:12.190 --> 00:39:17.030
+Jitendra K: the current state from the query.
+
+363
+00:39:17.450 --> 00:39:23.939
+Jitendra K: and generate a reasoning traces to plan its next step. That means tool calling, predominantly.
+
+364
+00:39:25.350 --> 00:39:30.899
+Jitendra K: And then… It… This externalized thinking helped
+
+365
+00:39:31.080 --> 00:39:36.270
+Jitendra K: It to stay on track and reduce hallucination by grounding its next move in existing evidence.
+
+366
+00:39:36.680 --> 00:39:42.420
+Jitendra K: The second important step for this is action.
+
+367
+00:39:43.050 --> 00:39:45.460
+Jitendra K: Based upon the thought, the agent select
+
+368
+00:39:46.000 --> 00:39:50.889
+Jitendra K: a specific tool, like, let's say if I'm doing a web search, or a…
+
+369
+00:39:51.050 --> 00:39:55.640
+Jitendra K: database query, which action, which columns, which rows I need to select.
+
+370
+00:39:56.060 --> 00:39:58.640
+Jitendra K: And provide a necessary input parameter for that.
+
+371
+00:40:00.390 --> 00:40:02.129
+Jitendra K: The third is observation.
+
+372
+00:40:03.090 --> 00:40:09.580
+Jitendra K: The system executed tool feeds the result back to LLM, and the model then treats its observation as a next context.
+
+373
+00:40:10.340 --> 00:40:14.229
+Jitendra K: And allowing it to adapt if the tool fails or returns unexpected data.
+
+374
+00:40:14.470 --> 00:40:17.369
+Jitendra K: That means here you are performing back and forth.
+
+375
+00:40:21.720 --> 00:40:25.759
+Jitendra K: So the key benefit of using this pattern is, unlike rigid scripts.
+
+376
+00:40:26.040 --> 00:40:29.339
+Jitendra K: React can pivot based on real-time feedback.
+
+377
+00:40:30.140 --> 00:40:36.519
+Jitendra K: So it will be able to help you to… Create a kind of… Mechanism, we are the agent.
+
+378
+00:40:36.830 --> 00:40:39.809
+Jitendra K: Will perform exemplary on a few tasks.
+
+379
+00:40:41.260 --> 00:40:47.389
+Jitendra K: And the modern-day frameworks that you're using to write code, to interact, they're all React-based frameworks.
+
+380
+00:40:48.080 --> 00:40:55.500
+Jitendra K: That means the environment is nothing but the user query itself, the user set of documents that you're going to supply.
+
+381
+00:40:55.760 --> 00:41:00.620
+Jitendra K: And depending upon that, it will perform the output.
+
+382
+00:41:01.190 --> 00:41:03.690
+Jitendra K: In the, real-world manner.
+
+383
+00:41:04.140 --> 00:41:10.630
+Jitendra K: So this is one of the design patterns that is very, very useful for Making a course correction.
+
+384
+00:41:10.930 --> 00:41:13.519
+Jitendra K: Using a feedback loop from the agent.
+
+385
+00:41:13.960 --> 00:41:22.299
+Jitendra K: Now… If I have to just talk about react pattern versus reflection, what are the differences?
+
+386
+00:41:23.300 --> 00:41:26.700
+Jitendra K: So if I just say the react versus reflect.
+
+387
+00:41:27.620 --> 00:41:35.730
+Jitendra K: So, reflection is focusing on improving the correctness. It works by generating an initial output.
+
+388
+00:41:39.490 --> 00:41:45.269
+Jitendra K: And then I audit for the errors, and I trade to improve. But reasoning and action, which is React.
+
+389
+00:41:45.910 --> 00:41:49.099
+Jitendra K: Focus on navigating tasks by calling external tools.
+
+390
+00:41:49.520 --> 00:41:52.169
+Jitendra K: To gather data, need to solve problems.
+
+391
+00:41:52.780 --> 00:41:55.820
+Jitendra K: And then, taking feedbacks to improve.
+
+392
+00:41:56.420 --> 00:41:58.820
+Jitendra K: So here, we are talking about dynamic environment.
+
+393
+00:41:59.580 --> 00:42:11.410
+Jitendra K: tools used and step-by-step navigation, which has been utilized. But in reflection, we are talking about improving the accuracy and self-correction and final output quality. We are not bothering too much about tools and external
+
+394
+00:42:11.580 --> 00:42:18.080
+Jitendra K: API management, and things like that.
+
+395
+00:42:28.790 --> 00:42:38.170
+Jitendra K: External tool could be anything, APIs, your weather API, your finance API. We have seen some financial use cases, Yahoo API, Bloomberg API, we have used, right?
+
+396
+00:42:38.730 --> 00:42:41.050
+Jitendra K: We've seen, we are also using
+
+397
+00:42:41.190 --> 00:42:43.600
+Jitendra K: Solve API for performing web search.
+
+398
+00:42:43.910 --> 00:42:47.900
+Jitendra K: So these could be our tools that we are talking about. It could be your database as well.
+
+399
+00:42:51.230 --> 00:42:58.069
+Jitendra K: Alright, so once we understand that React framework is very important to consider.
+
+400
+00:42:58.500 --> 00:43:08.350
+Jitendra K: the underlying, reasoning capability of a model that will make force correction in the response by selecting the right tool. That means
+
+401
+00:43:11.310 --> 00:43:14.919
+Jitendra K: That means it is becoming one of the core patterns
+
+402
+00:43:15.220 --> 00:43:17.589
+Jitendra K: That will help you to improve the final answer.
+
+403
+00:43:18.570 --> 00:43:25.710
+Jitendra K: So… Some of the important consideration on… This is…
+
+404
+00:43:26.650 --> 00:43:34.730
+Jitendra K: So, react pattern is very effective in externalizing the reasoning. So, every decision will become visible.
+
+405
+00:43:35.040 --> 00:43:43.160
+Jitendra K: Creating a clear audit trail when agents fail, you will see where logic breaks, and the pattern prevent premature conclusion and reduce hallucination.
+
+406
+00:43:43.510 --> 00:43:47.540
+Jitendra K: By forcing agent to ground each step in the observed state itself.
+
+407
+00:43:48.180 --> 00:43:52.089
+Jitendra K: That means it is highly task demand adaptive.
+
+408
+00:43:54.170 --> 00:43:59.790
+Jitendra K: Right? So some of the limitations that I would like to call out in React So, react…
+
+409
+00:44:01.090 --> 00:44:03.430
+Jitendra K: Trade speed for thoughtfulness.
+
+410
+00:44:03.840 --> 00:44:08.430
+Jitendra K: That means each reading step required an additional model call, increasing latency and cost.
+
+411
+00:44:08.950 --> 00:44:13.929
+Jitendra K: So you want to return incorrect data, that error can propagate through subsequent reading step.
+
+412
+00:44:14.380 --> 00:44:21.500
+Jitendra K: Also, the pattern effectiveness depends on underlying model reasoning capability. So, weak model produce weak results.
+
+413
+00:44:21.950 --> 00:44:27.199
+Jitendra K: React can be your default starting point for complex, unpredictable tasks.
+
+414
+00:44:28.210 --> 00:44:31.659
+Jitendra K: And the transparency it provides make debugging faster, but…
+
+415
+00:44:32.250 --> 00:44:37.210
+Jitendra K: It will increase your token cost and latency and throughput.
+
+416
+00:44:38.050 --> 00:44:40.879
+Jitendra K: So, that is one of the drawbacks of React.
+
+417
+00:44:41.930 --> 00:44:47.080
+Jitendra K: So, to avoid that, we have to use one more pattern called reboot.
+
+418
+00:44:47.840 --> 00:44:54.109
+Jitendra K: So we'll talk about REVU, and here you can see that REVU stands for Reasoning Without Observation.
+
+419
+00:44:54.790 --> 00:44:59.499
+Jitendra K: That means Revu is one of the design patterns that we are going to use for…
+
+420
+00:45:00.010 --> 00:45:04.700
+Jitendra K: Maybe getting quick results with minimal cost of token consumption.
+
+421
+00:45:06.820 --> 00:45:11.409
+Jitendra K: So, if I have to explain here what is Ribu, so Rebu is another design pattern.
+
+422
+00:45:12.650 --> 00:45:14.109
+Jitendra K: Which is turned for?
+
+423
+00:45:14.290 --> 00:45:16.180
+Jitendra K: Reasoning without observation.
+
+424
+00:45:16.850 --> 00:45:23.660
+Jitendra K: So what this pattern does is, in a nutshell, This pattern… is utilize…
+
+425
+00:45:24.400 --> 00:45:30.570
+Jitendra K: A core concept where you're going to take some policies instead of
+
+426
+00:45:31.160 --> 00:45:33.409
+Jitendra K: Looking at the feedback from the environment.
+
+427
+00:45:37.750 --> 00:45:43.350
+Jitendra K: So, basically, what is Rebu here? Rebu is nothing but… It's,
+
+428
+00:45:43.980 --> 00:45:47.189
+Jitendra K: tool, or I would say it's a…
+
+429
+00:45:47.370 --> 00:45:55.099
+Jitendra K: Design pattern, which is designed for reasoning without observation, is a framework that makes large language models most cost-effective.
+
+430
+00:45:55.570 --> 00:45:58.439
+Jitendra K: And accurate in some complex reasoning application.
+
+431
+00:45:58.870 --> 00:46:04.200
+Jitendra K: So, model with Review will engage in reasoning processing, or reasoning process around a problem.
+
+432
+00:46:04.630 --> 00:46:06.330
+Jitendra K: Before trying to solve it.
+
+433
+00:46:06.710 --> 00:46:11.230
+Jitendra K: Leading to much greater efficiency, accuracy, and robustness under tool failure.
+
+434
+00:46:13.910 --> 00:46:17.539
+Jitendra K: So, how Rivu works? So, Rivu used 3 distinct modules.
+
+435
+00:46:18.200 --> 00:46:23.819
+Jitendra K: with divide… which divide and conquer complex tasks. Plus, it will use something called Planner.
+
+436
+00:46:24.760 --> 00:46:28.970
+Jitendra K: So, the planner module is the core of Reboot.
+
+437
+00:46:29.680 --> 00:46:37.050
+Jitendra K: So, this planner module Maps out a blueprint for how the model will behave based upon the user prompt.
+
+438
+00:46:37.870 --> 00:46:39.039
+Jitendra K: Or user query.
+
+439
+00:46:39.960 --> 00:46:41.960
+Jitendra K: Second is a worker module.
+
+440
+00:46:43.710 --> 00:46:52.849
+Jitendra K: So this worker module will execute the plan, calling external tools, APIs, databases, rack pipeline, knowledge graphs.
+
+441
+00:46:53.510 --> 00:47:00.950
+Jitendra K: Without repeating the cost, it will create external tools. Without repeating cost L&M API for thing.
+
+442
+00:47:01.800 --> 00:47:05.429
+Jitendra K: First, it will gather all the data at once.
+
+443
+00:47:05.910 --> 00:47:07.489
+Jitendra K: And then use a solver.
+
+444
+00:47:08.050 --> 00:47:14.660
+Jitendra K: So, Solver… Module takes the plan and evidences and synthesize the final response.
+
+445
+00:47:15.420 --> 00:47:17.969
+Jitendra K: So, Review performed well.
+
+446
+00:47:19.570 --> 00:47:25.219
+Jitendra K: then react in some of the benchmarks. So there's a benchmark called Hot Pot QA Data Set.
+
+447
+00:47:26.000 --> 00:47:29.670
+Jitendra K: Which will… which I have to talk about.
+
+448
+00:47:29.990 --> 00:47:36.210
+Jitendra K: And React and Rebo, if you're comparing the two performance, Rebo is doing good in terms of that.
+
+449
+00:47:38.190 --> 00:47:43.530
+Jitendra K: So there's something called Hot… port QA dataset.
+
+450
+00:48:17.500 --> 00:48:24.470
+Jitendra K: So this is our dataset that I'm talking about, and this dataset have… Multiple, queries and answers.
+
+451
+00:48:24.570 --> 00:48:26.949
+Jitendra K: where Reboot outperformed React.
+
+452
+00:48:28.270 --> 00:48:30.379
+Jitendra K: So, that is what I'm trying to talk about.
+
+453
+00:48:30.560 --> 00:48:36.609
+Jitendra K: Now… The question is… Which one you… you should consider and why?
+
+454
+00:48:43.000 --> 00:48:45.619
+Jitendra K: Now let's start to understand the working mechanism.
+
+455
+00:48:46.040 --> 00:48:47.720
+Jitendra K: In more greater detail.
+
+456
+00:48:48.170 --> 00:48:49.649
+Jitendra K: So this is your React.
+
+457
+00:48:53.560 --> 00:48:55.160
+Jitendra K: And this is your reboot.
+
+458
+00:49:10.190 --> 00:49:11.659
+Jitendra K: Now you can see that.
+
+459
+00:49:13.650 --> 00:49:23.430
+Jitendra K: in the React, system. We would like to decompose a problem in a sequence of Thought, action, observation cycle.
+
+460
+00:49:23.710 --> 00:49:25.500
+Jitendra K: Before giving the final answer.
+
+461
+00:49:25.760 --> 00:49:33.300
+Jitendra K: So the first iCycle, it will think… Using RAG or Knowledge Graph.
+
+462
+00:49:33.750 --> 00:49:38.560
+Jitendra K: And then, finally, observe the result, and the result then served to the input.
+
+463
+00:49:38.790 --> 00:49:43.150
+Jitendra K: towards another three-step. Think, observe, and… react.
+
+464
+00:49:43.970 --> 00:49:49.070
+Jitendra K: But in… We will… First, it will plan.
+
+465
+00:49:51.410 --> 00:49:55.390
+Jitendra K: And then… It go into the tool calling.
+
+466
+00:49:55.920 --> 00:49:58.969
+Jitendra K: And then generate a systematic output before it.
+
+467
+00:49:59.320 --> 00:50:06.659
+Jitendra K: get the final response. That means, here we are completely saving the amount of recursive cycles.
+
+468
+00:50:12.450 --> 00:50:18.590
+Jitendra K: And that'll increase… Your latency, decrease your latency, and improve the throughput.
+
+469
+00:50:19.050 --> 00:50:20.450
+Jitendra K: Of your design.
+
+470
+00:50:20.910 --> 00:50:26.580
+Jitendra K: And make your… operating costs low as compared to React.
+
+471
+00:50:27.290 --> 00:50:32.650
+Jitendra K: And that is a benefit of this whole piece of design pattern.
+
+472
+00:50:33.150 --> 00:50:34.590
+Jitendra K: So, any question on this?
+
+473
+00:50:37.510 --> 00:50:41.299
+Jitendra K: Can I say static plan for review and new plan for React?
+
+474
+00:50:42.090 --> 00:50:47.059
+Jitendra K: Yeah, you can say it, React, Dynamic, and, Revoice.
+
+475
+00:50:50.180 --> 00:50:55.510
+Jitendra K: I mean, review is static and React is dynamic? Yes, that you can say.
+
+476
+00:51:11.570 --> 00:51:14.329
+Jitendra K: But is this… patterns are clear now?
+
+477
+00:51:19.940 --> 00:51:28.320
+Jitendra K: For thinking, COT, do we need special, or, so you can use benchmarks.
+
+478
+00:51:28.590 --> 00:51:35.749
+Jitendra K: so there are multiple benchmarks that you can use to select the right agents, or right LLMs.
+
+479
+00:51:37.740 --> 00:51:39.839
+Jitendra K: So, you can go with benchmarks.
+
+480
+00:51:39.990 --> 00:51:42.690
+Jitendra K: And these benchmarks will help you to evaluate.
+
+481
+00:51:43.180 --> 00:51:45.630
+Jitendra K: what kind of LLM you should prefer, and why.
+
+482
+00:51:47.780 --> 00:51:50.860
+Jitendra K: So there's something called VLLM benchmarks.
+
+483
+00:51:55.170 --> 00:51:57.620
+Jitendra K: That you can go and see.
+
+484
+00:51:57.760 --> 00:52:01.040
+Jitendra K: How these benchmarks are performing, how agents are performing.
+
+485
+00:52:19.820 --> 00:52:23.269
+Jitendra K: I can see here the performance dashboards and stuff.
+
+486
+00:52:25.530 --> 00:52:34.370
+Jitendra K: Self-healing agents are the part of this pattern. There's no self-healing agent. Even Microsoft and Google was not able to develop any self-healing agent.
+
+487
+00:52:35.030 --> 00:52:36.650
+Jitendra K: They are still in progress.
+
+488
+00:52:37.130 --> 00:52:46.109
+Jitendra K: But React is high-cost design, right? Yes, that is what I'm saying, React is high-cost. If I'm saying Zebu is low-cost, then automatically React is high-cost, right?
+
+489
+00:52:46.620 --> 00:52:49.260
+Jitendra K: Please go through back the slide, we show all of them.
+
+490
+00:52:50.230 --> 00:52:53.829
+Jitendra K: Okay… This is a slide.
+
+491
+00:52:54.180 --> 00:52:59.399
+Jitendra K: One topic I came across with React was goal versus task-oriented prompt.
+
+492
+00:53:00.000 --> 00:53:03.480
+Jitendra K: Is that a lower level, final level of detail?
+
+493
+00:53:05.620 --> 00:53:07.400
+Jitendra K: What is your goal?
+
+494
+00:53:07.620 --> 00:53:12.269
+Jitendra K: If you can explain what is the goal? Can you give an example? What is goal and task?
+
+495
+00:53:12.460 --> 00:53:14.410
+Jitendra K: What's the difference between goal and task?
+
+496
+00:53:23.410 --> 00:53:25.340
+Jitendra K: Goal is the overall…
+
+497
+00:53:29.400 --> 00:53:34.010
+Jitendra K: task to multi-agent, right? And task card, you're talking about individual agent.
+
+498
+00:53:39.880 --> 00:53:41.519
+Jitendra K: What is reasoning path?
+
+499
+00:53:42.210 --> 00:53:45.340
+Jitendra K: You're talking about multi-agent or single-agent? I don't know.
+
+500
+00:53:49.060 --> 00:53:58.090
+Jitendra K: Okay, so let me be very clear. Are you going to implement this design pattern at a multi-agent declar or single-agent declare? What is your understanding on that?
+
+501
+00:54:05.810 --> 00:54:07.220
+Jitendra K: Single agent.
+
+502
+00:54:07.360 --> 00:54:08.810
+Jitendra K: Why a single agent?
+
+503
+00:54:12.340 --> 00:54:15.340
+Jitendra K: Why can't I implement this at a multi-agentic level?
+
+504
+00:54:21.890 --> 00:54:23.680
+Jitendra K: Yes, this will be multi-agent.
+
+505
+00:54:26.830 --> 00:54:31.350
+Jitendra K: So, when we talk about goal and task, we are not talking about task here, we're talking about goal here.
+
+506
+00:54:31.880 --> 00:54:33.690
+Jitendra K: Goal of the overall system.
+
+507
+00:54:35.000 --> 00:54:38.239
+Jitendra K: Individually, it will tackle the task automatically.
+
+508
+00:54:44.240 --> 00:54:54.690
+Jitendra K: React use case research and root cause analysis, reflection, improved document quality content creation, Any specific case for reboot?
+
+509
+00:54:55.170 --> 00:54:57.270
+Jitendra K: So, Review, you can use it for…
+
+510
+00:54:58.230 --> 00:55:00.580
+Jitendra K: Research and root cause analysis as well.
+
+511
+00:55:01.200 --> 00:55:06.170
+Jitendra K: Without burning too much cost on your token. And then see which one is better.
+
+512
+00:55:08.560 --> 00:55:12.259
+Jitendra K: So wherever you can able to use React, you can use Re… sorry.
+
+513
+00:55:12.390 --> 00:55:16.459
+Jitendra K: Yeah, whenever you… wherever you can able to react, you can use able to use reboot.
+
+514
+00:55:17.300 --> 00:55:23.529
+Jitendra K: Reflection, along with Revoo and React, you can go with it. But with React and Review, you can choose one.
+
+515
+00:55:24.650 --> 00:55:27.530
+Jitendra K: And there's a spatial case where you have to choose both.
+
+516
+00:55:27.980 --> 00:55:29.590
+Jitendra K: I will talk about that.
+
+517
+00:55:30.160 --> 00:55:34.870
+Jitendra K: But, in general speaking, these two design patterns will…
+
+518
+00:55:35.160 --> 00:55:37.220
+Jitendra K: Behave like a competitor to each other.
+
+519
+00:55:37.450 --> 00:55:39.450
+Jitendra K: So you have to select one of them.
+
+520
+00:55:54.800 --> 00:55:58.890
+Jitendra K: This is an example. Let's say I'm creating one query.
+
+521
+00:55:59.620 --> 00:56:03.529
+Jitendra K: What is the GDP per capita of the country where the Apple Tower is located?
+
+522
+00:56:03.670 --> 00:56:08.660
+Jitendra K: Here I'm talking about… Two different query.
+
+523
+00:56:09.240 --> 00:56:11.679
+Jitendra K: One is… the subquery.
+
+524
+00:56:12.470 --> 00:56:18.729
+Jitendra K: where I'm asking… the agents, where's the Apple Tower located? It will give some country XYZ.
+
+525
+00:56:22.420 --> 00:56:24.620
+Jitendra K: And then this country will refer.
+
+526
+00:56:26.680 --> 00:56:28.210
+Jitendra K: Back to this query.
+
+527
+00:56:28.670 --> 00:56:30.600
+Jitendra K: What is the GDP of that country?
+
+528
+00:56:30.880 --> 00:56:34.100
+Jitendra K: That means there are two queries that need to be fulfilled.
+
+529
+00:56:34.500 --> 00:56:39.199
+Jitendra K: One is the airfield tower, where it is located, and then the GDP of that country.
+
+530
+00:56:39.720 --> 00:56:46.250
+Jitendra K: So it will say result as Paris, France, which is the Plan 1. Plan 2, it will look for the GDP of…
+
+531
+00:56:46.640 --> 00:56:47.540
+Jitendra K: Varice?
+
+532
+00:56:48.430 --> 00:56:52.939
+Jitendra K: sorry, France, not Paris, country we are talking about, and then it'll generate an output.
+
+533
+00:56:53.620 --> 00:56:58.240
+Jitendra K: So the plan is… Combine E1 and A2 into final answer.
+
+534
+00:56:59.200 --> 00:57:00.820
+Jitendra K: So that is what we are getting.
+
+535
+00:57:02.220 --> 00:57:05.200
+Jitendra K: Right, so that means… This is…
+
+536
+00:57:06.240 --> 00:57:08.680
+Jitendra K: Does not require any feedback loop, right?
+
+537
+00:57:08.830 --> 00:57:09.990
+Jitendra K: like, react.
+
+538
+00:57:10.130 --> 00:57:13.169
+Jitendra K: There's no need to improve the answer. This is a factual query.
+
+539
+00:57:13.860 --> 00:57:21.240
+Jitendra K: It breaks down your question, get an answer, and that… that… that is all you require. So for factual query, you really do not require React.
+
+540
+00:57:22.270 --> 00:57:25.220
+Jitendra K: This is a factual query, right? You just need a plan.
+
+541
+00:57:25.580 --> 00:57:30.110
+Jitendra K: So really, there's no purpose of React. Why should I go and refine this output?
+
+542
+00:57:30.520 --> 00:57:32.549
+Jitendra K: Where the Apple Tower is located.
+
+543
+00:57:32.690 --> 00:57:36.940
+Jitendra K: Why should I call several tools to generate the same answer, when I know this is a fact?
+
+544
+00:57:39.980 --> 00:57:43.240
+Jitendra K: Right? So this is how you should differentiate the design patterns.
+
+545
+00:57:43.760 --> 00:57:47.840
+Jitendra K: Where there's an opportunity to save the cost against the fact.
+
+546
+00:57:48.290 --> 00:57:55.199
+Jitendra K: So you call fewer LLMs versus React, and save at 64% of your tokens, and run 3 times faster.
+
+547
+00:57:55.670 --> 00:58:04.070
+Jitendra K: And token saving across tasks is 50%. So, advantage, dramatically improved, fewer LLM calls, enable parallel tool execution.
+
+548
+00:58:11.440 --> 00:58:19.940
+Jitendra K: So it dramatically improved the… the cost of execution, enabled parallel tools, lower token cost per query.
+
+549
+00:58:20.390 --> 00:58:24.110
+Jitendra K: Simple isolation in terms of error tracking mechanism.
+
+550
+00:58:24.490 --> 00:58:28.389
+Jitendra K: And work with similar models, or small models, small agents.
+
+551
+00:58:37.800 --> 00:58:40.970
+Jitendra K: So, the trade-off would be…
+
+552
+00:58:41.840 --> 00:58:46.200
+Jitendra K: No mid-plan adaptation, that means once the plan has been created, you cannot change it.
+
+553
+00:58:46.730 --> 00:58:49.530
+Jitendra K: Plan error propagation to it, all steps.
+
+554
+00:58:49.830 --> 00:58:57.799
+Jitendra K: Less effective for ambiguous tasks, require predictable tools output, and planning quality is critical. If your agents are not generating a right plan.
+
+555
+00:58:58.020 --> 00:59:03.429
+Jitendra K: it will fail all the other tasks automatically. So everything depends upon the planning agent.
+
+556
+00:59:03.580 --> 00:59:05.510
+Jitendra K: That you're going to use inside Reboot.
+
+557
+00:59:08.750 --> 00:59:14.389
+Jitendra K: Can this analogically correct, like, Claude Oppos is heavyweight thinkers, or his React?
+
+558
+00:59:16.740 --> 00:59:24.610
+Jitendra K: I mean, yeah, so… Claude offers if you're using OpenClaw, or these, agents, so…
+
+559
+00:59:25.100 --> 00:59:32.060
+Jitendra K: React, I think it's a good use case of React, is your, microsoft…
+
+560
+00:59:32.340 --> 00:59:36.529
+Jitendra K: code writers, GitHub Copilot, they are working in React.
+
+561
+00:59:37.410 --> 00:59:39.049
+Jitendra K: They're using heavily React.
+
+562
+00:59:39.170 --> 00:59:42.640
+Jitendra K: They believe in generating a good response.
+
+563
+00:59:43.600 --> 00:59:45.510
+Jitendra K: On your task, to make it
+
+564
+00:59:46.350 --> 00:59:50.639
+Jitendra K: So they are marketing, right? Everybody's marketing these days. They're LLMs.
+
+565
+00:59:50.790 --> 00:59:52.910
+Jitendra K: So, just… just be very…
+
+566
+00:59:54.050 --> 01:00:02.370
+Jitendra K: clear that, whatever year you're paying right now is just a minimum cost. They will increase the cost by 100% in the upcoming years.
+
+567
+01:00:04.100 --> 01:00:08.440
+Jitendra K: It will increase by 100% for sure. The LLM cost itself.
+
+568
+01:00:09.770 --> 01:00:12.259
+Jitendra K: So, right now, whatever you're doing.
+
+569
+01:00:14.120 --> 01:00:17.819
+Jitendra K: Assume it like you're just using very minimalistic cost.
+
+570
+01:00:18.380 --> 01:00:21.490
+Jitendra K: To run these great tools like code agents and all.
+
+571
+01:00:22.760 --> 01:00:24.840
+Jitendra K: But in future, it will not be the same.
+
+572
+01:00:25.240 --> 01:00:31.930
+Jitendra K: Once they get mature, once they understand your requirement, they will increase the cost of operation, for sure.
+
+573
+01:00:32.430 --> 01:00:34.400
+Jitendra K: So let's say GitHub Copilot.
+
+574
+01:00:34.550 --> 01:00:38.269
+Jitendra K: they are improving the tool with the help of React, because every step required
+
+575
+01:00:39.560 --> 01:00:44.030
+Jitendra K: some sort of tweak and parameter. But for report generation, they are using reboot.
+
+576
+01:00:46.170 --> 01:00:48.920
+Jitendra K: Right, so let's say you're considering creating
+
+577
+01:00:49.450 --> 01:00:55.800
+Jitendra K: some report out of your tool, some README file. Let's take an example of a README file, generation from agent.
+
+578
+01:00:56.160 --> 01:01:04.610
+Jitendra K: So when you're generating a README file, they will not use React, they will use Reboot for doing this, to save the token cost. But for writing the code, they will definitely going to use React.
+
+579
+01:01:04.920 --> 01:01:09.009
+Jitendra K: They will burn the amount of token, they will self-pay for it.
+
+580
+01:01:10.050 --> 01:01:17.069
+Jitendra K: whatever subscription model that you have, it is very minimalistic, so that they can also improve with your
+
+581
+01:01:18.440 --> 01:01:21.920
+Jitendra K: Style of writing the code, and your requirements should be clear.
+
+582
+01:01:22.740 --> 01:01:28.199
+Jitendra K: That's the reason they are burning money at the beginning. Once they get mature, then you will see
+
+583
+01:01:28.360 --> 01:01:29.540
+Jitendra K: the price hike.
+
+584
+01:01:32.310 --> 01:01:40.679
+Jitendra K: Is there any mechanism to store the history so that subject and grape learning and execution modifiers? So that is what the purpose of memories… we have talked about memories, right?
+
+585
+01:01:41.380 --> 01:01:47.580
+Jitendra K: So you have to take reference on long and short memories, depending upon your… Query parameters.
+
+586
+01:01:48.920 --> 01:01:55.700
+Jitendra K: Alright, now we will talk about the third design pattern, which is… Going to improve it further.
+
+587
+01:01:56.360 --> 01:02:02.979
+Jitendra K: Which is called plan and execute. So plan and execute is another design pattern that we are going to talk about.
+
+588
+01:02:03.350 --> 01:02:05.239
+Jitendra K: So, plan and execute.
+
+589
+01:02:07.220 --> 01:02:08.999
+Jitendra K: That means, as the name suggests.
+
+590
+01:02:09.600 --> 01:02:11.899
+Jitendra K: I'm using a plan, and then executing it.
+
+591
+01:02:14.480 --> 01:02:18.050
+Jitendra K: So basically, this is another design pattern that will help you to…
+
+592
+01:02:18.320 --> 01:02:23.450
+Jitendra K: Make your goal-oriented design pattern more and more optimal.
+
+593
+01:02:23.860 --> 01:02:27.780
+Jitendra K: And, you can able to use,
+
+594
+01:02:28.320 --> 01:02:33.339
+Jitendra K: This design pattern for the purpose of improving the overall response in planning phase.
+
+595
+01:02:34.240 --> 01:02:39.419
+Jitendra K: Because if you plan well, then execution will automatically come into play, right? So that means we are…
+
+596
+01:02:39.670 --> 01:02:41.350
+Jitendra K: Emphasizing on plan.
+
+597
+01:02:46.170 --> 01:02:48.260
+Jitendra K: Let me go back to slides.
+
+598
+01:02:48.840 --> 01:02:58.489
+Jitendra K: So, in the plan and execution phase, unlike Rivu, which is static planning, plan and execute, create an initial plan, but we can re-plan after every step.
+
+599
+01:02:59.050 --> 01:03:04.310
+Jitendra K: Based upon the intermediate results. That means you're combining the efficiency of React width?
+
+600
+01:03:04.530 --> 01:03:05.470
+Jitendra K: reboot.
+
+601
+01:03:06.790 --> 01:03:11.660
+Jitendra K: Using a dedicated plan or LLM, and execute For each step.
+
+602
+01:03:13.790 --> 01:03:22.040
+Jitendra K: Now, this is the hybrid model, where you can able to go with both Planning and execute architecture, right?
+
+603
+01:03:22.370 --> 01:03:27.810
+Jitendra K: So, planning and execute… Can be very, very good for.
+
+604
+01:03:28.290 --> 01:03:29.760
+Jitendra K: poor development tasks.
+
+605
+01:03:33.660 --> 01:03:38.389
+Jitendra K: So let me give you the… Skeleton for that.
+
+606
+01:03:46.830 --> 01:03:49.039
+Jitendra K: So let's say I'm designing a coder agent.
+
+607
+01:03:50.100 --> 01:03:55.619
+Jitendra K: Now, what this coder agent will do is, it will interact with your database schemas, tables.
+
+608
+01:03:56.320 --> 01:04:01.240
+Jitendra K: let's say I'm writing a text-to-SQL coder agent. We should expect a text
+
+609
+01:04:02.250 --> 01:04:04.730
+Jitendra K: And convert your text into SQL.
+
+610
+01:04:05.680 --> 01:04:11.810
+Jitendra K: And from SQL, you can go with visualization, Narrative…
+
+611
+01:04:13.120 --> 01:04:19.399
+Jitendra K: etc. But if your SQL is not correct, this is of no use. This is just a garbage for your user.
+
+612
+01:04:21.380 --> 01:04:26.059
+Jitendra K: So the main point is SQL. If your SQL is good, automatically everything will fall.
+
+613
+01:04:26.830 --> 01:04:32.850
+Jitendra K: Right? Irrespective of the quality of query. So you cannot blame your user to write query properly.
+
+614
+01:04:33.200 --> 01:04:36.210
+Jitendra K: Whatever they are writing, it's like… Good.
+
+615
+01:04:37.030 --> 01:04:39.339
+Jitendra K: Your SQL should adapt to this query.
+
+616
+01:04:40.010 --> 01:04:40.860
+Jitendra K: Right?
+
+617
+01:04:41.200 --> 01:04:43.569
+Jitendra K: So your agent… your user can…
+
+618
+01:04:44.450 --> 01:04:48.519
+Jitendra K: ask query in any format. You can put up some parameters.
+
+619
+01:04:49.160 --> 01:04:56.360
+Jitendra K: as a follow-up question, that you should provide table name, you should provide schema details, etc. Which could be follow-up queries that you can write.
+
+620
+01:04:56.640 --> 01:05:01.840
+Jitendra K: So once you gather this data, your SQL should be 100% accurate.
+
+621
+01:05:02.190 --> 01:05:04.159
+Jitendra K: To give all these details.
+
+622
+01:05:04.730 --> 01:05:06.589
+Jitendra K: So, if you're designing such a system.
+
+623
+01:05:07.060 --> 01:05:09.020
+Jitendra K: You have to use main orchestration.
+
+624
+01:05:10.370 --> 01:05:13.740
+Jitendra K: Which will use a phase-wise execution across to it.
+
+625
+01:05:14.050 --> 01:05:15.790
+Jitendra K: That means in the Phase 1,
+
+626
+01:05:16.060 --> 01:05:20.200
+Jitendra K: which are a discovery phase. You move on to from discovery to planning phase.
+
+627
+01:05:20.510 --> 01:05:25.190
+Jitendra K: So the agent will create a plan, Looking for human approvals.
+
+628
+01:05:25.640 --> 01:05:28.259
+Jitendra K: Then finally execute this plan using Coder.
+
+629
+01:05:28.440 --> 01:05:31.270
+Jitendra K: And then it generates a code, systematic schemas.
+
+630
+01:05:31.720 --> 01:05:36.129
+Jitendra K: Taking multiple, to-and-fro calls with your databases.
+
+631
+01:05:36.330 --> 01:05:38.659
+Jitendra K: And then generate a output.
+
+632
+01:05:38.920 --> 01:05:42.550
+Jitendra K: Which can be consumed in a buyer reporter agent to generate a final report.
+
+633
+01:05:42.820 --> 01:05:45.359
+Jitendra K: But as I mentioned, this is the main task.
+
+634
+01:05:45.880 --> 01:05:49.790
+Jitendra K: execution task. And this planning and execution has to go
+
+635
+01:05:49.960 --> 01:05:54.679
+Jitendra K: Systematically. That means you can improve the plan, Unlike Rebo now.
+
+636
+01:05:55.180 --> 01:06:01.699
+Jitendra K: So, review have a static plan. Now, with planner and execution, you can update this
+
+637
+01:06:02.920 --> 01:06:05.450
+Jitendra K: By making this planning more dynamic.
+
+638
+01:06:05.550 --> 01:06:07.410
+Jitendra K: So you can see, create a plan.
+
+639
+01:06:08.370 --> 01:06:13.320
+Jitendra K: If it is approved, Then go for… code writing.
+
+640
+01:06:13.590 --> 01:06:16.599
+Jitendra K: If you need further refinement, you can anyway loop back.
+
+641
+01:06:17.320 --> 01:06:19.060
+Jitendra K: So this is the planning end.
+
+642
+01:06:21.160 --> 01:06:24.310
+Jitendra K: Execution, or plan code execution Agent.
+
+643
+01:06:24.920 --> 01:06:25.830
+Jitendra K: So this…
+
+644
+01:06:26.030 --> 01:06:31.799
+Jitendra K: Tool, or this particular agent, or this particular design pattern has been created specifically for writing the quotes.
+
+645
+01:06:32.750 --> 01:06:36.210
+Jitendra K: So as I mentioned, the use case of Microsoft Copilot.
+
+646
+01:06:36.890 --> 01:06:40.490
+Jitendra K: So they are using both design patterns, React and Review.
+
+647
+01:06:41.620 --> 01:06:47.160
+Jitendra K: Again, going back to the same example, they will use React to write code, reboot 2,
+
+648
+01:06:47.980 --> 01:06:50.150
+Jitendra K: Generate your README file.
+
+649
+01:06:54.110 --> 01:06:59.679
+Jitendra K: Right? But… If you are going to use both, then you end up into plan and execution.
+
+650
+01:07:04.040 --> 01:07:07.449
+Jitendra K: But a crux of this design by TENS is just…
+
+651
+01:07:09.800 --> 01:07:12.320
+Jitendra K: You're going to use hybrid? Both?
+
+652
+01:07:12.550 --> 01:07:13.820
+Jitendra K: To perform this task.
+
+653
+01:07:14.690 --> 01:07:17.139
+Jitendra K: Is this design buttons clear to everyone?
+
+654
+01:07:17.750 --> 01:07:19.720
+Jitendra K: Are you clear with this flow?
+
+655
+01:07:20.070 --> 01:07:21.949
+Jitendra K: What exactly this flow does.
+
+656
+01:09:32.760 --> 01:09:36.979
+Jitendra K: plan and execute React with dedicated LM for planning, correct?
+
+657
+01:09:37.529 --> 01:09:41.380
+Jitendra K: The same LLM you are going to use, but in a different proposition.
+
+658
+01:09:41.910 --> 01:09:47.319
+Jitendra K: In plan and execute, where does the tool calling fit? Is it in planning? It's in planning phase.
+
+659
+01:09:48.600 --> 01:09:51.569
+Jitendra K: In this, which support is removed?
+
+660
+01:09:53.060 --> 01:09:54.680
+Jitendra K: What do you mean by support?
+
+661
+01:09:56.490 --> 01:09:57.670
+Jitendra K: This is evil.
+
+662
+01:09:58.300 --> 01:09:59.570
+Jitendra K: report agent.
+
+663
+01:10:03.070 --> 01:10:06.570
+Jitendra K: When you're generating the plan, executed.
+
+664
+01:10:07.280 --> 01:10:10.150
+Jitendra K: You guarantee that code is great.
+
+665
+01:10:10.740 --> 01:10:13.490
+Jitendra K: Then in the reporting phase, you are going to use Vivo.
+
+666
+01:10:21.090 --> 01:10:24.130
+Jitendra K: So, each iteration is a review as well, right?
+
+667
+01:10:24.850 --> 01:10:27.779
+Jitendra K: So you're planning and executing. This is also reboot.
+
+668
+01:10:32.510 --> 01:10:37.039
+Jitendra K: What exactly happened in replanning then, if not tool following?
+
+669
+01:10:38.980 --> 01:10:41.580
+Jitendra K: So, you are using the code writer.
+
+670
+01:10:42.160 --> 01:10:44.040
+Jitendra K: What are the steps that you write?
+
+671
+01:10:44.900 --> 01:10:50.959
+Jitendra K: What are the things that you use to evaluate the accuracy of the code that has been written by ChatGPT?
+
+672
+01:10:52.790 --> 01:10:54.339
+Jitendra K: Can you give me an example?
+
+673
+01:10:55.150 --> 01:10:57.639
+Jitendra K: Have you used that, first of all, Priya?
+
+674
+01:10:59.950 --> 01:11:03.560
+Jitendra K: For your concurrently. Have you used any ChatGPTrite code?
+
+675
+01:11:04.420 --> 01:11:08.899
+Jitendra K: Or any other model to write code, Claude model. Okay, so give me an example.
+
+676
+01:11:09.130 --> 01:11:10.659
+Jitendra K: What exactly you're doing?
+
+677
+01:11:19.300 --> 01:11:20.290
+Jitendra K: Prompting.
+
+678
+01:11:21.390 --> 01:11:22.879
+Jitendra K: What kind of prompting?
+
+679
+01:11:26.650 --> 01:11:28.400
+Jitendra K: Instructor prompting.
+
+680
+01:11:29.380 --> 01:11:34.380
+Jitendra K: you're writing instructions, right? That I need this UI this visual…
+
+681
+01:11:35.310 --> 01:11:40.359
+Jitendra K: with this panel and all, the website design, you're designing a website, right?
+
+682
+01:11:40.840 --> 01:11:44.550
+Jitendra K: If you're writing a Python code, you are expecting some form of response.
+
+683
+01:11:45.190 --> 01:11:51.169
+Jitendra K: So that is your expectation as a user, but how will you define that to your agent to write that code?
+
+684
+01:11:51.300 --> 01:11:53.699
+Jitendra K: Behind the scene, you are using some agents, right?
+
+685
+01:11:54.360 --> 01:11:58.960
+Jitendra K: Microsoft Copilot is an agent, multi-agentic frameworks, not an LLM.
+
+686
+01:11:59.300 --> 01:12:06.059
+Jitendra K: First of all, It's no more an LLM. You're dealing with agents, which is hidden as an LLM.
+
+687
+01:12:09.760 --> 01:12:17.719
+Jitendra K: So you have some expectation, you are having some perception about your website, that how it should look like, how it should behave.
+
+688
+01:12:18.140 --> 01:12:22.660
+Jitendra K: Then you feed this prompt, and then you interact with the generation part.
+
+689
+01:12:22.890 --> 01:12:33.670
+Jitendra K: So once it go to the planning phase, based upon your instruction, it will generate some code and generate an output for you. You run that output, you're not satisfied. And then you rewrite that prompt.
+
+690
+01:12:33.810 --> 01:12:38.650
+Jitendra K: That, hey, your output is good, but it is missing on these lines.
+
+691
+01:12:40.490 --> 01:12:45.689
+Jitendra K: So then you're calling the planning and adapting it to the execution again.
+
+692
+01:12:50.770 --> 01:12:53.130
+Jitendra K: So that is, depending upon year.
+
+693
+01:12:54.110 --> 01:12:55.800
+Jitendra K: User criterias.
+
+694
+01:13:00.650 --> 01:13:01.940
+Jitendra K: Is it clear now?
+
+695
+01:13:08.280 --> 01:13:14.820
+Jitendra K: the specific kit… followed a partner, or something like this.
+
+696
+01:13:24.210 --> 01:13:26.050
+Jitendra K: Yeah, they are.
+
+697
+01:13:26.380 --> 01:13:29.120
+Jitendra K: They are using it to a great extent, this pattern.
+
+698
+01:13:29.720 --> 01:13:36.870
+Jitendra K: So the scenario is, that we are using here is… We are using… some sort of…
+
+699
+01:13:39.180 --> 01:13:46.049
+Jitendra K: We are using 3 agents, right? Analyst agent, planner agent, and coder agent. And then executor and reporter. 5 agents, right?
+
+700
+01:13:46.650 --> 01:13:49.580
+Jitendra K: So the purpose of analyst… when you…
+
+701
+01:13:50.340 --> 01:13:57.829
+Jitendra K: Want to discover the environment, like raw data, Model, previous output, your applications.
+
+702
+01:13:58.110 --> 01:14:01.229
+Jitendra K: The kind of language that you would like to use to write a code.
+
+703
+01:14:02.000 --> 01:14:08.240
+Jitendra K: The kind of latencies, reports, all this matter, right? To prevent hallucination during the planning.
+
+704
+01:14:09.060 --> 01:14:16.500
+Jitendra K: And once you perform, once you write up, then the planner will receive the user high-level goals and list schemas.
+
+705
+01:14:16.660 --> 01:14:20.799
+Jitendra K: It will function like a brain of the application. Its job is to decompose a request.
+
+706
+01:14:21.100 --> 01:14:25.250
+Jitendra K: Into a dependency graph of states, which is what you're seeing on my screen.
+
+707
+01:14:26.520 --> 01:14:31.689
+Jitendra K: And then, based upon that, it will start calling the tools which can do this analysis.
+
+708
+01:14:32.020 --> 01:14:35.470
+Jitendra K: you will have a JavaScript writer tool in the agent.
+
+709
+01:14:35.810 --> 01:14:39.080
+Jitendra K: You will have a Python scriptwriter tool in your code.
+
+710
+01:14:39.500 --> 01:14:43.819
+Jitendra K: You will have a database writer agent in your code.
+
+711
+01:14:44.130 --> 01:14:48.770
+Jitendra K: You will have, code evaluator agent inside your code.
+
+712
+01:14:49.240 --> 01:14:54.249
+Jitendra K: These are all Microsoft-driven environments, right? So they have developed these agents internally.
+
+713
+01:14:55.010 --> 01:14:59.969
+Jitendra K: And then the coder will… able to handle the application, which does the bulk of the work.
+
+714
+01:15:00.280 --> 01:15:03.770
+Jitendra K: And then the executor will run the script in a controlled environment.
+
+715
+01:15:11.410 --> 01:15:17.670
+Jitendra K: And finally, the reporter reads the log artifacts, produces a script, and generate the answer of the original question.
+
+716
+01:15:27.590 --> 01:15:31.049
+Jitendra K: Right, so this is what it is doing internally, and this is…
+
+717
+01:15:32.140 --> 01:15:36.080
+Jitendra K: Something, you can use for your own purpose.
+
+718
+01:15:54.970 --> 01:15:59.519
+Jitendra K: Alright, so any question on planning an execution agent? Are you guys clear with this?
+
+719
+01:16:04.710 --> 01:16:11.519
+Jitendra K: Yeah, I think Texas SQL is a good example that you can use for implementing this design pattern.
+
+720
+01:16:11.790 --> 01:16:13.210
+Jitendra K: Specifically, this…
+
+721
+01:16:21.020 --> 01:16:23.280
+Jitendra K: Okay, now we talk about,
+
+722
+01:16:25.910 --> 01:16:30.869
+Jitendra K: The planning, execution, and design… Planning, execution, and, report.
+
+723
+01:16:31.120 --> 01:16:37.789
+Jitendra K: Now, what about tools? We haven't talked about tools yet, right? How to call optimally, how to pursue the information.
+
+724
+01:16:38.030 --> 01:16:39.920
+Jitendra K: how to select the right API.
+
+725
+01:16:40.150 --> 01:16:45.410
+Jitendra K: There should be some design pattern as a tool, a specific design pattern, that will help us to evaluate
+
+726
+01:16:45.700 --> 01:16:50.799
+Jitendra K: When we are calling the tool, are we calling the right tool, or…
+
+727
+01:16:51.400 --> 01:16:54.510
+Jitendra K: wrong tool, right? A tool design pattern.
+
+728
+01:16:57.370 --> 01:16:59.479
+Jitendra K: We'll help you to do this.
+
+729
+01:17:00.200 --> 01:17:10.290
+Jitendra K: And tool design pattern, I'm going to use, just to… Evaluate the efficacy of
+
+730
+01:17:10.810 --> 01:17:16.440
+Jitendra K: Managing the external tools, such as API, database, or enterprise-level service, to execute a real-world action.
+
+731
+01:17:17.460 --> 01:17:23.959
+Jitendra K: So, we'll talk about tool design pattern. So, tool design patterns is… also useful.
+
+732
+01:17:24.850 --> 01:17:28.799
+Jitendra K: Or breaking down… your user query.
+
+733
+01:17:29.140 --> 01:17:37.580
+Jitendra K: And then make it highly… Align with the objective of your goal.
+
+734
+01:17:38.410 --> 01:17:42.620
+Jitendra K: The tool use patterns predominantly have these building blocks.
+
+735
+01:17:43.670 --> 01:17:47.089
+Jitendra K: So… Let's take an example. So, tool…
+
+736
+01:17:47.220 --> 01:17:51.070
+Jitendra K: Use enable agent to perform action beyond their training data.
+
+737
+01:17:51.760 --> 01:18:01.540
+Jitendra K: And how it does is, it integrates external capability. So agent with access to tools can call API, query database, execute code, scrape website.
+
+738
+01:18:02.560 --> 01:18:05.040
+Jitendra K: And also interact with the software systems.
+
+739
+01:18:05.480 --> 01:18:13.830
+Jitendra K: So the model orchestrates these capabilities, decide which tool to invoke based upon a task requirement, interpretability, And…
+
+740
+01:18:13.940 --> 01:18:17.989
+Jitendra K: training purposes. So basically, your objective is to achieve
+
+741
+01:18:20.300 --> 01:18:25.119
+Jitendra K: The right set of tools during your execution stage.
+
+742
+01:18:25.540 --> 01:18:32.670
+Jitendra K: So that is the shift which agents have from knowledge repository to active system capability in real-time manner.
+
+743
+01:18:33.000 --> 01:18:41.599
+Jitendra K: So the agent reason about which tool fits your situation, handle error gracefully when tool fails, and synthesize responses from multiple tool calling.
+
+744
+01:18:42.510 --> 01:18:45.900
+Jitendra K: So you can use, tool patterns
+
+745
+01:18:46.490 --> 01:18:49.880
+Jitendra K: For example, you can create a customer service agent.
+
+746
+01:18:50.560 --> 01:18:54.329
+Jitendra K: Which will query order database inventory system for Amazon.
+
+747
+01:18:55.050 --> 01:19:02.150
+Jitendra K: You can also use tool design pattern for data analysis agent running statistical computation on a live data set.
+
+748
+01:19:02.440 --> 01:19:07.229
+Jitendra K: You can also create a researcher agent that will access current information beyond training cutoffs.
+
+749
+01:19:07.450 --> 01:19:09.419
+Jitendra K: You can also create automation agent.
+
+750
+01:19:10.400 --> 01:19:14.999
+Jitendra K: Development Assistant Agent that will help you to solve real-world issues.
+
+751
+01:19:15.960 --> 01:19:18.290
+Jitendra K: So, in a nutshell, what I'm trying to say is.
+
+752
+01:19:18.620 --> 01:19:21.700
+Jitendra K: Tool design pattern is a great
+
+753
+01:19:24.850 --> 01:19:28.110
+Jitendra K: design pattern, I would say, that will help you to
+
+754
+01:19:28.670 --> 01:19:34.470
+Jitendra K: Conceptualize and operationalize the optimal selection criteria for your tools and API.
+
+755
+01:19:35.290 --> 01:19:39.190
+Jitendra K: And that is what we are using for the purpose of…
+
+756
+01:19:39.620 --> 01:19:44.729
+Jitendra K: Creating the greatest of the greatest agent to solve the task.
+
+757
+01:19:45.100 --> 01:19:49.810
+Jitendra K: Now, I'm not talking specifically about code writing or…
+
+758
+01:19:50.020 --> 01:19:53.490
+Jitendra K: simple agents. So let's take an example here.
+
+759
+01:19:53.830 --> 01:19:59.829
+Jitendra K: So let's say I'm creating a… let me take an example of Zoomato events, right?
+
+760
+01:20:00.150 --> 01:20:07.609
+Jitendra K: So, in Zomato, you have… a good app.
+
+761
+01:20:07.770 --> 01:20:13.270
+Jitendra K: that you have downloaded in your mobile or your system. You have a login credential, you log in.
+
+762
+01:20:13.420 --> 01:20:20.750
+Jitendra K: And then it will give you the kiosk, the menu items that you would like to order, right? So you order some food.
+
+763
+01:20:21.230 --> 01:20:24.700
+Jitendra K: You have a checkout, pay.
+
+764
+01:20:26.000 --> 01:20:27.530
+Jitendra K: And then you place an order.
+
+765
+01:20:28.040 --> 01:20:30.960
+Jitendra K: So, the agent, which is running behind the scene.
+
+766
+01:20:31.320 --> 01:20:34.589
+Jitendra K: We'll operate, to understand the order.
+
+767
+01:20:38.020 --> 01:20:39.530
+Jitendra K: Using order ID.
+
+768
+01:20:39.990 --> 01:20:42.109
+Jitendra K: It will have an order ID generated.
+
+769
+01:20:42.470 --> 01:20:45.680
+Jitendra K: And based upon the order ID, it will look for fulfillment.
+
+770
+01:20:49.260 --> 01:20:53.390
+Jitendra K: So you select the restaurant you order from that restaurant.
+
+771
+01:20:53.740 --> 01:20:58.120
+Jitendra K: So, for fulfillment of this… They will look for riders.
+
+772
+01:21:00.360 --> 01:21:03.040
+Jitendra K: So, the rider will have certain database.
+
+773
+01:21:03.250 --> 01:21:06.369
+Jitendra K: Which will use the real-time tracking of the riders.
+
+774
+01:21:06.750 --> 01:21:08.179
+Jitendra K: From their mobile.
+
+775
+01:21:09.160 --> 01:21:14.049
+Jitendra K: So their mobile has been connected to the central server because they have installed the ZoomIn2 app.
+
+776
+01:21:14.350 --> 01:21:18.290
+Jitendra K: So automatically, their location will be signed in a real-time manner.
+
+777
+01:21:18.390 --> 01:21:19.879
+Jitendra K: Back to Zomata Server.
+
+778
+01:21:20.250 --> 01:21:24.979
+Jitendra K: A Zoomata server will understand that these riders… these many riders are available.
+
+779
+01:21:25.160 --> 01:21:26.579
+Jitendra K: To take up this order.
+
+780
+01:21:27.560 --> 01:21:29.550
+Jitendra K: So I will assign the best rider.
+
+781
+01:21:29.770 --> 01:21:31.169
+Jitendra K: Which is near to that.
+
+782
+01:21:31.590 --> 01:21:34.349
+Jitendra K: Restaur or outlet to pick up first.
+
+783
+01:21:34.970 --> 01:21:39.259
+Jitendra K: It will send the restaurant location to the riders. So, each rider will
+
+784
+01:21:39.410 --> 01:21:43.309
+Jitendra K: Get an option, this file rider, to accept or reject that request.
+
+785
+01:21:44.540 --> 01:21:46.430
+Jitendra K: So, once they accept this request.
+
+786
+01:21:46.920 --> 01:21:52.300
+Jitendra K: Then they will move on to the, restaurant to collect the food.
+
+787
+01:21:52.560 --> 01:21:54.630
+Jitendra K: And then they would deliver to your doorstep.
+
+788
+01:21:56.030 --> 01:21:58.549
+Jitendra K: After making a lot of calls with.
+
+789
+01:21:59.340 --> 01:22:03.660
+Jitendra K: weather API… traffic API.
+
+790
+01:22:07.140 --> 01:22:12.829
+Jitendra K: your driver, personality, Their rating, previous ratings as well.
+
+791
+01:22:13.480 --> 01:22:19.699
+Jitendra K: If this order is high cost, then you're going to look at the best driver, best rider for it, right?
+
+792
+01:22:20.570 --> 01:22:23.280
+Jitendra K: Otherwise, your customer experience will become worsened.
+
+793
+01:22:24.010 --> 01:22:28.080
+Jitendra K: If it is a low order, less than, let's say, 500 INR,
+
+794
+01:22:28.330 --> 01:22:30.440
+Jitendra K: Then you can select any rider to it.
+
+795
+01:22:30.950 --> 01:22:35.899
+Jitendra K: Right, so all this thing does matter for a business, for Zomato, and that's how they're planning their day.
+
+796
+01:22:38.050 --> 01:22:44.419
+Jitendra K: So, to create this inventory system, they are using real-time data streaming from each of the database calls.
+
+797
+01:22:44.970 --> 01:22:50.200
+Jitendra K: Now, let's say your rider has reached the home, to deliver.
+
+798
+01:22:50.340 --> 01:22:53.150
+Jitendra K: And all of a sudden, you change your mind, and you say cancel.
+
+799
+01:22:54.310 --> 01:23:00.010
+Jitendra K: Because you're a Premier user, Zumato cannot say no to you, so they will cancel the order.
+
+800
+01:23:01.080 --> 01:23:08.389
+Jitendra K: And then fulfill the inventory. But they will ask you some question, what went wrong to this order, and do you like the quality of food and all.
+
+801
+01:23:09.010 --> 01:23:14.300
+Jitendra K: Right? So they will ask some questions, so that you will write those feedback.
+
+802
+01:23:14.710 --> 01:23:19.639
+Jitendra K: Upload some images, Etc, to prove your point.
+
+803
+01:23:19.960 --> 01:23:29.039
+Jitendra K: So what they are doing at the end of the day, they are using agents to gather the feedback on the quality of each restaurant-delivered food.
+
+804
+01:23:29.460 --> 01:23:33.150
+Jitendra K: So that they can be able to enlist that restaurant in the next run.
+
+805
+01:23:33.270 --> 01:23:35.499
+Jitendra K: On the very next day, the inventory will update.
+
+806
+01:23:35.840 --> 01:23:39.439
+Jitendra K: So this is all happening automatically, based upon your feedback.
+
+807
+01:23:40.040 --> 01:23:43.370
+Jitendra K: Based upon the collective feedback from multiple users.
+
+808
+01:23:45.210 --> 01:23:50.290
+Jitendra K: They were able to rank the restaurant, rank the driver, Rank the user as well.
+
+809
+01:23:50.830 --> 01:23:54.390
+Jitendra K: That this user is canceling… often cancelling this order.
+
+810
+01:23:54.620 --> 01:23:59.000
+Jitendra K: So, consider this as degraded user, not a premium user anymore.
+
+811
+01:24:00.210 --> 01:24:04.110
+Jitendra K: Right, so they are using some sort of real-time scores to do all this calculation.
+
+812
+01:24:04.560 --> 01:24:07.410
+Jitendra K: Similar application applied to Ola, Uber…
+
+813
+01:24:11.250 --> 01:24:14.059
+Jitendra K: Use cases as well, because they are heavily using
+
+814
+01:24:14.220 --> 01:24:19.720
+Jitendra K: real-time APIs, text, traffic API, weather API,
+
+815
+01:24:20.070 --> 01:24:25.589
+Jitendra K: They're also looking for surcharges, peak time, etc, right?
+
+816
+01:24:28.340 --> 01:24:33.069
+Jitendra K: So all these things is now real-time, for these kind of business.
+
+817
+01:24:33.850 --> 01:24:38.809
+Jitendra K: They, of course, use their margin, on the top of it to create all the system.
+
+818
+01:24:39.550 --> 01:24:43.459
+Jitendra K: Now, the question is, if I'm… if I'm doing…
+
+819
+01:24:44.430 --> 01:24:47.290
+Jitendra K: This whole trade-off with the help of a tool design pattern.
+
+820
+01:24:47.550 --> 01:24:51.309
+Jitendra K: Now, depending upon my task, let's say my task is to…
+
+821
+01:24:51.710 --> 01:24:54.210
+Jitendra K: Understand the rating of the outlet.
+
+822
+01:24:55.400 --> 01:25:00.330
+Jitendra K: So I will not take one feedback, right? I will collectively use 30-day feedback.
+
+823
+01:25:00.610 --> 01:25:03.419
+Jitendra K: from multiple users. To do this analysis.
+
+824
+01:25:03.650 --> 01:25:08.579
+Jitendra K: And my agent will do it, and then generate some sort of insight on the…
+
+825
+01:25:08.880 --> 01:25:21.609
+Jitendra K: user personas, the kind of problem that they have with the quality of food and stuff. It will not happen overnight that one user is annoyed. Let's replace this resort. Maybe it will be a bad cook who is cooking this.
+
+826
+01:25:22.130 --> 01:25:27.729
+Jitendra K: I will give a feedback to the restaurant that you should hire a good cook or something of that sort.
+
+827
+01:25:29.210 --> 01:25:36.570
+Jitendra K: Right? So this is how the real-world tool users pattern will work, where you need to design different sort of
+
+828
+01:25:37.610 --> 01:25:41.550
+Jitendra K: System integration together to work in a single problem.
+
+829
+01:25:42.140 --> 01:25:49.299
+Jitendra K: So, customer service agent, querying order database, inventory system, data analysis agent, which runs statistical computation on live data.
+
+830
+01:25:49.480 --> 01:25:57.099
+Jitendra K: Research agent accessing current information beyond training. Automation agent will trigger action in business software platforms.
+
+831
+01:25:57.370 --> 01:26:04.079
+Jitendra K: Development Assistant executing the test code in the real environment is a great example of tool use this pattern.
+
+832
+01:26:06.500 --> 01:26:09.440
+Jitendra K: The only limitation of this is tool reliability.
+
+833
+01:26:10.460 --> 01:26:19.639
+Jitendra K: becomes your agent take system reliability as well. When the API runs, or return errors, hit rate, timeouts, your agent inherited to those failures.
+
+834
+01:26:20.440 --> 01:26:26.150
+Jitendra K: And you can also inherit the maintenance burden for every tool integration, updating implementation, and API changes.
+
+835
+01:26:26.510 --> 01:26:32.759
+Jitendra K: The tool pattern is almost non-negotiable for production agent handling real-world tasks.
+
+836
+01:26:33.860 --> 01:26:39.499
+Jitendra K: So, you have to look from all the perspective, how you maintain your tool, API, database.
+
+837
+01:26:39.600 --> 01:26:42.159
+Jitendra K: What is the latency, throughput, etc.
+
+838
+01:26:44.260 --> 01:26:48.060
+Jitendra K: So there should be SLA that you are going to use to design this whole system.
+
+839
+01:26:49.930 --> 01:26:54.139
+Jitendra K: So, any question on tool users? Are you clear with tool users pattern now?
+
+840
+01:27:17.990 --> 01:27:22.500
+Jitendra K: Yeah, definitely. It's a… it's a tool uses, so we haven't talked about tool
+
+841
+01:27:23.470 --> 01:27:27.349
+Jitendra K: We just talked about planning and execution, but here we are talking about two users.
+
+842
+01:27:55.060 --> 01:27:56.910
+Jitendra K: So is it clear to everyone?
+
+843
+01:27:58.530 --> 01:28:04.999
+Jitendra K: So, we'll move on to the last design pattern, and then we'll take a break, and then we'll move on to the coding execution of this.
+
+844
+01:28:07.670 --> 01:28:10.809
+Jitendra K: Database is one such example I'm giving.
+
+845
+01:28:11.430 --> 01:28:12.799
+Jitendra K: One example.
+
+846
+01:28:15.440 --> 01:28:17.700
+Jitendra K: Database query is one example.
+
+847
+01:28:19.890 --> 01:28:25.340
+Jitendra K: Reflection pattern compasses, composes well with React and execution.
+
+848
+01:28:26.140 --> 01:28:29.479
+Jitendra K: Yeah, we'll talk about multi-agentic, pattern now.
+
+849
+01:28:29.670 --> 01:28:33.099
+Jitendra K: So, there's no such multi-agentic pattern that we have discussed.
+
+850
+01:28:34.380 --> 01:28:36.830
+Jitendra K: Now we'll move on to multi-identic pattern.
+
+851
+01:28:39.190 --> 01:28:42.859
+Jitendra K: Which will help us to integrate all these things.
+
+852
+01:28:44.900 --> 01:28:45.960
+Jitendra K: And then…
+
+853
+01:28:50.010 --> 01:28:50.880
+Jitendra K: Yeah.
+
+854
+01:28:51.270 --> 01:28:57.539
+Jitendra K: So, multi-agentic pattern, or I would say multi-agentic pattern, is a topological-based architecture.
+
+855
+01:28:58.130 --> 01:29:03.540
+Jitendra K: Because we… here we are talking about swamps of agent, Army of agent.
+
+856
+01:29:04.110 --> 01:29:05.539
+Jitendra K: Teams of agent.
+
+857
+01:29:06.170 --> 01:29:09.980
+Jitendra K: Which we'll be able to work on, along with supervisor, to achieve.
+
+858
+01:29:10.140 --> 01:29:13.309
+Jitendra K: the task. So for doing this, he required orchestration.
+
+859
+01:29:13.630 --> 01:29:16.659
+Jitendra K: He required patents to follow.
+
+860
+01:29:17.650 --> 01:29:20.979
+Jitendra K: Right? And that is the whole idea of multi-agent tech.
+
+861
+01:29:21.300 --> 01:29:22.910
+Jitendra K: Pattern, design pattern.
+
+862
+01:29:23.460 --> 01:29:27.669
+Jitendra K: So when I say multi-agentic design pattern, so here we are talking about
+
+863
+01:29:31.640 --> 01:29:35.299
+Jitendra K: Coordination between the agent tech calls.
+
+864
+01:29:36.200 --> 01:29:44.680
+Jitendra K: That means coordination is orchestration, which is very, very important for managing your whole ecosystem.
+
+865
+01:29:45.450 --> 01:29:47.250
+Jitendra K: So, multi-rent system.
+
+866
+01:29:47.460 --> 01:29:59.020
+Jitendra K: kind of a distributed work across specialized agent, rather than building one generalization. So each agent has a focus expertise, a specific set of tools dedicated to deliver their work.
+
+867
+01:29:59.490 --> 01:30:05.659
+Jitendra K: and a clear, defined role within the system. So a coordinator agent managed works, distribution, routing tasks.
+
+868
+01:30:06.140 --> 01:30:10.910
+Jitendra K: To appropriate specialists, and synthesizing their output into a unified responses.
+
+869
+01:30:11.190 --> 01:30:14.330
+Jitendra K: So each agent can be optimized for its own domain.
+
+870
+01:30:14.640 --> 01:30:21.450
+Jitendra K: With targeted prompts, specific tools, and appropriate models, So, when building well.
+
+871
+01:30:22.390 --> 01:30:28.169
+Jitendra K: When you build them well, multi-agenic systems can handle complex workflow more effectively than overloaded journalists.
+
+872
+01:30:28.510 --> 01:30:30.669
+Jitendra K: When to use multi-agentic pattern?
+
+873
+01:30:31.470 --> 01:30:35.049
+Jitendra K: So you can use multi-agent tick pattern to manage your complex workflow.
+
+874
+01:30:35.320 --> 01:30:40.850
+Jitendra K: Which require distinct skills, different sets, like the search analyst presentation.
+
+875
+01:30:41.400 --> 01:30:45.540
+Jitendra K: You can use application where task routing benefit from specialized handling.
+
+876
+01:30:45.860 --> 01:30:51.200
+Jitendra K: You can also use multi-agentic pattern, where applications serving will diversify
+
+877
+01:30:51.610 --> 01:30:56.270
+Jitendra K: On different use cases for better at addressing the focus of the agent.
+
+878
+01:30:57.080 --> 01:31:05.480
+Jitendra K: So, let's take this example, let's say I have a complex task in my hand, and I'm using a coordinator agent, which will work like a supervisor.
+
+879
+01:31:06.070 --> 01:31:10.459
+Jitendra K: Which is having access to multiple sub-agents.
+
+880
+01:31:11.520 --> 01:31:13.599
+Jitendra K: I have a data agent, I have a review agent.
+
+881
+01:31:14.440 --> 01:31:16.720
+Jitendra K: Which will have access to different tools.
+
+882
+01:31:17.270 --> 01:31:23.609
+Jitendra K: then I will be able to operate, depending upon my task, on each of the downstream agent.
+
+883
+01:31:23.890 --> 01:31:28.609
+Jitendra K: With a more comprehensive, controls, right?
+
+884
+01:31:28.880 --> 01:31:36.450
+Jitendra K: So… Multi-agentic pattern is very, very useful for orchestration purpose. So here, I'm talking about all
+
+885
+01:31:37.200 --> 01:31:41.350
+Jitendra K: Including planning, including reasoning, including tool management, etc.
+
+886
+01:31:44.170 --> 01:31:49.240
+Jitendra K: So, one of the important criteria that is kind of framework use.
+
+887
+01:31:49.550 --> 01:31:51.339
+Jitendra K: Let me go back to my slide.
+
+888
+01:31:52.290 --> 01:31:59.249
+Jitendra K: Is… you're going to create Different frameworks that have support towards it.
+
+889
+01:31:59.730 --> 01:32:05.730
+Jitendra K: So we talked about land graph, which is using a state graph management, with a supervisory node and conditional routing.
+
+890
+01:32:06.260 --> 01:32:07.569
+Jitendra K: Which is the best?
+
+891
+01:32:07.890 --> 01:32:11.249
+Jitendra K: Tool to create multi-agentic system.
+
+892
+01:32:14.150 --> 01:32:19.980
+Jitendra K: Second is Crew AI, which is also using role-based agent with process flows, sequential hierarchical.
+
+893
+01:32:20.820 --> 01:32:26.249
+Jitendra K: And this will be my second preference, and followed by Autogen and open swarms.
+
+894
+01:32:26.610 --> 01:32:29.359
+Jitendra K: As a lightweight options to support this.
+
+895
+01:32:29.630 --> 01:32:30.940
+Jitendra K: tool development.
+
+896
+01:32:32.330 --> 01:32:40.039
+Jitendra K: Some of the enterprise use cases, I can able to create, use this agentic framework for developing software, develop a team.
+
+897
+01:32:40.310 --> 01:32:45.829
+Jitendra K: coder, reviewer, tester, agent, all our agent tech AI-based use cases.
+
+898
+01:32:47.800 --> 01:32:52.350
+Jitendra K: I can use Financial Analyst Agent, which will access through the financial data.
+
+899
+01:32:52.740 --> 01:32:56.239
+Jitendra K: Have access to reports, and then generate the outcome.
+
+900
+01:32:56.600 --> 01:33:02.199
+Jitendra K: Or maybe a customer support agent, which will… Use the intent routers.
+
+901
+01:33:02.340 --> 01:33:12.060
+Jitendra K: And a startup specializes in per domain to generate an answer. So let's say in banking, I will have different department, credit, car department, debit card department, insurance.
+
+902
+01:33:12.310 --> 01:33:16.049
+Jitendra K: loan. So these kind of queries will be supported by this agent.
+
+903
+01:33:17.400 --> 01:33:22.690
+Jitendra K: Right? All these things are pretty useful when I'm orchestrating a multiple type of
+
+904
+01:33:22.920 --> 01:33:26.750
+Jitendra K: Agents into one single unified architecture.
+
+905
+01:33:35.960 --> 01:33:38.769
+Jitendra K: Alright, so I think, this is,
+
+906
+01:33:39.450 --> 01:33:46.899
+Jitendra K: the multi-agentic, and then we are left with one more LLM compiler, which I'm going to cover once we come from the break.
+
+907
+01:33:47.120 --> 01:33:52.900
+Jitendra K: And then we have, the code as well to discuss. We'll discuss one
+
+908
+01:33:55.880 --> 01:34:01.100
+Jitendra K: We'll discuss one, coding example that will give you, the…
+
+909
+01:34:01.880 --> 01:34:04.899
+Jitendra K: Idea about how to use these design patterns.
+
+910
+01:34:05.410 --> 01:34:08.510
+Jitendra K: And then we'll set up the code, and
+
+911
+01:34:08.700 --> 01:34:14.830
+Jitendra K: We'll walk you through each and every design pattern that we have learned so far, and then we'll do some competitive analysis as well.
+
+912
+01:34:15.480 --> 01:34:22.300
+Jitendra K: So let's take a quick 20 minutes break, and then once we come back, we will discuss the implementation part of it.
+
+913
+01:34:23.700 --> 01:34:25.999
+Jitendra K: So let me introduce a timer.
+
+914
+01:34:28.740 --> 01:34:36.199
+Jitendra K: what if the organization have Enterprise Copilot less? Then you need not to create agents. If you're using happy with Enterprise Copilot, then go for it.
+
+915
+01:34:36.390 --> 01:34:42.490
+Jitendra K: Why should we create agents if there's already an agent which can do the task for you, and you're paying for it?
+
+916
+01:34:46.310 --> 01:34:50.389
+Jitendra K: So you can simply plug and play without writing any code.
+
+917
+01:34:57.540 --> 01:35:01.369
+Jitendra K: Let me introduce our 20-minute timer, and then we'll take a break.
+
+918
+01:35:05.790 --> 01:35:09.439
+Jitendra K: And then we will go for the implementation part of it. So let's…
+
+919
+01:35:10.780 --> 01:35:13.379
+Jitendra K: Have a quick break, and then we'll come back. Thank you.
+
+920
+01:55:22.480 --> 01:55:26.520
+Jitendra K: Alright guys, I hope you're back. Can we have a quick confirmation?
+
+921
+01:55:41.470 --> 01:55:43.840
+Jitendra K: One second, I think there's some error.
+
+922
+01:57:11.510 --> 01:57:17.690
+Jitendra K: Okay, let's cover the last part of this, tutorial, which is, huh, the…
+
+923
+01:57:19.090 --> 01:57:22.380
+Jitendra K: LLM compiler pattern, and then we move on to the coding exercise.
+
+924
+01:57:23.620 --> 01:57:29.850
+Jitendra K: So, LLM compiler pattern has been introduced very recently. It has been invented in the year 2024.
+
+925
+01:57:30.120 --> 01:57:36.959
+Jitendra K: And that has been drawn from the compiler theory. So those who are from computer science background, they might have some idea about compilers.
+
+926
+01:57:37.380 --> 01:57:44.029
+Jitendra K: But DOSE does not, so… compiler is a primitive for… operating system.
+
+927
+01:57:45.590 --> 01:57:53.010
+Jitendra K: So basically, what LLM compiler does is… our LM compilerPattern does is… It will…
+
+928
+01:57:53.790 --> 01:57:57.130
+Jitendra K: Treat multiple tool workflow like a compiler.
+
+929
+01:57:57.820 --> 01:58:04.109
+Jitendra K: And it… in trim, it will construct something called directed acyclic graph, or DAG of Tools.
+
+930
+01:58:04.920 --> 01:58:09.570
+Jitendra K: With explicit dependency, and then executing the nodes in topological order.
+
+931
+01:58:10.440 --> 01:58:16.849
+Jitendra K: So this mechanism will help you to ensure that you will have parallel execution of independent tools.
+
+932
+01:58:17.230 --> 01:58:19.870
+Jitendra K: While respecting dependencies between them.
+
+933
+01:58:21.280 --> 01:58:24.510
+Jitendra K: So, when to use compiler pattern, when you have
+
+934
+01:58:25.000 --> 01:58:31.050
+Jitendra K: Through two multiple independent tool calls, and then you're required to execute them simultaneously.
+
+935
+01:58:32.400 --> 01:58:34.219
+Jitendra K: To maximize the efficiency.
+
+936
+01:58:34.950 --> 01:58:42.429
+Jitendra K: And then, you can use compiler design pattern, or a learned compiler design pattern for complex data pipelines, multiple-step process.
+
+937
+01:58:42.780 --> 01:58:45.469
+Jitendra K: Which will have a clear dependency between the steps.
+
+938
+01:58:46.300 --> 01:58:49.759
+Jitendra K: We can go with workflow orchestration to complete the task.
+
+939
+01:58:50.580 --> 01:58:56.659
+Jitendra K: Which are highly… Executable, and then use this for doing the planning.
+
+940
+01:58:57.710 --> 01:58:59.289
+Jitendra K: So the idea here is…
+
+941
+01:59:00.200 --> 01:59:06.499
+Jitendra K: We are going to use LLM Compiler to operate using the property of a graph, which is called DAC.
+
+942
+01:59:07.220 --> 01:59:12.820
+Jitendra K: So that will become a function that will execute the order of sequence of your tools.
+
+943
+01:59:13.950 --> 01:59:20.630
+Jitendra K: So during the planning phase, you generate a DAG with dependencies on the graph, identify the parallelizable task.
+
+944
+01:59:21.210 --> 01:59:26.030
+Jitendra K: And then, during the task fetching unit, You're going to use…
+
+945
+01:59:27.120 --> 01:59:31.269
+Jitendra K: Those sequences to maximize the parallel execution of those tools.
+
+946
+01:59:31.650 --> 01:59:34.150
+Jitendra K: And then you will aggregate the final answer.
+
+947
+01:59:34.500 --> 01:59:36.529
+Jitendra K: On the basis of your context.
+
+948
+01:59:39.100 --> 01:59:43.660
+Jitendra K: Now, if I have to compare all the design patterns that we have discussed so far, the 7 design patterns.
+
+949
+01:59:44.690 --> 01:59:46.500
+Jitendra K: We talked about React.
+
+950
+01:59:46.610 --> 01:59:52.870
+Jitendra K: We talked about reflection, we talked about review, we talked about plan and execution, tool users, multi-agent, and LLM compiler.
+
+951
+01:59:54.410 --> 01:59:57.680
+Jitendra K: So if I have to compare them into 4…
+
+952
+01:59:58.960 --> 02:00:02.839
+Jitendra K: criterias, which is planning, execution, LLM calls, and adaptability.
+
+953
+02:00:04.170 --> 02:00:09.950
+Jitendra K: So it will talk about that reflection is generally two times.
+
+954
+02:00:10.730 --> 02:00:13.440
+Jitendra K: Generator and critics both will call.
+
+955
+02:00:14.360 --> 02:00:15.420
+Jitendra K: Thailand.
+
+956
+02:00:15.810 --> 02:00:18.590
+Jitendra K: So, in terms of token costs, this is very, very high.
+
+957
+02:00:21.830 --> 02:00:25.929
+Jitendra K: Then comes React, which is using NSTEP per LLM.
+
+958
+02:00:26.820 --> 02:00:28.779
+Jitendra K: Relatively, it is also high.
+
+959
+02:00:29.730 --> 02:00:33.449
+Jitendra K: Review, 2 times of total, slightly comparative.
+
+960
+02:00:34.510 --> 02:00:36.680
+Jitendra K: Planning and execution, and by two.
+
+961
+02:00:37.300 --> 02:00:41.049
+Jitendra K: That means it is much, much cheaper than our Lear frameworks.
+
+962
+02:00:41.360 --> 02:00:46.809
+Jitendra K: Tool use, we'll use single shot, 1x2, one or two, not more than that.
+
+963
+02:00:47.290 --> 02:00:49.629
+Jitendra K: So, their adaptability is low.
+
+964
+02:00:50.140 --> 02:00:57.859
+Jitendra K: Multi-agent will vary depending upon the context and the tools which require several agents to work together.
+
+965
+02:00:58.300 --> 02:01:03.829
+Jitendra K: And the LLM compiler will use a sequence. It will create a DAG up front, using one call.
+
+966
+02:01:04.160 --> 02:01:06.649
+Jitendra K: And the other call will be used to execute it.
+
+967
+02:01:08.440 --> 02:01:14.550
+Jitendra K: So, adaptability-wise, reflection is highly adaptive, React is very high adaptive, Rebo is low adaptive.
+
+968
+02:01:16.320 --> 02:01:18.839
+Jitendra K: Planning and execution is medium to high.
+
+969
+02:01:19.210 --> 02:01:26.290
+Jitendra K: And then the tool uses is, again, badly… Artifact for adaptability part.
+
+970
+02:01:26.640 --> 02:01:30.309
+Jitendra K: Multi-agent is highly adaptive, LRM compiler is medium.
+
+971
+02:01:37.010 --> 02:01:43.560
+Jitendra K: Okay, let me see the question. Wouldn't we landgraph asynchronous tool polling perform the same parameter stool polling?
+
+972
+02:01:43.770 --> 02:01:47.459
+Jitendra K: That is, you're talking about execution phase, I'm not talking about execution phase.
+
+973
+02:01:48.500 --> 02:01:52.619
+Jitendra K: Execution is different, and… Your blueprint of design.
+
+974
+02:01:53.660 --> 02:01:56.740
+Jitendra K: You can execute with Langraph, you can execute with,
+
+975
+02:01:57.120 --> 02:01:59.069
+Jitendra K: crew, yeah, you can execute with.
+
+976
+02:01:59.390 --> 02:02:01.720
+Jitendra K: Autogen, that is your choice.
+
+977
+02:02:02.320 --> 02:02:08.109
+Jitendra K: What I'm talking about in general is a blueprint, right? So you have to create some software, then you have to decide
+
+978
+02:02:08.450 --> 02:02:13.610
+Jitendra K: which kind of design pattern you will prefer to write as software. Here, we're not talking about software implementation.
+
+979
+02:02:14.640 --> 02:02:17.409
+Jitendra K: Why we say no planning and reflection, react?
+
+980
+02:02:17.820 --> 02:02:21.059
+Jitendra K: I thought by nature of aging, work on plan before action.
+
+981
+02:02:21.960 --> 02:02:23.930
+Jitendra K: Why we are not falling…
+
+982
+02:02:25.180 --> 02:02:30.820
+Jitendra K: So, planning is, not there, right? That's the reason we are using critic to decide.
+
+983
+02:02:31.900 --> 02:02:38.219
+Jitendra K: And, feel the output from it. If the planning is perfect, then we… why we required critic to do this task?
+
+984
+02:02:38.700 --> 02:02:40.299
+Jitendra K: Same thing goes for React.
+
+985
+02:02:40.720 --> 02:02:44.020
+Jitendra K: Why we require change in action when we are planning better?
+
+986
+02:02:44.930 --> 02:02:51.650
+Jitendra K: When we have a plan, sound plan, then why we bring a critic and, action evaluation all the time?
+
+987
+02:03:00.740 --> 02:03:01.710
+Jitendra K: Right?
+
+988
+02:03:10.380 --> 02:03:17.040
+Jitendra K: LLM call in and per step for each, call, for each action that you are going to evaluate using React.
+
+989
+02:03:17.330 --> 02:03:19.100
+Jitendra K: He required one LLM call.
+
+990
+02:03:19.460 --> 02:03:20.849
+Jitendra K: For making this.
+
+991
+02:03:24.080 --> 02:03:26.619
+Jitendra K: Actions, suitability analysis.
+
+992
+02:03:26.810 --> 02:03:29.269
+Jitendra K: Because you are reasoning and then performing action.
+
+993
+02:03:30.110 --> 02:03:35.760
+Jitendra K: So for that, he required one LLM call per execution.
+
+994
+02:03:54.080 --> 02:04:00.789
+Jitendra K: No, plan is, you can see it's not a full plan, it's loopback, right? There's a loop here, there's no loop here.
+
+995
+02:04:01.050 --> 02:04:03.569
+Jitendra K: So this is a planner with a loop.
+
+996
+02:04:04.140 --> 02:04:07.410
+Jitendra K: It'll take a correction from the generator as well.
+
+997
+02:04:07.770 --> 02:04:09.400
+Jitendra K: Here, the plan is fixed.
+
+998
+02:04:09.840 --> 02:04:12.159
+Jitendra K: The sequence of execution is fixed.
+
+999
+02:04:13.300 --> 02:04:15.170
+Jitendra K: Here, we are running Turner in the Loop.
+
+1000
+02:04:15.990 --> 02:04:17.139
+Jitendra K: It's not fixed.
+
+1001
+02:04:19.480 --> 02:04:21.539
+Jitendra K: So, am I saying that this plan is fixed?
+
+1002
+02:04:21.690 --> 02:04:23.489
+Jitendra K: And I should remove this arrow, right?
+
+1003
+02:04:24.770 --> 02:04:29.949
+Jitendra K: So this ban is not fixed, it is making force arrangement to modify this.
+
+1004
+02:04:30.240 --> 02:04:35.660
+Jitendra K: Based upon the… feedback from the environment. And this environment is here user only.
+
+1005
+02:04:37.050 --> 02:04:42.870
+Jitendra K: Their data, user data, user… output, etc.
+
+1006
+02:04:48.500 --> 02:04:49.400
+Jitendra K: Yeah.
+
+1007
+02:04:50.170 --> 02:04:53.990
+Jitendra K: So, in React framework, can I control the maximum order of LMG25?
+
+1008
+02:04:54.210 --> 02:04:57.139
+Jitendra K: Yes, you can create a fallback mechanism.
+
+1009
+02:04:57.540 --> 02:05:04.200
+Jitendra K: We will say that maximum iteration for doing this planning is 3 or 5 or 7.
+
+1010
+02:05:04.650 --> 02:05:10.759
+Jitendra K: That way you can control this. So you can pass a parameter by saying that I would like to go for a maximum retry of 5.
+
+1011
+02:05:11.330 --> 02:05:14.850
+Jitendra K: Maximum retry of 3. Maximum retry of 2.
+
+1012
+02:05:15.980 --> 02:05:21.370
+Jitendra K: Depending upon the complexity of your use case. For that, you can save this infinite loop execution.
+
+1013
+02:05:27.420 --> 02:05:32.110
+Jitendra K: React, think while doing, reflection, think after doing, and then redo.
+
+1014
+02:05:32.410 --> 02:05:33.670
+Jitendra K: Yeah, that's correct.
+
+1015
+02:05:33.770 --> 02:05:36.749
+Jitendra K: thing before doing a replan, if required. Yeah, that's correct.
+
+1016
+02:05:44.340 --> 02:05:47.079
+Jitendra K: Yeah, so this is the crux of design patterns.
+
+1017
+02:05:47.670 --> 02:05:48.640
+Jitendra K: Nope.
+
+1018
+02:05:51.650 --> 02:05:57.100
+Jitendra K: Now, the question is, since we have all the options, right?
+
+1019
+02:05:58.020 --> 02:06:02.259
+Jitendra K: How to implement our design patterns with a proper
+
+1020
+02:06:03.190 --> 02:06:09.149
+Jitendra K: understanding all the constraints and the alignments. So for that, we have to do some bit of…
+
+1021
+02:06:11.390 --> 02:06:13.270
+Jitendra K: iteration using coding.
+
+1022
+02:06:19.520 --> 02:06:21.320
+Jitendra K: Let me go back to my code.
+
+1023
+02:08:19.090 --> 02:08:22.730
+Jitendra K: Alright, so we'll go with, this code now.
+
+1024
+02:08:23.010 --> 02:08:27.080
+Jitendra K: And now I'm just executing it, and then… You will see the outcome.
+
+1025
+02:08:44.330 --> 02:08:46.219
+Jitendra K: So please use this link.
+
+1026
+02:09:37.440 --> 02:09:42.760
+Jitendra K: Okay, so till our code is running, let's try to understand the details of this code.
+
+1027
+02:09:43.090 --> 02:09:44.759
+Jitendra K: I think it's just finished.
+
+1028
+02:09:48.430 --> 02:09:51.140
+Jitendra K: So, let me go back…
+
+1029
+02:10:07.030 --> 02:10:12.179
+Jitendra K: Okay, so here we are importing a bunch of libraries again, just for usual purpose.
+
+1030
+02:10:12.930 --> 02:10:19.400
+Jitendra K: Operating system library for… Operating system interface for environmental variables and path declaratives.
+
+1031
+02:10:20.250 --> 02:10:24.469
+Jitendra K: Also, I'm using JSON for parsing tool called Augments.
+
+1032
+02:10:24.710 --> 02:10:28.019
+Jitendra K: for my element response, JSON to Python dictionaries.
+
+1033
+02:10:28.870 --> 02:10:33.340
+Jitendra K: And also, for performing some serialization tool, that may require
+
+1034
+02:10:34.010 --> 02:10:37.810
+Jitendra K: Some results to be manipulated in string format.
+
+1035
+02:10:39.820 --> 02:10:45.420
+Jitendra K: I'm also using regular expression for matching, reasoning, thoughts, actions…
+
+1036
+02:10:45.710 --> 02:10:51.620
+Jitendra K: and input parsing logic to extract JSON from LLM response when model don't strictly follow.
+
+1037
+02:10:51.880 --> 02:10:53.610
+Jitendra K: The format instructions.
+
+1038
+02:10:55.000 --> 02:11:01.139
+Jitendra K: Then I'm also importing the time usual package for exponential back-off retry logic.
+
+1039
+02:11:02.800 --> 02:11:05.190
+Jitendra K: I'm trying to perform the benchmarking
+
+1040
+02:11:05.780 --> 02:11:08.120
+Jitendra K: To measure the execution type or pattern.
+
+1041
+02:11:08.770 --> 02:11:14.629
+Jitendra K: For that purpose, I'm importing time. Hashlib for cryptographic hash functions for generating
+
+1042
+02:11:15.080 --> 02:11:20.609
+Jitendra K: Deterministic document ID, knowledge base injection, So, they required MD5.
+
+1043
+02:11:20.920 --> 02:11:25.060
+Jitendra K: That will create a collision resistance unique identifier for ChromaDB records.
+
+1044
+02:11:26.110 --> 02:11:29.609
+Jitendra K: Type, imports, list, dictionary, any optional…
+
+1045
+02:11:30.280 --> 02:11:33.749
+Jitendra K: That means I'm just using a type hint for static analysis.
+
+1046
+02:11:34.250 --> 02:11:40.540
+Jitendra K: Callable function to annotate, tool registry callbacks, tuples for returning the type annotation.
+
+1047
+02:11:41.100 --> 02:11:49.450
+Jitendra K: And then I have a data class, which will configure the container, agentic communication protocol, task to import DAX.
+
+1048
+02:11:49.670 --> 02:11:51.049
+Jitendra K: So I'm meeting a task.
+
+1049
+02:11:52.420 --> 02:11:56.500
+Jitendra K: And then finally, I've got, enumerator that will help me too.
+
+1050
+02:11:56.970 --> 02:11:58.860
+Jitendra K: Create enumerator constant.
+
+1051
+02:12:00.690 --> 02:12:03.509
+Jitendra K: And to manage the threat pools, concurrency.
+
+1052
+02:12:03.920 --> 02:12:09.299
+Jitendra K: For parallel task execution, I'm maintaining a thread pool, LLM compiler pattern, specifically.
+
+1053
+02:12:09.540 --> 02:12:13.979
+Jitendra K: And then the abstract method for… base class infrastructure.
+
+1054
+02:12:14.390 --> 02:12:16.640
+Jitendra K: So I'm creating everything as a base class.
+
+1055
+02:12:17.150 --> 02:12:19.230
+Jitendra K: So this is the tools.
+
+1056
+02:12:19.460 --> 02:12:22.740
+Jitendra K: That I'm going to write inside this class, so it will become abstract.
+
+1057
+02:12:23.250 --> 02:12:29.230
+Jitendra K: AppSec red class is just for infrastructure, for creating agentic base, so that I can be able to
+
+1058
+02:12:29.780 --> 02:12:33.410
+Jitendra K: extend it, if I need, for any other purpose.
+
+1059
+02:12:33.960 --> 02:12:42.160
+Jitendra K: Set of third-party imports… OpenAI… to call… LLM model, ChatGPT 4.0,
+
+1060
+02:12:42.780 --> 02:12:45.710
+Jitendra K: main LLM call I would like to perform.
+
+1061
+02:12:46.320 --> 02:12:49.670
+Jitendra K: Then I've got ChromaDB, Vector Store.
+
+1062
+02:12:50.180 --> 02:12:56.470
+Jitendra K: Which is in memory, send text to OpenAI, endpoint return, 1536 dimension.
+
+1063
+02:12:56.720 --> 02:13:04.810
+Jitendra K: Using text embedding P-small model, Then I've got… Some beautiful console output.
+
+1064
+02:13:05.060 --> 02:13:06.859
+Jitendra K: That means I'm using some…
+
+1065
+02:13:07.970 --> 02:13:13.389
+Jitendra K: sort of colored code output in pedantic responses, so for that, I'm just using it.
+
+1066
+02:13:13.860 --> 02:13:20.129
+Jitendra K: So I've got a config class, so this is the data decorator, or sorry, class decorator that I'm using.
+
+1067
+02:13:20.540 --> 02:13:26.479
+Jitendra K: So it auto-generated the constructor, I did not to create my own constructor.
+
+1068
+02:13:26.710 --> 02:13:30.940
+Jitendra K: So I'm passing my configuration, on the LM part.
+
+1069
+02:13:32.290 --> 02:13:34.330
+Jitendra K: All these are configuration.
+
+1070
+02:13:34.600 --> 02:13:37.179
+Jitendra K: I'm managing the ChromaDB in my local
+
+1071
+02:13:37.700 --> 02:13:39.609
+Jitendra K: So all this thing has been done.
+
+1072
+02:13:41.040 --> 02:13:44.310
+Jitendra K: I'm defining the configuration dictionary.
+
+1073
+02:13:44.710 --> 02:13:47.949
+Jitendra K: And then calling the LLM with the parameters.
+
+1074
+02:13:48.390 --> 02:13:55.320
+Jitendra K: So, in the list, I'm expecting the system prompt with a role,
+
+1075
+02:13:55.670 --> 02:13:58.339
+Jitendra K: And, the different parameters that I'm going to pass.
+
+1076
+02:14:01.340 --> 02:14:06.580
+Jitendra K: Now, this is the function body of my… LLM function.
+
+1077
+02:14:06.840 --> 02:14:12.730
+Jitendra K: So inside the function body, I'm passing parameter…
+
+1078
+02:14:13.940 --> 02:14:19.140
+Jitendra K: Else, it will use the configuration file directly to read it.
+
+1079
+02:14:19.820 --> 02:14:24.590
+Jitendra K: So, this is a two-provision that I'm creating, and I'm creating a retry logic as well.
+
+1080
+02:14:24.810 --> 02:14:30.590
+Jitendra K: if… In case it fails to read the configuration, it will try to be attempted.
+
+1081
+02:14:31.720 --> 02:14:35.030
+Jitendra K: Now, I'm setting up the Section 1 of this code.
+
+1082
+02:14:35.330 --> 02:14:38.570
+Jitendra K: Which is my… knowledge class.
+
+1083
+02:14:39.340 --> 02:14:41.589
+Jitendra K: The knowledge class is important.
+
+1084
+02:14:42.320 --> 02:14:46.630
+Jitendra K: So that means I'm setting up the ChromaDB, knowledge-based ChromaDB.
+
+1085
+02:14:47.830 --> 02:14:57.280
+Jitendra K: And using this knowledge base, I'm initializing the vectors to perform the Similarity of my chunks.
+
+1086
+02:14:57.880 --> 02:15:04.600
+Jitendra K: So, first and foremost thing, I'm creating this in memory for demo purpose, creating a client memory, or memory client.
+
+1087
+02:15:05.170 --> 02:15:07.469
+Jitendra K: And then, passing this…
+
+1088
+02:15:10.520 --> 02:15:12.529
+Jitendra K: Chroma Persistent Client Path.
+
+1089
+02:15:12.720 --> 02:15:14.600
+Jitendra K: To store this whole file.
+
+1090
+02:15:18.360 --> 02:15:22.970
+Jitendra K: Then I will use, the purpose of this algorithm, metadata.
+
+1091
+02:15:23.660 --> 02:15:29.660
+Jitendra K: I will configure either HNSW, small hierarchical, navigable small word index with cosine distance.
+
+1092
+02:15:30.390 --> 02:15:35.859
+Jitendra K: So this is the HNSW algorithm, which is a graph-based approximate nearest neighbor.
+
+1093
+02:15:36.310 --> 02:15:39.720
+Jitendra K: Which has build time of order of n log n.
+
+1094
+02:15:39.980 --> 02:15:45.740
+Jitendra K: And such time of order of log n, and the cosine similarity will be given by… this formula.
+
+1095
+02:15:50.460 --> 02:15:52.809
+Jitendra K: Now I'm going to inject the document.
+
+1096
+02:15:53.580 --> 02:15:57.070
+Jitendra K: So for document, I'm keeping a length number of chunks.
+
+1097
+02:15:57.450 --> 02:16:04.090
+Jitendra K: Overlap criterias, and then… I'm keeping the document ID using hashlib.
+
+1098
+02:16:04.490 --> 02:16:08.270
+Jitendra K: So this is the Hashlib library that I'm using to create indexes.
+
+1099
+02:16:08.490 --> 02:16:11.530
+Jitendra K: We support MD5 128-bit hash.
+
+1100
+02:16:12.680 --> 02:16:15.770
+Jitendra K: then… I'm also using Operation.
+
+1101
+02:16:16.170 --> 02:16:18.639
+Jitendra K: To update this document if needed.
+
+1102
+02:16:19.420 --> 02:16:26.529
+Jitendra K: Now, I'm creating a query method. So this method will emit query text using OpenAI embedding model, which is returning
+
+1103
+02:16:26.940 --> 02:16:29.600
+Jitendra K: 1536-dimensional vector.
+
+1104
+02:16:29.950 --> 02:16:35.810
+Jitendra K: HNSW algorithm I'm using here for… Neat search by cosine distance.
+
+1105
+02:16:36.080 --> 02:16:41.510
+Jitendra K: Filter by bit, maritime, so I'm providing a clause where…
+
+1106
+02:16:41.709 --> 02:16:47.199
+Jitendra K: That will help me to filter the data as well, depending upon my requirement, and it will return the end result with distance.
+
+1107
+02:16:47.520 --> 02:16:49.300
+Jitendra K: And I will gather the scores.
+
+1108
+02:16:50.490 --> 02:16:51.810
+Jitendra K: And sort it.
+
+1109
+02:16:53.090 --> 02:16:57.389
+Jitendra K: So, sample document that I'm passing is… A few sort of technical…
+
+1110
+02:16:58.270 --> 02:17:03.179
+Jitendra K: document from Wikipedia, so I'm talking about transformer architecture, talking about RAC,
+
+1111
+02:17:03.600 --> 02:17:09.749
+Jitendra K: Talking about LLM, talking about vector databases, financial risk management.
+
+1112
+02:17:10.490 --> 02:17:16.510
+Jitendra K: prompt engineering, etc. So these are my documents, right? So all the documents have source, topic, text.
+
+1113
+02:17:18.450 --> 02:17:20.520
+Jitendra K: And, things like that.
+
+1114
+02:17:20.809 --> 02:17:25.850
+Jitendra K: So basically, the text is a raw content, source is a citation, topic is a category.
+
+1115
+02:17:26.150 --> 02:17:30.350
+Jitendra K: And the topic that we are passing is technical plus financial.
+
+1116
+02:17:30.990 --> 02:17:36.089
+Jitendra K: Now I'm going to invoke a tool rice tree, so I will create a rice tree pattern explanation here.
+
+1117
+02:17:36.290 --> 02:17:40.719
+Jitendra K: So, the centralized tool will be registered as a tool decorator inside this class.
+
+1118
+02:17:40.969 --> 02:17:49.059
+Jitendra K: So I'm decoupling the tool implementation from agentic logic. It will enable runtime tool discovery and execution, not… rather than hard-code tool discoveries.
+
+1119
+02:17:49.610 --> 02:17:51.759
+Jitendra K: So I'm creating a registry pattern here.
+
+1120
+02:17:52.080 --> 02:17:53.899
+Jitendra K: This will register my tools.
+
+1121
+02:17:54.410 --> 02:18:00.230
+Jitendra K: And the type of response that I'm expecting from these tools will be this JSON format.
+
+1122
+02:18:02.250 --> 02:18:04.410
+Jitendra K: Now, I have a knowledge base search.
+
+1123
+02:18:05.070 --> 02:18:10.259
+Jitendra K: Which is… my tool implementation one. So in the knowledge-based search.
+
+1124
+02:18:10.879 --> 02:18:17.609
+Jitendra K: I'm registering the tool, and then creating some calculation on the topic. So I'm creating a calculator.
+
+1125
+02:18:18.080 --> 02:18:25.200
+Jitendra K: This calculator will perform some mathematical operation, like arithmetic Function, like square root.
+
+1126
+02:18:26.160 --> 02:18:29.920
+Jitendra K: Sine, cosine, transformation, log transformation, etc.
+
+1127
+02:18:30.420 --> 02:18:34.000
+Jitendra K: And then I have followed by the tax analyzer, which will split
+
+1128
+02:18:34.670 --> 02:18:38.160
+Jitendra K: Matches one or more sentence, and then handle it.
+
+1129
+02:18:38.480 --> 02:18:40.370
+Jitendra K: In terms of tax analytics.
+
+1130
+02:18:41.790 --> 02:18:47.639
+Jitendra K: Now, I've got a third tool, which is a summarization agent. These are all nodes, right? So these are all agents.
+
+1131
+02:18:48.100 --> 02:18:59.049
+Jitendra K: So, this is a tool that I'm using for… Model for extracting algorithmic summarization, and
+
+1132
+02:18:59.160 --> 02:19:02.580
+Jitendra K: Generating some concise summary of my passages.
+
+1133
+02:19:03.160 --> 02:19:06.869
+Jitendra K: Then I've got… tool use agent.
+
+1134
+02:19:07.059 --> 02:19:09.720
+Jitendra K: So I'm just making the model for extracting
+
+1135
+02:19:10.459 --> 02:19:13.629
+Jitendra K: the tool use, and then I will set up
+
+1136
+02:19:13.850 --> 02:19:19.369
+Jitendra K: these tools to the LLM for performing this whole stuff. So this is a tool decorator pattern that I'm using.
+
+1137
+02:19:19.639 --> 02:19:21.660
+Jitendra K: to perform this whole setup.
+
+1138
+02:19:22.250 --> 02:19:24.410
+Jitendra K: Now, I will use a reflection pattern.
+
+1139
+02:19:28.139 --> 02:19:32.300
+Jitendra K: So in the reflection pattern, I would like to use generator and critic architecture.
+
+1140
+02:19:32.790 --> 02:19:37.939
+Jitendra K: Not a generator and critic, we have seen this, what the tool reflection pattern will do.
+
+1141
+02:19:38.480 --> 02:19:45.099
+Jitendra K: So in the… prompt, I'm going to write the generator logic first, and then the critic logic.
+
+1142
+02:19:45.629 --> 02:19:52.040
+Jitendra K: So in the generator logic, you can see that I am writing this. Your expert in technical writer, generate a comprehensive, accurate response.
+
+1143
+02:19:52.810 --> 02:19:55.600
+Jitendra K: Use the provided context from the knowledge base.
+
+1144
+02:19:55.870 --> 02:20:00.929
+Jitendra K: To ground your answer, in fact, be specific, include technical details and site rotations.
+
+1145
+02:20:01.170 --> 02:20:03.590
+Jitendra K: Wherever possible. And the critic will…
+
+1146
+02:20:03.690 --> 02:20:07.290
+Jitendra K: Understand the response, and evaluate it into four
+
+1147
+02:20:07.450 --> 02:20:10.419
+Jitendra K: Output, accuracy, completeness, clarity, and depth.
+
+1148
+02:20:12.030 --> 02:20:18.460
+Jitendra K: And then it will generate a response in a JSON format, where I will consume this response to see the quality of generation.
+
+1149
+02:20:20.170 --> 02:20:24.490
+Jitendra K: And this is the iterative refinement loop, where I'm going to perform.
+
+1150
+02:20:25.180 --> 02:20:30.939
+Jitendra K: The query run, and then it will generate the response after critical evaluation.
+
+1151
+02:20:33.280 --> 02:20:35.169
+Jitendra K: Similarly, React pattern.
+
+1152
+02:20:35.480 --> 02:20:39.460
+Jitendra K: Where I have 3 building blocks, thought, action, observation, and a loop.
+
+1153
+02:20:40.340 --> 02:20:46.239
+Jitendra K: So, in the React, loop, I'm creating a React format specification.
+
+1154
+02:20:46.400 --> 02:20:49.560
+Jitendra K: This is the React format specification now.
+
+1155
+02:20:50.120 --> 02:20:56.289
+Jitendra K: Where I'm trying to look for registration of the available tools, so that my agent will call the appropriate tools.
+
+1156
+02:20:56.530 --> 02:21:00.519
+Jitendra K: Run method for parsing. So this is my run method.
+
+1157
+02:21:01.620 --> 02:21:09.339
+Jitendra K: So, run method will use capture tool name, alphabetic, alphanumeric underscores, JSON objects, etc.
+
+1158
+02:21:09.660 --> 02:21:13.330
+Jitendra K: And then I have got a trajectory. This trajectory…
+
+1159
+02:21:13.700 --> 02:21:15.970
+Jitendra K: Where I will explain the step.
+
+1160
+02:21:16.470 --> 02:21:19.710
+Jitendra K: Added, token through master history, cost per setup.
+
+1161
+02:21:20.340 --> 02:21:26.410
+Jitendra K: and then I will use this… hole, to perform.
+
+1162
+02:21:26.820 --> 02:21:30.229
+Jitendra K: Then I've got Rivu, Reasoning Without Observation.
+
+1163
+02:21:30.500 --> 02:21:38.490
+Jitendra K: So this pattern… I will try to use, the,
+
+1164
+02:21:39.710 --> 02:21:42.879
+Jitendra K: planning agent first. The planner will execute
+
+1165
+02:21:43.020 --> 02:21:49.410
+Jitendra K: Without looking into the tool results, that means there's… the planning will be concrete.
+
+1166
+02:21:50.040 --> 02:21:57.499
+Jitendra K: And then, it will execute in the solver, right? And then, once the solver generates, it will execute the plan.
+
+1167
+02:21:59.330 --> 02:22:01.320
+Jitendra K: Let me see if there's any question.
+
+1168
+02:22:01.850 --> 02:22:04.620
+Jitendra K: Can we reference document file as text?
+
+1169
+02:22:05.030 --> 02:22:08.990
+Jitendra K: Yes, you can replace hard-coded files with text as well.
+
+1170
+02:22:09.440 --> 02:22:15.469
+Jitendra K: Which editing framework based on this? Yeah, so I'm explaining all patterns, so this is the fifth pattern that we are now into.
+
+1171
+02:22:15.960 --> 02:22:22.820
+Jitendra K: The fifth pattern is plan and execute. So, plan and execute have three components, planner, Executor, and replanner.
+
+1172
+02:22:23.230 --> 02:22:30.450
+Jitendra K: The planner is the initial… step, where I'm going to create a number of steps
+
+1173
+02:22:30.720 --> 02:22:32.670
+Jitendra K: Plan to answer the user question.
+
+1174
+02:22:33.010 --> 02:22:36.130
+Jitendra K: Then I have a mini React agent for each step.
+
+1175
+02:22:38.060 --> 02:22:46.019
+Jitendra K: And the replanner… For remaining ones, right? So this is where I'm keeping a hybrid architecture.
+
+1176
+02:22:46.510 --> 02:22:47.620
+Jitendra K: For all three.
+
+1177
+02:22:49.080 --> 02:22:53.949
+Jitendra K: So, remember we talked about that plan and execute is a hybrid of React and Reboot.
+
+1178
+02:22:57.710 --> 02:23:02.109
+Jitendra K: Now, what we are going to do is, we are going to use multi-agency collaboration.
+
+1179
+02:23:02.760 --> 02:23:08.940
+Jitendra K: So, multi-agent calibration is basically… A specialist agent class.
+
+1180
+02:23:09.500 --> 02:23:16.480
+Jitendra K: That I'm going to use for creating a supervisory pattern. That means the supervisor will be able to coordinate with the downstream agents.
+
+1181
+02:23:17.010 --> 02:23:20.970
+Jitendra K: And then, perform the analysis by allocating a task to them.
+
+1182
+02:23:21.670 --> 02:23:26.790
+Jitendra K: So, a specialized agent will have different tool access.
+
+1183
+02:23:27.280 --> 02:23:32.969
+Jitendra K: And different downstream agent access, where they are going to work on different specialized tasks.
+
+1184
+02:23:33.250 --> 02:23:37.070
+Jitendra K: And then generate an output, which will be sent back to the supervisor.
+
+1185
+02:23:37.910 --> 02:23:43.789
+Jitendra K: Last but not the least, this is the aluminum compiler agent, where I'm going to use a compiler design.
+
+1186
+02:23:44.250 --> 02:23:50.920
+Jitendra K: to create this agent. The compiler design Basically, helped me to construct
+
+1187
+02:23:51.660 --> 02:23:54.370
+Jitendra K: And, create a pool of…
+
+1188
+02:23:54.480 --> 02:23:56.209
+Jitendra K: task in the form of a DAC.
+
+1189
+02:23:56.610 --> 02:24:02.930
+Jitendra K: where the task A and Task B can run parallelly, and then depending upon the successful execution of task B,
+
+1190
+02:24:03.160 --> 02:24:07.009
+Jitendra K: It will execute task C, and task C will execute task D.
+
+1191
+02:24:07.340 --> 02:24:08.310
+Jitendra K: At the end.
+
+1192
+02:24:08.820 --> 02:24:16.210
+Jitendra K: So this is the DAG, that means, I'm creating directory, cyclic topological graphs.
+
+1193
+02:24:16.610 --> 02:24:18.440
+Jitendra K: Which will have some sequential order.
+
+1194
+02:24:19.880 --> 02:24:26.790
+Jitendra K: So I'm going to execute this with the help of thread pools, so that I can able to keep a track of the execution sequences.
+
+1195
+02:24:27.260 --> 02:24:30.099
+Jitendra K: And, some dependency parsing for the graphs.
+
+1196
+02:24:32.290 --> 02:24:34.110
+Jitendra K: Now, let's look into the output.
+
+1197
+02:24:34.420 --> 02:24:37.080
+Jitendra K: So this is the output. Let me go back.
+
+1198
+02:24:38.050 --> 02:24:40.870
+Jitendra K: and user… alive.
+
+1199
+02:24:53.810 --> 02:24:58.479
+Jitendra K: Okay, so we'll go with, the execution sequence. So, first and foremost thing.
+
+1200
+02:24:58.930 --> 02:25:04.000
+Jitendra K: The demo will execute all seven agent patterns with varying performance characteristics.
+
+1201
+02:25:04.320 --> 02:25:08.820
+Jitendra K: And then, the first and foremost thing is the ChromaDB setup. So I've initialized…
+
+1202
+02:25:09.350 --> 02:25:12.630
+Jitendra K: The chunking strategy, 6 source document.
+
+1203
+02:25:12.940 --> 02:25:17.340
+Jitendra K: So, 800 character per document, total of 4,800 total character.
+
+1204
+02:25:17.490 --> 02:25:22.029
+Jitendra K: With a chunk size of 500, and overlap of 10%.
+
+1205
+02:25:22.370 --> 02:25:28.579
+Jitendra K: So for 8,000, it will use, this 10%. So I'm invoking a vector store for each chunk.
+
+1206
+02:25:29.800 --> 02:25:35.679
+Jitendra K: So, I'm keeping the inability of my vector search criteria using HNSW indexes.
+
+1207
+02:25:36.040 --> 02:25:40.479
+Jitendra K: So that it can be able to maintain the document that we have passed, 7 documents that we have passed.
+
+1208
+02:25:40.650 --> 02:25:43.780
+Jitendra K: In a… some sequence here order.
+
+1209
+02:25:45.210 --> 02:25:51.119
+Jitendra K: When I'm executing the tool uses, so I'm asking the question, what is attention mechanism in transformer?
+
+1210
+02:25:51.530 --> 02:25:55.410
+Jitendra K: And simultaneously, I'm asking to perform this arithmetic calculation.
+
+1211
+02:25:56.610 --> 02:25:58.679
+Jitendra K: So it'll give me which tool it is calling.
+
+1212
+02:25:59.140 --> 02:26:02.879
+Jitendra K: So, first and foremost thing, the model received this input system prompt.
+
+1213
+02:26:03.510 --> 02:26:06.009
+Jitendra K: So we have a system prompt which talks about
+
+1214
+02:26:06.150 --> 02:26:09.110
+Jitendra K: What tool is required to answer?
+
+1215
+02:26:09.830 --> 02:26:15.409
+Jitendra K: The query contained two distinct subtasks. One is the factual task, which is what is the attention mechanism.
+
+1216
+02:26:15.810 --> 02:26:21.030
+Jitendra K: So we'll call the tool as search knowledge base, and then it will call the calculator tool.
+
+1217
+02:26:23.120 --> 02:26:25.799
+Jitendra K: So basically, the model will respond with this.
+
+1218
+02:26:26.000 --> 02:26:27.819
+Jitendra K: The model's generating a response.
+
+1219
+02:26:27.940 --> 02:26:29.429
+Jitendra K: By performing both.
+
+1220
+02:26:30.290 --> 02:26:31.559
+Jitendra K: This is the output.
+
+1221
+02:26:32.220 --> 02:26:34.900
+Jitendra K: And the task has been completed in 9.2 seconds.
+
+1222
+02:26:35.130 --> 02:26:38.219
+Jitendra K: That means I'm executing both the tools simultaneously.
+
+1223
+02:26:41.280 --> 02:26:49.059
+Jitendra K: So the model compute… With 9.29 seconds, so LLMs…
+
+1224
+02:26:49.290 --> 02:26:53.309
+Jitendra K: All 1 is for function, L&M call 2 is for executor.
+
+1225
+02:26:53.770 --> 02:26:57.300
+Jitendra K: And then generating the final answer. This is just a tool pattern.
+
+1226
+02:26:57.890 --> 02:27:03.449
+Jitendra K: Now, I'm going to show you reflection pattern. So, reflection pattern… We'll retrieve 3 documents.
+
+1227
+02:27:05.570 --> 02:27:09.310
+Jitendra K: So basically, the query that we are passing is, explain how RAG works.
+
+1228
+02:27:09.710 --> 02:27:12.109
+Jitendra K: And what metrics are used to evaluate them?
+
+1229
+02:27:12.560 --> 02:27:16.160
+Jitendra K: So the query matched the document with the topic rack.
+
+1230
+02:27:16.850 --> 02:27:20.910
+Jitendra K: And then use a query semantic search using HNSW,
+
+1231
+02:27:21.320 --> 02:27:27.409
+Jitendra K: And a critic will evaluate four dimensions. Accuracy, factual correctness, and source citation, completeness.
+
+1232
+02:27:27.660 --> 02:27:32.060
+Jitendra K: Coverage of RAG architecture metrics, clarity, structure, and readability, adapt.
+
+1233
+02:27:32.350 --> 02:27:35.590
+Jitendra K: the technical level. So it is adjusting the overall score as…
+
+1234
+02:27:42.430 --> 02:27:44.090
+Jitendra K: 9.5.
+
+1235
+02:27:44.720 --> 02:27:48.509
+Jitendra K: Which is a good score, perfect for most criteria.
+
+1236
+02:27:49.020 --> 02:27:53.070
+Jitendra K: And, it used one iteration to generate this response.
+
+1237
+02:27:53.710 --> 02:27:59.920
+Jitendra K: The RAC topic is well covered in the knowledge base, so generative prompt include explicit instruction to site sources.
+
+1238
+02:28:00.130 --> 02:28:04.499
+Jitendra K: So, does not require to recalculate And improve this portal.
+
+1239
+02:28:06.340 --> 02:28:10.030
+Jitendra K: So you can see that in the step 1, it execute.
+
+1240
+02:28:11.520 --> 02:28:16.090
+Jitendra K: Step 2… Then it looks for capability of large language model.
+
+1241
+02:28:16.400 --> 02:28:18.789
+Jitendra K: Step 3 for React Framework and LLM.
+
+1242
+02:28:19.570 --> 02:28:25.770
+Jitendra K: So then it generates an observation, and then finally it merged the output to generate the final response.
+
+1243
+02:28:26.500 --> 02:28:31.909
+Jitendra K: In the review, where we have no observation, all such children will return zero.
+
+1244
+02:28:32.500 --> 02:28:35.660
+Jitendra K: So, root cause… Analysis…
+
+1245
+02:28:39.970 --> 02:28:41.789
+Jitendra K: So I'm asking this question.
+
+1246
+02:28:43.790 --> 02:28:49.030
+Jitendra K: Compare vector database similarity and calculate ambient dimension for multi-head retention.
+
+1247
+02:28:49.550 --> 02:28:52.299
+Jitendra K: With 1264 dimensions per head.
+
+1248
+02:29:01.440 --> 02:29:03.799
+Jitendra K: So you can see it's not returning any answer.
+
+1249
+02:29:04.160 --> 02:29:07.350
+Jitendra K: Because the context is not given in the document.
+
+1250
+02:29:07.920 --> 02:29:14.150
+Jitendra K: So this is a knowledge base coverage gap. So knowledge-based content document about agent, but not specifically about large language model.
+
+1251
+02:29:14.920 --> 02:29:23.320
+Jitendra K: So, such… strategies… will… Try to fulfill this query, But it failed.
+
+1252
+02:29:23.460 --> 02:29:29.670
+Jitendra K: Right? So it will lead to partial correct answers if your document does not have that…
+
+1253
+02:29:29.870 --> 02:29:32.099
+Jitendra K: Capability to answer.
+
+1254
+02:29:34.740 --> 02:29:41.920
+Jitendra K: So basically, what we are doing is the planning correctly identified The three phases.
+
+1255
+02:29:42.440 --> 02:29:46.969
+Jitendra K: Which is information retrieval, which required embedding plus search, pure computation.
+
+1256
+02:29:47.440 --> 02:29:50.930
+Jitendra K: And then, user dependency on the… on the results.
+
+1257
+02:29:51.270 --> 02:29:54.910
+Jitendra K: And then it uses a summarization tool to perform the whole analysis.
+
+1258
+02:29:55.170 --> 02:29:57.729
+Jitendra K: Right? So this is what we are doing in Review.
+
+1259
+02:29:58.330 --> 02:30:03.629
+Jitendra K: Plan and execute, I'm asking this question, how is AI used in financial risk management?
+
+1260
+02:30:04.010 --> 02:30:07.799
+Jitendra K: Specifically for processes like RCSA and integrity compliance.
+
+1261
+02:30:08.600 --> 02:30:15.580
+Jitendra K: Notice… I may… user search execution. So the first is the search execution.
+
+1262
+02:30:16.110 --> 02:30:17.940
+Jitendra K: Which has been performed by this.
+
+1263
+02:30:18.180 --> 02:30:21.300
+Jitendra K: Query, AI in Financial Risk Management.
+
+1264
+02:30:21.850 --> 02:30:24.089
+Jitendra K: for RCA regulation compliance.
+
+1265
+02:30:24.220 --> 02:30:26.829
+Jitendra K: And then it performed the search openly.
+
+1266
+02:30:27.810 --> 02:30:30.869
+Jitendra K: So the term that I'm getting here is…
+
+1267
+02:30:31.820 --> 02:30:34.939
+Jitendra K: The final answer that I'm getting here is this.
+
+1268
+02:30:38.590 --> 02:30:42.960
+Jitendra K: So basically, the solver combined all the three results into
+
+1269
+02:30:43.170 --> 02:30:47.349
+Jitendra K: One, which enhanced the overall efficiency of the risk management practices.
+
+1270
+02:30:47.610 --> 02:30:55.649
+Jitendra K: by leveraging AI automation case better, and then generating the output. But one thing that I would like to talk about is plan and execution.
+
+1271
+02:30:55.920 --> 02:30:59.830
+Jitendra K: It's using a high latency to generate the response.
+
+1272
+02:31:00.530 --> 02:31:02.240
+Jitendra K: 17 seconds.
+
+1273
+02:31:03.880 --> 02:31:05.789
+Jitendra K: While reboot is 10 seconds.
+
+1274
+02:31:06.350 --> 02:31:08.090
+Jitendra K: And React is even less.
+
+1275
+02:31:08.850 --> 02:31:14.589
+Jitendra K: So, plan and execute make 2 times more LM call per step. Replanning and checks.
+
+1276
+02:31:15.040 --> 02:31:21.239
+Jitendra K: And each step may call LLM multiple times, so review planner create a more compact plan, and then execute advance.
+
+1277
+02:31:22.010 --> 02:31:27.059
+Jitendra K: The sixth pattern that we have learned is multi-agenting. So, basically, we have…
+
+1278
+02:31:27.180 --> 02:31:30.460
+Jitendra K: A set of agents, researcher, analyst, and writer.
+
+1279
+02:31:30.980 --> 02:31:33.580
+Jitendra K: So, researcher task is to find
+
+1280
+02:31:36.750 --> 02:31:40.070
+Jitendra K: the researcher… Agent is trying to find.
+
+1281
+02:31:40.310 --> 02:31:43.710
+Jitendra K: And summarize the latest best practices for prompt engineering.
+
+1282
+02:31:44.130 --> 02:31:51.189
+Jitendra K: It made the search query internally, produce structured research brief, Analysts will use the calculator.
+
+1283
+02:31:51.610 --> 02:31:59.070
+Jitendra K: to analyze different prompt technique and compare them, writer will write a clear, well-structured response outlining best practices.
+
+1284
+02:31:59.390 --> 02:32:00.890
+Jitendra K: And generate the output.
+
+1285
+02:32:01.250 --> 02:32:03.590
+Jitendra K: So here, the supervisory pattern.
+
+1286
+02:32:03.820 --> 02:32:07.580
+Jitendra K: Planning will almost take 4 seconds to generate the response.
+
+1287
+02:32:08.260 --> 02:32:12.839
+Jitendra K: Followed by researcher, 18 seconds, analyst, 20 seconds, and writer, 15 second.
+
+1288
+02:32:13.040 --> 02:32:15.619
+Jitendra K: So, in total, it takes 57 seconds.
+
+1289
+02:32:15.890 --> 02:32:19.099
+Jitendra K: to generate this response. Why it is so slow? Because…
+
+1290
+02:32:19.430 --> 02:32:23.940
+Jitendra K: These tasks are not sequential, not parallel. So these tasks are sequential, not parallel.
+
+1291
+02:32:24.320 --> 02:32:27.790
+Jitendra K: So each agent made multiple LLM calls per internally.
+
+1292
+02:32:28.120 --> 02:32:32.880
+Jitendra K: And the searcher likely made two to three such attempts before generating an answer.
+
+1293
+02:32:33.490 --> 02:32:40.709
+Jitendra K: So the analysts perform text analysis on large contexts, and write a generic lengthy markdown output on the content that has been generated.
+
+1294
+02:32:40.930 --> 02:32:43.610
+Jitendra K: So overall, it consumes more tokens.
+
+1295
+02:32:44.430 --> 02:32:47.420
+Jitendra K: More throughput, and then the most… more cost.
+
+1296
+02:32:48.190 --> 02:32:50.359
+Jitendra K: Finally, I've got LLM Compiler.
+
+1297
+02:32:52.060 --> 02:32:55.190
+Jitendra K: where you're creating a sequence of tasks in the form of a DAC,
+
+1298
+02:32:55.690 --> 02:33:00.349
+Jitendra K: And then, here you're asking, research, transformer, rag, and vector database.
+
+1299
+02:33:01.220 --> 02:33:05.420
+Jitendra K: Compare the relationship and calculate total parameter for 6-layer transformer.
+
+1300
+02:33:05.750 --> 02:33:08.850
+Jitendra K: With a dimension of the model to be 512.
+
+1301
+02:33:10.490 --> 02:33:16.569
+Jitendra K: So… So again, I can see that
+
+1302
+02:33:17.390 --> 02:33:20.789
+Jitendra K: The response is generated in pretty good time.
+
+1303
+02:33:24.810 --> 02:33:29.420
+Jitendra K: Sorry. So basically, I'm using a number of worker, which is maximum to be 4,
+
+1304
+02:33:30.190 --> 02:33:33.819
+Jitendra K: And each task has been run, again, parallelly to execute.
+
+1305
+02:33:34.100 --> 02:33:36.180
+Jitendra K: So if we compare the whole output.
+
+1306
+02:33:37.920 --> 02:33:43.269
+Jitendra K: Tool uses take 9-second reflection is almost double. React is slightly improved.
+
+1307
+02:33:43.510 --> 02:33:45.220
+Jitendra K: Review is much, much less.
+
+1308
+02:33:45.640 --> 02:33:50.709
+Jitendra K: can and execute, and the multi-agent takes maximum time, and the LLM compile is 14.5.
+
+1309
+02:33:52.110 --> 02:34:00.460
+Jitendra K: So basically, this is what the design patterns are, right? So, design patterns… are used for…
+
+1310
+02:34:01.980 --> 02:34:05.950
+Jitendra K: Making sure that your system will have some sort of
+
+1311
+02:34:07.710 --> 02:34:13.549
+Jitendra K: layman architectures to start with, and then you're going to utilize for the purpose.
+
+1312
+02:34:15.370 --> 02:34:21.590
+Jitendra K: Accuracy, you can compare only when you're running the same questions throughout. We are running two different questions.
+
+1313
+02:34:21.760 --> 02:34:25.309
+Jitendra K: So… Accuracy is not a issue here.
+
+1314
+02:34:28.310 --> 02:34:31.540
+Jitendra K: The purpose is to show you how the component has been defined.
+
+1315
+02:34:37.790 --> 02:34:40.230
+Jitendra K: Is it clear to everyone? Can you go on to…
+
+1316
+02:34:40.830 --> 02:34:44.299
+Jitendra K: Run this, and let me know if there's any question.
+
+1317
+02:34:52.720 --> 02:34:57.249
+Jitendra K: So please go through it, run it, and let me know if there's any question.
+
+1318
+02:34:58.050 --> 02:35:01.989
+Jitendra K: Just in case, if you want to understand some part of it.
+
+1319
+02:36:14.910 --> 02:36:18.790
+Jitendra K: Can you explain the dependency injection part again in the code?
+
+1320
+02:36:20.040 --> 02:36:22.500
+Jitendra K: dependency injection part.
+
+1321
+02:36:26.360 --> 02:36:29.210
+Jitendra K: Dependency injection part once again.
+
+1322
+02:37:12.700 --> 02:37:14.989
+Jitendra K: Yeah, let me go back to the question.
+
+1323
+02:38:29.740 --> 02:38:31.930
+Jitendra K: Okay, is that TA is in the class?
+
+1324
+02:38:33.430 --> 02:38:34.210
+Jitendra K: Hello?
+
+1325
+02:38:40.160 --> 02:38:45.669
+Jitendra K: No, I'm asking about TA. TA is in the class? Teaching assistant from Amherst.
+
+1326
+02:38:50.250 --> 02:38:51.750
+Jitendra K: Pooja or someone.
+
+1327
+02:38:52.630 --> 02:38:53.450
+Jitendra K: Hello?
+
+1328
+02:39:54.760 --> 02:39:57.840
+Jitendra K: Where launched the poll, without my permission.
+
+1329
+02:40:13.940 --> 02:40:14.680
+Jitendra K: Bono.
+
+1330
+02:46:52.070 --> 02:46:59.149
+Jitendra K: Okay, so any other question, guys? I've shared PPT. Okay, there's a question about dependence injection part in the code.
+
+1331
+02:46:59.800 --> 02:47:03.109
+Jitendra K: Yeah, let me explain this, what is dependency injection?
+
+1332
+02:47:03.360 --> 02:47:07.030
+Jitendra K: So, dependency injection means you're creating,
+
+1333
+02:47:07.290 --> 02:47:09.600
+Jitendra K: the task using a DAG, right?
+
+1334
+02:47:09.940 --> 02:47:20.720
+Jitendra K: The dependency parsing is nothing but… Whatever you're doing is… We are creating… a simple… Objective.
+
+1335
+02:47:21.830 --> 02:47:28.889
+Jitendra K: to execute the sequence of the plan, right? So, dependency injection will be required in tool registry, knowledge base management.
+
+1336
+02:47:29.180 --> 02:47:34.399
+Jitendra K: And also, when we are using multiple tools together, using multi-identic architecture.
+
+1337
+02:47:34.590 --> 02:47:38.489
+Jitendra K: So, in Reflection Agent, we require to maintain knowledge base.
+
+1338
+02:47:39.830 --> 02:47:44.990
+Jitendra K: So, for Retriever, but it does not require any tool management. So, it's a constructor injection.
+
+1339
+02:47:45.630 --> 02:47:50.989
+Jitendra K: In multi-agenting system that we are using, we are using a translative dependency injection.
+
+1340
+02:49:02.750 --> 02:49:06.269
+Jitendra K: In which line you're referring to? Can you give me the line number, please?
+
+1341
+02:49:07.250 --> 02:49:08.910
+Jitendra K: Which line you're referring to?
+
+1342
+02:49:09.460 --> 02:49:13.449
+Jitendra K: We can do without DI, what is the benefit of it? Which line you're referring to?
+
+1343
+02:49:40.650 --> 02:49:43.250
+Jitendra K: Just give me the line number where you are referring to.
+
+1344
+02:49:44.950 --> 02:49:50.450
+Jitendra K: And how to avoid dependency injection to create that… Line.
+
+1345
+02:49:58.700 --> 02:50:03.860
+Jitendra K: This is not dependency injection, this is a simple keyword argument that we are maintaining via tool.
+
+1346
+02:50:04.790 --> 02:50:11.829
+Jitendra K: keyword argument tools, if the tools have some description, we are just using the description tool in it. This is not dependency parsing.
+
+1347
+02:50:12.330 --> 02:50:16.199
+Jitendra K: If you're saying this is a dependencies parsing, then it is not a dependencies parsing.
+
+1348
+02:50:25.850 --> 02:50:28.769
+Jitendra K: The binary parsing will happen when you're creating a DAG.
+
+1349
+02:50:29.750 --> 02:50:33.249
+Jitendra K: DAC should follow some sequence, right? So this is a dependency parsing.
+
+1350
+02:50:36.080 --> 02:50:39.470
+Jitendra K: There's a dependency on task C to task D execution.
+
+1351
+02:50:40.000 --> 02:50:41.700
+Jitendra K: That has to be created.
+
+1352
+02:50:42.020 --> 02:50:44.759
+Jitendra K: Without dependency parsing, how will you implement a DAG?
+
+1353
+02:50:54.550 --> 02:50:58.649
+Jitendra K: Okay, okay. No, that's a different concept that you're talking about.
+
+1354
+02:51:01.620 --> 02:51:06.609
+Jitendra K: That is for thread management you're talking about. Thread management using dependency parsing.
+
+1355
+02:51:10.920 --> 02:51:14.139
+Jitendra K: We are… here we are constructing a DAG, not a thread.
+
+1356
+02:51:23.070 --> 02:51:23.870
+Jitendra K: Yeah.
+
+1357
+02:51:25.030 --> 02:51:30.369
+Jitendra K: So, any further question, guys? I think this is what we have for today, but any further question?
+
+1358
+02:51:41.570 --> 02:51:45.650
+Jitendra K: a toll… doesn't implement any LLM call.
+
+1359
+02:51:45.820 --> 02:51:50.409
+Jitendra K: This simply plays over, yes, the tool is external to LLM.
+
+1360
+02:51:51.380 --> 02:51:54.020
+Jitendra K: Agentic pattern versus agent framework.
+
+1361
+02:51:54.640 --> 02:51:57.430
+Jitendra K: You tell me the difference. You have attended the class.
+
+1362
+02:51:58.180 --> 02:51:59.810
+Jitendra K: What do you think about that?
+
+1363
+02:52:02.310 --> 02:52:05.879
+Jitendra K: What should be a difference? Is intake pattern versus authentic framework?
+
+1364
+02:52:25.640 --> 02:52:30.049
+Jitendra K: Agent Frameworks are langchain, auto-gen, true AI, semantic kernels.
+
+1365
+02:52:30.390 --> 02:52:33.759
+Jitendra K: Agentic pattern is your architectural blueprint.
+
+1366
+02:52:34.370 --> 02:52:36.250
+Jitendra K: So there's no comparison at all.
+
+1367
+02:52:36.790 --> 02:52:39.369
+Jitendra K: Why we are comparing framework versus pattern.
+
+1368
+02:52:40.650 --> 02:52:42.789
+Jitendra K: Framework is like your,
+
+1369
+02:52:43.650 --> 02:52:48.039
+Jitendra K: Framework is like your brick and mortar that you're using to construct a building.
+
+1370
+02:52:48.480 --> 02:52:52.170
+Jitendra K: And then the map that you're using to construct a building is your pattern.
+
+1371
+02:52:53.620 --> 02:52:56.690
+Jitendra K: There's no relationship between the map and the brick and mortar.
+
+1372
+02:52:57.140 --> 02:53:00.969
+Jitendra K: Of course, we are achieving a common objective to construct a building.
+
+1373
+02:53:03.590 --> 02:53:08.649
+Jitendra K: But the brick and mortar has nothing to do with your blueprint of agentic.
+
+1374
+02:53:08.870 --> 02:53:09.940
+Jitendra K: designs.
+
+1375
+02:53:13.320 --> 02:53:16.099
+Jitendra K: Yeah, you use Agentic framework to implement Agentic.
+
+1376
+02:53:16.980 --> 02:53:18.380
+Jitendra K: Patents, yes.
+
+1377
+02:53:23.770 --> 02:53:29.840
+Jitendra K: Yeah, so we are not using… because if I use it, then you will start saying this is very complex.
+
+1378
+02:53:30.270 --> 02:53:32.210
+Jitendra K: So I have to find some way to…
+
+1379
+02:53:32.400 --> 02:53:34.860
+Jitendra K: First, give you the concept that we're discussing.
+
+1380
+02:53:35.200 --> 02:53:38.759
+Jitendra K: Instead of, merging too many pieces together.
+
+1381
+02:53:42.250 --> 02:53:52.370
+Jitendra K: Okay, I have a manufacturing plan use case, root cause analysis, use port, base error, troubleshooting, plus some document. I need to retry the anti-root and fix.
+
+1382
+02:53:53.020 --> 02:53:58.350
+Jitendra K: So that our users are aware what is the next course of action, instead of using a snow ticket.
+
+1383
+02:54:00.740 --> 02:54:04.920
+Jitendra K: Errors, patterns, encode business rule session context.
+
+1384
+02:54:07.250 --> 02:54:14.960
+Jitendra K: Yeah, you can go with multi-agent pattern, and if you're using a root cause analysis with different other tool stack.
+
+1385
+02:54:15.270 --> 02:54:17.969
+Jitendra K: Then go for tool pattern as well, in sync.
+
+1386
+02:54:20.750 --> 02:54:23.740
+Jitendra K: for managing your MCP tools inside a server.
+
+1387
+02:54:24.900 --> 02:54:28.130
+Jitendra K: So… Let's say you have,
+
+1388
+02:54:30.610 --> 02:54:36.940
+Jitendra K: some requests which required some other servers to be debugged, right? So for that, he required credential, access, role base.
+
+1389
+02:54:37.290 --> 02:54:43.830
+Jitendra K: And then you will log into that tool, and then perform the analysis on the top of it. So you may require a tool pattern as well.
+
+1390
+02:54:44.250 --> 02:54:46.170
+Jitendra K: Along with multi-agent tick pattern.
+
+1391
+02:54:59.610 --> 02:55:08.760
+Jitendra K: But yeah, it's a good use case, so if you're using root cause analyzer, For… specifically for, operation…
+
+1392
+02:55:09.930 --> 02:55:18.070
+Jitendra K: And, this is… To automate, the support staff, which are doing that level 1 analysis.
+
+1393
+02:55:18.580 --> 02:55:23.050
+Jitendra K: on… on the… Bug fixes and small changes.
+
+1394
+02:55:23.450 --> 02:55:31.960
+Jitendra K: Which required a lot of… Legacies and analysis to be done, but they are… descriptive, right?
+
+1395
+02:55:32.350 --> 02:55:39.890
+Jitendra K: You have a set of tools, you have a set of commands, which your support agents are running, L1 agents are running. They're not agents, they're humans.
+
+1396
+02:55:40.600 --> 02:55:47.120
+Jitendra K: And you're paying salary for that to maintain a big amount of teams, so why don't you replace them with your agents?
+
+1397
+02:55:50.330 --> 02:55:54.040
+Jitendra K: And let them upskill themselves for some other projects.
+
+1398
+02:55:58.840 --> 02:56:00.840
+Jitendra K: Yeah, that's a good use case, I think.
+
+1399
+02:56:16.610 --> 02:56:20.879
+Jitendra K: Any other question, guys? Any other question, doubt, comments?
+
+1400
+02:56:32.240 --> 02:56:35.140
+Jitendra K: Are you following so far? What is design patterns?
+
+1401
+02:56:36.450 --> 02:56:40.510
+Jitendra K: And all, now you're clear with 7 design patterns, if I have to ask you
+
+1402
+02:56:40.790 --> 02:56:44.050
+Jitendra K: Next time to implement it, will you be able to implement this?
+
+1403
+02:56:55.880 --> 02:56:58.349
+Jitendra K: So, in the next class, we are going to implement…
+
+1404
+02:56:59.370 --> 02:57:01.560
+Jitendra K: With the help of,
+
+1405
+02:57:02.160 --> 02:57:04.320
+Jitendra K: Lang graphs and line chains and all.
+
+1406
+02:57:08.330 --> 02:57:13.340
+Jitendra K: Cloud Native… is… Having their own skills.
+
+1407
+02:57:14.590 --> 02:57:22.770
+Jitendra K: So, they are… Using a different sort of system prompt to write skills using OpenClaw and… It's tough.
+
+1408
+02:57:23.530 --> 02:57:30.550
+Jitendra K: And, cloud Native is basically… Much, much…
+
+1409
+02:57:31.610 --> 02:57:34.470
+Jitendra K: Refined version of what we have discussed so far.
+
+1410
+02:57:35.330 --> 02:57:39.550
+Jitendra K: The general patterns… Let's say if I'm giving an example.
+
+1411
+02:57:40.330 --> 02:57:42.979
+Jitendra K: Do you know how to drive a car, right?
+
+1412
+02:57:43.080 --> 02:57:45.740
+Jitendra K: The theory of how to drive a car required
+
+1413
+02:57:46.860 --> 02:57:51.180
+Jitendra K: Fundamental understanding of steering, brake, and accelerate.
+
+1414
+02:57:51.550 --> 02:57:55.760
+Jitendra K: So, cloud-native is just like a car with automation transmission.
+
+1415
+02:57:56.960 --> 02:57:58.570
+Jitendra K: with Adaptive Cruise.
+
+1416
+02:58:03.210 --> 02:58:05.430
+Jitendra K: Can we share this cooler? Okay.
+
+1417
+02:58:07.450 --> 02:58:09.140
+Jitendra K: Yeah, let me share this.
+
+1418
+02:58:17.140 --> 02:58:21.050
+Jitendra K: Yeah, that's correct. Agentic.md file, skills.md file.
+
+1419
+02:58:21.510 --> 02:58:25.399
+Jitendra K: The skill.md5 will have all the… all the stuff inside it.
+
+1420
+02:58:27.910 --> 02:58:30.050
+Jitendra K: So here, we're creating a manual car.
+
+1421
+02:58:31.880 --> 02:58:36.320
+Jitendra K: And Claude Skills all have automated car, automated gear shifting mechanism.
+
+1422
+02:58:38.980 --> 02:58:41.789
+Jitendra K: So we are still at, nascent stage.
+
+1423
+02:58:53.240 --> 02:58:57.499
+Jitendra K: Alright, so any further questions? We have 2 more minutes.
+
+1424
+02:59:07.130 --> 02:59:12.170
+Jitendra K: So I've seen when the annoyed user has rated 1, so I would like to know who is that.
+
+1425
+02:59:13.220 --> 02:59:15.669
+Jitendra K: And why he's rating the session as 1?
+
+1426
+02:59:17.570 --> 02:59:21.679
+Jitendra K: So I just want to know who is the user, otherwise I will find it myself.
+
+1427
+02:59:22.580 --> 02:59:26.039
+Jitendra K: And what is the issue that he's facing in the class?
+
+1428
+02:59:28.980 --> 02:59:30.149
+Jitendra K: He or she.
+
+1429
+02:59:33.870 --> 02:59:36.760
+Jitendra K: Do you guys think that this is a one-rating session?
+
+1430
+02:59:37.320 --> 02:59:39.779
+Jitendra K: How many of you think that this is one rating?
+
+1431
+02:59:47.370 --> 02:59:51.530
+Jitendra K: That user might be sleeping, and then all of a sudden he wake up, and then…
+
+1432
+02:59:52.690 --> 02:59:55.879
+Jitendra K: He feel that this is overwhelming, and then he rated.
+
+1433
+02:59:58.430 --> 03:00:01.959
+Jitendra K: Watching IPL, and then eating his dinner.
+
+1434
+03:00:02.860 --> 03:00:06.080
+Jitendra K: Passing time, wasting money, wasting resource.
+
+1435
+03:00:06.890 --> 03:00:07.860
+Jitendra K: We're good.
+
+1436
+03:00:08.540 --> 03:00:10.140
+Jitendra K: If you have money, too.
+
+1437
+03:00:11.160 --> 03:00:13.079
+Jitendra K: Throw away, then it's your choice.
+
+1438
+03:00:18.880 --> 03:00:22.270
+Jitendra K: No, 1 is, lowest. 5 is the highest.
+
+1439
+03:00:22.480 --> 03:00:26.649
+Jitendra K: Oh, yeah, maybe he's not, understand the rating scale as well.
+
+1440
+03:00:33.110 --> 03:00:39.380
+Jitendra K: So, rating scale, I have to give you, again, the rating scale 5 is the highest. 1 is the lowest.
+
+1441
+03:00:40.230 --> 03:00:42.330
+Jitendra K: So don't accidentally put one.
+
+1442
+03:00:42.660 --> 03:00:49.810
+Jitendra K: If you… Feel that, 1 is high, so don't assume it. 5 is the highest rating.
+
+1443
+03:00:51.950 --> 03:00:53.470
+Jitendra K: Thank you, Ramesha.
+
+1444
+03:00:55.290 --> 03:01:00.340
+Jitendra K: So those who are watching IPLs and… Just joining in between.
+
+1445
+03:01:00.550 --> 03:01:02.339
+Jitendra K: To get attendance.
+
+1446
+03:01:03.200 --> 03:01:07.949
+Jitendra K: please, pardon me, I mean, this is not the right place for you.
+
+1447
+03:01:11.830 --> 03:01:13.960
+Jitendra K: I would like to keep it interactive.
+
+1448
+03:01:14.170 --> 03:01:18.000
+Jitendra K: Those users who are learning, I would definitely want to work with them.
+
+1449
+03:01:18.910 --> 03:01:21.970
+Jitendra K: And, giving more examples on industries.
+
+1450
+03:01:22.210 --> 03:01:27.290
+Jitendra K: As we progress, so we'll take more examples, real time and stuff.
+
+1451
+03:01:31.040 --> 03:01:36.889
+Jitendra K: So, I will run a session in the next tutorial, where I would like to understand your industrial perspective.
+
+1452
+03:01:37.040 --> 03:01:40.780
+Jitendra K: Which industry are you focusing upon, and… how to make
+
+1453
+03:01:41.440 --> 03:01:45.640
+Jitendra K: What is your use case? I've seen some of the good use cases during chat.
+
+1454
+03:01:46.410 --> 03:01:51.319
+Jitendra K: So maybe we can take some flavor for that example.
+
+1455
+03:01:52.430 --> 03:01:58.930
+Jitendra K: And without overkilling other users, and just to ensure that you can also use these programs
+
+1456
+03:01:59.320 --> 03:02:04.660
+Jitendra K: and these materials in your resume, and then you can say that I have worked on this, which is fine, I mean.
+
+1457
+03:02:05.980 --> 03:02:10.519
+Jitendra K: If you claim and you can prove your expertise in that, that's perfectly fine.
+
+1458
+03:02:11.150 --> 03:02:14.480
+Jitendra K: So that is the value of these sessions, right? So make sure that
+
+1459
+03:02:14.820 --> 03:02:19.619
+Jitendra K: You have a good mindset, and if you're facing some issue, ask questions, right? That's the only way.
+
+1460
+03:02:22.870 --> 03:02:24.859
+Jitendra K: Onboarding process in a bank.
+
+1461
+03:02:25.150 --> 03:02:32.930
+Jitendra K: Healthcare lifecycle, okay, KYC and healthcare. Okay, great. I have one KYC use case, by the way.
+
+1462
+03:02:33.280 --> 03:02:35.929
+Jitendra K: Where I have created a very…
+
+1463
+03:02:37.610 --> 03:02:42.019
+Jitendra K: good agents to support the agentic, KYC onboarding.
+
+1464
+03:02:50.060 --> 03:02:57.580
+Jitendra K: EMS part, false positive in EML. False positive in EML, yes, you can use agents, or you can use models.
+
+1465
+03:02:58.490 --> 03:03:00.370
+Jitendra K: Both are equally good.
+
+1466
+03:03:02.480 --> 03:03:09.289
+Jitendra K: Llama Index, we'll cover, yeah, we'll cover Llama Index. HARMS agent, yeah, I'm using Homs. Homes Agents.
+
+1467
+03:03:09.590 --> 03:03:12.080
+Jitendra K: Which is an open source, self-evolving.
+
+1468
+03:03:13.040 --> 03:03:17.290
+Jitendra K: And this is released in 2026, MIT license, and…
+
+1469
+03:03:17.530 --> 03:03:21.549
+Jitendra K: It is using a closed-loop learning to execute a task and…
+
+1470
+03:03:22.340 --> 03:03:24.999
+Jitendra K: performing self-improvement, so I'm using it.
+
+1471
+03:03:29.550 --> 03:03:32.910
+Jitendra K: Manufacturing process, high-tech, supply chain.
+
+1472
+03:03:34.030 --> 03:03:41.119
+Jitendra K: Working retail giant players, category analysts in business development using Cloud Enterprise version with Data Break, without Data Break, okay?
+
+1473
+03:03:41.670 --> 03:03:43.980
+Jitendra K: Any use case on churn analysis?
+
+1474
+03:03:44.800 --> 03:03:50.379
+Jitendra K: Yeah, you can do channels as well with agents, where you can mimic the features
+
+1475
+03:03:50.720 --> 03:03:55.560
+Jitendra K: And their, you can read, their ratings, reviews.
+
+1476
+03:03:56.420 --> 03:03:59.679
+Jitendra K: Using agents, and then perform the analysis on churn.
+
+1477
+03:04:00.170 --> 03:04:03.980
+Jitendra K: Universal Onboarding Agent and Agentix, Shopping Commerce.
+
+1478
+03:04:05.140 --> 03:04:11.250
+Jitendra K: Personalized marketing is a good example. Personalized marketing is always… benefit by agent.
+
+1479
+03:04:11.410 --> 03:04:15.180
+Jitendra K: By which channel you should reach users, and what should be your contents.
+
+1480
+03:04:16.040 --> 03:04:22.860
+Jitendra K: Came across the overlap between language and Llama Index, yeah. So we covered Llama Index, don't worry about it.
+
+1481
+03:04:23.100 --> 03:04:25.449
+Jitendra K: Manufacturing Process Analytics.
+
+1482
+03:04:25.720 --> 03:04:31.940
+Jitendra K: If you have locks and all, then how can you be able to… Improve your manufacturing planning.
+
+1483
+03:04:32.830 --> 03:04:37.900
+Jitendra K: Yeah, that's correct. I mean, these are good use cases, so definitely it will help,
+
+1484
+03:04:38.330 --> 03:04:46.070
+Jitendra K: Basically, if you look from… not just from financial, but also from manufacturing point of view, there are different use cases, for sure.
+
+1485
+03:04:46.330 --> 03:04:54.470
+Jitendra K: And some of the use cases could be… Very, very… complex… Quite human-driven.
+
+1486
+03:04:54.730 --> 03:04:59.219
+Jitendra K: And quite, depending upon your SME inputs, right?
+
+1487
+03:04:59.740 --> 03:05:01.609
+Jitendra K: So that's the reason,
+
+1488
+03:05:01.980 --> 03:05:08.330
+Jitendra K: We also need to look forward how we can able to perform a kind of a simulation on the top of it, rather than
+
+1489
+03:05:09.050 --> 03:05:11.700
+Jitendra K: Making it full productionized code.
+
+1490
+03:05:12.150 --> 03:05:18.289
+Jitendra K: That means, we are talking about MVP, not just POCs, but MVP here.
+
+1491
+03:05:19.380 --> 03:05:22.309
+Jitendra K: But yeah, I mean, these are good use cases, specifically…
+
+1492
+03:05:23.140 --> 03:05:30.409
+Jitendra K: Retail use cases are good, when you're looking for universal onboarding agent, and agentic shopping commerce, and…
+
+1493
+03:05:31.080 --> 03:05:43.330
+Jitendra K: Specifically, you're looking for B2B markets, and… Try to understand, the… Personas of the customers, their…
+
+1494
+03:05:44.320 --> 03:05:50.319
+Jitendra K: feedbacks, loops, and integrations, which we are doing anyway with the help of ML, right?
+
+1495
+03:05:50.740 --> 03:05:56.499
+Jitendra K: So ML will also do this whole job, but what if… if you have one layer on the top of your ML?
+
+1496
+03:05:57.300 --> 03:06:03.589
+Jitendra K: That will help you to maybe, do this systematic analysis on the top of it, just like…
+
+1497
+03:06:03.970 --> 03:06:08.230
+Jitendra K: GenBI layer. GenBI is one of the important things.
+
+1498
+03:06:08.780 --> 03:06:10.830
+Jitendra K: That is happening, right?
+
+1499
+03:06:17.370 --> 03:06:21.710
+Jitendra K: There's no specific, retail operation agentic design pattern.
+
+1500
+03:06:22.160 --> 03:06:27.139
+Jitendra K: So it, so retail use cases also depends upon
+
+1501
+03:06:27.730 --> 03:06:35.790
+Jitendra K: your tools and your APIs, your customer data, etc, which is very similar to Financial insurance use cases, right?
+
+1502
+03:06:36.180 --> 03:06:40.380
+Jitendra K: So there's no such, agenting design pattern specifically for retail operation.
+
+1503
+03:06:41.080 --> 03:06:50.039
+Jitendra K: But yeah, I mean, there's some research paper which I can share with you, how they're delving into retail use cases with Agent AI.
+
+1504
+03:06:57.900 --> 03:07:03.599
+Jitendra K: You can use my paper as well, I publish. Not paper, I would say, it's a code that I publish.
+
+1505
+03:07:13.770 --> 03:07:16.990
+Jitendra K: And this is for dynamic pricing in retail.
+
+1506
+03:07:17.800 --> 03:07:21.159
+Jitendra K: You can go with it, and then you'll see this repository.
+
+1507
+03:07:21.850 --> 03:07:24.150
+Jitendra K: Which is using the set of agents and…
+
+1508
+03:07:25.130 --> 03:07:28.080
+Jitendra K: Stop to perform the dynamic pricing.
+
+1509
+03:07:32.370 --> 03:07:37.949
+Jitendra K: So I've given the steps to recreate that, you can just use it for your own study.
+
+1510
+03:07:42.280 --> 03:07:47.929
+Jitendra K: And this is a kind of enterprise-grade agent, so that means all I have to do is to plug in
+
+1511
+03:07:48.980 --> 03:07:51.019
+Jitendra K: Yeah, dynamic pricing for retail.
+
+1512
+03:07:51.120 --> 03:07:56.579
+Jitendra K: So that means, let's say I have a competitor, I'm working for XYZ.
+
+1513
+03:07:57.840 --> 03:08:01.009
+Jitendra K: I have competitor prices. Every day they change.
+
+1514
+03:08:01.500 --> 03:08:04.509
+Jitendra K: They give some coupon, they give some discount, they give some…
+
+1515
+03:08:04.780 --> 03:08:07.830
+Jitendra K: Free buys, so I will keep a track on my agents.
+
+1516
+03:08:08.270 --> 03:08:11.590
+Jitendra K: To perform this analysis, and then generate.
+
+1517
+03:08:11.870 --> 03:08:16.299
+Jitendra K: The strategy is to… Inflate or deflator prices.
+
+1518
+03:08:30.280 --> 03:08:36.479
+Jitendra K: Alright guys, so this is pretty much what we have for today, so thank you for having the session. So we'll meet next week.
+
+1519
+03:08:36.960 --> 03:08:43.490
+Jitendra K: And next week, we are going to continue our discussion on agentic design with some more technical in-depth.
+
+1520
+03:08:44.000 --> 03:08:46.450
+Jitendra K: And then, finally, we'll move on to…
+
+1521
+03:08:46.560 --> 03:08:50.999
+Jitendra K: Crew AI as our next objective. So, Crew AI is something which we are going to start with.
+
+1522
+03:08:51.440 --> 03:08:56.300
+Jitendra K: And, so Crew AI will… we will cover the ADK Crew AI Autogen.
+
+1523
+03:08:56.610 --> 03:09:01.900
+Jitendra K: And then we move on back to the RAG and the pipeline designs, again, from the scratch.
+
+1524
+03:09:02.270 --> 03:09:06.500
+Jitendra K: So, thank you, and have a pleasant evening ahead, and we'll meet in the next tutorial. Thank you.
+

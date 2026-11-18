@@ -1,0 +1,63 @@
+{
+  "event_count": 42,
+  "last_event_id": "01KX3FTPGZZJF6XFXHQT87B410",
+  "materialized_at": "2026-07-09T13:07:16.639203+00:00",
+  "mission_number": "",
+  "mission_slug": "gemini-georgia-generation-doctrine-01KX3BAW",
+  "mission_type": "software-dev",
+  "summary": {
+    "approved": 0,
+    "blocked": 0,
+    "canceled": 0,
+    "claimed": 0,
+    "done": 6,
+    "for_review": 0,
+    "in_progress": 0,
+    "in_review": 0,
+    "planned": 0
+  },
+  "work_packages": {
+    "WP01": {
+      "actor": "user",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KX3FT4BBJ7PSG6PGKH75SZK8",
+      "last_transition_at": "2026-07-09T13:06:58.027355+00:00"
+    },
+    "WP02": {
+      "actor": "user",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KX3FT8199NSBD6CRXV0WSN9M",
+      "last_transition_at": "2026-07-09T13:07:01.801294+00:00"
+    },
+    "WP03": {
+      "actor": "user",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KX3FTBNT5PN3KP3K4WPD62TB",
+      "last_transition_at": "2026-07-09T13:07:05.530593+00:00"
+    },
+    "WP04": {
+      "actor": "user",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KX3FTJX6Q61RSVVZ715SVX0T",
+      "last_transition_at": "2026-07-09T13:07:12.934246+00:00"
+    },
+    "WP05": {
+      "actor": "user",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KX3FTF8SF7G2RSM76V6QQHYV",
+      "last_transition_at": "2026-07-09T13:07:09.209103+00:00"
+    },
+    "WP06": {
+      "actor": "user",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KX3FTPGZZJF6XFXHQT87B410",
+      "last_transition_at": "2026-07-09T13:07:16.639203+00:00"
+    }
+  }
+}

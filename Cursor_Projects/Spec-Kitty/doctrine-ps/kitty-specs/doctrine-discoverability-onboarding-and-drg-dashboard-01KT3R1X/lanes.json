@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "mission_slug": "doctrine-discoverability-onboarding-and-drg-dashboard-01KT3R1X",
+  "mission_id": "01KT3R1XQXAC9S1CXNDX3NSSDJ",
+  "mission_branch": "kitty/mission-doctrine-discoverability-onboarding-and-drg-dashboard-01KT3R1X",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "lanes": [
+    {
+      "lane_id": "lane-a",
+      "wp_ids": [
+        "WP01"
+      ],
+      "write_scope": [
+        "docs/ONBOARDING.md"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "app-shell",
+        "artifact-rendering",
+        "dashboard",
+        "tracker-integration",
+        "workspace"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-b",
+      "wp_ids": [
+        "WP02"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/server/src/routes/drg.routes.test.ts",
+        "tools/pack-dashboard/server/src/routes/drg.routes.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup",
+        "workspace"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-d",
+      "wp_ids": [
+        "WP04"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/server/src/routes/artifacts.routes.ts",
+        "tools/pack-dashboard/server/src/routes/builtin.routes.ts",
+        "tools/pack-dashboard/server/src/services/provenance.service.test.ts",
+        "tools/pack-dashboard/server/src/services/provenance.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "workspace"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-c",
+      "wp_ids": [
+        "WP03"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/src/app/app.routes.ts",
+        "tools/pack-dashboard/src/app/layout/sidebar.component.ts",
+        "tools/pack-dashboard/src/app/models/drg.model.ts",
+        "tools/pack-dashboard/src/app/pages/drg/**",
+        "tools/pack-dashboard/src/app/services/drg.service.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "app-shell",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup",
+        "workspace"
+      ],
+      "depends_on_lanes": [
+        "lane-b"
+      ],
+      "parallel_group": 1
+    },
+    {
+      "lane_id": "lane-e",
+      "wp_ids": [
+        "WP05"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/src/app/components/provenance-badge/**",
+        "tools/pack-dashboard/src/app/pages/artifact-detail/**",
+        "tools/pack-dashboard/src/app/pages/artifact-list/**"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "workspace"
+      ],
+      "depends_on_lanes": [
+        "lane-d"
+      ],
+      "parallel_group": 1
+    }
+  ],
+  "computed_at": "2026-06-02T09:53:44.857326+00:00",
+  "computed_from": "dependency_graph+ownership",
+  "planning_artifact_wps": []
+}

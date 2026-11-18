@@ -1,0 +1,53 @@
+# Markdownlint Configuration — Regnology Professional Services
+#
+# Enforces consistent markdown style across doctrine, docs, and work artifacts.
+#
+# Install: npm install --save-dev markdownlint-cli2
+# Usage:   npx markdownlint-cli2 "**/*.md"
+# Fix:     npx markdownlint-cli2 --fix "**/*.md"
+#
+# Reference: doctrine/styleguides/commit-and-markdown-linting.md
+
+# Line length — relaxed to 120 for prose-heavy doctrine files.
+# Code blocks and tables are exempt.
+MD013:
+  line_length: 120
+  code_blocks: false
+  tables: false
+  headings: false
+
+# Heading style: ATX only (# Heading)
+MD003:
+  style: atx
+
+# Unordered list style: dash
+MD004:
+  style: dash
+
+# Ordered list prefix: ordered (1. 2. 3.)
+MD029:
+  style: ordered
+
+# Code fence style: backtick
+MD048:
+  style: backtick
+
+# Allow inline HTML (used in agent profiles and templates)
+MD033: false
+
+# Allow duplicate headings in different nesting contexts
+MD024:
+  siblings_only: true
+
+# Allow trailing punctuation in headings (e.g., "What is this?")
+MD026:
+  punctuation: ".,;:!"
+
+# First line need not be a heading (frontmatter is common)
+MD041: false
+
+# Allow bare URLs (common in references sections)
+MD034: false
+
+# Allow emphasis as heading (used in some doctrine patterns)
+MD036: false

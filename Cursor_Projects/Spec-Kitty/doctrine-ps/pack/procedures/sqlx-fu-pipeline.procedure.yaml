@@ -1,0 +1,105 @@
+schema_version: "1.0"
+id: sqlx-fu-pipeline
+name: SQLX Functional Unit Pipeline
+purpose: >
+  Orchestrate the end-to-end delivery of an ABACUS360 SQLX functional unit from pseudo code
+  or informal regulatory logic through structured specification, SQLX artifacts, validation,
+  and test suite. Optional branches cover business-language explanation and performance
+  optimization. Invokes pack tactics in sequence; standards from styleguide sqlx-coding-standards
+  and toolguide sqlx-mcp.
+entry_condition: >
+  Pseudo code, analyst notes, or an informal calculation description exists for a new or
+  revised functional unit. MCP data-model access (or approved failover) is available.
+  SQLX Specialist Simon (sqlx-specialist-simon) is the executing agent.
+  Do not use for a single task type only — invoke the matching tactic directly instead:
+    pseudo code → structured spec       → sqlx-pseudo-code-to-spec
+    spec → SQLX artifacts               → sqlx-generation
+    compliance check                    → sqlx-validation
+    test suite                          → sqlx-testing
+    explain FU for stakeholders         → sqlx-explanation
+    performance improvements            → sqlx-optimization
+  Use this procedure only when the full pipeline (interpret → generate → validate → test)
+  is in scope. For model-tier selection, follow directive MODEL_DISCIPLINE (042).
+  Do not use for non-SQLX backend work.
+exit_condition: >
+  Structured spec exists with resolved references or explicit unresolved items; SQLX artifacts
+  (component, CF, BL, DD, .dec if applicable) pass tactic sqlx-validation with zero errors;
+  test suite covers required code paths per tactic sqlx-testing; work log records traceability
+  (Directive TRACEABLE_DECISIONS). Optional: explanation artefact (sqlx-explanation) and/or
+  optimization report (sqlx-optimization) when requested.
+steps:
+  - title: Interpret Pseudo Code to Specification
+    actor: agent
+    description: >
+      Execute tactic sqlx-pseudo-code-to-spec. Ingest pseudo code; resolve ABACUS360 entity,
+      field, and domain references via MCP; produce specs/[FU_NAME]_spec.md with CF/BL/DD
+      decomposition. List unresolved items with specific questions — do not guess. Gate:
+      spec is internally consistent and generation-ready for all resolved items.
+
+  - title: Domain Clarification Gate
+    actor: human
+    description: >
+      If the spec contains unresolved items or open questions, pause for domain expert or
+      Analyst Annie sign-off before generation. Do not proceed to sqlx-generation while
+      blocking ambiguities remain unless the human explicitly accepts the risk.
+
+  - title: Generate SQLX Artifacts
+    actor: agent
+    description: >
+      Execute tactic sqlx-generation against the approved spec. Apply styleguide
+      sqlx-coding-standards. Write component.sqlx, FU_NAME_CF.sqlx, FU_NAME_BL.sqlx,
+      FU_NAME_DD.sqlx, and DEC_*.dec as required. Produce a generation report listing
+      files and conventions applied.
+
+  - title: Validate SQLX Compliance
+    actor: agent
+    description: >
+      Execute tactic sqlx-validation on the FU directory (read-only). Address all errors;
+      re-run sqlx-generation for affected files if validation requires code changes. Gate:
+      validation report shows zero errors before testing.
+
+  - title: Generate Test Suite
+    actor: agent
+    description: >
+      Execute tactic sqlx-testing. Cover every CASE branch, decision table rule, join
+      behaviour, and edge cases. Run abacus test when CLI is configured; document results
+      in the scenario doc.
+
+  - title: Explain for Stakeholders (Optional)
+    actor: agent
+    description: >
+      When auditors, domain experts, or reviewers need non-SQLX documentation, execute
+      tactic sqlx-explanation. Output docs/explanations/[FU_NAME]_explanation.md. Skip
+      when not requested.
+
+  - title: Optimize Performance (Optional)
+    actor: agent
+    description: >
+      When performance is in scope and abacus validate passes, execute tactic sqlx-optimization.
+      Record baseline (abacus info, dag-dump, analyse), test one or more hypotheses, and
+      produce an optimization report with before/after evidence. The Spec Kitty orchestration
+      runtime may assign this step separately after the core pipeline.
+
+  - title: Handoff and Traceability
+    actor: agent
+    description: >
+      Summarize deliverables (spec, SQLX files, validation report, test artefacts, optional
+      explanation/optimization). Log decisions and open items per Directive TRACEABLE_DECISIONS.
+      Escalate blocking issues via work/human-in-charge/ when required (Directive 040).
+
+anti_patterns:
+  - name: Skip Spec Interpretation
+    description: >
+      Generating SQLX directly from pseudo code without sqlx-pseudo-code-to-spec bypasses
+      resolved data model references and ambiguity tracking. Always complete
+      sqlx-pseudo-code-to-spec and the human clarification gate before sqlx-generation.
+
+  - name: Validate Before Generate Completes
+    description: >
+      Running sqlx-validation on incomplete artifact sets produces noise and false fixes.
+      Validate only after full CF, BL, DD, and decision tables are written.
+
+  - name: Test Before Validate Passes
+    description: >
+      Test design on non-compliant SQLX wastes effort. Require sqlx-validation zero errors
+      before sqlx-testing.

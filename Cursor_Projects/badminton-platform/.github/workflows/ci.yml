@@ -1,0 +1,51 @@
+# Runs on every push and pull request: type check, tests, database checks, app build, quick simulation.
+name: CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - name: Tests (including database integration tests)
+        env:
+          TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+        run: pnpm test
+      - name: Database migration and safety checks
+        env:
+          PGPASSWORD: postgres
+        run: |
+          psql -h localhost -U postgres -q -c "drop schema if exists public cascade; drop schema if exists app cascade; drop schema if exists auth cascade; create schema public;"
+          psql -h localhost -U postgres -v ON_ERROR_STOP=1 -q \
+            -f supabase/checks/stub-auth.sql \
+            -f supabase/migrations/20261028000001_foundation.sql \
+            -f supabase/checks/foundation.test.sql \
+            -f supabase/migrations/20261029000001_members.sql \
+            -f supabase/checks/members.test.sql \
+            -f supabase/migrations/20261030000001_sessions.sql \
+            -f supabase/checks/sessions.test.sql
+      - name: Build the web app
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_placeholder_for_ci
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+          NEXT_TELEMETRY_DISABLED: 1
+        run: pnpm build
+      - run: pnpm simulate:quick

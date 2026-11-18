@@ -1,0 +1,22 @@
+{
+  "enabledMcpjsonServers": ["regnology-mcp"],
+  "permissions": {
+    "allow": [
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(rg:*)",
+      "Bash(rtk:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(python -m pytest tests/:*)",
+      "Bash(mvn clean install:*)",
+      "Bash(mvn test:*)",
+      "Bash(mvn clean test:*)",
+      "Bash(mvn compile test-compile:*)",
+      "Bash(mvn spotless:apply:*)",
+      "Bash(mvn spotless:check:*)"
+    ]
+  }
+}

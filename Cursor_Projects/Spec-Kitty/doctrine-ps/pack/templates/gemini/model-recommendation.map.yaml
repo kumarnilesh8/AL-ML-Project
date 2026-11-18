@@ -1,0 +1,59 @@
+# +----------------------------------------------------+
+# |████          R E G N O L O G Y                     |
+# |    ██        Professional Services                 |
+# |████                                                |
+# |    ██        professional_services@regnology.net   |
+# +----------------------------------------------------+
+#
+# Property of Regnology Group GmbH - All Rights Reserved
+#               FOR INTERNAL USE ONLY
+#
+# Template: gemini-model-recommendation-map
+# Version: "1.0"
+#
+# SINGLE source for the Gemini set-up-guide "Recommended model" line.
+# Georgia and the set-up-guide template must reference this mapping instead of
+# duplicating model-tier guidance per generated file, per MODEL_DISCIPLINE.
+# Tier definitions and current model rankings derive from
+# `toolguide:agentic-model-leaderboard`; this file intentionally stores only
+# routing intent and short rationale, not copied leaderboard data.
+
+schema_version: "1.0"
+
+authority:
+  discipline: MODEL_DISCIPLINE
+  model_tier_source: "toolguide:agentic-model-leaderboard"
+  consumer_contract: >-
+    Resolve the agent or agent class below, then choose the current model for
+    that tier from the agentic-model-leaderboard toolguide.
+
+recommendations:
+  default:
+    recommended_model_tier: "mid-tier"
+    rationale: >-
+      Default Gemini workspace agents do bounded Q&A, summarization, routing, and
+      setup support over curated context without needing premium reasoning.
+
+  navigator:
+    recommended_model_tier: "mid-tier"
+    rationale: >-
+      Navigator agents classify requests and present the roster; they should not
+      perform specialist domain work.
+
+  doctrine-grounded-specialist:
+    recommended_model_tier: "high-tier"
+    rationale: >-
+      Specialists that flatten and apply doctrine need stronger synthesis across
+      pack context, templates, and user-provided source material.
+
+  code-or-infrastructure-specialist:
+    recommended_model_tier: "high-tier"
+    rationale: >-
+      Agents advising on code, CI, data, or infrastructure carry higher
+      correctness risk and usually benefit from stronger technical reasoning.
+
+  security-or-compliance-specialist:
+    recommended_model_tier: "premium-tier"
+    rationale: >-
+      Security, compliance, and approval-sensitive agents should use the strongest
+      suitable tier listed by the leaderboard for the relevant arena.

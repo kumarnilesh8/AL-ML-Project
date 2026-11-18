@@ -1,0 +1,149 @@
+{
+  "mission_slug": "single-command-installer-bootstrap-01KVFHX6",
+  "mission_number": "",
+  "mission_type": "software-dev",
+  "overall_verdict": "pass",
+  "criteria": [
+    {
+      "criterion_id": "FR-001",
+      "description": "One-command installer entrypoint for macOS, Debian Linux, and Windows PowerShell with consistent outcome semantics (contract AC-001/AC-004).",
+      "proof_type": "code_review",
+      "evidence": "WP02 implemented dist/scripts/install-regnology-stack.{sh,ps1} with a shared ordered phase pipeline (preflight -> integrity -> deps -> spec-kitty -> layers -> completion) and equivalent user-facing messages across both scripts; verified against AC-004 parity criteria during WP02 review.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP02 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Parity confirmed shell vs PowerShell; FR-004 Python floor defect (3.9->3.12) caught and fixed in a dedicated WP02 reopen/fix/re-review cycle."
+    },
+    {
+      "criterion_id": "FR-002",
+      "description": "Preflight validates base regnology-all-company archive accessibility before any download, distinguishing 404 / 401-403 / network outcomes (contract AC-001).",
+      "proof_type": "code_review",
+      "evidence": "WP02 bounded-timeout HTTP HEAD probe (curl -sI --connect-timeout 10 --max-time 15 / Invoke-WebRequest -Method Head -TimeoutSec 15) on the base endpoint with distinct cause+remediation per outcome and non-zero exit before any download/extraction.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP02 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Base probed before overlay; no extraction/pipx on preflight failure."
+    },
+    {
+      "criterion_id": "FR-003",
+      "description": "Preflight validates overlay ps-agent-enabled-factory archive accessibility before any download, with the same outcome distinctions as FR-002 (contract AC-001).",
+      "proof_type": "code_review",
+      "evidence": "WP02 applies the identical bounded-timeout probe logic to the overlay endpoint, after the base probe, with matching 404/401-403/timeout discrimination.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP02 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Ordering base->overlay enforced; both probed before download."
+    },
+    {
+      "criterion_id": "FR-004",
+      "description": "Installer verifies Python >= 3.12 and remediates via brew/apt/winget or exits with explicit guidance (contract AC-002).",
+      "proof_type": "code_review",
+      "evidence": "WP02 (post-fix) enforces sys.version_info >= (3, 12) in install-regnology-stack.sh (~line 525/533) and -ge 12 in install-regnology-stack.ps1 (~line 429/437) with 'Python 3.12+ is required' messaging and platform-appropriate remediation.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP02 fix-cycle re-review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Defect found during WP04 review (scripts enforced 3.9+ vs required 3.12+); WP02 reopened, fixed, and re-approved."
+    },
+    {
+      "criterion_id": "FR-005",
+      "description": "Installer verifies pipx presence and installs/configures it when missing, ensuring it is on PATH for the next step (contract AC-002).",
+      "proof_type": "code_review",
+      "evidence": "WP02 validates pipx readiness, installs via system package manager (apt/brew/winget) with pip --user fallback, then confirms pipx on PATH before the spec-kitty step.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP02 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "PATH confirmation gate present before dependent step."
+    },
+    {
+      "criterion_id": "FR-006",
+      "description": "spec-kitty installed via pipx at the tag-injected version; un-injected in-repo runs use default_spec_kitty_version; never an unbounded latest in the published form (contract AC-003).",
+      "proof_type": "code_review",
+      "evidence": "WP01 pins default_spec_kitty_version: 3.2.1 and v2.0.0 spec_kitty_version: 3.2.1 in config/release-map.yaml and documents the @SPEC_KITTY_VERSION@ token contract; WP02 consumes the injected token, detecting the un-injected state (case @*@ / -like '@*@') and falling back to 3.2.1 with a logged 'fallback/unpinned mode'.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP01 + WP02 reviews)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Injected vs fallback paths both verified."
+    },
+    {
+      "criterion_id": "FR-007",
+      "description": "Payloads retrieved from Artifactory as the sole automatic runtime source; Bitbucket script is discovery/manual-download only, no automatic payload failover (contract AC-007).",
+      "proof_type": "code_review",
+      "evidence": "WP02 constructs all pack/checksum download URLs from the Artifactory base env vars only; no Bitbucket payload fetch path exists. Documented in WP04 docs as discovery-only.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP02 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "No failover path to Bitbucket for payloads."
+    },
+    {
+      "criterion_id": "FR-008",
+      "description": "Jenkins publishing is tag-triggered, resolves pinned versions from config/release-map.yaml, injects them into published scripts, publishes only to JFrog (contract AC-005).",
+      "proof_type": "code_review",
+      "evidence": "WP03 migrated Jenkinsfile stage gating to anyOf { buildingTag(); RUN_ON_THIS_BRANCH }, reads release-map.yaml via readYaml (awk fallback) to set SPEC_KITTY/OVERLAY/BASE/PACK versions, adds an Inject Installer Versions stage substituting @...@ tokens, and publishes only to JFrog (no Bitbucket release-publish stage).",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP03 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Hard error on unmapped tag and UNRESOLVED-UPSTREAM base unless ALLOW_UNRESOLVED_BASE."
+    },
+    {
+      "criterion_id": "FR-009",
+      "description": "Per-phase user-facing progress logging; on failure a single block names failing phase, target, cause, and remediation (contract AC-004 / NFR-003).",
+      "proof_type": "code_review",
+      "evidence": "WP02 emits ordered phase banners and a consolidated failure block (phase, target, distinct cause: missing/denied/network/integrity, remediation) in both scripts.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP02 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Single-block failure output verified per NFR-003."
+    },
+    {
+      "criterion_id": "FR-010",
+      "description": "Installer records component versions in a local .stack-version manifest with identical field structure across platforms (contract AC-004 / NFR-005).",
+      "proof_type": "code_review",
+      "evidence": "WP02 writes .stack-version with installed_at, spec_kitty_version, spec_kitty_requested_version, base_pack_version, overlay_pack_version, platform in both scripts with identical structure.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP02 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Manifest field parity confirmed."
+    },
+    {
+      "criterion_id": "FR-011",
+      "description": "Docs (docs/HOW_TO_INSTALL.md, dist/scripts/README.md) updated for cross-platform usage, Python 3.12, token handling, two-layer source model, fallback semantics, integrity verification, and release-tag pinning (contract AC-008).",
+      "proof_type": "code_review",
+      "evidence": "WP04 rewrote both docs: Python 3.12 prerequisite, two-layer base/overlay source model, detached .sha256 integrity, Artifactory-only payloads with Bitbucket discovery-only fallback, release-tag pinning vs clone fallback, per-platform one-command invocations matching published entrypoints; stale 3.9/regnology-default/single-pack framing removed.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP04 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Documented invocation matches published installer entrypoint names."
+    },
+    {
+      "criterion_id": "FR-012",
+      "description": "Each downloaded payload verified against its detached .sha256 after download and before extraction/pipx; mismatch deletes artifact and aborts non-zero (contract AC-006).",
+      "proof_type": "code_review",
+      "evidence": "WP02 downloads artifact.sha256 alongside each payload and verifies via sha256sum/shasum -a 256 / Get-FileHash -Algorithm SHA256 before extraction; on mismatch deletes the partial download, reports expected vs actual, and exits non-zero.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP02 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Verify-before-extract ordering confirmed."
+    },
+    {
+      "criterion_id": "FR-013",
+      "description": "Jenkins publishes overlay archive as ps-agent-enabled-factory-<version> (not regnology-default-*) with a detached .sha256 for every published payload (contract AC-005 / AC-006).",
+      "proof_type": "code_review",
+      "evidence": "WP03 set ARCHIVE_BASENAME to ps-agent-enabled-factory and publishes detached .sha256 for tar, zip, and both injected installer scripts; Smoke Check verifies .sha256 siblings.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP03 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Artifact rename + detached checksums verified."
+    },
+    {
+      "criterion_id": "FR-014",
+      "description": "Re-running the installer on an already-satisfied machine is idempotent: satisfied components are not reinstalled and the run exits zero with an accurate manifest (contract AC-009).",
+      "proof_type": "code_review",
+      "evidence": "WP02 short-circuits when spec-kitty and both packs are already present at expected versions, refreshing the .stack-version manifest and exiting zero without reinstalling.",
+      "pass_fail": "pass",
+      "verified_by": "code-reviewer-cindy (WP02 review)",
+      "verified_at": "2026-06-19T12:10:00+00:00",
+      "notes": "Idempotent short-circuit verified."
+    }
+  ],
+  "negative_invariants": []
+}

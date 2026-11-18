@@ -1,0 +1,69 @@
+schema_version: "1.0"
+id: decision-reference-types
+name: Decision Reference Types
+purpose: >
+  Guide correct referencing of decisions in framework versus repository contexts to maintain
+  framework portability while preserving decision traceability. Prevents repository-specific
+  EDRs from contaminating shared doctrine files and ensures the correct reference type is used
+  for each decision scope.
+
+  Naming rule: within PS engagement repositories, project-level and solution-level decisions
+  are Engineering Decision Records (EDRs), stored in docs/decisions/. The term ADR
+  (Architecture Decision Record) is reserved for enterprise-level Regnology Group decisions
+  and must not be used at engagement level. See styleguide regnology-nomenclature.
+entry_condition: >
+  An agent is about to create or modify a documentation artifact that references a decision,
+  architectural rationale, or process requirement.
+exit_condition: >
+  All decision references in the artifact use the correct type (DDR-NNN, Directive reference,
+  EDR-NNN generic placeholder, or repository EDR) with no cross-contamination between
+  framework and repository layers.
+steps:
+  - title: Identify the scope of the decision being referenced
+    description: >
+      Classify the decision by scope:
+      Universal framework pattern applicable across all repositories → DDR-NNN (docs/decisions/ in this repository);
+      Process or workflow requirement → Directive reference (e.g. "per Directive 018 Traceable Decisions");
+      Instructional example or template placeholder → EDR-NNN generic placeholder;
+      Local engineering/solution decision specific to one repository → repository EDR (docs/decisions/).
+    actor: agent
+  - title: Apply the correct reference form in the artifact
+    description: >
+      Use the reference form matching the classified scope:
+      DDR-NNN — "See DDR-001 (Primer Execution Matrix) for primer binding requirements."
+      Directive — "Document exception rationale per Directive 018 (Traceable Decisions)."
+      Generic placeholder — "See EDR-NNN (technology choice) for implementation details."
+      Repository EDR — allowed only in local repository docs/, never in pack artifacts.
+    actor: agent
+  - title: Validate that no repository EDRs appear in doctrine files
+    description: >
+      Scan the artifact for repository-specific EDR numbers (EDR-001, EDR-028, etc. that
+      reference local decisions). If found, replace with the appropriate framework reference
+      or remove the reference entirely. Doctrine framework files must not depend on decisions
+      that exist only in a specific consuming repository.
+      Also flag any use of ADR at engagement level and correct to EDR.
+    actor: agent
+  - title: Verify cross-reference consistency
+    description: >
+      If the artifact cross-references another framework artifact (a directive, DDR, or tactic),
+      confirm the referenced artifact exists and the identifier is correct.
+      Use generic ${DOC_ROOT} or EDR-NNN placeholders for references expected to be resolved
+      by consuming repositories.
+    actor: agent
+anti_patterns:
+  - name: Repository EDRs in doctrine files
+    description: >
+      Referencing a repository-specific EDR (e.g. EDR-028: Flask-SocketIO for WebSockets) from
+      a pack artifact. This creates a dependency on a local decision that does not
+      exist in other repositories adopting the framework, silently breaking portability.
+  - name: Using ADR at engagement level
+    description: >
+      Using the term ADR or the file pattern ADR-NNN for project/solution decisions within a
+      PS engagement repository. ADR is an enterprise-level term; using it at engagement level
+      conflates two different governance scopes and creates ambiguity about who owns the decision.
+      Always use EDR at engagement level.
+  - name: Undifferentiated decision references
+    description: >
+      Using a decision record identifier in all contexts without distinguishing whether it refers
+      to a framework decision (DDR-NNN), a process requirement (Directive reference), or a
+      local engineering decision (repository EDR). Vague references make traceability impossible.

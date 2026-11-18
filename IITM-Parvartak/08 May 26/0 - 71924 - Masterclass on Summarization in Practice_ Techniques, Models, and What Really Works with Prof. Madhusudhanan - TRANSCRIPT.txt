@@ -1,0 +1,4530 @@
+WEBVTT
+
+1
+00:06:03.940 --> 00:06:05.360
+Webinar Specialist: Hi, Professor!
+
+2
+00:06:11.400 --> 00:06:12.579
+Prof. Madhusudhanan: Hey, good evening.
+
+3
+00:06:14.260 --> 00:06:15.549
+Webinar Specialist: Are we starting now?
+
+4
+00:06:16.490 --> 00:06:18.439
+Prof. Madhusudhanan: Yes, I'm good to start. Can we start?
+
+5
+00:06:18.440 --> 00:06:19.300
+Webinar Specialist: Yes, yes.
+
+6
+00:06:19.510 --> 00:06:20.270
+Webinar Specialist: Okay.
+
+7
+00:06:21.410 --> 00:06:22.920
+Prof. Madhusudhanan: Okay, great.
+
+8
+00:06:23.340 --> 00:06:26.200
+Prof. Madhusudhanan: So… Good evening, everyone.
+
+9
+00:06:26.930 --> 00:06:34.510
+Prof. Madhusudhanan: It's in the last… Two sessions, we focused on… how do I…
+
+10
+00:06:34.990 --> 00:06:38.250
+Prof. Madhusudhanan: Convert my data into an embedding.
+
+11
+00:06:38.640 --> 00:06:46.690
+Prof. Madhusudhanan: And what exactly happens? So I'm storing it as a vector space. I have a sentence. So maybe I have this word, retrieval lambda.
+
+12
+00:06:46.990 --> 00:06:48.450
+Prof. Madhusudhanan: summarization.
+
+13
+00:06:49.480 --> 00:06:54.950
+Prof. Madhusudhanan: The moment I say retrieval and summarization, I can convert this into a numerical
+
+14
+00:06:55.140 --> 00:06:57.319
+Prof. Madhusudhanan: Value, which is called as a vector.
+
+15
+00:06:57.570 --> 00:07:02.960
+Prof. Madhusudhanan: We discussed in detail in the… In the last two sessions.
+
+16
+00:07:03.330 --> 00:07:07.710
+Prof. Madhusudhanan: And now I've done. I've got my data, I've cleaned my data.
+
+17
+00:07:08.310 --> 00:07:11.960
+Prof. Madhusudhanan: I've converted that into chunks, which we saw.
+
+18
+00:07:12.180 --> 00:07:14.400
+Prof. Madhusudhanan: I converted into embeddings.
+
+19
+00:07:15.680 --> 00:07:16.690
+Prof. Madhusudhanan: Nope.
+
+20
+00:07:17.690 --> 00:07:24.080
+Prof. Madhusudhanan: How do I take this forward? What are my use cases? How do I try to utilize this
+
+21
+00:07:24.630 --> 00:07:28.839
+Prof. Madhusudhanan: Efficiently? Or no? How do I try to retrieve this?
+
+22
+00:07:29.760 --> 00:07:36.200
+Prof. Madhusudhanan: Right? So I have chunks. It could be various components of the chunks, maybe, you know, I'm talking about…
+
+23
+00:07:37.060 --> 00:07:41.229
+Prof. Madhusudhanan: a course in… No? Machine learning.
+
+24
+00:07:42.050 --> 00:07:45.960
+Prof. Madhusudhanan: So I might have a chunk which will talk about what is machine learning.
+
+25
+00:07:46.390 --> 00:07:50.119
+Prof. Madhusudhanan: I might have a chunk which might be about regression techniques.
+
+26
+00:07:50.710 --> 00:07:53.960
+Prof. Madhusudhanan: I might have a chunk on linear regression.
+
+27
+00:07:57.290 --> 00:08:01.400
+Prof. Madhusudhanan: I hope the presentation is not… the screen is not visible.
+
+28
+00:08:03.050 --> 00:08:04.939
+Prof. Madhusudhanan: I think it is visible.
+
+29
+00:08:05.480 --> 00:08:06.180
+Prof. Madhusudhanan: Okay.
+
+30
+00:08:09.400 --> 00:08:12.539
+Prof. Madhusudhanan: Seeing mute… okay, let me check.
+
+31
+00:08:16.960 --> 00:08:18.539
+Prof. Madhusudhanan: I'm not sure, man.
+
+32
+00:08:43.679 --> 00:08:48.939
+Prof. Madhusudhanan: Let me just try to… Reshare, reshare it.
+
+33
+00:08:52.030 --> 00:08:57.120
+Prof. Madhusudhanan: Or, can you share it on my behalf? Yeah, sure. I'll stop sharing.
+
+34
+00:09:09.350 --> 00:09:13.050
+Prof. Madhusudhanan: Right, so I've asked my colleague to share the screen.
+
+35
+00:09:22.560 --> 00:09:24.099
+Prof. Madhusudhanan: Are you sharing your screen?
+
+36
+00:09:31.730 --> 00:09:34.569
+Prof. Madhusudhanan: Or let me share it once more, and then we'll check it out.
+
+37
+00:09:47.710 --> 00:09:49.759
+Prof. Madhusudhanan: Okay, is it better now?
+
+38
+00:09:56.940 --> 00:09:58.060
+Prof. Madhusudhanan: Same issue.
+
+39
+00:09:58.760 --> 00:09:59.740
+Prof. Madhusudhanan: Got it.
+
+40
+00:10:00.730 --> 00:10:02.080
+Prof. Madhusudhanan: Just hold on.
+
+41
+00:11:34.750 --> 00:11:39.130
+Prof. Madhusudhanan: Okay, so I'll ask my colleague to share. There seems to be some problem.
+
+42
+00:11:43.150 --> 00:11:44.730
+Prof. Madhusudhanan: Able to share your screen?
+
+43
+00:12:09.630 --> 00:12:10.760
+Prof. Madhusudhanan: Can you please share?
+
+44
+00:12:16.420 --> 00:12:17.619
+Prof. Madhusudhanan: Is this good?
+
+45
+00:12:26.370 --> 00:12:28.160
+Prof. Madhusudhanan: Yes, great, great.
+
+46
+00:12:28.960 --> 00:12:35.650
+Prof. Madhusudhanan: So… Okay, so… We will try to understand
+
+47
+00:12:37.200 --> 00:12:44.939
+Prof. Madhusudhanan: what is retryable? Because I have chunked my data, I have embedded my data, I've stored my data.
+
+48
+00:12:45.330 --> 00:12:50.039
+Prof. Madhusudhanan: Now I want to retribe it. When do I retrieve? Maybe I have a query.
+
+49
+00:12:51.490 --> 00:12:54.790
+Prof. Madhusudhanan: Maybe I have a query, I give a query.
+
+50
+00:12:55.680 --> 00:12:58.740
+Prof. Madhusudhanan: And I find out the most appropriate chunk.
+
+51
+00:13:00.230 --> 00:13:04.459
+Prof. Madhusudhanan: Let us take… I was giving you the example of a machine learning course.
+
+52
+00:13:05.270 --> 00:13:09.060
+Prof. Madhusudhanan: I might have a chunk which will talk about what is machine learning.
+
+53
+00:13:10.360 --> 00:13:14.600
+Prof. Madhusudhanan: I might have a chunk which we'll talk about regression.
+
+54
+00:13:14.950 --> 00:13:19.170
+Prof. Madhusudhanan: And a detailed analysis of linear regression.
+
+55
+00:13:19.860 --> 00:13:26.009
+Prof. Madhusudhanan: Maybe, another… Chunk, which has a detailed analysis of it.
+
+56
+00:13:26.600 --> 00:13:30.480
+Prof. Madhusudhanan: Say, a polynomial regression, and so on and so forth.
+
+57
+00:13:30.700 --> 00:13:32.679
+Prof. Madhusudhanan: Right? I might be looking at him.
+
+58
+00:13:33.880 --> 00:13:39.829
+Prof. Madhusudhanan: decision tree, so I have enough topics. They're all put into some sort of chunk.
+
+59
+00:13:40.960 --> 00:13:43.509
+Prof. Madhusudhanan: Now, you might ask a query.
+
+60
+00:13:46.290 --> 00:13:52.189
+Prof. Madhusudhanan: explain… Where regression can be used.
+
+61
+00:13:52.620 --> 00:13:53.930
+Prof. Madhusudhanan: That is my query.
+
+62
+00:13:54.030 --> 00:13:56.970
+Prof. Madhusudhanan: So the query is, where do I use regression?
+
+63
+00:13:58.000 --> 00:14:01.590
+Prof. Madhusudhanan: Or, can you give me use cases for regression?
+
+64
+00:14:02.780 --> 00:14:07.870
+Prof. Madhusudhanan: There are two ways to look at it. One, the tribal knowledge of the machine.
+
+65
+00:14:08.580 --> 00:14:14.319
+Prof. Madhusudhanan: Right? The tribal knowledge of the machine, where, when I say the tribal knowledge of the machine, the machine has learned
+
+66
+00:14:15.170 --> 00:14:21.789
+Prof. Madhusudhanan: during… pre-training. Pre-training is nothing but where I take the transformer architecture.
+
+67
+00:14:22.650 --> 00:14:26.620
+Prof. Madhusudhanan: I gave it… I gave millions of documents.
+
+68
+00:14:27.690 --> 00:14:40.299
+Prof. Madhusudhanan: So how do I do that? Again, I do the same… same thing. I break down the document, convert that into an embedding, and I give the embedding to the transformer model, so the transformer now starts understanding.
+
+69
+00:14:41.220 --> 00:14:42.960
+Prof. Madhusudhanan: What happens?
+
+70
+00:14:44.360 --> 00:14:50.210
+Prof. Madhusudhanan: If regression has never been… Trained on the transformer.
+
+71
+00:14:50.770 --> 00:14:57.199
+Prof. Madhusudhanan: Right? So we assume that ChatGPT gives you all the answers, but in reality, you know, if you look at a small model, it may not be true.
+
+72
+00:14:58.710 --> 00:15:04.959
+Prof. Madhusudhanan: Your small model might have been trained with lower amount of data, maybe I'm using the Wikipedia dataset.
+
+73
+00:15:05.410 --> 00:15:08.949
+Prof. Madhusudhanan: The Wikipedia dataset definitely has something on regression.
+
+74
+00:15:09.700 --> 00:15:11.650
+Prof. Madhusudhanan: Applications of regression.
+
+75
+00:15:12.340 --> 00:15:13.120
+Prof. Madhusudhanan: Right?
+
+76
+00:15:13.440 --> 00:15:18.650
+Prof. Madhusudhanan: And let us assume I build an entire model only based on Wikipedia dataset.
+
+77
+00:15:18.750 --> 00:15:27.750
+Prof. Madhusudhanan: So, it has regression, it has linear regression, logistic regression, it has, you know… I'm using the word logistic regression because
+
+78
+00:15:27.980 --> 00:15:33.409
+Prof. Madhusudhanan: Here, we are talking from two perspectives, whether it is a classifier or a regressor.
+
+79
+00:15:33.570 --> 00:15:36.649
+Prof. Madhusudhanan: Then I might talk about polynomial regression.
+
+80
+00:15:37.580 --> 00:15:43.599
+Prof. Madhusudhanan: Right? So… what happens is the machine has learned, now I ask a query.
+
+81
+00:15:43.970 --> 00:15:46.930
+Prof. Madhusudhanan: Can you… briefly explain.
+
+82
+00:15:47.030 --> 00:15:50.639
+Prof. Madhusudhanan: About regression and its application.
+
+83
+00:15:51.090 --> 00:15:53.899
+Prof. Madhusudhanan: So, what is happening now? I've given a query.
+
+84
+00:15:54.870 --> 00:16:00.430
+Prof. Madhusudhanan: This query is now converted into embeddings, the numerical values.
+
+85
+00:16:01.020 --> 00:16:04.940
+Prof. Madhusudhanan: The same technique the same technique.
+
+86
+00:16:05.350 --> 00:16:06.800
+Prof. Madhusudhanan: That was used.
+
+87
+00:16:07.580 --> 00:16:09.860
+Prof. Madhusudhanan: The same technique that was used.
+
+88
+00:16:10.370 --> 00:16:12.020
+Prof. Madhusudhanan: for embedding.
+
+89
+00:16:12.290 --> 00:16:14.120
+Prof. Madhusudhanan: The virginal chunks.
+
+90
+00:16:14.710 --> 00:16:17.180
+Prof. Madhusudhanan: Right? It could be document, whatever it is.
+
+91
+00:16:17.950 --> 00:16:20.100
+Prof. Madhusudhanan: I'm Right?
+
+92
+00:16:20.920 --> 00:16:26.550
+Prof. Madhusudhanan: can be used in one way. The other way of looking at it is, the model is already pre-trained.
+
+93
+00:16:27.080 --> 00:16:30.470
+Prof. Madhusudhanan: Now, our model is already pre-trained on Wikipedia data.
+
+94
+00:16:30.590 --> 00:16:34.359
+Prof. Madhusudhanan: And I'm assuming that it has something on regression. It…
+
+95
+00:16:34.710 --> 00:16:38.109
+Prof. Madhusudhanan: He explains back to me, based on the data that is
+
+96
+00:16:38.710 --> 00:16:40.900
+Prof. Madhusudhanan: That it has been already trained on.
+
+97
+00:16:41.380 --> 00:16:44.330
+Prof. Madhusudhanan: But… Nope.
+
+98
+00:16:44.440 --> 00:16:54.130
+Prof. Madhusudhanan: You have a scenario where You want the model to be more accurate, more up-to-date.
+
+99
+00:16:55.000 --> 00:17:00.699
+Prof. Madhusudhanan: And that is where retrial augmented generation comes into picture. RAG systems come into picture.
+
+100
+00:17:00.850 --> 00:17:04.219
+Prof. Madhusudhanan: So maybe I have 10 books on machine learning.
+
+101
+00:17:04.750 --> 00:17:06.779
+Prof. Madhusudhanan: I have 10 books on machine learning.
+
+102
+00:17:07.010 --> 00:17:18.270
+Prof. Madhusudhanan: I'm going to chunk the data. Now, tribal knowledge, because of the pre-training of the Wikipedia data in my model, maybe it's my own customized small model.
+
+103
+00:17:18.730 --> 00:17:22.699
+Prof. Madhusudhanan: The model is able to talk something on regression.
+
+104
+00:17:23.300 --> 00:17:31.589
+Prof. Madhusudhanan: Maybe I can say, can you give me a detailed explanation? Or, no, maybe the model gives me an explanation based on healthcare domain.
+
+105
+00:17:32.910 --> 00:17:45.860
+Prof. Madhusudhanan: But I'm not interested in the healthcare domain. I'm trying to look at regression from some other domain in which the model has not been trained, both on the example and the domain by itself. Let us say I'm talking of insurance.
+
+106
+00:17:46.060 --> 00:17:49.709
+Prof. Madhusudhanan: And insurance domain has never been trained in
+
+107
+00:17:50.040 --> 00:17:54.210
+Prof. Madhusudhanan: pre-trained in the model. So now I might say, can we…
+
+108
+00:17:54.390 --> 00:17:57.200
+Prof. Madhusudhanan: Can you build me a method to understand the…
+
+109
+00:17:57.450 --> 00:17:59.800
+Prof. Madhusudhanan: Premium that has to be paid.
+
+110
+00:18:00.110 --> 00:18:01.690
+Prof. Madhusudhanan: Which is an Achuri book.
+
+111
+00:18:03.260 --> 00:18:04.030
+Prof. Madhusudhanan: Great.
+
+112
+00:18:05.210 --> 00:18:10.210
+Prof. Madhusudhanan: The model may not be able to do it, but of course, it has been trained on some other domain.
+
+113
+00:18:11.230 --> 00:18:15.060
+Prof. Madhusudhanan: Maybe on banking financial domain, so it tries to mimic
+
+114
+00:18:15.460 --> 00:18:22.440
+Prof. Madhusudhanan: And the error could be pretty high. Maybe the model will try to answer it very confidently.
+
+115
+00:18:23.270 --> 00:18:27.670
+Prof. Madhusudhanan: The model might try to answer it very confidently, but it may be
+
+116
+00:18:29.710 --> 00:18:31.400
+Prof. Madhusudhanan: No, it may not be correct.
+
+117
+00:18:32.290 --> 00:18:36.450
+Prof. Madhusudhanan: the model… This process is called as hallucination.
+
+118
+00:18:37.050 --> 00:18:44.660
+Prof. Madhusudhanan: Okay? This is more femme, no? This is much more obvious when you look at domains like legal.
+
+119
+00:18:45.770 --> 00:18:48.520
+Prof. Madhusudhanan: I might say… I might ask a legal question.
+
+120
+00:18:49.090 --> 00:18:50.700
+Prof. Madhusudhanan: What is the fine?
+
+121
+00:18:51.100 --> 00:18:54.819
+Prof. Madhusudhanan: What is a fine if I overspeed? This is my question.
+
+122
+00:18:56.580 --> 00:19:01.459
+Prof. Madhusudhanan: Your ChatGPT now knows the context, Knows the context.
+
+123
+00:19:02.980 --> 00:19:05.950
+Prof. Madhusudhanan: that… You're from India?
+
+124
+00:19:06.890 --> 00:19:08.900
+Prof. Madhusudhanan: It's able to capture the data.
+
+125
+00:19:09.300 --> 00:19:14.229
+Prof. Madhusudhanan: Then it also understands the context of what is the fine if you overspeed.
+
+126
+00:19:16.490 --> 00:19:18.120
+Prof. Madhusudhanan: Right? And…
+
+127
+00:19:19.080 --> 00:19:27.650
+Prof. Madhusudhanan: And the moment I ask for this, what happens is, it'll pull out the relevant laws of India, laws from India.
+
+128
+00:19:28.640 --> 00:19:35.090
+Prof. Madhusudhanan: Or it might have been pre-trained. It tries to understand the relevant laws of India. I'm talking from two contexts.
+
+129
+00:19:35.260 --> 00:19:39.550
+Prof. Madhusudhanan: One is it might try to retrieve data which is pre-trained.
+
+130
+00:19:39.920 --> 00:19:42.990
+Prof. Madhusudhanan: Right? Or it might… I might have built L.
+
+131
+00:19:43.140 --> 00:19:46.790
+Prof. Madhusudhanan: RAC system, where it might try to retry my chunk.
+
+132
+00:19:47.280 --> 00:19:50.330
+Prof. Madhusudhanan: Of course, the first preference is given to the chunk.
+
+133
+00:19:50.850 --> 00:19:54.749
+Prof. Madhusudhanan: Now, what happens, assuming that I don't have
+
+134
+00:19:55.000 --> 00:19:59.029
+Prof. Madhusudhanan: bag. I only have the model. I use a…
+
+135
+00:19:59.220 --> 00:20:08.080
+Prof. Madhusudhanan: VPN, I use a VPN. Or I am sitting in Singapore, Or I'm sitting in Australia.
+
+136
+00:20:09.000 --> 00:20:15.320
+Prof. Madhusudhanan: My friend calls me from India, I've given my car to my friend in India, He says…
+
+137
+00:20:15.880 --> 00:20:18.909
+Prof. Madhusudhanan: I over-speeded, and a camera captured me.
+
+138
+00:20:19.990 --> 00:20:25.209
+Prof. Madhusudhanan: Now, out of concern, maybe I'll use the model, ChatGPT, or whatever it is.
+
+139
+00:20:25.860 --> 00:20:31.190
+Prof. Madhusudhanan: Maybe I'm not logged in, because the moment you log in, your personal details are exposed.
+
+140
+00:20:32.670 --> 00:20:38.249
+Prof. Madhusudhanan: I have not… I'm not logged in. So what I do is, I just ask the system.
+
+141
+00:20:38.600 --> 00:20:41.470
+Prof. Madhusudhanan: What is the fine for over-speeding?
+
+142
+00:20:42.160 --> 00:20:44.170
+Prof. Madhusudhanan: What could be the expected answer?
+
+143
+00:20:52.120 --> 00:20:58.439
+Prof. Madhusudhanan: Singapore or Malaysia, fine, correct. But Singapore or Australia, fine, is what you're going to get.
+
+144
+00:20:59.100 --> 00:20:59.900
+Prof. Madhusudhanan: Correct?
+
+145
+00:21:00.020 --> 00:21:10.730
+Prof. Madhusudhanan: Now, if my model has never been trained on Indian Motor Vehicle Act law… laws, Somehow I missed it.
+
+146
+00:21:11.320 --> 00:21:15.269
+Prof. Madhusudhanan: But somewhere, you know, the Singapore Motor Vehicle Act is…
+
+147
+00:21:16.130 --> 00:21:21.990
+Prof. Madhusudhanan: Underscore no is pre-trained on my system. The Australian motor vac rules are
+
+148
+00:21:22.410 --> 00:21:25.049
+Prof. Madhusudhanan: trained on my system, now I ask a question.
+
+149
+00:21:25.830 --> 00:21:27.359
+Prof. Madhusudhanan: What is the fine?
+
+150
+00:21:28.680 --> 00:21:29.799
+Prof. Madhusudhanan: Two, three ways.
+
+151
+00:21:29.900 --> 00:21:35.299
+Prof. Madhusudhanan: I might be on a VPN from Singapore, so it might try to tell me the Singapore law.
+
+152
+00:21:36.060 --> 00:21:40.450
+Prof. Madhusudhanan: It can say, no, you'll be jailed for 5 days, whatever it is.
+
+153
+00:21:41.680 --> 00:21:46.779
+Prof. Madhusudhanan: The second scenario is… The system knows that you're from India.
+
+154
+00:21:49.860 --> 00:21:50.640
+Prof. Madhusudhanan: Okay.
+
+155
+00:21:50.940 --> 00:21:53.170
+Prof. Madhusudhanan: The system knows that you're from India.
+
+156
+00:21:54.220 --> 00:22:02.609
+Prof. Madhusudhanan: So, it tries to make its own story. It knows the laws of… the law of the land for Singapore, it knows the law of the land for
+
+157
+00:22:03.390 --> 00:22:04.670
+Prof. Madhusudhanan: Australia.
+
+158
+00:22:04.850 --> 00:22:08.219
+Prof. Madhusudhanan: In Australia, it is $20 fine. In Singer, no.
+
+159
+00:22:08.360 --> 00:22:12.230
+Prof. Madhusudhanan: In Singapore, it is… $100 fine?
+
+160
+00:22:12.340 --> 00:22:17.879
+Prof. Madhusudhanan: Maybe it'll try to average out, it'll try to look at some logic on which it has been pre-trained.
+
+161
+00:22:20.200 --> 00:22:25.589
+Prof. Madhusudhanan: And it gives its own answer. It might hallucinate. This is what we call as hallucinate.
+
+162
+00:22:26.160 --> 00:22:30.940
+Prof. Madhusudhanan: Alright? It'll try to mimic, yes, So…
+
+163
+00:22:32.270 --> 00:22:41.100
+Prof. Madhusudhanan: Somewhere the model is giving me wrong answer. To ground this, To ground this, What we typically do is…
+
+164
+00:22:41.620 --> 00:22:44.510
+Prof. Madhusudhanan: What we typically do is, V…
+
+165
+00:22:44.850 --> 00:22:51.409
+Prof. Madhusudhanan: try to build a layer over it, which could be RAG, or I can do something called as continual fine-tuning.
+
+166
+00:22:52.030 --> 00:22:52.780
+Prof. Madhusudhanan: Right?
+
+167
+00:22:54.480 --> 00:23:03.100
+Prof. Madhusudhanan: Yes, you're right, Ajit, but you know, you have to look at it from the average person, right? Looking at it from the average person, I'll have a challenge.
+
+168
+00:23:05.050 --> 00:23:15.160
+Prof. Madhusudhanan: There's a… I'm assuming that the average person is not very good in prompting. I know that I am in Australia, but I'm an Indian, then, you know, the story is different.
+
+169
+00:23:17.210 --> 00:23:23.649
+Prof. Madhusudhanan: It depends on how the model has been trained, because the model is trained, and over that year, a lot of
+
+170
+00:23:24.160 --> 00:23:35.740
+Prof. Madhusudhanan: Scaffolding that helps in actually answering. So how I build this scaffolding, how I build these tool calls are all challenges that, you know, that as engineers you can try to work.
+
+171
+00:23:36.370 --> 00:23:40.930
+Prof. Madhusudhanan: So, what I do is, I pick up the… Indian laws.
+
+172
+00:23:41.280 --> 00:23:47.050
+Prof. Madhusudhanan: put it into your rack system, that means I chunk it, I chunk the data, I embed the data, and store it.
+
+173
+00:23:49.090 --> 00:23:57.019
+Prof. Madhusudhanan: Exactly, Abhishek, that is what I'm trying to say. So, though I am an Indian, I'm sitting in India, and I use a Singapore VPN, what happens?
+
+174
+00:23:58.320 --> 00:24:03.429
+Prof. Madhusudhanan: I have not tried. People who are… who regularly use VPN might be able to answer this.
+
+175
+00:24:04.760 --> 00:24:07.790
+Prof. Madhusudhanan: Got it. So, So…
+
+176
+00:24:08.950 --> 00:24:16.880
+Prof. Madhusudhanan: I can pull out all the Indian law, chunk it, ember it, and have it here. Then, I can ask a query.
+
+177
+00:24:18.090 --> 00:24:19.489
+Prof. Madhusudhanan: I ask a query.
+
+178
+00:24:20.430 --> 00:24:23.380
+Prof. Madhusudhanan: The Motor Vehicle Act is about 300 pages.
+
+179
+00:24:24.090 --> 00:24:27.469
+Prof. Madhusudhanan: Assuming that… It has 500 chunks.
+
+180
+00:24:30.500 --> 00:24:34.800
+Prof. Madhusudhanan: I have 500 chunks, and based on these 500 chunks.
+
+181
+00:24:34.940 --> 00:24:38.600
+Prof. Madhusudhanan: I asked this query, what is the fine for overspeeding?
+
+182
+00:24:39.790 --> 00:24:44.000
+Prof. Madhusudhanan: Now, what is going to happen? This is going to select one of the chunks.
+
+183
+00:24:46.180 --> 00:24:50.370
+Prof. Madhusudhanan: Yeah, that's interesting a bit. Right? So it may select one of the chunks.
+
+184
+00:24:51.480 --> 00:24:57.029
+Prof. Madhusudhanan: It has to select the chunk which talks about fine, And overspeeding.
+
+185
+00:24:57.620 --> 00:25:01.479
+Prof. Madhusudhanan: It has to select the embedding. So, what happens?
+
+186
+00:25:02.320 --> 00:25:08.180
+Prof. Madhusudhanan: what happens? I need to find… I convert my query into an embedding.
+
+187
+00:25:08.710 --> 00:25:13.989
+Prof. Madhusudhanan: into a vector, using the same model for which I used for the
+
+188
+00:25:14.450 --> 00:25:25.119
+Prof. Madhusudhanan: original data, which I split and used, not chunked it. So, whatever embedding model that I used, if I had used BERT model, I'll also use BERT model to embed, to convert the
+
+189
+00:25:25.400 --> 00:25:27.179
+Prof. Madhusudhanan: Query into an embedding.
+
+190
+00:25:27.500 --> 00:25:29.900
+Prof. Madhusudhanan: Then I use cosine similarity.
+
+191
+00:25:30.730 --> 00:25:32.859
+Prof. Madhusudhanan: I can use cosine similarity.
+
+192
+00:25:34.180 --> 00:25:39.440
+Prof. Madhusudhanan: And once I do this, I will be able to retry the relevant chunk.
+
+193
+00:25:39.970 --> 00:25:48.760
+Prof. Madhusudhanan: And once I have this chunk, I can just summarize this chunk or rewrite this chunk in a way that you can understand.
+
+194
+00:25:49.310 --> 00:25:51.860
+Prof. Madhusudhanan: That is the entire idea of red travel. Next slide.
+
+195
+00:25:52.140 --> 00:25:54.139
+Prof. Madhusudhanan: That is the entire idea of retrieval.
+
+196
+00:25:54.740 --> 00:26:00.990
+Prof. Madhusudhanan: Right? So… We have the data preparation, which we have shown in… which we have seen in the previous
+
+197
+00:26:01.280 --> 00:26:03.300
+Prof. Madhusudhanan: Nope, sessions.
+
+198
+00:26:03.490 --> 00:26:08.400
+Prof. Madhusudhanan: So, I asked, there's a question, how does AI help in medical diagnosis?
+
+199
+00:26:08.580 --> 00:26:14.239
+Prof. Madhusudhanan: Now, it'll look for the chunk Which has this keyword.
+
+200
+00:26:14.760 --> 00:26:23.009
+Prof. Madhusudhanan: That is one way of retrieval. I can use the word keyword, right? I can look for a chunk which has the word AI, medical, diagnosis.
+
+201
+00:26:24.570 --> 00:26:28.140
+Prof. Madhusudhanan: I can pull that chunk, I can try to summarize the chunk.
+
+202
+00:26:28.540 --> 00:26:34.940
+Prof. Madhusudhanan: That is one way. Alternatively, I can convert this, how does EI help in medical diagnosis into a vector.
+
+203
+00:26:35.420 --> 00:26:40.360
+Prof. Madhusudhanan: How do I use? I use the same method that was used in the
+
+204
+00:26:40.590 --> 00:26:54.999
+Prof. Madhusudhanan: original system, original data chunking, IU use a cosine similarity and retrieve it. Now, what are the challenges, and what are, you know, how… what could be the challenges is what we'll try to understand in this webinar. Next slide, please.
+
+205
+00:26:58.300 --> 00:27:02.020
+Prof. Madhusudhanan: So… So, there are two major ways.
+
+206
+00:27:03.380 --> 00:27:06.170
+Prof. Madhusudhanan: The system compares a query with stored chunks.
+
+207
+00:27:06.720 --> 00:27:11.149
+Prof. Madhusudhanan: And you'll try to find the chunks which is related to EI, healthcare, diagnosis.
+
+208
+00:27:12.410 --> 00:27:14.149
+Prof. Madhusudhanan: Many chunks are there.
+
+209
+00:27:14.770 --> 00:27:17.430
+Prof. Madhusudhanan: the chunks are ranked?
+
+210
+00:27:18.070 --> 00:27:27.319
+Prof. Madhusudhanan: And the top chunks are selected. Now, this is where the first hyperparameter comes. How, you know, how is my ranking happening?
+
+211
+00:27:28.780 --> 00:27:31.429
+Prof. Madhusudhanan: searches for EI healthcare diagnosis.
+
+212
+00:27:31.800 --> 00:27:35.150
+Prof. Madhusudhanan: Maybe 10 chunks are retrieved.
+
+213
+00:27:35.950 --> 00:27:39.460
+Prof. Madhusudhanan: In these 10 chunks, again, I can do a ranking.
+
+214
+00:27:39.770 --> 00:27:42.099
+Prof. Madhusudhanan: Based on the similarity score.
+
+215
+00:27:42.380 --> 00:27:57.550
+Prof. Madhusudhanan: or based on a logic on how many times healthcare occurs in the document, assuming that I look for text comparison, word comparison, I can see how many times healthcare is occurring, how many times diagnosis is occurring, and so on and so forth.
+
+216
+00:27:57.950 --> 00:28:03.149
+Prof. Madhusudhanan: I can rank it. Maybe I take the first 2 chunks, 3 chunks, 5 chunks.
+
+217
+00:28:03.420 --> 00:28:06.299
+Prof. Madhusudhanan: How much to select? We'll discuss about it.
+
+218
+00:28:06.870 --> 00:28:12.470
+Prof. Madhusudhanan: Then I can… Based on these chunks, I can try to… Summarize it.
+
+219
+00:28:13.160 --> 00:28:13.970
+Prof. Madhusudhanan: Right?
+
+220
+00:28:15.710 --> 00:28:19.250
+Prof. Madhusudhanan: So, maybe I'm having a duck. So, if you see, my question was…
+
+221
+00:28:19.640 --> 00:28:22.830
+Prof. Madhusudhanan: Right? How can AI help in medical diagnosis?
+
+222
+00:28:23.400 --> 00:28:34.770
+Prof. Madhusudhanan: healthcare diagnosis. Now I'm getting retribed chunks, which tells me AI helps doctors detect diseases from medical images, which is a relevant answer.
+
+223
+00:28:34.930 --> 00:28:42.340
+Prof. Madhusudhanan: Machine learning algorithm models assist in early diagnosis. Absolutely irrelevant answer. Both are two different chunks.
+
+224
+00:28:43.030 --> 00:28:47.859
+Prof. Madhusudhanan: Now, these two different chunks need not be continuous.
+
+225
+00:28:48.270 --> 00:28:54.690
+Prof. Madhusudhanan: It can come from two different sources. By, as I told you, I'm going to teach a course on machine learning. I have
+
+226
+00:28:54.840 --> 00:28:57.890
+Prof. Madhusudhanan: embedded, I know, I have chunked the 5 textbooks.
+
+227
+00:28:59.070 --> 00:29:04.959
+Prof. Madhusudhanan: So, in one of the textbooks, linear regression example could be with respect to the stock market.
+
+228
+00:29:05.570 --> 00:29:11.549
+Prof. Madhusudhanan: In another textbook, linear regression model would have been done with respect to, no?
+
+229
+00:29:12.160 --> 00:29:14.809
+Prof. Madhusudhanan: Sale of ice cream during summer.
+
+230
+00:29:15.880 --> 00:29:17.570
+Prof. Madhusudhanan: Two different examples.
+
+231
+00:29:18.330 --> 00:29:22.780
+Prof. Madhusudhanan: And when I say gimme, show me some real-time examples of
+
+232
+00:29:23.100 --> 00:29:29.880
+Prof. Madhusudhanan: Linear regression. This chunk is also predicting, you know, maybe from book 1, 2, 3 chunks are extracted.
+
+233
+00:29:30.720 --> 00:29:33.040
+Prof. Madhusudhanan: Book 2, 2-3 chunks are extracted.
+
+234
+00:29:35.050 --> 00:29:37.630
+Prof. Madhusudhanan: I need to rank it in such a way that
+
+235
+00:29:38.410 --> 00:29:42.350
+Prof. Madhusudhanan: I need to rank it in such a way that I can.
+
+236
+00:29:43.340 --> 00:29:46.880
+Prof. Madhusudhanan: Get an example only for ice cream, or only for the stock market?
+
+237
+00:29:49.030 --> 00:29:55.870
+Prof. Madhusudhanan: But, if my question is, give me all examples you know, a boat.
+
+238
+00:29:57.130 --> 00:30:03.179
+Prof. Madhusudhanan: You know, you give me all the examples, you know, in the field of linear regression.
+
+239
+00:30:03.380 --> 00:30:05.670
+Prof. Madhusudhanan: Now, it knows ice cream example.
+
+240
+00:30:05.830 --> 00:30:09.859
+Prof. Madhusudhanan: It knows… the… Stock market example.
+
+241
+00:30:10.070 --> 00:30:17.929
+Prof. Madhusudhanan: Look at the two questions. My first question, my second question. In my first question, if it explains only about ice cream, or only about
+
+242
+00:30:18.490 --> 00:30:20.160
+Prof. Madhusudhanan: Stock market, I'm happy.
+
+243
+00:30:20.730 --> 00:30:24.310
+Prof. Madhusudhanan: In the second question, it has to talk about both the examples.
+
+244
+00:30:24.480 --> 00:30:26.519
+Prof. Madhusudhanan: Many a times, what happens is.
+
+245
+00:30:26.630 --> 00:30:33.390
+Prof. Madhusudhanan: Your retrieval is not accurate, or your ranking is not so good, that you may get only the ice cream example.
+
+246
+00:30:33.680 --> 00:30:40.659
+Prof. Madhusudhanan: Or you may only get the stock market example, or you may get the stock market example with a small explanation of the ice cream.
+
+247
+00:30:41.310 --> 00:30:48.529
+Prof. Madhusudhanan: So, 90% of the coverage will be stock market, 10% coverage of… could be the ice cream example.
+
+248
+00:30:49.670 --> 00:31:01.519
+Prof. Madhusudhanan: This is a challenge. How do I overcome this? Because, no, today machines do most of it. How do I identify challenges and take it forward? It's a million dollar question, right? I retrieve two chunks. AI helps doctors.
+
+249
+00:31:01.720 --> 00:31:05.609
+Prof. Madhusudhanan: Machine learning models assist in early diagnosis. Two different chunks.
+
+250
+00:31:06.510 --> 00:31:08.290
+Prof. Madhusudhanan: How do I give weightage to it?
+
+251
+00:31:08.700 --> 00:31:10.320
+Prof. Madhusudhanan: Here's a million dollar question.
+
+252
+00:31:10.900 --> 00:31:11.690
+Prof. Madhusudhanan: Right?
+
+253
+00:31:11.840 --> 00:31:13.050
+Prof. Madhusudhanan: Next slide, please.
+
+254
+00:31:14.530 --> 00:31:16.840
+Prof. Madhusudhanan: So, when we talk about
+
+255
+00:31:17.140 --> 00:31:32.989
+Prof. Madhusudhanan: retrieval types. I was talking about chunking, cosine similarity, you know, vector, convert into vector and compare. The second is using keywords. So, there are two standard methods. One is called as keyword-based retrieval.
+
+256
+00:31:33.310 --> 00:31:40.909
+Prof. Madhusudhanan: And in that, BM25, or Best Matching 25, is the most popular technique used even today.
+
+257
+00:31:41.570 --> 00:31:44.759
+Prof. Madhusudhanan: Where is it used? It can be used in search engines.
+
+258
+00:32:26.620 --> 00:32:27.730
+Prof. Madhusudhanan: Am I audible?
+
+259
+00:32:28.430 --> 00:32:31.629
+Prof. Madhusudhanan: Great. So, okay, something went wrong.
+
+260
+00:32:31.830 --> 00:32:39.670
+Prof. Madhusudhanan: Okay, great. So, when we talk about retrieval techniques, We have two major areas.
+
+261
+00:32:43.650 --> 00:32:45.570
+Prof. Madhusudhanan: Am I audible now, or…
+
+262
+00:32:46.460 --> 00:32:56.729
+Prof. Madhusudhanan: Okay, great. Thanks, thanks. So… BM25 is a very popular technique. BEM stands for Best Matching.
+
+263
+00:32:57.280 --> 00:32:59.370
+Prof. Madhusudhanan: Best matching 25.
+
+264
+00:32:59.830 --> 00:33:02.139
+Prof. Madhusudhanan: Which uses only the keywords.
+
+265
+00:33:03.830 --> 00:33:10.020
+Prof. Madhusudhanan: Right? Where else I have the semantic retrieval, which will look at the meaning.
+
+266
+00:33:10.150 --> 00:33:13.810
+Prof. Madhusudhanan: Rather than the exact words. Each has its own advantage.
+
+267
+00:33:14.470 --> 00:33:17.150
+Prof. Madhusudhanan: So, let us take an example.
+
+268
+00:33:17.510 --> 00:33:30.600
+Prof. Madhusudhanan: Why is this important? Because in real life, when you build models, we use a hybrid mechanism. We'll use keyword-based retrieval, like BM25, along with semantic retrieval.
+
+269
+00:33:30.750 --> 00:33:34.500
+Prof. Madhusudhanan: Along with semantic retrieval. You'll use both of it.
+
+270
+00:33:34.820 --> 00:33:50.849
+Prof. Madhusudhanan: Now, the beauty here is, what is the weightage I should give for BM25? What is the weightage I should give for semantic retravel? That becomes very important. And that is where your engineering skill comes into picture. Now, this depends on the problem statement.
+
+271
+00:33:51.010 --> 00:33:52.889
+Prof. Madhusudhanan: If you're building a search engine.
+
+272
+00:33:53.010 --> 00:34:00.370
+Prof. Madhusudhanan: Where you're building a model, you're using… no, you're using an LLM as a search engine to pull out certain documents.
+
+273
+00:34:01.020 --> 00:34:03.070
+Prof. Madhusudhanan: BM25 is a better bet.
+
+274
+00:34:03.890 --> 00:34:06.660
+Prof. Madhusudhanan: Alright? I am looking at a legal document.
+
+275
+00:34:07.500 --> 00:34:12.790
+Prof. Madhusudhanan: I'm looking at a legal document. I have a model where I've converted all the judgments
+
+276
+00:34:13.350 --> 00:34:19.030
+Prof. Madhusudhanan: I have converted all my judgments into, you know, into chunks, and these chunks are stored.
+
+277
+00:34:20.440 --> 00:34:23.210
+Prof. Madhusudhanan: Right? Then I might ask a question.
+
+278
+00:34:23.659 --> 00:34:26.189
+Prof. Madhusudhanan: The question can be very pointed.
+
+279
+00:34:26.570 --> 00:34:29.559
+Prof. Madhusudhanan: Precedence regarding, right?
+
+280
+00:34:29.870 --> 00:34:32.370
+Prof. Madhusudhanan: some judgment, I might ask.
+
+281
+00:34:33.800 --> 00:34:41.749
+Prof. Madhusudhanan: It will pull out all the documents. It'll pull out all the documents related to that particular keyword.
+
+282
+00:34:42.570 --> 00:34:50.389
+Prof. Madhusudhanan: Right? I might say, I might say, no, post-pole violence.
+
+283
+00:34:51.179 --> 00:34:56.920
+Prof. Madhusudhanan: Then it'll try to pull out all the cases which discusses post-pole violence.
+
+284
+00:34:57.150 --> 00:35:01.069
+Prof. Madhusudhanan: I used 3 key words, post-pole violence.
+
+285
+00:35:01.370 --> 00:35:07.009
+Prof. Madhusudhanan: I might further refine it. Post-pole violence, I might say karnataka.
+
+286
+00:35:07.870 --> 00:35:10.279
+Prof. Madhusudhanan: Or I might talk about Bangalore.
+
+287
+00:35:11.810 --> 00:35:15.659
+Prof. Madhusudhanan: It'll try to pull out all the documents relevant to it.
+
+288
+00:35:15.950 --> 00:35:29.340
+Prof. Madhusudhanan: Now, this becomes very important, because I am a lawyer, I am an advocate, and with my knowledge, I know that there was a case, I want to retrieve the case, I forgot what is the case. I know it's a high court case or a district court case.
+
+289
+00:35:29.730 --> 00:35:32.199
+Prof. Madhusudhanan: So, legal document search.
+
+290
+00:35:32.950 --> 00:35:40.260
+Prof. Madhusudhanan: Right? Any data which is well-structured, Greatly helps from BM25.
+
+291
+00:35:40.500 --> 00:35:44.129
+Prof. Madhusudhanan: Right? And you should also understand who the user is.
+
+292
+00:35:44.450 --> 00:35:46.089
+Prof. Madhusudhanan: Take the case of medicine.
+
+293
+00:35:46.560 --> 00:35:49.039
+Prof. Madhusudhanan: Medical, a healthcare bot.
+
+294
+00:35:49.690 --> 00:35:53.420
+Prof. Madhusudhanan: Now, what is important? Who is the user becomes important.
+
+295
+00:35:53.680 --> 00:35:59.250
+Prof. Madhusudhanan: If I'm the patient, or if I'm… Yeah, not a doctor.
+
+296
+00:35:59.670 --> 00:36:01.859
+Prof. Madhusudhanan: The way I search is different.
+
+297
+00:36:03.320 --> 00:36:09.670
+Prof. Madhusudhanan: If I'm the doctor, Right? I might say impact of ibuprofen.
+
+298
+00:36:11.970 --> 00:36:13.920
+Prof. Madhusudhanan: Impact of ibuprofen.
+
+299
+00:36:14.410 --> 00:36:18.750
+Prof. Madhusudhanan: Now, we all know that ibuprofen, like, like your IMOL or
+
+300
+00:36:19.520 --> 00:36:24.239
+Prof. Madhusudhanan: Right? You have your tablet, which contains buffen is another
+
+301
+00:36:24.430 --> 00:36:31.500
+Prof. Madhusudhanan: Popularly available market, which contains the molecule, ibuprofen.
+
+302
+00:36:32.830 --> 00:36:37.729
+Prof. Madhusudhanan: Right? Now, the moment it is a doctor, if I'm a doctor.
+
+303
+00:36:38.800 --> 00:36:45.569
+Prof. Madhusudhanan: I would like to understand the impact of ibuprofen in COX-1, COX1, and COX2.
+
+304
+00:36:47.040 --> 00:36:58.500
+Prof. Madhusudhanan: It'll tell me in COX1 how my pain is suppressed. COX2 might talk about the complications. What is the complication? Gastrointestinal irritation.
+
+305
+00:36:59.010 --> 00:37:02.719
+Prof. Madhusudhanan: So that is why they tell, if you take ibuprofen, eat something and then take.
+
+306
+00:37:02.940 --> 00:37:04.689
+Prof. Madhusudhanan: Or else it will irritate your…
+
+307
+00:37:04.840 --> 00:37:08.290
+Prof. Madhusudhanan: Stomach create, you know, it can cause ulcers.
+
+308
+00:37:08.510 --> 00:37:10.750
+Prof. Madhusudhanan: Whereas, if I am a layman.
+
+309
+00:37:10.970 --> 00:37:14.039
+Prof. Madhusudhanan: See, for a doctor, I said COX-1, COX-2.
+
+310
+00:37:14.300 --> 00:37:24.780
+Prof. Madhusudhanan: I talk about COX1, COX2. But if I'm a layman, I should be told, please take ibuprofen after food, 20 minutes after food.
+
+311
+00:37:25.960 --> 00:37:29.500
+Prof. Madhusudhanan: If you regularly take, it might irritate your stomach.
+
+312
+00:37:30.030 --> 00:37:37.989
+Prof. Madhusudhanan: And research has shown regular… regularly taking ibuprofen in empty stomach can lead to ulcers.
+
+313
+00:37:38.170 --> 00:37:40.999
+Prof. Madhusudhanan: Same question, two different answers.
+
+314
+00:37:41.620 --> 00:37:47.020
+Prof. Madhusudhanan: Right? So, you need to understand when you're building your retrial system, who is the customer?
+
+315
+00:37:50.250 --> 00:37:52.550
+Prof. Madhusudhanan: Right? So I'll talk about that, Abhishek.
+
+316
+00:37:53.450 --> 00:37:56.659
+Prof. Madhusudhanan: Whereas in semantic, it is more about
+
+317
+00:37:56.850 --> 00:37:59.450
+Prof. Madhusudhanan: It is more about matching the meaning.
+
+318
+00:37:59.620 --> 00:38:07.539
+Prof. Madhusudhanan: I go to the doctor, I say I have stomach pain, I have abdomen pain, I have bellyache.
+
+319
+00:38:08.010 --> 00:38:08.780
+Prof. Madhusudhanan: Right?
+
+320
+00:38:10.790 --> 00:38:16.299
+Prof. Madhusudhanan: Now, somewhere I should understand that bellyache… doctor will understand it. Belly ache is…
+
+321
+00:38:16.410 --> 00:38:22.869
+Prof. Madhusudhanan: the same as stomach pain. Maybe medically, he calls it as abdomen pain. So, in his report, he writes abdomen pain.
+
+322
+00:38:24.440 --> 00:38:35.169
+Prof. Madhusudhanan: So, I'm not a doctor. The healthcare bot that we are building Right? We'll look at the
+
+323
+00:38:35.370 --> 00:38:40.770
+Prof. Madhusudhanan: look from the perspective of semantic, because the question I ask could be very random.
+
+324
+00:38:41.910 --> 00:38:51.920
+Prof. Madhusudhanan: So, when we are building to clients, that is something which we tell the clients. We give a guidebook, how to do the prompting, how to ask questions, what to ask, what not to ask.
+
+325
+00:38:53.000 --> 00:38:56.619
+Prof. Madhusudhanan: Right? Because they cannot have the chat GPT mentality.
+
+326
+00:38:57.580 --> 00:39:03.180
+Prof. Madhusudhanan: Whatever, you're building a small model, and I cannot get you into the chat GPT mentality mode.
+
+327
+00:39:04.180 --> 00:39:05.000
+Prof. Madhusudhanan: Right?
+
+328
+00:39:05.680 --> 00:39:14.299
+Prof. Madhusudhanan: So, this is something which we talked with respect to semantic retrieval. Hybrid retrieval is very popular, use a combination of it.
+
+329
+00:39:14.690 --> 00:39:15.630
+Prof. Madhusudhanan: And…
+
+330
+00:39:15.800 --> 00:39:26.080
+Prof. Madhusudhanan: This is where you can look at the importance of BM25 over semantic, or the importance of semantic over BM25.
+
+331
+00:39:26.350 --> 00:39:34.570
+Prof. Madhusudhanan: How do you achieve it? You have a weight. If you can set up a weight, then the sum of the weights will be 1. I can say, no, hey, this is…
+
+332
+00:39:35.300 --> 00:39:38.759
+Prof. Madhusudhanan: 80% used by doctors, 20% used by
+
+333
+00:39:39.190 --> 00:39:43.930
+Prof. Madhusudhanan: non-doctors. Then, no, I might focus more on BM25.
+
+334
+00:39:44.090 --> 00:39:47.709
+Prof. Madhusudhanan: Because I know when the query comes in, the doctor is going to ask the correct word.
+
+335
+00:39:49.850 --> 00:39:50.660
+Prof. Madhusudhanan: Right?
+
+336
+00:39:52.140 --> 00:39:52.990
+Prof. Madhusudhanan: Yes.
+
+337
+00:39:53.230 --> 00:39:56.009
+Prof. Madhusudhanan: So, you're right, Kartiken, if I'm using a…
+
+338
+00:39:56.530 --> 00:40:04.790
+Prof. Madhusudhanan: keyword-based retrieval, I can say, you know, can… can you tell me… how…
+
+339
+00:40:05.920 --> 00:40:08.260
+Prof. Madhusudhanan: You know, what is a fuel for a car?
+
+340
+00:40:09.980 --> 00:40:28.680
+Prof. Madhusudhanan: And if there is no word car in any of the documents, it'll… the system will hallucinate. It'll try to retrieve something and show you. But if you very… if there is a semantic search, exact search, it'll search for car. In semantic search, it'll look, you know, automobile will be translated to car, truck.
+
+341
+00:40:30.170 --> 00:40:36.759
+Prof. Madhusudhanan: Right? So, I use a hybrid technique. These are the places where your, you know, work becomes critical.
+
+342
+00:40:37.910 --> 00:40:44.930
+Prof. Madhusudhanan: Right? So… so, one is, when we talk about semantic search, vector store retrievers.
+
+343
+00:40:45.310 --> 00:40:55.559
+Prof. Madhusudhanan: are very popular. We saw the vector, we saw the… no, how are they stored? When we say vector, the vector has to be stored somewhere. I can store it in a database.
+
+344
+00:40:56.760 --> 00:41:04.440
+Prof. Madhusudhanan: I can store it in a MySQL database, I can store it in a PostgreSQL database, I can store it in an Oracle database, but there's a challenge.
+
+345
+00:41:05.170 --> 00:41:08.930
+Prof. Madhusudhanan: Your search has to be extremely fast.
+
+346
+00:41:10.360 --> 00:41:22.320
+Prof. Madhusudhanan: The retriever has to be very fast, and that is where various retrieval search algorithms have come into picture. Because this is not being searched based on an index.
+
+347
+00:41:22.900 --> 00:41:29.680
+Prof. Madhusudhanan: If I'm searching based on an index, based on some particular query, Then databases are good.
+
+348
+00:41:29.960 --> 00:41:34.799
+Prof. Madhusudhanan: Here, it is based on the context, right? It is based on the context.
+
+349
+00:41:35.730 --> 00:41:42.030
+Prof. Madhusudhanan: And that is where database… traditional database queries may not be very appropriate.
+
+350
+00:41:44.100 --> 00:41:46.030
+Prof. Madhusudhanan: Right? And that is where we use
+
+351
+00:41:47.150 --> 00:41:52.009
+Prof. Madhusudhanan: Storing mechanism. FIS is a storing mechanism, which stores as a flat PHY.
+
+352
+00:41:52.400 --> 00:42:06.589
+Prof. Madhusudhanan: Not a great tool if you have a huge amount of data, but you do not have any database, but you have Chroma, Pinecone, which are all called as vector databases, which helps you in storing both the chunks and the
+
+353
+00:42:06.940 --> 00:42:10.360
+Prof. Madhusudhanan: Both the chunks and the embedding value, the vectors.
+
+354
+00:42:10.910 --> 00:42:15.380
+Prof. Madhusudhanan: So, if you're trying to use PostgreSQL, you have something called a PGVector.
+
+355
+00:42:16.090 --> 00:42:17.490
+Prof. Madhusudhanan: Postgres vector.
+
+356
+00:42:18.580 --> 00:42:22.730
+Prof. Madhusudhanan: Where your traditional database is used, but the search
+
+357
+00:42:23.370 --> 00:42:29.280
+Prof. Madhusudhanan: Right? It gives you a mechanism to store the embeddings and search the embeddings efficiently.
+
+358
+00:42:31.080 --> 00:42:32.640
+Prof. Madhusudhanan: So, next time.
+
+359
+00:42:34.570 --> 00:42:44.300
+Prof. Madhusudhanan: So, what is happening in vector store driver? I'm just getting into the mathematics, right? VI equals function of chunk. C is chunk, V is vector.
+
+360
+00:42:44.700 --> 00:42:47.860
+Prof. Madhusudhanan: When I say VI, ith vector.
+
+361
+00:42:48.240 --> 00:42:53.749
+Prof. Madhusudhanan: Right? Ith vector. It could be… each sentence is a vector, then the tenth vector could be V10.
+
+362
+00:42:54.480 --> 00:42:57.860
+Prof. Madhusudhanan: I'm using the arrow to show that it has direction.
+
+363
+00:42:59.160 --> 00:43:02.590
+Prof. Madhusudhanan: Is equal to a function of the chunk.
+
+364
+00:43:02.930 --> 00:43:14.459
+Prof. Madhusudhanan: CI. So I'm applying some function to the chunk so that it is getting converted into numerical values. So I can use BERT, I can use OpenAI embeddings, and so on and so forth.
+
+365
+00:43:15.040 --> 00:43:16.389
+Prof. Madhusudhanan: Pretty straightforward, actually.
+
+366
+00:43:17.970 --> 00:43:21.309
+Prof. Madhusudhanan: Right? So, when I want to embed the query.
+
+367
+00:43:23.360 --> 00:43:34.090
+Prof. Madhusudhanan: when I want to embed the query. That's a… Abhishek, I am answering your question. I am converting the query into a vector value. So, Q…
+
+368
+00:43:34.580 --> 00:43:38.120
+Prof. Madhusudhanan: Arrow mark shows me that it's a vector. It's a function of
+
+369
+00:43:38.340 --> 00:43:41.930
+Prof. Madhusudhanan: capital Q, where capital Q is the user query.
+
+370
+00:43:42.360 --> 00:43:44.280
+Prof. Madhusudhanan: Now, I'm getting a query embedding.
+
+371
+00:43:44.880 --> 00:43:47.260
+Prof. Madhusudhanan: Right. So now let us look at this.
+
+372
+00:43:47.370 --> 00:43:53.640
+Prof. Madhusudhanan: Look, let us look at this. We are talking about ibuprofen for… Your stomach pain.
+
+373
+00:43:53.790 --> 00:43:56.590
+Prof. Madhusudhanan: Or your body pain, whatever it is.
+
+374
+00:43:56.790 --> 00:44:00.529
+Prof. Madhusudhanan: You're having body pain, you're having fever, body pain, you're using ibuprofen.
+
+375
+00:44:02.020 --> 00:44:04.090
+Prof. Madhusudhanan: No, you know.
+
+376
+00:44:04.370 --> 00:44:05.800
+Prof. Madhusudhanan: You have it ready.
+
+377
+00:44:07.490 --> 00:44:09.740
+Prof. Madhusudhanan: What are the uses of ibuprofen?
+
+378
+00:44:11.040 --> 00:44:11.800
+Prof. Madhusudhanan: Right?
+
+379
+00:44:11.930 --> 00:44:16.750
+Prof. Madhusudhanan: What are the medications that can be taken for body pain?
+
+380
+00:44:18.760 --> 00:44:20.859
+Prof. Madhusudhanan: This is converted into an embody.
+
+381
+00:44:21.480 --> 00:44:23.259
+Prof. Madhusudhanan: This is converted into an embedding.
+
+382
+00:44:23.450 --> 00:44:26.910
+Prof. Madhusudhanan: And, when we look at this embedding, what happens is…
+
+383
+00:44:27.240 --> 00:44:34.520
+Prof. Madhusudhanan: what happens is, right, I have my… I have my… I have my…
+
+384
+00:44:34.690 --> 00:44:39.649
+Prof. Madhusudhanan: Embedding, stored embedding, which may be a sentence which is converted into an embedding.
+
+385
+00:44:40.400 --> 00:44:41.200
+Prof. Madhusudhanan: Correct?
+
+386
+00:44:41.460 --> 00:44:47.010
+Prof. Madhusudhanan: Ibuprofen helps in reducing body pain by suppressing COX2.
+
+387
+00:44:48.580 --> 00:44:53.400
+Prof. Madhusudhanan: Now, that has an embedding value. If I look at the similarity score.
+
+388
+00:44:54.010 --> 00:44:59.160
+Prof. Madhusudhanan: If I look at the similarity score, they generally will be high.
+
+389
+00:44:59.660 --> 00:45:11.670
+Prof. Madhusudhanan: They'll be generally high. Compared to others, the other… other component might be talking of something else. It might be talking about a heart attack, it could be talking… I could be talking about a tumor.
+
+390
+00:45:12.440 --> 00:45:14.820
+Prof. Madhusudhanan: Right? So I can say brain tumor.
+
+391
+00:45:15.200 --> 00:45:23.349
+Prof. Madhusudhanan: has to be treated very seriously, and the patient has to be operated upon. That could be my document. That tempering score and this score will be less.
+
+392
+00:45:24.070 --> 00:45:33.179
+Prof. Madhusudhanan: Right? So, to answer your question, Abhishek, when we have only 3 or 4 words, many a time we rephrase the question internally.
+
+393
+00:45:36.050 --> 00:45:40.409
+Prof. Madhusudhanan: Right? If I train my model to rephrase it.
+
+394
+00:45:40.740 --> 00:45:51.799
+Prof. Madhusudhanan: my 4 queries might… 4 words might become 10 or 12 words, and there is a very good chance that the similarity score will be closer to each other. Point number one.
+
+395
+00:45:52.080 --> 00:45:57.780
+Prof. Madhusudhanan: This is where, when we have lower amount of Words.
+
+396
+00:45:58.250 --> 00:46:00.540
+Prof. Madhusudhanan: I can… icon.
+
+397
+00:46:00.840 --> 00:46:04.869
+Prof. Madhusudhanan: use I can use BM25.
+
+398
+00:46:05.570 --> 00:46:10.229
+Prof. Madhusudhanan: Right? Because it becomes more of keyword. But of course, many chunks might be…
+
+399
+00:46:11.370 --> 00:46:13.880
+Prof. Madhusudhanan: Red Tribe, and that is where we need to look at
+
+400
+00:46:14.450 --> 00:46:19.289
+Prof. Madhusudhanan: Where we need to look at re-ranking or other techniques to improve it. Next slide.
+
+401
+00:46:21.110 --> 00:46:21.970
+Prof. Madhusudhanan: Right?
+
+402
+00:46:22.290 --> 00:46:30.579
+Prof. Madhusudhanan: So, similarity, once both the query and chunks are converted in embeddings, a similarity search is performed. Cosine similarity.
+
+403
+00:46:30.720 --> 00:46:31.440
+Prof. Madhusudhanan: Next slide.
+
+404
+00:46:32.870 --> 00:46:36.440
+Prof. Madhusudhanan: Right, we have the cosine similarity score, I'll not delve much into it.
+
+405
+00:46:36.630 --> 00:46:38.339
+Prof. Madhusudhanan: So I have my query vector.
+
+406
+00:46:38.450 --> 00:46:43.019
+Prof. Madhusudhanan: Chunk vector. Query vector is nothing but converting your query into embeddings.
+
+407
+00:46:43.760 --> 00:46:51.319
+Prof. Madhusudhanan: And chunk vector is nothing but the split down, the document which has been split down and converted into vectors. I'm using a similar test score.
+
+408
+00:46:53.350 --> 00:46:54.100
+Prof. Madhusudhanan: Great.
+
+409
+00:46:54.970 --> 00:46:57.000
+Prof. Madhusudhanan: So… so…
+
+410
+00:46:57.640 --> 00:47:06.990
+Prof. Madhusudhanan: what is my output? I will retrieve chunks that has the highest score. So, if my score is 1,
+
+411
+00:47:07.650 --> 00:47:10.979
+Prof. Madhusudhanan: It is 100% cosine similarity. Mine, my, you know?
+
+412
+00:47:11.470 --> 00:47:13.980
+Prof. Madhusudhanan: If the question is, what is your name?
+
+413
+00:47:14.710 --> 00:47:19.159
+Prof. Madhusudhanan: And the system also says, no, or, no, you say, what is your name?
+
+414
+00:47:19.660 --> 00:47:24.179
+Prof. Madhusudhanan: The system also says, what is your name? The retribed chunk is, what is your name?
+
+415
+00:47:24.530 --> 00:47:37.109
+Prof. Madhusudhanan: Both are very close to each other. It becomes 100%. Generally, 100% is not possible. What we assume is 0.7.75%. Then I can confidently say that
+
+416
+00:47:37.980 --> 00:47:40.459
+Prof. Madhusudhanan: My system has retrieved the right word.
+
+417
+00:47:41.170 --> 00:47:42.820
+Prof. Madhusudhanan: Right chunk, right?
+
+418
+00:47:43.530 --> 00:47:44.850
+Prof. Madhusudhanan: So, yes.
+
+419
+00:47:45.690 --> 00:47:53.109
+Prof. Madhusudhanan: You'll have to use refinement pattern, exactly. That is where your skill really comes into picture. It is not about understanding the pipeline.
+
+420
+00:47:55.540 --> 00:48:05.270
+Prof. Madhusudhanan: Query embedding will not be happening if we are using BM25, right? Today, most of them are hybrid. Most of them are hybrid. Theoretically, yes.
+
+421
+00:48:05.400 --> 00:48:07.310
+Prof. Madhusudhanan: You can do query embedding.
+
+422
+00:48:07.430 --> 00:48:13.689
+Prof. Madhusudhanan: without… Any this thing. You can, without, no, without getting into the embeddings.
+
+423
+00:48:13.780 --> 00:48:23.470
+Prof. Madhusudhanan: In that case, no, it's more like an elastic search, right? Elasticsearch, because you're looking at keywords, I have enough other tools, I don't require an LLM.
+
+424
+00:48:23.550 --> 00:48:37.920
+Prof. Madhusudhanan: So generally, I go beyond BM25, but of course, BM25, I can use. I retrieve the chunk, I rephrase the chunk, and present it to you in a summarized way. So that is where an LLM can be used, but I can still use a elastic search.
+
+425
+00:48:38.190 --> 00:48:38.920
+Prof. Madhusudhanan: Right?
+
+426
+00:48:39.030 --> 00:48:45.340
+Prof. Madhusudhanan: So… Kannan, that is the right way. You always combine BM25 and Symantec.
+
+427
+00:48:46.230 --> 00:48:55.000
+Prof. Madhusudhanan: Right? And, you can plan this in runtime, you can write your algorithm to say when to use BM25, when to use…
+
+428
+00:48:55.430 --> 00:48:58.350
+Prof. Madhusudhanan: Right? When to use the…
+
+429
+00:48:58.640 --> 00:49:01.209
+Prof. Madhusudhanan: This thing. I meant to use,
+
+430
+00:49:02.290 --> 00:49:08.709
+Prof. Madhusudhanan: semantic search. I can have a combination of it. I can… I can try building it. All that is possible.
+
+431
+00:49:11.260 --> 00:49:27.130
+Prof. Madhusudhanan: Got it? Yes, Suman, if you are purely looking from BM, you know, query embedding, may not be required. I'll use the word may not be required, because typically, the older systems, we use more of that, but today, newer systems, we still try to
+
+432
+00:49:27.520 --> 00:49:31.959
+Prof. Madhusudhanan: We still try to use some sort of semantic, or…
+
+433
+00:49:32.990 --> 00:49:36.779
+Prof. Madhusudhanan: I can also convert. There are methods to convert your…
+
+434
+00:49:37.130 --> 00:49:44.310
+Prof. Madhusudhanan: BM25 data, you know, BM query, I can convert into an embedding and pull it out. So, that also is possible.
+
+435
+00:49:45.640 --> 00:49:49.960
+Prof. Madhusudhanan: Hybrid will be the default, suggest. Hybrid is the default.
+
+436
+00:49:50.350 --> 00:49:51.170
+Prof. Madhusudhanan: Next slide.
+
+437
+00:49:54.890 --> 00:49:55.760
+Prof. Madhusudhanan: Correct.
+
+438
+00:49:55.990 --> 00:50:00.600
+Prof. Madhusudhanan: So… You're seeing here, BM25 does not require an embodiment.
+
+439
+00:50:02.090 --> 00:50:10.790
+Prof. Madhusudhanan: Right? It is not required. But there are techniques where I can convert that also. We have… we have done research to find that they are also effective.
+
+440
+00:50:10.990 --> 00:50:15.910
+Prof. Madhusudhanan: Each query term is compared with the document, right? Frequency of the query term in the document.
+
+441
+00:50:16.400 --> 00:50:25.070
+Prof. Madhusudhanan: Document length also plays an important role, right? If I have chunks which are of not uniform size, length of the document.
+
+442
+00:50:25.940 --> 00:50:33.460
+Prof. Madhusudhanan: Overall occurrence, right? So that is where you see, more towards your elect… more towards your… Elasticsearch.
+
+443
+00:50:33.640 --> 00:50:34.460
+Prof. Madhusudhanan: Next slide.
+
+444
+00:50:35.860 --> 00:50:38.110
+Prof. Madhusudhanan: Right, can you go to the previous slide?
+
+445
+00:50:40.080 --> 00:50:46.660
+Prof. Madhusudhanan: Okay. So, okay. So… The entire… no?
+
+446
+00:50:47.900 --> 00:50:50.010
+Prof. Madhusudhanan: Parameter that you need to look at is
+
+447
+00:50:50.200 --> 00:51:04.150
+Prof. Madhusudhanan: How do I achieve, or how do I understand what is my optimal value with which I need to take it from it? Next slide. This can be understood when you try to create a score. This is called as a relevant score.
+
+448
+00:51:04.900 --> 00:51:08.490
+Prof. Madhusudhanan: Right? So, now, I can give you an example.
+
+449
+00:51:10.490 --> 00:51:12.990
+Prof. Madhusudhanan: It could be excess payment.
+
+450
+00:51:14.320 --> 00:51:22.200
+Prof. Madhusudhanan: That was done, excess payment given, or no excess payment charged by the Uber driver.
+
+451
+00:51:22.930 --> 00:51:24.219
+Prof. Madhusudhanan: There's a question.
+
+452
+00:51:24.990 --> 00:51:43.889
+Prof. Madhusudhanan: I'm trying to search excess payment. You want to make a complaint, so you go and search. Excess payment, or no, you go to the chatbot, Uber. The Uber driver fights with you, you give him 50 rupees more, 100 rupees more, now you go on to go and give a complaint. Most of them are automated, right? We have chatbots, how can I help you?
+
+453
+00:51:44.820 --> 00:51:55.220
+Prof. Madhusudhanan: Then you immediately say excess payment. Or, you know, the driver demands an excess payment, you cancel the… and no, you disagree to him. A common, at least in Chennai.
+
+454
+00:51:55.350 --> 00:52:11.560
+Prof. Madhusudhanan: Uber, we are not Uber. Voila, you have this problem. They call you, they find out what it is, and they're very clever also, drivers, right? If I call him at… if I book a… if I book it at 5… 5 AM, he roughly knows that it is towards the airport.
+
+455
+00:52:13.630 --> 00:52:21.150
+Prof. Madhusudhanan: He roughly knows it's towards the airport, so he immediately asks me. He's very clever, he asks me, what time is your flight, sir?
+
+456
+00:52:22.220 --> 00:52:24.910
+Prof. Madhusudhanan: So, from my home to the airport is about 1 hour.
+
+457
+00:52:26.110 --> 00:52:27.910
+Prof. Madhusudhanan: Right? Many times this happens.
+
+458
+00:52:28.310 --> 00:52:30.610
+Prof. Madhusudhanan: And my… if I say my flight is at 8,
+
+459
+00:52:30.850 --> 00:52:34.409
+Prof. Madhusudhanan: This guy knows that I have some time to cancel and book.
+
+460
+00:52:35.160 --> 00:52:40.810
+Prof. Madhusudhanan: If it is 5.30, he knows that I don't have time. So he'll coolly ask me, give me 200 rupees more.
+
+461
+00:52:42.350 --> 00:52:43.540
+Prof. Madhusudhanan: Right, I…
+
+462
+00:52:44.530 --> 00:52:53.219
+Prof. Madhusudhanan: Sometimes we tip, but I don't fall to demands, so I cancel it. My logic is very simple, I can always take my car, park it.
+
+463
+00:52:53.470 --> 00:52:54.470
+Prof. Madhusudhanan: In the airport.
+
+464
+00:52:54.620 --> 00:53:00.320
+Prof. Madhusudhanan: I also raise it. No, then this guy will not cancel the call. He'll say, you cancel it, I'll not cancel.
+
+465
+00:53:01.740 --> 00:53:04.060
+Prof. Madhusudhanan: This is a conversation. I cancel.
+
+466
+00:53:04.340 --> 00:53:05.389
+Prof. Madhusudhanan: Then, no?
+
+467
+00:53:05.520 --> 00:53:09.229
+Prof. Madhusudhanan: Uber puts a fine of 50 rupees, 25 rupees, 100 rupees, whatever it is.
+
+468
+00:53:10.320 --> 00:53:14.779
+Prof. Madhusudhanan: If I don't cancel, he'll also not cancel, because he also knows that I might try to look for it.
+
+469
+00:53:15.580 --> 00:53:18.090
+Prof. Madhusudhanan: Of course, in Uber, you can say, book another ride.
+
+470
+00:53:18.460 --> 00:53:21.299
+Prof. Madhusudhanan: But this is a challenging, painful scenario.
+
+471
+00:53:21.410 --> 00:53:31.350
+Prof. Madhusudhanan: The moment you do that, what you do is you just go to the chatbot, because nobody tells you anything. In the next bill, 50 rupees is added. So what you do is get the next… get into the next car, and
+
+472
+00:53:31.630 --> 00:53:33.050
+Prof. Madhusudhanan: Talk to the chatbot.
+
+473
+00:53:34.420 --> 00:53:42.270
+Prof. Madhusudhanan: the… I call… I know I canceled the call because I canceled the previous ride because the driver demanded excess money.
+
+474
+00:53:44.320 --> 00:53:53.710
+Prof. Madhusudhanan: the chatbot is going to reply to you, right? Now, this can be… Based on… The semantic meaning.
+
+475
+00:53:54.000 --> 00:53:59.000
+Prof. Madhusudhanan: If I'm using BM25 and this, why BM25 is also…
+
+476
+00:53:59.800 --> 00:54:02.609
+Prof. Madhusudhanan: Important, you would have seen the keywords.
+
+477
+00:54:03.370 --> 00:54:14.819
+Prof. Madhusudhanan: reason for cancellation, or you start a chat, it might ask you to select something. Driver demanded extra money. You click on that. Now, what is happening is I'm narrowing down my
+
+478
+00:54:15.420 --> 00:54:16.729
+Prof. Madhusudhanan: Problem statement.
+
+479
+00:54:17.130 --> 00:54:20.190
+Prof. Madhusudhanan: I'm narrowing down my problem statement. Please understand.
+
+480
+00:54:20.800 --> 00:54:24.159
+Prof. Madhusudhanan: You might have… Millions of chunks.
+
+481
+00:54:25.210 --> 00:54:32.180
+Prof. Madhusudhanan: And amongst that it is trying to pull. If I'm able to guide this, I can call this as a metadata.
+
+482
+00:54:35.170 --> 00:54:37.100
+Prof. Madhusudhanan: I would call this as a metadata.
+
+483
+00:54:38.360 --> 00:54:39.160
+Prof. Madhusudhanan: Right?
+
+484
+00:54:41.230 --> 00:54:43.620
+Prof. Madhusudhanan: When I use this metadata.
+
+485
+00:54:44.870 --> 00:54:50.940
+Prof. Madhusudhanan: What is happening is, from 1 million chunks, this gets filtered to about 5,000 chunks.
+
+486
+00:54:53.310 --> 00:54:58.070
+Prof. Madhusudhanan: And the mistake made by the red driver comes down dramatically.
+
+487
+00:55:00.410 --> 00:55:10.029
+Prof. Madhusudhanan: Right? So I can talk about a small temple. I can talk about, you know, I might talk about a temple which everybody, you know, which may not be
+
+488
+00:55:10.700 --> 00:55:14.890
+Prof. Madhusudhanan: Which may be very popular in one state and may not be popular in other states.
+
+489
+00:55:15.780 --> 00:55:20.090
+Prof. Madhusudhanan: Right? So I might talk… I'll say Partha Sarti Temple.
+
+490
+00:55:20.680 --> 00:55:26.280
+Prof. Madhusudhanan: Anybody in Chennai will know that Path of Sartism, temple isn't Replicant.
+
+491
+00:55:27.320 --> 00:55:29.920
+Prof. Madhusudhanan: Tell me more about Partha Sarti Temple.
+
+492
+00:55:30.640 --> 00:55:35.290
+Prof. Madhusudhanan: Now, Parthas Harti and Temple. This becomes my keyword, so I can use BM25.
+
+493
+00:55:35.800 --> 00:55:49.559
+Prof. Madhusudhanan: But here, the system can make mistakes. That could be… there could be a Parthasarti temple in Vijaywada, there could be a Parthasarti temple in Delhi, there could be a Parthasarti temple in Chennai. But I am looking for the Partha Sarti Temple in Chennai.
+
+494
+00:55:50.960 --> 00:55:52.970
+Prof. Madhusudhanan: What did I miss? Tamil Nadu.
+
+495
+00:55:53.680 --> 00:56:03.409
+Prof. Madhusudhanan: This is where somebody was asking, if I have only 3-4 words. If the context is not understood, the system will try to rephrase.
+
+496
+00:56:04.420 --> 00:56:10.230
+Prof. Madhusudhanan: Right? Or you can… Go back to the… Nope. User and ask.
+
+497
+00:56:11.160 --> 00:56:13.529
+Prof. Madhusudhanan: Do you have any specific state in mind?
+
+498
+00:56:13.750 --> 00:56:19.570
+Prof. Madhusudhanan: Which Parthasarti temple do you… are you referring to? The one in Delhi, the one in Chennai, the one in…
+
+499
+00:56:19.760 --> 00:56:20.650
+Prof. Madhusudhanan: Coaching.
+
+500
+00:56:21.910 --> 00:56:26.869
+Prof. Madhusudhanan: That is how you'll have to build your systems. You would have seen Claude, right? The moment it is not very clear, it tries to ask you.
+
+501
+00:56:28.180 --> 00:56:31.299
+Prof. Madhusudhanan: Keyword, even if you're using BM25,
+
+502
+00:56:31.510 --> 00:56:36.250
+Prof. Madhusudhanan: As long as you're able to have a router or a translator.
+
+503
+00:56:36.730 --> 00:56:41.230
+Prof. Madhusudhanan: Which can rebuild the query, your accuracy improves us.
+
+504
+00:56:47.310 --> 00:56:48.090
+Prof. Madhusudhanan: Right?
+
+505
+00:56:49.620 --> 00:56:56.399
+Prof. Madhusudhanan: Yes, so that becomes your metadata. See, Abhishek, that is exactly what I'm trying to say. Maybe here it may not be directly
+
+506
+00:56:56.790 --> 00:57:03.799
+Prof. Madhusudhanan: relevant. But what is relevant here is the engineering over the LLM.
+
+507
+00:57:03.890 --> 00:57:21.839
+Prof. Madhusudhanan: the engineering that you're building. That becomes very important. Now, you're talking of memory. It need not be memory. I could have started a new chat. In that case, how does it answer, right? So, if I'm talking… if I'm looking at temples, I might say, I want to see… I want to go to Mahablipuram and Parthasarti Temple.
+
+508
+00:57:22.950 --> 00:57:42.330
+Prof. Madhusudhanan: Right? Or in the previous question, I would have asked, hey, give me more details of Mahablipram Temple. Then my next question could have… I would know, what is the timing for Parthasarti Temple? Now, it… based on the previous question, it understands that I'm talking about the temple in Tamil Nar… in Chennai.
+
+509
+00:57:42.740 --> 00:57:43.580
+Prof. Madhusudhanan: Got it.
+
+510
+00:57:46.800 --> 00:57:47.590
+Prof. Madhusudhanan: Right?
+
+511
+00:57:47.910 --> 00:57:58.999
+Prof. Madhusudhanan: So, so, how is it you are built? When you're talking of ChatGPT, the context length is extremely high. But if you're building a domain-specific LLM, which is going to be within your organization.
+
+512
+00:57:59.840 --> 00:58:01.499
+Prof. Madhusudhanan: Then you have this challenge.
+
+513
+00:58:03.490 --> 00:58:05.840
+Prof. Madhusudhanan: Right? So the relevance score is…
+
+514
+00:58:06.030 --> 00:58:10.609
+Prof. Madhusudhanan: Based on the frequency of the word that is getting out, that occurs.
+
+515
+00:58:11.830 --> 00:58:14.990
+Prof. Madhusudhanan: And I have two components, K1 and B.
+
+516
+00:58:15.230 --> 00:58:21.590
+Prof. Madhusudhanan: Which con- which are nothing but hyperparameters, which will modify my… score.
+
+517
+00:58:21.870 --> 00:58:29.249
+Prof. Madhusudhanan: which will modify my score. As you know, Abhishek, in your case, I'll tell you, the term frequency. I am asking about
+
+518
+00:58:29.940 --> 00:58:34.520
+Prof. Madhusudhanan: Let us say… A Dell laptop.
+
+519
+00:58:35.270 --> 00:58:46.330
+Prof. Madhusudhanan: Right? So my first question was Dell, then I find the budget is very high, then I ask, can you show me, can you tell me something more about Dell, which is, you know, Vostro, the series.
+
+520
+00:58:47.070 --> 00:58:51.420
+Prof. Madhusudhanan: then I'm not happy, then can you also give me something about del latitude?
+
+521
+00:58:52.140 --> 00:58:59.160
+Prof. Madhusudhanan: Maybe in the initial, I was talking about laptops, or no, in the final thing, can you dis… can you give me more about latitude?
+
+522
+00:58:59.540 --> 00:59:03.240
+Prof. Madhusudhanan: Now, the system will understand it is a Dell Latitude laptop.
+
+523
+00:59:04.240 --> 00:59:14.189
+Prof. Madhusudhanan: Because you have already spoken about Dell laptop, then you spoke about Vostro, now you're talking about latitude. The context is understood. It is not latitude-longitude, but the
+
+524
+00:59:15.260 --> 00:59:19.920
+Prof. Madhusudhanan: But the… Right? Latitude model in Dell.
+
+525
+00:59:20.090 --> 00:59:25.579
+Prof. Madhusudhanan: That is controlled by the term frequency and how you go about it.
+
+526
+00:59:26.080 --> 00:59:26.850
+Prof. Madhusudhanan: About it?
+
+527
+00:59:27.470 --> 00:59:30.510
+Prof. Madhusudhanan: So now I've retrived, now I have retrieved.
+
+528
+00:59:30.690 --> 00:59:33.109
+Prof. Madhusudhanan: I'm retriving. I have retrieved.
+
+529
+00:59:33.420 --> 00:59:34.240
+Prof. Madhusudhanan: Right?
+
+530
+00:59:35.410 --> 00:59:40.069
+Prof. Madhusudhanan: So, BM25, we saw how many query terms appear in the document.
+
+531
+00:59:40.410 --> 00:59:44.910
+Prof. Madhusudhanan: How frequently does this occur? It depends on the memory also.
+
+532
+00:59:46.290 --> 00:59:50.310
+Prof. Madhusudhanan: Whether the word is common or rare across the corpus.
+
+533
+00:59:51.010 --> 00:59:59.049
+Prof. Madhusudhanan: Right? I cannot… it's a Dell, it's an Oracle support system, tech support system. The word Oracle will keep on occurring.
+
+534
+00:59:59.980 --> 01:00:04.600
+Prof. Madhusudhanan: So… The term oracle is common across all the
+
+535
+01:00:05.500 --> 01:00:08.870
+Prof. Madhusudhanan: Across the corpus, BM25 takes care of all this.
+
+536
+01:00:10.460 --> 01:00:11.230
+Prof. Madhusudhanan: Right?
+
+537
+01:00:11.510 --> 01:00:18.530
+Prof. Madhusudhanan: So, so, when I say Oracle Database, it'll look for all the all the…
+
+538
+01:00:18.660 --> 01:00:23.370
+Prof. Madhusudhanan: were, you know, chunks that contained the word Oracle Database.
+
+539
+01:00:25.140 --> 01:00:28.090
+Prof. Madhusudhanan: Right? If I use the word excess payment.
+
+540
+01:00:29.790 --> 01:00:36.359
+Prof. Madhusudhanan: Right? I use the word excess payment. Somebody was telling, if I use only 4 words, if I just use the word excess payment made.
+
+541
+01:00:38.450 --> 01:00:46.919
+Prof. Madhusudhanan: Now I have a challenge. Was it an excess payment made to Ola? Was it an excess payment made to Uber? Was it an excess payment made to…
+
+542
+01:00:47.630 --> 01:00:51.590
+Prof. Madhusudhanan: Rapido, assuming that I'm talking of all these people.
+
+543
+01:00:52.580 --> 01:00:53.390
+Prof. Madhusudhanan: Right?
+
+544
+01:00:54.320 --> 01:00:59.810
+Prof. Madhusudhanan: Now, if I use the word excess payment, Right?
+
+545
+01:01:01.870 --> 01:01:03.349
+Prof. Madhusudhanan: What happens?
+
+546
+01:01:04.390 --> 01:01:09.479
+Prof. Madhusudhanan: What happens if I say more payment was given?
+
+547
+01:01:09.920 --> 01:01:13.919
+Prof. Madhusudhanan: More money was given. BM25 is going to fail.
+
+548
+01:01:14.600 --> 01:01:25.019
+Prof. Madhusudhanan: And that is where semantic search cosine similarity helps. You try to rephrase the question, use the cosine similarity. Now, I can use multiple methods.
+
+549
+01:01:25.130 --> 01:01:37.479
+Prof. Madhusudhanan: BM25, many times we write it individually. Or what we do is, we also write based on metadata. That means, I will extract the chunks based on BM25,
+
+550
+01:01:38.250 --> 01:01:54.389
+Prof. Madhusudhanan: based on my simple cosine similarity, or if only 4 words, 6 words are given, I will use two different models to rephrase the question in two different ways, because each model is going to give it in a different way. I'm now having 3 methods.
+
+551
+01:01:54.520 --> 01:01:59.139
+Prof. Madhusudhanan: I might have 5 methods. I might have 5 retrieval methods. More the merrier.
+
+552
+01:01:59.550 --> 01:02:00.410
+Prof. Madhusudhanan: Right?
+
+553
+01:02:01.510 --> 01:02:07.489
+Prof. Madhusudhanan: And what happens is… What happens is, If I have 5 retrievers.
+
+554
+01:02:07.890 --> 01:02:12.560
+Prof. Madhusudhanan: I will ask all of them to… Retrile some 5 documents each.
+
+555
+01:02:13.060 --> 01:02:14.389
+Prof. Madhusudhanan: 5 chunks each.
+
+556
+01:02:14.840 --> 01:02:17.169
+Prof. Madhusudhanan: 5 into 5, I have 25 chunks.
+
+557
+01:02:17.590 --> 01:02:21.270
+Prof. Madhusudhanan: Is there a method to… Rank them.
+
+558
+01:02:21.520 --> 01:02:23.850
+Prof. Madhusudhanan: So that I get the best of the chunks.
+
+559
+01:02:23.990 --> 01:02:26.319
+Prof. Madhusudhanan: is what Fusion will talk about.
+
+560
+01:02:28.570 --> 01:02:35.860
+Prof. Madhusudhanan: Right? Okay, K1 and B are… Required to set the parameter.
+
+561
+01:02:36.090 --> 01:02:38.480
+Prof. Madhusudhanan: Right? I use the word oracle.
+
+562
+01:02:39.260 --> 01:02:50.240
+Prof. Madhusudhanan: database, Oracle database. If… I'm not worried about the number of times Oracle database occurs in my document, because it's not going to give me any meaningful meaning.
+
+563
+01:02:51.320 --> 01:02:52.080
+Prof. Madhusudhanan: Right?
+
+564
+01:02:52.450 --> 01:02:56.210
+Prof. Madhusudhanan: Maybe there is a company policy which says, use the word Oracle.
+
+565
+01:02:56.610 --> 01:03:01.859
+Prof. Madhusudhanan: So your document might contain 5 times the word Oracle, but it really does not help me.
+
+566
+01:03:02.610 --> 01:03:09.510
+Prof. Madhusudhanan: Right? In that case, I can adapt these parameters to see how important is the frequency.
+
+567
+01:03:09.650 --> 01:03:11.550
+Prof. Madhusudhanan: And that is where K1 and B.
+
+568
+01:03:11.830 --> 01:03:16.689
+Prof. Madhusudhanan: If they are not there, then it becomes fixed, and this is where Kevin and B really help.
+
+569
+01:03:18.340 --> 01:03:19.220
+Prof. Madhusudhanan: Excellent.
+
+570
+01:03:21.730 --> 01:03:27.129
+Prof. Madhusudhanan: Right? So, simple keyword count also has its own challenges.
+
+571
+01:03:28.090 --> 01:03:44.490
+Prof. Madhusudhanan: Right? So, rank fusion is a process of combining multiple ranked lists of documents. Now, documents or chunks. Why am I talking about this is, many a time, your regular pipeline, like langchain, LangGraph, may not be real, no, will not be really good enough to
+
+572
+01:03:44.860 --> 01:03:48.079
+Prof. Madhusudhanan: Support your complex document system.
+
+573
+01:03:49.580 --> 01:03:52.290
+Prof. Madhusudhanan: As long as the meanings are different.
+
+574
+01:03:53.090 --> 01:03:56.930
+Prof. Madhusudhanan: As long as the meanings are different, you don't have a challenge.
+
+575
+01:03:57.140 --> 01:04:08.610
+Prof. Madhusudhanan: As long as the contexts are different, you don't have a challenge. You are comparing apples and oranges, you do not have challenges. You are comparing apples, oranges, and bananas, you are not having a challenge.
+
+576
+01:04:09.330 --> 01:04:14.000
+Prof. Madhusudhanan: But if I'm comparing oranges and sweet lime, so much of similarity.
+
+577
+01:04:15.420 --> 01:04:16.300
+Prof. Madhusudhanan: Right?
+
+578
+01:04:16.500 --> 01:04:19.180
+Prof. Madhusudhanan: How do I know when this becomes…
+
+579
+01:04:19.910 --> 01:04:23.630
+Prof. Madhusudhanan: A reality, especially in the field of medical, legal.
+
+580
+01:04:25.050 --> 01:04:31.350
+Prof. Madhusudhanan: I need to have multiple rankings. I need to have multiple techniques to extract the data.
+
+581
+01:04:32.830 --> 01:04:40.280
+Prof. Madhusudhanan: Right? And once I extract, each of them gives me some data, right? And here I'll put it across in a slightly different way.
+
+582
+01:04:41.940 --> 01:04:49.930
+Prof. Madhusudhanan: I'll put it in a slightly different way. I might say, I will keep different values of K1 and B, and extract the chunks.
+
+583
+01:04:51.060 --> 01:04:54.439
+Prof. Madhusudhanan: I'll extract 10 chunks by modifying K1 and B.
+
+584
+01:04:54.710 --> 01:05:12.700
+Prof. Madhusudhanan: I'll use 5 different values of K1 and B. I have 5… same logic, 5 different ways the chunks are extracted. I take the top chunk from all these 5 techniques, combine them, do deduplication. If there is a duplicate, I eliminate one of it. Combine and then summarize. Maybe my answer is good.
+
+585
+01:05:13.040 --> 01:05:15.240
+Prof. Madhusudhanan: That depends on the problem statement.
+
+586
+01:05:15.670 --> 01:05:28.439
+Prof. Madhusudhanan: Got it. So, Fusion will talk, right? Rank Fusion will talk about semantic, metadata relevance, and believe me, if you're building a rack pipeline, metadata becomes absolutely important.
+
+587
+01:05:29.110 --> 01:05:35.359
+Prof. Madhusudhanan: They help you in solving the problem, right, or improving your accuracy dramatically.
+
+588
+01:05:36.910 --> 01:05:46.360
+Prof. Madhusudhanan: Metadata is very important, point number one. Metadata, you have to capture it manually. Or, no, when you're chunking, you have to capture the metadata also.
+
+589
+01:05:48.130 --> 01:05:50.200
+Prof. Madhusudhanan: You have to capture the metadata also.
+
+590
+01:05:50.730 --> 01:05:54.689
+Prof. Madhusudhanan: Right? So, I can have a classification system.
+
+591
+01:05:55.120 --> 01:06:01.240
+Prof. Madhusudhanan: If I'm talking with respect to, you know, body pain, fever, they all can become metadata.
+
+592
+01:06:02.200 --> 01:06:12.329
+Prof. Madhusudhanan: They all become metadata. So your search narrows down. I'm not… when I talk about body pain, fever, flu, no, sneezing.
+
+593
+01:06:12.510 --> 01:06:22.339
+Prof. Madhusudhanan: I need not think about the cancer treatment, or I need not worry about the chunks related to cancer treatment, where, again, fever could be a common problem.
+
+594
+01:06:26.220 --> 01:06:27.050
+Prof. Madhusudhanan: Got it.
+
+595
+01:06:28.170 --> 01:06:35.699
+Prof. Madhusudhanan: So, for a basic information travel chatbot, is it appropriate to use only RAG? RAG always sits on a LLM.
+
+596
+01:06:35.810 --> 01:06:36.910
+Prof. Madhusudhanan: Right?
+
+597
+01:06:37.390 --> 01:06:43.999
+Prof. Madhusudhanan: Right? Yes, you're good, right? As long as the system has to have domain knowledge, which is bounded.
+
+598
+01:06:44.390 --> 01:06:57.070
+Prof. Madhusudhanan: then RAG is a good solution. Or you require a highly trained, large model. So the advantage with RAG is, I can use a 7 billion parameter model instead of a 700 billion parameter model.
+
+599
+01:06:57.720 --> 01:07:08.760
+Prof. Madhusudhanan: Or a 1,400 billion parameter model. 1,400 billion parameter is 1.4 trillion parameter model, right? So, 7 billion model is sufficient.
+
+600
+01:07:09.150 --> 01:07:11.510
+Prof. Madhusudhanan: Right? That means I'm talking of…
+
+601
+01:07:12.490 --> 01:07:15.509
+Prof. Madhusudhanan: A model which is 200 times smaller.
+
+602
+01:07:16.340 --> 01:07:19.850
+Prof. Madhusudhanan: The moment I say it is 200 times smaller, my
+
+603
+01:07:20.460 --> 01:07:30.080
+Prof. Madhusudhanan: Energy consumption comes down. Of course, you might talk of mixture of experts, we don't have time for that, but no, we'll talk about the pros and cons of mixture of experts also.
+
+604
+01:07:30.120 --> 01:07:42.380
+Prof. Madhusudhanan: Smaller model, especially, it could be your HR policy. You don't want the document to be leaked out. It's a good idea to have a very small model. A 3.5 billion parameter model can solve much of your problems.
+
+605
+01:07:42.710 --> 01:07:48.270
+Prof. Madhusudhanan: Right? So… So, I can… I can pull out…
+
+606
+01:07:48.560 --> 01:07:53.289
+Prof. Madhusudhanan: categories where I can combine results using only the ranked positions.
+
+607
+01:07:55.030 --> 01:07:59.780
+Prof. Madhusudhanan: I'll not look at the score, right? Because every retravel technique will give me a score.
+
+608
+01:08:00.500 --> 01:08:02.190
+Prof. Madhusudhanan: Some value it will give me.
+
+609
+01:08:03.510 --> 01:08:15.950
+Prof. Madhusudhanan: I can use only by the position, right? Retriver yeah, retriever B, retriever C, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5. I take the first two, 1 and 2, 1 and 2, 1 and 2, I take this 6,
+
+610
+01:08:16.160 --> 01:08:19.140
+Prof. Madhusudhanan: If there are no duplicates, I just…
+
+611
+01:08:19.430 --> 01:08:24.189
+Prof. Madhusudhanan: Combine them and utilize them. Alternately, I can go for a score-based system.
+
+612
+01:08:25.810 --> 01:08:29.739
+Prof. Madhusudhanan: Right? Where I give a relevant score.
+
+613
+01:08:30.240 --> 01:08:34.609
+Prof. Madhusudhanan: Your relevance score can be as simple as your cosine similarity value.
+
+614
+01:08:35.500 --> 01:08:42.769
+Prof. Madhusudhanan: If I'm using different techniques, maybe, you know, I'm using some sort of IDF technique, or whatever other technique, I can normalize the score.
+
+615
+01:08:43.550 --> 01:09:01.120
+Prof. Madhusudhanan: Then you have the weighted fusion methods, right? You can give the importance, and this is where your role really helps you, because it is not… I see many a times what happens is you're trying to use a 7 billion parameter model, the moment it does not work, you say rag does not work, then they say, the model is bad.
+
+616
+01:09:02.010 --> 01:09:16.469
+Prof. Madhusudhanan: So, they go for a larger model. So $7 billion, you go for a 70 billion parameter model, and because of the training and the capability, the context understanding of the 70 billion parameter model, it gives you a good output. But what is happening? Your cost is increasing by 10 times.
+
+617
+01:09:17.060 --> 01:09:26.720
+Prof. Madhusudhanan: The cost to generate a token is increasing by 10 times. The power is increasing. The cost… and the return on investment is going to be longer.
+
+618
+01:09:26.890 --> 01:09:30.720
+Prof. Madhusudhanan: That is where, no, you'll have to… these are the places where you optimize it.
+
+619
+01:09:31.380 --> 01:09:44.099
+Prof. Madhusudhanan: Right? So, we just look at the complexity and look at the level of reasoning that is required, and we decide what model. We understand the context length, and we say, will you do a 13 billion parameter model?
+
+620
+01:09:44.540 --> 01:09:49.979
+Prof. Madhusudhanan: My upper limit is a 24 billion parameter model. That is… that is what will ultimately work.
+
+621
+01:09:50.279 --> 01:09:51.050
+Prof. Madhusudhanan: Right?
+
+622
+01:09:52.170 --> 01:09:57.580
+Prof. Madhusudhanan: I can use machine learning-based techniques, To fuse it.
+
+623
+01:09:58.970 --> 01:10:04.610
+Prof. Madhusudhanan: Right? So… When we talk about ranking, I can use…
+
+624
+01:10:05.080 --> 01:10:08.770
+Prof. Madhusudhanan: I can use a reciprocal rank fusion technique.
+
+625
+01:10:09.380 --> 01:10:18.430
+Prof. Madhusudhanan: Right? But before even talking about this, before even getting into the max of it, what I thought was, I can… I can try to understand
+
+626
+01:10:18.800 --> 01:10:21.629
+Prof. Madhusudhanan: We can try to understand where
+
+627
+01:10:22.530 --> 01:10:26.029
+Prof. Madhusudhanan: Where all your retrieval will fail.
+
+628
+01:10:27.540 --> 01:10:31.059
+Prof. Madhusudhanan: Can somebody tell me where all retravel can fail?
+
+629
+01:10:35.530 --> 01:10:39.329
+Prof. Madhusudhanan: I'll not get… because too much of mathematics, but no, let us try to understand
+
+630
+01:10:39.430 --> 01:10:41.209
+Prof. Madhusudhanan: Where all it'll fail, and…
+
+631
+01:10:47.280 --> 01:10:49.400
+Prof. Madhusudhanan: Where all can your retrieval fail?
+
+632
+01:10:54.490 --> 01:11:02.020
+Prof. Madhusudhanan: When questions outside the scope, okay, that's a good, good example, but resuming that questions are within the scope.
+
+633
+01:11:14.670 --> 01:11:17.769
+Prof. Madhusudhanan: Contradictory information in database, okay?
+
+634
+01:11:18.090 --> 01:11:20.709
+Prof. Madhusudhanan: When the prompts are not well written, very good.
+
+635
+01:11:25.550 --> 01:11:30.580
+Prof. Madhusudhanan: When the models are not trained on specific field, okay, limited history, good, good.
+
+636
+01:11:30.880 --> 01:11:31.600
+Prof. Madhusudhanan: Good?
+
+637
+01:11:32.050 --> 01:11:38.469
+Prof. Madhusudhanan: And chunks are not issues, right? It could be OCR error, you're doing a VCR error.
+
+638
+01:11:39.170 --> 01:11:48.000
+Prof. Madhusudhanan: You have excess payment. We spoke about excess payment. EXCE, yes, yes. If yeses will become 55.
+
+639
+01:11:49.450 --> 01:11:54.950
+Prof. Madhusudhanan: ESS will become 55. What happens? EXCE, 55, payment.
+
+640
+01:11:55.370 --> 01:12:01.050
+Prof. Madhusudhanan: What is… BM25 will fail, because BM25 will look for exact match, right?
+
+641
+01:12:02.720 --> 01:12:11.970
+Prof. Madhusudhanan: BM25, that's another example. Embedding mismatch. Chunks too small. Chunks are too small is not a retrieval problem, Mahati.
+
+642
+01:12:12.530 --> 01:12:15.889
+Prof. Madhusudhanan: Chunks being very small is… is a problem of.
+
+643
+01:12:16.370 --> 01:12:23.550
+Prof. Madhusudhanan: is a problem of, you know, the chunking technique. Limited history also.
+
+644
+01:12:23.810 --> 01:12:33.020
+Prof. Madhusudhanan: is a contract, you know, is a… Is a this thing, because if I don't rely on memory, I'm asking a new question, I'm clicking on new chart, and then…
+
+645
+01:12:33.810 --> 01:12:34.830
+Prof. Madhusudhanan: Creating it.
+
+646
+01:12:37.110 --> 01:12:38.060
+Prof. Madhusudhanan: Got it?
+
+647
+01:12:41.770 --> 01:12:50.710
+Prof. Madhusudhanan: So, so… embedding model. Outdated, what is outdated embedded model? I'll not use the word outdated, Amit.
+
+648
+01:12:50.900 --> 01:12:55.259
+Prof. Madhusudhanan: I will use the word, I'll use the word.
+
+649
+01:12:55.420 --> 01:12:58.609
+Prof. Madhusudhanan: not outdated, I'll use something called as…
+
+650
+01:12:59.070 --> 01:13:08.430
+Prof. Madhusudhanan: non-domain specific. That means when you're using the embedding model, it is not in the same domain, it's in the… no, the embedding model does not understand medicine.
+
+651
+01:13:09.460 --> 01:13:14.019
+Prof. Madhusudhanan: And you're talking of ibuprofen, you're talking of COX-1, COX1, COX2?
+
+652
+01:13:15.760 --> 01:13:17.310
+Prof. Madhusudhanan: Then I have a challenge.
+
+653
+01:13:17.820 --> 01:13:21.100
+Prof. Madhusudhanan: Okay, you are forced to do BM25.
+
+654
+01:13:22.960 --> 01:13:26.549
+Prof. Madhusudhanan: How will you further improve it? Okay, now we spoke about the failures.
+
+655
+01:13:26.930 --> 01:13:33.769
+Prof. Madhusudhanan: Good, I agree, right? We can prove some of it might be very important, some of it may not be very important, but still.
+
+656
+01:13:34.930 --> 01:13:35.920
+Prof. Madhusudhanan: Weekend?
+
+657
+01:13:36.780 --> 01:13:38.370
+Prof. Madhusudhanan: How will you solve this?
+
+658
+01:13:41.000 --> 01:13:44.040
+Prof. Madhusudhanan: I want to… I've decided to use BM25.
+
+659
+01:13:47.400 --> 01:13:49.649
+Prof. Madhusudhanan: Excellent, you can use synonyms.
+
+660
+01:13:50.340 --> 01:13:56.050
+Prof. Madhusudhanan: You can use synonyms to find. Stomach, abdomen, bellyache. I can convert into one word.
+
+661
+01:13:57.730 --> 01:13:58.560
+Prof. Madhusudhanan: Right?
+
+662
+01:13:58.910 --> 01:13:59.580
+Prof. Madhusudhanan: Right.
+
+663
+01:13:59.690 --> 01:14:02.699
+Prof. Madhusudhanan: So, when I'm using BM25,
+
+664
+01:14:03.600 --> 01:14:12.179
+Prof. Madhusudhanan: Generally, I try to retrieve the top 50 chunks, especially in large systems. Stemming may not help me.
+
+665
+01:14:12.420 --> 01:14:16.960
+Prof. Madhusudhanan: Synonyms can really help me. Stemming may not really help me.
+
+666
+01:14:17.090 --> 01:14:25.520
+Prof. Madhusudhanan: Right? So, when I'm looking from the perspective of, you know, BM25, try to retrieve at least 50 top chunks.
+
+667
+01:14:26.870 --> 01:14:29.009
+Prof. Madhusudhanan: Why? Because I'm going to re-rank it.
+
+668
+01:14:29.140 --> 01:14:36.550
+Prof. Madhusudhanan: R-ranking will use better techniques, and once I've done re-ranking, maybe I'll take the top 5 or 10 chunks.
+
+669
+01:14:36.690 --> 01:14:42.360
+Prof. Madhusudhanan: It depends on the domain, you'll have to do a little bit of experimentation, a little bit of trial and error.
+
+670
+01:14:42.500 --> 01:14:43.350
+Prof. Madhusudhanan: Right?
+
+671
+01:14:43.970 --> 01:14:52.680
+Prof. Madhusudhanan: And since you're talking of, you know, if you're looking at BM25, if you're looking at a score, K1, best value for K1 is about 1.5.
+
+672
+01:14:53.560 --> 01:14:58.120
+Prof. Madhusudhanan: Best value for… B is about 0.6.
+
+673
+01:14:58.750 --> 01:15:03.170
+Prof. Madhusudhanan: Starting points. Of course, no, if you… Abbreviations is a good one.
+
+674
+01:15:03.400 --> 01:15:08.440
+Prof. Madhusudhanan: So, these are all some basic values that you can keep to take it forward.
+
+675
+01:15:09.900 --> 01:15:16.250
+Prof. Madhusudhanan: Right? So, so, when I use synonyms, excess payment can now become
+
+676
+01:15:16.760 --> 01:15:20.789
+Prof. Madhusudhanan: Overpayment. Excess payment and overpayment are the same words.
+
+677
+01:15:21.060 --> 01:15:24.790
+Prof. Madhusudhanan: More payment. So, how I write the synonyms become?
+
+678
+01:15:24.940 --> 01:15:26.550
+Prof. Madhusudhanan: Very important.
+
+679
+01:15:28.800 --> 01:15:41.509
+Prof. Madhusudhanan: Got it? Abbreviation. So, no, what… what you need to understand is convert everything. I can have, right, if you take your medication, I have dolo 65, crosine, what else? Dolo 650 crosine, yeah, number of…
+
+680
+01:15:41.750 --> 01:15:48.530
+Prof. Madhusudhanan: common medicine, called as paracetamol. If I'm able to put all the paracetamol together.
+
+681
+01:15:48.860 --> 01:15:53.959
+Prof. Madhusudhanan: And write a synonym, it becomes way easier, my system becomes more accurate.
+
+682
+01:15:55.340 --> 01:16:05.680
+Prof. Madhusudhanan: Right? So… so, if there is a OCR error, be very careful with OCR error. If there is a synonym that is… need to be done, I need to create error.
+
+683
+01:16:05.990 --> 01:16:07.930
+Prof. Madhusudhanan: synonym mechanism.
+
+684
+01:16:10.300 --> 01:16:11.140
+Prof. Madhusudhanan: Got it.
+
+685
+01:16:11.460 --> 01:16:17.369
+Prof. Madhusudhanan: So, this is where aberration, this is where your real knowledge becomes important.
+
+686
+01:16:18.270 --> 01:16:19.400
+Prof. Madhusudhanan: No.
+
+687
+01:16:19.930 --> 01:16:27.389
+Prof. Madhusudhanan: since we are talking, I'm going back to the four words. That's very interesting. There is something called as cross-encoder re-ranking.
+
+688
+01:16:27.610 --> 01:16:33.670
+Prof. Madhusudhanan: So, what do I do? My input is… becomes query plus document chunk.
+
+689
+01:16:33.960 --> 01:16:36.130
+Prof. Madhusudhanan: Query plus chunk, I do a…
+
+690
+01:16:37.180 --> 01:16:43.879
+Prof. Madhusudhanan: relevant score. That also is possible. That is something called as cross-encoder chunking.
+
+691
+01:16:44.100 --> 01:16:56.090
+Prof. Madhusudhanan: And, you know, that really helps you. That also can be done if the number of words are very less. That means either re-querying is also important, or I can use something like this to take it forward.
+
+692
+01:16:57.390 --> 01:16:58.190
+Prof. Madhusudhanan: Got it?
+
+693
+01:17:00.830 --> 01:17:02.330
+Prof. Madhusudhanan: Any questions?
+
+694
+01:17:06.640 --> 01:17:11.250
+Prof. Madhusudhanan: Query expansion is one great way of solving. Query expansion can be done.
+
+695
+01:17:16.630 --> 01:17:18.560
+Prof. Madhusudhanan: So, how do you do query expansion?
+
+696
+01:17:22.960 --> 01:17:26.939
+Prof. Madhusudhanan: We have to explicitly design the metadata.
+
+697
+01:17:28.980 --> 01:17:45.650
+Prof. Madhusudhanan: Right? So, synonym expansion, abbreviation expansion, two things that you have given. Domain dictionary expansion, we call it a domain dictionary. Synonym, abbreviation, we already mentioned. Domain dictionary is paracomol, underparastomol, you have crosin and other things.
+
+698
+01:17:46.310 --> 01:17:48.670
+Prof. Madhusudhanan: I can use any LLM to do this.
+
+699
+01:17:49.350 --> 01:17:58.120
+Prof. Madhusudhanan: I can use an LLM to do this, right? Then I can have an ontology, I can have a tree-based system, I can have an ontology.
+
+700
+01:17:58.320 --> 01:18:00.250
+Prof. Madhusudhanan: I can have a knowledge graph.
+
+701
+01:18:00.890 --> 01:18:12.639
+Prof. Madhusudhanan: So, the combination is endless. What you need to do is, as long as you know the cost to generate the token, as long as you know what is the maximum model size that you can use.
+
+702
+01:18:13.340 --> 01:18:17.870
+Prof. Madhusudhanan: It becomes very Easy for you to plan and take it forward.
+
+703
+01:18:23.190 --> 01:18:23.990
+Prof. Madhusudhanan: Got it?
+
+704
+01:18:25.280 --> 01:18:28.590
+Prof. Madhusudhanan: So, metadata is very important.
+
+705
+01:18:32.450 --> 01:18:33.220
+Prof. Madhusudhanan: Got it.
+
+706
+01:18:35.370 --> 01:18:36.750
+Prof. Madhusudhanan: Any questions?
+
+707
+01:18:47.280 --> 01:18:56.340
+Prof. Madhusudhanan: Yeah, maybe we'll not have time, Mahati, but the entire idea is to use your… the entire idea is to use your
+
+708
+01:18:57.390 --> 01:19:04.089
+Prof. Madhusudhanan: Chunk, the query, Along with the document, to find a… to find a score.
+
+709
+01:19:04.580 --> 01:19:05.900
+Prof. Madhusudhanan: To find a score.
+
+710
+01:19:09.740 --> 01:19:22.950
+Prof. Madhusudhanan: How to ensure metadata is available? That is what you do in… that is what you do in your design. When you're designing the rack system, not many talk about metadata. They'll only talk about chunking, embedding, retrieval.
+
+711
+01:19:23.740 --> 01:19:36.080
+Prof. Madhusudhanan: Metadata becomes very important. That is problem-dependent. That is where your skill comes into picture. Maybe you have structured data and unstructured data. The structured data by itself can become metadata.
+
+712
+01:19:38.730 --> 01:19:41.810
+Prof. Madhusudhanan: Got it? Let us say we are talking of a medical record.
+
+713
+01:19:42.840 --> 01:19:44.299
+Prof. Madhusudhanan: the year.
+
+714
+01:19:44.950 --> 01:19:51.690
+Prof. Madhusudhanan: Right? The year, the document type, medical record, whether it's a discharge summary, whether it's an insurance summary.
+
+715
+01:19:52.350 --> 01:19:54.109
+Prof. Madhusudhanan: Right? The disease.
+
+716
+01:19:54.510 --> 01:19:58.779
+Prof. Madhusudhanan: The age, the gender, all will become metadata.
+
+717
+01:19:59.470 --> 01:20:06.799
+Prof. Madhusudhanan: Right? Treatment protocol can be metadata. You can either put it as a knowledge search, an ontology, or…
+
+718
+01:20:06.960 --> 01:20:13.510
+Prof. Madhusudhanan: You know, pure metadata in a database. Whatever is good, but no depends on the data complexity and
+
+719
+01:20:14.160 --> 01:20:15.500
+Prof. Madhusudhanan: From there, you let it tick.
+
+720
+01:20:16.120 --> 01:20:24.149
+Prof. Madhusudhanan: How to ensure that is not in our control? No, here, no, you are trying to build the system, Mushases. Right? You are trying to build the system.
+
+721
+01:20:24.300 --> 01:20:26.249
+Prof. Madhusudhanan: And when you're building the system.
+
+722
+01:20:26.500 --> 01:20:28.480
+Prof. Madhusudhanan: It is critical for you to
+
+723
+01:20:28.640 --> 01:20:31.259
+Prof. Madhusudhanan: Add metadata if it is required.
+
+724
+01:20:31.680 --> 01:20:33.209
+Prof. Madhusudhanan: Or else you have challenges.
+
+725
+01:20:36.070 --> 01:20:36.940
+Prof. Madhusudhanan: We got it?
+
+726
+01:20:39.870 --> 01:20:44.390
+Prof. Madhusudhanan: So, we very briefly saw the retrieval, Yes.
+
+727
+01:20:44.520 --> 01:20:47.850
+Prof. Madhusudhanan: Smes, BAs have to give metadata.
+
+728
+01:20:48.010 --> 01:20:50.950
+Prof. Madhusudhanan: Correct, but, you know, as a prudent
+
+729
+01:20:52.190 --> 01:20:55.559
+Prof. Madhusudhanan: As a prudent machine learning engineer, hygienic.
+
+730
+01:20:55.840 --> 01:21:00.019
+Prof. Madhusudhanan: Specialists, you should know how to ask the right questions.
+
+731
+01:21:00.330 --> 01:21:12.679
+Prof. Madhusudhanan: Right? The subject matter expert may not know about the architecture or how your system works. He might give from his tribal knowledge, without the knowledge of
+
+732
+01:21:13.520 --> 01:21:14.680
+Prof. Madhusudhanan: Yellow lumps.
+
+733
+01:21:14.820 --> 01:21:16.719
+Prof. Madhusudhanan: So you should know how to…
+
+734
+01:21:16.840 --> 01:21:23.640
+Prof. Madhusudhanan: Or the business… if you're a business analyst or no subject matter, you should know how to ex… get the information from him.
+
+735
+01:21:24.090 --> 01:21:25.969
+Prof. Madhusudhanan: You should… no, you should be able to…
+
+736
+01:21:26.700 --> 01:21:32.860
+Prof. Madhusudhanan: Ask the right questions so that he's… and understand and see whether something is missing.
+
+737
+01:21:40.440 --> 01:21:44.389
+Prof. Madhusudhanan: Yes, it depends on the problem statement, Shashikanth.
+
+738
+01:21:48.350 --> 01:21:49.140
+Prof. Madhusudhanan: Great.
+
+739
+01:21:50.230 --> 01:21:52.300
+Prof. Madhusudhanan: Purely depends on the problem statement.
+
+740
+01:21:52.490 --> 01:21:58.419
+Prof. Madhusudhanan: And, you know, domain also plays an important… how you look at it becomes critical.
+
+741
+01:21:58.710 --> 01:22:10.550
+Prof. Madhusudhanan: The designing is stochastic. You have millions of combinations, and within this, you find a solution which can be usable. It may not be the best solution, but, you know, you try to reach that.
+
+742
+01:22:10.860 --> 01:22:17.319
+Prof. Madhusudhanan: So, the entire thing, what we have learned here is, The engineering becomes very important.
+
+743
+01:22:17.460 --> 01:22:22.870
+Prof. Madhusudhanan: over the model. Model just making the model larger and larger is not… viable.
+
+744
+01:22:23.100 --> 01:22:25.459
+Prof. Madhusudhanan: Right? Why? Because you're building a chatbot.
+
+745
+01:22:25.690 --> 01:22:29.069
+Prof. Madhusudhanan: What do you tell the customer? Oh, this is going to cost you X,
+
+746
+01:22:29.340 --> 01:22:34.270
+Prof. Madhusudhanan: And you'll be able to get your ROI in 25 months, 22 months.
+
+747
+01:22:34.590 --> 01:22:38.200
+Prof. Madhusudhanan: You're able to reduce your staffing by 50%.
+
+748
+01:22:38.510 --> 01:22:51.610
+Prof. Madhusudhanan: Now, when you tell this, the customer might have an undertaking, and he'll say the, I should get my ROI in 25 months, or whatever it is. If he's not going to get it, then no, he knows that he has been cheated.
+
+749
+01:22:52.220 --> 01:22:56.410
+Prof. Madhusudhanan: So how is the best way to reduce my ROI? The cost of
+
+750
+01:22:56.570 --> 01:23:03.720
+Prof. Madhusudhanan: each token, the cost of infrastructure, if I'm able to reduce it. How best do I do it? Smaller models.
+
+751
+01:23:04.910 --> 01:23:05.660
+Prof. Madhusudhanan: Got it?
+
+752
+01:23:10.980 --> 01:23:13.189
+Prof. Madhusudhanan: Any questions, any doubts?
+
+753
+01:23:13.310 --> 01:23:17.860
+Prof. Madhusudhanan: I'll pause here and, you know, I'll hand over to… Balaji?
+
+754
+01:23:19.090 --> 01:23:24.490
+Prof. Madhusudhanan: Yes, GraphRAG is better for complex domain, but you should know how to.
+
+755
+01:23:24.890 --> 01:23:29.559
+Prof. Madhusudhanan: For legal documents, yes, but you need to also understand that
+
+756
+01:23:29.620 --> 01:23:46.360
+Prof. Madhusudhanan: You need to also understand that when we are talking about, you know, this thing, graph rags, you need to understand the relationship. If you are not able to understand the relationship, it is going to be a extremely big challenge.
+
+757
+01:23:46.890 --> 01:23:58.639
+Prof. Madhusudhanan: If you don't understand the relationship, right? Any sort of graph architecture, there should be a relationship which you should be able to understand, which you should be able to design.
+
+758
+01:23:58.780 --> 01:24:02.259
+Prof. Madhusudhanan: I see a lot of people just using NeoForges.
+
+759
+01:24:02.860 --> 01:24:04.070
+Prof. Madhusudhanan: Just like that.
+
+760
+01:24:04.830 --> 01:24:09.890
+Prof. Madhusudhanan: They use a graph database just like that, and I don't see any value addition there at all.
+
+761
+01:24:11.650 --> 01:24:12.520
+Prof. Madhusudhanan: Got it?
+
+762
+01:24:12.650 --> 01:24:24.129
+Prof. Madhusudhanan: So, in legal document, it is very important, because when we talk of a legal document, you take a document, you have the lawyer, you have the petitioner, you have the witness, you have the, no judge.
+
+763
+01:24:24.510 --> 01:24:27.889
+Prof. Madhusudhanan: You have the police, you have so many actors.
+
+764
+01:24:28.050 --> 01:24:32.760
+Prof. Madhusudhanan: And if you are able to have a graph, that really helps in answering your question.
+
+765
+01:24:33.790 --> 01:24:34.640
+Prof. Madhusudhanan: Got it.
+
+766
+01:24:34.850 --> 01:24:35.710
+Prof. Madhusudhanan: Great.
+
+767
+01:24:36.080 --> 01:24:41.080
+Prof. Madhusudhanan: So I'll hand over. Any questions. I'll… Wait for one minute.
+
+768
+01:24:41.280 --> 01:24:42.910
+Prof. Madhusudhanan: Take some more questions.
+
+769
+01:24:46.470 --> 01:24:51.069
+Prof. Madhusudhanan: Okay, great. If you don't have any questions, over to you, Balaji.
+
+770
+01:24:51.820 --> 01:24:52.910
+Prof. Madhusudhanan: Okay, yes.
+
+771
+01:24:55.510 --> 01:25:09.559
+Prof. Madhusudhanan: how does one know the impact of original model, like, catastrophic model forgetting? Okay, that's a good question, Shashikanth, especially if you're doing some sort of supervised fine-tuning, or don't even think of supervising, you might do
+
+772
+01:25:09.830 --> 01:25:18.200
+Prof. Madhusudhanan: reinforcement learning, you might do DPO. DPO is much more stable than RLHF, right? So, when you have this
+
+773
+01:25:18.830 --> 01:25:22.199
+Prof. Madhusudhanan: You should build a golden Kushtin set.
+
+774
+01:25:23.350 --> 01:25:29.450
+Prof. Madhusudhanan: I'll tell you, we do models, when we do models, we have a golden question of 200 to 400 questions.
+
+775
+01:25:30.870 --> 01:25:35.889
+Prof. Madhusudhanan: Right? We know, we also have the answers, we have the accuracy metrics in place.
+
+776
+01:25:36.230 --> 01:25:45.820
+Prof. Madhusudhanan: Sometimes what we do is we use these 400 questions, generate, augment them with machine-generated questions. Maybe I have a thousand questions with me.
+
+777
+01:25:47.310 --> 01:25:52.870
+Prof. Madhusudhanan: I will use this as my gold standard. Today, I have a machine, I have a model, I test on it.
+
+778
+01:25:53.320 --> 01:26:02.150
+Prof. Madhusudhanan: I have my benchmark in place. Painful, but no? Time-consuming, but worth it. Then I do supervised fine-tuning. I run all these thousand questions.
+
+779
+01:26:03.170 --> 01:26:05.610
+Prof. Madhusudhanan: I see whether there is any deviation.
+
+780
+01:26:06.810 --> 01:26:11.399
+Prof. Madhusudhanan: Right? If my errors increase, then I know that the training
+
+781
+01:26:11.820 --> 01:26:20.230
+Prof. Madhusudhanan: has some challenge. I can go to that particular domain and see that a particular domain is missing out, then I know that it is catastrophic for Ghana.
+
+782
+01:26:21.390 --> 01:26:31.390
+Prof. Madhusudhanan: There may be scenarios where some of the understanding of the document might have increased in some cases, decreased in some cases, then you'll have to do the post-mortem. Why and what?
+
+783
+01:26:31.810 --> 01:26:39.159
+Prof. Madhusudhanan: Right? And also, that is where you need to take a decision to roll back. Those are the questions that a YAMLOps engineer will look at.
+
+784
+01:26:39.960 --> 01:26:40.710
+Prof. Madhusudhanan: Right?
+
+785
+01:26:40.850 --> 01:26:43.690
+Prof. Madhusudhanan: So, definitely it can forget.
+
+786
+01:26:44.060 --> 01:26:47.190
+Prof. Madhusudhanan: You have to have these golden questions and then take it forward.
+
+787
+01:26:48.810 --> 01:26:50.409
+Prof. Madhusudhanan: Yeah, you'll get placed.
+
+788
+01:26:50.780 --> 01:26:56.440
+Prof. Madhusudhanan: PPT, Balaji will share. Right off, over to you, Balaji.
+
+789
+01:26:58.310 --> 01:27:02.229
+Prof. Madhusudhanan: Yeah, sure, Professor, I'll… I'll… The start servicing.
+
+790
+01:27:51.590 --> 01:27:57.560
+Prof. Madhusudhanan: Yeah, I hope I'm audible right for everyone. And also, can you be able to see my screen?
+
+791
+01:28:00.990 --> 01:28:01.870
+Prof. Madhusudhanan: Okay.
+
+792
+01:28:01.990 --> 01:28:07.169
+Prof. Madhusudhanan: So, you can be able to see my screen, rack demo.
+
+793
+01:28:07.460 --> 01:28:14.240
+Prof. Madhusudhanan: it's a IPONV file, like, what I'll be doing was, I'll be also sharing this,
+
+794
+01:28:14.340 --> 01:28:21.629
+Prof. Madhusudhanan: notebook with you. I'll share the link, okay? You can also, run along with me.
+
+795
+01:28:29.480 --> 01:28:32.520
+Prof. Madhusudhanan: Okay? I'll be posting it in the chat.
+
+796
+01:28:35.250 --> 01:28:38.030
+Prof. Madhusudhanan: I'm posting it as, like, for everyone.
+
+797
+01:28:38.730 --> 01:28:39.610
+Prof. Madhusudhanan: Okay?
+
+798
+01:28:42.170 --> 01:28:44.290
+Prof. Madhusudhanan: So, everyone got the link?
+
+799
+01:28:47.850 --> 01:28:51.059
+Prof. Madhusudhanan: Yeah, also, I can… yeah.
+
+800
+01:28:51.390 --> 01:28:53.319
+Prof. Madhusudhanan: I also, like, uploaded the…
+
+801
+01:28:57.180 --> 01:29:02.600
+Prof. Madhusudhanan: Notebook and chat, like, to whomever that can't be able to access the link.
+
+802
+01:29:04.400 --> 01:29:05.240
+Prof. Madhusudhanan: Okay.
+
+803
+01:29:05.440 --> 01:29:07.870
+Prof. Madhusudhanan: Yeah, everyone got the IPUNB file, right?
+
+804
+01:29:08.180 --> 01:29:11.400
+Prof. Madhusudhanan: Please post it in the chat so that I can proceed further.
+
+805
+01:29:14.800 --> 01:29:17.050
+Prof. Madhusudhanan: Okay, okay, got it.
+
+806
+01:29:17.540 --> 01:29:18.450
+Prof. Madhusudhanan: Got it.
+
+807
+01:29:21.360 --> 01:29:22.190
+Prof. Madhusudhanan: Okay.
+
+808
+01:29:23.020 --> 01:29:29.779
+Prof. Madhusudhanan: So, very first shift here, like, before we are, jump-starting with this demo.
+
+809
+01:29:29.990 --> 01:29:35.790
+Prof. Madhusudhanan: We'll be, like, first… Want to install a few of things.
+
+810
+01:29:35.980 --> 01:29:45.380
+Prof. Madhusudhanan: Before that, like, here, what we are going to do is, like, as mentioned by Professor, like, we'll be looking into the, RAD pipeline.
+
+811
+01:29:45.780 --> 01:29:46.640
+Prof. Madhusudhanan: Okay.
+
+812
+01:29:47.070 --> 01:29:55.469
+Prof. Madhusudhanan: So… I'm just running the, requirement, okay? Initially, keep installing the libraries.
+
+813
+01:29:55.590 --> 01:30:03.659
+Prof. Madhusudhanan: So, everyone can be able to see, my screen, right? Like, it is in… Mmm, collab notebook.
+
+814
+01:30:03.920 --> 01:30:06.200
+Prof. Madhusudhanan: So I'm just started running the fossil.
+
+815
+01:30:13.830 --> 01:30:14.700
+Prof. Madhusudhanan: Okay.
+
+816
+01:30:22.270 --> 01:30:28.710
+Prof. Madhusudhanan: So, yeah, it will take some time. You also just run the requirement, all the libraries to be, like, installed.
+
+817
+01:30:29.080 --> 01:30:29.910
+Prof. Madhusudhanan: Okay?
+
+818
+01:30:44.920 --> 01:30:51.500
+Prof. Madhusudhanan: So, here we are pip installing Gradio, like, we'll be doing some UI, okay? So…
+
+819
+01:30:51.700 --> 01:30:53.680
+Prof. Madhusudhanan: We'll be using Gradio for that.
+
+820
+01:30:53.850 --> 01:30:59.180
+Prof. Madhusudhanan: And then we'll be, like, also using a sentence transformer, like, which will be converting the…
+
+821
+01:30:59.300 --> 01:31:08.220
+Prof. Madhusudhanan: text into embedding, that we have seen, last time during our demo, okay? And also, like, we are using FIAS,
+
+822
+01:31:08.410 --> 01:31:10.430
+Prof. Madhusudhanan: Okay, for storing the vectors.
+
+823
+01:31:10.740 --> 01:31:17.339
+Prof. Madhusudhanan: Okay? And transformers for loading the large language models, okay, for summarizing it.
+
+824
+01:31:17.820 --> 01:31:34.010
+Prof. Madhusudhanan: And then, we'll be also using, bits and bytes, like, which will be, like, helping in, like, model quantization, okay, for, memory optimization. For the purpose, we'll be also using this, bits and bytes. And for,
+
+825
+01:31:34.480 --> 01:31:45.469
+Prof. Madhusudhanan: processing the PDF, like, if… in case, like, we are loading it, we'll be also using this Pye PDF, but here we are not going to load any PDF. We'll be just, using this,
+
+826
+01:31:45.900 --> 01:31:51.009
+Prof. Madhusudhanan: Sample paragraph, okay? From different domains, we'll be using that.
+
+827
+01:31:51.170 --> 01:31:56.260
+Prof. Madhusudhanan: And then… After we are,
+
+828
+01:31:56.730 --> 01:31:59.879
+Prof. Madhusudhanan: Like, keep installing our… all requirements.
+
+829
+01:31:59.990 --> 01:32:05.489
+Prof. Madhusudhanan: Next thing was, like, we want to use our aging face,
+
+830
+01:32:05.610 --> 01:32:09.360
+Prof. Madhusudhanan: token, okay? So, for, for doing this.
+
+831
+01:32:10.810 --> 01:32:22.009
+Prof. Madhusudhanan: like, I hope, like, everyone have, your Hugging Face ID. Anyway, like, here I have given my ID, you can use for this demo, but after some time, it will get expired, okay?
+
+832
+01:32:22.200 --> 01:32:29.410
+Prof. Madhusudhanan: So, everyone, confirm me that whether you are having, Hugging Face,
+
+833
+01:32:32.680 --> 01:32:33.670
+Prof. Madhusudhanan: Open?
+
+834
+01:32:37.960 --> 01:32:44.620
+Prof. Madhusudhanan: Because while we are accessing some models, okay, we need this Hugging Face authentication things, okay?
+
+835
+01:32:45.220 --> 01:32:46.000
+Prof. Madhusudhanan: Yeah.
+
+836
+01:32:46.260 --> 01:32:48.930
+Prof. Madhusudhanan: So, everyone can be able to run this cell.
+
+837
+01:32:49.490 --> 01:32:57.759
+Prof. Madhusudhanan: Yes, if you are having admins, you can please use that same thing, but I have loaded mine in this code, just for demo purpose, okay?
+
+838
+01:32:58.730 --> 01:33:02.350
+Prof. Madhusudhanan: So, everyone can be able to run this second cell, right? Along with me.
+
+839
+01:33:03.470 --> 01:33:09.249
+Prof. Madhusudhanan: If anyone is facing any problem, I'll suggest them to, try to get your,
+
+840
+01:33:13.340 --> 01:33:16.240
+Prof. Madhusudhanan: This thing, from your Hugging Face account.
+
+841
+01:33:21.600 --> 01:33:23.430
+Prof. Madhusudhanan: Okay? So…
+
+842
+01:33:23.640 --> 01:33:28.579
+Prof. Madhusudhanan: With this access token only, like, we can use it. So, I want a few confirmations from Chad.
+
+843
+01:33:29.320 --> 01:33:37.190
+Prof. Madhusudhanan: Okay, someone is asking for… Link, share. Okay, again, I'm sharing it here for everyone.
+
+844
+01:33:39.190 --> 01:33:39.990
+Prof. Madhusudhanan: Yeah.
+
+845
+01:33:40.280 --> 01:33:42.660
+Prof. Madhusudhanan: So, everyone can be able to run…
+
+846
+01:33:43.580 --> 01:33:51.090
+Prof. Madhusudhanan: like, from this Hugging Face hub, we are importing login, and there, like, you are given your Hugging Face
+
+847
+01:33:51.310 --> 01:33:59.670
+Prof. Madhusudhanan: token, or if it is, like, working, whatever the ID that I've given, you can also, like, go ahead with that for anyone if it is, like, not working.
+
+848
+01:34:00.000 --> 01:34:06.409
+Prof. Madhusudhanan: So, I suggest you to… Use your ID, okay, by logging into your Hugging Face account.
+
+849
+01:34:06.880 --> 01:34:07.890
+Prof. Madhusudhanan: Okay?
+
+850
+01:34:09.630 --> 01:34:21.369
+Prof. Madhusudhanan: So that we'll be getting some permission to access the, pre-trained models. Here, we'll be using, Gwen and, Liquid AI models, okay? So, for the purpose,
+
+851
+01:34:21.570 --> 01:34:34.670
+Prof. Madhusudhanan: we are, using it, okay? Once that is done, like, here we'll be importing our, like, whatever, packages that here we have installed, right? We'll be, like, importing based on our requirement.
+
+852
+01:34:34.890 --> 01:34:43.379
+Prof. Madhusudhanan: For example, for UA, like, we'll be, like, importing, this gradio, okay? And then…
+
+853
+01:34:43.650 --> 01:34:50.319
+Prof. Madhusudhanan: For vector search and embodings, okay, for vector search and embedings, here we have imported files.
+
+854
+01:34:50.480 --> 01:34:55.620
+Prof. Madhusudhanan: Okay? And NumPy we'll be using, and then sentence transformers.
+
+855
+01:34:55.970 --> 01:35:04.419
+Prof. Madhusudhanan: Okay, and then for, large model inference, okay, for the thing here, we have imported transformers.
+
+856
+01:35:04.810 --> 01:35:08.819
+Prof. Madhusudhanan: Okay, from the transformer, we are importing Auto Tokenizer.
+
+857
+01:35:10.270 --> 01:35:16.309
+Prof. Madhusudhanan: And then, all required things, okay, including pipeline and other things from Transformer, we are importing it.
+
+858
+01:35:17.160 --> 01:35:24.210
+Prof. Madhusudhanan: And also, like, we have imported, other required libraries, like, dogs, okay.
+
+859
+01:35:24.580 --> 01:35:27.339
+Prof. Madhusudhanan: Quite large for, for model execution.
+
+860
+01:35:27.470 --> 01:35:32.730
+Prof. Madhusudhanan: And rejects for text cleaning, because we need to do lots of pre-processing.
+
+861
+01:35:33.520 --> 01:35:41.219
+Prof. Madhusudhanan: And then, threading, okay, for, steaming generation, okay, we are also importing threading.
+
+862
+01:35:41.490 --> 01:35:45.249
+Prof. Madhusudhanan: And time for, we are also, like, imported time,
+
+863
+01:35:45.470 --> 01:35:48.870
+Prof. Madhusudhanan: For measuring the, execution performance.
+
+864
+01:35:49.040 --> 01:35:51.930
+Prof. Madhusudhanan: Okay, so here, like, each library will be playing.
+
+865
+01:35:52.090 --> 01:35:57.040
+Prof. Madhusudhanan: some important roles in different stages of while we are building this rack pipeline.
+
+866
+01:35:57.550 --> 01:35:58.430
+Prof. Madhusudhanan: Okay?
+
+867
+01:35:59.510 --> 01:36:06.770
+Prof. Madhusudhanan: And then we'll be using this, some sample, paragraph, okay, for this, demo.
+
+868
+01:36:06.970 --> 01:36:12.359
+Prof. Madhusudhanan: Everyone, before that, I request everyone to, import the required libraries.
+
+869
+01:36:12.560 --> 01:36:13.400
+Prof. Madhusudhanan: Okay?
+
+870
+01:36:13.560 --> 01:36:16.929
+Prof. Madhusudhanan: It'll take some time. Once,
+
+871
+01:36:17.160 --> 01:36:22.519
+Prof. Madhusudhanan: You imported these record libraries, just post it in chat, I'll be proceeding with the next.
+
+872
+01:36:33.010 --> 01:36:37.920
+Prof. Madhusudhanan: Okay, I can't able to see, like, lots of them imported, but right now, I started importing.
+
+873
+01:36:38.390 --> 01:36:43.339
+Prof. Madhusudhanan: It will take a few more seconds, yeah, it's done. Now I'm proceeding with the next.
+
+874
+01:36:44.580 --> 01:36:48.649
+Prof. Madhusudhanan: So, here we are just creating some simple knowledge base, okay?
+
+875
+01:36:48.930 --> 01:36:55.220
+Prof. Madhusudhanan: With some multiple paragraph. One is on, AI, okay, on artificial intelligence.
+
+876
+01:36:55.340 --> 01:36:58.230
+Prof. Madhusudhanan: And other is on, neuroscience.
+
+877
+01:36:58.620 --> 01:36:59.470
+Prof. Madhusudhanan: Okay?
+
+878
+01:36:59.690 --> 01:37:01.530
+Prof. Madhusudhanan: And, renewable energy.
+
+879
+01:37:02.770 --> 01:37:05.549
+Prof. Madhusudhanan: On these three different,
+
+880
+01:37:06.350 --> 01:37:25.110
+Prof. Madhusudhanan: topics are just having a paragraph, okay? And this paragraph now is going to act as document source for the access system. Instead of this, you can also try, like, uploading some document, okay, in various formats. Initially, you can try PDF.
+
+881
+01:37:25.600 --> 01:37:37.020
+Prof. Madhusudhanan: Okay, so here we are not using any external database, like, I use this predefined text, okay, for just to show demonstration on, like, how retrieval and question answering is going to work.
+
+882
+01:37:37.630 --> 01:37:41.889
+Prof. Madhusudhanan: Okay, so here, ultimate aim is, like, we'll be having some UI,
+
+883
+01:37:42.160 --> 01:37:59.909
+Prof. Madhusudhanan: where, like, a user can select, on these, three different topics, and automatically this paragraph will get fetched. If you are asking some specific question from this, like, we'll be getting answered. So, for the thing, like, what are our next steps that we are going to see? Like, we'll be looking into
+
+884
+01:37:59.910 --> 01:38:07.460
+Prof. Madhusudhanan: One by one, okay? And, here, next thing is going to be, we want to clean the text. Now, we are having our data.
+
+885
+01:38:07.530 --> 01:38:13.520
+Prof. Madhusudhanan: Okay, just execute this, just execute this sample paragraph,
+
+886
+01:38:13.840 --> 01:38:16.249
+Prof. Madhusudhanan: Okay, what we have discussed so far.
+
+887
+01:38:16.410 --> 01:38:18.560
+Prof. Madhusudhanan: And then we want to clean this text.
+
+888
+01:38:19.290 --> 01:38:26.779
+Prof. Madhusudhanan: Okay, now we have loaded the text, our next step is going to be text cleaning. So, here I created a function.
+
+889
+01:38:26.940 --> 01:38:31.419
+Prof. Madhusudhanan: Known as text clean. Okay, to pre-process the document.
+
+890
+01:38:31.770 --> 01:38:38.219
+Prof. Madhusudhanan: Because we want to do chunking and embedding. Before that, we want to clean. What are all things we want to clean?
+
+891
+01:38:38.590 --> 01:38:39.570
+Prof. Madhusudhanan: Anyone?
+
+892
+01:38:39.740 --> 01:38:41.709
+Prof. Madhusudhanan: Anyone please post it in the chat?
+
+893
+01:38:42.080 --> 01:38:51.469
+Prof. Madhusudhanan: What are all things usually, like, we'll be looking into before we are starting into, then starting with, chunking and embedding? What are all things we want to focus?
+
+894
+01:38:52.440 --> 01:38:55.400
+Prof. Madhusudhanan: From the given paragraph, you just…
+
+895
+01:38:55.940 --> 01:38:59.520
+Prof. Madhusudhanan: Post it in chat. Yeah, sentences, yeah, remove spaces.
+
+896
+01:38:59.960 --> 01:39:05.359
+Prof. Madhusudhanan: Brakes, come off, full stop spaces, new lines, yeah, perfect, perfect.
+
+897
+01:39:05.660 --> 01:39:09.499
+Prof. Madhusudhanan: Yes, obviously, like, unnecessary spaces we want to remove.
+
+898
+01:39:09.640 --> 01:39:14.239
+Prof. Madhusudhanan: Extra tabs, and multiple new lines, okay? So, because…
+
+899
+01:39:14.470 --> 01:39:29.939
+Prof. Madhusudhanan: Cleaning the text is, like, very important, because the inconsistent formatting can affect the chunking quality. Last time, like, we have seen lots of chunking techniques, okay? And also, it would be, like, obviously directly affecting or embedding performance.
+
+900
+01:39:30.200 --> 01:39:37.170
+Prof. Madhusudhanan: So that's why, like, we need a clean and structured document, okay, which will be improving our retrieval accuracy in RAG paper.
+
+901
+01:39:37.870 --> 01:39:49.929
+Prof. Madhusudhanan: After loading the, text, okay, the content, like, whatever we want to, use in the stack pipeline, the first thing is going to be we want to clean it. So, that's what here we are doing.
+
+902
+01:39:50.250 --> 01:39:51.200
+Prof. Madhusudhanan: Okay.
+
+903
+01:39:51.970 --> 01:39:57.100
+Prof. Madhusudhanan: Next thing is, we are doing, chunking. Once, we have defined this,
+
+904
+01:39:58.750 --> 01:40:18.740
+Prof. Madhusudhanan: cleaning text function. Next thing, we are, starting with the chunk team, okay? After cleaning the text, like, now, the document need to be, like, divided into smaller chunks. That's what, like, last time during our webinar also, we looked into it. So, for the thing here, I'm defining a function known as…
+
+905
+01:40:18.780 --> 01:40:20.010
+Prof. Madhusudhanan: Smart Sync.
+
+906
+01:40:20.400 --> 01:40:21.250
+Prof. Madhusudhanan: Okay?
+
+907
+01:40:21.580 --> 01:40:39.630
+Prof. Madhusudhanan: Because, this chunking is necessary, okay? Because, like, while we are dealing with large language models, it cannot, like, efficiently process, like, a very document at once. It can do it, but computation needs to be very high. So, by considering those things, we need to, like, chunk, okay?
+
+908
+01:40:40.030 --> 01:40:45.380
+Prof. Madhusudhanan: So, here, we are not doing the chunks, like, we are not splitting it randomly.
+
+909
+01:40:45.540 --> 01:40:52.489
+Prof. Madhusudhanan: Here, I'm, using, sentence-based chunking, okay? Here we are using, sentence-based chunking.
+
+910
+01:40:52.910 --> 01:41:10.000
+Prof. Madhusudhanan: So that, the meaning and context are, like, preserved, okay? Based on, like, each sentence, like, it will change, okay? So that is a meaning. During our last webinar demo, like, we have seen lots of, changing techniques. So, one among that is, like, the sentence base.
+
+911
+01:41:10.260 --> 01:41:18.240
+Prof. Madhusudhanan: Okay? And also, we are adding, warlapping. Okay? And also, here, we are adding, warlapping in this function.
+
+912
+01:41:19.400 --> 01:41:27.460
+Prof. Madhusudhanan: So, this overlap will be, like, helping, because last time we have seen, like, it will be… helps in maintaining continuity of information, so that
+
+913
+01:41:28.020 --> 01:41:37.440
+Prof. Madhusudhanan: If, some specific part of, information is, like, being in a previous, chunk, it will be also, like, being used for next chunk.
+
+914
+01:41:37.680 --> 01:41:40.550
+Prof. Madhusudhanan: Okay, so that, context will be there.
+
+915
+01:41:41.210 --> 01:41:45.179
+Prof. Madhusudhanan: So now, after we are running this, function.
+
+916
+01:41:45.630 --> 01:41:50.920
+Prof. Madhusudhanan: Now, each chunk is, like, going to become a, like, a semantic unit, okay?
+
+917
+01:41:51.050 --> 01:42:06.569
+Prof. Madhusudhanan: And, that can be, later on, like, we can convert it into a embody. And based on that, like, we'll be doing the, retrieval process, okay? Whenever we are asking questions, it will be, like, retrieving from this chance, okay?
+
+918
+01:42:09.860 --> 01:42:12.190
+Prof. Madhusudhanan: So, everyone is with me, right?
+
+919
+01:42:12.550 --> 01:42:14.750
+Prof. Madhusudhanan: You can able to run this cell also, right?
+
+920
+01:42:16.020 --> 01:42:17.899
+Prof. Madhusudhanan: Cleaning and chunking.
+
+921
+01:42:21.090 --> 01:42:22.280
+Prof. Madhusudhanan: Okay.
+
+922
+01:42:25.430 --> 01:42:35.060
+Prof. Madhusudhanan: Now, we need to… Like, after chunking, the next step is going to be… Yembodying generation, okay? So…
+
+923
+01:42:35.270 --> 01:42:38.639
+Prof. Madhusudhanan: Here, the second thing is, like, embedder and fires index.
+
+924
+01:42:38.810 --> 01:42:46.509
+Prof. Madhusudhanan: So, here I am going to use the sentence transformer, what we already imported there, and…
+
+925
+01:42:47.350 --> 01:42:54.430
+Prof. Madhusudhanan: The model is, like, all mini-LM, like, this also we already seen during our, last webinar.
+
+926
+01:42:54.730 --> 01:43:00.130
+Prof. Madhusudhanan: the demo, okay? So, we all know that
+
+927
+01:43:00.770 --> 01:43:09.850
+Prof. Madhusudhanan: embeddings are, like, a numerical vector representation of a given text. Okay, so here, the main idea is that,
+
+928
+01:43:10.060 --> 01:43:10.800
+Prof. Madhusudhanan: Like…
+
+929
+01:43:11.770 --> 01:43:21.700
+Prof. Madhusudhanan: we want to, like, extract things, like, which are all having some, like, similar, context, like, based on the embeddings, okay?
+
+930
+01:43:21.780 --> 01:43:22.890
+Prof. Madhusudhanan: So…
+
+931
+01:43:22.940 --> 01:43:33.389
+Prof. Madhusudhanan: Here, the main idea is that, like, semantically, like, similar text, okay, we'll be, producing, similar vector representation.
+
+932
+01:43:33.390 --> 01:43:44.009
+Prof. Madhusudhanan: Okay, so for that, like, we are, using this model. For example, like, we can ask some set of questions, like, a question about a neural network.
+
+933
+01:43:44.320 --> 01:43:55.570
+Prof. Madhusudhanan: And, yeah, Chen discussing, it can be, like, Chen, like, Chen can also have something related to deep learning, but this both are, like, related.
+
+934
+01:43:55.860 --> 01:43:57.570
+Prof. Madhusudhanan: Okay, so…
+
+935
+01:43:58.020 --> 01:44:08.989
+Prof. Madhusudhanan: what'll happen? Neural network and deep learning, like, are both are, like, related. So, it'll be like having, embeddings, okay? If you are seeing it in a vector space, the embeddings are, like,
+
+936
+01:44:09.310 --> 01:44:11.329
+Prof. Madhusudhanan: Too close in the vector space.
+
+937
+01:44:12.100 --> 01:44:15.869
+Prof. Madhusudhanan: Okay, once these are, like, embedded.
+
+938
+01:44:15.980 --> 01:44:24.830
+Prof. Madhusudhanan: it will be, like, stored in the files, okay, FIS vector database for semantic retriever, that we have seen already in the process deck, okay?
+
+939
+01:44:25.200 --> 01:44:29.539
+Prof. Madhusudhanan: So… That's why, like, here we have selected this, model.
+
+940
+01:44:29.640 --> 01:44:47.059
+Prof. Madhusudhanan: Okay? And it's, like, lightweight, and it is also faster, and it'll be, like, giving, like, good semantic search, okay? You can also try with different models, okay? If you're going to, Hugging Face, like, you can be able to see lots of, other models also, like, available.
+
+941
+01:44:47.530 --> 01:44:49.920
+Prof. Madhusudhanan: Based on that, you can also change it, okay?
+
+942
+01:44:50.970 --> 01:44:53.700
+Prof. Madhusudhanan: Once, like,
+
+943
+01:44:54.440 --> 01:45:01.980
+Prof. Madhusudhanan: like we embedded. Okay, the next thing is going to be, we want to, build the fire sector index.
+
+944
+01:45:02.130 --> 01:45:09.540
+Prof. Madhusudhanan: Okay, after generating these embeddings from the chunks, okay, the next step is to build the fires, vector index.
+
+945
+01:45:09.700 --> 01:45:13.720
+Prof. Madhusudhanan: Okay, we all know spices are, like, library just dulled by metal.
+
+946
+01:45:13.960 --> 01:45:20.880
+Prof. Madhusudhanan: Okay, and it is, like, very, like, efficient for similarity search on very, large vector data sets.
+
+947
+01:45:21.100 --> 01:45:21.910
+Prof. Madhusudhanan: Okay.
+
+948
+01:45:22.340 --> 01:45:27.130
+Prof. Madhusudhanan: So, in this demo, like, as I mentioned, like, each,
+
+949
+01:45:27.240 --> 01:45:36.150
+Prof. Madhusudhanan: like, chunk embeddings, like, is being stored in the bias index, so that's what we mentioned during, start of this demo.
+
+950
+01:45:36.350 --> 01:45:37.170
+Prof. Madhusudhanan: Okay?
+
+951
+01:45:37.370 --> 01:45:41.650
+Prof. Madhusudhanan: So, whenever a user is asking a specific question.
+
+952
+01:45:42.610 --> 01:45:55.569
+Prof. Madhusudhanan: what is going to happen is, the cushion will get converted into an embedding. Like, how the chains are, like, being embedded, right? So, like, that cushions also will get, converted into embodying. And then.
+
+953
+01:45:55.960 --> 01:46:02.390
+Prof. Madhusudhanan: Fire search as far, like, what are all most similar Chunk vectors are there, okay?
+
+954
+01:46:02.530 --> 01:46:07.120
+Prof. Madhusudhanan: In the vector space, what other things are, like, most similar? It would be, like, retrieving that.
+
+955
+01:46:07.240 --> 01:46:08.450
+Prof. Madhusudhanan: As I answered.
+
+956
+01:46:08.890 --> 01:46:14.549
+Prof. Madhusudhanan: Okay, so for the thing, here, like, I have used,
+
+957
+01:46:15.130 --> 01:46:19.390
+Prof. Madhusudhanan: Two different, indexing, techniques.
+
+958
+01:46:19.550 --> 01:46:26.439
+Prof. Madhusudhanan: Okay, one is… Index flat, okay? This is fires.index flat.
+
+959
+01:46:26.790 --> 01:46:29.169
+Prof. Madhusudhanan: That is for a smaller dataset.
+
+960
+01:46:29.570 --> 01:46:33.609
+Prof. Madhusudhanan: I'm… Index highly flat.
+
+961
+01:46:34.530 --> 01:46:37.760
+Prof. Madhusudhanan: Other method. This is for very, larger dataset.
+
+962
+01:46:37.940 --> 01:46:42.039
+Prof. Madhusudhanan: Okay, so that is a thing, and this…
+
+963
+01:46:42.180 --> 01:46:49.709
+Prof. Madhusudhanan: index flag IP. Okay, this is for smaller, which will be, like, performing, exact search.
+
+964
+01:46:49.960 --> 01:47:04.070
+Prof. Madhusudhanan: Okay, and while this index IV flat, okay, it will be, like, improving speed, okay? Whenever, like, we are having very larger, data, okay? So, like, while we are using this method, it is, like, very faster.
+
+965
+01:47:05.090 --> 01:47:09.790
+Prof. Madhusudhanan: Okay, next thing is… We are, like, looking into the…
+
+966
+01:47:10.810 --> 01:47:19.180
+Prof. Madhusudhanan: query encoding and retrieval, okay? These are, like, two functions for that. After, we are, like, building this vector index.
+
+967
+01:47:19.300 --> 01:47:21.470
+Prof. Madhusudhanan: The next step is going to be…
+
+968
+01:47:21.680 --> 01:47:27.199
+Prof. Madhusudhanan: query retraining. Now, when the user is, like, rendering some cushion.
+
+969
+01:47:27.350 --> 01:47:34.810
+Prof. Madhusudhanan: Okay, the system first need to convert the question into embedding that we have already seen. Okay, using the
+
+970
+01:47:34.940 --> 01:47:37.500
+Prof. Madhusudhanan: Same sentence, transformer model.
+
+971
+01:47:37.810 --> 01:47:54.690
+Prof. Madhusudhanan: Okay, using the same sentence transform model. If you are using something else, okay, while the user is, like, giving some query, you should not use other different model. You should also only use this specific model, what we already embedded, for the given our input text.
+
+972
+01:47:55.230 --> 01:47:56.110
+Prof. Madhusudhanan: Okay.
+
+973
+01:47:58.590 --> 01:48:10.209
+Prof. Madhusudhanan: So that, it will be like having some set of, numerical representation, okay? That's why, we should use this, the model, like, what we already used for.
+
+974
+01:48:10.340 --> 01:48:12.340
+Prof. Madhusudhanan: Embedding the chunks.
+
+975
+01:48:12.820 --> 01:48:26.569
+Prof. Madhusudhanan: Okay? Once that is done, the files will be, like, performing the similarity search between the query embodying and the stored chunk embeddings, okay? So, these are all two things it is going to do here.
+
+976
+01:48:26.820 --> 01:48:33.010
+Prof. Madhusudhanan: So, for the thing, like, we are using this, encore query and this retriever.
+
+977
+01:48:33.740 --> 01:48:36.140
+Prof. Madhusudhanan: Okay? I'm just going to run it.
+
+978
+01:48:40.380 --> 01:48:42.000
+Prof. Madhusudhanan: predict few seconds.
+
+979
+01:48:44.370 --> 01:48:45.140
+Prof. Madhusudhanan: Yup.
+
+980
+01:48:46.040 --> 01:48:46.920
+Prof. Madhusudhanan: Okay.
+
+981
+01:48:52.250 --> 01:48:53.310
+Prof. Madhusudhanan: Now?
+
+982
+01:48:54.560 --> 01:48:56.390
+Prof. Madhusudhanan: Here we are, like, loading…
+
+983
+01:48:56.610 --> 01:49:14.120
+Prof. Madhusudhanan: We are just, giving, like, models, like, whenever you are asking some, questions, these models will be, like, helping us to summarize them, okay? Like, in this demo, like, we are using GPT-2, Gwen 2.5, okay, Gwen 3,
+
+984
+01:49:14.320 --> 01:49:18.930
+Prof. Madhusudhanan: 0.6 billion, okay, and, liquid.
+
+985
+01:49:19.060 --> 01:49:21.619
+Prof. Madhusudhanan: 700 million, okay, and 350 million.
+
+986
+01:49:21.880 --> 01:49:31.949
+Prof. Madhusudhanan: And, here also, like, we can compare by using this model, like, what are all our models are, like, performing well, pretty well. Okay? Based on, like, your requirement, you can also change it.
+
+987
+01:49:32.190 --> 01:49:33.599
+Prof. Madhusudhanan: Here, I'm using this.
+
+988
+01:49:33.940 --> 01:49:34.810
+Prof. Madhusudhanan: Okay.
+
+989
+01:49:36.980 --> 01:49:49.420
+Prof. Madhusudhanan: And then, we want to, give the, like, context window, okay? So, for example, GPT will be, like, supporting around, 1024, tokens.
+
+990
+01:49:49.520 --> 01:49:52.440
+Prof. Madhusudhanan: Okay, while this Gwen model, okay.
+
+991
+01:49:53.350 --> 01:50:01.460
+Prof. Madhusudhanan: One model will be, like, supporting the, context up to, 32,000, okay, 32,000 tokens.
+
+992
+01:50:01.640 --> 01:50:08.920
+Prof. Madhusudhanan: So, the 2,768. So, like, that liquid elephant is also, like, having 4096.
+
+993
+01:50:09.160 --> 01:50:13.290
+Prof. Madhusudhanan: Okay? Each model will be, like, having its own,
+
+994
+01:50:13.690 --> 01:50:16.969
+Prof. Madhusudhanan: context tokens, okay? So, we should define it.
+
+995
+01:50:17.220 --> 01:50:19.039
+Prof. Madhusudhanan: And I'm just running it.
+
+996
+01:50:22.630 --> 01:50:33.419
+Prof. Madhusudhanan: And then, next thing is, we are right here using, quantitation, okay, by using bits and bytes. At the beginning, like, we have imported this, okay? Bits and bytes.
+
+997
+01:50:33.980 --> 01:50:44.479
+Prof. Madhusudhanan: Why here we are doing it is, like, while, like, we are loading some model, like, we want to optimize it, and the memory usage also should be, like, within, limit.
+
+998
+01:50:44.740 --> 01:50:47.640
+Prof. Madhusudhanan: Okay, so for this, like, I have,
+
+999
+01:50:47.890 --> 01:50:52.080
+Prof. Madhusudhanan: imported this, bits and write config. Okay, this is a function.
+
+1000
+01:50:52.610 --> 01:50:59.480
+Prof. Madhusudhanan: Okay, with the 4-bit quantization, that's what here we are defining, okay, with the 4-bit quantization.
+
+1001
+01:51:01.200 --> 01:51:04.659
+Prof. Madhusudhanan: Okay, normally, like, while we are,
+
+1002
+01:51:04.810 --> 01:51:10.870
+Prof. Madhusudhanan: loading any of large language models, like, it will be consuming a huge amount… huge amount of GP.
+
+1003
+01:51:10.980 --> 01:51:15.609
+Prof. Madhusudhanan: Okay, so to minimize that, we are quantizing, okay?
+
+1004
+01:51:16.420 --> 01:51:24.070
+Prof. Madhusudhanan: That means here we are, like, converting the, model weights, okay, into a, like, lower cushion representation.
+
+1005
+01:51:24.390 --> 01:51:30.009
+Prof. Madhusudhanan: So that the memory usage is going to be, like, it will get reduced very significantly.
+
+1006
+01:51:30.340 --> 01:51:36.260
+Prof. Madhusudhanan: So that model will get, like, loaded very fastly, and the conception of VRAM will be also, like, very less.
+
+1007
+01:51:36.560 --> 01:51:41.720
+Prof. Madhusudhanan: Here, I used… Info condosition, okay? And the…
+
+1008
+01:51:41.900 --> 01:51:46.430
+Prof. Madhusudhanan: Float16 computation, okay, that's what here, I will define.
+
+1009
+01:51:46.700 --> 01:51:50.520
+Prof. Madhusudhanan: And then, double quantization, okay?
+
+1010
+01:51:51.440 --> 01:51:59.080
+Prof. Madhusudhanan: double condensation for, like, here I'm setting it true, and that is for, better efficiency and stability.
+
+1011
+01:51:59.240 --> 01:52:11.060
+Prof. Madhusudhanan: Okay? You can also do some set of research on, like, what are all other quantization techniques out there, and how to incorporate those things here, while you are, like, dealing with the very constrained
+
+1012
+01:52:11.510 --> 01:52:14.680
+Prof. Madhusudhanan: Like, intro, okay?
+
+1013
+01:52:15.830 --> 01:52:23.089
+Prof. Madhusudhanan: So, whenever, like, you are loading, because here we are loading lots of models, okay? So, that is the thing, we are doing this modification thing, okay?
+
+1014
+01:52:25.630 --> 01:52:31.750
+Prof. Madhusudhanan: And then, next thing is, like, we are loading this model that we have seen, model models and other things.
+
+1015
+01:52:32.120 --> 01:52:32.950
+Prof. Madhusudhanan: Okay.
+
+1016
+01:52:33.410 --> 01:52:43.899
+Prof. Madhusudhanan: And here, while we are loading this, the function here loading the tokenizer, and the, language model, and the text generation pipeline.
+
+1017
+01:52:44.060 --> 01:52:49.700
+Prof. Madhusudhanan: So, that's what, here we are also defined, okay, within this node model.
+
+1018
+01:52:50.150 --> 01:52:50.940
+Prof. Madhusudhanan: Okay.
+
+1019
+01:52:52.050 --> 01:52:54.540
+Prof. Madhusudhanan: So, I'm just going to execute it.
+
+1020
+01:53:03.940 --> 01:53:05.900
+Prof. Madhusudhanan: I'm also executing the next cell.
+
+1021
+01:53:11.180 --> 01:53:14.680
+Prof. Madhusudhanan: Now, after we are loading it, Okay.
+
+1022
+01:53:14.840 --> 01:53:18.970
+Prof. Madhusudhanan: Now I'm testing whether the liquid,
+
+1023
+01:53:19.540 --> 01:53:22.849
+Prof. Madhusudhanan: Telephone 2 model is, like, loaded correctly or not.
+
+1024
+01:53:23.460 --> 01:53:29.249
+Prof. Madhusudhanan: I'm just attempting to load this, model, okay? Liquid elephant.
+
+1025
+01:53:29.580 --> 01:53:30.360
+Prof. Madhusudhanan: 2?
+
+1026
+01:53:31.110 --> 01:53:34.969
+Prof. Madhusudhanan: And the model is, like, being, successfully loaded.
+
+1027
+01:53:35.120 --> 01:53:55.100
+Prof. Madhusudhanan: we'll be getting the message that it is loaded successfully. Just to verify, because we are loading lots of models, right? Here. So we have mentioned lots of models, right? So that's why I'm just testing it with one model. Now, we can be able to see, like, all, like, this one specific model is, like, loaded. Like, this other model also will get loaded, okay?
+
+1028
+01:53:56.470 --> 01:53:59.899
+Prof. Madhusudhanan: And then we are setting the prompt behavior, like,
+
+1029
+01:54:00.320 --> 01:54:04.410
+Prof. Madhusudhanan: We are just setting, some set of,
+
+1030
+01:54:05.490 --> 01:54:15.580
+Prof. Madhusudhanan: like, prompt engineering techniques here, okay? Because, like, very important thing in RAG system is, you need to, like, control how the language model should behave.
+
+1031
+01:54:15.980 --> 01:54:22.419
+Prof. Madhusudhanan: Okay. Meaning that, like, in the prompt, if I'm, clearly instructing what the model to do.
+
+1032
+01:54:23.870 --> 01:54:31.290
+Prof. Madhusudhanan: I am saying that, like, answer only using the product context, so that it should not think beyond
+
+1033
+01:54:31.470 --> 01:54:32.610
+Prof. Madhusudhanan: That, okay?
+
+1034
+01:54:32.720 --> 01:54:45.269
+Prof. Madhusudhanan: And, it should not also, like, use, anything, the knowledge which is, like, external thing, okay? It should avoid using the external knowledge. And also, we should, tell the model that
+
+1035
+01:54:45.810 --> 01:54:50.630
+Prof. Madhusudhanan: Avoid hallucination. Okay, so, those things here we are defining.
+
+1036
+01:54:51.630 --> 01:54:52.510
+Prof. Madhusudhanan: Okay.
+
+1037
+01:54:54.120 --> 01:54:59.800
+Prof. Madhusudhanan: And then we also, like, want to clean our output, whatever the output that we are getting, we also, like, want to clean it.
+
+1038
+01:55:00.400 --> 01:55:09.100
+Prof. Madhusudhanan: Meaning that, like, we have already cleaned while we are loaded our data set, okay? After the text is being generated by using the model, like, whatever we have loaded, okay, here.
+
+1039
+01:55:09.460 --> 01:55:21.980
+Prof. Madhusudhanan: Sometimes there may be extra spaces and some repeated text, okay, or else incomplete sentences. Those things are not at all relevant, so we should remove those things.
+
+1040
+01:55:23.220 --> 01:55:24.050
+Prof. Madhusudhanan: Okay.
+
+1041
+01:55:26.360 --> 01:55:31.190
+Prof. Madhusudhanan: And then here, we are creating a global retar and the chins, okay?
+
+1042
+01:55:31.600 --> 01:55:38.199
+Prof. Madhusudhanan: Meaning that, this variable will be storing the, fire sector index, what we already defined.
+
+1043
+01:55:38.760 --> 01:55:42.269
+Prof. Madhusudhanan: And the process to document chains that will be, like, stored here.
+
+1044
+01:55:42.490 --> 01:55:49.420
+Prof. Madhusudhanan: Okay, like, instead of we are rebuilding the embeddings every time, okay, whenever the user asking a question.
+
+1045
+01:55:49.620 --> 01:55:53.209
+Prof. Madhusudhanan: The system will be, like, keeping the index to data in the memory.
+
+1046
+01:55:53.800 --> 01:55:54.660
+Prof. Madhusudhanan: Okay?
+
+1047
+01:55:55.360 --> 01:56:09.279
+Prof. Madhusudhanan: So, whenever a user is, like, selecting a different paragraph, we have seen, like, 3 different things, right? Domain. 3 different domain with 3 different paragraphs. Whenever, like, user is, selecting a different paragraph.
+
+1048
+01:56:09.440 --> 01:56:16.620
+Prof. Madhusudhanan: This variable, this variable, okay, this variable will get updated, okay, with the corresponding chunk and the…
+
+1049
+01:56:17.000 --> 01:56:36.730
+Prof. Madhusudhanan: vector, so that each and every time, it's no need to get, like, embedded and other things. If they're selecting for one time, it will take some time for first time. Then, obviously, if you are switching between other models, like, other contexts, what are the data that were stored, it will be using that information so that processing speed
+
+1050
+01:56:36.860 --> 01:56:38.259
+Prof. Madhusudhanan: It'd be, like, very fast.
+
+1051
+01:56:39.320 --> 01:56:43.500
+Prof. Madhusudhanan: Okay? And then, we are gonna… I'm just running this.
+
+1052
+01:56:46.150 --> 01:56:48.739
+Prof. Madhusudhanan: And this is a very important thing.
+
+1053
+01:56:48.850 --> 01:56:49.710
+Prof. Madhusudhanan: Okay.
+
+1054
+01:56:52.310 --> 01:56:57.040
+Prof. Madhusudhanan: We are using this, like, whatever thing here we have defined, right? Here we are using this, okay?
+
+1055
+01:56:59.290 --> 01:57:14.239
+Prof. Madhusudhanan: Next thing is, we… now, we are going to our UI. I'm just running it. You can just look into what are all things that we have defined, on top of this, right? Everything will be within this UI.
+
+1056
+01:57:16.340 --> 01:57:22.600
+Prof. Madhusudhanan: Now, you can able to see, the models will get, like, loaded for whatever things that we are…
+
+1057
+01:57:23.110 --> 01:57:24.400
+Prof. Madhusudhanan: Mentioned on top.
+
+1058
+01:57:30.670 --> 01:57:31.520
+Prof. Madhusudhanan: Okay.
+
+1059
+01:57:41.140 --> 01:57:44.790
+Prof. Madhusudhanan: So everyone can be able to run this Gradio UI, right?
+
+1060
+01:57:45.070 --> 01:57:46.689
+Prof. Madhusudhanan: Please post it in chat.
+
+1061
+01:58:05.890 --> 01:58:06.770
+Prof. Madhusudhanan: Okay.
+
+1062
+01:58:10.330 --> 01:58:18.759
+Prof. Madhusudhanan: So you can see, like, our all models, like, whatever thing we have mentioned, right, it will get loaded. It will take some time for first time loading, okay?
+
+1063
+01:58:19.410 --> 01:58:23.540
+Prof. Madhusudhanan: Once that is done, we can… we'll be getting our web UI.
+
+1064
+01:58:30.540 --> 01:58:34.670
+Prof. Madhusudhanan: It is running on T4, so that is how this notebook is being built.
+
+1065
+01:58:34.900 --> 01:58:38.520
+Prof. Madhusudhanan: So, automatically, we'll be using T4, okay?
+
+1066
+01:58:38.630 --> 01:58:40.339
+Prof. Madhusudhanan: from the Google runtime.
+
+1067
+01:59:17.310 --> 01:59:18.210
+Prof. Madhusudhanan: Okay.
+
+1068
+01:59:23.460 --> 01:59:29.769
+Prof. Madhusudhanan: For me, it is taking some time. If you even got, your UI, and whether, like, you have tested
+
+1069
+01:59:30.270 --> 01:59:33.879
+Prof. Madhusudhanan: Okay, you can also share your output in the chat.
+
+1070
+01:59:34.990 --> 01:59:36.710
+Prof. Madhusudhanan: Now it's almost done.
+
+1071
+01:59:37.600 --> 01:59:39.350
+Prof. Madhusudhanan: Yeah, now I got my UI.
+
+1072
+01:59:40.460 --> 01:59:41.200
+Prof. Madhusudhanan: Okay.
+
+1073
+01:59:41.340 --> 01:59:54.690
+Prof. Madhusudhanan: Just, you can also click this link, so it'll be, like, taking you to a new tab. You can also share this link, like, across others, like, once your runtime is, enabled, or else, it will say that,
+
+1074
+01:59:55.630 --> 02:00:04.800
+Prof. Madhusudhanan: UA is not available. Now… I'm going to ask one question.
+
+1075
+02:00:09.000 --> 02:00:24.149
+Prof. Madhusudhanan: like, I'm going to, like, here we should select, okay, initially we should select, like, what sample paragraph that we are going to ask. I'm just selecting Automation Intelligence today, and I'm going to ask one question.
+
+1076
+02:00:24.510 --> 02:00:29.889
+Prof. Madhusudhanan: We are dealing with large language models, right? Like, go to the fundamentals of it, like,
+
+1077
+02:00:31.030 --> 02:00:37.810
+Prof. Madhusudhanan: How do… Transformers, Okay, auto transformer.
+
+1078
+02:00:40.160 --> 02:00:44.850
+Prof. Madhusudhanan: architecture… Improve.
+
+1079
+02:00:46.350 --> 02:00:49.260
+Prof. Madhusudhanan: modern… Yay.
+
+1080
+02:00:49.710 --> 02:00:50.910
+Prof. Madhusudhanan: this stunts.
+
+1081
+02:00:51.360 --> 02:00:53.130
+Prof. Madhusudhanan: Okay, moving my cousin.
+
+1082
+02:00:53.350 --> 02:00:56.020
+Prof. Madhusudhanan: And here I'm using this,
+
+1083
+02:00:57.780 --> 02:01:13.969
+Prof. Madhusudhanan: liquid… okay, I've just selected this one model for time being, okay? We are already running out of time. Maybe you can test, like, one by one, okay? Just by, selecting, okay? For now, I'm just using this liquid elephant, and here I'm controlling the, like, how many chunks that is
+
+1084
+02:01:13.970 --> 02:01:18.600
+Prof. Madhusudhanan: top questions that is need to be, like, to display in our UI.
+
+1085
+02:01:18.600 --> 02:01:30.550
+Prof. Madhusudhanan: And also here, we can control, like, how many minimum tokens and maximum tokens, okay? For time being, I'm just using these default things, okay? I'm going to ask questions, it will take some time.
+
+1086
+02:01:40.970 --> 02:01:44.189
+Prof. Madhusudhanan: Yeah, GPT-2 would be, like, using its,
+
+1087
+02:01:44.540 --> 02:01:50.679
+Prof. Madhusudhanan: other, knowledge. Also, sometimes the GPT would be, like, giving, incorrect answers constantly.
+
+1088
+02:01:50.810 --> 02:01:52.660
+Prof. Madhusudhanan: Okay? So…
+
+1089
+02:01:52.880 --> 02:02:04.049
+Prof. Madhusudhanan: That is why, like, we also, like, want to fine-tune the models, specifically, or else we should, use some other smaller models, like Gemma. Those models also, you can use it, okay? GEMA…
+
+1090
+02:02:05.590 --> 02:02:11.629
+Prof. Madhusudhanan: So, that is our zone of suggestion. So, now I'm going to use when 3, okay?
+
+1091
+02:02:11.880 --> 02:02:13.500
+Prof. Madhusudhanan: Points expanded.
+
+1092
+02:02:13.690 --> 02:02:17.700
+Prof. Madhusudhanan: with the same question. Also, here you can able to see the chunks, right?
+
+1093
+02:02:37.700 --> 02:02:39.930
+Prof. Madhusudhanan: So, it is taking some time for me.
+
+1094
+02:02:40.050 --> 02:02:48.800
+Prof. Madhusudhanan: Like, whenever, like, you are, while you are selecting the model, if you're, like, selecting multiple models, based on that, it will take some time, while it is, like, running for custom.
+
+1095
+02:02:49.340 --> 02:02:57.989
+Prof. Madhusudhanan: 13B.6 is not at all giving, okay, and now I'm just… Saying with the 2.5.
+
+1096
+02:02:58.490 --> 02:02:59.859
+Prof. Madhusudhanan: Just,
+
+1097
+02:03:03.640 --> 02:03:06.330
+Prof. Madhusudhanan: Yeah, I'm now going to test with the…
+
+1098
+02:03:07.020 --> 02:03:10.080
+Prof. Madhusudhanan: Neuroscience, we can take some shin.
+
+1099
+02:03:22.670 --> 02:03:31.130
+Prof. Madhusudhanan: Lawrence… huh, okay, yeah, and go the same pushing.
+
+1100
+02:03:33.070 --> 02:03:33.940
+Prof. Madhusudhanan: Yes.
+
+1101
+02:03:45.910 --> 02:03:52.370
+Prof. Madhusudhanan: Okay, super. Like, I can be able to see lots of answers. But one suggestion is, like,
+
+1102
+02:03:52.830 --> 02:04:07.029
+Prof. Madhusudhanan: You try to load on document and see, like, parallel you want to, tune it, because not always, like, one workable thing will be, like, able to be used for other,
+
+1103
+02:04:07.400 --> 02:04:10.919
+Prof. Madhusudhanan: Other documents, because each document will be, like, having its own structure.
+
+1104
+02:04:11.360 --> 02:04:12.070
+Prof. Madhusudhanan: Okay?
+
+1105
+02:04:13.540 --> 02:04:21.280
+Prof. Madhusudhanan: So, 1. 2.5 is also given, okay? So, I suggest you to look into other models.
+
+1106
+02:04:22.160 --> 02:04:26.460
+Prof. Madhusudhanan: And also, here you can… Okay.
+
+1107
+02:04:26.920 --> 02:04:29.470
+Prof. Madhusudhanan: And… Okay, okay, okay.
+
+1108
+02:04:30.250 --> 02:04:37.700
+Prof. Madhusudhanan: This is one, and also, yeah, so…
+
+1109
+02:04:38.480 --> 02:04:49.020
+Prof. Madhusudhanan: We can also, like, do the, summarization part, like, here we are just using these models, but we can also use, like, Flan, T5, okay? So…
+
+1110
+02:04:50.360 --> 02:04:56.829
+Prof. Madhusudhanan: T5A also for the summarization, but that is a very foundational model. After that, like, we are having lots of,
+
+1111
+02:04:57.530 --> 02:05:11.639
+Prof. Madhusudhanan: like, very modern architectures are also there, but TFI is, like, foundational thing. Once, like, you are trying to understand the TFI, then you can, be able to, like, very easily, replicate, other models' architecture also.
+
+1112
+02:05:11.970 --> 02:05:12.890
+Prof. Madhusudhanan: Okay.
+
+1113
+02:05:13.460 --> 02:05:17.829
+Prof. Madhusudhanan: So, I hope, everyone got your outputs for,
+
+1114
+02:05:17.980 --> 02:05:20.600
+Prof. Madhusudhanan: While you are asking some specific questions.
+
+1115
+02:05:20.820 --> 02:05:36.980
+Prof. Madhusudhanan: So, with this, like, here, what we did is, like, we just asked some questions, and based on the given query, it is, like, a query is being embedded, and it is, like, retrieving the… what are all things are very closely in the retrospace.
+
+1116
+02:05:37.110 --> 02:05:40.869
+Prof. Madhusudhanan: Okay? So, that's it for,
+
+1117
+02:05:42.330 --> 02:05:45.299
+Prof. Madhusudhanan: That's it for this, demo, okay?
+
+1118
+02:05:45.550 --> 02:05:57.560
+Prof. Madhusudhanan: And next time, like, we'll be coming up with some other embedding techniques for images, okay? So, for now, I'm signing off. I'll stop sharing my screen, and thank you all.
+
+1119
+02:06:03.550 --> 02:06:11.840
+Prof. Madhusudhanan: PPT and all will be shared, okay? Through our team. They will be sharing it with you. Yamerta's team will be sharing it, okay?
+
+1120
+02:06:11.960 --> 02:06:14.199
+Prof. Madhusudhanan: Thank you all, thank you, and welcome.
+
+1121
+02:06:15.060 --> 02:06:16.460
+Webinar Specialist: Hi, Balaji!
+
+1122
+02:06:16.590 --> 02:06:17.750
+Prof. Madhusudhanan: Yeah, hi.
+
+1123
+02:06:17.750 --> 02:06:21.290
+Webinar Specialist: Yeah, hi. Have you shared that Piquity with us over email?
+
+1124
+02:06:22.110 --> 02:06:26.670
+Prof. Madhusudhanan: Yeah, we already mailed it, I think. If required, you just,
+
+1125
+02:06:26.780 --> 02:06:33.059
+Prof. Madhusudhanan: Just, mailed me, do this, thing, because we already shared this, puppy.
+
+1126
+02:06:33.270 --> 02:06:35.380
+Webinar Specialist: Sure, then I'll check it with the team.
+
+1127
+02:06:35.380 --> 02:06:40.559
+Prof. Madhusudhanan: Yeah, if you're not getting it, you just, mail us, okay?
+
+1128
+02:06:40.560 --> 02:06:40.910
+Webinar Specialist: Sure.
+
+1129
+02:06:40.910 --> 02:06:45.429
+Prof. Madhusudhanan: Because we already shared this, Ppt step.
+
+1130
+02:06:45.430 --> 02:06:47.609
+Webinar Specialist: Okay, okay, folks, thank you.
+
+1131
+02:06:47.850 --> 02:06:49.460
+Prof. Madhusudhanan: Okay, thank you. Thank you all.
+
+1132
+02:06:49.460 --> 02:06:50.010
+Webinar Specialist: No.
+

@@ -1,0 +1,2658 @@
+WEBVTT
+
+1
+00:00:20.880 --> 00:00:24.470
+Jitendra K: Hi guys, good evening, and warm, welcome to another module.
+
+2
+00:00:24.960 --> 00:00:32.349
+Jitendra K: So before we start, this session will be of 2 hours, and we will try to cover
+
+3
+00:00:32.600 --> 00:00:34.460
+Jitendra K: Maybe an extended session next week.
+
+4
+00:00:35.390 --> 00:00:36.960
+Jitendra K: So, just a…
+
+5
+00:00:38.010 --> 00:00:43.599
+Jitendra K: query, are you able to run the gRP code that has been shared in the last class?
+
+6
+00:00:44.020 --> 00:00:46.529
+Jitendra K: Are you guys able to run it completely end-to-end?
+
+7
+00:00:56.890 --> 00:01:01.549
+Jitendra K: How many of you are able to run the code, the GRPA code that has been shown in progress?
+
+8
+00:01:03.260 --> 00:01:03.950
+Jitendra K: Okay.
+
+9
+00:01:04.690 --> 00:01:07.199
+Jitendra K: So, was it run end-to-end from your machines?
+
+10
+00:01:20.910 --> 00:01:25.239
+Jitendra K: Okay, so we'll continue with the discussion. So first and foremost thing.
+
+11
+00:01:25.730 --> 00:01:31.859
+Jitendra K: We are going to revisit some of the PEFT concepts that we have learned earlier in the last few weeks before.
+
+12
+00:01:32.070 --> 00:01:37.860
+Jitendra K: And then we will start GRPO tutorial again with a code walkthrough.
+
+13
+00:01:38.570 --> 00:01:47.429
+Jitendra K: So just a quick recap what we have learned during PAFTA and Laura sessions. So, we understand that when we talk about fine-tuning a large language model.
+
+14
+00:01:47.680 --> 00:01:51.199
+Jitendra K: there are different ways, right? So fine-tuning a large language model
+
+15
+00:01:51.580 --> 00:01:59.870
+Jitendra K: Maybe, you know, something only big tech company could afford, but today we have techniques like LoRa's and QLORAS.
+
+16
+00:01:59.990 --> 00:02:04.390
+Jitendra K: So anyone can fine-tune a powerful LLM on a single GPU.
+
+17
+00:02:04.600 --> 00:02:11.709
+Jitendra K: And, with the help of that, you can able to attend better results in terms of domain-agnostic outputs.
+
+18
+00:02:12.210 --> 00:02:15.679
+Jitendra K: Now, we'll try to understand what are these techniques, and
+
+19
+00:02:16.040 --> 00:02:22.989
+Jitendra K: just try to revisit some of them again. So, I think yesterday we talked about supervised fine-tuning and the difference between
+
+20
+00:02:23.120 --> 00:02:24.350
+Jitendra K: GRPO.
+
+21
+00:02:24.600 --> 00:02:29.290
+Jitendra K: So, there are two different scenarios, right? So, I just want to give you the…
+
+22
+00:02:29.630 --> 00:02:34.690
+Jitendra K: detailed orientations on these two concepts, what is supervised fine-tuning?
+
+23
+00:02:34.810 --> 00:02:39.670
+Jitendra K: And how it is different from the techniques that we have discussed using
+
+24
+00:02:39.810 --> 00:02:43.040
+Jitendra K: GRPO and, stuff like that, right?
+
+25
+00:02:43.160 --> 00:02:50.819
+Jitendra K: So, and then, all we are doing is, we are trying to make sure that we will have in-context learning to improve the model reasoning capability.
+
+26
+00:02:52.720 --> 00:02:56.999
+Jitendra K: So, let's… let me first start with the supervised fine-tuning.
+
+27
+00:02:57.560 --> 00:03:05.439
+Jitendra K: So when we talk about supervised fine-tuning, assuming that you're having a data set, it could be a big data set, could be a small data set, right?
+
+28
+00:03:05.810 --> 00:03:09.119
+Jitendra K: So you're dealing with a data set, which is,
+
+29
+00:03:09.410 --> 00:03:13.439
+Jitendra K: Having some sort of examples, and it's a large billion
+
+30
+00:03:13.740 --> 00:03:21.550
+Jitendra K: you're trying to train a pre-trained model which is having a large billions of parameters, and there are two ways to learn. One is, you can go with supervised fine-tuning.
+
+31
+00:03:21.840 --> 00:03:26.550
+Jitendra K: Fine-tune the LLM on training data, and create a standard supervised objective.
+
+32
+00:03:26.900 --> 00:03:32.870
+Jitendra K: Chasing the gradient using backpropagations, and then optimize with the help of adaptive momentum.
+
+33
+00:03:33.490 --> 00:03:39.780
+Jitendra K: And fit, the data, and try to explain Any unseen scenarios.
+
+34
+00:03:40.000 --> 00:03:47.170
+Jitendra K: Option number two is you can get in-context learning, feed samples to LLM as a prompt, allow the LLM to infer patterns in training.
+
+35
+00:03:47.710 --> 00:03:56.139
+Jitendra K: And, during inference, it will start decoding and taking the output LLM and, making it at a prompt level. So this is basically prompt engineering, or…
+
+36
+00:03:56.260 --> 00:03:58.320
+Jitendra K: RAC pipeline, in context learning.
+
+37
+00:03:58.640 --> 00:04:02.769
+Jitendra K: So, supervised fine-tuning, if I have to just explain it in a very layman term.
+
+38
+00:04:03.590 --> 00:04:12.280
+Jitendra K: So, supervised fine-tuning is the process of taking a pre-trained LLM and further training it on label dataset, specific towards downstream tasks.
+
+39
+00:04:12.640 --> 00:04:22.290
+Jitendra K: So the model weights are updated using standard supervised learning. A loss function will be decided, for example, cross-entropy for classification.
+
+40
+00:04:22.420 --> 00:04:27.710
+Jitendra K: You're going to compute the model predictions and reducing the error with optimizers.
+
+41
+00:04:28.010 --> 00:04:35.809
+Jitendra K: So you start with the pre-trained checkpoints. The modeler already understands the language, syntax, semantic, and general world knowledge.
+
+42
+00:04:36.010 --> 00:04:43.819
+Jitendra K: You have prepared a data with a set of labels, run forward pass, and compute the loss during backward pass.
+
+43
+00:04:43.960 --> 00:04:47.639
+Jitendra K: and update a gradient. It's a high performance, or high…
+
+44
+00:04:47.870 --> 00:04:54.849
+Jitendra K: Performance fine-tuning, which always outperform in-context learning, but enough Label data set is available.
+
+45
+00:04:55.390 --> 00:04:59.420
+Jitendra K: And you do not need to have a context window limitation for this approach.
+
+46
+00:04:59.820 --> 00:05:05.170
+Jitendra K: The only disadvantage is, with supervised fine-tuning is we have too bare computation costs.
+
+47
+00:05:05.810 --> 00:05:13.329
+Jitendra K: So, the competition cost of parameter updates is very, very high. Let's say, for 175 billion parameter model.
+
+48
+00:05:13.570 --> 00:05:21.849
+Jitendra K: I may have to need 1TB of GPU memory, and 1TB of GPU memory, you can understand the cost associated with that.
+
+49
+00:05:22.150 --> 00:05:30.010
+Jitendra K: So you cannot fine-tune a model that is only available by an API like GPT-40. You need to download the model, and then only you can be able to work around it.
+
+50
+00:05:30.600 --> 00:05:38.060
+Jitendra K: So you can, have a risk of overfitting as well. When a task dataset is small, the model may memorize rather than generalize.
+
+51
+00:05:38.350 --> 00:05:51.809
+Jitendra K: there could be a catastrophic forgetting, the model may lose some of its pre-trained abilities if not regularized properly. And catastrophic forgetting is one of the phenomena that is very, very classical, which has been…
+
+52
+00:05:52.010 --> 00:05:58.659
+Jitendra K: Taken care by a rag, and that's how the rag has been invented. And that's why the rag has been invented.
+
+53
+00:05:59.020 --> 00:06:02.520
+Jitendra K: So, catastrophic forgetting is a critical concept.
+
+54
+00:06:02.870 --> 00:06:07.520
+Jitendra K: In which… There's a tendency of an artificial neuron.
+
+55
+00:06:07.770 --> 00:06:13.400
+Jitendra K: Or neural network to completely and abruptly lose previous learned information when it trained on a new task.
+
+56
+00:06:13.730 --> 00:06:19.580
+Jitendra K: So in the context of LLM, the models start with a broad general knowledge from pre-training. Let's say they have
+
+57
+00:06:19.950 --> 00:06:28.070
+Jitendra K: good grammatical reasoning, world fact, coding and translation capabilities. But when you fine-tune it on a specific
+
+58
+00:06:28.170 --> 00:06:30.000
+Jitendra K: Downstream domain task.
+
+59
+00:06:30.780 --> 00:06:36.320
+Jitendra K: You start losing, the model waits, and the weights has been overwritten.
+
+60
+00:06:37.930 --> 00:06:43.549
+Jitendra K: And once the weight has been overridden, then your fine-tuning is on specific downstream only.
+
+61
+00:06:43.730 --> 00:06:49.319
+Jitendra K: The model may override the weights that encoded earlier knowledge, causing it to become worse at other tasks.
+
+62
+00:06:50.150 --> 00:06:53.699
+Jitendra K: So that is what, need to be taken care of.
+
+63
+00:06:53.830 --> 00:06:55.330
+Jitendra K: off as well.
+
+64
+00:06:56.460 --> 00:07:01.370
+Jitendra K: Now, talking about in-context learning, ICL technique, so this is one of the classical techniques.
+
+65
+00:07:04.570 --> 00:07:11.420
+Jitendra K: Where we are going to have a training, free method. So LLM is given a prompt that contains a few input-output examples.
+
+66
+00:07:11.810 --> 00:07:18.790
+Jitendra K: of a target task, and followed by a new query. The model then generates a question… sorry, generates an answer for that query.
+
+67
+00:07:19.120 --> 00:07:22.620
+Jitendra K: By evaluating the… by… while evaluating the conditions.
+
+68
+00:07:23.560 --> 00:07:26.659
+Jitendra K: To discard kind of autoregressive,
+
+69
+00:07:26.970 --> 00:07:32.649
+Jitendra K: task, the model continues from the prompt, producing the output token by token, and there's no backpropagation required.
+
+70
+00:07:33.240 --> 00:07:38.569
+Jitendra K: So that is what prompt engineering does. So prompt engineering falls into the play of, in-context learning.
+
+71
+00:07:43.590 --> 00:07:50.869
+Jitendra K: Now, this is, some of the scenarios where GPT-3 has been trained using fine-tuning versus in-context learning, and this is what
+
+72
+00:07:51.090 --> 00:08:01.860
+Jitendra K: You can see here on my screen, the MLNI, validation accuracy and RT validation accuracy. So these are two benchmarks which have been used by…
+
+73
+00:08:02.240 --> 00:08:09.809
+Jitendra K: the leadership board to evaluate the model. So, in terms of how they're performing, what are exactly
+
+74
+00:08:10.030 --> 00:08:17.499
+Jitendra K: They are doing, and MLI and RT are both multi-generative natural language interface match.
+
+75
+00:08:17.700 --> 00:08:28.850
+Jitendra K: Where you're going to use a large-scale dataset designed to test a model ability to perform natural language inferences. And this means that the logical relationship between a pair of sentences
+
+76
+00:08:29.090 --> 00:08:35.130
+Jitendra K: Will be generalized by the model, and you are giving a task, Some contrary tasks to perform.
+
+77
+00:08:36.000 --> 00:08:41.159
+Jitendra K: On the other hand, RT is a recognized textual entailment, which is…
+
+78
+00:08:41.450 --> 00:08:48.310
+Jitendra K: one of the techniques, again, from NLI Natural Language in France. It is a collection of data sets from past texts.
+
+79
+00:08:48.550 --> 00:08:55.260
+Jitendra K: Entailments, and then… Unlike MNLI, you're going to have three-way classification.
+
+80
+00:08:55.720 --> 00:09:01.480
+Jitendra K: So it takes model to determine if a relationship between, let's say, two sentences entailment or not.
+
+81
+00:09:01.900 --> 00:09:07.649
+Jitendra K: Kind of a yes and no questions, etc, so that you can able to test the model capabilities to generalize.
+
+82
+00:09:08.020 --> 00:09:12.500
+Jitendra K: So this is one of the, you know, techniques that has been used, so you can see that
+
+83
+00:09:12.660 --> 00:09:19.650
+Jitendra K: Some… some of the… Models, like GPT FewShot is doing…
+
+84
+00:09:20.140 --> 00:09:22.930
+Jitendra K: Over in terms of this particular benchmark.
+
+85
+00:09:23.270 --> 00:09:29.829
+Jitendra K: But for this benchmark, it is performing… with this technique, it is performing good in terms of inference.
+
+86
+00:09:30.050 --> 00:09:34.310
+Jitendra K: And GPT-3 fine-tune is also 89.5 and 85.4.
+
+87
+00:09:34.460 --> 00:09:45.909
+Jitendra K: That means the context length depends, there's a creation of dependencies, that context length will increase the reasoning power of the model, and that is what this experiment suggests.
+
+88
+00:09:49.790 --> 00:09:59.630
+Jitendra K: Now, we will revisit our, some of the discussion that we have performed, using Paft and LORAS. So, we'll talk about parametric action fine-tuning.
+
+89
+00:09:59.730 --> 00:10:08.099
+Jitendra K: So when we talk about parametric efficient fine-tuning, it's actually performing a fine-tuning on a few parameters, but we would like to achieve performance
+
+90
+00:10:08.460 --> 00:10:14.409
+Jitendra K: on a downstream task that is comparable to a fine-tune all the parameters. So there are various approaches.
+
+91
+00:10:14.880 --> 00:10:21.880
+Jitendra K: So, the first approach is subset, where we are picking a subset of parameters and fine-tune only that particular layer.
+
+92
+00:10:22.480 --> 00:10:28.340
+Jitendra K: And, try to train that particular layer with a top-K approach.
+
+93
+00:10:29.010 --> 00:10:36.999
+Jitendra K: We also use adapters, an additional layer that have few parameters, and we are trying to fine-tune only a tension layer using these adapters.
+
+94
+00:10:37.100 --> 00:10:42.790
+Jitendra K: There's something called prefix fine-tuning, That may also require…
+
+95
+00:10:42.970 --> 00:10:51.720
+Jitendra K: Some token sequences, and you're going to encode them as a key-value pair corresponding to those tokens, and try to use prefix fine-tuning.
+
+96
+00:10:51.840 --> 00:10:55.860
+Jitendra K: Because we are predicting the model capability to generate an expert prediction.
+
+97
+00:10:56.140 --> 00:11:02.060
+Jitendra K: LoRas, on the other hand, learn small deltas for each of the parameter metrics with a
+
+98
+00:11:02.300 --> 00:11:05.379
+Jitendra K: Low-rank metrics, and that's why it is low-rank adaptation.
+
+99
+00:11:05.840 --> 00:11:12.540
+Jitendra K: So we'll talk about these algorithms again, before we move on to the… Coding,
+
+100
+00:11:12.670 --> 00:11:20.180
+Jitendra K: use case. So, let me quickly… Talk about this part.
+
+101
+00:11:32.530 --> 00:11:40.409
+Jitendra K: Okay, so we will try to take a deep dive on the LORAS now. So, what is the purpose of LoRAS, and how LoRa work internally, and what is the…
+
+102
+00:11:40.900 --> 00:11:46.340
+Jitendra K: tailored solution using LoRa. So, let me just go back to my notebook.
+
+103
+00:12:00.850 --> 00:12:15.790
+Jitendra K: Okay, so we already understand that fine-tuning is a process of tailoring a machine learning model or large language model to a specific application, right? So, when we talk about a specific application, it could be a chatbot, or it could be a conversational tool as well.
+
+104
+00:12:16.160 --> 00:12:24.910
+Jitendra K: So, we are trying to achieve a high-quality performance, and with the help of some technique, like low-rank adaptation, and this is one of the most popular
+
+105
+00:12:25.070 --> 00:12:26.740
+Jitendra K: fine-tuning strategy.
+
+106
+00:12:26.900 --> 00:12:32.860
+Jitendra K: So first, we'll try to cover, again, the theory behind LoRAS, and how this whole process works.
+
+107
+00:12:33.120 --> 00:12:38.690
+Jitendra K: So you can see that, I can have shown you one example where I have a raw model.
+
+108
+00:12:38.970 --> 00:12:42.440
+Jitendra K: And I've got the QA model.
+
+109
+00:12:43.030 --> 00:12:48.329
+Jitendra K: So the results are there for fine-tuning before and after. The output is…
+
+110
+00:12:48.630 --> 00:12:56.439
+Jitendra K: Gaboration, the model repeater questions and bogus answers repeatably. After fine-tuning, the output is clear, concise, and accurate.
+
+111
+00:12:57.110 --> 00:13:07.150
+Jitendra K: So, if I have to just say that the learning state of the machine learning approaches will be focused on large language model when it comes to LoRAS, right?
+
+112
+00:13:07.440 --> 00:13:11.589
+Jitendra K: Now, what is fine-tuning, and why we are calling it as fine-tuning? As I mentioned that
+
+113
+00:13:11.790 --> 00:13:15.550
+Jitendra K: We are trying to expect a model performance improvement.
+
+114
+00:13:15.900 --> 00:13:23.180
+Jitendra K: And, we might require to train a model to acquire more complex tasks, and improving the performance in those tasks.
+
+115
+00:13:24.330 --> 00:13:32.910
+Jitendra K: So, what we are doing conceptually is, we are just using a bunch of data for tasks.
+
+116
+00:13:33.110 --> 00:13:35.730
+Jitendra K: Feeding it to the model, and then generating the…
+
+117
+00:13:35.900 --> 00:13:39.080
+Jitendra K: Scenarios which should be validated for that particular task.
+
+118
+00:13:39.490 --> 00:13:45.949
+Jitendra K: So, in the simplest sense, you take… you take an untrained model, give it a data, and get a performance model.
+
+119
+00:13:46.320 --> 00:13:53.399
+Jitendra K: And this is one of the popular strategies for simple problem, but for more complex problem, it can be useful to think of training two parts.
+
+120
+00:13:53.730 --> 00:13:59.409
+Jitendra K: Which is called pre-training and fine-tuning. So that's the difference, right? So pre-training and fine-tuning.
+
+121
+00:13:59.700 --> 00:14:06.940
+Jitendra K: So when we talk about pre-training and fine-tuning, the general idea is to do an initial training, or initial training pass on a bulb data set.
+
+122
+00:14:07.050 --> 00:14:15.290
+Jitendra K: And then to refine the model on a tailored data set. So the pre-training, this is pre-training, then fine-tuning strategy that can allow data scientists
+
+123
+00:14:15.410 --> 00:14:19.530
+Jitendra K: Or a team of data scientists to leverage multiple forms of data and use large
+
+124
+00:14:19.880 --> 00:14:26.820
+Jitendra K: pre-trained model for a specific task. So as a result, a pre-trained model then fine-tuned for common purposes.
+
+125
+00:14:27.020 --> 00:14:31.950
+Jitendra K: And it is becoming an incredible, powerful technique for many of them.
+
+126
+00:14:33.100 --> 00:14:40.759
+Jitendra K: Now, let's talk about a difficulty associated with fine-tuning. So, when we talk about fine-tuning, there's always a difficulty. We talk about so many…
+
+127
+00:14:41.160 --> 00:14:46.869
+Jitendra K: computational cost parameters, etc. So the most basic form of fine-tuning
+
+128
+00:14:47.050 --> 00:14:51.279
+Jitendra K: Is to use the same extract process you used to pre-train a model.
+
+129
+00:14:51.670 --> 00:14:54.260
+Jitendra K: Than to fine-tune that model on a new data.
+
+130
+00:14:54.440 --> 00:15:02.629
+Jitendra K: So you might train a model on a huge corpus of genetic text, and then fine-tune that model using the same training strategy, or a specific dataset.
+
+131
+00:15:02.810 --> 00:15:09.629
+Jitendra K: So this strategy can be expensive. LLMs are absolutely massive to fine-tune using this strategy.
+
+132
+00:15:09.750 --> 00:15:17.570
+Jitendra K: And you will require a sufficient amount of memory to store not only the entire model, but also the gradient for every parameter in the entire model.
+
+133
+00:15:17.750 --> 00:15:25.630
+Jitendra K: So, gradient being the thing that lets the model know what direction it is tweaking… it is required to tweak the parameter.
+
+134
+00:15:26.010 --> 00:15:28.740
+Jitendra K: So both the parameters and the gradient need to be…
+
+135
+00:15:28.920 --> 00:15:33.380
+Jitendra K: live on GPU space, which is why training requires expensive.
+
+136
+00:15:33.650 --> 00:15:39.029
+Jitendra K: Right? So this is where, during backpropagation, When you're pre-training the model.
+
+137
+00:15:39.540 --> 00:15:45.830
+Jitendra K: Your loss function will calculate the gradient, and it will perform the model updates with the parameters.
+
+138
+00:15:46.210 --> 00:15:51.859
+Jitendra K: So that is where the whole cycle of GPU memory will become.
+
+139
+00:15:52.140 --> 00:16:02.020
+Jitendra K: expensive. So back propagation, where the strategy is to use a training machine learning model, and machine learning models are differentiable, which means you can calculate a gradient
+
+140
+00:16:02.270 --> 00:16:06.799
+Jitendra K: Which can tell you how small a change to a certain parameter will impact the model out.
+
+141
+00:16:07.000 --> 00:16:08.809
+Jitendra K: And we generate a prediction.
+
+142
+00:16:09.410 --> 00:16:10.979
+Jitendra K: Calculate a gradient.
+
+143
+00:16:11.180 --> 00:16:16.129
+Jitendra K: Calculate how wrong the prediction is, and then use a gradient to improve the parameter of the model.
+
+144
+00:16:16.280 --> 00:16:21.930
+Jitendra K: So both pre-trained and fine-tuning employ backpropagation, which required a computation of the gradient.
+
+145
+00:16:22.170 --> 00:16:26.950
+Jitendra K: for every learnable parameter in the model. That means if you have 100 billion parameter models.
+
+146
+00:16:27.970 --> 00:16:29.480
+Jitendra K: You need to store 100 billion.
+
+147
+00:16:29.480 --> 00:16:31.230
+Apurba Roy: Oh, good asleep!
+
+148
+00:16:31.990 --> 00:16:33.530
+Jitendra K: I think somebody is a doctor.
+
+149
+00:16:49.040 --> 00:16:49.660
+Jitendra K: Yep.
+
+150
+00:16:51.300 --> 00:16:59.939
+Jitendra K: So, when we are storing the gradient, it is common to store as a checkpoint. So, when you're training the model, there's always,
+
+151
+00:17:00.120 --> 00:17:04.919
+Jitendra K: Of method that you are using to store the gradient, and this is called checkpoint method.
+
+152
+00:17:05.339 --> 00:17:13.939
+Jitendra K: So you're creating a copy of the model at a particular state throughout the training process, and this is a great strategy, allowing one experiment with the model at different phases.
+
+153
+00:17:14.339 --> 00:17:20.539
+Jitendra K: Of the fine-tuning process, but it means that you need to store numerous full-size or full copy of the model.
+
+154
+00:17:20.720 --> 00:17:23.880
+Jitendra K: So let's say, for example, I've tried to train
+
+155
+00:17:24.250 --> 00:17:27.420
+Jitendra K: a model called Falcon in 2024.
+
+156
+00:17:28.250 --> 00:17:31.840
+Jitendra K: And Falcon is, 180 billion parameter.
+
+157
+00:17:32.050 --> 00:17:38.069
+Jitendra K: So, a modern LLM required around 360 GB of storage, if you want to store a checkpoint of the model.
+
+158
+00:17:38.280 --> 00:17:44.250
+Jitendra K: 10 times through the fine-tuning process. So it may consume 3.6 terabytes of storage, which is a lot.
+
+159
+00:17:44.860 --> 00:17:51.329
+Jitendra K: But perhaps, even more importantly, it takes time to save such a large amount of data, and that data typically has to come off
+
+160
+00:17:51.500 --> 00:17:55.350
+Jitendra K: the GPU into the RAM, and then onto a storage.
+
+161
+00:17:55.530 --> 00:17:59.509
+Jitendra K: So, you're adding a potential significant delay to the fine-tuning process.
+
+162
+00:17:59.770 --> 00:18:07.309
+Jitendra K: So that is where LoRa come into play. LoRa can help you to deal with these issues and more, and less GPU memory requirement.
+
+163
+00:18:07.540 --> 00:18:11.999
+Jitendra K: Can be required with quantization of LORAS as well.
+
+164
+00:18:12.140 --> 00:18:14.029
+Jitendra K: And you can keep,
+
+165
+00:18:14.890 --> 00:18:20.039
+Jitendra K: kind of a small file size, faster fine-tuning times, and the list goes on, so…
+
+166
+00:18:20.330 --> 00:18:23.609
+Jitendra K: In a practical sense, one can generally consider that LoRa
+
+167
+00:18:23.990 --> 00:18:28.580
+Jitendra K: It's a direct upgrade on the training traditional style of fine-tuning.
+
+168
+00:18:28.820 --> 00:18:32.499
+Jitendra K: While reducing the overhead on memory.
+
+169
+00:18:33.330 --> 00:18:35.960
+Jitendra K: So, LoRa stands for Low Rank Adaptation.
+
+170
+00:18:36.370 --> 00:18:40.700
+Jitendra K: as a form of a parameter action fine-tuning method. So, LORAS comes under PEFT.
+
+171
+00:18:41.720 --> 00:18:43.979
+Jitendra K: Right, so PAFT is the technique.
+
+172
+00:18:44.650 --> 00:18:46.259
+Jitendra K: And LoRa is a method.
+
+173
+00:18:46.540 --> 00:18:49.960
+Jitendra K: So this is a technique, right? Parametric action fine-tuning.
+
+174
+00:18:50.340 --> 00:18:51.970
+Jitendra K: So there are different variants of…
+
+175
+00:18:52.270 --> 00:18:54.870
+Jitendra K: parameter efficiency fine-tuning, we are talking about LoRa.
+
+176
+00:18:55.400 --> 00:18:58.190
+Jitendra K: There are some more techniques, like quantized LoRa.
+
+177
+00:19:00.000 --> 00:19:02.950
+Jitendra K: DORA, etc. There are a lot of techniques, right?
+
+178
+00:19:05.310 --> 00:19:07.820
+Jitendra K: So we'll cover this part, which is famous.
+
+179
+00:19:08.930 --> 00:19:16.029
+Jitendra K: Laura… So, LoRa is a form of a parameter-efficient fine-tuning, which allows one of the fine-tuning
+
+180
+00:19:16.190 --> 00:19:20.720
+Jitendra K: Method which large language models use as a small number of trainable parameters.
+
+181
+00:19:20.900 --> 00:19:24.400
+Jitendra K: All learnable parameters. So, LoRa employs a few concepts.
+
+182
+00:19:24.840 --> 00:19:31.760
+Jitendra K: which we can use to improve the fine-tuning process. So we can think of fine-tuning as a learning challenges.
+
+183
+00:19:31.950 --> 00:19:36.250
+Jitendra K: Or learning changes to parameter instead of adjusting the parameter themselves.
+
+184
+00:19:36.620 --> 00:19:42.970
+Jitendra K: And we can try to compress those changes into a smaller representation by removing the duplicate information in the memory.
+
+185
+00:19:43.310 --> 00:19:47.399
+Jitendra K: So we can load our changes by simply adding them to a pre-trained parameter.
+
+186
+00:19:47.840 --> 00:19:50.849
+Jitendra K: So, fine-tuning as a parameter change.
+
+187
+00:19:51.620 --> 00:19:54.919
+Jitendra K: It's quite a, you know, obvious process.
+
+188
+00:19:55.400 --> 00:19:59.679
+Jitendra K: When you're doing the fine-tuning on the LLM model.
+
+189
+00:19:59.810 --> 00:20:01.339
+Jitendra K: Or a baseline model.
+
+190
+00:20:01.880 --> 00:20:06.089
+Jitendra K: So what you're doing is… As we have discussed here.
+
+191
+00:20:08.010 --> 00:20:10.200
+Jitendra K: Right? This is the generic process.
+
+192
+00:20:10.500 --> 00:20:19.359
+Jitendra K: So the most basic approach is to fine-tune comprised of iterative updating the parameter, just like normal model training. You have a model make an inference.
+
+193
+00:20:19.470 --> 00:20:23.260
+Jitendra K: Then update a parameter of the model based on how long that inference was.
+
+194
+00:20:23.440 --> 00:20:30.330
+Jitendra K: So, Laura, think of this slightly different. Instead of thinking of fine-tuning as a learnable or learning pattern parameter.
+
+195
+00:20:30.810 --> 00:20:35.310
+Jitendra K: You can think of fine-tuning as a… Learning parameter change.
+
+196
+00:20:36.070 --> 00:20:41.349
+Jitendra K: So instead of learning better parameter, it says that I would like to learn parameter change.
+
+197
+00:20:41.700 --> 00:20:51.289
+Jitendra K: And you can freeze the model parameter exactly how they are, and learn the changes to those parameters, which are necessary to make the model performance better at a fine-tuning task.
+
+198
+00:20:51.620 --> 00:20:56.689
+Jitendra K: So, this is the hack which Laura used. Instead of doing a vanilla architecture.
+
+199
+00:20:57.020 --> 00:20:59.230
+Jitendra K: We'll change the architecture using adapter.
+
+200
+00:20:59.370 --> 00:21:00.679
+Jitendra K: So this is the change.
+
+201
+00:21:01.200 --> 00:21:01.970
+Jitendra K: Right?
+
+202
+00:21:02.860 --> 00:21:09.919
+Jitendra K: Now, when we're changing this, You can have… make the model during inference.
+
+203
+00:21:10.140 --> 00:21:13.819
+Jitendra K: And the update will be based upon how long the inference was.
+
+204
+00:21:14.650 --> 00:21:20.420
+Jitendra K: So instead of updating the model parameter, you update a change in the model parameter. So in LoRa, we freeze
+
+205
+00:21:20.730 --> 00:21:24.199
+Jitendra K: The model parameter, and create a new set of value.
+
+206
+00:21:24.810 --> 00:21:34.789
+Jitendra K: which describes the changes in those parameters. And we then learn the parameter changes necessary to perform better on the fine-tuning tasks. So you might be thinking that this is a bit of…
+
+207
+00:21:35.200 --> 00:21:38.799
+Jitendra K: silly abstraction, but the whole point of LoRa is that what makes
+
+208
+00:21:39.350 --> 00:21:41.839
+Jitendra K: the whole point of LoRaise.
+
+209
+00:21:42.460 --> 00:21:46.279
+Jitendra K: That we want to make FineTune smaller and faster.
+
+210
+00:21:46.560 --> 00:21:55.409
+Jitendra K: How does adding more data and extra step allow us to do that? So that is what we are going to use as a part of a parameter change compression algorithm.
+
+211
+00:21:56.770 --> 00:22:02.140
+Jitendra K: So, what is parameter change compression algorithm, which has been used by Laura? So…
+
+212
+00:22:02.520 --> 00:22:12.080
+Jitendra K: As I mentioned, we are working on neural network training. So neural network will have a series of neurons and a series of activation functions, right? So inside transformer.
+
+213
+00:22:12.310 --> 00:22:14.380
+Jitendra K: We are using a same architecture.
+
+214
+00:22:14.880 --> 00:22:22.339
+Jitendra K: So, it's a dense network as a series of weighted connections, each input gets multiplied by some weight, and then add to the output.
+
+215
+00:22:22.720 --> 00:22:24.490
+Jitendra K: So basically what it does is.
+
+216
+00:22:25.790 --> 00:22:30.529
+Jitendra K: Instead of doing the parameter updates, it used the adapter.
+
+217
+00:22:30.770 --> 00:22:32.740
+Jitendra K: A set of two metrics.
+
+218
+00:22:33.480 --> 00:22:43.049
+Jitendra K: So basically, what it does is, it uses a two matrix, a matrix of value, which is called weight matrix, get multiplied by the vector of the input to create
+
+219
+00:22:43.190 --> 00:22:44.570
+Jitendra K: The vector of output.
+
+220
+00:22:45.000 --> 00:22:51.059
+Jitendra K: So this is where, how the metric multiplication works. So in this example, you can see the red dots.
+
+221
+00:22:51.960 --> 00:22:55.900
+Jitendra K: So if I'm going to write the equation for these red dots, it will be…
+
+222
+00:22:59.730 --> 00:23:07.480
+Jitendra K: This point would be equal to… A11… dot B12.
+
+223
+00:23:07.800 --> 00:23:09.950
+Jitendra K: There's a dot product in between.
+
+224
+00:23:10.140 --> 00:23:13.350
+Jitendra K: Plus… A12.
+
+225
+00:23:14.410 --> 00:23:18.880
+Jitendra K: dot B22. Basically, I'm just doing a matrix operation.
+
+226
+00:23:19.520 --> 00:23:28.130
+Jitendra K: So these are the combination of multiplication and addition, which is very similar to, you are doing in deep learning, right? So, metric multiplication end up
+
+227
+00:23:28.380 --> 00:23:34.669
+Jitendra K: shaking out exactly identical to the concept of weight connection, right? So, basically, you're creating a grid.
+
+228
+00:23:35.300 --> 00:23:41.479
+Jitendra K: From each matrix operation. And you're storing these values in memory to perform the updates on the weights.
+
+229
+00:23:42.140 --> 00:23:45.859
+Jitendra K: So basically, Laura used two property.
+
+230
+00:23:46.290 --> 00:23:49.170
+Jitendra K: of metrics. The first is called linear dependency.
+
+231
+00:23:49.720 --> 00:23:53.370
+Jitendra K: So you can think of a metric which is having a two-dimensional array of value.
+
+232
+00:23:53.730 --> 00:23:56.459
+Jitendra K: So let's say I have a two-dimensional array matrix.
+
+233
+00:23:57.630 --> 00:24:02.749
+Jitendra K: Which is… A simple 2 plus 2 array.
+
+234
+00:24:03.770 --> 00:24:08.350
+Jitendra K: Which is having, let's say, a value of 1, 3… 0 minus 2.
+
+235
+00:24:11.150 --> 00:24:23.339
+Jitendra K: So, this is a two-dimensional array of value, as each rows and column of the vector. For now, just… let's just think of this matrix as a row of vectors. So, we have matrix comprising of two vectors, which looks like this.
+
+236
+00:24:23.780 --> 00:24:28.810
+Jitendra K: Now, each of the vectors, you can… Point in different direction.
+
+237
+00:24:29.060 --> 00:24:31.019
+Jitendra K: So basically, if I have to just say.
+
+238
+00:24:31.490 --> 00:24:37.050
+Jitendra K: This is one matrix, maybe another matrix looks like this. The projection of these metrics looks like this.
+
+239
+00:24:37.320 --> 00:24:41.879
+Jitendra K: If I'm going to add a third vector, it will be of different positioning.
+
+240
+00:24:42.300 --> 00:24:44.940
+Jitendra K: Right, so… That means…
+
+241
+00:24:45.430 --> 00:24:50.849
+Jitendra K: Vector A and vector B are pointing in the same exact direction, while vector C is pointing in a different direction.
+
+242
+00:24:51.250 --> 00:24:55.170
+Jitendra K: So as a result, no matter how you squash and stretch either A and B,
+
+243
+00:24:56.060 --> 00:25:02.750
+Jitendra K: you will have never able to describe C. Therefore, C is linearly independent from A and B, right?
+
+244
+00:25:03.000 --> 00:25:05.360
+Jitendra K: However, you can stretch A,
+
+245
+00:25:05.460 --> 00:25:11.110
+Jitendra K: equal to B, and vice versa. So A and B are linearly independent. Sorry, linearly independent.
+
+246
+00:25:11.640 --> 00:25:14.099
+Jitendra K: So let's say A and B
+
+247
+00:25:14.350 --> 00:25:16.630
+Jitendra K: Wanted in a slightly different direction.
+
+248
+00:25:17.080 --> 00:25:18.869
+Jitendra K: Let's take another use case.
+
+249
+00:25:19.290 --> 00:25:24.409
+Jitendra K: And this time, instead of projecting in the same direction, I'm projecting them in two different directions.
+
+250
+00:25:24.770 --> 00:25:31.060
+Jitendra K: So let's say A and B are pointing to a different direction. Now, A and B can be used together with some squashing and stretching.
+
+251
+00:25:31.420 --> 00:25:36.050
+Jitendra K: to describe the vector C. And likewise, A and B can be described by the vector
+
+252
+00:25:36.710 --> 00:25:40.769
+Jitendra K: And, we will use the operational property of these vectors.
+
+253
+00:25:40.940 --> 00:25:43.970
+Jitendra K: To project the direction as well as magnitude.
+
+254
+00:25:44.430 --> 00:25:46.300
+Jitendra K: Right, to differentiate A.
+
+255
+00:25:46.550 --> 00:25:47.310
+Jitendra K: Right?
+
+256
+00:25:47.470 --> 00:25:55.630
+Jitendra K: So, conceptually speaking, linear independent vectors can be thought of containing different information, while linearly dependent vector
+
+257
+00:25:55.840 --> 00:26:02.480
+Jitendra K: can contain some duplicate data or information between them. And that is what the concept of LORI is.
+
+258
+00:26:02.620 --> 00:26:09.540
+Jitendra K: To use the matrix property, of projection first. The second property it uses, the rank.
+
+259
+00:26:11.020 --> 00:26:15.150
+Jitendra K: So the idea of rank is to quantify the amount of linear dependency.
+
+260
+00:26:15.300 --> 00:26:16.620
+Jitendra K: Within the metrics.
+
+261
+00:26:17.120 --> 00:26:24.720
+Jitendra K: So… So basically, when you talk about any rank of a matrix, you're talking about dimension of a matrix.
+
+262
+00:26:25.390 --> 00:26:32.509
+Jitendra K: Right? So, Laura will use the second property as a rank. The third property, it uses a matrix factor.
+
+263
+00:26:33.380 --> 00:26:40.380
+Jitendra K: So, let's take an example of a matrix factorization. When you're factorizing the metrics, you're splitting the metrics into
+
+264
+00:26:41.470 --> 00:26:48.179
+Jitendra K: rows and columns, right? So metrics can contain some level of duplicate information in the form of a linear dependence.
+
+265
+00:26:48.550 --> 00:26:55.540
+Jitendra K: We can exploit this idea using factorization to represent large metrics in terms of Too small subset.
+
+266
+00:26:56.500 --> 00:27:02.539
+Jitendra K: Similarly, how to… similarly, how a large matrix can represent as a multiplication of two small subset.
+
+267
+00:27:03.550 --> 00:27:09.020
+Jitendra K: The core idea behind LoRa is… So, Laura, think of tuning.
+
+268
+00:27:09.190 --> 00:27:11.160
+Jitendra K: Not adjusting the parameter.
+
+269
+00:27:11.870 --> 00:27:18.320
+Jitendra K: But as a learnable parameter change. So with LoRa, we do not learn the parameter changes directly.
+
+270
+00:27:18.600 --> 00:27:22.790
+Jitendra K: However, we learned a factor of parameter changes in the metrics.
+
+271
+00:27:23.360 --> 00:27:27.009
+Jitendra K: And that is what LoRa is useful for.
+
+272
+00:27:29.090 --> 00:27:30.930
+Jitendra K: And this is what Laura is doing.
+
+273
+00:27:31.150 --> 00:27:33.060
+Jitendra K: So the idea behind LoRa is…
+
+274
+00:27:33.980 --> 00:27:40.080
+Jitendra K: You have a learningable factors of the change matrix, which relies on the core assumption that weight matrix
+
+275
+00:27:40.390 --> 00:27:44.580
+Jitendra K: Within a large language model, have a lot of linear dependency on the other metrics.
+
+276
+00:27:45.010 --> 00:27:48.279
+Jitendra K: So as a result of having significant more parameter.
+
+277
+00:27:48.390 --> 00:27:51.959
+Jitendra K: you need to shrink them. So, overall parameter has to be…
+
+278
+00:27:52.570 --> 00:27:59.560
+Jitendra K: remove from the training. And this idea behind the LoRa, once you have learned a general task with pre-trained.
+
+279
+00:27:59.780 --> 00:28:07.570
+Jitendra K: you can do a fine-tuning with significantly less information. So that is what LoRa, generalize. So, fine-tuning.
+
+280
+00:28:08.040 --> 00:28:12.189
+Jitendra K: Now, let's talk about a fine-tuning, flow of LoRa.
+
+281
+00:28:12.920 --> 00:28:15.120
+Jitendra K: So, in the fine-tuning flow of LoRa.
+
+282
+00:28:16.330 --> 00:28:21.760
+Jitendra K: First, we need to freeze the model parameter. The first and foremost thing will freeze the model parameter.
+
+283
+00:28:22.040 --> 00:28:29.139
+Jitendra K: the actual model that you're using to point you. So I will freeze the model parameter. I will say I will untouch
+
+284
+00:28:29.720 --> 00:28:32.159
+Jitendra K: Any parameter only waits in the model.
+
+285
+00:28:32.520 --> 00:28:38.190
+Jitendra K: So first, we freeze the model parameter. We will be using this parameter to make inference, but won't update them.
+
+286
+00:28:38.770 --> 00:28:40.640
+Jitendra K: Now, we'll create two metrics.
+
+287
+00:28:40.760 --> 00:28:44.669
+Jitendra K: They are sized in such a way that when they multiply together.
+
+288
+00:28:44.930 --> 00:28:52.930
+Jitendra K: they will be of same size as the weight matrix of the model we are fine-tuning. So in large model with multiple weight matrix, you can create
+
+289
+00:28:53.210 --> 00:28:59.190
+Jitendra K: one of these pairs for each matrix. So that means you require two metrics that need to be fine-tuned.
+
+290
+00:29:00.090 --> 00:29:01.760
+Jitendra K: So these are the two metrics.
+
+291
+00:29:02.180 --> 00:29:03.179
+Jitendra K: A and B.
+
+292
+00:29:04.310 --> 00:29:06.090
+Jitendra K: So this is the second phase of LoRa.
+
+293
+00:29:06.420 --> 00:29:10.710
+Jitendra K: Now, during the third phase, we calculate the change matrix.
+
+294
+00:29:10.820 --> 00:29:12.500
+Jitendra K: We'll say that I have…
+
+295
+00:29:16.000 --> 00:29:17.800
+Jitendra K: The change metrics now.
+
+296
+00:29:18.450 --> 00:29:23.240
+Jitendra K: This is a change matrix. Then we pass our input through both the frozen weight and the change matrix.
+
+297
+00:29:24.290 --> 00:29:26.790
+Jitendra K: Which is… You're this tab?
+
+298
+00:29:31.780 --> 00:29:39.940
+Jitendra K: Right? And then we calculate a loss based upon the combination of both output, and then we update the matrix A and B based upon the loss.
+
+299
+00:29:40.350 --> 00:29:43.469
+Jitendra K: So this is what LoRa works like an adapter.
+
+300
+00:29:43.660 --> 00:29:46.100
+Jitendra K: Right, so it is trying to conjoin.
+
+301
+00:29:46.270 --> 00:29:49.659
+Jitendra K: Both model parameter and the change matrix using a loss function.
+
+302
+00:29:49.770 --> 00:29:54.590
+Jitendra K: And then individually fine-tuning the metrics using these two simpler operations.
+
+303
+00:29:54.870 --> 00:30:00.319
+Jitendra K: So we do this operation until we have optimized the factor of change metrics for our fine-tuning tasks.
+
+304
+00:30:00.680 --> 00:30:11.879
+Jitendra K: So basically, the back propagation setup will simply use update on matrix A and matrix B, which is much, much faster than the process to update a full set of model parameters.
+
+305
+00:30:12.140 --> 00:30:16.249
+Jitendra K: So, on account of A and B, Which are significantly small.
+
+306
+00:30:16.780 --> 00:30:20.259
+Jitendra K: Right? LoRa is typically faster than traditional fine-tuning.
+
+307
+00:30:20.620 --> 00:30:25.380
+Jitendra K: So once you have generate, the model updated parameter.
+
+308
+00:30:25.710 --> 00:30:33.529
+Jitendra K: you will preserve it along with the model freeze parameter. That means it will become the nice equation that we have already discussed.
+
+309
+00:30:33.870 --> 00:30:40.420
+Jitendra K: Delta W plus… or I would say W plus… Delta W.
+
+310
+00:30:41.450 --> 00:30:43.379
+Jitendra K: is equal to W prime.
+
+311
+00:30:44.540 --> 00:30:48.249
+Jitendra K: Right? So this is what… The LoRa is doing.
+
+312
+00:30:48.930 --> 00:30:57.189
+Jitendra K: So… Now the question is, if we have to reconstruct the strategy, how it is affecting the transformer model?
+
+313
+00:30:58.300 --> 00:31:04.670
+Jitendra K: So, this is a transformer model. We are talking about decoder only, right? So, this is a generic transformer.
+
+314
+00:31:05.230 --> 00:31:15.360
+Jitendra K: So… Now, the question is… which layer… which, I mean, which particular process?
+
+315
+00:31:15.910 --> 00:31:21.939
+Jitendra K: Where's the change in this transformer architecture when we're training with LoRAS? Which layer it is attacking
+
+316
+00:31:22.470 --> 00:31:26.930
+Jitendra K: So we have already understood that it is going to use attention mechanism there.
+
+317
+00:31:27.220 --> 00:31:32.110
+Jitendra K: And then, conceptually, it'll update, the weights in those layers.
+
+318
+00:31:32.390 --> 00:31:33.810
+Jitendra K: To generate an answer.
+
+319
+00:31:39.330 --> 00:31:46.840
+Jitendra K: So typically, the dense network in a transformer use multi-head self-attention layer. So that self-attention layer you can see here.
+
+320
+00:31:47.310 --> 00:31:49.529
+Jitendra K: And that is one of the key constructs.
+
+321
+00:31:49.650 --> 00:31:51.960
+Jitendra K: Or query, key, and value.
+
+322
+00:31:52.620 --> 00:31:57.559
+Jitendra K: Right, so these are shallow, dense networks, which comprise most of the learnable parameter in the transformers.
+
+323
+00:31:58.060 --> 00:32:05.919
+Jitendra K: And they are very, very large. They might be over 100,000 input neurons being connected to 100,000 output neurons.
+
+324
+00:32:06.140 --> 00:32:09.519
+Jitendra K: Meaning a single weight metric describing one of these networks.
+
+325
+00:32:09.800 --> 00:32:14.720
+Jitendra K: It might be a 10 billion parameter, if you multiply 100,000 with 100,000.
+
+326
+00:32:15.010 --> 00:32:21.359
+Jitendra K: So even those… I mean, even you can think these networks might be of more depth.
+
+327
+00:32:21.840 --> 00:32:27.279
+Jitendra K: So they are super-duper wide, and thus the weight of the matrix is also large.
+
+328
+00:32:27.650 --> 00:32:29.609
+Jitendra K: So, from the perspective of Laura.
+
+329
+00:32:35.520 --> 00:32:41.050
+Jitendra K: So, from our perspective, Laura, We are trying to use these weights.
+
+330
+00:32:43.700 --> 00:32:49.230
+Jitendra K: Right? And, you're trying to factorize the changes for every… parameters.
+
+331
+00:32:49.340 --> 00:32:54.610
+Jitendra K: So basically, Laura has a hyperparameter name as… Rank.
+
+332
+00:32:55.320 --> 00:33:01.660
+Jitendra K: Which describes the depth of the two metrics, A and B.
+
+333
+00:33:07.320 --> 00:33:14.270
+Jitendra K: Right, so this is where you are going to construct the change matrix, which we have discussed in this slide, the change matrix.
+
+334
+00:33:14.970 --> 00:33:16.560
+Jitendra K: The change metrics…
+
+335
+00:33:17.270 --> 00:33:22.570
+Jitendra K: Higher the value of R means that larger the value of A and B in terms of rank.
+
+336
+00:33:22.860 --> 00:33:27.320
+Jitendra K: Which means that they can encode more linear independent information in these change metrics.
+
+337
+00:33:28.580 --> 00:33:32.600
+Jitendra K: So, the change matrix will be impacted by the dimension of A and B.
+
+338
+00:33:32.860 --> 00:33:36.540
+Jitendra K: That is something which we already… No.
+
+339
+00:33:36.660 --> 00:33:39.340
+Jitendra K: Right? If I'm going to use the change matrix.
+
+340
+00:33:39.840 --> 00:33:47.590
+Jitendra K: So the core assumption of LoRa is that the model parameter is of low implicit rank. It is a pretty strong assumption.
+
+341
+00:33:49.710 --> 00:33:53.630
+Jitendra K: So… So basically, what you're doing is…
+
+342
+00:33:54.490 --> 00:33:58.619
+Jitendra K: You're using these two metrics as a lower dimension.
+
+343
+00:33:59.360 --> 00:34:03.649
+Jitendra K: So that… You will generalize better as compared to
+
+344
+00:34:03.810 --> 00:34:07.049
+Jitendra K: The full-size matrix on the top of it.
+
+345
+00:34:07.320 --> 00:34:16.319
+Jitendra K: So the whole idea of LoRa is very simple. You are going to use adapter, you are going to perform this on the training, and then generating those output.
+
+346
+00:34:25.949 --> 00:34:29.449
+Jitendra K: Okay, now I will give you a very simple example how to set up a LoRa.
+
+347
+00:34:29.980 --> 00:34:35.230
+Jitendra K: with the help of Python, and then we'll take a… More advanced use case.
+
+348
+00:34:35.679 --> 00:34:41.569
+Jitendra K: to deep So, any question until this point? Any question?
+
+349
+00:34:41.929 --> 00:34:42.930
+Jitendra K: That you have?
+
+350
+00:34:46.600 --> 00:34:52.419
+Jitendra K: Let me see… so propagation from one layer to another layer is basically multiplying a bunch of metrics, like…
+
+351
+00:34:53.670 --> 00:34:58.129
+Jitendra K: The back propagation is gradient, it's not multiplication, it's derivatives.
+
+352
+00:34:58.310 --> 00:35:00.449
+Jitendra K: Backpropagation, use derivatives.
+
+353
+00:35:01.110 --> 00:35:03.489
+Jitendra K: There is no multiplication during backpropagation.
+
+354
+00:35:04.730 --> 00:35:07.709
+Jitendra K: So, when you're back-propagating, you're taking the data
+
+355
+00:35:07.980 --> 00:35:12.079
+Jitendra K: W bar delta T, which is derivative, partial derivative.
+
+356
+00:35:18.860 --> 00:35:20.750
+Jitendra K: Alright, any other question, guys?
+
+357
+00:35:28.810 --> 00:35:36.969
+Jitendra K: So this is how the decoder on a transformer, operate when you're operating… when you're using the LURA technique on adapter modules.
+
+358
+00:35:37.510 --> 00:35:41.069
+Jitendra K: This is what it looks like. So you have an adapter, which is…
+
+359
+00:35:41.670 --> 00:35:49.800
+Jitendra K: Using the simple feed-forward neural network with one hidden layer and digital connection, and then this is what it is using as a two matrix.
+
+360
+00:35:49.940 --> 00:35:50.910
+Jitendra K: A and B.
+
+361
+00:35:58.300 --> 00:36:01.259
+Jitendra K: Okay, so we'll set up a very simple LoRa.
+
+362
+00:40:34.680 --> 00:40:40.800
+Jitendra K: So I've just run the two steps. The first step is… I'm going to install,
+
+363
+00:40:41.320 --> 00:40:44.190
+Jitendra K: few libraries, like Bit and Byte.
+
+364
+00:40:44.540 --> 00:40:49.960
+Jitendra K: which is for representing the model using a smaller data type. That means I would like to save memory.
+
+365
+00:40:51.410 --> 00:40:53.989
+Jitendra K: I'm going to download a dataset from Hugging Face Hub.
+
+366
+00:40:54.660 --> 00:40:59.399
+Jitendra K: And the accelerator, which is a GP accelerator, that is required dependency for…
+
+367
+00:41:00.460 --> 00:41:03.699
+Jitendra K: The model interoperability for some of the modules.
+
+368
+00:41:04.140 --> 00:41:08.570
+Jitendra K: And I'm using a LoRa lib, which is a LoRa implementation, in Hugging Face.
+
+369
+00:41:09.000 --> 00:41:14.899
+Jitendra K: theft technique, which is available in Hugging Face open source repositories.
+
+370
+00:41:16.370 --> 00:41:20.539
+Jitendra K: And transformers for downloading and using pre-training transform from Hugging Face.
+
+371
+00:41:21.030 --> 00:41:29.090
+Jitendra K: So I'm loading a very small, pre-train transformer, which is called Bloom, an open source, and… Quite…
+
+372
+00:41:30.860 --> 00:41:33.150
+Jitendra K: A small in terms of,
+
+373
+00:41:33.700 --> 00:41:36.940
+Jitendra K: language model, it has having 560 million parameter
+
+374
+00:41:37.340 --> 00:41:40.109
+Jitendra K: And I would like to just show the demo.
+
+375
+00:41:40.360 --> 00:41:42.850
+Jitendra K: And you can apply the same strategy for large…
+
+376
+00:41:42.960 --> 00:41:44.940
+Jitendra K: Modern size with, like, 3 billion N.
+
+377
+00:41:45.300 --> 00:41:49.610
+Jitendra K: 1 billion model parameters as well. So I'm just using 560 million right now.
+
+378
+00:41:50.700 --> 00:41:53.399
+Jitendra K: Setting up the LoRa, so for setting up the LoRa.
+
+379
+00:41:57.610 --> 00:42:03.260
+Jitendra K: Okay, we'll resolve this issue. But for setting up the LoRa, I'm having several configurations. One is a rank.
+
+380
+00:42:03.640 --> 00:42:08.379
+Jitendra K: The rank of metrics A and B, which is 8. LoRa Alpha, which is pretty…
+
+381
+00:42:08.730 --> 00:42:14.509
+Jitendra K: controversial parameter. A lot of people have a lot of ideas about it, but you can consider it as a scaling factor.
+
+382
+00:42:16.110 --> 00:42:17.819
+Jitendra K: And by default, it should be…
+
+383
+00:42:17.970 --> 00:42:21.889
+Jitendra K: equal to R, which is 8. So that's my lower alpha is 8.
+
+384
+00:42:22.440 --> 00:42:25.809
+Jitendra K: The target module, the proportion of the modules.
+
+385
+00:42:27.400 --> 00:42:33.770
+Jitendra K: We want to optimize with LoRa, so I'm using the blue module, which is having a parameter as query key value.
+
+386
+00:42:33.970 --> 00:42:35.719
+Jitendra K: Which we would like to optimize.
+
+387
+00:42:36.220 --> 00:42:41.200
+Jitendra K: And the dropout is a technique which I would like to use for regularization, to avoid overfitting.
+
+388
+00:42:41.690 --> 00:42:43.519
+Jitendra K: That means I will use,
+
+389
+00:42:43.740 --> 00:42:48.220
+Jitendra K: this layer called query value, key value, which is attention layer.
+
+390
+00:42:48.580 --> 00:42:54.170
+Jitendra K: And then use a dropout of 5% to switch off the neurons during training.
+
+391
+00:42:54.320 --> 00:42:58.300
+Jitendra K: To avoid overfitting, because neurons are good in memorizing the patterns.
+
+392
+00:42:58.900 --> 00:43:03.820
+Jitendra K: So, with this dropout rate, you can… Reduce the overfitting.
+
+393
+00:43:05.300 --> 00:43:13.490
+Jitendra K: I'm creating a bias factor which is null, or neural network typically have two parameters, weights and bias, so we are training weights in this example.
+
+394
+00:43:14.130 --> 00:43:17.170
+Jitendra K: So, task type, that means I'm not,
+
+395
+00:43:17.380 --> 00:43:22.979
+Jitendra K: need a very super necessary, super cost configuration, so I'm calling this a Schedule LLM model.
+
+396
+00:43:24.610 --> 00:43:28.909
+Jitendra K: And I would like to specific… language, which is called codile.
+
+397
+00:43:29.770 --> 00:43:34.059
+Jitendra K: Neurons are good in remembering the patterns. They create the patterns.
+
+398
+00:43:35.670 --> 00:43:37.809
+Jitendra K: They are very good in remembering the patterns.
+
+399
+00:43:38.090 --> 00:43:42.060
+Jitendra K: So you need to change and try to stress test them during training.
+
+400
+00:43:42.200 --> 00:43:43.979
+Jitendra K: And one other techniques is called?
+
+401
+00:43:47.950 --> 00:43:53.099
+Jitendra K: One other technique that you should use is, you should use dropout of neurons.
+
+402
+00:43:53.610 --> 00:43:55.969
+Jitendra K: Because they will form a pattern in one path.
+
+403
+00:43:59.120 --> 00:44:04.550
+Jitendra K: Alright, so let… shall we move on? Are you clear with this point? Until this point?
+
+404
+00:44:11.380 --> 00:44:14.130
+Jitendra K: Is everybody clear until this point?
+
+405
+00:44:20.970 --> 00:44:21.930
+Jitendra K: Okay.
+
+406
+00:44:22.930 --> 00:44:26.589
+Jitendra K: So let's move on. So I think there's an issue with this code.
+
+407
+00:44:35.810 --> 00:44:39.620
+Jitendra K: We are just enabling the connection with dataset. We haven't downloaded it yet.
+
+408
+00:44:39.910 --> 00:44:41.290
+Jitendra K: We'll download it later.
+
+409
+00:45:44.480 --> 00:45:46.070
+Jitendra K: Yeah, I'm sharing the link.
+
+410
+00:45:54.400 --> 00:45:57.219
+Jitendra K: This is still more than incompatible.
+
+411
+00:51:04.360 --> 00:51:06.949
+Jitendra K: I'm just modifying this, package.
+
+412
+00:51:12.430 --> 00:51:20.530
+Jitendra K: So we are using a SQUAD dataset, which is available in Hugging Face, and this is one of the famous data sets, which has been posted by Hugging Face for
+
+413
+00:51:20.900 --> 00:51:25.129
+Jitendra K: Q&A task. This is Stanford question and answer data set.
+
+414
+00:51:28.020 --> 00:51:34.410
+Jitendra K: So you can see there's a lot of empirical models and calculation which has been done on the top of it.
+
+415
+00:51:35.520 --> 00:51:39.830
+Jitendra K: And there are various models which have been tested, and you can see the results of each.
+
+416
+00:51:40.170 --> 00:51:46.839
+Jitendra K: It's not a new data set, it has been pretty old, 2017-18, I believe. Yeah, 17 onwards.
+
+417
+00:51:47.960 --> 00:51:49.890
+Jitendra K: Well, 16 is there.
+
+418
+00:51:53.170 --> 00:51:56.210
+Jitendra K: Yeah, so it's 8-year-old data.
+
+419
+00:51:56.320 --> 00:51:58.550
+Jitendra K: I would say 12 years old data.
+
+420
+00:51:58.660 --> 00:52:02.130
+Jitendra K: Which is there, provided to us.
+
+421
+00:52:05.940 --> 00:52:10.729
+Jitendra K: So this is… hold on a second, let me check the version again.
+
+422
+00:52:43.220 --> 00:52:46.409
+Jitendra K: Okay, so until this point, everything works well.
+
+423
+00:52:48.690 --> 00:52:52.749
+Jitendra K: then I'm going to have… A restructuring task.
+
+424
+00:52:52.970 --> 00:52:55.659
+Jitendra K: Of data, reformatting task on data.
+
+425
+00:52:56.090 --> 00:52:57.870
+Jitendra K: So I will use this task.
+
+426
+00:53:05.800 --> 00:53:07.470
+Jitendra K: It'll take some time.
+
+427
+00:54:49.560 --> 00:54:56.020
+Jitendra K: So basically, the model will expect this form of data. I'm just reformatting the data in this form.
+
+428
+00:54:58.860 --> 00:55:02.549
+Jitendra K: The context, followed by a question, then an answer.
+
+429
+00:55:06.160 --> 00:55:11.320
+Jitendra K: So this task is just to use the existing squad data and convert into this form.
+
+430
+00:56:08.790 --> 00:56:10.449
+Jitendra K: Okay, it's too long wings.
+
+431
+00:56:20.390 --> 00:56:24.360
+Jitendra K: Then we run the training, using Paft, and this is the code.
+
+432
+00:56:24.820 --> 00:56:27.959
+Jitendra K: A very simple code. You can see that
+
+433
+00:56:28.310 --> 00:56:35.949
+Jitendra K: I'm just using porting transformers, more PAFT models, train dataset, which is from… The previous step.
+
+434
+00:56:36.520 --> 00:56:41.969
+Jitendra K: I'm using a four, parallel process. Radiant accumulation, I will make it
+
+435
+00:56:42.730 --> 00:56:45.290
+Jitendra K: 4. Learning rate to be low.
+
+436
+00:56:45.720 --> 00:56:50.829
+Jitendra K: affiliate, which is integer, floating point 16-bit.
+
+437
+00:56:51.090 --> 00:56:52.130
+Jitendra K: to be true.
+
+438
+00:56:52.630 --> 00:56:59.710
+Jitendra K: And the output directory will store this model as it is. And I'm disabling the cache, because I don't have any.
+
+439
+00:57:00.300 --> 00:57:06.530
+Jitendra K: available computer sources. It's just, one TPU of 16GB VRAM.
+
+440
+00:57:08.490 --> 00:57:11.630
+Jitendra K: So, let's see how it…
+
+441
+00:57:11.850 --> 00:57:16.080
+Jitendra K: how much time it will take to train the model. I think it will take some while.
+
+442
+00:57:17.540 --> 00:57:19.580
+Jitendra K: And then we'll check the LoRa size.
+
+443
+00:57:51.110 --> 00:57:53.670
+Jitendra K: This, has been started.
+
+444
+00:57:55.860 --> 00:57:59.489
+Jitendra K: So this is what the warning is.
+
+445
+01:15:12.430 --> 01:15:17.450
+Jitendra K: Yeah, I think this is running for a while, so it will take some more time, I believe.
+
+446
+01:15:26.690 --> 01:15:31.540
+Jitendra K: But anyway, I will share the code with you guys, so you can run it, and then there's a testing…
+
+447
+01:15:31.730 --> 01:15:32.959
+Jitendra K: food as well.
+
+448
+01:15:33.180 --> 01:15:37.550
+Jitendra K: You can save the LoRa fine-tuning parameters with this.
+
+449
+01:15:37.930 --> 01:15:40.850
+Jitendra K: Command, and then you can save the pre-trained model.
+
+450
+01:15:41.360 --> 01:15:46.969
+Jitendra K: And then you can check, the file size using simple LS command in Linux.
+
+451
+01:15:47.300 --> 01:15:53.070
+Jitendra K: And then for testing purpose, you can generate some inference pipeline that will give us
+
+452
+01:15:53.600 --> 01:15:59.240
+Jitendra K: The idea how the model performed in terms of, the whole setup.
+
+453
+01:15:59.740 --> 01:16:02.760
+Jitendra K: And then you can test a few examples.
+
+454
+01:16:03.540 --> 01:16:09.219
+Jitendra K: With the help of this line of code. You can pass the context, questions, and inference.
+
+455
+01:16:09.380 --> 01:16:10.540
+Jitendra K: All trainer.
+
+456
+01:16:10.990 --> 01:16:12.280
+Jitendra K: Sequential manner.
+
+457
+01:16:25.500 --> 01:16:31.420
+Jitendra K: Okay, now I think I'll let it be run. I have another code that we are going to use for…
+
+458
+01:16:35.510 --> 01:16:39.510
+Jitendra K: That was a yesterday code that we are going to talk about now, the GRPO.
+
+459
+01:16:39.990 --> 01:16:45.219
+Jitendra K: So, any question on LoRa now? Are you guys comfortable with LoRa? Any question on this?
+
+460
+01:16:48.030 --> 01:16:50.279
+Jitendra K: Are you guys clear with Laura's now?
+
+461
+01:16:51.200 --> 01:16:54.889
+Jitendra K: If you would like to refer the paper for Laura, just follow this.
+
+462
+01:17:15.500 --> 01:17:18.870
+Jitendra K: This is the original paper of Laura, 2021.
+
+463
+01:17:19.300 --> 01:17:23.060
+Jitendra K: And there was few variants which have been… came across.
+
+464
+01:17:23.710 --> 01:17:26.930
+Jitendra K: So if you would like to check a Laura paper.
+
+465
+01:17:27.400 --> 01:17:29.399
+Jitendra K: You can go with Hugging Face.
+
+466
+01:17:32.080 --> 01:17:33.170
+Jitendra K: dot four dot.
+
+467
+01:17:34.080 --> 01:17:36.819
+Jitendra K: And then you can go with Laura.
+
+468
+01:17:37.410 --> 01:17:38.580
+Jitendra K: Adapters…
+
+469
+01:17:58.160 --> 01:18:00.860
+Jitendra K: So this is a coin image model, for example.
+
+470
+01:18:01.820 --> 01:18:06.590
+Jitendra K: And, you can… Look for document.
+
+471
+01:18:27.990 --> 01:18:30.330
+Jitendra K: Yes, you can see all the models are there.
+
+472
+01:18:31.120 --> 01:18:35.109
+Jitendra K: So this is a lower hub, that has been created by Hugging Face.
+
+473
+01:18:41.380 --> 01:18:50.250
+Jitendra K: How did you validate the fine-tuning is up to the mark? Is that through, any metrics? So you can use benchmarking, as I mentioned, so…
+
+474
+01:18:50.730 --> 01:18:58.160
+Jitendra K: we are using a very standard dataset called SQUAD, right? So SQUAD have different, reasoning benchmarking.
+
+475
+01:18:58.380 --> 01:19:04.590
+Jitendra K: So after you train the model with different techniques, you can check the baseline.
+
+476
+01:19:04.930 --> 01:19:05.889
+Jitendra K: Using that.
+
+477
+01:19:06.400 --> 01:19:12.129
+Jitendra K: And then based upon that, you can able to justify whether the model is performing well or not.
+
+478
+01:19:12.340 --> 01:19:14.209
+Jitendra K: Based upon the given data set.
+
+479
+01:19:14.670 --> 01:19:20.030
+Jitendra K: That's one thing that you can do. So, similar to… leadership board, your…
+
+480
+01:19:20.840 --> 01:19:26.329
+Jitendra K: fine-tuning your model with, LoRa, and they're benchmarking the outcome.
+
+481
+01:19:27.480 --> 01:19:28.730
+Jitendra K: Based upon that.
+
+482
+01:19:43.290 --> 01:19:47.470
+Jitendra K: So you can be able to compare, so this is a fine-tuned model.
+
+483
+01:19:47.790 --> 01:19:50.159
+Jitendra K: you can see that I can be able to compare this
+
+484
+01:19:50.550 --> 01:19:53.390
+Jitendra K: With the inference pipeline, and I can be able to do this.
+
+485
+01:19:53.690 --> 01:19:56.120
+Jitendra K: With all the models that I'm going to have.
+
+486
+01:19:57.420 --> 01:20:00.590
+Jitendra K: This is the base model plan, and this is a large model.
+
+487
+01:20:01.740 --> 01:20:04.880
+Jitendra K: So you can be able to do it, based upon…
+
+488
+01:20:05.110 --> 01:20:09.920
+Jitendra K: different strategies. One of the strategies, you have your train that data set now.
+
+489
+01:20:10.420 --> 01:20:18.250
+Jitendra K: You can use a precision recall metrics to check if I'm tuning the model with, squad dataset.
+
+490
+01:20:18.670 --> 01:20:24.619
+Jitendra K: And if I'm keeping 30% of the data as training, 70% of the data as training and 30% as…
+
+491
+01:20:24.850 --> 01:20:28.480
+Jitendra K: testing, then it should match the output, right, after training.
+
+492
+01:20:29.260 --> 01:20:36.350
+Jitendra K: For the remaining 30%. So you can use the same technique, like machine learning, ROC, AUC as well.
+
+493
+01:20:40.710 --> 01:20:45.540
+Jitendra K: Alright, so I think this is still running, so let's move on to another example in the interest of time.
+
+494
+01:20:45.720 --> 01:20:53.959
+Jitendra K: So this time, I'm going to talk about, the example that we have discussed in the last tutorial, which is called gRPU function.
+
+495
+01:20:54.360 --> 01:20:56.080
+Jitendra K: We'll continue with the same.
+
+496
+01:20:58.970 --> 01:21:02.230
+Jitendra K: And this one, I've already executed and saved the result.
+
+497
+01:21:02.490 --> 01:21:04.860
+Jitendra K: So I'm going to just show you the outcome.
+
+498
+01:21:18.120 --> 01:21:20.929
+Jitendra K: And the paper for GRPO will be this.
+
+499
+01:21:31.400 --> 01:21:38.100
+Jitendra K: And GRPO has been implemented by DeepSeek, right? So, DeepSeek used GRPO for pushing the
+
+500
+01:21:38.350 --> 01:21:43.180
+Jitendra K: limits our reasoning model in mathematical tasks, and that's the reason GRP has been implemented.
+
+501
+01:21:43.350 --> 01:21:48.970
+Jitendra K: You might have heard about, something called… MOE, mixture of experts, right?
+
+502
+01:21:49.080 --> 01:21:53.479
+Jitendra K: So, mixture of Expert is using this architecture, which is…
+
+503
+01:21:54.290 --> 01:21:58.970
+Jitendra K: training the model using GRP policy functions, and then pushing the limits of LLM
+
+504
+01:21:59.270 --> 01:22:03.770
+Jitendra K: to match the reasoning capability. So you can see that, this is one of the
+
+505
+01:22:03.900 --> 01:22:07.790
+Jitendra K: Competition benchmark that has been exceeded by this approach.
+
+506
+01:22:08.080 --> 01:22:12.690
+Jitendra K: And a star means the best model achieved so far, deep 6, 7 billion, which is…
+
+507
+01:22:13.200 --> 01:22:18.479
+Jitendra K: Superpassing all the best models of label by that time.
+
+508
+01:22:19.380 --> 01:22:23.560
+Jitendra K: GPT-4 early version as well, and GPT-4 API.
+
+509
+01:22:24.250 --> 01:22:26.359
+Jitendra K: Which is close to it, right?
+
+510
+01:22:26.600 --> 01:22:34.629
+Jitendra K: So this is a paper, you can look into this paper, you can go through the descriptions and understanding what exactly it is doing.
+
+511
+01:22:35.030 --> 01:22:41.349
+Jitendra K: And how it is, the data set has been annotated, what is the factors which have been considered to evaluate.
+
+512
+01:22:41.800 --> 01:22:46.930
+Jitendra K: We have… yesterday we talked about ESMK, now we'll talk about MMLU and STEM as well.
+
+513
+01:22:47.390 --> 01:22:55.640
+Jitendra K: So, and then Kokao is an exam which has been conducted in China, and I hope some of you have heard about it. It is one of the competitive exams in Earth.
+
+514
+01:22:56.290 --> 01:23:03.980
+Jitendra K: the most toughest exam, similar to IATJE in India, and it is 10 times more complex than IATJE.
+
+515
+01:23:06.090 --> 01:23:14.180
+Jitendra K: So they are also testing on that GOCAW exam, MathQA, and all those things. So this is what the performance parameter looks like.
+
+516
+01:23:27.500 --> 01:23:32.080
+Jitendra K: Okay, so we'll solve this, the same challenge, with the help of GRPO.
+
+517
+01:23:32.270 --> 01:23:33.610
+Jitendra K: the local model.
+
+518
+01:23:34.470 --> 01:23:38.509
+Jitendra K: And, the local model that we are going to use is, Quen.
+
+519
+01:23:38.640 --> 01:23:42.109
+Jitendra K: We'll use the Quen model, and then we'll try to use,
+
+520
+01:23:42.600 --> 01:23:45.829
+Jitendra K: This particular model for adapting to a domain.
+
+521
+01:23:45.990 --> 01:23:51.020
+Jitendra K: So, first and foremost thing, I would like to, use GSMK math dataset.
+
+522
+01:23:51.420 --> 01:24:00.199
+Jitendra K: And, I would like to use most probable Python problems, MBPP, most basic Python problem, to be solved by this model.
+
+523
+01:24:00.540 --> 01:24:02.829
+Jitendra K: So I will have a GRPO function.
+
+524
+01:24:03.200 --> 01:24:10.440
+Jitendra K: And the first and foremost thing, I will install some bunch of libraries, which include Transformers…
+
+525
+01:24:10.780 --> 01:24:14.349
+Jitendra K: Which is the basic package that I'm going to use.
+
+526
+01:24:14.640 --> 01:24:19.190
+Jitendra K: And then I've got, the path package, and accelerator.
+
+527
+01:24:19.720 --> 01:24:26.499
+Jitendra K: So after installation, I'm just checking the device configuration, so I'm using a CUDA architecture, so I'm just looking for…
+
+528
+01:24:26.810 --> 01:24:31.009
+Jitendra K: the fallback version of GPU, CPU, if GPU is not available.
+
+529
+01:24:31.310 --> 01:24:37.379
+Jitendra K: So I'm preferring AH100 or H100 GPUs.
+
+530
+01:24:37.510 --> 01:24:39.440
+Jitendra K: fallback on FP16.
+
+531
+01:24:39.570 --> 01:24:41.459
+Jitendra K: If they are not available.
+
+532
+01:24:42.080 --> 01:24:49.009
+Jitendra K: So, I have run this for… in my co-lab, so this is, having Tesla T4, so that's the reason they're showing it.
+
+533
+01:24:49.490 --> 01:24:54.209
+Jitendra K: Now, I'm creating a class. Now, this class, will have several hyperparameters.
+
+534
+01:24:54.370 --> 01:24:59.310
+Jitendra K: The first hyperparameter is the model name, so I'm using Quen 2.5.
+
+535
+01:24:59.690 --> 01:25:07.190
+Jitendra K: Which is a $1.5 billion model and struct model, and it is… Using a domain-specific,
+
+536
+01:25:07.750 --> 01:25:09.720
+Jitendra K: Use cases or adapter.
+
+537
+01:28:01.080 --> 01:28:01.890
+Jitendra K: Yeah.
+
+538
+01:28:02.790 --> 01:28:06.299
+Jitendra K: So, what we are doing is, we are having a mixture of expert model.
+
+539
+01:28:06.510 --> 01:28:17.140
+Jitendra K: Which define a domain sampling probabilities. So I'm using a GRPO core, which is having a group size of 8, and completion per prompt as an asymmetric clipping.
+
+540
+01:28:17.460 --> 01:28:23.469
+Jitendra K: And then I'm using a certain, smoothing parameters, which is EMS mode.
+
+541
+01:28:23.740 --> 01:28:28.030
+Jitendra K: And, it is also using some bit of,
+
+542
+01:28:28.740 --> 01:28:32.189
+Jitendra K: Minimum and maximum limit on the precisions part.
+
+543
+01:28:32.990 --> 01:28:37.690
+Jitendra K: So this is what I'm doing here. So this is, again, an active domain run sampling.
+
+544
+01:28:37.910 --> 01:28:44.290
+Jitendra K: Now, I would like to load the policy using LoRa, so the first policies I would like to create is…
+
+545
+01:28:44.380 --> 01:28:52.810
+Jitendra K: Padding on the left is required, because we are going to slice the completions from the right edge of the concatenation, which is prompt plus completions.
+
+546
+01:28:52.870 --> 01:29:08.340
+Jitendra K: Then I'm loading the base model. The base model will have eager attention. I think we have discussed this in the next previous tutorial. So I'm just avoiding flash attention and compatibility issue. Disables the cache and enable the gradient checkpoint to save memory.
+
+547
+01:29:08.860 --> 01:29:22.739
+Jitendra K: So, I'm using a low rank, Loada with rank 16, which has been applied to all the linear layers of the transformer block, and this reduced trainable parameter from 1.55 billion to 9.2 million parameter, and then fitting the T4 GPU.
+
+548
+01:29:22.860 --> 01:29:24.620
+Jitendra K: Based upon my requirement.
+
+549
+01:29:25.110 --> 01:29:38.749
+Jitendra K: So then I'm using a certain penalty factor, which is scale divergence, or frozen reference model. With LoRa, I'm using a dispensable adapter, and then I'm using Atom Optimizer to deal with it.
+
+550
+01:30:36.300 --> 01:30:46.160
+Jitendra K: Okay, so… Now, after this, what I'm doing is, I'm just using the trainable parameter, which required
+
+551
+01:30:46.550 --> 01:30:54.110
+Jitendra K: to pass on to this algorithm called Adaptive Momentum, and then based upon that, it will be able to optimize the runnable instance.
+
+552
+01:30:54.350 --> 01:31:01.270
+Jitendra K: Now, here, what I'm doing is, I'm loading the MAT domain data, so the system will enforce that I have this parameter
+
+553
+01:31:01.410 --> 01:31:06.229
+Jitendra K: In this form, reasoning, followed by reasoning answer, and then the answer format.
+
+554
+01:31:06.330 --> 01:31:15.240
+Jitendra K: So I'm just loading it, so I will extract the numerical answers in GSMK8 format, and extract the last box from the solution.
+
+555
+01:31:15.560 --> 01:31:21.929
+Jitendra K: And then I would like to attempt to load the math problem, which by default, levels 21 to 5 for curriculum.
+
+556
+01:31:22.060 --> 01:31:28.419
+Jitendra K: If unable to GSMK, 8K problems, right? This is what I'm doing.
+
+557
+01:31:30.270 --> 01:31:33.520
+Jitendra K: Now, I would like to run the model.
+
+558
+01:31:33.890 --> 01:31:40.630
+Jitendra K: By loading the… second coding problem, which is most basic Python programming.
+
+559
+01:31:40.750 --> 01:31:46.160
+Jitendra K: And try to use, this particular model after I fine-tune it to train.
+
+560
+01:31:48.140 --> 01:31:56.640
+Jitendra K: Finally, what we are going to do is, we are going to run the model training using GRPU, which is having a reward function. So the reward function has been defined here.
+
+561
+01:31:56.990 --> 01:32:04.039
+Jitendra K: And, we are going to use the reward probability and try to improve it every time when we are running this algorithm.
+
+562
+01:32:04.200 --> 01:32:11.000
+Jitendra K: So… For instance, you're going to have… A reward distributions, which will…
+
+563
+01:32:11.200 --> 01:32:14.839
+Jitendra K: Try to utilize, the best
+
+564
+01:32:15.010 --> 01:32:20.080
+Jitendra K: Method over a period of time, and then improve this whole accuracy comprehensively.
+
+565
+01:32:21.430 --> 01:32:24.719
+Jitendra K: Then I will run the test to see what exactly
+
+566
+01:32:24.950 --> 01:32:31.410
+Jitendra K: the rewards that I'm generating, and how it is getting up as a part of my whole site.
+
+567
+01:32:31.680 --> 01:32:37.359
+Jitendra K: And finally, you will be able to test this model with few questions, so let me show you that results.
+
+568
+01:32:44.060 --> 01:32:44.850
+Jitendra K: Yeah.
+
+569
+01:32:45.050 --> 01:32:49.520
+Jitendra K: So I'm assigning some simple mathematical problems, and it is trying to solve it.
+
+570
+01:32:49.740 --> 01:33:05.059
+Jitendra K: And then I assign some baseline code as well, to see if it is able to understand these criterias. While plotting it, this is what a reward distribution looks like over a period of time, and you can see that with each step, the rewards are increasing, and it's shaping properly.
+
+571
+01:33:05.330 --> 01:33:16.249
+Jitendra K: And there's a mechanism called held-out pass at rate 1, which is, comparing the three problems that we have assigned. And we are also looking for policy entropy as one of the success criteria.
+
+572
+01:33:16.510 --> 01:33:24.080
+Jitendra K: And then I would like to check the mean completion length in terms of training step. For more complex tasks, it is getting into…
+
+573
+01:33:24.300 --> 01:33:28.949
+Jitendra K: the right direction. And the success rate been… that means how many…
+
+574
+01:33:29.370 --> 01:33:35.959
+Jitendra K: task it is able to accomplish with the proper percentage. So, by default, I can say most of the
+
+575
+01:33:36.070 --> 01:33:43.849
+Jitendra K: task is falling under 60% complexity, and so on and so forth. And this is just an error proposition for all the three methods.
+
+576
+01:33:45.400 --> 01:33:53.129
+Jitendra K: So, any question on this, guys? Anything, I will share this notebook with you guys, so that you can go through it and let me know if there's any…
+
+577
+01:33:53.880 --> 01:33:58.140
+Jitendra K: Question, so this is the continuation of what we have run in the last tutorial as well.
+
+578
+01:33:58.570 --> 01:34:01.460
+Jitendra K: And with some more advanced data sets.
+
+579
+01:34:01.620 --> 01:34:03.060
+Jitendra K: So please go through it.
+
+580
+01:34:03.690 --> 01:34:09.239
+Jitendra K: Let me know if there's any question, and don't try to run it, just try to use the exist…
+
+581
+01:34:09.490 --> 01:34:16.510
+Jitendra K: already executed output cells, just to read it. You can run it later, I think.
+
+582
+01:34:20.420 --> 01:34:23.869
+Jitendra K: So let me know if there's any question that I can be able to answer.
+
+583
+01:41:53.400 --> 01:41:56.750
+Jitendra K: So please go through it, and let me know if there's any question, guys.
+
+584
+01:42:56.240 --> 01:43:01.270
+Jitendra K: To use this, I have a blog, which I would like to share.
+
+585
+01:43:01.620 --> 01:43:05.720
+Jitendra K: So you can use this blog to understand more about GRPU.
+
+586
+01:48:54.250 --> 01:48:58.909
+Jitendra K: Are you guys going through the code, or not, any shoe with the code?
+
+587
+01:49:03.970 --> 01:49:05.200
+Jitendra K: This is still learning.
+
+588
+01:51:00.360 --> 01:51:06.310
+Jitendra K: Any, any question, guys? Are you able to… Check the code.
+
+589
+01:51:14.050 --> 01:51:17.689
+Jitendra K: Am I audible to everyone, or am I speaking to myself?
+
+590
+01:51:32.750 --> 01:51:35.129
+Jitendra K: Okay, so any question on the quote part?
+
+591
+01:51:35.900 --> 01:51:38.550
+Jitendra K: Are you guys clear what we are doing with,
+
+592
+01:51:39.490 --> 01:51:43.009
+Jitendra K: These are the, 7-step process that we have used, right?
+
+593
+01:51:43.530 --> 01:51:45.379
+Jitendra K: So, this is for Paft.
+
+594
+01:51:45.650 --> 01:51:50.189
+Jitendra K: And then we are using a GRPO with the second code, code that we have written.
+
+595
+01:51:51.400 --> 01:51:56.350
+Jitendra K: So, any question on the coding part? Anything conceptually you're not able to understand?
+
+596
+01:52:23.980 --> 01:52:30.420
+Jitendra K: Yeah, don't run the code, the second code that I've shared, so don't run that code. You can run it overnight, and then…
+
+597
+01:52:30.670 --> 01:52:32.579
+Jitendra K: Let it be continuously running.
+
+598
+01:52:34.880 --> 01:52:41.840
+Jitendra K: So first, try to understand the output, which I have given to you. So the output is also there in the Iron Python book.
+
+599
+01:52:48.430 --> 01:52:56.119
+Jitendra K: So this is for domain agnostic use cases. I think I've already conveyed the same thing, that this is…
+
+600
+01:52:56.910 --> 01:53:04.080
+Jitendra K: We use very… on a very specific scenarios, when you're trying all the things, including rack optimization.
+
+601
+01:53:05.240 --> 01:53:10.600
+Jitendra K: Using a proper enterprise-grade vector stores and all, but you're still not getting the right
+
+602
+01:53:10.840 --> 01:53:13.980
+Jitendra K: things, right? Then you can try these techniques.
+
+603
+01:54:02.570 --> 01:54:05.620
+Jitendra K: Yes, the class is for 2 hours for today, so…
+
+604
+01:54:05.770 --> 01:54:07.990
+Jitendra K: We wind up in 5 more minutes.
+
+605
+01:54:09.810 --> 01:54:12.600
+Jitendra K: Yes, we have a class next weekend, yes, next week.
+
+606
+01:54:13.920 --> 01:54:21.630
+Jitendra K: So we'll continue with, our remaining topic… So, we'll start with,
+
+607
+01:54:22.540 --> 01:54:26.030
+Jitendra K: The… let me go to the live session page.
+
+608
+01:54:35.070 --> 01:54:36.990
+Jitendra K: Should… okay, 7th.
+
+609
+01:54:38.140 --> 01:54:41.289
+Jitendra K: June… yeah, after 7 June, there's…
+
+610
+01:54:42.130 --> 01:54:46.449
+Jitendra K: Almost 13, 14, yeah, one week break is there, yeah.
+
+611
+01:54:46.650 --> 01:54:48.789
+Jitendra K: So, it will start from 28.
+
+612
+01:54:50.190 --> 01:54:57.639
+Jitendra K: So… so I think we don't have any class in the next week, so 20… 28 onwards, we have…
+
+613
+01:54:58.360 --> 01:55:05.460
+Jitendra K: Remaining 6 classes… And yeah, so in the next class, we'll start with case studies.
+
+614
+01:55:05.740 --> 01:55:09.920
+Jitendra K: So we have, 4 or 5 case studies to solve.
+
+615
+01:55:10.520 --> 01:55:13.320
+Jitendra K: And then followed by a no-code, low-code platform.
+
+616
+01:55:14.290 --> 01:55:19.829
+Jitendra K: No, we don't have a class in next week, so there's a gap, I think. There's a break between 7 to 14.
+
+617
+01:55:32.920 --> 01:55:37.849
+Jitendra K: Yeah, I think you can enjoy your weekend, but I think there's no class next week.
+
+618
+01:55:49.500 --> 01:55:54.450
+Jitendra K: So, have you guys already started thinking about Capistran? Did you get Capistran problems?
+
+619
+01:55:55.170 --> 01:55:58.979
+Jitendra K: Shared by team, or still not been shared?
+
+620
+01:55:59.600 --> 01:56:01.540
+Jitendra K: Is the Capstone project being shared?
+
+621
+01:56:06.490 --> 01:56:07.360
+Jitendra K: Okay.
+
+622
+01:56:08.810 --> 01:56:12.360
+Jitendra K: So, have we read it? I think everything is there, but have we read it?
+
+623
+01:56:14.180 --> 01:56:15.770
+Jitendra K: Capistran projects.
+
+624
+01:56:15.980 --> 01:56:17.840
+Jitendra K: The final submission that you have to do.
+
+625
+01:56:24.810 --> 01:56:29.900
+Jitendra K: Yeah, go through it, and then try to at least, I think you need to form a group, right?
+
+626
+01:56:30.030 --> 01:56:34.359
+Jitendra K: so you need to form a group among yourself.
+
+627
+01:56:35.840 --> 01:56:36.830
+Jitendra K: I believe.
+
+628
+01:56:42.380 --> 01:56:45.110
+Jitendra K: Yeah, so just form a group and inform me.
+
+629
+01:56:45.470 --> 01:56:48.030
+Jitendra K: Who are working on what? What is your role?
+
+630
+01:56:48.140 --> 01:56:54.819
+Jitendra K: And, how we are going to solve this, so that we can have a discussion around these two.
+
+631
+01:56:55.500 --> 01:56:59.729
+Jitendra K: classes. So I will help you to solve that Capistrano, right?
+
+632
+01:56:59.920 --> 01:57:06.689
+Jitendra K: But, at a very granular level, I will not go into detail of the solutions. You need to implement a solution.
+
+633
+01:57:06.940 --> 01:57:14.040
+Jitendra K: And I will simply help you to understand the concepts and, maybe… Driving force behind that.
+
+634
+01:57:36.180 --> 01:57:41.620
+Jitendra K: I think, you can go with a custom solution that should be more, because you will have
+
+635
+01:57:42.270 --> 01:57:44.190
+Jitendra K: More learning opportunity with that.
+
+636
+01:57:51.050 --> 01:57:53.090
+Jitendra K: Oh yeah, I think, it should…
+
+637
+01:57:53.540 --> 01:57:57.509
+Jitendra K: Okay, so Capistran project has still not enabled, that means…
+
+638
+01:57:58.650 --> 01:58:02.279
+Jitendra K: That is what I'm asking. So the Capistran project has not been enabled.
+
+639
+01:58:10.980 --> 01:58:11.850
+Jitendra K: Okay.
+
+640
+01:58:30.600 --> 01:58:32.469
+Jitendra K: Okay, sure, it's in Bookarium.
+
+641
+01:58:33.990 --> 01:58:38.850
+Jitendra K: Even I haven't seen, that's the reason I was also wondering. In Boquarium, it is there, or…
+
+642
+01:58:46.740 --> 01:58:48.240
+Jitendra K: Okay, okay, great.
+
+643
+01:58:48.660 --> 01:58:52.859
+Jitendra K: Then please use VoCarium to understand the project.
+
+644
+01:58:53.400 --> 01:58:57.490
+Jitendra K: And from there, you can be able to download the problem statement.
+
+645
+01:59:31.160 --> 01:59:34.469
+Jitendra K: Yeah, this is a major capstone today, so this is the final one.
+
+646
+01:59:57.660 --> 02:00:06.809
+Jitendra K: Okay, so we have, basically 3 or 4 more class remaining, 3 or 4 more weeks remaining. So, during that, what we are going to do is…
+
+647
+02:00:07.040 --> 02:00:14.910
+Jitendra K: We're going to cover a few things, so, first and foremost thing, we will… COVID…
+
+648
+02:00:15.730 --> 02:00:17.880
+Jitendra K: No-code, low-code platform now.
+
+649
+02:00:18.070 --> 02:00:21.240
+Jitendra K: First, we will cover the, scenarios.
+
+650
+02:00:21.730 --> 02:00:23.750
+Jitendra K: I mean, we will have,
+
+651
+02:00:25.650 --> 02:00:29.340
+Jitendra K: 5 case studies to discuss, real-time case studies to discuss.
+
+652
+02:00:31.160 --> 02:00:39.610
+Jitendra K: We will use the no-code, low-code platform, which is gonna be a Crew AI Autogen.
+
+653
+02:00:43.030 --> 02:00:47.290
+Jitendra K: And NATN, which is one of the bigger tech stack.
+
+654
+02:00:47.830 --> 02:00:49.900
+Jitendra K: And then we move on to the Capistran.
+
+655
+02:00:53.320 --> 02:00:57.519
+Jitendra K: So, we have… Maybe two classes for this.
+
+656
+02:00:57.860 --> 02:01:00.270
+Jitendra K: Two classes for this, and two classes for this.
+
+657
+02:01:01.050 --> 02:01:07.669
+Jitendra K: Alright, so let's use this time wisely, and then if you have any questions, please ask it as well.
+
+658
+02:01:07.900 --> 02:01:12.739
+Jitendra K: So that, we can… able to see where exactly you're facing the problem.
+
+659
+02:01:14.770 --> 02:01:22.569
+Jitendra K: So guys, I think this is pretty much what we have for today, so thank you for attending this. I've shared all the material, so just run the code, run the model.
+
+660
+02:01:23.030 --> 02:01:27.509
+Jitendra K: And then try to see the results, the very first thing in the morning.
+
+661
+02:01:28.290 --> 02:01:33.879
+Jitendra K: So, thank you for attending this. We'll meet next… to next week. I think, the next week is a…
+
+662
+02:01:34.180 --> 02:01:36.150
+Jitendra K: Just, I think there's a break.
+
+663
+02:01:36.380 --> 02:01:38.640
+Jitendra K: And then you will resume by 28.
+
+664
+02:01:38.830 --> 02:01:39.699
+Jitendra K: Thank you.
+

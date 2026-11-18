@@ -1,0 +1,657 @@
+# Regnology PS doctrine pack — DRG fragment
+# Additive graph extensions on top of the All-Company layer + spec-kitty built-in DRG.
+# Contains nodes and edges that remain PS-specific after the All-Company migration.
+#
+# Cross-layer references (targets that point outside this fragment):
+#   - All-Company promoted artefacts (e.g. REGNOLOGY_BRANDING, MODEL_DISCIPLINE,
+#     regnology-mcp, agentic-model-leaderboard) resolve via the parent layer.
+#   - Built-in SK profiles (implementer-ivan, curator-carla, designer-dagmar,
+#     doctrine-daphne, etc.) resolve in the shipped DRG without a local node.
+
+pack_name: ps-agent-enabled-factory
+source_kind: local_path
+source_ref: pack
+layer_index: 2
+provenance_marker: org
+# ── Built-in edge endpoints (no local nodes) ────────────────────────────────
+# Built-in SK profiles referenced only as edge sources/targets (e.g.
+# doctrine-daphne, planner-priti) are intentionally NOT declared as nodes here.
+# They resolve at merge time against the shipped/built-in DRG layer — the same
+# way every other built-in endpoint in this fragment (implementer-ivan,
+# curator-carla, designer-dagmar, …) resolves. Declaring them would mint
+# org-tier nodes that shadow the built-ins (same_id_collision). The prior
+# top-level `external_nodes:` key was removed: SK v3.2.x OrgDRGFragment forbids
+# it (extra_forbidden), and it was functionally redundant — see MIGRATION-2830.
+nodes:
+- id: sqlx-generation
+  kind: tactics
+  title: SQLX generation
+  body_path: tactics/sqlx-generation.tactic.yaml
+- id: sqlx-testing
+  kind: tactics
+  title: SQLX test suite generation
+  body_path: tactics/sqlx-testing.tactic.yaml
+- id: sqlx-validation
+  kind: tactics
+  title: SQLX validation
+  body_path: tactics/sqlx-validation.tactic.yaml
+- id: sqlx-pseudo-code-to-spec
+  kind: tactics
+  title: SQLX pseudo code to specification
+  body_path: tactics/sqlx-pseudo-code-to-spec.tactic.yaml
+- id: sqlx-explanation
+  kind: tactics
+  title: SQLX code explanation
+  body_path: tactics/sqlx-explanation.tactic.yaml
+- id: sqlx-optimization
+  kind: tactics
+  title: SQLX optimization
+  body_path: tactics/sqlx-optimization.tactic.yaml
+- id: powershell-module-scaffold
+  kind: tactics
+  title: PowerShell Module Scaffold
+  body_path: tactics/powershell-module-scaffold.tactic.yaml
+- id: powershell-pester-workflow
+  kind: procedures
+  title: PowerShell Pester Workflow
+  body_path: procedures/powershell-pester-workflow.procedure.yaml
+- id: powershell-script-quality-gate
+  kind: tactics
+  title: PowerShell Script Quality Gate
+  body_path: tactics/powershell-script-quality-gate.tactic.yaml
+- id: sqlx-test-data-conventions
+  kind: styleguides
+  title: SQLX test data conventions
+  body_path: styleguides/sqlx-test-data-conventions.styleguide.yaml
+- id: sqlx-coding-standards
+  kind: styleguides
+  title: SQLX coding standards
+  body_path: styleguides/sqlx-coding-standards.styleguide.yaml
+- id: powershell-conventions
+  kind: styleguides
+  title: PowerShell conventions
+  body_path: styleguides/powershell-conventions.styleguide.yaml
+- id: sqlx-mcp
+  kind: toolguides
+  title: SQLX MCP and manual
+  body_path: toolguides/sqlx-mcp.toolguide.yaml
+- id: google-cloud-mcp
+  kind: toolguides
+  title: "Google Cloud MCP \u2014 SQLX data model server"
+  body_path: toolguides/google-cloud-mcp.toolguide.yaml
+- id: datamodel-tools
+  kind: toolguides
+  title: ABACUS360 Datamodel Tools
+  body_path: toolguides/datamodel-tools.toolguide.yaml
+- id: pester
+  kind: toolguides
+  title: "Pester \u2014 PowerShell testing framework"
+  body_path: toolguides/pester.toolguide.yaml
+- id: psscriptanalyzer
+  kind: toolguides
+  title: "PSScriptAnalyzer \u2014 PowerShell static analysis"
+  body_path: toolguides/psscriptanalyzer.toolguide.yaml
+- id: datamodel-darren
+  kind: agent_profiles
+  title: Datamodel Darren
+  body_path: agent_profiles/datamodel-darren.agent.yaml
+- id: powershell-peter
+  kind: agent_profiles
+  title: PowerShell Peter
+  body_path: agent_profiles/powershell-peter.agent.yaml
+- id: sqlx-specialist-simon
+  kind: agent_profiles
+  title: SQLX Specialist Simon
+  body_path: agent_profiles/sqlx-specialist-simon.agent.yaml
+- id: devops-danny
+  kind: agent_profiles
+  title: DevOps Danny
+  body_path: agent_profiles/devops-danny.agent.yaml
+- id: receptionist-rob
+  kind: agent_profiles
+  title: Receptionist Rob
+  body_path: agent_profiles/receptionist-rob.agent.yaml
+- id: gemini-bot-georgia
+  kind: agent_profiles
+  title: Gemini Bot Georgia
+  body_path: agent_profiles/gemini-bot-georgia.agent.yaml
+
+- id: create-branded-pdf-document
+  kind: procedures
+  title: Create a branded PDF document
+  body_path: procedures/create-branded-pdf-document.procedure.yaml
+- id: create-branded-slidedeck
+  kind: procedures
+  title: Create a branded slidedeck
+  body_path: procedures/create-branded-slidedeck.procedure.yaml
+- id: gcloud-proxy-setup
+  kind: procedures
+  title: Set up Google Cloud interaction through proxy
+  body_path: procedures/gcloud-proxy-setup.procedure.yaml
+- id: onboard-external-agent-to-pack
+  kind: procedures
+  title: Onboard an external agent into the pack
+  body_path: procedures/onboard-external-agent-to-pack.procedure.yaml
+- id: ps-project-intake
+  kind: procedures
+  title: PS project intake
+  body_path: procedures/ps-project-intake.procedure.yaml
+- id: ps-intake-interview
+  kind: tactics
+  title: PS intake interview
+  body_path: tactics/ps-intake-interview.tactic.yaml
+- id: sqlx-fu-pipeline
+  kind: procedures
+  title: SQLX functional unit pipeline
+  body_path: procedures/sqlx-fu-pipeline.procedure.yaml
+- id: CONTEXT_AWARE_DESIGN
+  kind: directives
+  title: Context-Aware Design (override of DIRECTIVE_031)
+  body_path: directives/037-context-aware-design.directive.yaml
+- id: cloud-native-design-review
+  kind: tactics
+  title: Cloud-Native Design Review
+  body_path: tactics/cloud-native-design-review.tactic.yaml
+- id: bounded-context-linguistic-discovery
+  kind: paradigms
+  title: Bounded context linguistic discovery
+  body_path: paradigms/bounded-context-linguistic-discovery.paradigm.yaml
+- id: client-data-storage
+  kind: paradigms
+  title: Client data storage
+  body_path: paradigms/client-data-storage.paradigm.yaml
+- id: cloud-native-domain-modelling
+  kind: paradigms
+  title: Cloud-native domain modelling
+  body_path: paradigms/cloud-native-domain-modelling.paradigm.yaml
+- id: backend-for-frontend-bff
+  kind: paradigms
+  title: Backend for Frontend (BFF)
+  body_path: paradigms/backend-for-frontend-bff.paradigm.yaml
+- id: capability-language-selection
+  kind: paradigms
+  title: Capability Language Selection
+  body_path: paradigms/capability-language-selection.paradigm.yaml
+edges:
+- source: datamodel-darren
+  target: regnology-main-context
+  relation: applies
+- source: create-branded-pdf-document
+  target: regnology-main-context
+  relation: applies
+- source: create-branded-slidedeck
+  target: regnology-main-context
+  relation: applies
+- source: devops-danny
+  target: regnology-main-context
+  relation: applies
+- source: gcloud-proxy-setup
+  target: regnology-main-context
+  relation: applies
+- source: google-cloud-mcp
+  target: regnology-main-context
+  relation: applies
+- source: sqlx-specialist-simon
+  target: regnology-main-context
+  relation: applies
+- source: devops-danny
+  target: implementer-ivan
+  relation: delegates_to
+- source: datamodel-darren
+  target: analyst-annie
+  relation: specializes_from
+- source: datamodel-darren
+  target: datamodel-tools
+  relation: applies
+- source: datamodel-darren
+  target: juno-mcp
+  relation: applies
+- source: datamodel-darren
+  target: juno-based-regulatory-research
+  relation: applies
+- source: datamodel-darren
+  target: evidence-based-requirements
+  relation: applies
+- source: datamodel-darren
+  target: TRACEABLE_DECISIONS
+  relation: requires
+- source: datamodel-darren
+  target: ENSURE_CONCEPTUAL_ALIGNMENT
+  relation: requires
+- source: devops-danny
+  target: version-control-hygiene
+  relation: applies
+- source: devops-danny
+  target: commit-and-markdown-linting
+  relation: applies
+- source: datamodel-darren
+  target: regnology-mcp
+  relation: applies
+- source: devops-danny
+  target: appsec-pipeline-setup
+  relation: suggests
+- source: devops-danny
+  target: security-issue-triage
+  relation: suggests
+- source: devops-danny
+  target: urgent-vulnerability-response
+  relation: suggests
+- source: datamodel-darren
+  target: glossary-maintenance-workflow
+  relation: suggests
+- source: google-cloud-mcp
+  target: sqlx-mcp
+  relation: suggests
+- source: sqlx-mcp
+  target: google-cloud-mcp
+  relation: suggests
+- source: google-cloud-mcp
+  target: CORPORATE_TOOLING
+  relation: applies
+- source: google-cloud-mcp
+  target: gcloud-proxy-setup
+  relation: suggests
+- source: create-branded-slidedeck
+  target: regnology-branding
+  relation: applies
+- source: create-branded-slidedeck
+  target: professional-communications
+  relation: applies
+- source: create-branded-slidedeck
+  target: REGNOLOGY_BRANDING
+  relation: applies
+- source: sqlx-specialist-simon
+  target: TRACEABLE_DECISIONS
+  relation: requires
+- source: sqlx-specialist-simon
+  target: sqlx-generation
+  relation: suggests
+- source: sqlx-specialist-simon
+  target: sqlx-validation
+  relation: suggests
+- source: sqlx-specialist-simon
+  target: sqlx-testing
+  relation: suggests
+- source: sqlx-specialist-simon
+  target: sqlx-pseudo-code-to-spec
+  relation: suggests
+- source: sqlx-specialist-simon
+  target: sqlx-explanation
+  relation: suggests
+- source: sqlx-specialist-simon
+  target: sqlx-optimization
+  relation: suggests
+- source: sqlx-specialist-simon
+  target: sqlx-fu-pipeline
+  relation: applies
+- source: analyst-annie
+  target: datamodel-darren
+  relation: delegates_to
+- source: sqlx-specialist-simon
+  target: sqlx-mcp
+  relation: applies
+- source: sqlx-specialist-simon
+  target: google-cloud-mcp
+  relation: applies
+- source: sqlx-generation
+  target: TRACEABLE_DECISIONS
+  relation: applies
+- source: sqlx-validation
+  target: TRACEABLE_DECISIONS
+  relation: applies
+- source: sqlx-pseudo-code-to-spec
+  target: TRACEABLE_DECISIONS
+  relation: applies
+- source: sqlx-explanation
+  target: AUDIENCE_ORIENTED_WRITING
+  relation: applies
+- source: sqlx-explanation
+  target: TRACEABLE_DECISIONS
+  relation: applies
+- source: sqlx-optimization
+  target: TRACEABLE_DECISIONS
+  relation: applies
+- source: create-branded-pdf-document
+  target: REGNOLOGY_BRANDING
+  relation: applies
+- source: gcloud-proxy-setup
+  target: CORPORATE_TOOLING
+  relation: applies
+- source: sqlx-fu-pipeline
+  target: TRACEABLE_DECISIONS
+  relation: applies
+- source: sqlx-fu-pipeline
+  target: MODEL_DISCIPLINE
+  relation: applies
+- source: bounded-context-linguistic-discovery
+  target: regnology-context-boundary-inference
+  relation: suggests
+- source: bounded-context-linguistic-discovery
+  target: team-interaction-mapping
+  relation: suggests
+- source: bounded-context-linguistic-discovery
+  target: glossary-maintenance-workflow
+  relation: suggests
+- source: sqlx-specialist-simon
+  target: sqlx-test-data-conventions
+  relation: applies
+- source: sqlx-specialist-simon
+  target: sqlx-coding-standards
+  relation: applies
+- source: sqlx-generation
+  target: sqlx-coding-standards
+  relation: applies
+- source: sqlx-validation
+  target: sqlx-coding-standards
+  relation: applies
+- source: devops-danny
+  target: maven-project-compliance-setup
+  relation: suggests
+- source: devops-danny
+  target: regnology-mcp
+  relation: applies
+- source: devops-danny
+  target: ripgrep
+  relation: applies
+- source: devops-danny
+  target: APPSEC_COMPLIANCE
+  relation: requires
+- source: devops-danny
+  target: CORPORATE_TOOLING
+  relation: requires
+- source: datamodel-darren
+  target: decision-first-development
+  relation: applies
+- source: create-branded-pdf-document
+  target: professional-communications
+  relation: applies
+- source: ps-project-intake
+  target: regnology-jira-workflow
+  relation: applies
+- source: ps-project-intake
+  target: ps-intake-interview
+  relation: applies
+- source: ps-project-intake
+  target: regnology-mcp-jira
+  relation: applies
+- source: ps-project-intake
+  target: CORPORATE_TOOLING
+  relation: applies
+- source: ps-project-intake
+  target: TRACEABLE_DECISIONS
+  relation: applies
+- source: ps-project-intake
+  target: repository-initialization
+  relation: suggests
+- source: ps-intake-interview
+  target: regnology-jira-workflow
+  relation: applies
+- source: analyst-annie
+  target: ps-project-intake
+  relation: applies
+- source: analyst-annie
+  target: ps-intake-interview
+  relation: applies
+- source: gcloud-proxy-setup
+  target: google-cloud-mcp
+  relation: suggests
+- source: sqlx-fu-pipeline
+  target: sqlx-mcp
+  relation: applies
+- source: devops-danny
+  target: implementer-ivan
+  relation: specializes_from
+- source: sqlx-specialist-simon
+  target: implementer-ivan
+  relation: specializes_from
+- source: powershell-peter
+  target: implementer-ivan
+  relation: specializes_from
+- source: powershell-peter
+  target: powershell-conventions
+  relation: applies
+- source: powershell-peter
+  target: powershell-module-scaffold
+  relation: suggests
+- source: powershell-peter
+  target: powershell-pester-workflow
+  relation: applies
+- source: powershell-peter
+  target: powershell-script-quality-gate
+  relation: applies
+- source: powershell-peter
+  target: version-control-hygiene
+  relation: applies
+- source: powershell-peter
+  target: pester
+  relation: applies
+- source: powershell-peter
+  target: psscriptanalyzer
+  relation: applies
+- source: powershell-peter
+  target: regnology-mcp
+  relation: applies
+- source: powershell-peter
+  target: TEST_FIRST_BUG_FIXING
+  relation: requires
+- source: powershell-peter
+  target: ENSURE_CONCEPTUAL_ALIGNMENT
+  relation: requires
+- source: powershell-peter
+  target: TRACEABLE_DECISIONS
+  relation: requires
+- source: powershell-peter
+  target: CLARIFICATION_BEFORE_EXECUTION
+  relation: requires
+- source: powershell-peter
+  target: APPSEC_COMPLIANCE
+  relation: requires
+- source: powershell-peter
+  target: regnology-main-context
+  relation: applies
+- source: powershell-peter
+  target: automation-scripting-discipline
+  relation: suggests
+- source: powershell-module-scaffold
+  target: powershell-conventions
+  relation: applies
+- source: powershell-pester-workflow
+  target: powershell-conventions
+  relation: applies
+- source: powershell-script-quality-gate
+  target: powershell-conventions
+  relation: applies
+- source: powershell-pester-workflow
+  target: pester
+  relation: requires
+- source: powershell-script-quality-gate
+  target: psscriptanalyzer
+  relation: requires
+- source: powershell-script-quality-gate
+  target: APPSEC_COMPLIANCE
+  relation: applies
+- source: pester
+  target: psscriptanalyzer
+  relation: suggests
+- source: psscriptanalyzer
+  target: pester
+  relation: suggests
+- source: pester
+  target: CORPORATE_TOOLING
+  relation: applies
+- source: psscriptanalyzer
+  target: CORPORATE_TOOLING
+  relation: applies
+- source: powershell-conventions
+  target: TRACEABLE_DECISIONS
+  relation: applies
+- source: sqlx-specialist-simon
+  target: TEST_FIRST_BUG_FIXING
+  relation: requires
+- source: receptionist-rob
+  target: regnology-main-context
+  relation: applies
+- source: receptionist-rob
+  target: AUDIENCE_ORIENTED_WRITING
+  relation: requires
+- source: receptionist-rob
+  target: ENSURE_CONCEPTUAL_ALIGNMENT
+  relation: requires
+- source: receptionist-rob
+  target: regnology-nomenclature
+  relation: applies
+- source: receptionist-rob
+  target: professional-communications
+  relation: applies
+- source: receptionist-rob
+  target: regnology-mcp
+  relation: applies
+- source: receptionist-rob
+  target: repository-initialization
+  relation: suggests
+- source: receptionist-rob
+  target: analyst-annie
+  relation: suggests
+- source: receptionist-rob
+  target: comms-cleo
+  relation: suggests
+- source: receptionist-rob
+  target: slidedeck-stanislav
+  relation: suggests
+- source: receptionist-rob
+  target: migrate-doctrine-to-pack
+  relation: applies
+- source: receptionist-rob
+  target: doctrine-daphne
+  relation: suggests
+- source: receptionist-rob
+  target: AD_HOC_PROMPT_CAPTURE
+  relation: requires
+- source: CONTEXT_AWARE_DESIGN
+  target: cloud-native-design-review
+  relation: delegates_to
+- source: CONTEXT_AWARE_DESIGN
+  target: c4-cloud-native-mapping
+  relation: delegates_to
+- source: CONTEXT_AWARE_DESIGN
+  target: cloud-native-domain-modelling
+  relation: applies
+  # ── doctrine-daphne (spec-kitty built-in profile; no pack node) ───────────
+  # PS delta: edges from built-in Daphne to pack artifacts. Same pattern as
+  # curator-carla / implementer-ivan augmentation without a local profile YAML.
+- source: doctrine-daphne
+  target: onboard-external-agent-to-pack
+  relation: applies
+- source: doctrine-daphne
+  target: regnology-main-context
+  relation: applies
+- source: doctrine-daphne
+  target: regnology-mcp
+  relation: applies
+- source: doctrine-daphne
+  target: regnology-nomenclature
+  relation: applies
+- source: doctrine-daphne
+  target: professional-communications
+  relation: applies
+- source: doctrine-daphne
+  target: TRACEABLE_DECISIONS
+  relation: requires
+- source: doctrine-daphne
+  target: AUDIENCE_ORIENTED_WRITING
+  relation: requires
+- source: doctrine-daphne
+  target: ENSURE_CONCEPTUAL_ALIGNMENT
+  relation: requires
+- source: doctrine-daphne
+  target: receptionist-rob
+  relation: suggests
+- source: doctrine-daphne
+  target: ripgrep
+  relation: applies
+- source: doctrine-daphne
+  target: spec-kitty-doctrine-pack
+  relation: applies
+- source: doctrine-daphne
+  target: VERSION_GOVERNANCE
+  relation: requires
+  # ── Gemini Bot Georgia ────────────────────────────────────────────────────
+- source: gemini-bot-georgia
+  target: doctrine-daphne
+  relation: delegates_to
+- source: gemini-bot-georgia
+  target: comms-cleo
+  relation: delegates_to
+- source: gemini-bot-georgia
+  target: synthesizer-sam
+  relation: delegates_to
+- source: gemini-bot-georgia
+  target: MODEL_DISCIPLINE
+  relation: requires
+- source: gemini-bot-georgia
+  target: APPSEC_COMPLIANCE
+  relation: requires
+- source: gemini-bot-georgia
+  target: TRACEABLE_DECISIONS
+  relation: requires
+- source: gemini-bot-georgia
+  target: VERSION_GOVERNANCE
+  relation: requires
+- source: gemini-bot-georgia
+  target: AUDIENCE_ORIENTED_WRITING
+  relation: requires
+- source: gemini-bot-georgia
+  target: REGNOLOGY_BRANDING
+  relation: requires
+- source: gemini-bot-georgia
+  target: regnology-mcp
+  relation: applies
+- source: gemini-bot-georgia
+  target: agentic-model-leaderboard
+  relation: applies
+- source: gemini-bot-georgia
+  target: professional-communications
+  relation: applies
+- source: gemini-bot-georgia
+  target: gemini-chatbot-authoring
+  relation: applies
+- source: gemini-bot-georgia
+  target: commit-and-markdown-linting
+  relation: applies
+
+  # Self-loop declares PS overlay of the same-named built-in procedure (Procedure
+  # schema has no enhances: field; DRG edge suppresses same_id_collision advisory).
+  # Sanctioned pattern — see DDR-018 Addendum A: an `overrides` self-edge is the
+  # intended way to express "this PS node overlays the same-named built-in" and is
+  # NOT a self-referencing-edge defect.
+- source: onboard-external-agent-to-pack
+  target: onboard-external-agent-to-pack
+  relation: overrides
+- source: onboard-external-agent-to-pack
+  target: TRACEABLE_DECISIONS
+  relation: applies
+- source: onboard-external-agent-to-pack
+  target: VERSION_GOVERNANCE
+  relation: applies
+- source: onboard-external-agent-to-pack
+  target: regnology-mcp
+  relation: applies
+- source: onboard-external-agent-to-pack
+  target: ENSURE_CONCEPTUAL_ALIGNMENT
+  relation: requires
+- source: onboard-external-agent-to-pack
+  target: ripgrep
+  relation: applies
+- source: onboard-external-agent-to-pack
+  target: spec-kitty-doctrine-pack
+  relation: applies
+- source: receptionist-rob
+  target: minutes-maker-mahad
+  relation: suggests
+  # ── Orphan paradigm wiring ───────────────────────────────────────────────
+- source: cloud-native-design-review
+  target: backend-for-frontend-bff
+  relation: applies
+- source: cloud-native-design-review
+  target: capability-language-selection
+  relation: applies

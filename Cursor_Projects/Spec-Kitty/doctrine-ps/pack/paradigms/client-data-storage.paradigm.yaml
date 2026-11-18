@@ -1,0 +1,49 @@
+schema_version: "1.0"
+id: client-data-storage
+name: Client Data Storage
+summary: >
+  Defines where and how client (business/regulatory) data is stored and mutated in
+  cloud-native delivery. Preferred stack: GCS object store, Apache Iceberg tables, Trino
+  query engine, and PostgreSQL for catalog and metadata. Oracle, Redis, and Valkey are
+  forbidden.
+
+  Does not govern internal platform data — configuration, orchestration state, process
+  tracking, agent coordination, or session/workflow metadata.
+
+  Preferred stack for new client-data workloads at scale: GCS (object store, S3-compatible
+  API) for durable files and Parquet/Iceberg data files; Apache Iceberg (table format) for
+  versioned tables, partition evolution, and time travel; Trino (query engine) for federated
+  SQL reads across Iceberg and relational sources; PostgreSQL (catalog and metadata) for
+  Iceberg catalog, table metadata, and relational sidecar data.
+
+  Alternatives permitted for simpler or existing systems: PostgreSQL for small bounded
+  datasets with strong transactional needs; SQL Server for brownfield Microsoft estate
+  integration; Iceberg+GCS+Trino+PostgreSQL for greenfield analytical/large-volume client
+  data.
+
+  Forbidden technologies: Oracle Database (licensing, operational model, doctrine alignment
+  — use PostgreSQL or SQL Server instead); Redis and Valkey (not approved for caching or
+  session stores).
+
+  Caching policy: pure cache (ephemeral, no domain truth) uses Memcached; database-as-cache
+  (query results, materialised read models) uses PostgreSQL only and must be clearly labelled
+  as cache and rebuildable from source of truth. Redis, Valkey, or similar are not permitted.
+
+  Write patterns — relational: prefer compute off the database then batch insert/upsert;
+  avoid many individual row-level updates from application loops when a bulk path exists; do
+  not place business logic in stored procedures.
+
+  Write patterns — Iceberg: optimise pipelines for Iceberg and Parquet semantics (append,
+  overwrite partitions, copy-on-write); implement mutations in Python jobs using Parquet and
+  Iceberg table APIs; do not use row-by-row UPDATE/MERGE via Trino for large batches; Trino
+  is the bridge for ad hoc analytics, reporting, and federated reads — not the primary write
+  path for heavy Iceberg maintenance.
+
+  Capability alignment: write ownership stays with the capability that owns the client
+  dataset; BFF may read from PostgreSQL, Trino, or evidence/object paths but does not become
+  the system of record for client lakehouse tables; cross-capability client data integration
+  uses events and batch exports to Iceberg or Trino-federated reads — not shared mutable
+  tables without documented ownership.
+
+directive_refs:
+  - TRACEABLE_DECISIONS

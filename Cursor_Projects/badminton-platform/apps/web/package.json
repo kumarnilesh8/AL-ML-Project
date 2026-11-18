@@ -1,0 +1,38 @@
+{
+  "name": "@bp/web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@bp/domain": "workspace:*",
+    "@bp/matching": "workspace:*",
+    "@bp/rating": "workspace:*",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.117.3",
+    "drizzle-orm": "0.45.4",
+    "next": "16.4.1",
+    "postgres": "3.4.9",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "4.6.7",
+    "server-only": "0.0.1",
+    "@fontsource/barlow": "5.2.8",
+    "@fontsource/barlow-condensed": "5.2.8",
+    "nodemailer": "10.0.16"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.3",
+    "@types/nodemailer": "8.0.2"
+  }
+}

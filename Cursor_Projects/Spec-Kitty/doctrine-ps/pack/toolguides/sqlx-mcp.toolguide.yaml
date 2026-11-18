@@ -1,0 +1,36 @@
+schema_version: "1.0"
+id: sqlx-mcp
+tool: sqlx-mcp
+title: SQLX MCP and Manual Reference
+guide_path: toolguides/sqlx-mcp-and-manual.md
+summary: >
+  SCOPE: Generation, optimization, and debugging assistance for SQLX-based code.
+  This toolguide covers the full SQLX authoring workflow: MCP tools for live data
+  model and manual access, the Abacus CLI for validation and testing, and fallback
+  to the bundled knowledge base when MCP is unavailable. For data model lookups
+  only (no generation context), see the google-cloud-mcp toolguide instead.
+  Always prefer MCP tools (live, authoritative) over local doctrine fallback.
+  MCP provides the canonical SQLX language specification (31 chapters) and live
+  ABACUS360 data model. When MCP is unavailable, fall back to the bundled
+  knowledge base shipped with this pack under resources/sqlx/. Use local doctrine
+  (toolguides/sqlx_language/, styleguide sqlx-coding-standards) as a secondary
+  fallback only.
+
+  MODEL TIER: See directive MODEL_DISCIPLINE (042) for the authoritative model-tier
+  selection rules. Do not restate tier rules here.
+
+  CLI/JVM TROUBLESHOOTING: The authoritative Abacus CLI environment setup and JVM
+  troubleshooting block (native library path, heap flags, Java 23+ flags) lives in
+  tactic sqlx-validation (step "Run Abacus CLI Validation if Available" and its
+  failure_modes/notes). Consult that tactic for runtime CLI issues.
+commands:
+  - query_datamodel_definitions
+  - get_sqlx_manual_chapter
+  - abacus validate
+  - abacus test
+  - abacus run
+  - abacus info
+  - abacus dag-dump
+  - abacus analyse
+  - abacus format
+  - abacus language-server

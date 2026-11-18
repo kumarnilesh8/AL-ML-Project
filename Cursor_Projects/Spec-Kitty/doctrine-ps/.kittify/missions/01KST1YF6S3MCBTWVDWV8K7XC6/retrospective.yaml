@@ -1,0 +1,125 @@
+schema_version: 1
+mission_id: 01KST1YF6S3MCBTWVDWV8K7XC6
+mission_slug: dashboard-governance-config-01KST1YF
+mission_number: 5
+friendly_name: Dashboard Domain & Charter Governance
+mission_type: software-dev
+target_branch: overhaul/migrate_to_kitty
+created_at: '2026-06-01T11:31:49.441316+00:00'
+created_by:
+  kind: human
+  id: cli
+  display: spec-kitty retrospect
+provenance:
+  kind: explicit_create
+  invoked_at: '2026-06-01T11:31:49.441316+00:00'
+  policy_resolved_from:
+    enabled: <default>
+    timing: <default>
+    failure_policy: <default>
+    write_record: <default>
+    generate_proposals: <default>
+    apply_proposals: <default>
+    permissions.write_record: <default>
+    permissions.inspect_mission_artifacts: <default>
+    permissions.propose_glossary_changes: <default>
+    permissions.propose_drg_changes: <default>
+    permissions.propose_doctrine_changes: <default>
+    permissions.apply_low_risk_changes: <default>
+    permissions.apply_structural_changes: <default>
+    precedence: <default>
+    generator: <default>
+  command: spec-kitty retrospect create
+policy_source:
+  enabled: <default>
+  timing: <default>
+  failure_policy: <default>
+  write_record: <default>
+  generate_proposals: <default>
+  apply_proposals: <default>
+  permissions.write_record: <default>
+  permissions.inspect_mission_artifacts: <default>
+  permissions.propose_glossary_changes: <default>
+  permissions.propose_drg_changes: <default>
+  permissions.propose_doctrine_changes: <default>
+  permissions.apply_low_risk_changes: <default>
+  permissions.apply_structural_changes: <default>
+  precedence: <default>
+  generator: <default>
+findings_status: has_findings
+helped: []
+not_helpful:
+- id: n-003
+  category: implementation
+  summary: WP07 needed 2 implementation cycles
+  evidence_refs:
+  - e-015
+  details: WP WP07 entered in_progress 2 times. Multiple implementation cycles suggest rework not captured as a 
+    documented review rejection; the WP scope or contract may need refinement.
+- id: n-001
+  category: process
+  summary: WP05 required 2 --force override(s) during workflow
+  evidence_refs:
+  - e-013
+  details: WP WP05 required 2 operator-driven --force lane transition(s). Force overrides typically indicate the runtime
+    guard failed or the operator routed around it; investigate the underlying cause.
+- id: n-002
+  category: process
+  summary: WP07 required 1 --force override(s) during workflow
+  evidence_refs:
+  - e-014
+  details: WP WP07 required 1 operator-driven --force lane transition(s). Force overrides typically indicate the runtime
+    guard failed or the operator routed around it; investigate the underlying cause.
+gaps: []
+proposals: []
+evidence_refs:
+- id: e-001
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/meta.json
+- id: e-002
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/spec.md
+- id: e-003
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/plan.md
+- id: e-004
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/tasks.md
+- id: e-005
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/tasks/WP01-domain-config-service-methods.md
+- id: e-006
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/tasks/WP02-cascade-service-and-routes.md
+- id: e-007
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/tasks/WP03-domain-vocabulary-panel.md
+- id: e-008
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/tasks/WP04-charter-backend.md
+- id: e-009
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/tasks/WP05-charter-badge-and-toggle.md
+- id: e-010
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/tasks/WP06-charter-tab-view.md
+- id: e-011
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/tasks/WP07-distribution-pipeline-remediation.md
+- id: e-012
+  kind: file
+  path: kitty-specs/dashboard-governance-config-01KST1YF/status.events.jsonl
+- id: e-013
+  kind: event_range
+  path: kitty-specs/dashboard-governance-config-01KST1YF/status.events.jsonl
+  range: 01KT1C9PW7WMFK2HYY5XT2NHXX..01KT1CJBASW1P9K1R6K0R3VYAG
+- id: e-014
+  kind: event_range
+  path: kitty-specs/dashboard-governance-config-01KST1YF/status.events.jsonl
+  range: 01KT1BYV0XSWKJ3B9T38MZ4WS4
+- id: e-015
+  kind: event_range
+  path: kitty-specs/dashboard-governance-config-01KST1YF/status.events.jsonl
+  range: implementation_cycles
+generator_version: '1.0'
+provenance_history: []

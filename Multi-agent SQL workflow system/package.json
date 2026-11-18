@@ -1,0 +1,6 @@
+{
+  "name": "rfo-eep-sql-workflow",
+  "private": true,
+  "version": "0.1.1",
+  "main": "server.js"
+}

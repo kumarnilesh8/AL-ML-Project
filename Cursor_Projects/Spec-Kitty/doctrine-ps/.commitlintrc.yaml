@@ -1,0 +1,48 @@
+# Commitlint Configuration — Regnology Professional Services
+#
+# Enforces Conventional Commits (https://www.conventionalcommits.org/)
+# with project-specific type/scope extensions.
+#
+# Install: npm install --save-dev @commitlint/cli @commitlint/config-conventional
+# Usage:   echo "feat: add feature" | npx commitlint
+# Hook:    npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
+#
+# Reference: doctrine/styleguides/commit-and-markdown-linting.md
+
+extends:
+  - "@commitlint/config-conventional"
+
+rules:
+  # --- Header ---
+  header-max-length: [2, always, 100]
+  type-enum:
+    - 2
+    - always
+    - - feat       # New feature
+      - fix        # Bug fix
+      - docs       # Documentation only
+      - style      # Formatting, whitespace (no code change)
+      - refactor   # Code change that neither fixes nor adds
+      - perf       # Performance improvement
+      - test       # Adding or correcting tests
+      - build      # Build system or external dependencies
+      - ci         # CI configuration
+      - chore      # Maintenance, tooling, config
+      - revert     # Revert a previous commit
+      - arch       # Architecture decision (ADR/DDR)
+      - plan       # Planning artifact (task breakdown, roadmap)
+      - review     # Review artifact (code review, spec review)
+      - cursor     # Cursor IDE integration changes
+  type-case: [2, always, lower-case]
+  scope-case: [2, always, lower-case]
+  subject-case: [2, never, [upper-case, pascal-case, start-case]]
+  subject-empty: [2, never]
+  subject-full-stop: [2, never, "."]
+
+  # --- Body ---
+  body-max-line-length: [1, always, 120]
+  body-leading-blank: [2, always]
+
+  # --- Footer ---
+  footer-leading-blank: [2, always]
+  footer-max-line-length: [1, always, 120]

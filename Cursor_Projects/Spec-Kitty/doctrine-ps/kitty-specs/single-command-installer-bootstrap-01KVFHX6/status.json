@@ -1,0 +1,49 @@
+{
+  "event_count": 36,
+  "last_event_id": "01KVG31ZE7R84PM2PQAAFR865S",
+  "materialized_at": "2026-06-19T14:02:47.623555+00:00",
+  "mission_number": "7",
+  "mission_slug": "single-command-installer-bootstrap-01KVFHX6",
+  "mission_type": "software-dev",
+  "summary": {
+    "approved": 0,
+    "blocked": 0,
+    "canceled": 0,
+    "claimed": 0,
+    "done": 4,
+    "for_review": 0,
+    "in_progress": 0,
+    "in_review": 0,
+    "planned": 0
+  },
+  "work_packages": {
+    "WP01": {
+      "actor": "merge",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KVG31QZVQT1ESVPKFD61VPTN",
+      "last_transition_at": "2026-06-19T14:02:39.995758+00:00"
+    },
+    "WP02": {
+      "actor": "merge",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KVG31TGMS5C9AN2C065HPXRX",
+      "last_transition_at": "2026-06-19T14:02:42.580349+00:00"
+    },
+    "WP03": {
+      "actor": "merge",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KVG31WYR832957P4CGWY3T6F",
+      "last_transition_at": "2026-06-19T14:02:45.080423+00:00"
+    },
+    "WP04": {
+      "actor": "merge",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KVG31ZE7R84PM2PQAAFR865S",
+      "last_transition_at": "2026-06-19T14:02:47.623555+00:00"
+    }
+  }
+}

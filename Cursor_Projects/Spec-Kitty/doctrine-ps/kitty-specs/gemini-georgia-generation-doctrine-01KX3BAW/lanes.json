@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "mission_slug": "gemini-georgia-generation-doctrine-01KX3BAW",
+  "mission_id": "01KX3BAWW235XMPJNWEXM7WSGZ",
+  "mission_branch": "kitty/mission-gemini-georgia-generation-doctrine-01KX3BAW",
+  "target_branch": "feat/migration-2967-gemini-doctrine",
+  "lanes": [
+    {
+      "lane_id": "lane-a",
+      "wp_ids": [
+        "WP01"
+      ],
+      "write_scope": [
+        "pack/templates/gemini/instructions.template.md",
+        "pack/templates/gemini/set-up-guide.template.md"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-b",
+      "wp_ids": [
+        "WP02"
+      ],
+      "write_scope": [
+        "pack/templates/gemini/model-recommendation.map.yaml"
+      ],
+      "predicted_surfaces": [
+        "artifact-rendering"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-c",
+      "wp_ids": [
+        "WP03"
+      ],
+      "write_scope": [
+        "pack/styleguides/gemini-chatbot-authoring.styleguide.yaml"
+      ],
+      "predicted_surfaces": [
+        "artifact-rendering"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-e",
+      "wp_ids": [
+        "WP05"
+      ],
+      "write_scope": [
+        "config/artifact-tags.yaml",
+        "docs/OVERVIEW.md",
+        "pack/agent_profiles/devops-danny.agent.yaml",
+        "pack/agent_profiles/powershell-peter.agent.yaml",
+        "pack/agent_profiles/sqlx-specialist-simon.agent.yaml",
+        "pack/drg/fragment.yaml",
+        "pack/drg/ps-agent-enabled-factory.graph.yaml",
+        "tools/compile-drg.py"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "legacy-cleanup"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-d",
+      "wp_ids": [
+        "WP04"
+      ],
+      "write_scope": [
+        "pack/agent_profiles/gemini-bot-georgia.agent.yaml"
+      ],
+      "predicted_surfaces": [
+        "api"
+      ],
+      "depends_on_lanes": [
+        "lane-a",
+        "lane-b",
+        "lane-c"
+      ],
+      "parallel_group": 1
+    },
+    {
+      "lane_id": "lane-f",
+      "wp_ids": [
+        "WP06"
+      ],
+      "write_scope": [
+        "CHANGELOG.md"
+      ],
+      "predicted_surfaces": [
+        "artifact-rendering",
+        "legacy-cleanup"
+      ],
+      "depends_on_lanes": [
+        "lane-a",
+        "lane-b",
+        "lane-c",
+        "lane-d",
+        "lane-e"
+      ],
+      "parallel_group": 2
+    }
+  ],
+  "computed_at": "2026-07-09T12:52:57.876988+00:00",
+  "computed_from": "dependency_graph+ownership",
+  "planning_artifact_wps": []
+}

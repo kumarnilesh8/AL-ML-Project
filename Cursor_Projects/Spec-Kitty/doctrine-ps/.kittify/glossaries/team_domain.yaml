@@ -1,0 +1,135 @@
+terms:
+
+  # ── Tag domains ──────────────────────────────────────────────────────────────
+  # These are the canonical domain labels used in docs/artifact-tags.yaml.
+  # They classify artifacts for filtering, discovery, and ownership assignment.
+
+  - surface: governance domain
+    definition: >
+      Tag domain covering artifacts that enforce organisational policy, decision traceability,
+      version control, and compliance. Typical artifacts: VERSION_GOVERNANCE, TRACEABLE_DECISIONS,
+      FRAMEWORK_GUARDIAN, MODEL_DISCIPLINE. Owned by: doctrine pack maintainers.
+    status: active
+    confidence: 1.0
+
+  - surface: engineering domain
+    definition: >
+      Tag domain covering artifacts that directly support software construction: coding
+      standards, SQLX authoring, repository initialization, and language-specific conventions.
+      Typical artifacts: sqlx-generation, repository-initialization, java-jenny, backend-benny.
+      Owned by: technical leads and specialist agent maintainers.
+    status: active
+    confidence: 1.0
+
+  - surface: tooling domain
+    definition: >
+      Tag domain covering artifacts that describe or configure development tools, CLI utilities,
+      MCP servers, and build-time integrations. Typical artifacts: ripgrep toolguide,
+      sqlx-mcp, google-cloud-mcp, agentic-model-leaderboard. Owned by: DevOps and tooling leads.
+    status: active
+    confidence: 1.0
+
+  - surface: security domain
+    definition: >
+      Tag domain covering artifacts that enforce security controls, AppSec compliance, pipeline
+      gating, and vulnerability response. Typical artifacts: APPSEC_COMPLIANCE,
+      appsec-pipeline-setup, security-issue-triage, secure-design-checklist.
+      Owned by: security champions and DevOps Danny.
+    status: active
+    confidence: 1.0
+
+  - surface: communications domain
+    definition: >
+      Tag domain covering artifacts that govern written communications, tone of voice,
+      audience targeting, and lexical consistency. Typical artifacts: AUDIENCE_ORIENTED_WRITING,
+      professional-communications, comms-cleo, lexical-larry. Owned by: communications leads.
+    status: active
+    confidence: 1.0
+
+  - surface: architecture domain
+    definition: >
+      Tag domain covering artifacts that shape system design decisions, context boundaries,
+      and structural patterns. Typical artifacts: ports-and-adapters-architecture,
+      bounded-context-linguistic-discovery, context-boundary-inference, domain-driven-naming.
+      Owned by: architects and senior engineers.
+    status: active
+    confidence: 1.0
+
+  - surface: delivery domain
+    definition: >
+      Tag domain covering artifacts that govern project execution, task workflows, and
+      delivery cadence. Typical artifacts: requirements-validation-workflow,
+      reflection-post-action-learning-loop, safe-to-fail-experiment-design.
+      Owned by: delivery managers and analyst-annie.
+    status: active
+    confidence: 1.0
+
+  - surface: quality domain
+    definition: >
+      Tag domain covering artifacts that enforce testing standards, validation gates, and
+      quality checks. Typical artifacts: TEST_FIRST_BUG_FIXING, sqlx-testing, sqlx-validation,
+      requirements-validation-workflow. Owned by: quality engineers.
+    status: active
+    confidence: 1.0
+
+  - surface: devops domain
+    definition: >
+      Tag domain covering artifacts that govern CI/CD pipelines, build automation, and
+      infrastructure-as-code. Typical artifacts: appsec-pipeline-setup,
+      maven-project-compliance-setup, devops-danny. Owned by: DevOps Danny.
+    status: active
+    confidence: 1.0
+
+  - surface: brand-alignment domain
+    definition: >
+      Tag domain covering artifacts that enforce Regnology visual and verbal brand standards.
+      Typical artifacts: REGNOLOGY_BRANDING, regnology-branding styleguide,
+      create-branded-slidedeck. Owned by: communications leads.
+    status: active
+    confidence: 1.0
+
+  - surface: research domain
+    definition: >
+      Tag domain covering artifacts that support investigation, analysis, and evidence
+      gathering. Typical artifacts: ammerse-analysis, evidence-based-requirements,
+      safe-to-fail-experiment-design. Owned by: analyst-annie.
+    status: active
+    confidence: 1.0
+
+  - surface: design domain
+    definition: >
+      Tag domain covering artifacts that support UI/UX design, diagramming, and
+      visual communication. Typical artifacts: design-diagramming-incremental-detail,
+      frontend-freddy. Owned by: design leads.
+    status: active
+    confidence: 1.0
+
+  # ── RACI ownership concepts ──────────────────────────────────────────────────
+
+  - surface: pack maintainer
+    definition: >
+      The role responsible for the regnology-default doctrine pack. Accountable for schema
+      validity, DRG integrity, upstream alignment (docs/maintenance/keep-aligned.md),
+      and version governance. Approves additions to org-charter required_directives.
+      RACI: Accountable for all pack artifacts.
+    status: active
+    confidence: 1.0
+
+  - surface: doctrine consumer
+    definition: >
+      An engagement repository or team that adopts the regnology-default pack via
+      `spec-kitty doctrine fetch`. Consumers may extend with .doctrine-config/ overrides
+      but cannot override general or operational guidelines. RACI: Responsible for local
+      compliance; informed of pack updates.
+    status: active
+    confidence: 1.0
+
+  - surface: human in charge
+    definition: >
+      The human operator who retains final approval authority over agent decisions and
+      irreversible operations. Defined by Directive 040. HiC must approve: destructive
+      git operations, bulk file changes, schema modifications, and any action with
+      uncertainty above the 30% threshold. RACI: Accountable for all agent outputs
+      before they are considered final.
+    status: active
+    confidence: 1.0

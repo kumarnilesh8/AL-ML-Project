@@ -1,0 +1,4270 @@
+WEBVTT
+
+1
+00:01:56.890 --> 00:02:00.680
+Prof . Madhusudhanan Baskaran: Good evening, all. Let us wait for 2 more minutes, and then start.
+
+2
+00:03:40.120 --> 00:03:43.950
+Prof . Madhusudhanan Baskaran: Okay, so… Good evening, everyone.
+
+3
+00:03:46.250 --> 00:03:57.070
+Prof . Madhusudhanan Baskaran: Today, we'll… Look, from the perspective of… image… You know, image analytics.
+
+4
+00:03:58.070 --> 00:04:03.550
+Prof . Madhusudhanan Baskaran: How… we have seen how embeddings happen In the…
+
+5
+00:04:04.450 --> 00:04:15.140
+Prof . Madhusudhanan Baskaran: text data. So today, we'll try to understand how embeddings can happen on… image data.
+
+6
+00:04:15.570 --> 00:04:19.379
+Prof . Madhusudhanan Baskaran: Right? So the question is, do I really require a…
+
+7
+00:04:20.100 --> 00:04:26.599
+Prof . Madhusudhanan Baskaran: Or do I really require a… model… A transformer model, or a
+
+8
+00:04:28.050 --> 00:04:32.489
+Prof . Madhusudhanan Baskaran: whether it is not required. So this is a million dollar question that we need to understand.
+
+9
+00:04:32.900 --> 00:04:33.730
+Prof . Madhusudhanan Baskaran: Right?
+
+10
+00:04:33.840 --> 00:04:38.909
+Prof . Madhusudhanan Baskaran: So… So, let us… Start from there.
+
+11
+00:04:39.700 --> 00:04:41.260
+Prof . Madhusudhanan Baskaran: Let us start from there.
+
+12
+00:04:41.440 --> 00:04:44.530
+Prof . Madhusudhanan Baskaran: I hope… Just adjusting…
+
+13
+00:04:56.580 --> 00:04:59.590
+Prof . Madhusudhanan Baskaran: Yeah, I hope my screen is visible, alright?
+
+14
+00:05:00.660 --> 00:05:03.740
+Prof . Madhusudhanan Baskaran: So… I may not be able to.
+
+15
+00:05:04.130 --> 00:05:06.790
+Prof . Madhusudhanan Baskaran: Yeah, I hope my screen is visible, right? I'll not take…
+
+16
+00:05:06.960 --> 00:05:09.760
+Prof . Madhusudhanan Baskaran: Questions now. I'll take it later.
+
+17
+00:05:10.220 --> 00:05:12.810
+Prof . Madhusudhanan Baskaran: Somebody can confirm? Yes, great.
+
+18
+00:05:13.430 --> 00:05:23.210
+Prof . Madhusudhanan Baskaran: Okay, so before even getting into this, I think I'll… can you all give me some example where you might use…
+
+19
+00:05:23.940 --> 00:05:30.300
+Prof . Madhusudhanan Baskaran: Where you might use, you know, image applications.
+
+20
+00:05:30.620 --> 00:05:38.150
+Prof . Madhusudhanan Baskaran: Can we think of something? Right. Let me give an example. Let us take satellite imagery as an example.
+
+21
+00:05:39.580 --> 00:05:48.480
+Prof . Madhusudhanan Baskaran: So, how will you take it forward? Can you look at it? Okay, scan documents. Let us take one specific example. Let us say satellite imagery.
+
+22
+00:05:48.650 --> 00:05:51.290
+Prof . Madhusudhanan Baskaran: What are the use cases that you can think of?
+
+23
+00:05:54.050 --> 00:05:59.669
+Prof . Madhusudhanan Baskaran: Okay, signature verification, scanned documents, very good, face recognition. Let us try to…
+
+24
+00:06:00.900 --> 00:06:11.050
+Prof . Madhusudhanan Baskaran: You know, let us try to, restrict to… I don't know, maybe… Satellite imagery?
+
+25
+00:06:13.510 --> 00:06:17.459
+Prof . Madhusudhanan Baskaran: Autonomous drones for targeted assassination, okay?
+
+26
+00:06:17.730 --> 00:06:24.649
+Prof . Madhusudhanan Baskaran: Image search… Location based on… Mapping-based practical application, right?
+
+27
+00:06:25.460 --> 00:06:30.099
+Prof . Madhusudhanan Baskaran: Any feature change on ground? That's a good listing. Can you apply this somewhere, Vishnu?
+
+28
+00:06:30.570 --> 00:06:32.489
+Prof . Madhusudhanan Baskaran: Change detection, yes.
+
+29
+00:06:34.000 --> 00:06:37.399
+Prof . Madhusudhanan Baskaran: Property registration, very good idea. Okay, good.
+
+30
+00:06:39.030 --> 00:06:41.339
+Prof . Madhusudhanan Baskaran: Property registration, very good use case.
+
+31
+00:06:41.640 --> 00:06:47.179
+Prof . Madhusudhanan Baskaran: Change detection, right? What other use case can you think of? See.
+
+32
+00:06:48.060 --> 00:06:53.089
+Prof . Madhusudhanan Baskaran: I keep repeating. No, CCTV, no, I wanted to restrict to…
+
+33
+00:06:53.740 --> 00:06:57.709
+Prof . Madhusudhanan Baskaran: Only satellite imagery, monsoon progress, okay?
+
+34
+00:06:57.920 --> 00:07:00.039
+Prof . Madhusudhanan Baskaran: Deforestation, very good.
+
+35
+00:07:00.740 --> 00:07:01.670
+Prof . Madhusudhanan Baskaran: Very good.
+
+36
+00:07:04.890 --> 00:07:11.640
+Prof . Madhusudhanan Baskaran: check impact of weapon on ground before and after. Yes, I think we are all seeing too many
+
+37
+00:07:13.620 --> 00:07:18.990
+Prof . Madhusudhanan Baskaran: Right? Iran war, and we try to use Iran war, and we try to understand that very good.
+
+38
+00:07:19.280 --> 00:07:21.660
+Prof . Madhusudhanan Baskaran: Marine is a very good use case.
+
+39
+00:07:22.240 --> 00:07:28.200
+Prof . Madhusudhanan Baskaran: Marine is a very good use case. Border area security is a… surveillance is a very good use case.
+
+40
+00:07:29.480 --> 00:07:31.420
+Prof . Madhusudhanan Baskaran: Crop acreage, very good.
+
+41
+00:07:32.010 --> 00:07:34.280
+Prof . Madhusudhanan Baskaran: Meteorological predictions, very good.
+
+42
+00:07:35.780 --> 00:07:36.590
+Prof . Madhusudhanan Baskaran: Right.
+
+43
+00:07:37.260 --> 00:07:38.789
+Prof . Madhusudhanan Baskaran: Very good. Cyclone.
+
+44
+00:07:41.250 --> 00:07:46.810
+Prof . Madhusudhanan Baskaran: So, so let me just try to put this El Nino effect, okay?
+
+45
+00:07:47.110 --> 00:07:53.450
+Prof . Madhusudhanan Baskaran: Cyclone, okay? Let me try to put this into different buckets. Now, suddenly we are seeing a lot of applications, right?
+
+46
+00:07:53.970 --> 00:08:00.190
+Prof . Madhusudhanan Baskaran: Any state department, you know, any state, or no, we would like to understand crop.
+
+47
+00:08:00.970 --> 00:08:03.250
+Prof . Madhusudhanan Baskaran: Right? We would like to understand
+
+48
+00:08:03.910 --> 00:08:07.940
+Prof . Madhusudhanan Baskaran: Okay, medical RNA, it is… I was only looking from…
+
+49
+00:08:08.390 --> 00:08:13.209
+Prof . Madhusudhanan Baskaran: satellite imagery perspective, just taking one area, but your answer is correct.
+
+50
+00:08:15.790 --> 00:08:17.710
+Prof . Madhusudhanan Baskaran: Let us look at the use cases.
+
+51
+00:08:19.190 --> 00:08:19.950
+Prof . Madhusudhanan Baskaran: Right.
+
+52
+00:08:20.060 --> 00:08:27.400
+Prof . Madhusudhanan Baskaran: The first thing that we can do, of course, you need to understand image, satellite imagery.
+
+53
+00:08:28.590 --> 00:08:37.649
+Prof . Madhusudhanan Baskaran: especially in the visual range, we call them as hyperspectral imagery, where we only think of RGB for color images.
+
+54
+00:08:37.950 --> 00:08:39.929
+Prof . Madhusudhanan Baskaran: In reality, I can go to
+
+55
+00:08:40.490 --> 00:08:52.029
+Prof . Madhusudhanan Baskaran: other bands. I can go to infrared, near-infrared, ultraviolet, right? UV. I can go for different bands, which are nothing but different frequencies.
+
+56
+00:08:52.920 --> 00:08:54.590
+Prof . Madhusudhanan Baskaran: Or different wavelengths.
+
+57
+00:08:54.870 --> 00:09:01.300
+Prof . Madhusudhanan Baskaran: Now, I can use various formulas, Or I can use…
+
+58
+00:09:01.550 --> 00:09:04.630
+Prof . Madhusudhanan Baskaran: No, if I'm trying to understand vegetation.
+
+59
+00:09:05.660 --> 00:09:16.439
+Prof . Madhusudhanan Baskaran: we use a metric called as NDVI. We use near-infrared to understand vegetation. Today, it is possible. Look at the use case. Look at the use case.
+
+60
+00:09:17.130 --> 00:09:22.280
+Prof . Madhusudhanan Baskaran: You want to understand the total wheat production in the country.
+
+61
+00:09:23.800 --> 00:09:27.530
+Prof . Madhusudhanan Baskaran: You want to have… understand the total wheat production in the country.
+
+62
+00:09:28.680 --> 00:09:38.580
+Prof . Madhusudhanan Baskaran: Punjab is the… one of the largest wheat producers in the country. You want to understand how much wheat is going to be produced. Now, how does it happen in real life?
+
+63
+00:09:39.380 --> 00:09:41.460
+Prof . Madhusudhanan Baskaran: Maybe you have the cooperative.
+
+64
+00:09:42.750 --> 00:09:49.320
+Prof . Madhusudhanan Baskaran: So, in each village, there is a cooperative. They try to understand how much acres of land is
+
+65
+00:09:50.090 --> 00:10:03.659
+Prof . Madhusudhanan Baskaran: No, land has been… is being used for cultivation. The data is aggregated across entire Punjab, entire Ariana, assuming that 70% of the production is happening in
+
+66
+00:10:04.080 --> 00:10:11.699
+Prof . Madhusudhanan Baskaran: Punjab and Haryana, maybe I can do an estimate, and from there, you know, I can look at my historical data.
+
+67
+00:10:12.410 --> 00:10:18.340
+Prof . Madhusudhanan Baskaran: to understand, What could be the average wheat that will be produced this year?
+
+68
+00:10:18.530 --> 00:10:22.110
+Prof . Madhusudhanan Baskaran: Correct. So, what are the techniques that you'll use?
+
+69
+00:10:22.800 --> 00:10:34.509
+Prof . Madhusudhanan Baskaran: Right? I have the force brute method. I'm not using satellite. I'm going to the cooperatives. They go, because they provide seeds to the farmer. They know how many acres are
+
+70
+00:10:35.060 --> 00:10:36.930
+Prof . Madhusudhanan Baskaran: No? Being cultivated.
+
+71
+00:10:38.570 --> 00:10:43.090
+Prof . Madhusudhanan Baskaran: once I know how many area, you know, what area is being cultivated.
+
+72
+00:10:43.800 --> 00:10:48.779
+Prof . Madhusudhanan Baskaran: I am very much interested in understanding what could be the production
+
+73
+00:10:48.880 --> 00:10:59.419
+Prof . Madhusudhanan Baskaran: Right? What will be the volume of production? What will be the… how many quintiles, or how many tons of wheat is being produced? This applies to everything, whether it is wheat, whether it is…
+
+74
+00:11:00.670 --> 00:11:03.900
+Prof . Madhusudhanan Baskaran: Whether it is, you know, rice, whatever it is.
+
+75
+00:11:04.360 --> 00:11:14.340
+Prof . Madhusudhanan Baskaran: How will you go about it? Right? There's an engineering problem. Maybe, you know, a state comes to you, and they say, we want to understand the wheat production, we want to find the price.
+
+76
+00:11:14.900 --> 00:11:31.380
+Prof . Madhusudhanan Baskaran: Or, no, that is something one government might say. Another government might say, we are exploring how we can export this wheat, because we get better prices. Another state might say, hey, I have a shortage in wheat. It could be state, or it could be the country.
+
+77
+00:11:31.860 --> 00:11:35.830
+Prof . Madhusudhanan Baskaran: I have a shortage of wheat. How much wheat to import?
+
+78
+00:11:37.290 --> 00:11:40.960
+Prof . Madhusudhanan Baskaran: How will you solve this problem? There's no way related to imagery.
+
+79
+00:11:42.690 --> 00:11:44.230
+Prof . Madhusudhanan Baskaran: How will you solve the problem?
+
+80
+00:11:47.180 --> 00:11:48.920
+Prof . Madhusudhanan Baskaran: practical application.
+
+81
+00:12:01.360 --> 00:12:10.510
+Prof . Madhusudhanan Baskaran: statistical data on wheat consumed, okay? Wheat, yeah, correct. You produce, you consume, and consumption might increase every year.
+
+82
+00:12:16.010 --> 00:12:17.239
+Prof . Madhusudhanan Baskaran: How will you do that?
+
+83
+00:12:18.330 --> 00:12:22.810
+Prof . Madhusudhanan Baskaran: Predicted, we generated. So, what are you going to do? Okay, you're going to predict.
+
+84
+00:12:42.350 --> 00:12:43.210
+Prof . Madhusudhanan Baskaran: Okay.
+
+85
+00:12:44.030 --> 00:12:50.349
+Prof . Madhusudhanan Baskaran: Others, right? Try, try. You want to find, right? So, you're an… you're an AI engineer.
+
+86
+00:12:50.750 --> 00:12:59.539
+Prof . Madhusudhanan Baskaran: You are an AI engineer, of course, statistics, whatever Abhishek said is… will definitely work, but, you know, you are an AI engineer, we want to
+
+87
+00:12:59.830 --> 00:13:08.570
+Prof . Madhusudhanan Baskaran: predict Whether to import wheat, Whether to export wheat, whether there is sufficiency in the wheat.
+
+88
+00:13:09.810 --> 00:13:11.120
+Prof . Madhusudhanan Baskaran: How will you do that?
+
+89
+00:13:11.760 --> 00:13:16.460
+Prof . Madhusudhanan Baskaran: Whatever comes to your mind, whatever you have learned till now, what technique will you apply?
+
+90
+00:13:23.300 --> 00:13:25.159
+Prof . Madhusudhanan Baskaran: What technique will you apply?
+
+91
+00:13:25.840 --> 00:13:29.370
+Prof . Madhusudhanan Baskaran: Okay, you want to pair it with weather patterns, what else?
+
+92
+00:13:38.000 --> 00:13:42.590
+Prof . Madhusudhanan Baskaran: You'd create a neural network, okay, what neural network are you going to create?
+
+93
+00:13:52.120 --> 00:13:56.230
+Prof . Madhusudhanan Baskaran: No, I'm not going to satellite imagery. I'll come to satellite imagery later, Kamal.
+
+94
+00:14:00.480 --> 00:14:04.190
+Prof . Madhusudhanan Baskaran: number of tractors carrying the wheat. How will you measure that?
+
+95
+00:14:05.880 --> 00:14:09.729
+Prof . Madhusudhanan Baskaran: Visit may not be physically possible for an entire state.
+
+96
+00:14:19.070 --> 00:14:25.879
+Prof . Madhusudhanan Baskaran: historical data, that is a good, good answer. So, what technique will you use? Okay, I'll use historical data.
+
+97
+00:14:26.010 --> 00:14:29.520
+Prof . Madhusudhanan Baskaran: I'll take Haryana, I take the historical data.
+
+98
+00:14:31.120 --> 00:14:34.839
+Prof . Madhusudhanan Baskaran: Okay, very good. Now you're slowly going towards the…
+
+99
+00:14:35.150 --> 00:14:38.199
+Prof . Madhusudhanan Baskaran: data set. Is this a regression problem, or a…
+
+100
+00:14:40.080 --> 00:14:48.489
+Prof . Madhusudhanan Baskaran: classification problem? It's a regression problem. Okay. So, now we have understood. We are seeing, practically a state wants to
+
+101
+00:14:48.700 --> 00:14:59.560
+Prof . Madhusudhanan Baskaran: Computender is something which is being used. It's not that we are not using it, it's being used. I collect… I take a district, which is a wheat-producing district, I have the cooperative, I collect the data.
+
+102
+00:15:00.940 --> 00:15:07.420
+Prof . Madhusudhanan Baskaran: Then… Every year, last 5 years, last 10 years, last 15 years, I have data.
+
+103
+00:15:07.880 --> 00:15:10.890
+Prof . Madhusudhanan Baskaran: Which tells me how much production has happened.
+
+104
+00:15:11.760 --> 00:15:13.080
+Prof . Madhusudhanan Baskaran: Right?
+
+105
+00:15:13.390 --> 00:15:15.299
+Prof . Madhusudhanan Baskaran: How much production has happened?
+
+106
+00:15:15.470 --> 00:15:18.680
+Prof . Madhusudhanan Baskaran: And based on that, you're able to give some volume.
+
+107
+00:15:19.110 --> 00:15:24.169
+Prof . Madhusudhanan Baskaran: Based on… No? If there is overproduction, what'll happen?
+
+108
+00:15:24.870 --> 00:15:25.779
+Prof . Madhusudhanan Baskaran: You will help?
+
+109
+00:15:26.090 --> 00:15:31.529
+Prof . Madhusudhanan Baskaran: the prices will go down. If the production is less, the prices will go up.
+
+110
+00:15:32.370 --> 00:15:38.330
+Prof . Madhusudhanan Baskaran: Right? If there is overproduction, what is the role of the government? How do I sell it to other states?
+
+111
+00:15:39.470 --> 00:15:40.390
+Prof . Madhusudhanan Baskaran: Got it?
+
+112
+00:15:41.010 --> 00:15:50.430
+Prof . Madhusudhanan Baskaran: Export, perfect. So, statistical data, yeah, regression can be used. So, if I take this 10 years of data, 15 years of data.
+
+113
+00:15:51.490 --> 00:15:56.260
+Prof . Madhusudhanan Baskaran: Look into the area, Of cultivated area.
+
+114
+00:15:56.500 --> 00:15:58.250
+Prof . Madhusudhanan Baskaran: And the produced wheat.
+
+115
+00:16:01.430 --> 00:16:03.830
+Prof . Madhusudhanan Baskaran: Is this sufficient for prediction?
+
+116
+00:16:05.650 --> 00:16:09.430
+Prof . Madhusudhanan Baskaran: In real life. Is this sufficient for prediction? Why no?
+
+117
+00:16:10.100 --> 00:16:11.699
+Prof . Madhusudhanan Baskaran: If yes, why yes?
+
+118
+00:16:19.090 --> 00:16:25.330
+Prof . Madhusudhanan Baskaran: Yes. So, we are looking at soil quality, weather condition, Right? Rains.
+
+119
+00:16:25.480 --> 00:16:32.389
+Prof . Madhusudhanan Baskaran: Right? All that impacts. I do not know a bunch about, you know, in the impact of rain, but no, rains can kill plants.
+
+120
+00:16:34.210 --> 00:16:42.289
+Prof . Madhusudhanan Baskaran: Quality of data collected, not very challenging, yes, of course, it is a challenge, it is a challenge.
+
+121
+00:16:42.630 --> 00:16:47.300
+Prof . Madhusudhanan Baskaran: Lots of factors, right? You said, no, lots of factors include fertilizers…
+
+122
+00:16:47.860 --> 00:16:53.499
+Prof . Madhusudhanan Baskaran: Right? Sun, no, see, the, the rains, unpredictable rains.
+
+123
+00:16:53.670 --> 00:16:59.140
+Prof . Madhusudhanan Baskaran: or predicted rains, So we have so many… Okay.
+
+124
+00:17:00.530 --> 00:17:07.020
+Prof . Madhusudhanan Baskaran: So maybe… so there is one challenge here. In 2020, the cost of wheat was EX.
+
+125
+00:17:08.420 --> 00:17:11.349
+Prof . Madhusudhanan Baskaran: In 2021, it is X plus 20.
+
+126
+00:17:12.319 --> 00:17:14.749
+Prof . Madhusudhanan Baskaran: Or, no, the production is Y.
+
+127
+00:17:14.950 --> 00:17:24.070
+Prof . Madhusudhanan Baskaran: the production in the second year is Y minus 20, and so on and so forth. The prices are fluctuating. And maybe I have one year where it's total drought.
+
+128
+00:17:24.460 --> 00:17:27.370
+Prof . Madhusudhanan Baskaran: And there is a infestation by locust.
+
+129
+00:17:29.150 --> 00:17:29.940
+Prof . Madhusudhanan Baskaran: Right?
+
+130
+00:17:31.300 --> 00:17:34.479
+Prof . Madhusudhanan Baskaran: So, my entire crop is lost.
+
+131
+00:17:35.020 --> 00:17:36.650
+Prof . Madhusudhanan Baskaran: The prices will go up.
+
+132
+00:17:38.290 --> 00:17:39.160
+Prof . Madhusudhanan Baskaran: Soap?
+
+133
+00:17:39.540 --> 00:17:48.070
+Prof . Madhusudhanan Baskaran: Now, if I have to model it, I'll have to take into consideration weather, soil quality, right, price of fertilizer.
+
+134
+00:17:48.180 --> 00:17:50.989
+Prof . Madhusudhanan Baskaran: Right? If the cost of fertilizer is higher, what happens?
+
+135
+00:17:52.840 --> 00:17:54.710
+Prof . Madhusudhanan Baskaran: People will buy less fertilizer.
+
+136
+00:17:54.960 --> 00:18:03.909
+Prof . Madhusudhanan Baskaran: Right? People will buy less… farmer will buy less fertilizer. Soil quality may not be good. If there is a… no, if there is a pest infestation.
+
+137
+00:18:04.420 --> 00:18:06.590
+Prof . Madhusudhanan Baskaran: If there is a pest infestation.
+
+138
+00:18:07.350 --> 00:18:11.450
+Prof . Madhusudhanan Baskaran: Right? What is the impact? If it is high heat.
+
+139
+00:18:11.770 --> 00:18:15.190
+Prof . Madhusudhanan Baskaran: Can you look at a plant and tell that it requires water?
+
+140
+00:18:17.440 --> 00:18:19.429
+Prof . Madhusudhanan Baskaran: A farmer will be able to tell you.
+
+141
+00:18:19.550 --> 00:18:21.689
+Prof . Madhusudhanan Baskaran: A farmer will be able to tell.
+
+142
+00:18:21.850 --> 00:18:25.359
+Prof . Madhusudhanan Baskaran: Looking at the plant, he'll be able to say, oh, this requires watering.
+
+143
+00:18:26.330 --> 00:18:32.900
+Prof . Madhusudhanan Baskaran: leaves get yellowish, or whatever it is. So, whatever your eyes are able to visualize.
+
+144
+00:18:33.700 --> 00:18:36.249
+Prof . Madhusudhanan Baskaran: I can use a drone to visualize that.
+
+145
+00:18:37.080 --> 00:18:38.710
+Prof . Madhusudhanan Baskaran: And that has been done.
+
+146
+00:18:38.880 --> 00:18:47.820
+Prof . Madhusudhanan Baskaran: I forgot the website, but, no, somewhere I was in a consulting mode where we're talking about how to use drone. Now, other challenges include…
+
+147
+00:18:49.380 --> 00:18:51.780
+Prof . Madhusudhanan Baskaran: Pest. Pest is one big challenge.
+
+148
+00:18:52.130 --> 00:18:54.509
+Prof . Madhusudhanan Baskaran: Right? So we are looking at climate.
+
+149
+00:18:55.120 --> 00:18:57.020
+Prof . Madhusudhanan Baskaran: Water. Test.
+
+150
+00:18:57.670 --> 00:18:59.539
+Prof . Madhusudhanan Baskaran: Right? Then weed.
+
+151
+00:19:01.210 --> 00:19:02.010
+Prof . Madhusudhanan Baskaran: Right?
+
+152
+00:19:02.530 --> 00:19:04.790
+Prof . Madhusudhanan Baskaran: Plants which are not required are there.
+
+153
+00:19:06.510 --> 00:19:13.000
+Prof . Madhusudhanan Baskaran: Right, so maybe leaves become yellowish, or whatever it is. So here again, now I have a challenge. My challenge is increasing.
+
+154
+00:19:13.410 --> 00:19:15.829
+Prof . Madhusudhanan Baskaran: Rather than… rather than looking at
+
+155
+00:19:16.520 --> 00:19:23.939
+Prof . Madhusudhanan Baskaran: Only the… how much seed I have sold, how many acres. Now I have a bigger challenge. The cooperative now has to understand, he has to…
+
+156
+00:19:24.380 --> 00:19:26.839
+Prof . Madhusudhanan Baskaran: Go around and see the fields.
+
+157
+00:19:27.120 --> 00:19:32.710
+Prof . Madhusudhanan Baskaran: Some may be taking a lot of interest, some may not be taking interest at all. He has to go and check that.
+
+158
+00:19:34.860 --> 00:19:48.749
+Prof . Madhusudhanan Baskaran: to really make the prediction. So he has to measure the temperature, he has to measure the humidity, he has to measure the water content in the soil, availability of water, availability of fertilizer, you know, impact of pest, is there a pest?
+
+159
+00:19:49.440 --> 00:19:50.190
+Prof . Madhusudhanan Baskaran: Great.
+
+160
+00:19:51.890 --> 00:19:53.389
+Prof . Madhusudhanan Baskaran: I can use a drone.
+
+161
+00:19:53.980 --> 00:19:55.420
+Prof . Madhusudhanan Baskaran: I can use that role.
+
+162
+00:19:56.770 --> 00:20:01.330
+Prof . Madhusudhanan Baskaran: Where… I can try to understand.
+
+163
+00:20:01.780 --> 00:20:08.679
+Prof . Madhusudhanan Baskaran: I can try to understand the plant health. I can try to understand if there is a problem in the plant.
+
+164
+00:20:09.760 --> 00:20:16.429
+Prof . Madhusudhanan Baskaran: It could be anything. Wheat, tomatoes, rice, whatever it is. I can look at the plant health quality writing algorithms.
+
+165
+00:20:17.570 --> 00:20:18.380
+Prof . Madhusudhanan Baskaran: Yes.
+
+166
+00:20:18.810 --> 00:20:22.359
+Prof . Madhusudhanan Baskaran: Precision al… it's called as precision agriculture.
+
+167
+00:20:22.800 --> 00:20:26.369
+Prof . Madhusudhanan Baskaran: Right? Why it is not popular in India, anybody knows?
+
+168
+00:20:29.940 --> 00:20:33.090
+Prof . Madhusudhanan Baskaran: The average landholding is about 1.5 hectares.
+
+169
+00:20:34.670 --> 00:20:50.330
+Prof . Madhusudhanan Baskaran: Right? The average. Israelis have good solution, Canadians have a good solution, right? The average landholding is very small. If you look at the… somebody, you know, Abhishek is talking of technology used by the government. India has its own challenges.
+
+170
+00:20:50.860 --> 00:20:52.580
+Prof . Madhusudhanan Baskaran: The landholding is small.
+
+171
+00:20:53.660 --> 00:20:54.570
+Prof . Madhusudhanan Baskaran: Right?
+
+172
+00:20:54.670 --> 00:21:01.649
+Prof . Madhusudhanan Baskaran: Whereas certain areas in China, they use collective farming. In India, the concept of collective farming is not possible.
+
+173
+00:21:01.760 --> 00:21:06.150
+Prof . Madhusudhanan Baskaran: That means you'll have to build solution, which is… Working for India.
+
+174
+00:21:06.430 --> 00:21:09.239
+Prof . Madhusudhanan Baskaran: Now, we saw that I can give a regression model.
+
+175
+00:21:09.940 --> 00:21:12.860
+Prof . Madhusudhanan Baskaran: Alright? I can use a drone.
+
+176
+00:21:13.330 --> 00:21:20.049
+Prof . Madhusudhanan Baskaran: Generally, a combination of all this works. I might use a drone model, we call it a data fusion, hybrid models.
+
+177
+00:21:20.620 --> 00:21:22.110
+Prof . Madhusudhanan Baskaran: I can use a drone.
+
+178
+00:21:23.090 --> 00:21:36.549
+Prof . Madhusudhanan Baskaran: From drone, I can try to understand the plant health. I can try to understand the, you know, weeds that are growing, which has to be de-weeded. It could be fungal infection, it could be bacterial infection.
+
+179
+00:21:36.780 --> 00:21:44.529
+Prof . Madhusudhanan Baskaran: the various components. Water, excess… Urea, excess phosphorus, whatever it is.
+
+180
+00:21:44.840 --> 00:21:52.509
+Prof . Madhusudhanan Baskaran: I'll be able to identify. That means this is a classic machine learning scenario. This is a classic deep learning scenario.
+
+181
+00:21:54.560 --> 00:21:59.429
+Prof . Madhusudhanan Baskaran: What is the advantage of using a satellite? I can use a drone, go 10,000 feet.
+
+182
+00:22:00.130 --> 00:22:06.640
+Prof . Madhusudhanan Baskaran: Or, no, 5,000 feet. Now I can go further, higher. I go to a satellite. What is the advantage?
+
+183
+00:22:06.980 --> 00:22:09.920
+Prof . Madhusudhanan Baskaran: In satellite, the area is extremely large.
+
+184
+00:22:10.600 --> 00:22:13.659
+Prof . Madhusudhanan Baskaran: I'll be able to use an extremely large area.
+
+185
+00:22:15.660 --> 00:22:18.879
+Prof . Madhusudhanan Baskaran: Maybe typically about 20 square kilometers.
+
+186
+00:22:19.580 --> 00:22:26.199
+Prof . Madhusudhanan Baskaran: Right? If I'm able to, ma'am, check 20 square kilometers, map it and stitch the images.
+
+187
+00:22:26.700 --> 00:22:30.820
+Prof . Madhusudhanan Baskaran: I'll be able to identify the entire volume.
+
+188
+00:22:31.120 --> 00:22:36.120
+Prof . Madhusudhanan Baskaran: Right? I will be able to volume, you know, check the entire volume. What are the advantages you look at?
+
+189
+00:22:37.320 --> 00:22:45.030
+Prof . Madhusudhanan Baskaran: my traditional mechanism is eased out using a drone. I'll go to a village, my cooperator has a drone, he'll go around.
+
+190
+00:22:45.780 --> 00:22:46.490
+Prof . Madhusudhanan Baskaran: Yes.
+
+191
+00:22:47.250 --> 00:22:51.410
+Prof . Madhusudhanan Baskaran: Right? He may go around the entire village. I might have a slightly powerful drone.
+
+192
+00:22:51.710 --> 00:22:56.179
+Prof . Madhusudhanan Baskaran: Go around the entire village, and then, you know, build my report.
+
+193
+00:22:57.210 --> 00:22:59.360
+Prof . Madhusudhanan Baskaran: But I'm looking across the country.
+
+194
+00:23:00.080 --> 00:23:02.780
+Prof . Madhusudhanan Baskaran: I can use that, like, technology.
+
+195
+00:23:06.290 --> 00:23:10.319
+Prof . Madhusudhanan Baskaran: Right? You can use a satellite imagery. I can have mechanism.
+
+196
+00:23:11.010 --> 00:23:13.200
+Prof . Madhusudhanan Baskaran: I can have mechanism to understand.
+
+197
+00:23:13.450 --> 00:23:15.850
+Prof . Madhusudhanan Baskaran: I can use a 3 meter resolution.
+
+198
+00:23:16.450 --> 00:23:18.580
+Prof . Madhusudhanan Baskaran: That means 1 pixel.
+
+199
+00:23:19.150 --> 00:23:21.660
+Prof . Madhusudhanan Baskaran: Will be 3 meters by 3 meters area.
+
+200
+00:23:22.170 --> 00:23:29.470
+Prof . Madhusudhanan Baskaran: I can use algorithms, to find… To find the quality of
+
+201
+00:23:30.240 --> 00:23:33.579
+Prof . Madhusudhanan Baskaran: plants. The growth stage of the plants.
+
+202
+00:23:33.980 --> 00:23:38.270
+Prof . Madhusudhanan Baskaran: I'm using VEET, I can… I can start advertising when to…
+
+203
+00:23:38.730 --> 00:23:44.310
+Prof . Madhusudhanan Baskaran: No? When to start the production, when to cut the… Plant.
+
+204
+00:23:44.920 --> 00:23:46.909
+Prof . Madhusudhanan Baskaran: When to stop watering it.
+
+205
+00:23:47.520 --> 00:23:49.499
+Prof . Madhusudhanan Baskaran: Enough techniques are available.
+
+206
+00:23:50.460 --> 00:23:51.270
+Prof . Madhusudhanan Baskaran: Right?
+
+207
+00:23:52.390 --> 00:23:54.110
+Prof . Madhusudhanan Baskaran: So I can take the entire…
+
+208
+00:23:54.250 --> 00:24:01.960
+Prof . Madhusudhanan Baskaran: Mapping the entire city or the entire country becomes extremely easy. I can use… now, look at the use cases.
+
+209
+00:24:02.070 --> 00:24:11.690
+Prof . Madhusudhanan Baskaran: Right now, I was talking only about wheat, but if I take entire country, I would like to understand how many hectares of wheat is being collected, you know?
+
+210
+00:24:11.940 --> 00:24:14.150
+Prof . Madhusudhanan Baskaran: Cultivated how many hectares of…
+
+211
+00:24:14.490 --> 00:24:23.640
+Prof . Madhusudhanan Baskaran: rice, how many hectares of tomato, how many hectares of potato, and so on and so forth. And this will give me a very good idea to advise.
+
+212
+00:24:23.950 --> 00:24:30.160
+Prof . Madhusudhanan Baskaran: You'd have seen this, right? Many a times, farmer says, I'm selling tomato for 1 rupee a kilo.
+
+213
+00:24:31.050 --> 00:24:35.820
+Prof . Madhusudhanan Baskaran: Right? 1 kilo, I sell it for 1 rupee, because there are no buyers. Demand is…
+
+214
+00:24:36.290 --> 00:24:44.650
+Prof . Madhusudhanan Baskaran: Way, way, way higher than, as a, you know, lesser than supply. Supply… the demand is 100 tons, but the supply is 300 tons.
+
+215
+00:24:44.790 --> 00:24:46.170
+Prof . Madhusudhanan Baskaran: It gets vested.
+
+216
+00:24:47.580 --> 00:24:57.689
+Prof . Madhusudhanan Baskaran: Right? Now, this helps, no, right? So, I'll require a mechanism where I can use satellite, and then start advising, oh, there is already sufficient tomato being produced, do not…
+
+217
+00:24:58.470 --> 00:25:00.440
+Prof . Madhusudhanan Baskaran: Do not cultivate tomatoes.
+
+218
+00:25:01.420 --> 00:25:05.950
+Prof . Madhusudhanan Baskaran: Right? Instead of tomatoes, you can tell the farmer to cultivate something else.
+
+219
+00:25:06.510 --> 00:25:14.189
+Prof . Madhusudhanan Baskaran: This is a classic use case. I can look at the economy of the farmer, right? Just using satellite, I'm able to understand that.
+
+220
+00:25:14.830 --> 00:25:19.490
+Prof . Madhusudhanan Baskaran: How… what to cultivate, how much to cultivate, and so on and so forth.
+
+221
+00:25:21.340 --> 00:25:23.569
+Prof . Madhusudhanan Baskaran: That becomes extremely important.
+
+222
+00:25:24.380 --> 00:25:25.130
+Prof . Madhusudhanan Baskaran: Great.
+
+223
+00:25:25.340 --> 00:25:28.520
+Prof . Madhusudhanan Baskaran: I can look at the impact of pest.
+
+224
+00:25:29.620 --> 00:25:36.680
+Prof . Madhusudhanan Baskaran: Right? Just like COVID, it also spreads. I'd like to impact. I can try to understand what areas are impacted.
+
+225
+00:25:37.930 --> 00:25:46.959
+Prof . Madhusudhanan Baskaran: The government can swing into action, stating how to control the pest, how to control the bacterial infection.
+
+226
+00:25:47.240 --> 00:25:48.340
+Prof . Madhusudhanan Baskaran: use case.
+
+227
+00:25:48.470 --> 00:25:49.290
+Prof . Madhusudhanan Baskaran: Right?
+
+228
+00:25:50.290 --> 00:25:56.010
+Prof . Madhusudhanan Baskaran: I can understand what is the production, I can… so, I can have any number of use cases.
+
+229
+00:25:56.220 --> 00:26:04.209
+Prof . Madhusudhanan Baskaran: I can have any number of use cases. This not only applies to farming, Look at other use cases.
+
+230
+00:26:04.410 --> 00:26:05.990
+Prof . Madhusudhanan Baskaran: Deforestation.
+
+231
+00:26:06.520 --> 00:26:12.829
+Prof . Madhusudhanan Baskaran: Impact of deforestation. Impact of new buildings, illegal buildings coming up.
+
+232
+00:26:14.250 --> 00:26:15.170
+Prof . Madhusudhanan Baskaran: Right?
+
+233
+00:26:16.610 --> 00:26:18.130
+Prof . Madhusudhanan Baskaran: change detection.
+
+234
+00:26:18.490 --> 00:26:22.329
+Prof . Madhusudhanan Baskaran: Classic use case. Every government today will be interested in knowing that.
+
+235
+00:26:22.990 --> 00:26:28.530
+Prof . Madhusudhanan Baskaran: Right? Why? Because, no, globally, there's a big, this thing. Fire, forest fire.
+
+236
+00:26:29.010 --> 00:26:31.160
+Prof . Madhusudhanan Baskaran: You always keep hearing about forest fire.
+
+237
+00:26:31.360 --> 00:26:33.640
+Prof . Madhusudhanan Baskaran: Forest fire is a classic example.
+
+238
+00:26:35.140 --> 00:26:40.789
+Prof . Madhusudhanan Baskaran: Right? So I can look at forest fire, I can look at deforestation, I can look at afforestation.
+
+239
+00:26:41.890 --> 00:26:46.069
+Prof . Madhusudhanan Baskaran: I can look at… you know, I can look at top.
+
+240
+00:26:46.440 --> 00:26:48.560
+Prof . Madhusudhanan Baskaran: Illegal buildings coming up.
+
+241
+00:26:49.880 --> 00:26:56.550
+Prof . Madhusudhanan Baskaran: I can look at illegal… mining illegal… Right? Illegal…
+
+242
+00:26:56.830 --> 00:27:00.490
+Prof . Madhusudhanan Baskaran: Land encouragement, yes, I can look at all these use cases.
+
+243
+00:27:01.220 --> 00:27:03.480
+Prof . Madhusudhanan Baskaran: Right? I can use all these use cases.
+
+244
+00:27:03.760 --> 00:27:10.709
+Prof . Madhusudhanan Baskaran: It can be scenarios like your mandraga, right? Your… 100-day job guarantee scheme.
+
+245
+00:27:10.900 --> 00:27:12.950
+Prof . Madhusudhanan Baskaran: Many times, they are asked to
+
+246
+00:27:13.100 --> 00:27:19.420
+Prof . Madhusudhanan Baskaran: Build roads, kacha roads, in villages. You're asked to create clean temple ponds.
+
+247
+00:27:19.880 --> 00:27:26.639
+Prof . Madhusudhanan Baskaran: Or ponds, water sources, not be temple water sources, right? Because they become aquifiers.
+
+248
+00:27:27.850 --> 00:27:30.600
+Prof . Madhusudhanan Baskaran: Can I use EM? Can I use satellite imagery?
+
+249
+00:27:30.970 --> 00:27:37.650
+Prof . Madhusudhanan Baskaran: Right? So, you're seeing so many use cases. So, again, In the last…
+
+250
+00:27:38.390 --> 00:27:43.180
+Prof . Madhusudhanan Baskaran: 20-25 minutes. We are speaking of We are speaking of.
+
+251
+00:27:43.380 --> 00:27:47.740
+Prof . Madhusudhanan Baskaran: Usage or applications. We are looking at applications.
+
+252
+00:27:47.960 --> 00:27:51.740
+Prof . Madhusudhanan Baskaran: Now I can use ChatGPT and ask how to build a solution.
+
+253
+00:27:52.240 --> 00:28:02.749
+Prof . Madhusudhanan Baskaran: Right? I can use ChatGPT. Whether it is drones, drones might be small, they can be large, but you also have something called as orinthopters. Orinthopters are very small drones.
+
+254
+00:28:04.350 --> 00:28:06.230
+Prof . Madhusudhanan Baskaran: Smaller drones? Less.
+
+255
+00:28:07.410 --> 00:28:12.829
+Prof . Madhusudhanan Baskaran: less energy consumption. So, you know, what a farmer can do is, he can invest on a 10,000 rupee drone.
+
+256
+00:28:12.940 --> 00:28:18.850
+Prof . Madhusudhanan Baskaran: He flies it on his field, The data is collected.
+
+257
+00:28:19.590 --> 00:28:22.270
+Prof . Madhusudhanan Baskaran: Is it possible to put AI in the…
+
+258
+00:28:22.980 --> 00:28:27.760
+Prof . Madhusudhanan Baskaran: Drone itself, so that feature engineering is done, features are extracted.
+
+259
+00:28:27.970 --> 00:28:37.130
+Prof . Madhusudhanan Baskaran: Once the drone comes back, I might use The data, engineered data, Identify.
+
+260
+00:28:38.060 --> 00:28:39.240
+Prof . Madhusudhanan Baskaran: Challenges.
+
+261
+00:28:39.540 --> 00:28:42.950
+Prof . Madhusudhanan Baskaran: So I can have… I can almost… I know I can have a…
+
+262
+00:28:43.380 --> 00:28:46.619
+Prof . Madhusudhanan Baskaran: System which will predict me the entire farm.
+
+263
+00:28:46.830 --> 00:28:50.090
+Prof . Madhusudhanan Baskaran: Which will tell me the history and geography of my entire form.
+
+264
+00:28:50.220 --> 00:28:54.690
+Prof . Madhusudhanan Baskaran: So, this is on one side. The other side, I can try to predict weather.
+
+265
+00:28:55.360 --> 00:28:59.610
+Prof . Madhusudhanan Baskaran: So, it is a collaboration of multiple systems.
+
+266
+00:29:00.080 --> 00:29:02.950
+Prof . Madhusudhanan Baskaran: Right? Initially, we used to work with different
+
+267
+00:29:03.740 --> 00:29:11.080
+Prof . Madhusudhanan Baskaran: No? Machine learning models. Today, we are talking of Argentic system. A classic example of Argentic pipeline.
+
+268
+00:29:11.840 --> 00:29:12.900
+Prof . Madhusudhanan Baskaran: Right?
+
+269
+00:29:16.750 --> 00:29:19.669
+Prof . Madhusudhanan Baskaran: Got it? So that is a problem by itself, Abhishek.
+
+270
+00:29:19.980 --> 00:29:22.969
+Prof . Madhusudhanan Baskaran: Right? Can we compute something on its own?
+
+271
+00:29:24.160 --> 00:29:29.209
+Prof . Madhusudhanan Baskaran: So the… it is not the… the… it is not the limitation of compute, it is the limitation of the battery.
+
+272
+00:29:29.770 --> 00:29:36.920
+Prof . Madhusudhanan Baskaran: Power is the biggest challenge, because compute I can achieve. I can achieve, right? Today, look at your S25 phone.
+
+273
+00:29:37.510 --> 00:29:42.230
+Prof . Madhusudhanan Baskaran: If I have the same hardware of the S25 phone in my drone.
+
+274
+00:29:42.910 --> 00:29:54.390
+Prof . Madhusudhanan Baskaran: a small drone, I can literally process it. That means the lessons learned is, I need to understand the problem that we are trying to solve. What is the problem we are trying to solve becomes extremely important.
+
+275
+00:29:54.940 --> 00:30:11.559
+Prof . Madhusudhanan Baskaran: Second is the data to solve the problem. So we said it's a regression problem, because regression problem can be generated by my system. I don't have any challenges in generating the regression, you know, writing. Data is the problem. Problem to solve is important. The data is important.
+
+276
+00:30:11.950 --> 00:30:15.390
+Prof . Madhusudhanan Baskaran: Right? Metrics. How do I measure the accuracy of it?
+
+277
+00:30:16.610 --> 00:30:20.400
+Prof . Madhusudhanan Baskaran: I should have a mechanism to have it year on year and tune my algorithm.
+
+278
+00:30:21.640 --> 00:30:22.540
+Prof . Madhusudhanan Baskaran: Right?
+
+279
+00:30:22.890 --> 00:30:30.350
+Prof . Madhusudhanan Baskaran: And we are talking of multiple models. If I'm able to build that into your Argentex system, then I have a great solution.
+
+280
+00:30:31.120 --> 00:30:32.340
+Prof . Madhusudhanan Baskaran: To take it forward.
+
+281
+00:30:32.890 --> 00:30:33.690
+Prof . Madhusudhanan Baskaran: Alright?
+
+282
+00:30:34.530 --> 00:30:35.900
+Prof . Madhusudhanan Baskaran: So…
+
+283
+00:30:36.190 --> 00:30:47.279
+Prof . Madhusudhanan Baskaran: So, now we are seeing, even if you take a satellite imagery, a drone imagery, only from agriculture perspective, only from forestry perspective, I have enough problems that can be solved.
+
+284
+00:30:48.140 --> 00:30:57.450
+Prof . Madhusudhanan Baskaran: Right? Imagine your… No, this thing. Your entire traffic lights being controlled using Cameras.
+
+285
+00:30:58.720 --> 00:30:59.570
+Prof . Madhusudhanan Baskaran: Right?
+
+286
+00:30:59.780 --> 00:31:03.719
+Prof . Madhusudhanan Baskaran: Yeah, optimize the traffic, you know, the traffic lights.
+
+287
+00:31:05.080 --> 00:31:11.260
+Prof . Madhusudhanan Baskaran: Optimize the speed at which the vehicles Alright?
+
+288
+00:31:11.560 --> 00:31:17.450
+Prof . Madhusudhanan Baskaran: So, you are in the highway, You drive at 100 kilometers.
+
+289
+00:31:17.830 --> 00:31:20.370
+Prof . Madhusudhanan Baskaran: Right? The road is literally empty.
+
+290
+00:31:20.820 --> 00:31:27.309
+Prof . Madhusudhanan Baskaran: Is there a mechanism to want, you know, to tell you that You can go at…
+
+291
+00:31:27.590 --> 00:31:29.619
+Prof . Madhusudhanan Baskaran: 120 kilometers an hour.
+
+292
+00:31:30.800 --> 00:31:36.579
+Prof . Madhusudhanan Baskaran: Optimization, time optimization, right? Or fuel optimization, whatever it is.
+
+293
+00:31:36.960 --> 00:31:53.139
+Prof . Madhusudhanan Baskaran: We are not able to do that. We are right now looking at static systems, but this can be dynamic. All this can be achieved using AI, right? This can, again, no, I'll look from two principles. One is the traditional convolutional neural network mechanism.
+
+294
+00:31:53.800 --> 00:31:55.300
+Prof . Madhusudhanan Baskaran: The other is using.
+
+295
+00:31:55.830 --> 00:31:57.520
+Prof . Madhusudhanan Baskaran: Transformer architecture.
+
+296
+00:32:00.320 --> 00:32:01.320
+Prof . Madhusudhanan Baskaran: Got it?
+
+297
+00:32:01.810 --> 00:32:09.959
+Prof . Madhusudhanan Baskaran: Right? So, how I build a… how we are building exploring? Because, look, today the biggest challenge is customers may not understand what is it they're trying to solve.
+
+298
+00:32:11.060 --> 00:32:13.770
+Prof . Madhusudhanan Baskaran: You need to come out with a problem statement.
+
+299
+00:32:14.620 --> 00:32:28.920
+Prof . Madhusudhanan Baskaran: You need to, because every organization today is adopting AI. Every startup, a lot of startups, startups working in agriculture, startups working in hydrocarbon detection, and so on and so forth.
+
+300
+00:32:29.980 --> 00:32:38.519
+Prof . Madhusudhanan Baskaran: Right? They can be… great examples where we can use AI. I'm just talking with respect to
+
+301
+00:32:38.760 --> 00:32:41.520
+Prof . Madhusudhanan Baskaran: With respect to, you know,
+
+302
+00:32:42.290 --> 00:32:45.699
+Prof . Madhusudhanan Baskaran: what do you call? I'm… I'm talking with respect to…
+
+303
+00:32:45.900 --> 00:32:51.270
+Prof . Madhusudhanan Baskaran: No. Satellite imagery, but this can be literally applied anywhere.
+
+304
+00:32:51.910 --> 00:33:02.609
+Prof . Madhusudhanan Baskaran: Right? So, right, now, let us take one step backwards. We said we look at the historical data and try to predict, then we said, oh.
+
+305
+00:33:02.840 --> 00:33:15.289
+Prof . Madhusudhanan Baskaran: Water is a problem, no? Weather is a problem. Availability of water is a problem. Fertilizer is a problem. If I'm able to put everything together and build a model, then I have a successful model, where fairly I can predict.
+
+306
+00:33:15.580 --> 00:33:17.879
+Prof . Madhusudhanan Baskaran: Where, fairly, I can print the volume of…
+
+307
+00:33:18.440 --> 00:33:33.589
+Prof . Madhusudhanan Baskaran: You know, this thing, the amount of production. And from there, I can do some sort of planning. Now, we went one step upwards, we said satellite imagery also can be used, drone imagery can also be used. So, now, let us assume that we are going to use satellite imagery.
+
+308
+00:33:34.500 --> 00:33:36.600
+Prof . Madhusudhanan Baskaran: What is the technique that you use now?
+
+309
+00:33:39.820 --> 00:33:41.580
+Prof . Madhusudhanan Baskaran: What technique can you use?
+
+310
+00:33:48.560 --> 00:33:52.289
+Prof . Madhusudhanan Baskaran: I don't know about tomato jam, George. Yes.
+
+311
+00:33:53.850 --> 00:33:55.330
+Prof . Madhusudhanan Baskaran: Ketchups, okay, yeah.
+
+312
+00:33:56.370 --> 00:33:57.070
+Prof . Madhusudhanan Baskaran: Perfect.
+
+313
+00:33:58.080 --> 00:34:04.149
+Prof . Madhusudhanan Baskaran: ResNet. So, I'll put it broadly as a… convolutional neural network.
+
+314
+00:34:04.330 --> 00:34:05.760
+Prof . Madhusudhanan Baskaran: Transformers.
+
+315
+00:34:06.280 --> 00:34:12.360
+Prof . Madhusudhanan Baskaran: Vision transformers. I'll use one word, vision transformers, and take it forward.
+
+316
+00:34:13.219 --> 00:34:14.040
+Prof . Madhusudhanan Baskaran: Right?
+
+317
+00:34:15.330 --> 00:34:16.090
+Prof . Madhusudhanan Baskaran: Suk?
+
+318
+00:34:17.909 --> 00:34:18.860
+Prof . Madhusudhanan Baskaran: Can you?
+
+319
+00:34:19.210 --> 00:34:24.319
+Prof . Madhusudhanan Baskaran: Can you… Tell me, what is the advantage of using Trevor?
+
+320
+00:34:24.520 --> 00:34:28.050
+Prof . Madhusudhanan Baskaran: convolutional neural networks. What is the advantage of using?
+
+321
+00:34:28.770 --> 00:34:36.659
+Prof . Madhusudhanan Baskaran: deep learning, transformer models, generative models versus predictive models. What is advantage and disadvantage?
+
+322
+00:34:56.969 --> 00:34:58.110
+Prof . Madhusudhanan Baskaran: Can somebody?
+
+323
+00:34:58.990 --> 00:35:06.149
+Prof . Madhusudhanan Baskaran: Okay, so satellite imagery is a video, you know, is an image. So you should be able to challenge yourself to take this format.
+
+324
+00:35:17.020 --> 00:35:20.989
+Prof . Madhusudhanan Baskaran: No, when I say generative models, I'm talking of transformer architecture.
+
+325
+00:35:21.090 --> 00:35:24.729
+Prof . Madhusudhanan Baskaran: Right? Transformer architecture can be used for classification.
+
+326
+00:35:30.920 --> 00:35:33.699
+Prof . Madhusudhanan Baskaran: Cloud, you know, generative models can be.
+
+327
+00:35:33.880 --> 00:35:36.540
+Prof . Madhusudhanan Baskaran: Modeled to act as regressions.
+
+328
+00:35:38.020 --> 00:35:38.820
+Prof . Madhusudhanan Baskaran: Okay.
+
+329
+00:35:41.440 --> 00:35:46.659
+Prof . Madhusudhanan Baskaran: who said it can be trained once, right? I can go for continuous training Mrenal.
+
+330
+00:35:50.560 --> 00:35:56.510
+Prof . Madhusudhanan Baskaran: Okay, so are you telling me that, no, I cannot use a vision transformer, I cannot use a…
+
+331
+00:35:59.560 --> 00:36:02.080
+Prof . Madhusudhanan Baskaran: Okay, explanation, okay.
+
+332
+00:36:10.710 --> 00:36:18.089
+Prof . Madhusudhanan Baskaran: Right? What will you select? Because today, no, We do not rely on
+
+333
+00:36:21.270 --> 00:36:22.120
+Prof . Madhusudhanan Baskaran: Right?
+
+334
+00:36:22.320 --> 00:36:23.550
+Prof . Madhusudhanan Baskaran: Mauno?
+
+335
+00:36:23.940 --> 00:36:30.580
+Prof . Madhusudhanan Baskaran: We do not rely. We want to use the latest, right? Anybody today, immediately go to ChatGPT, immediately go to Cloud.
+
+336
+00:36:31.230 --> 00:36:33.029
+Prof . Madhusudhanan Baskaran: use the Cloud API.
+
+337
+00:36:33.260 --> 00:36:34.729
+Prof . Madhusudhanan Baskaran: But will that solve your problem?
+
+338
+00:36:35.510 --> 00:36:41.400
+Prof . Madhusudhanan Baskaran: When to use… CNNs, when to use a generative model.
+
+339
+00:36:47.440 --> 00:36:50.649
+Prof . Madhusudhanan Baskaran: Yes, we'll talk about… Vision Transformers.
+
+340
+00:37:07.440 --> 00:37:10.030
+Prof . Madhusudhanan Baskaran: CNN for image recognition.
+
+341
+00:37:19.290 --> 00:37:24.780
+Prof . Madhusudhanan Baskaran: My question is very simple. You have been… Asked by a company.
+
+342
+00:37:25.420 --> 00:37:31.059
+Prof . Madhusudhanan Baskaran: by a client of yours, to analyze satellite imagery. It's a real-time problem, right?
+
+343
+00:37:36.080 --> 00:37:39.220
+Prof . Madhusudhanan Baskaran: You're asked by a company, And…
+
+344
+00:37:41.120 --> 00:37:47.709
+Prof . Madhusudhanan Baskaran: You have to take a call. You have to architect. See, today, architecting becomes important. Dataset becomes important.
+
+345
+00:37:56.860 --> 00:37:59.470
+Prof . Madhusudhanan Baskaran: Validation of data becomes important.
+
+346
+00:38:01.920 --> 00:38:03.080
+Prof . Madhusudhanan Baskaran: How will you go about?
+
+347
+00:38:27.340 --> 00:38:28.550
+Prof . Madhusudhanan Baskaran: How will you do that?
+
+348
+00:38:33.510 --> 00:38:38.949
+Prof . Madhusudhanan Baskaran: Right? The first is, you should know how to build a pipeline. The first is, I'll just share my screen.
+
+349
+00:38:44.490 --> 00:38:49.530
+Prof . Madhusudhanan Baskaran: Right? I'm using a single… I just have a mind map. A simple mind map on…
+
+350
+00:38:50.510 --> 00:38:52.150
+Prof . Madhusudhanan Baskaran: Right? I want to do it.
+
+351
+00:38:52.590 --> 00:38:54.160
+Prof . Madhusudhanan Baskaran: Change detection.
+
+352
+00:38:56.860 --> 00:38:59.119
+Prof . Madhusudhanan Baskaran: Okay, I want to do a change detection.
+
+353
+00:39:00.680 --> 00:39:02.650
+Prof . Madhusudhanan Baskaran: So, if you look at it, what is it?
+
+354
+00:39:03.520 --> 00:39:07.369
+Prof . Madhusudhanan Baskaran: The first thing that comes to me is the image ingestion.
+
+355
+00:39:09.440 --> 00:39:13.659
+Prof . Madhusudhanan Baskaran: Right? How do I ingest this image? How do I download this image?
+
+356
+00:39:15.090 --> 00:39:18.969
+Prof . Madhusudhanan Baskaran: Right? I may talk about optical imagery.
+
+357
+00:39:20.460 --> 00:39:27.830
+Prof . Madhusudhanan Baskaran: Or I can use a synthetic aperture radar. I do know what is it. Sentinel-1 satellites have it, you can just Google, you'll get this.
+
+358
+00:39:29.070 --> 00:39:34.310
+Prof . Madhusudhanan Baskaran: I need to align this very importantly, right? Alignment.
+
+359
+00:39:34.820 --> 00:39:37.249
+Prof . Madhusudhanan Baskaran: T1, T2 alignment, what is that?
+
+360
+00:39:37.360 --> 00:39:43.440
+Prof . Madhusudhanan Baskaran: Today, I'm taking an imagery. Tomorrow, I want to compare. Let us say I'm looking at the plant growth.
+
+361
+00:39:43.940 --> 00:39:46.919
+Prof . Madhusudhanan Baskaran: I am monitoring the plant every 15 days.
+
+362
+00:39:47.320 --> 00:39:52.370
+Prof . Madhusudhanan Baskaran: How do I ensure that It is… aligned.
+
+363
+00:39:53.040 --> 00:39:58.919
+Prof . Madhusudhanan Baskaran: How do I ensure that it is aligned, right? It is like having two images. You want to keep one
+
+364
+00:39:59.510 --> 00:40:03.730
+Prof . Madhusudhanan Baskaran: Below the other, exactly. This, this applies everywhere.
+
+365
+00:40:03.870 --> 00:40:10.099
+Prof . Madhusudhanan Baskaran: It could be medical, right? In medical, what happens is we look from the perspective of surgery.
+
+366
+00:40:10.720 --> 00:40:12.740
+Prof . Madhusudhanan Baskaran: Right? I'm doing a surgery.
+
+367
+00:40:14.300 --> 00:40:26.549
+Prof . Madhusudhanan Baskaran: Right? Maybe I'm doing a surgery of my jaw. I have some problem in my jaw, maybe an orthodontic surgery. My chin is protruding out, I cut my jaw, push my chin back.
+
+368
+00:40:27.080 --> 00:40:30.300
+Prof . Madhusudhanan Baskaran: How do I ensure that? Before and after?
+
+369
+00:40:30.450 --> 00:40:31.700
+Prof . Madhusudhanan Baskaran: T1, T2.
+
+370
+00:40:31.840 --> 00:40:34.889
+Prof . Madhusudhanan Baskaran: So I take a… Yamurai scan.
+
+371
+00:40:35.410 --> 00:40:37.100
+Prof . Madhusudhanan Baskaran: or a CT scan.
+
+372
+00:40:37.750 --> 00:40:47.470
+Prof . Madhusudhanan Baskaran: Before the operation, and after the operation, surgery, I again look at it. Now, when I place one above the other, I want to see the difference. I want to register it somewhere, right?
+
+373
+00:40:49.820 --> 00:40:52.239
+Prof . Madhusudhanan Baskaran: So we use one of these spinal bones, too.
+
+374
+00:40:52.590 --> 00:40:58.470
+Prof . Madhusudhanan Baskaran: keep it as a reference. Maybe when you're looking at satellite imagery, we may look at latitude-longitude.
+
+375
+00:40:58.880 --> 00:41:02.720
+Prof . Madhusudhanan Baskaran: Right? Then what happens when you have clouds?
+
+376
+00:41:03.800 --> 00:41:08.000
+Prof . Madhusudhanan Baskaran: Right? How do I handle clouds? How do I handle atmosphere?
+
+377
+00:41:08.230 --> 00:41:12.470
+Prof . Madhusudhanan Baskaran: Morning, the image looks slightly different. Evening, the image looks slightly different.
+
+378
+00:41:14.030 --> 00:41:14.780
+Prof . Madhusudhanan Baskaran: Honey?
+
+379
+00:41:15.300 --> 00:41:19.210
+Prof . Madhusudhanan Baskaran: Then I convert that into an embedding, which is our story today.
+
+380
+00:41:20.100 --> 00:41:24.340
+Prof . Madhusudhanan Baskaran: Then, you know, I can look at different techniques.
+
+381
+00:41:26.470 --> 00:41:30.209
+Prof . Madhusudhanan Baskaran: I'm looking at different techniques, is that right? So basically.
+
+382
+00:41:30.910 --> 00:41:47.690
+Prof . Madhusudhanan Baskaran: I'm trying to embed my model, create my data, ingest my data, process my data, right? Store my data as… convert the data into embeddings. Embeddings, whatever we learned previously, we'll learn today from that perspective. Then, you know, maybe some sort of vector storage.
+
+383
+00:41:47.910 --> 00:41:54.520
+Prof . Madhusudhanan Baskaran: Then I use a model, whatever model it is, right? I might use a simple no.
+
+384
+00:41:55.300 --> 00:42:06.429
+Prof . Madhusudhanan Baskaran: CNN model, I can use my custom model, then no, I can use some sort of processing. Post-GIS processing is more about understanding the latitudinal, longitudinal component, clustering of
+
+385
+00:42:06.430 --> 00:42:16.830
+Prof . Madhusudhanan Baskaran: I, you know, I might want to cluster the data, I want… I might want to, you know, I might want to cluster into wheat, rice, whatever it is. I might want to… I might want to, you know,
+
+386
+00:42:17.760 --> 00:42:19.139
+Prof . Madhusudhanan Baskaran: cluster into…
+
+387
+00:42:19.420 --> 00:42:24.729
+Prof . Madhusudhanan Baskaran: Wheat which is going to be harvested, wheat which will take 1 month to harvest, and so on and so forth.
+
+388
+00:42:24.920 --> 00:42:25.730
+Prof . Madhusudhanan Baskaran: Right?
+
+389
+00:42:25.980 --> 00:42:30.430
+Prof . Madhusudhanan Baskaran: So, so this is a classic use case that you need to build.
+
+390
+00:42:30.810 --> 00:42:34.540
+Prof . Madhusudhanan Baskaran: So it is not about having a data set somewhere and taking it forward.
+
+391
+00:42:35.090 --> 00:42:36.929
+Prof . Madhusudhanan Baskaran: It is not about a dataset.
+
+392
+00:42:37.540 --> 00:42:42.379
+Prof . Madhusudhanan Baskaran: Right? Always remember this. We are not talking of dataset. Dataset is not available.
+
+393
+00:42:43.320 --> 00:42:48.300
+Prof . Madhusudhanan Baskaran: They'll say, oh, the dataset is a satellite imagery, I'll give you the license, why don't you download it?
+
+394
+00:42:49.010 --> 00:42:54.090
+Prof . Madhusudhanan Baskaran: Then if you look at the process, entire component, right? No rocket technology, you can just…
+
+395
+00:42:54.480 --> 00:43:00.979
+Prof . Madhusudhanan Baskaran: Even if you're new, at least you know how to ask the right question. At least you need to know that ingestion, processing.
+
+396
+00:43:01.530 --> 00:43:03.769
+Prof . Madhusudhanan Baskaran: Right? Embedding.
+
+397
+00:43:03.950 --> 00:43:04.920
+Prof . Madhusudhanan Baskaran: model.
+
+398
+00:43:06.010 --> 00:43:19.680
+Prof . Madhusudhanan Baskaran: then maybe, you know, I can go for supervised fine-tuning, instruction fine-tuning, continual pre-training, whatever I want to do. Tune the model to get a better output. This… instead of a model, instead of a transformer model, I can use a CNN network.
+
+399
+00:43:19.810 --> 00:43:22.529
+Prof . Madhusudhanan Baskaran: In that case, I need to design the network.
+
+400
+00:43:23.200 --> 00:43:27.349
+Prof . Madhusudhanan Baskaran: How many layers, why so many layers, and so on and so forth.
+
+401
+00:43:29.000 --> 00:43:36.439
+Prof . Madhusudhanan Baskaran: data set required. So, going back to my original question, Of when to use
+
+402
+00:43:36.680 --> 00:43:40.960
+Prof . Madhusudhanan Baskaran: CNNs are meant to use transformers. CNNs are a good bet.
+
+403
+00:43:41.610 --> 00:43:44.869
+Prof . Madhusudhanan Baskaran: CNNs are extremely a good bet.
+
+404
+00:43:46.650 --> 00:43:48.260
+Prof . Madhusudhanan Baskaran: They are very good, too.
+
+405
+00:43:48.390 --> 00:43:49.760
+Prof . Madhusudhanan Baskaran: classify.
+
+406
+00:43:50.490 --> 00:43:52.870
+Prof . Madhusudhanan Baskaran: It could be the quality of the crop.
+
+407
+00:43:54.160 --> 00:43:59.630
+Prof . Madhusudhanan Baskaran: Right? The advantage with CNN is it requires less amount of data.
+
+408
+00:43:59.930 --> 00:44:02.030
+Prof . Madhusudhanan Baskaran: Compared to a transformer.
+
+409
+00:44:03.260 --> 00:44:05.510
+Prof . Madhusudhanan Baskaran: Yes, CNN might require.
+
+410
+00:44:06.380 --> 00:44:09.980
+Prof . Madhusudhanan Baskaran: For every class, I might require about 3,000 images.
+
+411
+00:44:11.090 --> 00:44:17.960
+Prof . Madhusudhanan Baskaran: well-processed images. If they are not well-processed, maybe I'll repair 10,000 images. If there are 5 class labels.
+
+412
+00:44:18.350 --> 00:44:28.370
+Prof . Madhusudhanan Baskaran: 10,000 into 5, 50,000, and this is good enough to take it forward with an existing model, like somebody said, ResNet.
+
+413
+00:44:28.630 --> 00:44:34.580
+Prof . Madhusudhanan Baskaran: VGGNet, whatever, existing model which has been pre-trained on a large amount of data.
+
+414
+00:44:36.480 --> 00:44:42.829
+Prof . Madhusudhanan Baskaran: Right? I'll require a larger dataset, maybe typically about 25,000 to 30,000 per class.
+
+415
+00:44:44.690 --> 00:44:52.120
+Prof . Madhusudhanan Baskaran: Per class, right? Per class. Wheat is… wheat could be one class, rice could be one class, so on and so forth, per class, such that
+
+416
+00:44:53.450 --> 00:44:55.380
+Prof . Madhusudhanan Baskaran: Such that, okay?
+
+417
+00:44:56.690 --> 00:45:11.370
+Prof . Madhusudhanan Baskaran: 30,000 per class, I have 10 types of vegetation, 10 into 30,000 is 300,000. Again, depends, lot of factors are there. It comes out of experience. If you are looking at a plant growth, then the model training requires higher.
+
+418
+00:45:11.920 --> 00:45:16.380
+Prof . Madhusudhanan Baskaran: So now, I have this 300,000 images, I start training it.
+
+419
+00:45:16.800 --> 00:45:18.700
+Prof . Madhusudhanan Baskaran: This is a very small quantity.
+
+420
+00:45:20.180 --> 00:45:24.850
+Prof . Madhusudhanan Baskaran: Right? Very small quantity. If you are looking at a Transformer model.
+
+421
+00:45:25.040 --> 00:45:28.269
+Prof . Madhusudhanan Baskaran: This may not be sufficient to train the model at all.
+
+422
+00:45:28.750 --> 00:45:35.770
+Prof . Madhusudhanan Baskaran: From scratch, but maybe you take a larger model and then do some sort of continual pre-training.
+
+423
+00:45:36.890 --> 00:45:40.480
+Prof . Madhusudhanan Baskaran: Right? I can use some sort of pre-trading. That means, no, what am I doing?
+
+424
+00:45:40.640 --> 00:45:46.429
+Prof . Madhusudhanan Baskaran: Short-term memory. I'm trying to know, I am trying to reiterate your memory continuously.
+
+425
+00:45:47.400 --> 00:45:55.890
+Prof . Madhusudhanan Baskaran: Got it? So, one day before the exam, what do you do? You keep on reading it, it's fresh in the memory, you write the exam, after 15 days, you forget it.
+
+426
+00:45:56.110 --> 00:46:00.790
+Prof . Madhusudhanan Baskaran: Of course, in transformers, we don't forget it. So, my transformer has knowledge.
+
+427
+00:46:01.990 --> 00:46:03.290
+Prof . Madhusudhanan Baskaran: has knowledge.
+
+428
+00:46:03.590 --> 00:46:05.040
+Prof . Madhusudhanan Baskaran: And I'm training it.
+
+429
+00:46:05.210 --> 00:46:12.989
+Prof . Madhusudhanan Baskaran: So, it's like my transomer is already a doctor. It's a doctor. I'm now… I'm going to give data which is going to make it as a neurosurgeon.
+
+430
+00:46:14.060 --> 00:46:16.109
+Prof . Madhusudhanan Baskaran: The skills of a neurosurgeon.
+
+431
+00:46:16.660 --> 00:46:20.270
+Prof . Madhusudhanan Baskaran: Right? So that training is what we'll be using.
+
+432
+00:46:20.460 --> 00:46:25.940
+Prof . Madhusudhanan Baskaran: That is predominantly what we'll be using. We don't try to reinvent the wheel by building an entire model.
+
+433
+00:46:26.740 --> 00:46:31.229
+Prof . Madhusudhanan Baskaran: So, for this, again, it depends on the application.
+
+434
+00:46:32.460 --> 00:46:36.600
+Prof . Madhusudhanan Baskaran: Now, if you have a scenario where the input is text and image.
+
+435
+00:46:37.580 --> 00:46:42.970
+Prof . Madhusudhanan Baskaran: If it is going to be text and image, why do I want… why do I say text and image? Because I'm building a chatbot.
+
+436
+00:46:46.220 --> 00:46:48.639
+Prof . Madhusudhanan Baskaran: My query could be something like this.
+
+437
+00:46:49.020 --> 00:46:54.359
+Prof . Madhusudhanan Baskaran: Based on the historical data, Based, no, based on the…
+
+438
+00:46:54.770 --> 00:47:00.540
+Prof . Madhusudhanan Baskaran: So, you know, data, satellite imagery, 3 months back, and the current satellite image.
+
+439
+00:47:02.100 --> 00:47:06.529
+Prof . Madhusudhanan Baskaran: Do you think the plants, the cultivation is healthy?
+
+440
+00:47:08.680 --> 00:47:10.490
+Prof . Madhusudhanan Baskaran: is a question I can ask.
+
+441
+00:47:11.150 --> 00:47:22.700
+Prof . Madhusudhanan Baskaran: It says the cultivation is not healthy. No, the growth is not as expected, based on historical data. So, our original prediction was 20,000 tons. Now the
+
+442
+00:47:22.960 --> 00:47:25.309
+Prof . Madhusudhanan Baskaran: Current prediction is 18,000 tons.
+
+443
+00:47:26.060 --> 00:47:28.350
+Prof . Madhusudhanan Baskaran: Right? Now I can ask a question.
+
+444
+00:47:28.970 --> 00:47:36.220
+Prof . Madhusudhanan Baskaran: How do I… protect and ensure that I… my 20,000 tons is not compromised.
+
+445
+00:47:36.680 --> 00:47:38.309
+Prof . Madhusudhanan Baskaran: It may give me a solution.
+
+446
+00:47:38.750 --> 00:47:44.589
+Prof . Madhusudhanan Baskaran: So that means I'm training a model with image and text.
+
+447
+00:47:45.090 --> 00:47:49.050
+Prof . Madhusudhanan Baskaran: It becomes multimodal. Why is this important? A chatbot.
+
+448
+00:47:49.820 --> 00:47:51.620
+Prof . Madhusudhanan Baskaran: Use natural language.
+
+449
+00:47:52.780 --> 00:47:59.430
+Prof . Madhusudhanan Baskaran: Can I do this with… Can I do this with… CNN? Yes.
+
+450
+00:47:59.660 --> 00:48:03.649
+Prof . Madhusudhanan Baskaran: I can use a CNN, ELSTM combination.
+
+451
+00:48:04.620 --> 00:48:13.660
+Prof . Madhusudhanan Baskaran: I can use a CNN, LSTN combination, whereas in transformers, I have a multimodal system, it becomes a win-win situation. So I have more data.
+
+452
+00:48:14.410 --> 00:48:19.819
+Prof . Madhusudhanan Baskaran: Alright? Where the context has to be understood better, transformers will win.
+
+453
+00:48:20.430 --> 00:48:27.330
+Prof . Madhusudhanan Baskaran: If I have data, where The change in color gradient is so subtle.
+
+454
+00:48:27.820 --> 00:48:31.890
+Prof . Madhusudhanan Baskaran: my CNN model may not be able to understand it.
+
+455
+00:48:33.840 --> 00:48:43.060
+Prof . Madhusudhanan Baskaran: Right? So each has its pros and cons, but no, typically, if you say, if you want to use a deep learning technique, like convolutional neural network, have lesser amount of data.
+
+456
+00:48:44.060 --> 00:48:48.129
+Prof . Madhusudhanan Baskaran: Right? If you have… Instead of that, if you have
+
+457
+00:48:48.810 --> 00:49:05.639
+Prof . Madhusudhanan Baskaran: more amount of data, you have larger amount of data, you have… you have diversion of data. CNNs, again, you know, we'd like to have it as narrow as possible, right? As narrow as possible. I can have diverse, but as the diversity increases, the
+
+458
+00:49:06.220 --> 00:49:07.800
+Prof . Madhusudhanan Baskaran: Content increases.
+
+459
+00:49:08.020 --> 00:49:16.369
+Prof . Madhusudhanan Baskaran: Right? The number of content-required training data increases, and once the training data increases somewhere, I might say, oh, I'll use a transformer.
+
+460
+00:49:17.460 --> 00:49:19.390
+Prof . Madhusudhanan Baskaran: Right? I can use a transformer.
+
+461
+00:49:20.130 --> 00:49:25.899
+Prof . Madhusudhanan Baskaran: So, what happens to a pixel? We all know that an image is made up of pixels.
+
+462
+00:49:26.970 --> 00:49:30.149
+Prof . Madhusudhanan Baskaran: How do I… How do I take it forward?
+
+463
+00:49:30.660 --> 00:49:36.699
+Prof . Madhusudhanan Baskaran: is a million dollar question that we'll try to understand. Let me just check the chat window. Any questions?
+
+464
+00:49:43.570 --> 00:49:46.269
+Prof . Madhusudhanan Baskaran: Yeah, I'll do that, Shashikanth.
+
+465
+00:49:47.730 --> 00:49:54.770
+Prof . Madhusudhanan Baskaran: Very good, Anand. Very good observation. Cost of running a CNN model is way, way, way cheaper than a transformer model.
+
+466
+00:49:55.650 --> 00:49:56.380
+Prof . Madhusudhanan Baskaran: Good.
+
+467
+00:49:58.150 --> 00:50:07.090
+Prof . Madhusudhanan Baskaran: VIT achieves high accuracy, that's a statement. No, it is… I repeatedly tell Gopal, garbage in, garbage out.
+
+468
+00:50:09.190 --> 00:50:09.920
+Prof . Madhusudhanan Baskaran: Great.
+
+469
+00:50:10.130 --> 00:50:13.389
+Prof . Madhusudhanan Baskaran: You call it as garbage in, garbage out. That is the biggest challenge.
+
+470
+00:50:16.660 --> 00:50:20.130
+Prof . Madhusudhanan Baskaran: Yes, compression, that's a correct… Perfect answer.
+
+471
+00:50:21.580 --> 00:50:23.639
+Prof . Madhusudhanan Baskaran: We are trying to compress it.
+
+472
+00:50:28.600 --> 00:50:33.710
+Prof . Madhusudhanan Baskaran: Right, now we'll try to see how they're embedding Great.
+
+473
+00:50:33.860 --> 00:50:37.060
+Prof . Madhusudhanan Baskaran: So how does the embedding happen? It's something which I just…
+
+474
+00:50:40.390 --> 00:50:44.789
+Prof . Madhusudhanan Baskaran: Let me… Yeah, I have some network issue, okay.
+
+475
+00:50:45.590 --> 00:50:50.089
+Prof . Madhusudhanan Baskaran: So, let us try to understand how my embedding happens.
+
+476
+00:50:52.080 --> 00:50:59.960
+Prof . Madhusudhanan Baskaran: Right? It is the same technique that we see Yin… Text data processing.
+
+477
+00:51:00.120 --> 00:51:04.039
+Prof . Madhusudhanan Baskaran: I have an image, I pre-processed the image.
+
+478
+00:51:05.460 --> 00:51:13.900
+Prof . Madhusudhanan Baskaran: I use a neural network. Please understand, even in image embedding, we used a neural network, and I created a embedding vector.
+
+479
+00:51:15.630 --> 00:51:17.670
+Prof . Madhusudhanan Baskaran: Now, why do I require this?
+
+480
+00:51:17.840 --> 00:51:21.330
+Prof . Madhusudhanan Baskaran: The older systems, if you look at most of the older systems.
+
+481
+00:51:23.240 --> 00:51:29.599
+Prof . Madhusudhanan Baskaran: We were not relying on vector space. We were not talking of embedding vector.
+
+482
+00:51:29.880 --> 00:51:36.339
+Prof . Madhusudhanan Baskaran: What is this embedding vector? I gave you this example previously, right? I can tell my name is Madhu Sudan.
+
+483
+00:51:36.870 --> 00:51:40.470
+Prof . Madhusudhanan Baskaran: Right? I can convert Madhu Susanan into a numerical value.
+
+484
+00:51:41.710 --> 00:51:46.659
+Prof . Madhusudhanan Baskaran: Right? I can convert that into a numerical value, but that does not end there.
+
+485
+00:51:49.240 --> 00:52:00.510
+Prof . Madhusudhanan Baskaran: That does not end there. What is the challenge? I might want to tell my age. So, I will say Mother Susan, which is given a unique number, like your attendance, 52,
+
+486
+00:52:01.260 --> 00:52:07.560
+Prof . Madhusudhanan Baskaran: no, 45, my roll number is 45, then maybe I'm embedding my gender.
+
+487
+00:52:07.790 --> 00:52:16.169
+Prof . Madhusudhanan Baskaran: I'll say 1 is male, 2 is female. So, now I say 45, 1, then I'm doing… I have a PhD,
+
+488
+00:52:16.170 --> 00:52:28.549
+Prof . Madhusudhanan Baskaran: So, I'll put… no, for PhD, the code might be 22. So, 45, 22. I have a PhD in artificial intelligence. Maybe the artificial intelligence code is 475.
+
+489
+00:52:29.180 --> 00:52:36.569
+Prof . Madhusudhanan Baskaran: Right? I'll create a sequence of numerical values which can be mapped to textual data.
+
+490
+00:52:36.780 --> 00:52:38.640
+Prof . Madhusudhanan Baskaran: This becomes my embody.
+
+491
+00:52:39.810 --> 00:52:48.699
+Prof . Madhusudhanan Baskaran: Very easy way to understand, right? And this… what is that embedding value? Because now, my embedding has to have semantics.
+
+492
+00:52:49.350 --> 00:52:55.500
+Prof . Madhusudhanan Baskaran: My embedding has to have semantics. That means I should be able to understand the meaning
+
+493
+00:52:55.820 --> 00:53:02.400
+Prof . Madhusudhanan Baskaran: Point number one. Point number two, I should be able to understand the Context.
+
+494
+00:53:02.510 --> 00:53:06.780
+Prof . Madhusudhanan Baskaran: I should be able to have a mechanism to measure the distance.
+
+495
+00:53:07.350 --> 00:53:09.369
+Prof . Madhusudhanan Baskaran: This could be as simple as…
+
+496
+00:53:09.980 --> 00:53:15.690
+Prof . Madhusudhanan Baskaran: This could be as simple as… Right? Cosine similarity.
+
+497
+00:53:18.310 --> 00:53:35.819
+Prof . Madhusudhanan Baskaran: So, what am I doing? I'm taking the image, I'm pre-processing the image, I'm trying to ensure that the image is of uniform size. Then, you know, I cut the image. I can cut the image, give this input to a neural network, which will give me some sort of output.
+
+498
+00:53:36.410 --> 00:53:39.999
+Prof . Madhusudhanan Baskaran: Which I call as my embedding vector. The same thing that you did.
+
+499
+00:53:40.780 --> 00:53:43.150
+Prof . Madhusudhanan Baskaran: So, what does my embedding vector do?
+
+500
+00:53:43.290 --> 00:53:45.670
+Prof . Madhusudhanan Baskaran: It captures the shape.
+
+501
+00:53:46.270 --> 00:53:48.009
+Prof . Madhusudhanan Baskaran: It captures the ship.
+
+502
+00:53:48.160 --> 00:53:58.950
+Prof . Madhusudhanan Baskaran: So, in convolutional neural network also, we did the same thing. We applied filters. We applied filters of size 3x3, 5x5, 7x7, 9x9, and so on and so forth.
+
+503
+00:54:00.550 --> 00:54:04.930
+Prof . Madhusudhanan Baskaran: Right? Which helps me in identifying the shape. That means…
+
+504
+00:54:05.140 --> 00:54:20.320
+Prof . Madhusudhanan Baskaran: I have a model, I have an embedding, no filter, 3x3 filter, which is able to detect horizontal lines. I'm having a filter which is able to detect vertical lines. I'm having a filter which is able to identify
+
+505
+00:54:20.850 --> 00:54:28.699
+Prof . Madhusudhanan Baskaran: the location of the horizontal line. So on and so forth. Circles. I have a filter which can find circles. I have a filter which can find
+
+506
+00:54:28.820 --> 00:54:29.720
+Prof . Madhusudhanan Baskaran: Oval.
+
+507
+00:54:30.480 --> 00:54:32.189
+Prof . Madhusudhanan Baskaran: And so on and so forth.
+
+508
+00:54:34.660 --> 00:54:37.679
+Prof . Madhusudhanan Baskaran: Right? So, I can use shape.
+
+509
+00:54:37.960 --> 00:54:42.949
+Prof . Madhusudhanan Baskaran: I can use texture. Texture is the repeating pattern. Maybe, you know, you see my shirt.
+
+510
+00:54:43.370 --> 00:54:49.470
+Prof . Madhusudhanan Baskaran: There is a repeating pattern that is extremely important. Why? Because from a satellite, you look at it.
+
+511
+00:54:49.770 --> 00:54:53.619
+Prof . Madhusudhanan Baskaran: color becomes very important, right? You're looking at a 2D image.
+
+512
+00:54:54.060 --> 00:54:56.509
+Prof . Madhusudhanan Baskaran: You're looking at a 2D image.
+
+513
+00:54:59.140 --> 00:54:59.850
+Prof . Madhusudhanan Baskaran: Right?
+
+514
+00:55:03.310 --> 00:55:04.930
+Prof . Madhusudhanan Baskaran: You're looking at a 2D image.
+
+515
+00:55:09.090 --> 00:55:10.940
+Prof . Madhusudhanan Baskaran: So, color becomes…
+
+516
+00:55:12.860 --> 00:55:21.410
+Prof . Madhusudhanan Baskaran: important, because based on the color, it is possible to predict the plant growth. Based on the color, it is possible to identify
+
+517
+00:55:23.940 --> 00:55:35.490
+Prof . Madhusudhanan Baskaran: No, the weeds in the plant, whether it is infested by pests, I'll be able to do it. Texture also plays a very important role, right? Texture also helps me in identifying
+
+518
+00:55:36.030 --> 00:55:48.270
+Prof . Madhusudhanan Baskaran: identifying the repeated patterns, the roughness, the coarseness of… and from there, I can try to see the disease, right? You go to your doctor, the doctor will tell, please show your tongue.
+
+519
+00:55:48.530 --> 00:55:52.459
+Prof . Madhusudhanan Baskaran: he looks at your tongue, right? And then he's making a decision.
+
+520
+00:55:53.870 --> 00:55:57.140
+Prof . Madhusudhanan Baskaran: And, of course, there is a spatial relationship.
+
+521
+00:55:57.980 --> 00:55:58.780
+Prof . Madhusudhanan Baskaran: Okay?
+
+522
+00:55:59.440 --> 00:56:03.860
+Prof . Madhusudhanan Baskaran: No, if you take a… If you take a image of a ship.
+
+523
+00:56:04.290 --> 00:56:11.710
+Prof . Madhusudhanan Baskaran: There is a special relationship. There is the ship, there is water, there is the sea, or there is going to be a harbor.
+
+524
+00:56:12.520 --> 00:56:13.240
+Prof . Madhusudhanan Baskaran: Right?
+
+525
+00:56:14.090 --> 00:56:18.230
+Prof . Madhusudhanan Baskaran: I can try learning this, and this is exactly what the embedding does.
+
+526
+00:56:19.480 --> 00:56:21.490
+Prof . Madhusudhanan Baskaran: This is exactly what the embedding does.
+
+527
+00:56:22.690 --> 00:56:23.560
+Prof . Madhusudhanan Baskaran: It's all.
+
+528
+00:56:23.740 --> 00:56:26.379
+Prof . Madhusudhanan Baskaran: I have some challenge in sharing the image.
+
+529
+00:56:30.540 --> 00:56:37.510
+Prof . Madhusudhanan Baskaran: Alright, so I'm able to convert my image as a numerical center… center tensor.
+
+530
+00:56:37.940 --> 00:56:38.780
+Prof . Madhusudhanan Baskaran: Right?
+
+531
+00:56:39.200 --> 00:56:40.640
+Prof . Madhusudhanan Baskaran: Height of the image.
+
+532
+00:56:41.210 --> 00:56:45.939
+Prof . Madhusudhanan Baskaran: width of the image, multiply height and width, I'll know the number of pixels.
+
+533
+00:56:47.180 --> 00:56:55.660
+Prof . Madhusudhanan Baskaran: And the number of channels. RGB stands for red, green, blue. If you look at satellite imagery, I can have up to 300 channels.
+
+534
+00:56:57.250 --> 00:57:00.150
+Prof . Madhusudhanan Baskaran: A single image will be 4GB or 8GB.
+
+535
+00:57:00.880 --> 00:57:03.089
+Prof . Madhusudhanan Baskaran: I'll have 300 channels.
+
+536
+00:57:04.130 --> 00:57:09.519
+Prof . Madhusudhanan Baskaran: Maybe I'll select 8 channels for my analysis. We need to understand, oh, whether I require
+
+537
+00:57:09.990 --> 00:57:12.179
+Prof . Madhusudhanan Baskaran: Near-infrared, and so on and so forth.
+
+538
+00:57:13.560 --> 00:57:26.119
+Prof . Madhusudhanan Baskaran: Right? Now, this is where I look at registration of the image, so that, you know, when I say registration, the lat-long, exactly how the image can overlap. Why is this important? I can try to find.
+
+539
+00:57:27.090 --> 00:57:29.149
+Prof . Madhusudhanan Baskaran: a regression pattern.
+
+540
+00:57:29.370 --> 00:57:33.049
+Prof . Madhusudhanan Baskaran: If required. Or I can see a time series pattern.
+
+541
+00:57:34.230 --> 00:57:40.149
+Prof . Madhusudhanan Baskaran: Because I call it time series because I'm seeing the growth of the plant with respect to time.
+
+542
+00:57:42.390 --> 00:57:48.610
+Prof . Madhusudhanan Baskaran: Alright? So, what is happening? I'm taking the image, I'm taking the image, I'm converting that into
+
+543
+00:57:48.990 --> 00:57:54.040
+Prof . Madhusudhanan Baskaran: a much more meaningful format where I'm able to capture
+
+544
+00:57:55.100 --> 00:57:57.260
+Prof . Madhusudhanan Baskaran: where I'm able to capture the…
+
+545
+00:57:58.850 --> 00:58:01.779
+Prof . Madhusudhanan Baskaran: Captured by the context of the image.
+
+546
+00:58:02.540 --> 00:58:05.049
+Prof . Madhusudhanan Baskaran: The classification of the image.
+
+547
+00:58:06.560 --> 00:58:16.609
+Prof . Madhusudhanan Baskaran: So, normally, pre-processing, you resize the image, convert, normalize the value between 0 to 25… from 0 to 255 to 0 to 1, right?
+
+548
+00:58:17.230 --> 00:58:24.310
+Prof . Madhusudhanan Baskaran: How do I do that? I can also use means abstraction. I can use whatever technique I want. I can use min-max.
+
+549
+00:58:25.350 --> 00:58:28.509
+Prof . Madhusudhanan Baskaran: Max-min standardization. You can do whatever.
+
+550
+00:58:28.720 --> 00:58:29.920
+Prof . Madhusudhanan Baskaran: Method you want.
+
+551
+00:58:31.850 --> 00:58:34.300
+Prof . Madhusudhanan Baskaran: You can adjust the distribution.
+
+552
+00:58:35.620 --> 00:58:37.759
+Prof . Madhusudhanan Baskaran: You can adjust the distribution.
+
+553
+00:58:38.030 --> 00:58:42.660
+Prof . Madhusudhanan Baskaran: You can also do data augmentation. Very important.
+
+554
+00:58:43.030 --> 00:58:45.510
+Prof . Madhusudhanan Baskaran: Especially rotation, flipping.
+
+555
+00:58:46.040 --> 00:58:55.329
+Prof . Madhusudhanan Baskaran: Right? Cropping. When you crop an image, what happens? You crop… there's a full image of a dog. You crop only the face component. Then the entire image becomes the face of the dog.
+
+556
+00:58:56.970 --> 00:58:57.740
+Prof . Madhusudhanan Baskaran: Right?
+
+557
+00:58:59.700 --> 00:59:06.940
+Prof . Madhusudhanan Baskaran: Rotation, flipping, whatever you have learned from the person, you know, from your… convolutional neural network types.
+
+558
+00:59:09.640 --> 00:59:19.649
+Prof . Madhusudhanan Baskaran: Right? So, once I preprocess, Once I preprocess, I can extract features.
+
+559
+00:59:19.890 --> 00:59:24.569
+Prof . Madhusudhanan Baskaran: I can extract features using my traditional
+
+560
+00:59:27.700 --> 00:59:32.169
+Prof . Madhusudhanan Baskaran: I can use my traditional convolutional neural network. What does it do?
+
+561
+00:59:32.330 --> 00:59:38.659
+Prof . Madhusudhanan Baskaran: You have your convolution layer, you have your activation layer, you have your pooling, max pooling, average pooling, whatever it is.
+
+562
+00:59:38.870 --> 00:59:43.200
+Prof . Madhusudhanan Baskaran: Right? And from there, I can extract the features.
+
+563
+00:59:43.810 --> 00:59:58.600
+Prof . Madhusudhanan Baskaran: Right? Here, what did you do? When you used CNN, you used it as a classifier. But now, what I'm going to do is I'm going to take the first two or third layer, I may take the third layer, I see the edges corners, I extract that as a feature. I'll take the
+
+564
+00:59:58.690 --> 01:00:10.199
+Prof . Madhusudhanan Baskaran: No, 10th layer, 10th to 12th layer, where I look at the shape features. I might look at the texture features. Now, you might ask, 10th layer or 12th layer? I'll say 10th, 11th, 12th, I'll take and average it out.
+
+565
+01:00:10.800 --> 01:00:12.250
+Prof . Madhusudhanan Baskaran: Because it is numerical.
+
+566
+01:00:12.640 --> 01:00:16.130
+Prof . Madhusudhanan Baskaran: Then I come nearly to the softmax layer.
+
+567
+01:00:16.330 --> 01:00:21.630
+Prof . Madhusudhanan Baskaran: maybe if it's a 15-layer convolution… if you have 15 convolution layers, I come to the
+
+568
+01:00:22.260 --> 01:00:29.789
+Prof . Madhusudhanan Baskaran: come to the… almost the end of the network, 15th layer, 13th layer. There, I'll be able to find the semantics.
+
+569
+01:00:31.000 --> 01:00:35.299
+Prof . Madhusudhanan Baskaran: This becomes my feature. This can become my embedding.
+
+570
+01:00:37.360 --> 01:00:38.190
+Prof . Madhusudhanan Baskaran: Alright?
+
+571
+01:00:38.330 --> 01:00:41.749
+Prof . Madhusudhanan Baskaran: I can take from any of these components.
+
+572
+01:00:43.690 --> 01:00:47.540
+Prof . Madhusudhanan Baskaran: And I have a high level of feature representation.
+
+573
+01:00:48.810 --> 01:00:53.350
+Prof . Madhusudhanan Baskaran: Once I have that, I flatten it, then, you know, I might decide
+
+574
+01:00:53.490 --> 01:00:57.399
+Prof . Madhusudhanan Baskaran: I might decide my fine, after flattening it, I can use one more layer of…
+
+575
+01:00:58.310 --> 01:01:08.969
+Prof . Madhusudhanan Baskaran: fully connected network, and then have 128 output, 51 output, 2048 output, whatever you want, right? That becomes my embedding dimension.
+
+576
+01:01:09.240 --> 01:01:11.789
+Prof . Madhusudhanan Baskaran: Smaller the embedding dimension.
+
+577
+01:01:12.350 --> 01:01:20.370
+Prof . Madhusudhanan Baskaran: Right? The feature understanding, or no, the context understanding is lower. But as the embedding size increases.
+
+578
+01:01:20.780 --> 01:01:23.540
+Prof . Madhusudhanan Baskaran: The context is better understood.
+
+579
+01:01:24.170 --> 01:01:30.330
+Prof . Madhusudhanan Baskaran: Right? When I say context is better understood, if I'm describing orange.
+
+580
+01:01:30.510 --> 01:01:34.560
+Prof . Madhusudhanan Baskaran: Orange could be a color, orange could be a fruit, orange could be a river.
+
+581
+01:01:35.080 --> 01:01:54.189
+Prof . Madhusudhanan Baskaran: As my embedding size increases, I'll be able to show the context. I'll be able to understand orange as a fruit better, I'll be able to understand orange as a color better, and, you know, from there, I'll be able to understand and correlate orange as in my house is painted orange.
+
+582
+01:01:55.560 --> 01:02:00.049
+Prof . Madhusudhanan Baskaran: Orange as in. The orange I ate for breakfast was very sweet.
+
+583
+01:02:00.930 --> 01:02:04.479
+Prof . Madhusudhanan Baskaran: Right? Orange as in the sun setting.
+
+584
+01:02:04.730 --> 01:02:11.190
+Prof . Madhusudhanan Baskaran: talking something about the sun setting. Larger embedding gives me way better Methods to take it forward.
+
+585
+01:02:11.690 --> 01:02:26.249
+Prof . Madhusudhanan Baskaran: Right? So, what is happening? I'm just using an encoder. Somebody said encoder, decoder. All I require is an encoder model only. Why? Because I'm giving the data, transforming the data. It need not be a transformer.
+
+586
+01:02:26.480 --> 01:02:34.660
+Prof . Madhusudhanan Baskaran: It need not be a transformer, because in the last session, we said my embedding is done using a transformer. No, I can also use a…
+
+587
+01:02:34.830 --> 01:02:36.769
+Prof . Madhusudhanan Baskaran: convolutional neural network.
+
+588
+01:02:36.970 --> 01:02:41.970
+Prof . Madhusudhanan Baskaran: As long as you're able to get the semantics, I do not have a problem.
+
+589
+01:02:42.300 --> 01:02:45.990
+Prof . Madhusudhanan Baskaran: As long as I'm able to get the semantics, I do not have a problem.
+
+590
+01:02:47.250 --> 01:02:48.100
+Prof . Madhusudhanan Baskaran: Right?
+
+591
+01:02:49.230 --> 01:03:00.890
+Prof . Madhusudhanan Baskaran: So that is what we call as the semantic representation. I gave you this example. I can say, no, Madhu's role number is 45, comma 01 is male, comma 55 is age, comma.
+
+592
+01:03:01.320 --> 01:03:05.330
+Prof . Madhusudhanan Baskaran: 47 is… a PhD, and so on and so forth.
+
+593
+01:03:06.760 --> 01:03:07.620
+Prof . Madhusudhanan Baskaran: Got it.
+
+594
+01:03:09.200 --> 01:03:12.290
+Prof . Madhusudhanan Baskaran: So, once I'm able to extract the features.
+
+595
+01:03:12.580 --> 01:03:24.790
+Prof . Madhusudhanan Baskaran: I can use any of the cosine similarity, Euclidean distance, and so on and so forth. Now, what is the challenge here? So, I've taken an image of 224 by 224, I've processed it. What are my challenges here?
+
+596
+01:03:31.450 --> 01:03:35.390
+Prof . Madhusudhanan Baskaran: Yes, you're right, Shashikant, I can also use a transformer model.
+
+597
+01:03:39.540 --> 01:03:41.209
+Prof . Madhusudhanan Baskaran: What are the challenges here?
+
+598
+01:03:47.000 --> 01:03:52.030
+Prof . Madhusudhanan Baskaran: If I take an image and create an embedding, what will be my challenge?
+
+599
+01:04:09.200 --> 01:04:10.740
+Prof . Madhusudhanan Baskaran: What'll be my challenge?
+
+600
+01:04:19.760 --> 01:04:33.380
+Prof . Madhusudhanan Baskaran: Okay. See, Abhishek, it is just a numerical value, right? It's a matrix. I can feed a matrix, I can flatten infinity a network. If I'm using a convolutionary neural network, I can directly give it as a two-dimension
+
+601
+01:04:33.710 --> 01:04:35.769
+Prof . Madhusudhanan Baskaran: Or a three-dimensional matrix.
+
+602
+01:04:39.480 --> 01:04:42.240
+Prof . Madhusudhanan Baskaran: Quality of… Okay.
+
+603
+01:04:42.890 --> 01:04:50.840
+Prof . Madhusudhanan Baskaran: So, right, you got it, Abhishek, how to feed it to the neural network? Because it's just a matrix, instead of… see, in your… in your…
+
+604
+01:04:51.470 --> 01:04:55.010
+Prof . Madhusudhanan Baskaran: Transformer model, you just use the entire embedding.
+
+605
+01:04:55.200 --> 01:05:07.419
+Prof . Madhusudhanan Baskaran: Right? You converted that into an embedding, and you are able to feed the data as a sequence of text. Here, instead of one dimension, it is going to be two dimensions. Because what is happening to the text? You're tokenizing the text.
+
+606
+01:05:08.740 --> 01:05:09.590
+Prof . Madhusudhanan Baskaran: Right.
+
+607
+01:05:10.010 --> 01:05:16.370
+Prof . Madhusudhanan Baskaran: So, here, yes, you… what you do here is, if I use the whole image.
+
+608
+01:05:17.030 --> 01:05:21.969
+Prof . Madhusudhanan Baskaran: If I use the whole image, the context of the image might be lost.
+
+609
+01:05:23.250 --> 01:05:25.689
+Prof . Madhusudhanan Baskaran: The context of the image might be lost.
+
+610
+01:05:28.190 --> 01:05:30.009
+Prof . Madhusudhanan Baskaran: And to overcome this.
+
+611
+01:05:30.850 --> 01:05:42.850
+Prof . Madhusudhanan Baskaran: The only way I can solve this is to break down the image. If my image is 512x512 pixels, as in a medical image, I will split this into 16x16 images.
+
+612
+01:05:43.250 --> 01:05:53.160
+Prof . Madhusudhanan Baskaran: I'll split into 16 by 16, right? I'm breaking down the image, and on this image, I can create the embedding vector.
+
+613
+01:05:57.690 --> 01:05:58.520
+Prof . Madhusudhanan Baskaran: Got it?
+
+614
+01:06:00.740 --> 01:06:06.419
+Prof . Madhusudhanan Baskaran: And once I have this, you imagine, I'm taking the image of an elephant.
+
+615
+01:06:06.920 --> 01:06:10.309
+Prof . Madhusudhanan Baskaran: And comparing it with another image of elephant.
+
+616
+01:06:10.470 --> 01:06:16.599
+Prof . Madhusudhanan Baskaran: The features extracted are almost the same, and that is where the image similarity search comes into picture.
+
+617
+01:06:17.160 --> 01:06:20.890
+Prof . Madhusudhanan Baskaran: I can do classification, I can do.
+
+618
+01:06:21.550 --> 01:06:24.000
+Prof . Madhusudhanan Baskaran: Similarity image, right?
+
+619
+01:06:24.250 --> 01:06:29.349
+Prof . Madhusudhanan Baskaran: The popular area called us content-based image retrieval.
+
+620
+01:06:30.970 --> 01:06:34.609
+Prof . Madhusudhanan Baskaran: Got it? So, I take an image, I chunk it into smaller…
+
+621
+01:06:34.760 --> 01:06:41.639
+Prof . Madhusudhanan Baskaran: sizes, 16 by 16, 8x8, 16x16 is a very good strategy. I can do clustering.
+
+622
+01:06:42.260 --> 01:06:49.379
+Prof . Madhusudhanan Baskaran: Right? So you have the satellite imagery. You want to first cluster and pull out all the vegetation.
+
+623
+01:06:50.270 --> 01:07:04.020
+Prof . Madhusudhanan Baskaran: Then, again, you might cluster into forest and forest area and farming area. And once that farming area is got, you might cluster into rice fields and paddy, you know, paddy fields and wheat fields.
+
+624
+01:07:06.030 --> 01:07:12.300
+Prof . Madhusudhanan Baskaran: vegetable field, and so on and so forth. And within the vegetable field, I can further cluster into
+
+625
+01:07:12.530 --> 01:07:21.939
+Prof . Madhusudhanan Baskaran: No? Terminal, Brynjol, No, whatever it is, brinjol, tomato, chili, whatever I want called.
+
+626
+01:07:22.850 --> 01:07:26.850
+Prof . Madhusudhanan Baskaran: Then, of course, I have the retrieval systems, right? Today, what you see in search engines.
+
+627
+01:07:28.540 --> 01:07:35.449
+Prof . Madhusudhanan Baskaran: Right? So, content-based image retrieval. I can give input as an image to get similar images, I can give
+
+628
+01:07:36.230 --> 01:07:38.420
+Prof . Madhusudhanan Baskaran: Output as an image, right?
+
+629
+01:07:42.660 --> 01:07:51.180
+Prof . Madhusudhanan Baskaran: So, what is happening? I'm converting a high-dimensional image data. Somebody might ask me, hey, I'll use only…
+
+630
+01:07:52.690 --> 01:07:58.830
+Prof . Madhusudhanan Baskaran: pixels. Why do I want to use BMBuddy, right?
+
+631
+01:07:59.410 --> 01:08:02.820
+Prof . Madhusudhanan Baskaran: Now, this is the challenge. You're taking my photograph.
+
+632
+01:08:03.340 --> 01:08:09.130
+Prof . Madhusudhanan Baskaran: You're taking my photograph, you're seeing this. My photograph will look different in different time… points of time.
+
+633
+01:08:10.510 --> 01:08:11.230
+Prof . Madhusudhanan Baskaran: Great.
+
+634
+01:08:11.460 --> 01:08:14.329
+Prof . Madhusudhanan Baskaran: So, if I look from a pixel-based
+
+635
+01:08:14.530 --> 01:08:18.569
+Prof . Madhusudhanan Baskaran: Validation. Today I'm wearing a cream shirt, tomorrow I might wear a blue shirt.
+
+636
+01:08:19.390 --> 01:08:26.170
+Prof . Madhusudhanan Baskaran: And if I use a pixel-based validation, it'll always map Madhu is wearing a… no, if it is Madhu, it is he is wearing a…
+
+637
+01:08:26.680 --> 01:08:28.739
+Prof . Madhusudhanan Baskaran: Cream shirt, I don't want to do that.
+
+638
+01:08:29.770 --> 01:08:36.739
+Prof . Madhusudhanan Baskaran: Right? And second, it is high dimensionality of data. 512 by 512, how many features are you getting, if I use pixel levels?
+
+639
+01:08:36.950 --> 01:08:39.969
+Prof . Madhusudhanan Baskaran: What is 500… 512 by 512?
+
+640
+01:08:42.770 --> 01:08:44.380
+Prof . Madhusudhanan Baskaran: 512 by 512.
+
+641
+01:08:45.979 --> 01:08:47.319
+Prof . Madhusudhanan Baskaran: How many pixels?
+
+642
+01:08:58.029 --> 01:08:58.890
+Prof . Madhusudhanan Baskaran: Right?
+
+643
+01:08:59.260 --> 01:09:01.559
+Prof . Madhusudhanan Baskaran: It is 262,000.
+
+644
+01:09:01.740 --> 01:09:04.199
+Prof . Madhusudhanan Baskaran: Very good. 262,000.
+
+645
+01:09:04.540 --> 01:09:05.649
+Prof . Madhusudhanan Baskaran: Features.
+
+646
+01:09:06.340 --> 01:09:08.770
+Prof . Madhusudhanan Baskaran: But if I take 16 by 16,
+
+647
+01:09:08.930 --> 01:09:17.210
+Prof . Madhusudhanan Baskaran: Right? So, on file, if I do 16x16 image, I'll get 32 16x16 images.
+
+648
+01:09:17.350 --> 01:09:22.440
+Prof . Madhusudhanan Baskaran: Right? 32 16x16 images, and each of these 32
+
+649
+01:09:23.390 --> 01:09:26.210
+Prof . Madhusudhanan Baskaran: 16 by 16 area is converted into a…
+
+650
+01:09:26.359 --> 01:09:30.199
+Prof . Madhusudhanan Baskaran: No, into a embedding of 2048. That means I'm getting
+
+651
+01:09:30.569 --> 01:09:36.830
+Prof . Madhusudhanan Baskaran: I'm getting 32 into 2048, which is nothing but 65,536.
+
+652
+01:09:38.319 --> 01:09:41.410
+Prof . Madhusudhanan Baskaran: Right? 65,536.
+
+653
+01:09:44.680 --> 01:09:49.469
+Prof . Madhusudhanan Baskaran: Which is… 25% off, 262.
+
+654
+01:09:49.710 --> 01:09:55.050
+Prof . Madhusudhanan Baskaran: 1144. 65,536 multiplied by 4 is
+
+655
+01:09:55.740 --> 01:10:15.119
+Prof . Madhusudhanan Baskaran: 262,144. That means I'm also doing dimensionality reduction. My embedding size is 2048, my image is 512x12, I'm splitting into 16x16 pixels so that I get 32 group of data on which I am applying my embedding. Got it?
+
+656
+01:10:16.930 --> 01:10:22.870
+Prof . Madhusudhanan Baskaran: And once that is done, I can use cosine similarity, I can use… Euclidean distance.
+
+657
+01:10:26.140 --> 01:10:26.910
+Prof . Madhusudhanan Baskaran: Right?
+
+658
+01:10:27.410 --> 01:10:35.470
+Prof . Madhusudhanan Baskaran: So, so, we have various models, which is expanded from your basic
+
+659
+01:10:36.610 --> 01:10:44.590
+Prof . Madhusudhanan Baskaran: Which is exp… you know, which is an extension of your basic model that is already there. So, vision transformer.
+
+660
+01:10:45.820 --> 01:10:48.950
+Prof . Madhusudhanan Baskaran: It's one of the most popular models.
+
+661
+01:10:49.080 --> 01:10:52.219
+Prof . Madhusudhanan Baskaran: It uses this 16x16 patches.
+
+662
+01:10:52.930 --> 01:10:55.309
+Prof . Madhusudhanan Baskaran: I will train the model.
+
+663
+01:10:55.460 --> 01:10:57.830
+Prof . Madhusudhanan Baskaran: Then I'll flatten the patches.
+
+664
+01:10:58.230 --> 01:11:02.019
+Prof . Madhusudhanan Baskaran: I'll convert each… Patch into any embedding.
+
+665
+01:11:04.210 --> 01:11:06.660
+Prof . Madhusudhanan Baskaran: I'll convert each patch into an embedding.
+
+666
+01:11:07.980 --> 01:11:10.209
+Prof . Madhusudhanan Baskaran: I will add positional encoding.
+
+667
+01:11:10.460 --> 01:11:17.600
+Prof . Madhusudhanan Baskaran: The moment I say positional encoding, for a given 16 by 16 pixel, I understand.
+
+668
+01:11:17.760 --> 01:11:28.719
+Prof . Madhusudhanan Baskaran: the location of it. That means I always… now, I already now know that the location of the head, the location of the chest, the location of the hip, the location of the leg.
+
+669
+01:11:29.390 --> 01:11:41.530
+Prof . Madhusudhanan Baskaran: Right? Positional encoding. That is the power of positional encoding. Right? I am able to see the position of the sand, I'm able to see the position of the ocean. No water, I'm able to see the position of the ship.
+
+670
+01:11:43.340 --> 01:11:50.830
+Prof . Madhusudhanan Baskaran: I'll pass this through the transformer encoder model, and I'll have a classification head. Then my classification is done.
+
+671
+01:11:53.200 --> 01:11:54.020
+Prof . Madhusudhanan Baskaran: Got it?
+
+672
+01:11:54.990 --> 01:12:04.580
+Prof . Madhusudhanan Baskaran: So… So… What is happening? This is a classic example of
+
+673
+01:12:06.020 --> 01:12:09.180
+Prof . Madhusudhanan Baskaran: This is a classic example of a vision transformer.
+
+674
+01:12:12.750 --> 01:12:16.169
+Prof . Madhusudhanan Baskaran: The next method that… We can look at is…
+
+675
+01:12:16.300 --> 01:12:20.399
+Prof . Madhusudhanan Baskaran: Yes, VIN transformer. They're all small changes.
+
+676
+01:12:21.260 --> 01:12:25.489
+Prof . Madhusudhanan Baskaran: Swin Transformer was a concept which was introduced by Microsoft.
+
+677
+01:12:27.920 --> 01:12:39.460
+Prof . Madhusudhanan Baskaran: Instead of creating patches as in a visual transformer, The concept was to… create…
+
+678
+01:12:41.020 --> 01:12:44.010
+Prof . Madhusudhanan Baskaran: or divide the VIN image into windows.
+
+679
+01:12:44.800 --> 01:12:48.930
+Prof . Madhusudhanan Baskaran: And directly apply attention inside each window.
+
+680
+01:12:50.300 --> 01:13:02.069
+Prof . Madhusudhanan Baskaran: So, what happens? I take the first 16 by 16 patch, I apply the attention model, I shift to the next, and so on and so forth, right? This is how it works. So, so.
+
+681
+01:13:04.620 --> 01:13:11.209
+Prof . Madhusudhanan Baskaran: It'll be… it'll not… no, no, Dimul, you'll have to understand, I am not converting that into 16x16 pixels.
+
+682
+01:13:11.690 --> 01:13:25.309
+Prof . Madhusudhanan Baskaran: I'm con… breaking this 512x512 into 16 by 16. You have… right? I'm cutting, right? If you look, 512 by 512 is one large sheet of paper. I cut this sheet of paper into 32 components.
+
+683
+01:13:26.580 --> 01:13:29.909
+Prof . Madhusudhanan Baskaran: Right? Imagine 512 by 512 is a square paper.
+
+684
+01:13:30.120 --> 01:13:35.500
+Prof . Madhusudhanan Baskaran: If you're splitting this into 16 by 16, if I split this into 32 components.
+
+685
+01:13:37.380 --> 01:13:40.600
+Prof . Madhusudhanan Baskaran: If I split this paper into 20… 32,
+
+686
+01:13:40.890 --> 01:13:44.339
+Prof . Madhusudhanan Baskaran: sub-components. That is what is called a subpatch.
+
+687
+01:13:44.790 --> 01:13:45.550
+Prof . Madhusudhanan Baskaran: Great.
+
+688
+01:13:47.270 --> 01:13:49.359
+Prof . Madhusudhanan Baskaran: So, you have various models.
+
+689
+01:13:51.170 --> 01:14:00.810
+Prof . Madhusudhanan Baskaran: VIT, Vision Transformer. So, in Vision Transformer, I'm almost that the entire idea is to have… the entire idea is to have
+
+690
+01:14:01.870 --> 01:14:09.420
+Prof . Madhusudhanan Baskaran: This thing. The entire idea is to have What do you see?
+
+691
+01:14:09.870 --> 01:14:15.680
+Prof . Madhusudhanan Baskaran: use patches of images. So, from one-dimensional, we're becoming two-dimensional, that's all.
+
+692
+01:14:16.540 --> 01:14:17.260
+Prof . Madhusudhanan Baskaran: Got it?
+
+693
+01:14:20.780 --> 01:14:21.910
+Prof . Madhusudhanan Baskaran: We're ready.
+
+694
+01:14:22.240 --> 01:14:25.499
+Prof . Madhusudhanan Baskaran: 1 hour, 15 minutes into it. Any questions here?
+
+695
+01:14:28.020 --> 01:14:34.480
+Prof . Madhusudhanan Baskaran: Decoder will only create the next word. So, for image generation, I can use a decoder shashikanth.
+
+696
+01:14:39.640 --> 01:14:40.450
+Prof . Madhusudhanan Baskaran: Got it?
+
+697
+01:14:42.290 --> 01:14:44.020
+Prof . Madhusudhanan Baskaran: Any quick questions?
+
+698
+01:14:48.880 --> 01:14:54.569
+Prof . Madhusudhanan Baskaran: So, the entire focus was on The entire focus was on
+
+699
+01:14:55.270 --> 01:15:01.389
+Prof . Madhusudhanan Baskaran: To understand how vision models work. I can combine text and image, absolutely not have a problem.
+
+700
+01:15:03.480 --> 01:15:12.160
+Prof . Madhusudhanan Baskaran: So… so if you're able to understand embedding, How it works? Getting into… Other areas is extremely easy.
+
+701
+01:15:14.680 --> 01:15:15.529
+Prof . Madhusudhanan Baskaran: Love you.
+
+702
+01:15:16.390 --> 01:15:17.120
+Prof . Madhusudhanan Baskaran: Great.
+
+703
+01:15:17.580 --> 01:15:19.340
+Prof . Madhusudhanan Baskaran: Any questions, doubts?
+
+704
+01:15:29.890 --> 01:15:38.449
+Prof . Madhusudhanan Baskaran: So, Shashikanth, what I'm doing is, see, what is happening I'm creating tokens in… in…
+
+705
+01:15:38.750 --> 01:15:44.609
+Prof . Madhusudhanan Baskaran: your text data, we create tokens. Here, on the 16x16 patch, I create tokens.
+
+706
+01:15:45.100 --> 01:15:48.739
+Prof . Madhusudhanan Baskaran: Either I can… how do I create a token? I'll apply a filter.
+
+707
+01:15:49.880 --> 01:15:53.039
+Prof . Madhusudhanan Baskaran: Or I can directly flatten it and give it to your neural network.
+
+708
+01:15:54.230 --> 01:16:04.770
+Prof . Madhusudhanan Baskaran: Right? So, my… if I flatten it 16 by 16, what happens? I have a trans… I have a neural network, 16 by 16. I constraint it inside by using multiple layers.
+
+709
+01:16:05.430 --> 01:16:14.930
+Prof . Madhusudhanan Baskaran: Right? Then, I come to the bottleneck. That is how an autoencoder works. That, whatever is the bottleneck, will become my embedding feature.
+
+710
+01:16:16.390 --> 01:16:17.300
+Prof . Madhusudhanan Baskaran: Yes.
+
+711
+01:16:17.490 --> 01:16:20.829
+Prof . Madhusudhanan Baskaran: 16 by 16 can be looked as a chunk size.
+
+712
+01:16:23.340 --> 01:16:24.180
+Prof . Madhusudhanan Baskaran: Got it.
+
+713
+01:16:26.300 --> 01:16:28.160
+Prof . Madhusudhanan Baskaran: Any other questions, doubts?
+
+714
+01:16:36.330 --> 01:16:37.280
+Prof . Madhusudhanan Baskaran: Yif.
+
+715
+01:16:37.530 --> 01:16:42.190
+Prof . Madhusudhanan Baskaran: You can say word embedding, is equal to a patch. Perfect.
+
+716
+01:16:45.940 --> 01:16:46.660
+Prof . Madhusudhanan Baskaran: Great.
+
+717
+01:16:46.790 --> 01:16:58.860
+Prof . Madhusudhanan Baskaran: So, now we'll try to take some example and take it forward. I'll hand over to Balajit, I'll be here online, to clear your doubts, but, you know, now I'll hand over to Balajit so that he can
+
+718
+01:17:00.270 --> 01:17:03.689
+Prof . Madhusudhanan Baskaran: No, he can explain. Yes, Anae?
+
+719
+01:17:04.700 --> 01:17:12.310
+Prof . Madhusudhanan Baskaran: Yes, something like… from images… That'll be more of a… CNN, right?
+
+720
+01:17:12.600 --> 01:17:16.810
+Prof . Madhusudhanan Baskaran: Yeah, you can use a CNN for age estimation perfectly, right?
+
+721
+01:17:17.680 --> 01:17:27.759
+Prof . Madhusudhanan Baskaran: So, Swin uses 16x16. You can use 8x8, 32x32, 64x64, absolutely not a… Absolutely not a challenge.
+
+722
+01:17:29.150 --> 01:17:29.980
+Prof . Madhusudhanan Baskaran: Got it.
+
+723
+01:17:30.770 --> 01:17:37.630
+Prof . Madhusudhanan Baskaran: Great. I'll just… no, we'll just share you some code, and I'll have my colleague, Balaji, explaining
+
+724
+01:17:37.900 --> 01:17:43.289
+Prof . Madhusudhanan Baskaran: The next component, how to run the code, we'll also run the code. We put a small transformer model
+
+725
+01:17:43.550 --> 01:17:47.490
+Prof . Madhusudhanan Baskaran: in Google Pipeline, or in a Google… Notebook?
+
+726
+01:17:47.690 --> 01:17:50.420
+Prof . Madhusudhanan Baskaran: So that we can all run it and take it forward.
+
+727
+01:17:50.990 --> 01:17:54.730
+Prof . Madhusudhanan Baskaran: Can post your questions in the chat window, I'll be more than happy. Over to you, Balaji.
+
+728
+01:17:54.730 --> 01:17:56.579
+Prof . Madhusudhanan Baskaran: Yeah, thanks for the team.
+
+729
+01:17:57.090 --> 01:17:59.950
+Prof . Madhusudhanan Baskaran: So, I hope Kieran can able to hear me right.
+
+730
+01:18:01.760 --> 01:18:02.919
+Prof . Madhusudhanan Baskaran: Yes, you're audible.
+
+731
+01:18:04.260 --> 01:18:04.860
+Prof . Madhusudhanan Baskaran: Thanks.
+
+732
+01:18:07.500 --> 01:18:18.200
+Prof . Madhusudhanan Baskaran: So, yeah, I'll start sharing my screen. Before that, like, I'll share my code file, if you want. You can also, like, run along with me.
+
+733
+01:18:23.840 --> 01:18:24.750
+Prof . Madhusudhanan Baskaran: So…
+
+734
+01:18:26.490 --> 01:18:33.070
+Prof . Madhusudhanan Baskaran: I'm sharing it with host and panelists, so I'm not able to share it with everyone, so they will share it with you.
+
+735
+01:18:34.220 --> 01:18:35.440
+Prof . Madhusudhanan Baskaran: Right away, I'll…
+
+736
+01:18:49.030 --> 01:18:55.959
+Prof . Madhusudhanan Baskaran: Yeah, I, like, I chatted with the host and panelists, so I request you to, like.
+
+737
+01:18:56.110 --> 01:19:00.540
+Prof . Madhusudhanan Baskaran: post it to everyone. I'm not having option to, like, share it with everyone.
+
+738
+01:19:00.680 --> 01:19:01.400
+Prof . Madhusudhanan Baskaran: Okay.
+
+739
+01:19:01.600 --> 01:19:09.970
+Prof . Madhusudhanan Baskaran: In the meantime, I will start sharing my screen, and I'll, run through this code.
+
+740
+01:19:11.260 --> 01:19:13.079
+Prof . Madhusudhanan Baskaran: Also, I'll share the dataset.
+
+741
+01:19:19.800 --> 01:19:27.599
+Prof . Madhusudhanan Baskaran: So, humility stream, I shared the code file, also, the data set, okay? So, request you to, like, share it with everyone.
+
+742
+01:19:27.890 --> 01:19:29.959
+Prof . Madhusudhanan Baskaran: Yeah, yeah, I'll start sharing my screen.
+
+743
+01:19:41.450 --> 01:19:44.379
+Prof . Madhusudhanan Baskaran: So, I hope my screen is visible for everyone.
+
+744
+01:19:49.210 --> 01:19:50.030
+Prof . Madhusudhanan Baskaran: Yes.
+
+745
+01:19:50.400 --> 01:19:51.200
+Prof . Madhusudhanan Baskaran: Okay.
+
+746
+01:19:54.690 --> 01:19:59.279
+Prof . Madhusudhanan Baskaran: So, I request host and panelists to share this with, others.
+
+747
+01:19:59.470 --> 01:20:04.050
+Prof . Madhusudhanan Baskaran: So that there can also… Turn it along with me.
+
+748
+01:20:05.370 --> 01:20:09.970
+Prof . Madhusudhanan Baskaran: Okay, so, before, like, we're starting, I'll just give you, like,
+
+749
+01:20:10.100 --> 01:20:20.289
+Prof . Madhusudhanan Baskaran: high-level overview of, like, what here we are going to do. So, here we have, like, collected some, groups of data, okay? And then,
+
+750
+01:20:20.310 --> 01:20:32.300
+Prof . Madhusudhanan Baskaran: like, what we are going to do is, we are going to extract the features, okay? As mentioned by Professor Madhu, like, we'll be using multiple vision transformer models, okay, for extracting the features, and, like, we'll be yumbering those.
+
+751
+01:20:32.460 --> 01:20:39.879
+Prof . Madhusudhanan Baskaran: And, like, so what is going to happen? Like, we'll be converting, like, whatever the images that we have.
+
+752
+01:20:39.940 --> 01:20:58.960
+Prof . Madhusudhanan Baskaran: Like, we'll be loading into this, work environment, okay? It will be, like, converted into the embeddings, meaning that, like, we'll be having the numerical fixture vector, we'll be calling it as embeddings, and then we are also, like, going to compare, like, how different transformer models, like, will be, like, representing, each images.
+
+753
+01:20:59.080 --> 01:21:05.989
+Prof . Madhusudhanan Baskaran: Okay? So, with that understanding, like, I will proceed with this. And also, I'll show, like, how it's going to be.
+
+754
+01:21:06.340 --> 01:21:09.040
+Prof . Madhusudhanan Baskaran: So, here you can able to see this, right?
+
+755
+01:21:11.650 --> 01:21:13.889
+Prof . Madhusudhanan Baskaran: Your one can able to see this plot.
+
+756
+01:21:17.190 --> 01:21:17.950
+Prof . Madhusudhanan Baskaran: Yup.
+
+757
+01:21:18.300 --> 01:21:21.010
+Prof . Madhusudhanan Baskaran: So, these are the, like, hmm…
+
+758
+01:21:21.240 --> 01:21:27.940
+Prof . Madhusudhanan Baskaran: Like, different classes, okay? Core, cat, cheetahog, dog, monkey, so this is what, like, our dataset is, like, about.
+
+759
+01:21:28.060 --> 01:21:47.159
+Prof . Madhusudhanan Baskaran: Like, how, like, like, other transformer models, okay, which is related to vision, okay, how it is behaving, so that's what, like, here we are going to see, like, we are… we'll be, like, embedding it, okay? And then we are also, like, going to, retrieve it by passing in the, some of test images. So, this is how, like, it's going to be.
+
+760
+01:21:47.980 --> 01:21:48.800
+Prof . Madhusudhanan Baskaran: Okay.
+
+761
+01:21:50.150 --> 01:21:52.420
+Prof . Madhusudhanan Baskaran: So, you don't got your code files.
+
+762
+01:21:55.300 --> 01:22:04.020
+Prof . Madhusudhanan Baskaran: Okay, I will also… but anyway, like, I'm not having the option, okay? It's only with host and panelists. Even if I'm sharing the link, you can't be able to run it.
+
+763
+01:22:05.200 --> 01:22:07.280
+Prof . Madhusudhanan Baskaran: They will, they'll post it.
+
+764
+01:22:14.110 --> 01:22:16.739
+Prof . Madhusudhanan Baskaran: So, I'm back to my collapse screen, okay?
+
+765
+01:22:18.890 --> 01:22:23.490
+Prof . Madhusudhanan Baskaran: I'll just… go through… Okay.
+
+766
+01:22:23.650 --> 01:22:31.300
+Prof . Madhusudhanan Baskaran: So, before we are starting this, like, we'll be, like, installing,
+
+767
+01:22:31.460 --> 01:22:45.360
+Prof . Madhusudhanan Baskaran: like, required, libraries or packages, okay? So, since we are, like, dealing with, like, vision transformer models, we want to install, a few of things, okay? So…
+
+768
+01:22:45.530 --> 01:22:52.259
+Prof . Madhusudhanan Baskaran: Like, here we are, starting with the, package called Teams. This is, like,
+
+769
+01:22:52.300 --> 01:22:59.480
+Prof . Madhusudhanan Baskaran: Like, this will be, like, giving access to, like, large collections of the, pre-trained image classification model, and this is…
+
+770
+01:22:59.480 --> 01:23:12.680
+Prof . Madhusudhanan Baskaran: This is by, PyTorch, okay? And last time, like, we also, seen, like, transformers, okay, and other libraries, like, whatever you have seen. And also, we are using Pillow and Torch vision for crossing the images.
+
+771
+01:23:12.920 --> 01:23:17.250
+Prof . Madhusudhanan Baskaran: Okay, I already run it, and again, I'm running it.
+
+772
+01:23:22.040 --> 01:23:25.310
+Prof . Madhusudhanan Baskaran: Okay, good time, I'm just checking whether we've got…
+
+773
+01:23:29.270 --> 01:23:32.259
+Prof . Madhusudhanan Baskaran: Yeah, from the link, you were saying you can able to download it.
+
+774
+01:23:32.530 --> 01:23:38.480
+Prof . Madhusudhanan Baskaran: But I'm not, like, I can able to share that with, even that with… Austin Bandist.
+
+775
+01:23:54.300 --> 01:23:55.130
+Prof . Madhusudhanan Baskaran: Okay.
+
+776
+01:23:55.250 --> 01:23:58.179
+Prof . Madhusudhanan Baskaran: They should share it with you, so that you can also run along with me.
+
+777
+01:24:00.100 --> 01:24:10.490
+Prof . Madhusudhanan Baskaran: So, here, like, we are also, like, using scikit-learn, Matplotlib, okay, and other, related libraries, whatever we'll be, using here, okay? Then…
+
+778
+01:24:12.430 --> 01:24:23.280
+Prof . Madhusudhanan Baskaran: We are also, like, going to, clone one of, like, official T2T ocean transform project from GitHub, okay, into our working environment.
+
+779
+01:24:23.390 --> 01:24:30.569
+Prof . Madhusudhanan Baskaran: And, like, this T2D is, like, stands for, token-to-token machine transformer, okay?
+
+780
+01:24:30.670 --> 01:24:32.829
+Prof . Madhusudhanan Baskaran: So, this is how, like, we'll be cloning it.
+
+781
+01:24:32.940 --> 01:24:50.610
+Prof . Madhusudhanan Baskaran: And this is, like, one of, advanced vision transformer architecture, like, for understanding, images, okay? Like, images will get, like, converting, like, it will be converted to, patches, okay, to extract the, like, meaningful features from that.
+
+782
+01:24:50.620 --> 01:24:53.039
+Prof . Madhusudhanan Baskaran: Okay, here we are, like, cloning the repository.
+
+783
+01:24:53.080 --> 01:24:57.880
+Prof . Madhusudhanan Baskaran: So, this git clone, and, like, we are giving that a repository, okay?
+
+784
+01:25:02.550 --> 01:25:09.499
+Prof . Madhusudhanan Baskaran: So, here, this output will be, like, one minute, like, it's in there.
+
+785
+01:25:10.880 --> 01:25:12.740
+Prof . Madhusudhanan Baskaran: Hmm, disconnected.
+
+786
+01:25:19.970 --> 01:25:22.540
+Prof . Madhusudhanan Baskaran: Actually, I loaded it again.
+
+787
+01:25:48.050 --> 01:26:02.380
+Prof . Madhusudhanan Baskaran: So, this is how, like, it will be cloning, because last time I already cloned it, so that's why it's shown that, it's, like, already cloned, okay? So, here you can able to see, like, 100%, okay? So, like, we'll be using this,
+
+788
+01:26:02.470 --> 01:26:15.389
+Prof . Madhusudhanan Baskaran: a clone repository also for T2T, machine transformer, token transformer, okay? And here, like, we are importing, required libraries for, crossing the images, like, whatever we are going to load.
+
+789
+01:26:15.690 --> 01:26:32.340
+Prof . Madhusudhanan Baskaran: Okay, so… because, like, this VIS and system, like, will be helping us to interact with the operating system that we are… here we are dealing with. Here we are using Colabs, so this OIS and system, like, libraries will be, like, helping us to manage files and directories.
+
+790
+01:26:32.450 --> 01:26:45.579
+Prof . Madhusudhanan Baskaran: And also, here we are using, Torch, okay, as I mentioned earlier, like, like, this is going to be the, like, deep learning framework, like, here what we are going to use, by using the team, okay, TIM also, like, we are using.
+
+791
+01:26:45.620 --> 01:27:02.220
+Prof . Madhusudhanan Baskaran: So, we'll be, like, doing lots of, tensor operations, okay, and model exhibitions, so we'll be using this, Torch, okay? And, like, we are, importing this team, what we, like, already VP installed, okay? This is a PyTorch, image model library.
+
+792
+01:27:02.220 --> 01:27:07.449
+Prof . Madhusudhanan Baskaran: Okay, we'll be using this for, importing the vision transformer-based models.
+
+793
+01:27:07.990 --> 01:27:09.130
+Prof . Madhusudhanan Baskaran: earn…
+
+794
+01:27:09.230 --> 01:27:26.179
+Prof . Madhusudhanan Baskaran: So, for, for, like, we also, like, want to do some set of pre-processing, so, like, we are… from Torchusion, we are importing these transforms, okay? So, where, like, we can able to, like, resize, normalize, and we can also, like, able to do augmentations of the
+
+795
+01:27:26.180 --> 01:27:32.519
+Prof . Madhusudhanan Baskaran: loaded images. And for some, scientific computing purpose, like, we are importing NumPy, and,
+
+796
+01:27:32.560 --> 01:27:52.120
+Prof . Madhusudhanan Baskaran: scikit-learn, okay? From that, like, we are, going to do, like, diamondry detection for visualizing the, features, okay? That means, embedded, things. Then, like, we are also importing equivalent distance, okay, for comparing the, distance, okay? Like,
+
+797
+01:27:52.230 --> 01:28:08.199
+Prof . Madhusudhanan Baskaran: like, because we have loaded, like, lots of classes, right, for comparing those things, like, we'll be using this, equilibrian distance. Whatever, like, distance is, like, very much closer, we'll be getting, like, these data points will get, packed together, okay?
+
+798
+01:28:10.990 --> 01:28:30.830
+Prof . Madhusudhanan Baskaran: So, we are importing label encoder. So, this will be, like, converting, like, it'll be giving some set of, labels, okay? As integers and stuff, we are crossing with the, cat or, like, cheetah or dog and stuff like that, it will be, like, sitting just, like, 0, 1, 2, okay?
+
+799
+01:28:31.740 --> 01:28:39.350
+Prof . Madhusudhanan Baskaran: Matplotlib is, like, used for, plotting it, okay? The… plotting the images, like, whatever we have seen already, and…
+
+800
+01:28:39.700 --> 01:28:56.490
+Prof . Madhusudhanan Baskaran: Again, like, PAL is for, like, processing the images. Gradio is for our, UI, okay? Like, we are going to use Gradio, which will be, like, used for, like, creating interactive UIs, so that's what this UI is, like, about, okay?
+
+801
+01:28:56.650 --> 01:29:03.300
+Prof . Madhusudhanan Baskaran: So, from transformers, here, like, we are, importing, like.
+
+802
+01:29:03.410 --> 01:29:12.800
+Prof . Madhusudhanan Baskaran: machine transformer models, various models, like, what, we are going to, compare, okay, by, like, embedding the images by using these transformers.
+
+803
+01:29:12.860 --> 01:29:16.400
+Prof . Madhusudhanan Baskaran: Okay, so here you can be able to see,
+
+804
+01:29:16.420 --> 01:29:19.309
+Prof . Madhusudhanan Baskaran: Like, we are importing VAT model.
+
+805
+01:29:19.330 --> 01:29:34.010
+Prof . Madhusudhanan Baskaran: And, for pre-processing, like, we are, importing the VIT image processor, okay, that will be, like, used for, like, while we are dealing with the vision transformer model, all kind of pre-processing steps will be, like, handled by this image, VIT image processor.
+
+806
+01:29:34.010 --> 01:29:43.910
+Prof . Madhusudhanan Baskaran: Then, we are also, like, importing, data-efficient, image transformer model. Along with that, like, we are also importing, like, pre-processing.
+
+807
+01:29:43.910 --> 01:29:52.020
+Prof . Madhusudhanan Baskaran: Okay, so it's like, what are all things that is… need to be done for this data-efficient image transformer. So that's why we have loaded this,
+
+808
+01:29:52.060 --> 01:30:02.700
+Prof . Madhusudhanan Baskaran: like, data-efficient image transformer image processor, okay? And also, we are going to, import, conversion vision, transformer model.
+
+809
+01:30:02.700 --> 01:30:16.239
+Prof . Madhusudhanan Baskaran: Okay? Along with that, like, we are also importing the autoimmage processor, like, it will be, like, selecting, like, some set of processings, like, based on the given models, so it will be doing some set of automatic operations.
+
+810
+01:30:16.310 --> 01:30:17.060
+Prof . Madhusudhanan Baskaran: Okay.
+
+811
+01:30:17.220 --> 01:30:24.370
+Prof . Madhusudhanan Baskaran: So, I'm just importing it. Meantime, I'm just checking, like, you can… Mmm…
+
+812
+01:30:31.660 --> 01:30:44.359
+Prof . Madhusudhanan Baskaran: If a Q&A session… Actually… India not changed yet.
+
+813
+01:30:44.500 --> 01:30:47.720
+Prof . Madhusudhanan Baskaran: Okay, anyway, I'll be, proceeding with this.
+
+814
+01:31:05.830 --> 01:31:22.009
+Prof . Madhusudhanan Baskaran: Okay, next, like, whatever, the repository that we have cloned, right, in this step, like, we make this cloned, token-to-token mission transformer repository to, like, we want to, like, use it, so that's what, here we are,
+
+815
+01:31:22.120 --> 01:31:28.019
+Prof . Madhusudhanan Baskaran: Writing this system.pot append, like, we are going to use this, we are giving its path, okay?
+
+816
+01:31:30.460 --> 01:31:44.230
+Prof . Madhusudhanan Baskaran: So, from this, like, after, after, like, here we are, importing this, T2T, vision 14. Okay, that means, this is, like, architecture that we are going to use with the 14 layers, okay? This model is, like,
+
+817
+01:31:44.230 --> 01:31:51.929
+Prof . Madhusudhanan Baskaran: Like, what it is going to do is, like, it is going to transform, image patches into the, like, informative.
+
+818
+01:31:51.930 --> 01:32:04.880
+Prof . Madhusudhanan Baskaran: visual tokens, okay? Like, it'll be, like, this T2D, like, will be helping, to capture the both local and global image features, so that's why here we are importing this with the 14 layers.
+
+819
+01:32:05.590 --> 01:32:15.160
+Prof . Madhusudhanan Baskaran: Just… Yeah, so here we can, able to see this, T2T, okay, whatever that we already…
+
+820
+01:32:15.270 --> 01:32:17.270
+Prof . Madhusudhanan Baskaran: Clone, okay?
+
+821
+01:32:18.220 --> 01:32:22.830
+Prof . Madhusudhanan Baskaran: Next thing is, we are going to set up the folder, okay?
+
+822
+01:32:23.710 --> 01:32:29.839
+Prof . Madhusudhanan Baskaran: What means, like, we want to, like, here we are going to, load the, dataset, okay?
+
+823
+01:32:38.270 --> 01:32:41.030
+Prof . Madhusudhanan Baskaran: So, this is a dataset I'm loading.
+
+824
+01:32:42.860 --> 01:32:44.989
+Prof . Madhusudhanan Baskaran: Okay, now I'm just checking it.
+
+825
+01:32:45.550 --> 01:32:55.599
+Prof . Madhusudhanan Baskaran: So, now it's loaded, now I want to, like, extract it, like, I want to unzip it, and I want to see, like, how many images are there with,
+
+826
+01:32:55.710 --> 01:32:58.300
+Prof . Madhusudhanan Baskaran: Unique labels.
+
+827
+01:32:58.680 --> 01:33:00.650
+Prof . Madhusudhanan Baskaran: So, I'm just running it.
+
+828
+01:33:03.120 --> 01:33:09.299
+Prof . Madhusudhanan Baskaran: So here, we can able to see, like, we have loaded 45 images with 9 unique labels, okay? So…
+
+829
+01:33:10.960 --> 01:33:27.380
+Prof . Madhusudhanan Baskaran: Next is, we are going to encode this, like, as I mentioned, like, like, our dataset contains cat, dog, okay, so those things need to be, like, encoded. So, for example, like, here it is mentioned, like, okay, we are, we are using this label encoder to encode it.
+
+830
+01:33:27.540 --> 01:33:28.260
+Prof . Madhusudhanan Baskaran: Okay.
+
+831
+01:33:30.450 --> 01:33:44.370
+Prof . Madhusudhanan Baskaran: So now, like, images been, like, imported. Okay, very next step is, like, now, whatever, that we have, like, imported, right, we want to now, load it. So, we want to, load the models.
+
+832
+01:33:48.060 --> 01:33:49.170
+Prof . Madhusudhanan Baskaran: So…
+
+833
+01:33:49.220 --> 01:34:02.000
+Prof . Madhusudhanan Baskaran: here, here, like, we'll be, whatever the models that we have shown, right, like, in the code, whatever, like, we have imported, right? Like, here, we'll be loading it, one by one, okay? So…
+
+834
+01:34:02.030 --> 01:34:17.039
+Prof . Madhusudhanan Baskaran: So, this is going to be, like, we are go, like, here we are, loading, like, like, many, pre-trained, vision transformer models, okay? So, that'll be, like, used for, extracting the features from the images, like, whatever here we have loaded.
+
+835
+01:34:17.140 --> 01:34:22.370
+Prof . Madhusudhanan Baskaran: Okay? So, like… this,
+
+836
+01:34:23.170 --> 01:34:26.960
+Prof . Madhusudhanan Baskaran: This, this architecture is, like, actually, what it is going to do is.
+
+837
+01:34:27.030 --> 01:34:44.870
+Prof . Madhusudhanan Baskaran: Like, it'll be, like, dividing images into some set of, like, small patches, okay? And then it'll be, like, processing them, using, these models, okay? So, that's what here it is actually going to do. Along with this model, like, we are also, like, loading its corresponding, image process.
+
+838
+01:34:44.940 --> 01:34:55.270
+Prof . Madhusudhanan Baskaran: Okay? Like, which will be, like, applying all pre-processing steps required by that specific model, as I mentioned earlier, like, while we are, importing it here, okay? So…
+
+839
+01:34:56.920 --> 01:35:02.690
+Prof . Madhusudhanan Baskaran: Sure, like, yeah, so these are the image processor, like, I'm specifying for that specific model.
+
+840
+01:35:03.370 --> 01:35:05.510
+Prof . Madhusudhanan Baskaran: Okay.
+
+841
+01:35:05.710 --> 01:35:24.309
+Prof . Madhusudhanan Baskaran: Yeah. So, like that, here, like, we are loading different models, okay? So, initially, like, we are loading the, Vanilla Vision, transformer, okay? Then we are, like, loading data-efficient image transformer, along with its, data processor, okay?
+
+842
+01:35:24.410 --> 01:35:39.680
+Prof . Madhusudhanan Baskaran: And also, we are loading the CBT, Condition Vision Transformer. Okay, this is by Microsoft, and this is by Facebook, like, it's mentioned. VIT, this is by Google, so, we are just loading it by giving,
+
+843
+01:35:40.170 --> 01:35:40.950
+Prof . Madhusudhanan Baskaran: like…
+
+844
+01:35:41.690 --> 01:35:57.270
+Prof . Madhusudhanan Baskaran: model name. Like, actually, here you can able to see, how many layers it is also, like, having. So, next thing is, we are loading this, PIM model, like, what I already shown, right, while we are, importing it. So.
+
+845
+01:35:58.030 --> 01:36:14.289
+Prof . Madhusudhanan Baskaran: like, in addition to these Hugging Face models, okay, here we are also, like, loading, three advanced transformer architectures from this, TIM library. Like, here we are loading, Swin Transformer, okay, Swin Transformer, and then PVT and Max VAT.
+
+846
+01:36:14.290 --> 01:36:26.979
+Prof . Madhusudhanan Baskaran: Okay? So, PVT means it's a premiered vision transformer, okay? It's a premiered vision transformer. This is also, like, one of, advanced architecture. Then, we are also, like, loading, max VAT from this team.
+
+847
+01:36:28.200 --> 01:36:28.960
+Prof . Madhusudhanan Baskaran: Okay.
+
+848
+01:36:29.460 --> 01:36:38.079
+Prof . Madhusudhanan Baskaran: So, this is the, like, model loading part. Once this is done, like, we are also, like,
+
+849
+01:36:38.360 --> 01:36:54.370
+Prof . Madhusudhanan Baskaran: We want some kind of compute, okay? So that's what here we are going to do. Like, now, here, what we are going to do next, like, we are going to, move this model to CPU, or, like, GPU, like, based on, like, whatever it is, like, available. I am, like, here connected to,
+
+850
+01:36:54.550 --> 01:37:03.140
+Prof . Madhusudhanan Baskaran: T4, okay? Here, I'm connected to T4. Okay, you can also, like, connect to our notebook to T4, okay? So…
+
+851
+01:37:03.950 --> 01:37:05.530
+Prof . Madhusudhanan Baskaran: I'm just running it.
+
+852
+01:37:05.650 --> 01:37:13.190
+Prof . Madhusudhanan Baskaran: It will take some time. Here, you can be able to see, like, each model, like, will get loaded. For first time, like, while you are running it, it will take some time.
+
+853
+01:37:15.560 --> 01:37:29.949
+Prof . Madhusudhanan Baskaran: Okay, when we execute this cell, like, here, first thing, what is happening is, like, whatever the pre-trained models that we have mentioned, right, it will be, like, getting downloaded from the Hugging Face, okay, and the team, model repository.
+
+854
+01:37:30.130 --> 01:37:35.410
+Prof . Madhusudhanan Baskaran: So, here you can able to see, like, it's a related JSON, Okay?
+
+855
+01:37:36.850 --> 01:37:41.600
+Prof . Madhusudhanan Baskaran: And then, model.siptonSource, okay?
+
+856
+01:37:45.000 --> 01:37:57.709
+Prof . Madhusudhanan Baskaran: Yeah, it'll take some time for me, like, it's loaded, and it took almost, like, 40 seconds. See, model.tensors and config.json, and also, like, we are loading the weights of that model.
+
+857
+01:37:59.200 --> 01:38:00.090
+Prof . Madhusudhanan Baskaran: Okay?
+
+858
+01:38:02.230 --> 01:38:13.340
+Prof . Madhusudhanan Baskaran: So, for now, like, we have loaded all models, okay? At this stage, like, all transformer architecture, like, have been loaded into our memory. Okay, if you're able to see, like, slightly our memory, also, like,
+
+859
+01:38:14.460 --> 01:38:15.840
+Prof . Madhusudhanan Baskaran: Riced, okay?
+
+860
+01:38:19.790 --> 01:38:29.150
+Prof . Madhusudhanan Baskaran: Next, I'm going to, deal with this, token-to-token transformer with the 14 architecture. Okay, 14 layers.
+
+861
+01:38:30.900 --> 01:38:34.659
+Prof . Madhusudhanan Baskaran: So, here, what we are going to do is, like,
+
+862
+01:38:34.770 --> 01:38:54.239
+Prof . Madhusudhanan Baskaran: like, unlike other models, okay, like, whatever we have loaded, okay, this model is, like, created with the pre-trained as false. Here, you can able to see this, right? Meaning that here we are not going to use that, pre-trained weights, like, we are going to train it, okay? We are going to train it based on the dataset, like, whatever we have loaded, okay?
+
+863
+01:38:54.680 --> 01:39:03.740
+Prof . Madhusudhanan Baskaran: So, again, it'll be, like, selecting, like, based on our available compute, like, here, like, I already connected to GPU, so it'll be using
+
+864
+01:39:04.440 --> 01:39:05.550
+Prof . Madhusudhanan Baskaran: GPU.
+
+865
+01:39:06.990 --> 01:39:10.980
+Prof . Madhusudhanan Baskaran: Okay, so here, like, we are also, like, going to evaluate it.
+
+866
+01:39:11.080 --> 01:39:22.990
+Prof . Madhusudhanan Baskaran: Okay, we are also, like, going to evaluate it, like, because, like, we are going to, like, see, comparing, like, how the other architecture is also, like, behaving for the given same data sets.
+
+867
+01:39:24.190 --> 01:39:37.229
+Prof . Madhusudhanan Baskaran: So, here I've initialized it, okay? So, this is, things that is, like, related to the architecture of, our token-to-token transformer with 14 layers, okay?
+
+868
+01:39:41.050 --> 01:40:01.019
+Prof . Madhusudhanan Baskaran: Next, like, I'm moving on to the, embedding part, okay? For now, like, we have loaded, like, whatever model that we want to deal with, and also we have loaded images, okay? What, like, we want to, do the image embeddings. Now, we are going to focus on, like, this embedding part, like, how the image is, like, being, embedded, okay?
+
+869
+01:40:06.240 --> 01:40:22.029
+Prof . Madhusudhanan Baskaran: So, here, like, we are defining, like, set of functions, okay? So, n by VIT, okay, n by VIT, like, for each and every model, like, whatever we have loaded, we are going to, like, define a function, okay?
+
+870
+01:40:22.530 --> 01:40:40.870
+Prof . Madhusudhanan Baskaran: So, here, what it is going to do is, this function, it will be, like, extracting the, feature embeddings from the image, okay, using the, different architectures. So, each function will be, like, focusing on the different architecture, okay, for extracting the feature embeddings.
+
+871
+01:40:41.790 --> 01:40:56.630
+Prof . Madhusudhanan Baskaran: Okay, so here the purpose is, like, purpose of this embedding is, like, we are not going to do any kind of classification, okay, image classification directly, but here we are, going to convert each images into the numerical feature vector.
+
+872
+01:40:56.790 --> 01:41:06.940
+Prof . Madhusudhanan Baskaran: Okay, so that's why here we have mentioned the tensors and their related things, whatever related things that is related to this computation, we are going to do.
+
+873
+01:41:07.690 --> 01:41:21.900
+Prof . Madhusudhanan Baskaran: Okay, so for the efficient transformer and, data-efficient, transformer, the, image will be, like, costly processed using the, model specific processor, like, whatever here, we are loaded, right, already.
+
+874
+01:41:21.900 --> 01:41:30.540
+Prof . Madhusudhanan Baskaran: So, from this, we'll be, loading it, and it will be doing all kind of reprocess. From there, like, it will be getting the, embedding, okay, related embedding.
+
+875
+01:41:30.990 --> 01:41:34.729
+Prof . Madhusudhanan Baskaran: So, this is, like, same thing for other models also.
+
+876
+01:41:35.290 --> 01:41:36.120
+Prof . Madhusudhanan Baskaran: Okay.
+
+877
+01:41:39.370 --> 01:41:41.870
+Prof . Madhusudhanan Baskaran: No, like, mmm…
+
+878
+01:41:46.360 --> 01:41:50.420
+Prof . Madhusudhanan Baskaran: Okay, now, like, I'm going to initialize the embedding.
+
+879
+01:41:50.610 --> 01:41:53.069
+Prof . Madhusudhanan Baskaran: So, here, what I'm doing is…
+
+880
+01:41:55.840 --> 01:42:15.810
+Prof . Madhusudhanan Baskaran: like, here we are going to create, like, some kind of, data structure, which is going to be, like, centralized, okay, to store all the feature embeddings that is, like, generated by each of the transform models, like, whatever we have loaded already. So here, we are having a, like, dictionary, okay, this dictionary.
+
+881
+01:42:15.810 --> 01:42:33.800
+Prof . Madhusudhanan Baskaran: So, like, this dictionary is, like, going to be, like, used, okay, for… for storing this, like, humid values, okay, for the given images, by using the different, transformer architecture. So I, like, mentioned, like, what are the model, like, that I am going to.
+
+882
+01:42:33.850 --> 01:42:36.850
+Prof . Madhusudhanan Baskaran: Use for these image embeddings, okay?
+
+883
+01:42:36.980 --> 01:42:38.630
+Prof . Madhusudhanan Baskaran: This we already seen.
+
+884
+01:42:38.810 --> 01:42:52.300
+Prof . Madhusudhanan Baskaran: So, I'm proceeding with the, next step. So, here we are going to generate the, images. So, here you can enable to see the for loop, okay? What this is going to do is, like, for each and every images, okay,
+
+885
+01:42:52.580 --> 01:43:02.570
+Prof . Madhusudhanan Baskaran: like, it is going to, get the, vectors, okay? So, like, here we can able to see vision transformer, okay, it is going to…
+
+886
+01:43:02.620 --> 01:43:20.629
+Prof . Madhusudhanan Baskaran: Within this, for loop, for each and every images, like, here we have loaded, like, almost 45 images. So, for each images, it is going to, like, embed, okay? And it is going to return the 1D vector, okay? It is going to return the 1D vector. So,
+
+887
+01:43:20.950 --> 01:43:22.680
+Prof . Madhusudhanan Baskaran: I'm just running this for loop.
+
+888
+01:43:23.410 --> 01:43:31.670
+Prof . Madhusudhanan Baskaran: And for team model, it is, something different. So, here we are using, spin and free-made, okay, max vision transformer.
+
+889
+01:43:33.000 --> 01:43:49.469
+Prof . Madhusudhanan Baskaran: But ultimately, the, like, concept is going to be same, okay? But we are, loading it from, different sources, so that is the only difference. But actually, like, it is going to do, like, same work. That is going to, like, it's going to…
+
+890
+01:43:49.530 --> 01:43:59.460
+Prof . Madhusudhanan Baskaran: do embeddings, okay, for all of the images, like, we are currently having 14 images. For each and every images, it is going to, return the, 1D vector, okay?
+
+891
+01:44:00.690 --> 01:44:12.779
+Prof . Madhusudhanan Baskaran: And then, like, here we are, converting the, list, okay, to NumPyRS, and why here we are doing this is for do, like, some smoother computations, okay? So that is the reason behind that.
+
+892
+01:44:15.470 --> 01:44:30.910
+Prof . Madhusudhanan Baskaran: Next, we are, moving on to the, like, plotting of those things, okay? Like, we'll be having, like, lots of, features in that, okay? So, like, so we want to, like, visualize it. So, like.
+
+893
+01:44:30.970 --> 01:44:40.809
+Prof . Madhusudhanan Baskaran: we can't, like, visualize, like, very high, high dimension things, so we want to reduce the dimension. So, for that thing, like, here, we are going to use this, TSME.
+
+894
+01:44:40.920 --> 01:44:56.329
+Prof . Madhusudhanan Baskaran: Okay, TSNA, like, it'll, TSNA is, it is a T-distributed stochastic, neighbor embedding. Okay, with this, like, we are going to, reduce the high-dimensional feature, embeddings, okay, which is, like, generated by each of the, transformer models.
+
+895
+01:44:56.520 --> 01:45:03.460
+Prof . Madhusudhanan Baskaran: like, here we are going to do it for, like, two components, okay? Two components, meaning that we are going to visualize it on, like, 2D.
+
+896
+01:45:04.300 --> 01:45:07.160
+Prof . Madhusudhanan Baskaran: Okay, so, that means…
+
+897
+01:45:07.550 --> 01:45:17.940
+Prof . Madhusudhanan Baskaran: we are reducing the high-dimensional feature embedding, okay, which is, like, generated by each transformer, which each transformer model, into the two-dimensional space, okay?
+
+898
+01:45:18.580 --> 01:45:32.550
+Prof . Madhusudhanan Baskaran: Because, like, whatever, the embeddings that is, like, produced by, VIT, CVT, or SWIN, okay, that may, like, contain, like, hundreds or, like, even thousands of feature dimensions, okay? They cannot be, like, visualized directly.
+
+899
+01:45:32.680 --> 01:45:34.970
+Prof . Madhusudhanan Baskaran: Since this,
+
+900
+01:45:35.160 --> 01:45:51.639
+Prof . Madhusudhanan Baskaran: TSNA, like, will be helping us to, like, reduce that dimension, okay? But it will be, like, even, like, if you are reducing the dimension, it will be, like, preserving the, similarity relationship, okay, between the, between the images, okay? As much as, like, it won't lose any data, okay?
+
+901
+01:45:52.120 --> 01:45:55.629
+Prof . Madhusudhanan Baskaran: So that's what here we are doing, just running it.
+
+902
+01:45:59.470 --> 01:46:05.120
+Prof . Madhusudhanan Baskaran: And then here, we are going to plot that, okay, whatever, like, we have reduced it, right? We are going to plot it.
+
+903
+01:46:05.400 --> 01:46:08.159
+Prof . Madhusudhanan Baskaran: So this is the plotting thing, I've just executed it.
+
+904
+01:46:08.480 --> 01:46:10.250
+Prof . Madhusudhanan Baskaran: And I'm giving the legends.
+
+905
+01:46:10.650 --> 01:46:15.550
+Prof . Madhusudhanan Baskaran: Okay, I'm giving the legends for each of them, meaning that
+
+906
+01:46:16.220 --> 01:46:24.839
+Prof . Madhusudhanan Baskaran: Like, what are all models, okay, we are going to use, we are just going to give, legends, like, along with the, title, okay?
+
+907
+01:46:28.190 --> 01:46:35.180
+Prof . Madhusudhanan Baskaran: Once the onboarding is done, next part is, like, image query. Like, whatever,
+
+908
+01:46:35.280 --> 01:46:41.610
+Prof . Madhusudhanan Baskaran: That we have embedded, okay? We are going to… we are not only, like, embedding it, okay? We are going to, like…
+
+909
+01:46:41.610 --> 01:46:56.940
+Prof . Madhusudhanan Baskaran: like, retry something, based on some set of image that I'm giving, like, whatever, like, it is being embedded, right? The image that whatever I'm loading, it will be, like, giving something similar to it. Okay, here only, like, we'll be using the equivalent distance and other things, like, whatever we have loaded there.
+
+910
+01:46:57.310 --> 01:46:58.090
+Prof . Madhusudhanan Baskaran: Okay.
+
+911
+01:47:01.120 --> 01:47:10.660
+Prof . Madhusudhanan Baskaran: So… These are the models that we already loaded, so… Here, I'm going to…
+
+912
+01:47:12.590 --> 01:47:30.879
+Prof . Madhusudhanan Baskaran: plot this as well, okay? So this is the retrieval function. Okay, how… how this retrieval is going to happen? This is very important. As mentioned by Professor Madhu and I said, okay? We also, like, seen the cosine similarity there, and here, we are going to, like, retrieve, like, top 3, okay?
+
+913
+01:47:30.960 --> 01:47:35.310
+Prof . Madhusudhanan Baskaran: Top 3 images, like, which are similar to the loaded images.
+
+914
+01:47:38.420 --> 01:47:41.280
+Prof . Madhusudhanan Baskaran: Okay, so… Yeah.
+
+915
+01:47:45.900 --> 01:47:52.119
+Prof . Madhusudhanan Baskaran: So… Mmm, like, here we… here we are having the, like.
+
+916
+01:47:52.430 --> 01:48:08.569
+Prof . Madhusudhanan Baskaran: two functions, you can able to see the two functions, okay? Like, here we are defining the two retrieval functions, actually, that will be, helping us to, like, identify the most similar images, okay, in the dataset, for the given image query, okay? So I'll just show you here.
+
+917
+01:48:08.640 --> 01:48:13.570
+Prof . Madhusudhanan Baskaran: This is the, like, embeddings, okay, by using the different models.
+
+918
+01:48:16.390 --> 01:48:17.950
+Prof . Madhusudhanan Baskaran: Okay, mmm…
+
+919
+01:48:22.820 --> 01:48:27.580
+Prof . Madhusudhanan Baskaran: Okay, still you are not… okay, nearby.
+
+920
+01:48:29.940 --> 01:48:31.040
+Prof . Madhusudhanan Baskaran: Yeah.
+
+921
+01:48:32.100 --> 01:48:42.749
+Prof . Madhusudhanan Baskaran: So, this is, like, my, image query, okay? Like, I'll be loading it here. So, based on, like, whatever information, like, it is, like, being,
+
+922
+01:48:42.900 --> 01:48:49.900
+Prof . Madhusudhanan Baskaran: embedded, right? So based on those informations, it will be, like, retrieving, okay? So, that's what this function is all about, this two functions.
+
+923
+01:48:49.900 --> 01:48:50.510
+Prof . Madhusudhanan Baskaran: Holy shit.
+
+924
+01:48:50.510 --> 01:48:53.270
+Prof . Madhusudhanan Baskaran: So, both functions… Yes, sir.
+
+925
+01:48:53.650 --> 01:49:02.289
+Prof . Madhusudhanan Baskaran: First is, no, can you please, share the code in this, window, so that Shobit was asking that? Second is, Bill…
+
+926
+01:49:02.290 --> 01:49:09.499
+Prof . Madhusudhanan Baskaran: Actually… Actually, I shared it with Host, but they're still… they're not shared yet.
+
+927
+01:49:09.500 --> 01:49:12.380
+Prof . Madhusudhanan Baskaran: So you'll be getting it very shortly, Shobit, and
+
+928
+01:49:13.090 --> 01:49:17.479
+Prof . Madhusudhanan Baskaran: Okay. So, second is, Shashikanth.
+
+929
+01:49:18.360 --> 01:49:31.049
+Prof . Madhusudhanan Baskaran: We'll be using pre-trained bytes, right? They are all pre-trained models, right? So maybe the context understanding, because I can start from scratch, but it is going to be very expensive in terms of cost, so…
+
+930
+01:49:31.200 --> 01:49:47.420
+Prof . Madhusudhanan Baskaran: cost means compute and the number of hours to take. So, we'll be using pre-trained, whatever, models that are already pre-trained, we take it forward from there. Notebook will share show with. Vectors will be numerical values with different lights, yeah.
+
+931
+01:49:47.500 --> 01:49:56.289
+Prof . Madhusudhanan Baskaran: No, I don't know whether… yeah, maybe we'll just try to show it to you, or we'll add it in the notebook. Balaji will add it in the notebook if it is not there.
+
+932
+01:49:56.440 --> 01:49:59.949
+Prof . Madhusudhanan Baskaran: he'll take, because, you know, what we need to do is we need to do a small
+
+933
+01:50:00.130 --> 01:50:01.460
+Prof . Madhusudhanan Baskaran: Area of it.
+
+934
+01:50:02.300 --> 01:50:08.180
+Prof . Madhusudhanan Baskaran: I cannot show the entire thing, then it'll be… it'll look only 262,000 numbers into 2048.
+
+935
+01:50:08.400 --> 01:50:09.789
+Prof . Madhusudhanan Baskaran: Huge data.
+
+936
+01:50:10.000 --> 01:50:17.749
+Prof . Madhusudhanan Baskaran: Right? Or… it'll be very huge. So what we'll do is we'll try to chop out a small component, and then show you the lighting, where we'll show you a…
+
+937
+01:50:18.230 --> 01:50:23.430
+Prof . Madhusudhanan Baskaran: huge difference in lighting, right? And from there, you see… you see that the values are slightly different.
+
+938
+01:50:24.630 --> 01:50:27.510
+Prof . Madhusudhanan Baskaran: Super. Go ahead, sorry, please go ahead.
+
+939
+01:50:28.690 --> 01:50:29.370
+Prof . Madhusudhanan Baskaran: Bali.
+
+940
+01:50:35.230 --> 01:50:38.930
+Prof . Madhusudhanan Baskaran: Okay, thanks, Prof, sir. I'll be countering the post.
+
+941
+01:50:38.960 --> 01:50:43.959
+Prof . Madhusudhanan Baskaran: We'll definitely get it, so no worries. Files are slightly large. Yeah, thanks. Thanks, brother. Go ahead.
+
+942
+01:50:45.340 --> 01:50:46.480
+Prof . Madhusudhanan Baskaran: Yeah, okay.
+
+943
+01:50:47.520 --> 01:50:48.540
+Prof . Madhusudhanan Baskaran: Okay.
+
+944
+01:50:50.180 --> 01:51:02.349
+Prof . Madhusudhanan Baskaran: So, in this, two functions, okay, here we are, using the, cosine similarity, and in other function, we are using the, Euclidean distance, okay? So…
+
+945
+01:51:02.350 --> 01:51:20.319
+Prof . Madhusudhanan Baskaran: Like, cosine similarity will be, comparing the, directions, okay, directions of the feature vectors, rather than its, magnitude. And the Euclidean distance, okay, we will be, like, measuring the, state line distance between the, feature vectors, okay, in that, specific,
+
+946
+01:51:20.380 --> 01:51:27.640
+Prof . Madhusudhanan Baskaran: embedding space, okay? So, by using these two things, like, we'll be, using this to,
+
+947
+01:51:28.010 --> 01:51:33.480
+Prof . Madhusudhanan Baskaran: Cosine similarity and equaling distance, okay? We'll be performing our retrieval, okay?
+
+948
+01:51:34.220 --> 01:51:35.580
+Prof . Madhusudhanan Baskaran: Next year.
+
+949
+01:51:35.980 --> 01:51:38.249
+Prof . Madhusudhanan Baskaran: Training a function for search operation.
+
+950
+01:51:39.100 --> 01:51:50.129
+Prof . Madhusudhanan Baskaran: So, here, what it is going to do is, it will be searching based on the, like, whatever, thing that is, given by, this percent similarity, and,
+
+951
+01:51:50.430 --> 01:52:03.499
+Prof . Madhusudhanan Baskaran: cosine similarity and Euclidean distance, okay? Based on that, it will be getting, okay, it will be getting all the, like, similar things, and those values will be, like, used to, plot it, okay?
+
+952
+01:52:06.020 --> 01:52:11.040
+Prof . Madhusudhanan Baskaran: So, here you can able to see, here the visualization things are, like, happening, okay?
+
+953
+01:52:11.370 --> 01:52:13.010
+Prof . Madhusudhanan Baskaran: So,
+
+954
+01:52:16.990 --> 01:52:17.810
+Prof . Madhusudhanan Baskaran: Yes.
+
+955
+01:52:18.550 --> 01:52:21.079
+Prof . Madhusudhanan Baskaran: So, this is our final step, okay?
+
+956
+01:52:21.170 --> 01:52:31.769
+Prof . Madhusudhanan Baskaran: So, like, for every model here, what we are doing is, the function is going to do, two things, okay? First is, it is going to create the visualization.
+
+957
+01:52:31.770 --> 01:52:44.059
+Prof . Madhusudhanan Baskaran: Okay, it is, like, temporarily it will be combining the, dataset embedding with the, query embedding, okay? And then it is going to recompute that, two-dimensional, okay, by using the TSNE.
+
+958
+01:52:44.080 --> 01:52:48.079
+Prof . Madhusudhanan Baskaran: Projection, so that we can easily able to visualize it.
+
+959
+01:52:48.090 --> 01:53:03.200
+Prof . Madhusudhanan Baskaran: And then, we are also, like, going to identify whether the query image, okay, that is, query images, lies related to the, dataset points, okay, whatever, like, we already embedded. If that is there, then we'll be, like, getting a very good output.
+
+960
+01:53:03.200 --> 01:53:20.120
+Prof . Madhusudhanan Baskaran: Okay? Or else, if, the distance is, like, a very high image, then sometimes the model may not, like, give, very good outputs. So based on, like, number of images that is being used to embed, okay, with that, like, if that is, like, falling within that, images, okay.
+
+961
+01:53:20.120 --> 01:53:35.919
+Prof . Madhusudhanan Baskaran: not, like, exactly that image, but sometimes it will be, like, very much closer, as mentioned by Professor Madhu. Okay, like, how it is, capturing, like, features, okay, what are the images that you uploaded? Okay, based on those things, it will be, like, retrieving. Okay, now I'm going to run this radio.
+
+962
+01:54:07.920 --> 01:54:11.339
+Prof . Madhusudhanan Baskaran: So, this is a vessel for different models.
+
+963
+01:54:11.660 --> 01:54:16.270
+Prof . Madhusudhanan Baskaran: Okay, this is the embeddings. Here, you can able to see,
+
+964
+01:54:16.650 --> 01:54:30.630
+Prof . Madhusudhanan Baskaran: Vision Transformer, okay? Vanilla vision transformer, how it is performing, and data efficient transformer, like, how it is performing, convolution vision transformer, spin, PVT, Max VAT, and T2D.
+
+965
+01:54:33.550 --> 01:54:34.700
+Prof . Madhusudhanan Baskaran: So…
+
+966
+01:54:34.990 --> 01:54:43.190
+Prof . Madhusudhanan Baskaran: You can able to see, like, all or, like, not, same, like, it's all, like, projected in, like, different way, like, however it is being embedded.
+
+967
+01:54:46.060 --> 01:54:53.749
+Prof . Madhusudhanan Baskaran: Okay, now, with this information, okay, now I'm going to… Do the image retrieval.
+
+968
+01:55:12.150 --> 01:55:14.009
+Prof . Madhusudhanan Baskaran: So, now I'm going to retrieve it.
+
+969
+01:55:14.130 --> 01:55:17.590
+Prof . Madhusudhanan Baskaran: And, okay, some error is there.
+
+970
+01:55:18.480 --> 01:55:24.209
+Prof . Madhusudhanan Baskaran: Mmm… We'll be running it, okay.
+
+971
+01:55:28.610 --> 01:55:29.550
+Prof . Madhusudhanan Baskaran: Okay.
+
+972
+01:55:29.780 --> 01:55:34.729
+Prof . Madhusudhanan Baskaran: So, I think, It's got stalked, or something.
+
+973
+01:55:37.580 --> 01:55:40.069
+Prof . Madhusudhanan Baskaran: Okay, now I'm reading it.
+
+974
+01:56:02.360 --> 01:56:04.269
+Prof . Madhusudhanan Baskaran: I'm going to overtime.
+
+975
+01:56:11.340 --> 01:56:13.380
+Prof . Madhusudhanan Baskaran: No interface is running.
+
+976
+01:56:15.070 --> 01:56:18.469
+Prof . Madhusudhanan Baskaran: Actually, yeah, there is a problem with the interface.
+
+977
+01:56:25.090 --> 01:56:31.989
+Prof . Madhusudhanan Baskaran: Maybe if I'm, deleting this runtime, and again, I'm starting it, it'll be there.
+
+978
+01:56:32.450 --> 01:56:33.200
+Prof . Madhusudhanan Baskaran: Okay.
+
+979
+01:56:37.700 --> 01:56:43.470
+Prof . Madhusudhanan Baskaran: Okay, okay, so I need to… Actually, it got crashed.
+
+980
+01:56:47.740 --> 01:56:49.480
+Prof . Madhusudhanan Baskaran: So that's what it is saying…
+
+981
+01:56:52.580 --> 01:56:54.160
+Prof . Madhusudhanan Baskaran: It's not defined.
+
+982
+01:56:54.410 --> 01:56:56.009
+Prof . Madhusudhanan Baskaran: Running it from beginning.
+
+983
+01:57:04.660 --> 01:57:06.880
+Prof . Madhusudhanan Baskaran: This is already satisfied.
+
+984
+01:57:13.580 --> 01:57:15.319
+Prof . Madhusudhanan Baskaran: God, this is dead.
+
+985
+01:57:33.500 --> 01:57:37.930
+Prof . Madhusudhanan Baskaran: No… I'm importing the required models.
+
+986
+01:57:38.600 --> 01:57:43.620
+Prof . Madhusudhanan Baskaran: And setting it up, it's already there. I think image will be also there already.
+
+987
+01:57:44.230 --> 01:57:47.460
+Prof . Madhusudhanan Baskaran: So, I no need lining this again.
+
+988
+01:57:51.820 --> 01:57:55.870
+Prof . Madhusudhanan Baskaran: Okay, data folders defined, okay. Run it again.
+
+989
+01:58:10.560 --> 01:58:11.500
+Prof . Madhusudhanan Baskaran: Okay.
+
+990
+01:58:12.010 --> 01:58:15.770
+Prof . Madhusudhanan Baskaran: imported labels… I'm loading the model.
+
+991
+01:58:16.130 --> 01:58:17.960
+Prof . Madhusudhanan Baskaran: Do not take much time.
+
+992
+01:58:23.440 --> 01:58:26.269
+Prof . Madhusudhanan Baskaran: Pets are loading okay. Oh, it's…
+
+993
+01:58:29.780 --> 01:58:32.170
+Prof . Madhusudhanan Baskaran: Okay, now it's done. Next time…
+
+994
+01:58:32.710 --> 01:58:35.210
+Prof . Madhusudhanan Baskaran: Moving on to Pro Contuition Transformers.
+
+995
+01:58:36.230 --> 01:58:37.770
+Prof . Madhusudhanan Baskaran: Feature embedding.
+
+996
+01:58:40.880 --> 01:58:42.810
+Prof . Madhusudhanan Baskaran: Initializing the MLRI.
+
+997
+01:58:43.190 --> 01:58:47.560
+Prof . Madhusudhanan Baskaran: And then… Generating the embedding.
+
+998
+01:58:52.280 --> 01:58:54.059
+Prof . Madhusudhanan Baskaran: The project written cooling.
+
+999
+01:58:54.970 --> 01:58:56.440
+Prof . Madhusudhanan Baskaran: Going to plot it.
+
+1000
+01:58:58.480 --> 01:59:00.430
+Prof . Madhusudhanan Baskaran: Giving legends to the plot.
+
+1001
+01:59:03.240 --> 01:59:05.479
+Prof . Madhusudhanan Baskaran: Modi and retrieval function.
+
+1002
+01:59:06.320 --> 01:59:11.790
+Prof . Madhusudhanan Baskaran: search function, maybe last time I didn't run this, so… 30 show, I think.
+
+1003
+01:59:18.200 --> 01:59:19.669
+Prof . Madhusudhanan Baskaran: I'm just opening it up.
+
+1004
+01:59:46.150 --> 01:59:47.310
+Prof . Madhusudhanan Baskaran: Loaded.
+
+1005
+01:59:56.940 --> 01:59:58.500
+Prof . Madhusudhanan Baskaran: We'll be good driving.
+
+1006
+02:00:02.360 --> 02:00:09.079
+Prof . Madhusudhanan Baskaran: Mmm… Should I run the whole thing, I think the compute is happening.
+
+1007
+02:00:29.460 --> 02:00:32.540
+Prof . Madhusudhanan Baskaran: So, it will take some time for,
+
+1008
+02:00:33.410 --> 02:00:40.360
+Prof . Madhusudhanan Baskaran: For getting the, yeah, now you got the output, okay? For this also, you got the output, okay, for two different images.
+
+1009
+02:00:40.880 --> 02:00:43.869
+Prof . Madhusudhanan Baskaran: Okay, so these are the, like, retrieved images.
+
+1010
+02:00:44.460 --> 02:00:49.350
+Prof . Madhusudhanan Baskaran: for, each of the, things, okay? For,
+
+1011
+02:00:50.410 --> 02:00:59.030
+Prof . Madhusudhanan Baskaran: different, version transformer architecture, okay? Vision transformer models. You can be able to see, like, what are things that is being retried.
+
+1012
+02:00:59.760 --> 02:01:07.529
+Prof . Madhusudhanan Baskaran: Okay, meantime, you will also, like, try with the different set of data set and see. See, this CBT is CVT, okay, and other…
+
+1013
+02:01:07.660 --> 02:01:12.819
+Prof . Madhusudhanan Baskaran: this 3, okay, these three are, like, not performed that much well, but PVT is also fine.
+
+1014
+02:01:14.170 --> 02:01:24.750
+Prof . Madhusudhanan Baskaran: you can able to see, like, it's having cores also, like, meaning that it didn't, learned it properly for this image. And, for this,
+
+1015
+02:01:25.020 --> 02:01:43.869
+Prof . Madhusudhanan Baskaran: tabby, like, here you can be able to see CVT, like, retrieving the monkeys, meaning that, it didn't, like, like, images, like, whatever we have used, that is, like, not enough for that. But, for Vision Transformer, okay, vanilla vision transformer, and for Swin and MaxPH, it is, like, performing good, when compared to the others.
+
+1016
+02:01:44.150 --> 02:01:44.960
+Prof . Madhusudhanan Baskaran: Okay.
+
+1017
+02:01:46.200 --> 02:01:50.840
+Prof . Madhusudhanan Baskaran: So, for this also, it's the same case. But PVD here, it is performing well.
+
+1018
+02:01:52.100 --> 02:01:54.910
+Prof . Madhusudhanan Baskaran: In this case, I'll select it is performing arc, okay?
+
+1019
+02:01:55.180 --> 02:01:56.820
+Prof . Madhusudhanan Baskaran: Any questions on this?
+
+1020
+02:02:06.240 --> 02:02:07.500
+Prof . Madhusudhanan Baskaran: Any questions?
+
+1021
+02:02:08.620 --> 02:02:10.370
+Prof . Madhusudhanan Baskaran: Which model is accurate?
+
+1022
+02:02:10.740 --> 02:02:16.140
+Prof . Madhusudhanan Baskaran: Yeah, yeah. Some models are, like, showing cars. Reason is that we need to, like, use… increase the…
+
+1023
+02:02:16.140 --> 02:02:33.969
+Prof . Madhusudhanan Baskaran: number of datas, okay, so images, so that it will be, like, learning it. So, the embedding will be, like, very much meaningful. Since, like, we have loaded only 45, based on that architecture, okay, based on the… whatever the architecture that we are using, okay, with that, it will be, like, trying to embed, okay?
+
+1024
+02:02:33.970 --> 02:02:51.509
+Prof . Madhusudhanan Baskaran: which model is accurate, this is also, like, based on the number of, images that is being used, but for now, the 45 images, like, we can be able to see this, this three, okay, along with the PVT, okay, Premiere Vision Transformer. These four are, like, performing well, but I would request you to, like, collect few more data sets.
+
+1025
+02:02:51.510 --> 02:02:57.840
+Prof . Madhusudhanan Baskaran: Okay, collect few more datasets, and, like, see, like,
+
+1026
+02:02:58.260 --> 02:03:17.980
+Prof . Madhusudhanan Baskaran: how it is behaving, okay? We can't, like, say, some specific thing will be, like, always good, okay? But it's all, like, about, like, what kind of datas that we are dealing with, and, like, what is the, like, volume of the data that is being, embedded, okay? Since some images can be, like, very easily able to… understood by the
+
+1027
+02:03:17.980 --> 02:03:34.939
+Prof . Madhusudhanan Baskaran: model, but sometimes there'll be some kind of complicated patterns within that image, so that, like, it will take some more, time. Meaning that time means, like, we need to increase the, number of images so that it can be able to understand that, patterns behind that image.
+
+1028
+02:03:35.230 --> 02:03:40.320
+Prof . Madhusudhanan Baskaran: Okay, so… Mmm…
+
+1029
+02:03:43.430 --> 02:03:52.879
+Prof . Madhusudhanan Baskaran: Yeah, like, I think Host will be, sharing these, files, so I request you all to, yeah, like, I already shared, okay, please share the question.
+
+1030
+02:03:53.030 --> 02:03:55.710
+Prof . Madhusudhanan Baskaran: Like, we already shared, okay,
+
+1031
+02:03:56.230 --> 02:04:05.580
+Prof . Madhusudhanan Baskaran: Yeah, now, now it's showing, like, for everyone. Okay, what I'll do, just give me a minute, now they have changed the option. I'm sharing it again.
+
+1032
+02:04:05.770 --> 02:04:07.040
+Prof . Madhusudhanan Baskaran: with everyone.
+
+1033
+02:04:08.720 --> 02:04:12.020
+Prof . Madhusudhanan Baskaran: Okay, so this is a code file.
+
+1034
+02:04:20.100 --> 02:04:22.079
+Prof . Madhusudhanan Baskaran: So, you even got the code filed, right?
+
+1035
+02:04:22.490 --> 02:04:23.670
+Prof . Madhusudhanan Baskaran: Please confirm.
+
+1036
+02:04:26.800 --> 02:04:33.180
+Prof . Madhusudhanan Baskaran: And then, I'm sharing the… the dataset that I have collected.
+
+1037
+02:04:36.680 --> 02:04:39.509
+Prof . Madhusudhanan Baskaran: Okay, so this is the dataset I have collected.
+
+1038
+02:04:45.800 --> 02:04:49.600
+Prof . Madhusudhanan Baskaran: Okay, I request you all to, run it, okay?
+
+1039
+02:04:56.900 --> 02:05:02.829
+Prof . Madhusudhanan Baskaran: So, we'll be using the both of things, okay? Cosine similarity and equaling distance, okay?
+
+1040
+02:05:27.920 --> 02:05:29.320
+Prof . Madhusudhanan Baskaran: So I shared it.
+
+1041
+02:05:29.500 --> 02:05:32.940
+Prof . Madhusudhanan Baskaran: I shared it with everyone, I think.
+
+1042
+02:05:33.550 --> 02:05:38.490
+Prof . Madhusudhanan Baskaran: Yeah. Others also, please confirm whether you've been able to download it.
+
+1043
+02:05:41.760 --> 02:05:44.479
+Prof . Madhusudhanan Baskaran: Unable to download, unable to download.
+
+1044
+02:05:57.680 --> 02:05:58.820
+Prof . Madhusudhanan Baskaran: Okay.
+
+1045
+02:05:59.260 --> 02:06:03.249
+Prof . Madhusudhanan Baskaran: Actually, you just click on that file, it will get downloaded. I just tried it.
+
+1046
+02:06:03.510 --> 02:06:04.220
+Prof . Madhusudhanan Baskaran: Okay?
+
+1047
+02:06:05.790 --> 02:06:09.580
+Prof . Madhusudhanan Baskaran: Maybe I just, share my screen.
+
+1048
+02:06:15.370 --> 02:06:23.839
+Prof . Madhusudhanan Baskaran: See? So, this is the file that I've shared, means you just click on this file. Okay, right now, like, I just clicked on it, it's get downloaded.
+
+1049
+02:06:24.260 --> 02:06:29.390
+Prof . Madhusudhanan Baskaran: Maybe, like, I'll click this file. You see, it'll get downloaded.
+
+1050
+02:06:31.260 --> 02:06:33.200
+Prof . Madhusudhanan Baskaran: Automatically, no need to do anything.
+
+1051
+02:06:35.060 --> 02:06:35.860
+Prof . Madhusudhanan Baskaran: Okay.
+
+1052
+02:06:36.480 --> 02:06:37.990
+Prof . Madhusudhanan Baskaran: So it's getting downloaded.
+
+1053
+02:06:39.230 --> 02:06:43.440
+Prof . Madhusudhanan Baskaran: No download is done. You just upload this notebook in Collab, and you can run it.
+
+1054
+02:06:47.810 --> 02:06:52.830
+Prof . Madhusudhanan Baskaran: Could you please resend the link? Okay, I'm sharing the link for everyone. You can also download it.
+
+1055
+02:06:59.280 --> 02:07:01.400
+Prof . Madhusudhanan Baskaran: I shared the link, okay?
+
+1056
+02:07:05.220 --> 02:07:10.979
+Prof . Madhusudhanan Baskaran: The presentation will be shared by Emirates team. For now, like, I'm sharing this. Just both.
+
+1057
+02:07:11.870 --> 02:07:19.609
+Prof . Madhusudhanan Baskaran: So, I hope, like, you all, now familiarize with, how to deal with the images and embedding, okay?
+
+1058
+02:07:19.730 --> 02:07:20.600
+Prof . Madhusudhanan Baskaran: Whoa.
+
+1059
+02:07:21.380 --> 02:07:22.760
+Prof . Madhusudhanan Baskaran: Thank you all, okay?
+
+1060
+02:07:27.910 --> 02:07:32.140
+Prof . Madhusudhanan Baskaran: Hmm… Repeat that goes for me.
+
+1061
+02:07:39.370 --> 02:07:44.190
+Prof . Madhusudhanan Baskaran: See, there's a ITM campus emotion, like, Emeritus team will, help you out, okay?
+
+1062
+02:07:44.780 --> 02:07:45.460
+Prof . Madhusudhanan Baskaran: Yeah.
+
+1063
+02:07:51.150 --> 02:07:53.119
+Prof . Madhusudhanan Baskaran: Then, okay, thank you all. Thank you.
+
+1064
+02:07:58.240 --> 02:08:11.350
+Prof . Madhusudhanan Baskaran: In training data, why we have core datas means, like, core features means we are just trying to embed it, that's all. Like, different classes, you can able to do it. So, it will be, like, grouping it based on these similar things, okay, similar features. So, that is the ultimate aim.
+
+1065
+02:08:11.350 --> 02:08:23.080
+Prof . Madhusudhanan Baskaran: You can use elephant, okay, you can use cat, you can use lion, but whatever lion images are there, like, it will be, like, grouped together, okay? So that is the ultimate idea behind this embedding.
+
+1066
+02:08:23.500 --> 02:08:24.410
+Prof . Madhusudhanan Baskaran: Okay.
+
+1067
+02:08:24.560 --> 02:08:26.579
+Prof . Madhusudhanan Baskaran: Thank you all, thank you. I'm dropping.
+

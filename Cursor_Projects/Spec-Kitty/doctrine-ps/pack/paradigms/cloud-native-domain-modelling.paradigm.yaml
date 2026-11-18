@@ -1,0 +1,49 @@
+schema_version: "1.0"
+id: cloud-native-domain-modelling
+name: Cloud-Native Domain Modelling
+summary: >
+  Apply Domain-Driven Design for meaning and invariants while structuring delivery around
+  business capabilities, not technical layers, functional nano-services, or internal
+  translation stacks. The primary Regnology architecture reference.
+
+  Core principle: separate meaning from deployment; align deployment to capabilities. A
+  capability is a cohesive business ability (job orchestration, evidence ingestion, regulatory
+  submission) that owns a slice of workflow and write paths, often aligns with one or more
+  bounded contexts, and ships as one or few deployables — not a graph of technical helper
+  services.
+
+  DDD-to-capability alignment: bounded context maps to a module inside a capability (not a
+  microservice); aggregates enforce consistency inside a capability module; ubiquitous language
+  is required within capability modules; context maps document meaning and integration between
+  capabilities.
+
+  Client-facing translation lives exclusively in the BFF (one per client channel). Internal
+  capabilities (orchestrator, ingestor, workers in the same platform) use shared event
+  contracts or internal APIs with the same domain vocabulary. Legacy Anti-Corruption Layer
+  applies only at external boundaries (vendor APIs, legacy enterprise systems, foreign
+  regulatory schemas) — not between internal capabilities.
+
+  Shared functions (validation rules, formatting, client SDKs, domain primitives) are
+  published as internal packages (Maven, npm workspace, Python package) — never as HTTP
+  microservices whose only role is "shared utils" with self-registration.
+
+  Language choice is fit-based per deployable (one primary language per deployable); a
+  capability may combine multiple deployables in different languages. See
+  capability-language-selection for Java, Python, TypeScript, Node, React, and Angular rules.
+
+  Anti-patterns (do not follow): mandatory three-tier layering, hexagonal/ports-and-adapters,
+  dependency injection as structure (IoC, interface-per-collaborator), internal ACLs,
+  microservice-per-context, shared-function-as-microservice, self-registration logic in each
+  service.
+
+  C4 mapping: business capability as Container (L2) deployable; BFF as Container (L2) one
+  per client channel; bounded context as Component (L3) inside one capability; aggregate and
+  domain logic as Component (L3) inside owning capability; shared library as dependency note
+  not a container; external legacy/vendor as System_Ext with translation at API/BFF edge.
+  Do not draw: hexagon with ports/adapters, presentation/business/data layer packages,
+  microservice per bounded context, email/PDF/validation/"common" MS containers,
+  Repository/ACL deployables.
+
+directive_refs:
+  - TRACEABLE_DECISIONS
+  - CONTEXT_AWARE_DESIGN

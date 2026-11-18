@@ -1,0 +1,121 @@
+schema_version: "1.0"
+contract_id: installer-bootstrap-cross-platform
+mission_slug: single-command-installer-bootstrap-01KVFHX6
+title: Cross-platform single-command installer bootstrap contract
+
+inputs:
+  primary_distribution_source: artifactory          # sole automatic runtime payload source
+  fallback_script_location: bitbucket_repo          # script discovery / manual download only
+  base_pack_id: regnology-all-company               # consumed from upstream distribution
+  overlay_pack_id: ps-agent-enabled-factory         # published by this repo
+  overlay_archive_name_template: "ps-agent-enabled-factory-<overlay_pack_version>.tar.gz"
+  detached_checksum_suffix: ".sha256"
+  release_mapping_path: config/release-map.yaml
+  injection_tokens: ["@SPEC_KITTY_VERSION@", "@OVERLAY_PACK_VERSION@", "@BASE_PACK_VERSION@", "@RELEASE_TAG@"]
+
+acceptance:
+  - id: AC-001
+    requirement_refs: [FR-002, FR-003, NFR-002, NFR-003]
+    given: installer scripts on supported platforms with each endpoint mocked to a specific response
+    when: installer preflight runs
+    then:
+      - base pack endpoint is probed before overlay; both probed before any download/extraction
+      - a 404 on either endpoint exits non-zero with cause "missing artifact" and the probed URL
+      - a 401/403 exits non-zero with cause "access denied / token" and remediation
+      - a non-responding endpoint aborts by the bounded timeout (~15s) with cause "network"
+      - no extraction or pipx install occurs on any preflight failure
+
+  - id: AC-002
+    requirement_refs: [FR-004, FR-005]
+    given: environment missing dependencies
+    when: installer executes
+    then:
+      - Python >= 3.12 is validated; remediated via brew/apt/winget or clearly reported when none
+      - pipx readiness is validated, installed when missing, and confirmed on PATH before next step
+
+  - id: AC-003
+    requirement_refs: [FR-006, D-005]
+    given: an installer published by the tag build for a tag present in config/release-map.yaml
+    when: the spec-kitty installation step runs
+    then:
+      - the injected spec_kitty_version (matching the tag mapping) is installed via pipx
+      - no @...@ placeholder tokens remain in the published script
+      - an un-injected (in-repo) run instead uses default_spec_kitty_version and logs fallback mode
+
+  - id: AC-004
+    requirement_refs: [FR-009, FR-010, NFR-004, C-005]
+    given: shell and PowerShell installer scripts
+    when: parity validation is performed
+    then:
+      - both preserve layer order base -> overlay
+      - both run the same ordered phases (preflight, integrity, deps, spec-kitty, layers, completion)
+      - both provide equivalent user-facing phase progress messages
+      - both emit a .stack-version manifest with identical field structure after success
+
+  - id: AC-005
+    requirement_refs: [FR-008, FR-013, C-001, C-002, D-008]
+    given: a release tag in CI
+    when: the Jenkins release pipeline runs
+    then:
+      - the pipeline is triggered by the tag (not by merge-to-main)
+      - the overlay archive is published as ps-agent-enabled-factory-<version> (not regnology-default-*)
+      - installer artifacts are published to JFrog only; no Bitbucket release-publish stage exists
+
+  - id: AC-006
+    requirement_refs: [FR-012, FR-013, D-006]
+    given: a published pack archive and its detached .sha256
+    when: the installer downloads the archive
+    then:
+      - the installer computes the digest and compares it to the published .sha256
+      - on match it proceeds to extraction
+      - on mismatch it deletes the download and exits non-zero before extraction/pipx install
+
+  - id: AC-007
+    requirement_refs: [FR-007, C-002]
+    given: Artifactory reachable and Bitbucket reachable
+    when: a pack payload download is attempted
+    then:
+      - payloads are retrieved only from Artifactory
+      - the installer never fetches pack payloads from Bitbucket (script discovery only)
+
+  - id: AC-008
+    requirement_refs: [FR-011]
+    given: docs/HOW_TO_INSTALL.md and dist/scripts/README.md
+    when: documentation is reviewed
+    then:
+      - both state Python 3.12 prerequisite, the two-layer source model, integrity verification,
+        fallback semantics (no payload failover), and release-tag pinning
+      - the documented one-command invocation matches the published installer entrypoint
+
+  - id: AC-009
+    requirement_refs: [FR-014]
+    given: a machine already at the pinned spec-kitty and both pack layers
+    when: the installer re-runs
+    then:
+      - satisfied components are not reinstalled
+      - the run exits zero with a manifest reflecting existing versions
+
+  - id: AC-010
+    requirement_refs: [C-004]
+    given: a non-Debian Linux distribution
+    when: the installer runs
+    then:
+      - it does not silently fail; it reports guidance for unsupported package managers
+      - automated remediation is attempted only on Debian/apt (and macOS/brew, Windows/winget)
+
+non_functional:
+  - id: NFR-001
+    requirement_refs: [NFR-001]
+    requirement: Shell and PowerShell scripts parse without syntax errors, enforced by a Jenkins lint stage that fails the build on error.
+  - id: NFR-002
+    requirement_refs: [NFR-002]
+    requirement: Each preflight access check sets an explicit bounded timeout in code (connect-timeout 10s, max-time 15s, or PowerShell equivalent) so a non-responsive endpoint fails by ~15s.
+  - id: NFR-003
+    requirement_refs: [NFR-003]
+    requirement: Failure output includes failing phase, target, distinct cause (missing/denied/network/integrity), and remediation guidance in one block.
+  - id: NFR-004
+    requirement_refs: [NFR-005]
+    requirement: No secret/token value is persisted to repository files or installer/CI output logs; tokens come from env only and are never echoed or Groovy-interpolated.
+  - id: NFR-005
+    requirement_refs: [NFR-004]
+    requirement: Shell and PowerShell installers produce manifests with identical field structure and version-string format.

@@ -1,0 +1,43 @@
+FSD DOCUMENT VALIDATION REPORT
+==================================================
+
+Document: Generated FSD/NBE_ALM_Functional_Specification_Document_v1.0.docx
+Validation Date: 1756125228.466373
+Total paragraphs: 73
+Total tables: 2
+Word count: 1196
+Section completeness: 100.0%
+
+DOCUMENT STRUCTURE:
+------------------------------
+1. National Bank of Egypt (S.A.E)
+  2. ALM Functional Specification Document
+1. Version Control
+1. Introduction
+1. Entities in Scope
+1. Specifications
+  2. 4.1 Contexts
+    3. 4.1.1 Concept
+    3. 4.1.2 NBE Contexts Structure
+  2. 4.2 Chart of Accounts
+    3. 4.2.1 Concept
+    3. 4.2.2 NBE COA Structure for ALM and Interest Rate Risk
+  2. 4.3 Data Requirements
+    3. 4.3.1 Referential and Key Data Requirements
+    3. 4.3.2 Transaction Data Requirements
+  2. 4.4 Supporting Data
+    3. 4.4.1 Foreign Exchange Rates
+    3. 4.4.2 Interest Rate Curves
+1. Implementation Approach
+1. Project Deliverables
+1. Functional Specification Signoff
+
+KEY TERM ANALYSIS:
+------------------------------
+'National Bank of Egypt': mentioned 8 times
+'NBE': mentioned 14 times
+'Moody's Analytics': mentioned 5 times
+'ALM': mentioned 16 times
+'Asset Liability Management': mentioned 2 times
+'Risk Confidence': mentioned 2 times
+'RCO': mentioned 6 times

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "mission_slug": "pack-assemble-drg-fix-01KT6K2Y",
+  "mission_id": "01KT6K2YVX8PVCB0W2Z0BEV2MG",
+  "mission_branch": "kitty/mission-pack-assemble-drg-fix-01KT6K2Y",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "lanes": [
+    {
+      "lane_id": "lane-a",
+      "wp_ids": ["WP01"],
+      "write_scope": [
+        "tools/compile-drg.py",
+        "pack/drg/regnology-default.graph.yaml",
+        "pack/drg/graph.yaml"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-b",
+      "wp_ids": ["WP02"],
+      "write_scope": [
+        "Jenkinsfile",
+        "Makefile",
+        ".cursor/hooks.json"
+      ],
+      "depends_on_lanes": ["lane-a"],
+      "parallel_group": 1
+    },
+    {
+      "lane_id": "lane-c",
+      "wp_ids": ["WP03"],
+      "write_scope": [
+        "pack/tactics/context-boundary-inference.tactic.yaml",
+        "pack/tactics/secure-design-checklist.tactic.yaml",
+        "pack/styleguides/java-conventions.styleguide.yaml",
+        "pack/styleguides/python-conventions.styleguide.yaml"
+      ],
+      "depends_on_lanes": ["lane-a"],
+      "parallel_group": 1
+    }
+  ]
+}

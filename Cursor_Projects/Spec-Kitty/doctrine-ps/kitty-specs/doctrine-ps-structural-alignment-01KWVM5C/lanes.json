@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "mission_slug": "doctrine-ps-structural-alignment-01KWVM5C",
+  "mission_id": "01KWVM5CJ0HM2JEYTGRGM7BBK4",
+  "mission_branch": "kitty/mission-doctrine-ps-structural-alignment-01KWVM5C",
+  "target_branch": "feature/migration-2915-structural-alignment",
+  "lanes": [
+    {
+      "lane_id": "lane-a",
+      "wp_ids": [
+        "WP01"
+      ],
+      "write_scope": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "README.md"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup",
+        "workspace"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-b",
+      "wp_ids": [
+        "WP02"
+      ],
+      "write_scope": [
+        ".gitignore",
+        "docs/SURFACES.md",
+        "pack/README.md",
+        "pack/agent_profiles/README.md",
+        "pack/agent_profiles/gemini-bot-georgia.agent.yaml",
+        "pack/templates/gemini/**"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "app-shell",
+        "artifact-rendering",
+        "legacy-cleanup",
+        "workspace"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-c",
+      "wp_ids": [
+        "WP03"
+      ],
+      "write_scope": [
+        "Makefile",
+        "tests/test_lint_doc_paths.py",
+        "tools/lint-doc-paths.py"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "legacy-cleanup",
+        "workspace"
+      ],
+      "depends_on_lanes": [
+        "lane-a",
+        "lane-b"
+      ],
+      "parallel_group": 1
+    }
+  ],
+  "computed_at": "2026-07-06T14:13:52.008234+00:00",
+  "computed_from": "dependency_graph+ownership",
+  "planning_artifact_wps": []
+}

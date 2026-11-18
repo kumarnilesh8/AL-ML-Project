@@ -1,0 +1,310 @@
+schema_version: '1'
+tags:
+  VERSION_GOVERNANCE:
+    domains:
+      - policy
+  TRACEABLE_DECISIONS:
+    domains:
+      - policy
+  AUDIENCE_ORIENTED_WRITING:
+    domains:
+      - communications
+  CLARIFICATION_BEFORE_EXECUTION:
+    domains:
+      - communications
+      - delivery
+  REGNOLOGY_BRANDING:
+    domains:
+      - brand-alignment
+  MODEL_DISCIPLINE:
+    domains:
+      - policy
+  APPSEC_COMPLIANCE:
+    domains:
+      - security
+  CORPORATE_TOOLING:
+    domains:
+      - tooling
+      - policy
+  ammerse-analysis:
+    domains:
+      - research
+      - architecture
+      - quality
+      - policy
+  appsec-pipeline-setup:
+    domains:
+      - security
+      - devops
+  context-boundary-inference:
+    domains:
+      - architecture
+      - policy
+      - delivery
+  glossary-maintenance-workflow:
+    domains:
+      - communications
+      - policy
+  maven-project-compliance-setup:
+    domains:
+      - devops
+      - security
+  repository-initialization:
+    domains:
+      - tooling
+      - engineering
+  safe-to-fail-experiment-design:
+    domains:
+      - research
+      - delivery
+  secure-design-checklist:
+    domains:
+      - security
+  security-issue-triage:
+    domains:
+      - security
+  sqlx-explanation:
+    domains:
+      - engineering
+      - communications
+    primary_domain: engineering
+  sqlx-generation:
+    domains:
+      - engineering
+      - tooling
+  sqlx-optimization:
+    domains:
+      - engineering
+      - tooling
+  sqlx-pseudo-code-to-spec:
+    domains:
+      - engineering
+      - delivery
+  sqlx-testing:
+    domains:
+      - quality
+      - tooling
+  sqlx-validation:
+    domains:
+      - quality
+      - tooling
+  team-interaction-mapping:
+    domains:
+      - architecture
+      - delivery
+      - engineering
+      - communications
+      - policy
+  urgent-vulnerability-response:
+    domains:
+      - security
+      - delivery
+  commit-and-markdown-linting:
+    domains:
+      - engineering
+  domain-driven-naming:
+    domains:
+      - architecture
+      - engineering
+    primary_domain: architecture
+  professional-communications:
+    domains:
+      - communications
+    primary_domain: communications
+  regnology-branding:
+    domains:
+      - brand-alignment
+  regnology-nomenclature:
+    domains:
+      - brand-alignment
+      - policy
+      - communications
+      - architecture
+  sqlx-coding-standards:
+    domains:
+      - engineering
+      - tooling
+      - quality
+    primary_domain: engineering
+  sqlx-test-data-conventions:
+    domains:
+      - quality
+      - tooling
+      - engineering
+    primary_domain: quality
+  version-control-hygiene:
+    domains:
+      - engineering
+    primary_domain: engineering
+  agentic-model-leaderboard:
+    domains:
+      - tooling
+      - policy
+  google-cloud-mcp:
+    domains:
+      - tooling
+      - devops
+  regnology-mcp:
+    domains:
+      - tooling
+      - policy
+  ripgrep:
+    domains:
+      - tooling
+  sqlx-mcp:
+    domains:
+      - tooling
+      - engineering
+  bounded-context-linguistic-discovery:
+    domains:
+      - architecture
+      - research
+  decision-first-development:
+    domains:
+      - policy
+      - delivery
+  design-diagramming-incremental-detail:
+    domains:
+      - design
+      - architecture
+  evidence-based-requirements:
+    domains:
+      - delivery
+      - quality
+  living-glossary-practice:
+    domains:
+      - architecture
+      - policy
+  ports-and-adapters-architecture:
+    domains:
+      - architecture
+  token-efficiency:
+    domains:
+      - tooling
+      - policy
+      - delivery
+  TEST_FIRST_BUG_FIXING:
+    domains:
+      - quality
+      - engineering
+      - delivery
+      - research
+  create-branded-pdf-document:
+    domains:
+      - brand-alignment
+      - communications
+  create-branded-slidedeck:
+    domains:
+      - brand-alignment
+      - communications
+    primary_domain: brand-alignment
+  sqlx-fu-pipeline:
+    domains:
+      - engineering
+      - delivery
+  ps-project-intake:
+    domains:
+      - delivery
+      - policy
+      - tooling
+      - onboarding
+    agents:
+      - analyst-annie
+  ps-intake-interview:
+    domains:
+      - delivery
+      - requirements
+      - communications
+    agents:
+      - analyst-annie
+  datamodel-darren:
+    domains:
+      - delivery
+      - research
+      - policy
+  automation-scripting-discipline:
+    domains:
+      - tooling
+      - delivery
+      - policy
+  devops-danny:
+    domains:
+      - devops
+      - security
+  sqlx-specialist-simon:
+    domains:
+      - engineering
+      - tooling
+      - delivery
+  gcloud-proxy-setup:
+    domains:
+      - tooling
+      - devops
+  receptionist-rob:
+    domains:
+      - onboarding
+      - policy
+      - delivery
+  model-discipline-selection:
+    domains:
+      - tooling
+      - governance
+      - engineering
+  spec-kitty-mission-artifacts:
+    domains:
+      - communications
+      - policy
+      - research
+      - engineering
+  python-conventions:
+    domains:
+      - engineering
+      - quality
+    primary_domain: engineering
+  java-conventions:
+    domains:
+      - engineering
+    primary_domain: engineering
+  powershell-peter:
+    domains:
+      - tooling
+      - engineering
+    primary_domain: engineering
+  powershell-conventions:
+    domains:
+      - tooling
+      - engineering
+    primary_domain: engineering
+  powershell-module-scaffold:
+    domains:
+      - tooling
+      - engineering
+    primary_domain: engineering
+  powershell-pester-workflow:
+    domains:
+      - tooling
+      - engineering
+      - quality
+    primary_domain: engineering
+  powershell-script-quality-gate:
+    domains:
+      - tooling
+      - engineering
+      - security
+    primary_domain: engineering
+  pester:
+    domains:
+      - tooling
+      - quality
+    primary_domain: tooling
+  psscriptanalyzer:
+    domains:
+      - tooling
+      - quality
+      - security
+    primary_domain: tooling
+  user-guide-conventions:
+    domains:
+      - communications
+      - engineering
+    primary_domain: communications

@@ -1,0 +1,42 @@
+{
+  "event_count": 31,
+  "last_event_id": "01KWW92NKAR74191S0F9YEPSPX",
+  "materialized_at": "2026-07-06T17:54:36.778163+00:00",
+  "mission_number": "9",
+  "mission_slug": "doctrine-ps-structural-alignment-01KWVM5C",
+  "mission_type": "software-dev",
+  "summary": {
+    "approved": 0,
+    "blocked": 0,
+    "canceled": 0,
+    "claimed": 0,
+    "done": 3,
+    "for_review": 0,
+    "in_progress": 0,
+    "in_review": 0,
+    "planned": 0
+  },
+  "work_packages": {
+    "WP01": {
+      "actor": "merge",
+      "force_count": 0,
+      "lane": "done",
+      "last_event_id": "01KWW92MP16R62TMJ6E7GK5R6N",
+      "last_transition_at": "2026-07-06T17:54:35.841761+00:00"
+    },
+    "WP02": {
+      "actor": "merge",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KWW92N5XGT3V5D7SRS2KMJTT",
+      "last_transition_at": "2026-07-06T17:54:36.349293+00:00"
+    },
+    "WP03": {
+      "actor": "merge",
+      "force_count": 1,
+      "lane": "done",
+      "last_event_id": "01KWW92NKAR74191S0F9YEPSPX",
+      "last_transition_at": "2026-07-06T17:54:36.778163+00:00"
+    }
+  }
+}

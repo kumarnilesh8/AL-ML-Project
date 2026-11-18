@@ -1,0 +1,62 @@
+# API Contract: DRG graph + neighbourhood (Track B)
+# Mission: doctrine-discoverability-onboarding-and-drg-dashboard-01KT3R1X
+# Mounted at /api/drg (existing router, extended)
+#
+# WIRE SHAPE NOTE (reconciled post-implementation): the backend preserves the
+# pre-existing wire vocabulary — edges are { source, target, relation } and
+# nodes carry `title` — so the live `drg.service.ts` getRelated() consumer keeps
+# working. The Angular frontend's model layer (drg.model.ts / drg.service.ts)
+# adapts at its own boundary: source → from, target → to, title → label.
+# The shapes below document the actual on-the-wire backend response.
+
+endpoints:
+
+  - method: GET
+    path: /api/drg/
+    status: EXISTS — enhanced this mission
+    description: >
+      Return the full DRG as nodes + edges, merging the pack graph with built-in
+      artifacts referenced by edges. Enhanced to prefer the compiled graph.yaml and
+      report a degraded state when only the uncompiled fragment is available.
+    resolution_order:
+      - pack/drg/graph.yaml   # preferred (compiled)
+      - pack/drg/fragment.yaml # fallback → degraded: true
+    responses:
+      200:
+        body: |
+          {
+            nodes: Array<{ id: string, kind: string, title: string, body_path?: string, layer?: number, source?: 'builtin' }>,
+            edges: Array<{ source: string, target: string, relation: string }>,
+            degraded?: boolean,   # true when served from fragment.yaml
+            note?: string         # human-readable explanation when degraded
+          }
+      500:
+        description: Fragment/graph parse failure
+        body: "{ error: string }"
+    invariants:
+      - Never 500 solely because graph.yaml is missing (fall back to fragment, set degraded)
+      - Read-only — no writes to graph.yaml or fragment.yaml
+
+  - method: GET
+    path: /api/drg/neighbourhood/:id
+    status: NEW
+    description: >
+      Return the immediate neighbourhood of a single DRG node for progressive fan-out.
+      Neighbours are all nodes connected by an edge where source===id OR target===id.
+    path_params:
+      id: DRG node id (e.g. CONTEXT_AWARE_DESIGN)
+    responses:
+      200:
+        body: |
+          {
+            node: { id, kind, title, layer? },
+            neighbours: Array<{ id, kind, title, layer? }>,
+            edges: Array<{ source, target, relation }>
+          }
+      404:
+        description: Node id not found in the graph
+        body: "{ error: string }"
+    invariants:
+      - edges returned are only those incident to :id (source===id OR target===id)
+      - neighbours excludes :id itself; no duplicates
+      - read-only

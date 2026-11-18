@@ -1,0 +1,60 @@
+# API Contract: artifact provenance + built-in visibility (Track C)
+# Mission: doctrine-discoverability-onboarding-and-drg-dashboard-01KT3R1X
+
+# Provenance model (FR-014, C-007): layer is an integer, NOT a hardcoded enum,
+# so additional pack layers are expressible without a schema change.
+#   layer 0 = spec-kitty built-in
+#   layer 1 = org-layer pack (regnology-default)
+#   (layer 2+ reserved for future multi-pack — MIGRATION-2581)
+# provenance is a derived convenience string for the badge:
+#   'builtin'  — only in layer 0
+#   'org'      — only in layer 1 (no built-in of the same id)
+#   'override' — present in layer 1 AND a built-in of the same id exists
+
+provenance_shape:
+  layer: number          # 0 = builtin, 1 = org pack
+  provenance: string     # 'builtin' | 'org' | 'override'
+
+endpoints:
+
+  - method: GET
+    path: /api/builtin/
+    status: EXISTS — extended this mission
+    description: >
+      Full built-in artifact listing, extended with pack-relationship flags.
+    responses:
+      200:
+        body: |
+          {
+            <kind>: Array<{
+              id: string,
+              title: string,
+              overridden_by_pack: boolean,   # NEW — an org artifact of the same id exists
+              enhanced_by_pack: boolean      # NEW — org artifact declares enhances: <id>
+            }>
+          }
+
+  - method: GET
+    path: /api/builtin/inherited
+    status: NEW
+    description: >
+      Built-in artifacts the org-layer pack does NOT override or enhance —
+      the baseline a project inherits unchanged from spec-kitty (FR-015).
+    responses:
+      200:
+        body: |
+          { <kind>: Array<{ id: string, title: string }> }
+
+  - target: artifact responses (GET /api/artifacts/..., GET /api/builtin/...)
+    status: EXTENDED
+    description: >
+      Every artifact returned by the artifact and built-in routes carries the
+      provenance shape so the frontend can render the badge.
+    added_fields:
+      layer: number
+      provenance: string   # 'builtin' | 'org' | 'override'
+
+invariants:
+  - layer is an integer; consumers must not assume a fixed maximum (C-007)
+  - provenance is derived from layer membership + id collision; never authored by hand
+  - all endpoints read-only — no writes to pack or built-in files

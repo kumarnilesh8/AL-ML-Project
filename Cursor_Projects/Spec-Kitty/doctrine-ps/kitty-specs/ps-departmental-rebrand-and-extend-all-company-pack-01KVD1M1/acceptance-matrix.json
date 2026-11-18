@@ -1,0 +1,129 @@
+{
+  "mission_slug": "ps-departmental-rebrand-and-extend-all-company-pack-01KVD1M1",
+  "mission_number": "",
+  "mission_type": "software-dev",
+  "overall_verdict": "pass",
+  "criteria": [
+    {
+      "criterion_id": "FR-001",
+      "description": "Verify FR-001 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-002",
+      "description": "Verify FR-002 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-003",
+      "description": "Verify FR-003 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-004",
+      "description": "Verify FR-004 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-005",
+      "description": "Verify FR-005 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-006",
+      "description": "Verify FR-006 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-007",
+      "description": "Verify FR-007 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-008",
+      "description": "Verify FR-008 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-009",
+      "description": "Verify FR-009 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-010",
+      "description": "Verify FR-010 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-011",
+      "description": "Verify FR-011 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    },
+    {
+      "criterion_id": "FR-012",
+      "description": "Verify FR-012 is satisfied",
+      "proof_type": "automated_test",
+      "evidence": "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md",
+      "pass_fail": "pass",
+      "verified_by": "claude:sonnet:reviewer-renata:reviewer",
+      "verified_at": "2026-06-18T15:55:50Z",
+      "notes": "Validated via mission implement-review evidence suite."
+    }
+  ],
+  "negative_invariants": []
+}

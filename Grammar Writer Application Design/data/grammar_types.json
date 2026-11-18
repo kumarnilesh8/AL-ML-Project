@@ -1,0 +1,157 @@
+[
+  {
+    "name": "Approach Set - Formula",
+    "label": "Approach Set - Formula",
+    "count": 23
+  },
+  {
+    "name": "Approach Set - Perimeter",
+    "label": "Approach Set - Perimeter",
+    "count": 10
+  },
+  {
+    "name": "BalanceSheetStrategy",
+    "label": "Balance Sheet Strategy",
+    "count": 40
+  },
+  {
+    "name": "Behavior Model",
+    "label": "Behavior Model",
+    "count": 83
+  },
+  {
+    "name": "CCSelectionExpression",
+    "label": "Contract Characteristics Perimeter",
+    "count": 83
+  },
+  {
+    "name": "CRFSelectionExpression",
+    "label": "Credit Risk Factor Perimeter",
+    "count": 92
+  },
+  {
+    "name": "CUSelectionExpression",
+    "label": "Custom Selection Formula",
+    "count": 29
+  },
+  {
+    "name": "Custom Dimension",
+    "label": "Custom Dimension",
+    "count": 48
+  },
+  {
+    "name": "DateSelectionExpression",
+    "label": "Date Selection Formula",
+    "count": 17
+  },
+  {
+    "name": "DealSelectionExpression",
+    "label": "Deal Selection Formula",
+    "count": 302
+  },
+  {
+    "name": "EISelectionExpression",
+    "label": "Economic Index Formula",
+    "count": 12
+  },
+  {
+    "name": "Economic Index Formula",
+    "label": "Economic Index Formula",
+    "count": 44
+  },
+  {
+    "name": "Expected Credit Loss Formula",
+    "label": "Expected Credit Loss Formula",
+    "count": 217
+  },
+  {
+    "name": "Exposure At Default Formula",
+    "label": "Exposure At Default Formula",
+    "count": 221
+  },
+  {
+    "name": "FTP Formula",
+    "label": "FTP Formula",
+    "count": 76
+  },
+  {
+    "name": "FXSelectionExpression",
+    "label": "FX Perimeter",
+    "count": 13
+  },
+  {
+    "name": "FormulaBuilder",
+    "label": "Formula Builder",
+    "count": 61
+  },
+  {
+    "name": "Hedging Perimeter",
+    "label": "Hedging Perimeter",
+    "count": 13
+  },
+  {
+    "name": "IR Shock Formula",
+    "label": "Interest Rate Shock Formula",
+    "count": 37
+  },
+  {
+    "name": "IRSelectionExpression",
+    "label": "Interest Rate Perimeter",
+    "count": 15
+  },
+  {
+    "name": "Interest Rate Formula",
+    "label": "Interest Rate Formula",
+    "count": 41
+  },
+  {
+    "name": "Limit Formula",
+    "label": "Limit Formula for Gap Closing",
+    "count": 65
+  },
+  {
+    "name": "Loss Given Default Formula",
+    "label": "Loss Given Default Formula",
+    "count": 245
+  },
+  {
+    "name": "MktSpreadFormula",
+    "label": "Market Spread Formula",
+    "count": 54
+  },
+  {
+    "name": "OPVolSelectionExpression",
+    "label": "Option Volatility Perimeter",
+    "count": 15
+  },
+  {
+    "name": "PointInTimeCRFSelectionExpression",
+    "label": "Point in Time Credit Risk Factors Perimeter",
+    "count": 82
+  },
+  {
+    "name": "RFSelectionExpression",
+    "label": "Risk Factor Selection Formula",
+    "count": 62
+  },
+  {
+    "name": "RegulatoryWeightSelectionExpression",
+    "label": "Regulatory Weights Perimeter",
+    "count": 128
+  },
+  {
+    "name": "SpreadSelectionExpression",
+    "label": "Spread Selectino Formula",
+    "count": 14
+  },
+  {
+    "name": "System Account",
+    "label": "System Account",
+    "count": 63
+  },
+  {
+    "name": "Volatility Perimeter",
+    "label": "Volatility Perimeter",
+    "count": 77
+  }
+]

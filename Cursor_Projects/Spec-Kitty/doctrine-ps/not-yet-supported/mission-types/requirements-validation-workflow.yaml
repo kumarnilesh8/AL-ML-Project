@@ -1,0 +1,77 @@
+schema_version: "1.0"
+id: requirements-validation-workflow
+name: Requirements Validation Workflow
+purpose: >
+  Provide step-by-step procedures for validating requirements through evidence-based claim
+  analysis, ensuring requirements are grounded in testable hypotheses rather than assumptions.
+  Use when starting a project with complex or unfamiliar domain, when stakeholder opinions
+  conflict significantly, when large investment requires empirical justification, for long-lived
+  systems, or in regulatory/safety-critical domains where evidence is mandatory.
+steps:
+  - title: Research and Claim Extraction
+    description: >
+      Build a comprehensive inventory of 20-50 testable claims. Conduct a literature review
+      (academic papers, industry reports, standards, competitor analysis) — extract each
+      claim with author, year, citation, original quote, evidence type (empirical, observational,
+      theoretical, prescriptive), and limitations. Conduct semi-structured stakeholder interviews
+      with domain experts, users, developers, and product managers — capture assertions and
+      probe for evidence ("What makes you believe that?"). Analyse production data for baseline
+      metrics, behavior patterns, error rates, and competitive benchmarks. Record each claim as
+      YAML with claim_id, category, claim, source, evidence_type, testability, and implication.
+      Duration: 1-2 weeks. Responsible: Researcher Ralph (lead), Analyst Annie (synthesis).
+
+  - title: Claim Prioritization
+    description: >
+      Focus validation effort on high-impact, testable claims. Assess testability: Fully
+      Testable (concrete experiment in pilot phase), Partially Testable (indirect proxy
+      metrics), or Not Testable (subjective, unfalsifiable, or requires years). Rate business
+      impact (High/Medium/Low) and estimate validation effort (Quick <1 week, Moderate 1-4
+      weeks, Lengthy >4 weeks). Apply the decision matrix: High impact + Testable + Quick =
+      validate immediately; High impact + Testable + Moderate = validate soon; Not Testable
+      = document as assumption. Output: prioritized backlog of 5-15 high-priority claims.
+      Duration: 1-2 days. Responsible: Analyst Annie, Architect Alphonso (joint decision).
+
+  - title: Experiment Design
+    description: >
+      Design rigorous validation experiments with clear pass/fail criteria. Restate each claim
+      as a falsifiable hypothesis with statistical parameters. Specify metrics to collect
+      (independent and dependent variables), data collection method, analysis plan (statistical
+      test, significance level, sample size), and success criteria (accept/reject/inconclusive
+      thresholds). Identify and plan for confounding variables. Document each experiment plan
+      with timeline. Duration: 1-3 days per claim. Responsible: Analyst Annie (design),
+      Researcher Ralph (review).
+
+  - title: Validation Execution
+    description: >
+      Run experiments and update claim status. Collect data following the experiment plan
+      exactly; document deviations; verify completeness and check for outliers. Run planned
+      statistical tests; calculate effect sizes and confidence intervals; run qualitative
+      analysis (interview coding) when applicable. Update each claim to status Accepted,
+      Rejected, Superseded, or Deferred based on results vs. success criteria. Create a
+      validation report for each claim with evidence summary, confidence level, interpretation,
+      and limitations. Duration: 1-4 weeks depending on experiment. Responsible: Researcher
+      Ralph (execution), Analyst Annie (interpretation).
+
+  - title: Requirements Synthesis
+    description: >
+      Translate validated claims into evidence-backed requirements with traceability. For each
+      accepted claim, derive a requirement using the template: Requirement ID, Rationale
+      (Claim ID + evidence summary + confidence), and testable Acceptance Criteria. Define
+      acceptance criteria for functional behavior, non-functional constraints, and quality
+      metrics. Establish a bidirectional traceability matrix: Requirements <-> Claims <->
+      Evidence. For deferred or untestable claims used in requirements, document explicit
+      assumptions with risk and mitigation. Duration: 3-5 days. Responsible: Analyst Annie
+      (lead), Scribe Sally (documentation).
+
+failure_modes:
+  - "Analysis paralysis from endless validation — time-box the validation phase to 4-6 weeks maximum; prioritize only high-impact claims."
+  - "Cherry-picking evidence by ignoring claims that contradict preferences — pre-register hypotheses; document all claims including rejected ones."
+  - "False precision claiming statistical certainty from weak evidence — report confidence intervals; acknowledge limitations; invite peer review."
+  - "Evidence theater collecting evidence to justify pre-decided requirements — extract claims before designing solutions; be willing to reject initial assumptions."
+
+notes: >
+  This tactic operationalizes the Evidence-Based Requirements approach. Success criteria:
+  every requirement traces to at least one validated claim, claim inventory includes mixed
+  evidence types, 60%+ of proposed claims validated within 6 months, rejection rate is
+  10-30% (indicating intellectual honesty), specification ambiguity surveys show >80%
+  developer comprehension, and requirements rework rate is <20%.

@@ -1,0 +1,38 @@
+schema_version: "1.0"
+id: backend-for-frontend-bff
+name: Backend for Frontend (BFF)
+summary: >
+  Mandated pattern for client-edge translation and aggregation at Regnology. One dedicated
+  BFF per client channel (web app, mobile, partner portal) shapes APIs for that client's
+  needs, owns client-facing translation, and delegates writes to capability services — it
+  does not duplicate domain invariants.
+
+  A BFF is a deployable (or module) dedicated to a client experience. It shapes APIs for
+  that client's needs (aggregation, pagination, field selection), performs client-facing
+  translation (external DTOs to views/read models), enforces read paths appropriate to the
+  client, and delegates writes and workflows to capability services via stable APIs — it does
+  not duplicate domain invariants.
+
+  BFF owns: request/response contracts for its client; authentication/session presentation
+  concerns at the edge (with platform IdP); read-model assembly for screens; routing to
+  downstream capability APIs or read stores.
+
+  BFF does not own: core business invariants (belong in capability/domain modules);
+  cross-client workflow state (orchestrator/capability service); direct writes to data
+  another capability owns (except via defined commands/APIs).
+
+  Bounded contexts may live inside capability services; the BFF is not a bounded context —
+  it is a delivery adapter for a persona/channel. Do not place internal ACL mappers in every
+  service; consolidate client mapping in the BFF (or a single public API gateway for one
+  client).
+
+  C4 classification: BFF is a Container (L2) in diagrams.
+
+  Anti-patterns: BFF contains core business rules (move invariants to capability module); BFF
+  writes arbitrary tables owned by ingestor/orchestrator (call capability command API);
+  multiple BFFs duplicating same mapping (extract shared client library or unify channel);
+  BFF that is a second monolith with all domains (split by client, not by copying domain).
+
+directive_refs:
+  - TRACEABLE_DECISIONS
+  - CONTEXT_AWARE_DESIGN

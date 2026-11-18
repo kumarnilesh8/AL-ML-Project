@@ -1,0 +1,114 @@
+schema_version: "1.0"
+id: sqlx-coding-standards
+title: SQLX Coding Standards
+scope: code
+principles:
+  - "Each functional unit (FU) uses component.sqlx, FU_NAME_CF.sqlx, FU_NAME_BL.sqlx, FU_NAME_DD.sqlx, optional DEC_*.dec, and test/ subdirectory."
+  - "FU folders PascalCase_with_underscores; files, units, views, and fields UPPERCASE_WITH_UNDERSCORES."
+  - "BL units declare `unit FU_NAME_BL as function;` — assign and export the result as FU_NAME_BL, not a generic BL_OUTPUT or FU_NAME_OUT in the BL file."
+  - "CF assigns BL output to FU_NAME_OUT, selects final fields from it, and exports last; include @update/@create annotations only when the FU modifies an entity."
+  - "Select lists use explicit fields in strict alphabetical order — never select *."
+  - "Apply coalesce() on nullable fields in decision table inputs and sensible defaults elsewhere."
+  - "Prefer left outer join with explicit on conditions; use table aliases in multi-table queries."
+  - "Decision table else rules must not use * wildcard — use a rule with no input condition as catch-all."
+  - "Context-specific logic lives in suffixed files (e.g. DEC_ASSET_TYPE_SG.dec) or visibility-context units, not in shared FUs."
+  - "Avoid circular FU dependencies; shared FUs must not depend on domain-specific FUs."
+
+patterns:
+  - name: Functional Unit Layout
+    description: "Standard directory and file naming for an ABACUS360 SQLX functional unit."
+    good_example: |
+      FU_NAME/
+      ├── component.sqlx
+      ├── FU_NAME_CF.sqlx
+      ├── FU_NAME_BL.sqlx
+      ├── FU_NAME_DD.sqlx
+      ├── DEC_*.dec          # optional
+      └── test/
+
+  - name: Component Manifest
+    description: "component.sqlx declares imports, exports, and optional protocol registrations."
+    good_example: |
+      component FU_NAME;
+      import DEPENDENCY_FU from OTHER_FU;
+      import ENTITY_IN from input;
+      export FU_OUTPUT;
+
+  - name: Calculation Flow
+    description: "CF prepares views, calls BL, selects output, exports with optional entity annotation."
+    good_example: |
+      unit FU_NAME_CF;
+      import INPUT_ENTITY_IN;
+      VIEW_NAME := select FIELD1, coalesce(FIELD2, 0) as FIELD2 from INPUT_ENTITY_IN;
+      FU_NAME_OUT := FU_NAME_BL(VIEW_NAME);
+      FU_OUTPUT := select OUTPUT_FIELD1 from FU_NAME_OUT;
+      /** @update ENTITY **/
+      export FU_OUTPUT;
+
+  - name: Business Logic
+    description: "BL implements calculation, decision table calls, and exports FU_NAME_BL."
+    good_example: |
+      unit FU_NAME_BL as function;
+      import INPUT_VIEW1;
+      DEC_INPUT := select FIELD1, coalesce(FIELD2, 0) as FIELD2 from INPUT_VIEW1;
+      DEC_OUTPUT := DEC_NAME(DEC_INPUT);
+      FU_NAME_BL := select ... case when ... end as OUTPUT_FIELD from INPUT_VIEW1;
+      export FU_NAME_BL;
+
+  - name: Dataset Definition
+    description: "DD declares output schema with types and primary key at end."
+    good_example: |
+      dataset OUTPUT_NAME (
+          FIELD1 String,
+          FIELD2 Double,
+          Primary Key (KEY_FIELD1, KEY_FIELD2)
+      );
+
+  - name: Decision Table File
+    description: "DEC files declare Input/Output fields, rules separated by ---, no * in else."
+    good_example: |
+      FIELD1: Input
+      OUTPUT_FIELD: Output
+      ---
+      # Input
+      FIELD1: VALUE1
+      # Output
+      OUTPUT_FIELD: RESULT1
+
+anti_patterns:
+  - name: Select Star
+    description: "select * hides field-order and validation requirements."
+    bad_example: "select * from POSITION_IN"
+    good_example: "select C700, VAL115, POSITION_ID from POSITION_IN"
+
+  - name: Missing Coalesce on DT Inputs
+    description: "Nullable decision table inputs cause runtime errors."
+    bad_example: "DEC_INPUT := select FIELD1, FIELD2 from VIEW;"
+    good_example: "DEC_INPUT := select FIELD1, coalesce(FIELD2, 0) as FIELD2 from VIEW;"
+
+  - name: Generic BL Result Name in CF
+    description: "CF must use FU-specific OUT name, not BL_OUTPUT."
+    bad_example: "BL_OUTPUT := FU_NAME_BL(VIEW1);"
+    good_example: "FU_NAME_OUT := FU_NAME_BL(VIEW1);"
+
+  - name: Wrong BL Export Name
+    description: "BL must assign and export FU_NAME_BL, not FU_NAME_OUT."
+    bad_example: "FU_NAME_OUT := select ...; export FU_NAME_OUT;"
+    good_example: "FU_NAME_BL := select ...; export FU_NAME_BL;"
+
+  - name: Wildcard Else in Decision Table
+    description: "Use catch-all rule without input conditions instead of *."
+    bad_example: "# Input\n*\n# Output\nOUTPUT: DEFAULT"
+    good_example: "# Input\n(no conditions)\n# Output\nOUTPUT: DEFAULT"
+
+  - name: Non-Alphabetical Field Order
+    description: "Field order in SELECT is enforced by sqlx-validation."
+    bad_example: "select Z_FIELD, A_FIELD from VIEW"
+    good_example: "select A_FIELD, Z_FIELD from VIEW"
+
+quality_test: >
+  Verify component imports/exports, CF uses FU_NAME_OUT and coalesce on inputs, BL has as function
+  and exports FU_NAME_BL, DD lists all outputs with primary key, decision tables use coalesce on
+  inputs, fields are alphabetical in selects, joins are left outer with explicit on clauses, and
+  no circular FU dependencies exist. Run tactic sqlx-validation for machine-checked rule categories
+  FS, UD, IE, SP, DD, DT, and DM.

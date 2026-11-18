@@ -1,0 +1,92 @@
+schema_version: "1.0"
+
+# =============================================================================
+# Release Map — Single Source of Truth for pinned component versions
+# Mission: single-command-installer-bootstrap-01KVFHX6  (WP01)
+# -----------------------------------------------------------------------------
+# This file maps each repository RELEASE TAG to the concrete component versions
+# that a published installer for that tag must install.
+#
+# RESOLUTION MODEL (build-time injection — see research.md decision R-6 / D-005):
+#   A `curl | sh` installer has NO tag context at runtime, so it CANNOT resolve
+#   a tag -> version at runtime. Instead, the Jenkins pipeline runs ON TAG BUILD,
+#   reads this map for the tag being built, and substitutes the resolved values
+#   into placeholder tokens in the installer scripts BEFORE publishing them.
+#   The PUBLISHED installer is therefore self-contained and deterministic. The
+#   in-repo (Bitbucket fallback) installer keeps the placeholders and falls back
+#   to `default_spec_kitty_version` plus the `latest` pack aliases when run from a
+#   clone without injection.
+#
+# CONSUMERS:
+#   - Jenkinsfile (tag build): authoritative reader; injects into scripts (WP03).
+#   - dist/scripts/install-regnology-stack.{sh,ps1} (WP02): consume INJECTED
+#     values; never parse this file at runtime in the published form.
+#
+# DISTRIBUTION / SOURCE (confirmed):
+#   spec-kitty is published to PyPI as `spec-kitty-cli`, but this repo currently
+#   pins to the ACTIVE DEVELOPMENT version — the GitHub `main` branch — because
+#   the pack and spec-kitty are co-developed (fixes the overlay depends on, e.g.
+#   the DRG `refines` fix issue #2079 / PR #2081, land on `main` ahead of any
+#   tagged release).
+#
+#   The installer interprets `spec_kitty_version` / `default_spec_kitty_version`:
+#     - a PyPI version (starts with a digit, e.g. "3.2.1")  ->
+#         pipx install spec-kitty-cli==<ver>
+#     - a git ref ("main", a branch name, or a commit SHA)  ->
+#         pipx install "git+https://github.com/Priivacy-ai/spec-kitty.git@<ref>"
+#     - a value already starting with "git+" is used verbatim.
+#
+# =============================================================================
+# PLACEHOLDER-TOKEN INJECTION CONTRACT (T002 — FROZEN)
+# -----------------------------------------------------------------------------
+# These 4 tokens are the ONLY substitution points shared between WP02 (scripts)
+# and WP03 (CI). Names are copied verbatim from data-model.md entity 5
+# (InstallerReleaseBinding, `placeholder_tokens`). Do NOT rename or add tokens
+# without updating data-model.md entity 5 in lockstep.
+#
+#   Token                    | Resolves from (this map)          | Un-injected fallback
+#   -------------------------|-----------------------------------|----------------------------------
+#   @SPEC_KITTY_VERSION@     | releases[tag].spec_kitty_version  | default_spec_kitty_version
+#   @OVERLAY_PACK_VERSION@   | releases[tag].overlay_pack_version| `latest` (overlay pack alias)
+#   @BASE_PACK_VERSION@      | releases[tag].base_pack_version   | `latest` (base pack alias)
+#   @RELEASE_TAG@            | releases[tag].tag                 | "" (empty; unpinned mode)
+#
+# INVARIANT (data-model.md entity 5):
+#   - A published (INJECTED) installer contains NO remaining `@…@` tokens. CI
+#     (WP03) must fail the build if any `@…@` survives injection.
+#   - An un-injected (PLACEHOLDER) installer, run from a clone, resolves to
+#     `default_spec_kitty_version` + the `latest` pack aliases and logs
+#     "fallback/unpinned mode".
+# =============================================================================
+
+# Fallback spec-kitty version used when no tag-specific mapping applies (e.g. the
+# in-repo fallback script run from a clone, or an untagged build).
+#
+# PINNED: "main" — the ACTIVE DEVELOPMENT version (GitHub `main` branch). The pack
+# and spec-kitty are co-developed: fixes the overlay depends on (e.g. the DRG
+# `refines` fix, issue #2079 / PR #2081) land on `main` before any tagged release,
+# and the committed DRG graph is compiled against them. Tracking `main` keeps the
+# toolchain and the graph consistent during active development.
+#
+# ⚠ `main` is a MOVING ref — not reproducible across time. Pin a concrete tagged
+# release here (and in the per-tag entry below) before a GA / customer-facing cut.
+default_spec_kitty_version: "main"
+
+releases:
+  - tag: "v2.0.0"
+    # Pinned spec-kitty version for this release tag. Tracks the active
+    # development version (GitHub `main`) — see default_spec_kitty_version above.
+    # Bump to a concrete tagged release for a GA / customer-facing cut.
+    spec_kitty_version: "main"
+    # Overlay pack version published by THIS repository (pack/.pack-version).
+    overlay_pack_version: "2.0.0"
+    # Base pack version consumed from the upstream regnology-all-company
+    # distribution.
+    #
+    # RESOLVED 2026-06-19: pinned from the upstream `regnology-all-company`
+    # source of truth at bitbucket.regnology.net/projects/RFG/repos/skills
+    # (pack/.pack-version == 1.0.0, org_name: regnology-all-company), merged to
+    # its default branch. This replaces the former UNRESOLVED-UPSTREAM sentinel
+    # tracked in research.md § Open items #2. Re-pin here whenever the upstream
+    # base pack cuts a new release that overlay 2.0.0 is validated against.
+    base_pack_version: "1.0.0"

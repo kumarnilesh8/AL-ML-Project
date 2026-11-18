@@ -1,0 +1,29 @@
+{
+  "accept_commit": "e9baec19e040deb2df04dc1a852c323cda3521d1",
+  "acceptance_history": [
+    {
+      "accept_commit": "e9baec19e040deb2df04dc1a852c323cda3521d1",
+      "acceptance_mode": "pr",
+      "accepted_at": "2026-06-19T14:06:19.168280+00:00",
+      "accepted_by": "cursor:opus:manager-mike:orchestrator",
+      "accepted_from_commit": "e226e8efdec1879d1be8a3808683500d70bea13d"
+    }
+  ],
+  "acceptance_mode": "pr",
+  "accepted_at": "2026-06-19T14:06:19.168280+00:00",
+  "accepted_by": "cursor:opus:manager-mike:orchestrator",
+  "accepted_from_commit": "e226e8efdec1879d1be8a3808683500d70bea13d",
+  "baseline_merge_commit": "22728fd75f2fbbd9290a1eee3a262d98403d17f5",
+  "created_at": "2026-06-19T09:03:05.271199+00:00",
+  "friendly_name": "Single Command Installer Bootstrap",
+  "mission_id": "01KVFHX6HPTB54D4E743M8BHMK",
+  "mission_number": 7,
+  "mission_slug": "single-command-installer-bootstrap-01KVFHX6",
+  "mission_type": "software-dev",
+  "purpose_context": "This mission delivers a one-command cross-platform installer flow with prerequisite/access checks, pinned spec-kitty release mapping, and JFrog-first distribution for doctrine stack consumers.",
+  "purpose_tldr": "Cross-platform one-command installer bootstrap",
+  "slug": "single-command-installer-bootstrap-01KVFHX6",
+  "target_branch": "feature/single-command-installer-bootstrap",
+  "vcs": "git",
+  "vcs_locked_at": "2026-06-19T12:35:41.654711+00:00"
+}

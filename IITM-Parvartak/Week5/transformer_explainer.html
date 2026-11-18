@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformer Architecture — Visual Deep Dive</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07080d;
+    --surface: #0e1018;
+    --card: #141720;
+    --border: #1e2230;
+    --accent: #5dffc3;
+    --accent2: #ff6b6b;
+    --accent3: #ffd93d;
+    --accent4: #6bceff;
+    --text: #e8eaf2;
+    --muted: #6b7280;
+    --glow: 0 0 20px rgba(93,255,195,0.15);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:0;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 960px; margin: 0 auto; padding: 0 24px 80px; position:relative; z-index:1; }
+
+  /* ── HEADER ── */
+  header {
+    padding: 60px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 60px;
+  }
+  .label { font-family:'Space Mono', monospace; font-size:11px; color:var(--accent); letter-spacing:3px; text-transform:uppercase; margin-bottom:16px; }
+  h1 { font-size: clamp(32px,6vw,60px); font-weight:800; line-height:1.05; }
+  h1 span { color: var(--accent); }
+  .subtitle { color: var(--muted); margin-top:12px; font-size:16px; max-width:560px; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 64px; }
+  .section-header {
+    display:flex; align-items:center; gap:14px;
+    margin-bottom: 28px;
+  }
+  .step-num {
+    width:36px; height:36px; border-radius:50%;
+    background: var(--accent); color: var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:13px; flex-shrink:0;
+    font-family:'Space Mono', monospace;
+  }
+  h2 { font-size:22px; font-weight:700; }
+  h2 .tag { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); background:rgba(93,255,195,0.08); padding:3px 8px; border-radius:4px; vertical-align:middle; margin-left:8px; }
+  p { color: #b0b8cc; font-size:15px; }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 18px;
+  }
+
+  /* ── SAMPLE SENTENCE ── */
+  .sentence-demo {
+    display:flex; gap:10px; flex-wrap:wrap; padding:24px; align-items:center;
+    background: var(--surface); border: 1px solid var(--border); border-radius:12px; margin-top:16px;
+  }
+  .token {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 8px 14px; border-radius:8px;
+    font-family:'Space Mono',monospace; font-size:13px;
+    position:relative; cursor:default;
+    transition: all .25s;
+  }
+  .token:hover { border-color:var(--accent); box-shadow: var(--glow); color: var(--accent); }
+  .token .id { font-size:9px; color:var(--muted); display:block; text-align:center; margin-top:2px; }
+  .arrow { color:var(--muted); font-size:18px; }
+
+  /* ── EMBEDDING VIZ ── */
+  .embed-grid { display:flex; gap:6px; margin-top:12px; flex-wrap:wrap; }
+  .embed-bar { display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .embed-bar .label2 { font-size:9px; color:var(--muted); font-family:'Space Mono',monospace; }
+  .embed-cells { display:flex; flex-direction:column; gap:2px; }
+  .embed-cell {
+    width:28px; height:9px; border-radius:2px;
+    transition: opacity .3s;
+  }
+
+  /* ── POSITIONAL ENCODING ── */
+  .pe-vis { overflow-x:auto; margin-top:12px; }
+  .pe-grid { display:grid; gap:2px; width:max-content; }
+  .pe-cell {
+    width:22px; height:22px; border-radius:3px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:7px; color:rgba(255,255,255,0.5);
+    font-family:'Space Mono',monospace;
+  }
+
+  /* ── ATTENTION VIZ ── */
+  .attn-container { overflow-x:auto; margin-top:16px; }
+  .attn-matrix { display:inline-flex; flex-direction:column; gap:3px; }
+  .attn-row { display:flex; gap:3px; align-items:center; }
+  .attn-cell {
+    width:52px; height:36px; border-radius:5px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px; font-family:'Space Mono',monospace;
+    font-weight:700; transition: transform .2s;
+    cursor: pointer;
+  }
+  .attn-cell:hover { transform: scale(1.1); z-index:2; }
+  .attn-label { width:70px; font-size:11px; font-family:'Space Mono',monospace; color:var(--muted); text-align:right; padding-right:8px; white-space:nowrap; }
+  .attn-top-labels { display:flex; gap:3px; padding-left:78px; margin-bottom:4px; }
+  .attn-top-label { width:52px; font-size:10px; font-family:'Space Mono',monospace; color:var(--muted); text-align:center; }
+
+  /* ── QKV DEMO ── */
+  .qkv-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:16px; }
+  .qkv-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
+  .qkv-title { font-size:12px; font-family:'Space Mono',monospace; font-weight:700; margin-bottom:8px; }
+  .qkv-title.q { color:#ff6b6b; }
+  .qkv-title.k { color:#6bceff; }
+  .qkv-title.v { color:#ffd93d; }
+  .vec { display:flex; gap:3px; flex-wrap:wrap; }
+  .vec span { font-size:10px; font-family:'Space Mono',monospace; padding:3px 5px; border-radius:3px; background:rgba(255,255,255,0.05); color: #b0b8cc; }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow {
+    display:flex; align-items:center; gap:0;
+    overflow-x:auto; padding:20px 0; margin-top:8px;
+  }
+  .flow-box {
+    background: var(--card); border:1px solid var(--border);
+    border-radius:10px; padding:12px 16px;
+    text-align:center; font-size:12px; font-weight:600;
+    white-space:nowrap; flex-shrink:0;
+    transition: all .3s; cursor:default;
+  }
+  .flow-box:hover { border-color:var(--accent); box-shadow: var(--glow); }
+  .flow-box.enc { border-color:#5dffc340; background: rgba(93,255,195,0.05); }
+  .flow-box.dec { border-color:#6bceff40; background: rgba(107,206,255,0.05); }
+  .flow-box.out { border-color:#ffd93d40; background: rgba(255,217,61,0.05); }
+  .flow-arr { color:var(--muted); font-size:18px; padding:0 8px; flex-shrink:0; }
+
+  /* ── HEADS ── */
+  .heads-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px; }
+  .head-card { background:var(--surface); border:1px dashed var(--border); border-radius:8px; padding:12px; font-size:12px; }
+  .head-card .hn { font-family:'Space Mono',monospace; font-size:10px; color:var(--accent); margin-bottom:4px; }
+  .head-card p { font-size:11px; color:var(--muted); }
+
+  /* ── FORMULA ── */
+  .formula {
+    font-family:'Space Mono',monospace; font-size:13px;
+    background: var(--surface); border-left: 3px solid var(--accent);
+    padding: 14px 18px; border-radius: 0 8px 8px 0;
+    color: var(--accent); margin:12px 0; letter-spacing:.5px;
+  }
+
+  /* ── STEP BY STEP ── */
+  .steps { margin-top:14px; }
+  .step-item {
+    display:flex; gap:14px;
+    padding: 14px 0; border-bottom:1px solid var(--border);
+  }
+  .step-item:last-child { border-bottom:none; }
+  .step-icon { font-size:20px; flex-shrink:0; margin-top:2px; }
+  .step-text strong { display:block; font-size:14px; margin-bottom:4px; color:var(--text); }
+  .step-text span { font-size:13px; color:var(--muted); }
+  .step-text code { font-family:'Space Mono',monospace; background:rgba(93,255,195,0.1); color:var(--accent); padding:1px 5px; border-radius:3px; font-size:11px; }
+
+  /* ── ENCODER/DECODER SIDE BY SIDE ── */
+  .enc-dec { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+  .enc-dec-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px; }
+  .enc-dec-card h3 { font-size:14px; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+  .enc-badge { background:rgba(93,255,195,0.15); color:var(--accent); padding:2px 8px; border-radius:4px; font-size:10px; }
+  .dec-badge { background:rgba(107,206,255,0.15); color:var(--accent4); padding:2px 8px; border-radius:4px; font-size:10px; }
+  .enc-dec-card ul { list-style:none; }
+  .enc-dec-card li { font-size:12px; color:var(--muted); padding:5px 0; border-bottom:1px solid var(--border); display:flex; gap:8px; }
+  .enc-dec-card li:last-child { border-bottom:none; }
+  .enc-dec-card li::before { content:'→'; color:var(--accent); flex-shrink:0; }
+
+  /* ── FINAL PIPELINE ── */
+  .pipeline { margin-top:20px; }
+  .pipe-step {
+    display:flex; align-items:flex-start; gap:16px;
+    padding: 16px; border:1px solid var(--border); border-radius:10px;
+    margin-bottom:8px; background:var(--surface);
+    position:relative;
+  }
+  .pipe-step::after {
+    content:'↓'; position:absolute; bottom:-20px; left:26px;
+    color:var(--muted); font-size:16px; z-index:1;
+  }
+  .pipe-step:last-child::after { display:none; }
+  .pipe-num { width:28px; height:28px; background:var(--border); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:11px; font-family:'Space Mono',monospace; flex-shrink:0; margin-top:2px; }
+  .pipe-content strong { font-size:14px; display:block; margin-bottom:4px; }
+  .pipe-content span { font-size:13px; color:var(--muted); }
+  .pipe-content .sample { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); background:rgba(93,255,195,0.07); padding:6px 10px; border-radius:6px; margin-top:8px; display:block; }
+
+  /* ── MASK VIZ ── */
+  .mask-grid { display:inline-flex; flex-direction:column; gap:3px; }
+  .mask-row { display:flex; gap:3px; }
+  .mask-cell { width:40px; height:30px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; font-family:'Space Mono',monospace; }
+  .mask-allowed { background:rgba(93,255,195,0.15); color:var(--accent); border:1px solid rgba(93,255,195,0.2); }
+  .mask-blocked { background:rgba(255,107,107,0.1); color:#ff6b6b80; border:1px solid rgba(255,107,107,0.1); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:640px) {
+    .qkv-grid { grid-template-columns:1fr; }
+    .enc-dec { grid-template-columns:1fr; }
+    .heads-grid { grid-template-columns:1fr 1fr; }
+    .attn-cell { width:40px; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .section { animation: fadeUp .5s ease both; }
+  .section:nth-child(2) { animation-delay:.05s; }
+  .section:nth-child(3) { animation-delay:.10s; }
+  .section:nth-child(4) { animation-delay:.15s; }
+  .section:nth-child(5) { animation-delay:.20s; }
+  .section:nth-child(6) { animation-delay:.25s; }
+  .section:nth-child(7) { animation-delay:.30s; }
+  .section:nth-child(8) { animation-delay:.35s; }
+  .section:nth-child(9) { animation-delay:.40s; }
+
+  .highlight { color:var(--accent); font-weight:700; }
+  .highlight2 { color:var(--accent2); font-weight:700; }
+  .highlight3 { color:var(--accent3); font-weight:700; }
+  .highlight4 { color:var(--accent4); font-weight:700; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header>
+  <div class="label">Visual Deep Dive · 2024</div>
+  <h1>The <span>Transformer</span><br>Architecture</h1>
+  <p class="subtitle">A step-by-step walkthrough — using real sample text — of how a Transformer reads, processes, and generates language.</p>
+</header>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 0: Sample Input -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="step-num">★</div>
+    <h2>Our Sample Sentence</h2>
+  </div>
+  <p>We'll use this English sentence throughout the entire walkthrough — translating it to French:</p>
+
+  <div class="sentence-demo">
+    <div class="token">The<span class="id">token 1</span></div>
+    <div class="token">cat<span class="id">token 2</span></div>
+    <div class="token">sat<span class="id">token 3</span></div>
+    <div class="token">on<span class="id">token 4</span></div>
+    <div class="token">the<span class="id">token 5</span></div>
+    <div class="token">mat<span class="id">token 6</span></div>
+    <span class="arrow">→</span>
+    <span style="color:var(--accent);font-family:'Space Mono',monospace;font-size:13px;">« Le chat s'est assis sur le tapis »</span>
+  </div>
+
+  <div class="card">
+    <p>Each word is a <strong class="highlight">token</strong>. In real models, subword tokenisation (BPE) may split "sitting" → "sit" + "##ting". For clarity we'll keep whole words. The model never sees characters — only <strong>integer IDs</strong> like <code style="font-family:'Space Mono',monospace;color:var(--accent);font-size:12px;">[4182, 7291, 3841, 512, 4182, 9931]</code></p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 1: Tokenisation & Embedding -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="step-num">01</div>
+    <h2>Token Embedding <span class="tag">Input Layer</span></h2>
+  </div>
+  <p>Each token ID is looked up in a learned <strong class="highlight">embedding table</strong> — a giant matrix of shape <code style="font-family:'Space Mono',monospace;background:rgba(93,255,195,0.08);color:var(--accent);padding:2px 6px;border-radius:3px;">[vocab_size × d_model]</code>. Each word becomes a dense vector of numbers that capture semantic meaning.</p>
+
+  <div class="formula">embedding("cat") → [0.21, -0.84, 0.03, 0.67, ... ]  ← 512 numbers</div>
+
+  <div class="card">
+    <p style="margin-bottom:14px; font-size:13px; color:var(--muted);">Visualised embeddings (each column = one token, rows = dimensions, color intensity = value)</p>
+    <div class="embed-grid" id="embedViz"></div>
+  </div>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-icon">🗂</div>
+      <div class="step-text">
+        <strong>"The" → ID 4182 → Row 4182 of the embedding matrix</strong>
+        <span>Result: a 512-dimensional vector. Similar words (cat, dog, kitten) end up close together in this 512-D space.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-icon">🧠</div>
+      <div class="step-text">
+        <strong>Embeddings are LEARNED during training</strong>
+        <span>The model adjusts these 512 numbers via backpropagation until semantically similar words cluster together. <code>"king" − "man" + "woman" ≈ "queen"</code></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 2: Positional Encoding -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="step-num">02</div>
+    <h2>Positional Encoding <span class="tag">Order Signal</span></h2>
+  </div>
+  <p>Attention is <strong class="highlight2">order-agnostic</strong> — it treats all tokens as a bag. We must inject position information. A fixed sine/cosine pattern is <em>added</em> to each embedding.</p>
+
+  <div class="formula">PE(pos, 2i)   = sin(pos / 10000^(2i / d_model))
+PE(pos, 2i+1) = cos(pos / 10000^(2i / d_model))</div>
+
+  <div class="card">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Positional encoding heatmap — rows = tokens (The/cat/sat/on/the/mat), columns = dimensions</p>
+    <div class="pe-vis"><div class="pe-grid" id="peGrid"></div></div>
+  </div>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-icon">📍</div>
+      <div class="step-text">
+        <strong>"cat" (pos 2) gets a DIFFERENT pattern than "the" (pos 1)</strong>
+        <span>Even if two tokens are identical words (both "the" in our sentence), they get different positional offsets, so the model knows position 1 ≠ position 5.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-icon">🌊</div>
+      <div class="step-text">
+        <strong>Why sine waves? They generalise to unseen lengths</strong>
+        <span>The model trained on sentences up to length 128 can still process length 200 — the waves simply continue. This is better than learned position embeddings for long inputs.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 3: Attention — Q, K, V -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="step-num">03</div>
+    <h2>Attention: Q, K, V <span class="tag">Core Mechanism</span></h2>
+  </div>
+  <p>This is the <strong class="highlight">heart of the Transformer</strong>. Each token asks: <em>"which other tokens should I pay attention to?"</em> It does this via three learned projections:</p>
+
+  <div class="qkv-grid">
+    <div class="qkv-card">
+      <div class="qkv-title q">🔍 QUERY (Q)</div>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:8px;">"What am I looking for?"</p>
+      <div class="vec" id="qvec"></div>
+      <p style="font-size:10px;color:var(--muted);margin-top:8px;">Token "cat" broadcasts its question to all other tokens</p>
+    </div>
+    <div class="qkv-card">
+      <div class="qkv-title k">🗝 KEY (K)</div>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:8px;">"What do I offer?"</p>
+      <div class="vec" id="kvec"></div>
+      <p style="font-size:10px;color:var(--muted);margin-top:8px;">Each token advertises itself — does it match Q?</p>
+    </div>
+    <div class="qkv-card">
+      <div class="qkv-title v">📦 VALUE (V)</div>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:8px;">"What info do I share?"</p>
+      <div class="vec" id="vvec"></div>
+      <p style="font-size:10px;color:var(--muted);margin-top:8px;">Actual content retrieved if attention is high</p>
+    </div>
+  </div>
+
+  <div class="formula">Attention(Q, K, V) = softmax( Q·Kᵀ / √d_k ) · V</div>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-icon">1️⃣</div>
+      <div class="step-text">
+        <strong>Score: Q · Kᵀ</strong>
+        <span>Dot product between "cat"'s query and every token's key → raw score. High score = relevant. <code>"cat" scores 8.2 against "sat", 1.1 against "the"</code></span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-icon">2️⃣</div>
+      <div class="step-text">
+        <strong>Scale by √d_k</strong>
+        <span>Prevents scores from getting too large when d_k is big (large dot products → softmax vanishing gradient). With d_k=64, divide by 8.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-icon">3️⃣</div>
+      <div class="step-text">
+        <strong>Softmax → attention weights (sum to 1)</strong>
+        <span>Converts raw scores to probabilities. <code>[0.05, 0.62, 0.25, 0.03, 0.03, 0.02]</code> — "cat" mostly attends to itself and "sat".</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-icon">4️⃣</div>
+      <div class="step-text">
+        <strong>Weighted sum of Values</strong>
+        <span>Multiply each Value vector by its weight and sum. "cat"'s new representation is a blend of all tokens, weighted by relevance.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 4: Attention Matrix -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="step-num">04</div>
+    <h2>Attention Heatmap <span class="tag">What Attends to What</span></h2>
+  </div>
+  <p>For our 6-token sentence, we get a <strong class="highlight">6×6 attention matrix</strong>. Row = "I am token X, attending to…", Column = "…token Y". Brighter = more attention.</p>
+  <p style="font-size:13px; color:var(--muted); margin-top:6px;">Hover any cell to see the weight. Notice: <em>sat</em> strongly attends to <em>cat</em> (subject-verb), and both <em>the</em>s attend to their noun.</p>
+
+  <div class="attn-container">
+    <div class="attn-top-labels" id="attnTopLabels"></div>
+    <div class="attn-matrix" id="attnMatrix"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 5: Multi-Head Attention -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="step-num">05</div>
+    <h2>Multi-Head Attention <span class="tag">8 Perspectives</span></h2>
+  </div>
+  <p>Instead of one attention pass, the model runs <strong class="highlight3">8 parallel heads</strong> — each with its own Q/K/V weight matrices. Each head specialises in a different type of relationship.</p>
+
+  <div class="heads-grid">
+    <div class="head-card">
+      <div class="hn">HEAD 1</div>
+      <strong style="font-size:12px;">Syntactic subject</strong>
+      <p>Learns which noun is the subject. "cat" → "sat" (who does the action)</p>
+    </div>
+    <div class="head-card">
+      <div class="hn">HEAD 2</div>
+      <strong style="font-size:12px;">Article-Noun binding</strong>
+      <p>"The" → "cat", "the" → "mat" (determiners find their nouns)</p>
+    </div>
+    <div class="head-card">
+      <div class="hn">HEAD 3</div>
+      <strong style="font-size:12px;">Prepositional phrase</strong>
+      <p>"on" attends strongly to "mat" (preposition-object)</p>
+    </div>
+    <div class="head-card">
+      <div class="hn">HEAD 4</div>
+      <strong style="font-size:12px;">Local context</strong>
+      <p>Each token attends to immediate neighbours — bigram patterns</p>
+    </div>
+    <div class="head-card">
+      <div class="hn">HEAD 5</div>
+      <strong style="font-size:12px;">Long-range deps.</strong>
+      <p>"mat" attends back to "cat" (what is on the mat?)</p>
+    </div>
+    <div class="head-card">
+      <div class="hn">HEAD 6</div>
+      <strong style="font-size:12px;">Coreference</strong>
+      <p>Links pronouns & repeated nouns to their referents</p>
+    </div>
+    <div class="head-card">
+      <div class="hn">HEAD 7</div>
+      <strong style="font-size:12px;">Semantic roles</strong>
+      <p>Identifies agent/patient roles across the sentence</p>
+    </div>
+    <div class="head-card">
+      <div class="hn">HEAD 8</div>
+      <strong style="font-size:12px;">Global context</strong>
+      <p>Every token attends to [CLS] token — sentence-level meaning</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <p>All 8 head outputs (each of size d_k=64) are <strong class="highlight">concatenated</strong> → vector of 512 → passed through one final linear layer W_O. This gives the model 8× the representational power of single-head attention.</p>
+    <div class="formula" style="margin-top:12px;">MultiHead(Q,K,V) = Concat(head₁,...,head₈) · W_O
+  where headᵢ = Attention(Q·Wᵢ_Q, K·Wᵢ_K, V·Wᵢ_V)</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 6: Causal Mask -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="step-num">06</div>
+    <h2>Causal Mask <span class="tag">Decoder Only</span></h2>
+  </div>
+  <p>In the <strong class="highlight2">decoder</strong>, when generating the French translation, token position 3 must NOT see positions 4, 5, 6 — they don't exist yet! A triangular mask fills future positions with <code style="font-family:'Space Mono',monospace;color:var(--accent2);">−∞</code> before softmax (which makes them → 0).</p>
+
+  <div class="card" style="overflow-x:auto;">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">French output so far: Le / chat / s'est / assis / sur — generating "le":</p>
+    <div class="mask-grid" id="maskGrid"></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:12px;"><span style="color:var(--accent);">■</span> Can attend &nbsp;&nbsp; <span style="color:var(--accent2);">■</span> Blocked (future token — masked to −∞)</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 7: Feed-Forward + Residuals -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="step-num">07</div>
+    <h2>FFN + Residual + LayerNorm <span class="tag">Per-Token Processing</span></h2>
+  </div>
+  <p>After attention, each token's vector passes through a <strong class="highlight">position-wise Feed-Forward Network</strong> — independently, with shared weights. Then a residual skip-connection and layer normalisation are applied.</p>
+
+  <div class="flow">
+    <div class="flow-box enc">Input x</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box enc">Multi-Head<br>Attention</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box" style="background:rgba(255,217,61,0.05);border-color:#ffd93d40;">Add(x) +<br>LayerNorm</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box enc">Feed-Forward<br>Network</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box" style="background:rgba(255,217,61,0.05);border-color:#ffd93d40;">Add(x) +<br>LayerNorm</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box out">Output</div>
+  </div>
+
+  <div class="steps" style="margin-top:18px;">
+    <div class="step-item">
+      <div class="step-icon">⚡</div>
+      <div class="step-text">
+        <strong>FFN: d_model → 4× expansion → d_model</strong>
+        <span>Two linear layers with ReLU: <code>FFN(x) = ReLU(x·W₁ + b₁)·W₂ + b₂</code>. Expands 512 → 2048 then back. This stores "factual knowledge" — models like GPT store facts about the world in FFN weights!</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-icon">➕</div>
+      <div class="step-text">
+        <strong>Residual Connection: output = x + sublayer(x)</strong>
+        <span>The original input <em>bypasses</em> each sublayer and is added back. This lets gradients flow easily during training (solves vanishing gradient) and preserves original info.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-icon">📊</div>
+      <div class="step-text">
+        <strong>Layer Normalisation: stabilises training</strong>
+        <span>Normalises each token vector to mean=0, std=1, then applies learned scale (γ) and shift (β). Applied <em>after</em> the residual add. Without this, deep networks diverge.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 8: Encoder vs Decoder -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="step-num">08</div>
+    <h2>Encoder vs Decoder <span class="tag">Two Stacks</span></h2>
+  </div>
+  <p>A full Transformer (e.g. the original machine translation model) has <strong class="highlight">N=6 encoder layers</strong> stacked on top of each other, plus <strong class="highlight4">N=6 decoder layers</strong>.</p>
+
+  <div class="enc-dec">
+    <div class="enc-dec-card">
+      <h3><span class="enc-badge">ENCODER</span> Reads source</h3>
+      <ul>
+        <li>Processes ALL tokens simultaneously (bidirectional)</li>
+        <li>Self-attention: every token sees every other token</li>
+        <li>No mask — full context available</li>
+        <li>Output: contextualised representations for each token</li>
+        <li>Used in: BERT, RoBERTa (encoder-only)</li>
+      </ul>
+    </div>
+    <div class="enc-dec-card">
+      <h3><span class="dec-badge">DECODER</span> Generates target</h3>
+      <ul>
+        <li>Generates tokens one-by-one (left to right)</li>
+        <li>Masked self-attention: can only see past tokens</li>
+        <li>Cross-attention: Q from decoder, K/V from encoder</li>
+        <li>Cross-attention = where the "translation" happens</li>
+        <li>Used in: GPT (decoder-only), T5, original Transformer</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <strong style="font-size:13px; display:block; margin-bottom:8px;">Cross-Attention: the bridge between languages</strong>
+    <p>When generating the French word "chat" (step 2), the decoder's cross-attention has: <br>
+    <strong class="highlight">Q</strong> = current French context ("Le …") &nbsp;|&nbsp;
+    <strong class="highlight4">K, V</strong> = all English encoder outputs.<br>
+    It learns to align "chat" ↔ "cat" purely from training data — no alignment table needed!</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 9: Full Pipeline Walkthrough -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="step-num">09</div>
+    <h2>Full Pipeline: "The cat sat on the mat" → French</h2>
+  </div>
+  <p>Let's trace every step from raw text to "Le chat s'est assis sur le tapis":</p>
+
+  <div class="pipeline">
+    <div class="pipe-step">
+      <div class="pipe-num">1</div>
+      <div class="pipe-content">
+        <strong>Tokenise source</strong>
+        <span>Split English input into token IDs</span>
+        <code class="sample">["The","cat","sat","on","the","mat"] → [4182, 7291, 3841, 512, 4182, 9931]</code>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">2</div>
+      <div class="pipe-content">
+        <strong>Embed + Positional Encode</strong>
+        <span>Each ID → 512-D vector; add sinusoidal position signal</span>
+        <code class="sample">x = Embedding(token_ids) + PE(positions)  → shape [6 × 512]</code>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">3</div>
+      <div class="pipe-content">
+        <strong>Pass through 6 Encoder layers</strong>
+        <span>Self-attention + FFN × 6. Each layer refines contextual meaning.</span>
+        <code class="sample">enc₁ → enc₂ → ... → enc₆ → enc_output [6 × 512]</code>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">4</div>
+      <div class="pipe-content">
+        <strong>Decoder receives [START] token</strong>
+        <span>The decoder starts with a special &lt;BOS&gt; token to kick off generation</span>
+        <code class="sample">tgt = [&lt;BOS&gt;]  → embed → shape [1 × 512]</code>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">5</div>
+      <div class="pipe-content">
+        <strong>Decoder: Masked Self-Attention</strong>
+        <span>Decoder attends to its own past outputs with causal mask</span>
+        <code class="sample">Generating "Le": only sees [&lt;BOS&gt;] — mask blocks future</code>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">6</div>
+      <div class="pipe-content">
+        <strong>Decoder: Cross-Attention to Encoder</strong>
+        <span>Q from decoder current state; K, V from encoder output. This is where alignment happens.</span>
+        <code class="sample">Q=[&lt;BOS&gt; state], K/V=[enc_output] → attends to "The"</code>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">7</div>
+      <div class="pipe-content">
+        <strong>Linear + Softmax → probability over vocabulary</strong>
+        <span>Project 512-D output to vocab_size (e.g. 32,000), then softmax</span>
+        <code class="sample">argmax(softmax(W_out · dec_output)) → "Le" (prob 0.94)</code>
+      </div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">8</div>
+      <div class="pipe-content">
+        <strong>Repeat until [EOS] token</strong>
+        <span>Feed output back as next decoder input. Repeat steps 5-7.</span>
+        <code class="sample">Le → chat → s'est → assis → sur → le → tapis → &lt;EOS&gt;</code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="border-top:1px solid var(--border); padding-top:32px; margin-top:20px; color:var(--muted); font-size:12px; font-family:'Space Mono',monospace; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+  <span>Transformer Architecture · Vaswani et al. 2017</span>
+  <span>"Attention Is All You Need"</span>
+</div>
+
+</div><!-- /page -->
+
+<script>
+// ── EMBEDDING VIZ
+(function(){
+  const tokens = ['The','cat','sat','on','the','mat'];
+  const colors = ['#5dffc3','#ff6b6b','#6bceff','#ffd93d','#c084fc','#fb7185'];
+  const grid = document.getElementById('embedViz');
+  tokens.forEach((t, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'embed-bar';
+    const label = document.createElement('div');
+    label.className = 'label2';
+    label.textContent = t;
+    const cells = document.createElement('div');
+    cells.className = 'embed-cells';
+    for(let r=0;r<14;r++){
+      const c = document.createElement('div');
+      c.className = 'embed-cell';
+      const v = Math.random();
+      const col = colors[i];
+      c.style.background = col;
+      c.style.opacity = 0.15 + v * 0.85;
+      cells.appendChild(c);
+    }
+    bar.appendChild(label);
+    bar.appendChild(cells);
+    grid.appendChild(bar);
+  });
+})();
+
+// ── POSITIONAL ENCODING GRID
+(function(){
+  const tokens = ['The','cat','sat','on','the','mat'];
+  const dModel = 20;
+  const grid = document.getElementById('peGrid');
+  grid.style.gridTemplateColumns = `70px repeat(${dModel}, 22px)`;
+  // Header row
+  const hdr = document.createElement('div');
+  hdr.style.cssText = 'font-size:9px;color:#6b7280;font-family:Space Mono;display:flex;align-items:center;padding:0 4px;';
+  hdr.textContent = 'token\\dim';
+  grid.appendChild(hdr);
+  for(let d=0;d<dModel;d++){
+    const h = document.createElement('div');
+    h.className='pe-cell';
+    h.style.cssText='width:22px;height:18px;font-size:7px;color:#6b7280;font-family:Space Mono;display:flex;align-items:center;justify-content:center;';
+    h.textContent=d;
+    grid.appendChild(h);
+  }
+  // Data rows
+  for(let pos=0;pos<6;pos++){
+    const label = document.createElement('div');
+    label.style.cssText='font-size:10px;color:#b0b8cc;font-family:Space Mono;display:flex;align-items:center;padding:0 4px;';
+    label.textContent = tokens[pos];
+    grid.appendChild(label);
+    for(let i=0;i<dModel;i++){
+      const val = i%2===0
+        ? Math.sin(pos / Math.pow(10000, i / dModel))
+        : Math.cos(pos / Math.pow(10000, (i-1) / dModel));
+      const norm = (val + 1) / 2;
+      const c = document.createElement('div');
+      c.className = 'pe-cell';
+      const r = Math.round(93 + (255-93)*norm);
+      const g = Math.round(255 - (255-107)*norm);
+      const b = Math.round(195 - (195-107)*norm);
+      c.style.background = `rgba(${r},${g},${b},${0.2 + norm*0.7})`;
+      c.title = val.toFixed(2);
+      grid.appendChild(c);
+    }
+  }
+})();
+
+// ── Q K V VECS
+(function(){
+  ['qvec','kvec','vvec'].forEach((id,j) => {
+    const el = document.getElementById(id);
+    const cols = ['#ff6b6b','#6bceff','#ffd93d'];
+    for(let i=0;i<12;i++){
+      const s = document.createElement('span');
+      s.textContent = (Math.random()*2-1).toFixed(2);
+      s.style.borderLeft = `2px solid ${cols[j]}40`;
+      el.appendChild(s);
+    }
+  });
+})();
+
+// ── ATTENTION MATRIX
+(function(){
+  const tokens = ['The','cat','sat','on','the','mat'];
+  // Manually crafted plausible attention weights
+  const weights = [
+    [0.55, 0.15, 0.10, 0.08, 0.07, 0.05], // "The" → mostly self + cat
+    [0.08, 0.52, 0.25, 0.05, 0.05, 0.05], // "cat" → self + sat
+    [0.05, 0.35, 0.35, 0.10, 0.08, 0.07], // "sat" → cat + self
+    [0.04, 0.08, 0.08, 0.40, 0.10, 0.30], // "on"  → self + mat
+    [0.05, 0.05, 0.05, 0.08, 0.47, 0.30], // "the" → self + mat
+    [0.06, 0.12, 0.12, 0.15, 0.15, 0.40], // "mat" → self + context
+  ];
+
+  // Top labels
+  const tl = document.getElementById('attnTopLabels');
+  tokens.forEach(t => {
+    const d = document.createElement('div');
+    d.className = 'attn-top-label';
+    d.textContent = t;
+    tl.appendChild(d);
+  });
+
+  const matrix = document.getElementById('attnMatrix');
+  weights.forEach((row, i) => {
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'attn-row';
+    const lbl = document.createElement('div');
+    lbl.className = 'attn-label';
+    lbl.textContent = tokens[i];
+    rowDiv.appendChild(lbl);
+    row.forEach((w, j) => {
+      const cell = document.createElement('div');
+      cell.className = 'attn-cell';
+      cell.textContent = w.toFixed(2);
+      const alpha = 0.08 + w * 0.9;
+      cell.style.background = `rgba(93,255,195,${alpha})`;
+      cell.style.color = w > 0.3 ? '#07080d' : '#e8eaf2';
+      cell.title = `${tokens[i]} → ${tokens[j]}: ${(w*100).toFixed(0)}%`;
+      rowDiv.appendChild(cell);
+    });
+    matrix.appendChild(rowDiv);
+  });
+})();
+
+// ── CAUSAL MASK
+(function(){
+  const toks = ['Le','chat',"s'est",'assis','sur'];
+  const grid = document.getElementById('maskGrid');
+  // Header
+  const headerRow = document.createElement('div');
+  headerRow.className = 'mask-row';
+  const corner = document.createElement('div');
+  corner.style.cssText='width:52px;';
+  headerRow.appendChild(corner);
+  toks.forEach(t => {
+    const h = document.createElement('div');
+    h.style.cssText=`width:56px;font-size:9px;color:#6b7280;font-family:'Space Mono';text-align:center;padding-bottom:4px;`;
+    h.textContent=t;
+    headerRow.appendChild(h);
+  });
+  grid.appendChild(headerRow);
+
+  toks.forEach((rowTok, i) => {
+    const row = document.createElement('div');
+    row.className = 'mask-row';
+    const lbl = document.createElement('div');
+    lbl.style.cssText='font-size:10px;font-family:Space Mono;color:#b0b8cc;width:52px;display:flex;align-items:center;';
+    lbl.textContent=rowTok;
+    row.appendChild(lbl);
+    toks.forEach((_, j) => {
+      const cell = document.createElement('div');
+      cell.className = 'mask-cell ' + (j <= i ? 'mask-allowed' : 'mask-blocked');
+      cell.textContent = j <= i ? '✓' : '✕';
+      row.appendChild(cell);
+    });
+    grid.appendChild(row);
+  });
+})();
+</script>
+</body>
+</html>

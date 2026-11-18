@@ -1,0 +1,16 @@
+{
+  "baseline_merge_commit": "5c5dbf0423e70672b7bb02561dbf306ba45f3c2d",
+  "coordination_branch": "kitty/mission-doctrine-discoverability-onboarding-and-drg-dashboard-01KT3R1X",
+  "created_at": "2026-06-02T08:43:56.541620+00:00",
+  "friendly_name": "Doctrine Discoverability & DRG Dashboard",
+  "mission_id": "01KT3R1XQXAC9S1CXNDX3NSSDJ",
+  "mission_number": null,
+  "mission_slug": "doctrine-discoverability-onboarding-and-drg-dashboard-01KT3R1X",
+  "mission_type": "software-dev",
+  "purpose_context": "The doctrine pack and its governance relationship graph (DRG) are hard to discover: new projects have no single onboarding path, and the dashboard shows only the org-layer pack with no view of how artifacts relate or how they sit alongside spec-kitty built-ins. This mission makes the pack discoverable for humans (an onboarding guide authored as a worked example of the user-guide convention) and in the UI (an interactive, progressively-expanding DRG graph visualizer and visibility of spec-kitty built-in artifacts alongside the org-layer pack).",
+  "purpose_tldr": "A user-guide-convention onboarding guide plus an interactive DRG graph visualizer and built-in doctrine visibility in the dashboard",
+  "slug": "doctrine-discoverability-onboarding-and-drg-dashboard-01KT3R1X",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "vcs": "git",
+  "vcs_locked_at": "2026-06-02T09:58:49.602629+00:00"
+}

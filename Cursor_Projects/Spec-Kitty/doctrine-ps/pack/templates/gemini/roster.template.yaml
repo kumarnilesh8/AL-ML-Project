@@ -1,0 +1,69 @@
+# +----------------------------------------------------+
+# |████          R E G N O L O G Y                     |
+# |    ██        Professional Services                 |
+# |████                                                |
+# |    ██        professional_services@regnology.net   |
+# +----------------------------------------------------+
+#
+# Property of Regnology Group GmbH - All Rights Reserved
+#               FOR INTERNAL USE ONLY
+#
+# Template: gemini-agent-roster
+# Version: "1.0"
+#
+# Output-structure contract for gemini-agents/roster.yaml, a file in the separate
+# regnology-ps-chatbots repository, not doctrine-ps.
+# This template defines all required and optional fields Georgia must populate.
+# The roster is the single source of truth for the Gemini agent team.
+# Maintained by gemini-bot-georgia; never hand-edited.
+#
+# Required fields: schema_version, roster_version, source,
+#                  front_door (name, managed), navigator, agents (id, name, summary)
+# Optional fields: agents[].source_profile (for pack-backed agents)
+
+# Schema version — identifies the roster format.
+schema_version: "1.0"
+
+# Roster version — bump this each time the agent list changes.
+# Format: YYYY-MM-DD.N (e.g. "2026-06-30.1")
+# After bumping: regenerate navigator agent's instructions.md from the updated roster.
+roster_version: "{YYYY-MM-DD.N}"
+
+# Source doctrine stamp — identifies the pack version this roster was last aligned to.
+# Format: "{pack_name} @ {branch_or_version}"
+source: "{doctrine_pack} @ {doctrine_version}"
+
+# Front-door agent — the public, org-wide Gemini agent every specialist redirects
+# out-of-scope requests to. `managed` is either:
+#   - "external": already exists in the workspace; NOT generated or maintained by
+#     gemini-bot-georgia; has NO gemini-agents/ folder; NOT listed under `agents:` below.
+#   - "repo": generated/maintained in this repository like any other agent, with its
+#     own folder at gemini-agents/{chatbot-slug}/; IS listed under `agents:` below.
+# Recorded here so its display name lives in one place either way.
+front_door:
+  name: "{Front Door Agent Display Name}"
+  managed: "{external|repo}"
+
+# Navigator — the routing knowledge holding the full one-line-per-agent index. Its
+# value is either:
+#   - the `id` of a standalone top-level navigator agent (must appear in `agents:`
+#     below), or
+#   - a sub-agent PATH relative to gemini-agents/ (e.g. "{front-door-id}/routing"),
+#     when the navigator role is a sub-agent of the front-door agent rather than an
+#     independently switchable agent. A sub-agent path resolves to
+#     <path>/instructions.md and is NOT a top-level `agents:` id.
+# When presenting its catalogue, the navigator OMITS ITSELF to avoid circular self-listing.
+navigator: "{navigator-agent-id | front-door-id/sub-agent-slug}"
+
+# Agent list — every Gemini Enterprise agent that exists and is maintained by Georgia.
+# Includes the front-door agent only when its `managed` is "repo"; omit it when
+# `managed` is "external" (see front_door above).
+# Does NOT include pack/agent_profiles/ productivity agents (separate surface).
+agents:
+  - id: "{chatbot-slug}"             # required: lowercase hyphenated slug; must match gemini-agents/ folder name
+    name: "{Agent Display Name}"     # required: display name used in the workspace and in about.md
+    summary: >-                       # required: one-liner for the navigator catalogue and roster.yaml
+      {One sentence — what the agent does. Used verbatim in Navigator's roster section.
+      Match the "One-liner" field in this agent's about.md.}
+    source_profile: "{pack/agent_profiles/{profile-id}.agent.yaml}"
+    # optional: include only for pack-backed agents; omit for Gemini-only hand-authored agents

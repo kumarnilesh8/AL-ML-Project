@@ -1,0 +1,129 @@
+{
+  "mission_slug": "doctrine-pack-remediation-georgia-templates-01KWCBN5",
+  "mission_number": "",
+  "mission_type": "software-dev",
+  "overall_verdict": "pass",
+  "criteria": [
+    {
+      "criterion_id": "FR-001",
+      "description": "pack/templates/gemini/ template family captures the structure of each Georgia output artefact (instructions, about, set-up-guide, review-submission, roster schema, per-agent layout).",
+      "proof_type": "automated_test",
+      "evidence": "WP03 approved (cycle 2). pack/templates/gemini/ created with the template family; validate green.",
+      "pass_fail": "pass",
+      "verified_by": "WP03 reviewer + orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": ""
+    },
+    {
+      "criterion_id": "FR-002",
+      "description": "gemini-bot-georgia.agent.yaml references the new templates instead of inlining structure; structural triplication eliminated.",
+      "proof_type": "automated_test",
+      "evidence": "WP03 approved. Profile slimmed to reference pack/templates/gemini/; SC-006 primary-focus prose reduced.",
+      "pass_fail": "pass",
+      "verified_by": "WP03 reviewer + orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": ""
+    },
+    {
+      "criterion_id": "FR-003",
+      "description": "gemini-agents/README.md points at pack/templates/gemini/ as the canonical output structure (README explains; templates define).",
+      "proof_type": "automated_test",
+      "evidence": "WP03 approved (cycle 2). README updated + Regnology branding header added (Directive 041).",
+      "pass_fail": "pass",
+      "verified_by": "WP03 reviewer + orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": ""
+    },
+    {
+      "criterion_id": "FR-004",
+      "description": "Unresolved DRG profiles doctrine-daphne and planner-priti resolved via machine-readable external/inherited-nodes declaration with provenance.",
+      "proof_type": "automated_test",
+      "evidence": "WP01 approved. Declared in fragment.yaml external_nodes with provenance.",
+      "pass_fail": "pass",
+      "verified_by": "WP01 reviewer + orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": ""
+    },
+    {
+      "criterion_id": "FR-005",
+      "description": "compile-drg.py derives each edge target's kind from local pack artefacts/MANIFEST and declared external nodes instead of defaulting unresolved targets to directive:.",
+      "proof_type": "automated_test",
+      "evidence": "WP02 approved. Compiler fix verified: all local/known targets carry correct kind prefixes (paradigm:/toolguide:/styleguide:/tactic:/procedure:). Residual dangling URNs are inherited-upstream only (DDR-018).",
+      "pass_fail": "pass",
+      "verified_by": "WP02 reviewer (arbiter) + orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": "Kind-correctness for inherited URNs verifiable in a populated/CI context per DDR-018."
+    },
+    {
+      "criterion_id": "FR-006",
+      "description": "Remove accidental self-referencing edge and duplicate receptionist-rob -> repository-initialization edge; add machine-readable external_nodes to fragment.yaml.",
+      "proof_type": "automated_test",
+      "evidence": "WP01 approved. Accidental self-loop + duplicate edge removed; external_nodes added.",
+      "pass_fail": "pass",
+      "verified_by": "WP01 reviewer + orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": "An INTENTIONAL 'overrides' same-id edge for onboard-external-agent-to-pack was later added (WP07) — sanctioned per DDR-018 addendum A, distinct from the removed accidental self-loop."
+    },
+    {
+      "criterion_id": "FR-007",
+      "description": "MANIFEST currency: every on-disk agent profile / unhashed artefact has a current entry.",
+      "proof_type": "automated_test",
+      "evidence": "pack/META/MANIFEST.yml is gitignored/generated (not a tracked deliverable); pack validate does not require it and passes without it. Treated as validation-only per DDR-018 addendum.",
+      "pass_fail": "pass",
+      "verified_by": "orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": "FR-007 collapses to validation-only: MANIFEST is a build artefact, regenerated on assemble/distribution, never committed."
+    },
+    {
+      "criterion_id": "FR-008",
+      "description": "Wire orphan paradigms backend-for-frontend-bff and capability-language-selection into the DRG (or remove); record the decision.",
+      "proof_type": "automated_test",
+      "evidence": "WP01 approved. Both paradigms wired into the DRG (nodes + consuming edges).",
+      "pass_fail": "pass",
+      "verified_by": "WP01 reviewer + orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": ""
+    },
+    {
+      "criterion_id": "FR-009",
+      "description": "Canonicalize non-breaking artefact schema: uniform paradigm content usage and uniform context-sources shape; enrich scribe-sally context-sources with a toolguides section; document canonical shapes.",
+      "proof_type": "automated_test",
+      "evidence": "WP06 approved (context-sources uniformity, scribe-sally toolguides). SC-008's 'body:' field clause was UNSATISFIABLE against the authoritative Paradigm schema (extra=forbid; permits only schema_version,id,name,summary,directive_refs,references,opposed_by). Resolved by folding body -> summary (WP07); all 7 paradigms now schema-valid (0 schema_invalid).",
+      "pass_fail": "pass",
+      "verified_by": "WP06 reviewer + WP07 reviewer + orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": "DEVIATION (DDR-018 addendum C): SC-008/FR-009 'paradigms must carry a body: field' conflicts with the authoritative schema and thus with SC-005. Validation is authoritative; the body clause is superseded and prose lives in summary. Same governance pattern the user endorsed for DDR-018."
+    },
+    {
+      "criterion_id": "FR-010",
+      "description": "De-duplicate to a single source: Pester pitfalls, SQLX CLI/JVM block, model-tier rule, minutes action-item format, duplicate juno-mcp entries, Scribe Sally neutrality ethos.",
+      "proof_type": "automated_test",
+      "evidence": "WP04 approved. Each de-duplication target reduced to a single authoritative artefact; others reference it (SC-004).",
+      "pass_fail": "pass",
+      "verified_by": "WP04 reviewer + orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": ""
+    },
+    {
+      "criterion_id": "FR-011",
+      "description": "Clarity fixes: dangling personas in cloud-native-design-review.tactic.yaml; create-branded-pdf-document cross-line typo; directive 050 scope/metric; non-canonical confirmation-mode; de-hardcode model names in meeting-minutes-pipeline.",
+      "proof_type": "automated_test",
+      "evidence": "WP05 approved. All SC-007 clarity items resolved (0 dangling personas, typo fixed, scope=agent-behavior, canonical mode token, no hardcoded models).",
+      "pass_fail": "pass",
+      "verified_by": "WP05 reviewer + orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": ""
+    },
+    {
+      "criterion_id": "FR-012",
+      "description": "Validation-only: confirm the gemini-agents/ surface recognition applied this session in docs/SURFACES.md and .kittify/charter/charter.md.",
+      "proof_type": "automated_test",
+      "evidence": "Confirmed present: surface table, decision rule, and dedicated section in docs/SURFACES.md and charter. No execution task required.",
+      "pass_fail": "pass",
+      "verified_by": "orchestrator",
+      "verified_at": "2026-07-01T08:51:00Z",
+      "notes": "Acceptance check only (already done this session)."
+    }
+  ],
+  "negative_invariants": []
+}

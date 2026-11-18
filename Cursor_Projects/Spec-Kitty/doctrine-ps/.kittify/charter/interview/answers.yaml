@@ -1,0 +1,117 @@
+schema_version: 1.0.0
+mission: software-dev
+profile: comprehensive
+answers:
+  project_intent: >
+    Maintain and distribute the Regnology Professional Services org doctrine pack
+    for the spec-kitty framework. The primary deliverable is pack/ — a set of
+    typed YAML governance artefacts (directives, tactics, agent profiles, toolguides,
+    paradigms, procedures, styleguides, mission step contracts, templates) distributed
+    to engagement repos via spec-kitty doctrine fetch.
+    A secondary deliverable is the Doctrine Organisational Management Dashboard —
+    a local Angular + Express webapp for inspecting, reviewing, validating, and
+    enriching doctrine artefacts, including RACI-based organisational bindings.
+
+  languages_frameworks: >
+    Primary artefact format: YAML (spec-kitty schema).
+    Dashboard backend: TypeScript + Express (Node.js).
+    Dashboard frontend: Angular 18+ (standalone components, TypeScript).
+    Dashboard tests: Vitest (server unit tests).
+    Python: spec-kitty CLI integration (validation scripts).
+    Styling: SCSS with Regnology brand token system (--rn-* CSS custom properties).
+
+  repository_structure: >
+    pack/       — shippable doctrine artefacts (distributed via spec-kitty doctrine fetch).
+    config/     — engagement-local dashboard configuration: domain-config.yaml,
+                  artifact-tags.yaml, org-bindings.yaml. Not distributed. Committed.
+    docs/       — documentation ONLY (OVERVIEW.md, SURFACES.md, HOW_TO_USE.md,
+                  engineering notes, DDRs). No YAML configuration files.
+    tools/      — Doctrine Organisational Management Dashboard (Angular + Express).
+    kitty-specs/ — spec-kitty mission artefacts (specs, plans, work packages).
+    work/       — gitignored agent workspace (learnings, HiC queue, session logs).
+    .kittify/   — spec-kitty project runtime (charter committed; workspaces transient).
+
+  testing_requirements: >
+    Server-side: Vitest unit tests for CRUD services, route handlers, and validators.
+    Frontend: Angular component testing for UI-critical paths.
+    YAML artefacts: validated via spec-kitty doctrine pack validate before release.
+    Acceptance: spec-kitty acceptance criteria in kitty-specs/<mission>/spec.md.
+    No external service calls in unit tests (file I/O must be mockable).
+
+  quality_gates: >
+    TypeScript must compile without errors (tsc --noEmit).
+    Angular production build must succeed (ng build --configuration=production).
+    All YAML artefacts pass spec-kitty schema validation before commit.
+    No hard-coded hex values in CSS — always reference --rn-* brand tokens.
+    No font-weight: bold (Regnology brand: 400/500 only).
+    Atomic file writes (write to .tmp then rename) for all YAML persistence.
+
+  review_policy: >
+    All work packages reviewed via spec-kitty review workflow before merging.
+    Doctrine artefact changes require curator review for schema and DRG consistency.
+    Dashboard changes require visual review against Regnology brand guide
+    (docs/OVERVIEW.md §branding, regnology-docgen design-system/BRAND_OVERVIEW.md).
+    Breaking changes to pack/ artefact schema require a DDR in docs/decisions/.
+
+  performance_targets: >
+    Dashboard server startup under 3 seconds on developer machine.
+    Artifact list page renders within 1 second for packs up to 200 artefacts.
+    No blocking synchronous file reads during request handling (use cached scans).
+
+  deployment_constraints: >
+    Dashboard runs locally only — no cloud deployment, no authentication layer.
+    Pack is distributed via git (spec-kitty doctrine fetch pulls from Bitbucket).
+    No new npm or pip dependencies without explicit justification in a DDR or mission spec.
+    CONFIG_ROOT env var controls the config/ path; DOCS_ROOT controls docs/ path.
+
+  documentation_policy: >
+    docs/ contains documentation only — no YAML configuration.
+    Repository structure is documented in docs/SURFACES.md (authoritative).
+    Architecture decisions are captured as DDRs in docs/decisions/.
+    Engineering session notes go in docs/engineering_notes/.
+    Pack artefacts carry inline documentation in their YAML summary fields.
+
+  risk_boundaries: >
+    pack/ must never contain engagement-specific or organisational data.
+    config/ must never be placed inside pack/ or distributed with the doctrine pack.
+    No secrets, credentials, or PII committed to the repository.
+    SPOC email addresses in org-bindings.yaml must match @regnology.net domain.
+    Spec-kitty version upgrades require spec-kitty upgrade and charter resync.
+
+  amendment_process: >
+    Doctrine artefact additions/changes: raise as a mission in kitty-specs/ with a spec,
+    then plan and implement via work packages.
+    Directory convention changes: update docs/SURFACES.md and charter simultaneously.
+    Breaking schema changes: require DDR before implementation.
+
+  exception_policy: >
+    Exceptions to quality gates must be documented as a comment in the relevant file
+    and tracked in docs/engineering_notes/.
+    Temporary deviations from the brand guide must be flagged with a TODO and an issue.
+
+selected_paradigms:
+  - decision-first-development
+  - language-first-architecture
+  - domain-driven-design
+  - ports-and-adapters
+
+selected_directives:
+  - TRACEABLE_DECISIONS
+  - LOCALITY_OF_CHANGE
+  - BOY_SCOUT_RULE
+  - ENSURE_CONCEPTUAL_ALIGNMENT
+  - USE_REGNOLOGY_BRANDING
+  - MODEL_DISCIPLINE
+  - APPSEC_COMPLIANCE
+
+available_tools:
+  - git
+  - spec-kitty
+  - node
+  - npm
+  - angular-cli
+  - vitest
+  - ripgrep
+  - python3
+  - yq
+  - jq

@@ -1,0 +1,48 @@
+schema_version: "1.0"
+id: capability-language-selection
+name: Capability Language Selection
+summary: >
+  Choose programming languages and runtimes by fit — performance, ecosystem, team skill, and
+  operational profile — aligned to capability boundaries. One primary language per deployable;
+  polyglot is allowed across a capability when each deployable has a clear language fit.
+
+  Applies to new development (new capabilities, deployables, BFFs, workers, greenfield
+  modules). Does not override language choice for bug fixes, hotfixes, or small patches in
+  existing code.
+
+  Naming note: language-first-architecture covers ubiquitous language and domain terminology,
+  not programming language choice. Use this paradigm for Java, Python, TypeScript, and Node
+  decisions.
+
+  Core rule — one primary language per deployable; polyglot allowed across a capability:
+  a deployable (microservice, job image, BFF, worker) uses a single primary language and
+  runtime; a capability (business outcome + write ownership) may use multiple deployables
+  in different languages when each has a clear fit; shared libraries match the consumer's
+  language (not a polyglot HTTP shim); bug fixes stay in the existing module language.
+
+  Language fit guide: Java for high-throughput long-lived capability services with strong
+  transactional semantics, JVM-native integrations, and regulatory/audit contexts needing
+  static typing and conservative upgrade paths. Python for data manipulation, ETL, pipelines,
+  orchestration glue, agents, scripting, K8s jobs, and numeric/ML-adjacent workflows.
+  TypeScript for BFF or thin edge APIs aggregating for web/mobile with shared types to the
+  UI; simple UIs where one typed stack reduces contract drift. Node.js for lightweight BFF
+  or proxy with minimal domain logic, real-time (WebSocket, SSE), or tooling/CLIs.
+  React for component-rich SPAs and design systems with heavy client-side interaction.
+  Angular for enterprise SPAs with enforced structure across large front-end teams.
+
+  Decision criteria (fit before inertia): workload fit (CPU vs I/O bound, batch vs
+  request/response, cold start); ecosystem fit (pandas, Spring Kafka, regulatory SDKs);
+  operational fit (existing CI, base images, security scanning, support contracts); team
+  ownership (who runs the deployable end-to-end); integration fit (latency to data stores,
+  message buses, GCS, K8s job APIs); longevity (expected lifetime and change rate). Legacy
+  stack is context, not a veto. Document deviations from the dominant repo language in an ADR.
+
+  Anti-patterns: polyglot microservice (two languages in one deployable/image); inertia-
+  driven choice ("we use Java everywhere" for a new data pipeline); preference-driven choice
+  (team favourite inside an existing service); utils-as-HTTP-service (shared language bridge
+  microservice); domain logic in BFF (TS/Node BFF owns writes and invariants); big-bang
+  rewrite (new language to fix a bug).
+
+directive_refs:
+  - TRACEABLE_DECISIONS
+  - CONTEXT_AWARE_DESIGN

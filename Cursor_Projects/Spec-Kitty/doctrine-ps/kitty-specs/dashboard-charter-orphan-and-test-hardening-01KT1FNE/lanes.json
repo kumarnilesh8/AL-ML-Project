@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "mission_slug": "dashboard-charter-orphan-and-test-hardening-01KT1FNE",
+  "mission_id": "01KT1FNEDDCWCRXPQ1TA0WQBHZ",
+  "mission_branch": "kitty/mission-dashboard-charter-orphan-and-test-hardening-01KT1FNE",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "lanes": [
+    {
+      "lane_id": "lane-a",
+      "wp_ids": [
+        "WP01"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/server/src/routes/charter.routes.ts",
+        "tools/pack-dashboard/server/src/routes/reviews.routes.test.ts",
+        "tools/pack-dashboard/server/src/routes/reviews.routes.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "tests",
+        "tracker-integration",
+        "workspace"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    },
+    {
+      "lane_id": "lane-b",
+      "wp_ids": [
+        "WP02"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/src/app/models/charter.model.ts",
+        "tools/pack-dashboard/src/app/pages/charter/charter.component.ts"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "artifact-rendering",
+        "dashboard",
+        "legacy-cleanup",
+        "tracker-integration",
+        "workspace"
+      ],
+      "depends_on_lanes": [
+        "lane-a"
+      ],
+      "parallel_group": 1
+    }
+  ],
+  "computed_at": "2026-06-01T11:50:38.687064+00:00",
+  "computed_from": "dependency_graph+ownership",
+  "planning_artifact_wps": []
+}

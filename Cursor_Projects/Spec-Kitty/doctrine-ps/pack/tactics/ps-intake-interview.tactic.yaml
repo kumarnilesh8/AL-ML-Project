@@ -1,0 +1,66 @@
+schema_version: "1.0"
+id: ps-intake-interview
+name: PS Intake Interview
+purpose: >
+  Elicit the minimum durable understanding of a new PS tooling project so an
+  overview Epic and a thin first-story set can be created without the original
+  requester present. A small, composable interview tactic orchestrated by the
+  ps-project-intake procedure; usable on its own whenever a colleague needs to
+  capture "what is this project and what is the first slice of work".
+steps:
+  - title: Load the fitting specialist profile and open the trace
+    description: >
+      Choose a specialist profile by fit (requirements-led intake → Analyst Annie;
+      doctrine work → Doctrine Daphne), not by habit. Open a fresh intake trace
+      from the ps-intake-trace template BEFORE asking anything, so answers are
+      recorded as they arrive rather than reconstructed afterwards.
+    references:
+      - name: PS intake trace template
+        type: template
+        id: ps-intake-trace
+        when: At the start of every interview, before the first question.
+  - title: Ask the nine intake dimensions
+    description: >
+      Cover all nine dimensions; do not stop early. For each, "unknown" is a
+      valid answer that must be recorded (and flagged as blocking if it prevents
+      Epic creation): (1) identity & why — what problem, for whom; (2) maturity —
+      idea / POC / partial repo / existing system; (3) in scope; (4) out of scope;
+      (5) definition of done, stated in binary terms; (6) work item type;
+      (7) handoff & stakeholders; (8) repository status — exists (where?) or to be
+      created; (9) tech stack.
+    examples:
+      - >
+        "Is there any code today?" → "A throwaway POC in a personal repo." Record
+        maturity=POC and carry the repo location into reality reconciliation.
+      - >
+        "How will we know the first slice is done?" → vague answer → push for a
+        binary Given/When/Then before accepting it.
+  - title: Apply the binary completion check
+    description: >
+      The interview is complete only when all nine dimensions have a recorded
+      answer AND every answer that blocks Epic creation is either resolved or
+      explicitly listed in the trace's blocked_if_unresolved field. If a blocking
+      item is unresolved, stop and escalate to a human rather than inventing an
+      answer.
+failure_modes:
+  - >
+    Stopping after the "interesting" dimensions (why + scope) and skipping
+    maturity, repository, or handoff — the gaps surface later as rework.
+  - >
+    Accepting a non-binary definition of done ("works well") — it cannot become a
+    testable acceptance criterion.
+  - >
+    Filling the trace from memory after the conversation instead of live —
+    details are lost or distorted.
+  - >
+    Treating "unknown" as "not applicable" and dropping it, rather than recording
+    it as a potential blocker.
+references:
+  - name: PS intake trace template
+    type: template
+    id: ps-intake-trace
+    when: Throughout the interview to structure and store answers.
+  - name: Regnology Jira workflow
+    type: procedure
+    id: regnology-jira-workflow
+    when: When turning definition-of-done answers into binary acceptance criteria.

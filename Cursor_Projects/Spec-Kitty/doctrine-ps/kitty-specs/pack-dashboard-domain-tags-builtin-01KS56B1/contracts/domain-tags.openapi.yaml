@@ -1,0 +1,132 @@
+openapi: "3.0.3"
+info:
+  title: Pack Dashboard — Domain Tags API
+  version: "1.0.0"
+  description: Endpoints for reading the domain vocabulary and reading/updating artifact domain tag assignments.
+
+paths:
+  /api/domain-config:
+    get:
+      summary: Get domain vocabulary
+      description: Returns the full list of allowed domain tags from docs/domain-config.yaml.
+      responses:
+        "200":
+          description: Domain configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [domains]
+                properties:
+                  domains:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DomainConfig"
+        "500":
+          description: Could not read domain-config.yaml
+
+  /api/artifact-tags:
+    get:
+      summary: Get artifact domain tag map
+      description: Returns all artifact-to-domain assignments from docs/artifact-tags.yaml.
+      responses:
+        "200":
+          description: Tag map (missing artifact IDs are untagged)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [tags]
+                properties:
+                  tags:
+                    type: object
+                    additionalProperties:
+                      $ref: "#/components/schemas/ArtifactTagsEntry"
+
+  /api/artifact-tags/{id}:
+    put:
+      summary: Set domain tags for an artifact
+      description: >
+        Overwrites the domain tag list for the given artifact ID.
+        Validates all domain IDs against the domain vocabulary.
+        If the artifact has no prior entry, one is created.
+        If the domains array is empty, the artifact remains in the file with an empty list.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The artifact id value (not title or file path)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [domains]
+              properties:
+                domains:
+                  type: array
+                  items:
+                    type: string
+                  description: List of domain IDs; must all exist in domain-config.yaml
+      responses:
+        "204":
+          description: Tags updated successfully
+        "400":
+          description: Request body missing required `domains` array or `domains` is not an array
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "422":
+          description: One or more domain IDs not found in domain-config.yaml
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  unknown_domains:
+                    type: array
+                    items:
+                      type: string
+        "500":
+          description: File write failure
+
+components:
+  schemas:
+    DomainConfig:
+      type: object
+      required: [id, label, description]
+      properties:
+        id:
+          type: string
+          description: Kebab-case identifier (e.g., "engineering")
+        label:
+          type: string
+          description: Human-readable name (e.g., "Engineering")
+        description:
+          type: string
+          description: One-sentence description
+        color:
+          type: string
+          description: >
+            Optional colour hint for the dashboard chip. One of:
+            blue, green, red, petrol, amber, purple.
+            Unknown values render as default chip style.
+
+    ArtifactTagsEntry:
+      type: object
+      required: [domains]
+      properties:
+        domains:
+          type: array
+          items:
+            type: string
+          description: List of domain IDs assigned to this artifact

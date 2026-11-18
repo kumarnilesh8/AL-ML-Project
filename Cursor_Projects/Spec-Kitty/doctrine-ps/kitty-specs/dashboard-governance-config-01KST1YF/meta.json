@@ -1,0 +1,15 @@
+{
+  "baseline_merge_commit": "d736fff0eff2fc2d2aa322b2db460b8bad082a91",
+  "created_at": "2026-05-29T14:24:24.793700+00:00",
+  "friendly_name": "Dashboard Domain & Charter Governance",
+  "mission_id": "01KST1YF6S3MCBTWVDWV8K7XC6",
+  "mission_number": 5,
+  "mission_slug": "dashboard-governance-config-01KST1YF",
+  "mission_type": "software-dev",
+  "purpose_context": "This mission advances Dashboard Domain & Charter Governance on overhaul/migrate_to_kitty so stakeholders can track the work from mission creation onward.",
+  "purpose_tldr": "Dashboard Domain & Charter Governance",
+  "slug": "dashboard-governance-config-01KST1YF",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "vcs": "git",
+  "vcs_locked_at": "2026-06-01T10:24:40.749760+00:00"
+}

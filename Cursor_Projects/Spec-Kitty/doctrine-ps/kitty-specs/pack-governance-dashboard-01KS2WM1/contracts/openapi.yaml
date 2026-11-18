@@ -1,0 +1,440 @@
+openapi: "3.1.0"
+info:
+  title: Pack Governance Dashboard API
+  version: "1.0.0"
+  description: Local REST API for inspecting, editing, validating, and reviewing spec-kitty pack artifacts.
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+paths:
+  /api/artifacts:
+    get:
+      summary: List all artifacts grouped by kind
+      operationId: listArtifacts
+      responses:
+        "200":
+          description: Artifacts grouped by kind with review status
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/ArtifactSummary"
+
+  /api/artifacts/{kind}:
+    get:
+      summary: List artifacts of a specific kind
+      operationId: listArtifactsByKind
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ArtifactKind"
+      responses:
+        "200":
+          description: List of artifacts for the given kind
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ArtifactSummary"
+
+  /api/artifacts/{kind}/{id}:
+    get:
+      summary: Get single artifact with full content
+      operationId: getArtifact
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ArtifactKind"
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Full artifact with parsed YAML and metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArtifactDetail"
+        "404":
+          description: Artifact not found
+
+    put:
+      summary: Save edited YAML content to disk
+      operationId: updateArtifact
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ArtifactKind"
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  description: Raw YAML content to write
+              required: [content]
+      responses:
+        "200":
+          description: File saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  saved: { type: boolean }
+                  path: { type: string }
+
+  /api/validate/{kind}/{id}:
+    post:
+      summary: Validate a single artifact against its schema
+      operationId: validateArtifact
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ArtifactKind"
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationResult"
+
+  /api/validate-all:
+    post:
+      summary: Validate all artifacts in the pack
+      operationId: validateAll
+      responses:
+        "200":
+          description: Validation results for all artifacts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total: { type: integer }
+                  passed: { type: integer }
+                  failed: { type: integer }
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ValidationResult"
+
+  /api/reviews/{kind}/{id}:
+    get:
+      summary: Get review state for an artifact
+      operationId: getReview
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ArtifactKind"
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Review state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+        "404":
+          description: No review exists for this artifact
+
+    post:
+      summary: Submit a review decision
+      operationId: submitReview
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ArtifactKind"
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewSubmission"
+      responses:
+        "201":
+          description: Review submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+
+  /api/reviews-summary:
+    get:
+      summary: Aggregate review progress
+      operationId: getReviewSummary
+      description: >
+        Literal path (not parameterised) to avoid Express routing collision with
+        /api/reviews/:kind. Must be registered before parameterised review routes.
+      responses:
+        "200":
+          description: Review counts by status and kind
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewSummary"
+
+  /api/drg:
+    get:
+      summary: Get DRG fragment as JSON
+      operationId: getDRG
+      responses:
+        "200":
+          description: DRG nodes and edges
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nodes:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DRGNode"
+                  edges:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DRGEdge"
+
+  /api/drg/coverage:
+    get:
+      summary: DRG coverage query — nodes with no inbound edges of a given relation
+      operationId: getDRGCoverage
+      description: >
+        Returns artifact nodes that have no inbound edges of the specified relation type.
+        Primary use case: identify tactics, styleguides, or procedures that no agent
+        references via a `suggests` or `applies` edge — orphan detection during migration.
+      parameters:
+        - name: relation
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [requires, suggests, applies, delegates_to]
+          description: Filter by inbound relation type. Omit to return all unlinked nodes.
+        - name: kind
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/ArtifactKind"
+          description: Filter by artifact kind.
+      responses:
+        "200":
+          description: Nodes with no inbound edges of the specified relation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CoverageResult"
+
+components:
+  schemas:
+    ArtifactKind:
+      type: string
+      enum:
+        - directives
+        - tactics
+        - styleguides
+        - toolguides
+        - paradigms
+        - procedures
+        - agent_profiles
+        - mission_step_contracts
+
+    ArtifactSummary:
+      type: object
+      properties:
+        id: { type: string }
+        kind: { $ref: "#/components/schemas/ArtifactKind" }
+        title: { type: string }
+        filePath: { type: string }
+        validationStatus: { $ref: "#/components/schemas/ValidationStatus" }
+        reviewStatus: { $ref: "#/components/schemas/ReviewStatus" }
+      required: [id, kind, title, filePath]
+
+    ValidationStatus:
+      type: string
+      enum: [unknown, valid, invalid]
+      description: >
+        unknown = not yet validated in this session;
+        valid = last validation passed;
+        invalid = last validation failed.
+
+    ArtifactDetail:
+      type: object
+      properties:
+        id: { type: string }
+        kind: { $ref: "#/components/schemas/ArtifactKind" }
+        title: { type: string }
+        filePath: { type: string }
+        content: { type: string, description: "Raw YAML content" }
+        parsedData: { type: object }
+        reviewStatus: { $ref: "#/components/schemas/ReviewStatus" }
+      required: [id, kind, title, filePath, content, parsedData]
+
+    ReviewStatus:
+      type: string
+      enum: [pending, in_review, approved, rejected, changes_requested]
+      description: Full read model. pending and in_review are internal states only.
+
+    SubmittableReviewStatus:
+      type: string
+      enum: [approved, rejected, changes_requested]
+      description: >
+        The subset of ReviewStatus values a human reviewer may submit.
+        pending and in_review are managed internally and must not appear
+        in a ReviewSubmission payload.
+
+    CommentSeverity:
+      type: string
+      enum: [must-fix, should-fix, nit]
+
+    Comment:
+      type: object
+      properties:
+        line: { type: integer, nullable: true }
+        text: { type: string }
+        severity: { $ref: "#/components/schemas/CommentSeverity" }
+      required: [text, severity]
+
+    Review:
+      type: object
+      description: >
+        Persisted review document. artifact_path is intentionally absent:
+        consumers resolve the file path from (artifact_kind, artifact_id) at
+        runtime to avoid stale paths after file renames.
+      properties:
+        artifact_id: { type: string }
+        artifact_kind: { $ref: "#/components/schemas/ArtifactKind" }
+        status: { $ref: "#/components/schemas/ReviewStatus" }
+        reviewed_at: { type: string, format: date-time }
+        reviewer: { type: string }
+        comments: { type: array, items: { $ref: "#/components/schemas/Comment" } }
+        summary: { type: string }
+      required: [artifact_id, artifact_kind, status, reviewed_at, reviewer, comments, summary]
+
+    ReviewSubmission:
+      type: object
+      description: >
+        Payload for POST /api/reviews/:kind/:id. Uses SubmittableReviewStatus
+        (not ReviewStatus) to enforce that pending and in_review cannot be
+        submitted by a reviewer.
+      properties:
+        status: { $ref: "#/components/schemas/SubmittableReviewStatus" }
+        reviewer: { type: string }
+        comments: { type: array, items: { $ref: "#/components/schemas/Comment" } }
+        summary: { type: string }
+      required: [status, reviewer, summary]
+
+    ReviewSummary:
+      type: object
+      properties:
+        total_artifacts: { type: integer }
+        by_status:
+          type: object
+          additionalProperties: { type: integer }
+        by_kind:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: { type: integer }
+
+    ValidationResult:
+      type: object
+      properties:
+        valid: { type: boolean }
+        artifact_id: { type: string }
+        artifact_kind: { $ref: "#/components/schemas/ArtifactKind" }
+        artifact_path: { type: string }
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationError"
+        validated_at: { type: string, format: date-time }
+      required: [valid, artifact_id, artifact_kind, artifact_path, errors, validated_at]
+
+    ValidationError:
+      type: object
+      properties:
+        field: { type: string }
+        message: { type: string }
+        type: { type: string }
+      required: [field, message, type]
+
+    DRGNode:
+      type: object
+      properties:
+        id: { type: string }
+        kind: { $ref: "#/components/schemas/ArtifactKind" }
+        title: { type: string }
+        body_path: { type: string }
+
+    DRGEdge:
+      type: object
+      properties:
+        source: { type: string }
+        target: { type: string }
+        relation: { type: string }
+
+    CoverageResult:
+      type: object
+      description: >
+        Output of the DRG coverage query. Groups unlinked nodes by kind.
+        A node is considered unlinked if it has zero inbound edges matching
+        the queried relation type (or zero inbound edges of any type if no
+        relation filter is applied).
+      properties:
+        relation_filter:
+          type: string
+          nullable: true
+          description: The relation type queried, or null if no filter applied.
+        kind_filter:
+          type: string
+          nullable: true
+        total_unlinked: { type: integer }
+        unlinked_nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/DRGNode"
+      required: [total_unlinked, unlinked_nodes]

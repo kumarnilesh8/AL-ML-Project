@@ -1,0 +1,253 @@
+Document: WO/National Bank of Egypt (S.A.E)-WO 00204743-2021-10-4_Redlines_v1_NK_AK_2.docx
+================================================================================
+
+DOCUMENT STRUCTURE:
+--------------------------------------------------
+PARAGRAPH: WORK ORDER
+PARAGRAPH: Scope and Objectives
+PARAGRAPH: Client has previously entered into an Order Form dated (Moody’s Agreement No. ) to license .
+PARAGRAPH: Client is now requesting assistance from Moody’s (the “Project”).  Moody’s shall provide services as...
+PARAGRAPH: Overview of Services to be Performed by Moody’s
+PARAGRAPH: Deliverables
+PARAGRAPH: Out of Scope
+PARAGRAPH: The Services covered by this Work Order shall expressly exclude the following:
+PARAGRAPH: Creation of technical environments and the preparation, installation, maintenance and administration...
+PARAGRAPH: Development and testing of interfaces to extract, transform and load required data from source syste...
+PARAGRAPH: Any data cleansing work in relation to Moody’s Software input data requirements and/or generated out...
+PARAGRAPH: Creation or alteration of any generic Moody’s documentation or “Help” files.
+PARAGRAPH: Creation of any custom, Client-specific Project documentation.
+PARAGRAPH: Overall Project management, which shall be the responsibility of Client’s Project team.
+PARAGRAPH: Any ongoing support services beyond those stated in Section 2 above.
+PARAGRAPH: This Work Order does not allow for any implied requirements.  Any item not specifically set out in S...
+PARAGRAPH: If any out-of-scope items are requested by the Client, Moody's and Client will mutually determine an...
+PARAGRAPH: Client Obligations
+PARAGRAPH: Client’s obligations as a party to the Services are set forth in the Master Agreement. Without limit...
+PARAGRAPH: Designate a Project Manager and appropriate decision makers
+PARAGRAPH: Provide requested data in a timely fashion
+PARAGRAPH: Respond in a timely manner to questions and requests submitted by Moody’s
+PARAGRAPH: Attend and participate in all meetings, and provide appropriate meeting or working space, equipped w...
+PARAGRAPH: Ensure adequate hardware is in place to meet system requirements for Moody’s Software Programs
+PARAGRAPH: Work with Moody’s to agree and finalise the timetable for Services provided under this Work Order
+PARAGRAPH: Ensure all documentation provided by the Client in relation to the Project is written in the English...
+PARAGRAPH: Location of Performance of Services
+PARAGRAPH: The Services will be carried out at Moody’s, Moody’s Group Company’s and/or Subcontractor’s premises...
+PARAGRAPH: Subcontractors
+PARAGRAPH: Client acknowledges that Moody’s may engage subcontractors (“Subcontractor”) to perform any portion ...
+PARAGRAPH: Compensation
+PARAGRAPH: Additional Services
+PARAGRAPH: Any additional services not covered by this Work Order and specifically requested by Client will be ...
+PARAGRAPH: Each Change Order shall describe the additional Services to be performed as well as the impact on co...
+PARAGRAPH: Project Managers
+PARAGRAPH: From Moody’s: 	[MOODY’S PROJECT MANAGER]
+Moody's Analytics UK Limited
+PARAGRAPH: From Client:  	[CLIENT PROJECT MANAGER]
+PARAGRAPH: *	*	*
+PARAGRAPH: IN WITNESS WHEREOF, the parties hereto have caused this Work Order to be executed by their duly auth...
+
+
+FULL CONTENT:
+--------------------------------------------------
+WORK ORDER
+
+Scope and Objectives
+
+Client has previously entered into an Order Form dated (Moody’s Agreement No. ) to license .
+
+Client is now requesting assistance from Moody’s (the “Project”).  Moody’s shall provide services as detailed in Section 2 below to the Client on a basis.
+
+Overview of Services to be Performed by Moody’s
+
+Deliverables
+
+Out of Scope
+
+The Services covered by this Work Order shall expressly exclude the following:
+
+Creation of technical environments and the preparation, installation, maintenance and administration of the required hardware and software for those environments.
+
+Development and testing of interfaces to extract, transform and load required data from source systems.
+
+Any data cleansing work in relation to Moody’s Software input data requirements and/or generated output data.
+
+Creation or alteration of any generic Moody’s documentation or “Help” files.
+
+Creation of any custom, Client-specific Project documentation.
+
+Overall Project management, which shall be the responsibility of Client’s Project team.
+
+Any ongoing support services beyond those stated in Section 2 above.
+
+This Work Order does not allow for any implied requirements.  Any item not specifically set out in Section 2 above is out of scope for the purposes of this Work Order.
+
+If any out-of-scope items are requested by the Client, Moody's and Client will mutually determine and agree on the feasibility and applicable pricing, and any such Services may be provided only under a separate Work Order or Change Order.
+
+Client Obligations
+
+Client’s obligations as a party to the Services are set forth in the Master Agreement. Without limiting the generality of the foregoing, the following Client obligations shall apply.
+
+Designate a Project Manager and appropriate decision makers
+
+Provide requested data in a timely fashion
+
+Respond in a timely manner to questions and requests submitted by Moody’s
+
+Attend and participate in all meetings, and provide appropriate meeting or working space, equipped with internet access
+
+Ensure adequate hardware is in place to meet system requirements for Moody’s Software Programs
+
+Work with Moody’s to agree and finalise the timetable for Services provided under this Work Order
+
+Ensure all documentation provided by the Client in relation to the Project is written in the English language
+
+Location of Performance of Services
+
+The Services will be carried out at Moody’s, Moody’s Group Company’s and/or Subcontractor’s premises where appropriate
+
+Subcontractors
+
+Client acknowledges that Moody’s may engage subcontractors (“Subcontractor”) to perform any portion of the Services covered by this Work Order, provided that Moody’s remains responsible and liable for the performance of each subcontractor in accordance with the terms of the Master Agreement.
+
+Compensation
+
+Additional Services
+
+Any additional services not covered by this Work Order and specifically requested by Client will be charged by Moody’s to  
+ Client on a time and material basis at Moody’s standard rates, and may be subject to the parties executing a Change Order 
+ or a new work order.
+
+Each Change Order shall describe the additional Services to be performed as well as the impact on cost and scheduleassociated with the change in scope.
+
+Project Managers
+
+From Moody’s: 	[MOODY’S PROJECT MANAGER]
+Moody's Analytics UK Limited
+
+From Client:  	[CLIENT PROJECT MANAGER]
+
+*	*	*
+
+IN WITNESS WHEREOF, the parties hereto have caused this Work Order to be executed by their duly authorized representatives.
+
+
+TABLES:
+--------------------------------------------------
+
+Table 0 (5x2):
+Client Name | National Bank of Egypt (S.A.E)
+Master Agreement | Master License and Services Agreement dated December 19, 2017 Moody’s Agreement No. 00075364.0
+Work Order Effective Date | , 2021
+ | 
+This WORK ORDER (“Work Order”) is entered into between the undersigned parties pursuant to the provisions of the master agreement identified above (“Master Agreement”). All capitalized terms not otherwise defined in this Work Order shall have the meanings set forth in the Master Agreement. This Work Order is dated and made effective as of the Work Order Effective Date above. By signing this Work Order, the parties below agree to incorporate by reference the terms of the Master Agreement herein and to be fully bound thereby. For purposes of this Work Order and the terms of the Master Agreement incorporated by reference herein, “Moody’s” shall refer to the undersigned Moody’s entity. | This WORK ORDER (“Work Order”) is entered into between the undersigned parties pursuant to the provisions of the master agreement identified above (“Master Agreement”). All capitalized terms not otherwise defined in this Work Order shall have the meanings set forth in the Master Agreement. This Work Order is dated and made effective as of the Work Order Effective Date above. By signing this Work Order, the parties below agree to incorporate by reference the terms of the Master Agreement herein and to be fully bound thereby. For purposes of this Work Order and the terms of the Master Agreement incorporated by reference herein, “Moody’s” shall refer to the undersigned Moody’s entity.
+
+
+Table 1 (8x4):
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+
+
+Table 2 (12x4):
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+
+
+Table 3 (15x4):
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+
+
+Table 4 (6x4):
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+
+
+Table 5 (14x4):
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+
+
+Table 6 (5x4):
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+ |  |  | 
+
+
+Table 7 (5x2):
+ | 
+ | 
+ | 
+ | 
+ | 
+
+
+Table 8 (6x2):
+ | 
+ | 
+ | 
+ | 
+ | 
+ | 
+
+
+Table 9 (5x2):
+ | 
+ | 
+ | 
+ | 
+ | 
+
+
+Table 10 (6x5):
+SIGNED BY: | SIGNED BY: |  | ACCEPTED BY: | ACCEPTED BY:
+National Bank of Egypt (S.A.E) | National Bank of Egypt (S.A.E) |  | Moody's Analytics UK Limited | Moody's Analytics UK Limited
+Signature: | {{_es_:Signer1:signature     }} |  | Signature: | {{_es_:Signer2:signature     }}
+Print Name: | {{*name_es_:signer1                       }} |  | Print Name: | {{*name_es_:signer2                       }}
+Title: | {{*title_es_:signer1                          }} |  | Title: | {{*title_es_:signer2                          }}
+Date: | {{_es_:signer1:date                         }} |  | Date: | {{_es_:signer2:date                         }}
+

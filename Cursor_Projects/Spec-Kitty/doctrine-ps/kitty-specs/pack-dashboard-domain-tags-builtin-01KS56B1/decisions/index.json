@@ -1,0 +1,52 @@
+{
+  "entries": [
+    {
+      "created_at": "2026-05-21T11:57:17.013248Z",
+      "decision_id": "01KS56BAANKS5G19AM79ECKH8C",
+      "final_answer": null,
+      "input_key": "untagged_warning_behavior",
+      "mission_id": "01KS56B1RXDA4JCMAZ6T4NHJ20",
+      "mission_slug": "pack-dashboard-domain-tags-builtin-01KS56B1",
+      "options": [
+        "yes-always",
+        "optional-feature-flagged",
+        "no-never"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "Should untagged artifacts surface a dashboard warning ('X artifacts have no domain tag')?",
+      "rationale": "Engineering note recommends this be optional/feature-flagged. Decision deferred to implementation phase to avoid premature adoption pressure during early roll-out.",
+      "resolved_at": "2026-05-21T11:57:22.141714Z",
+      "resolved_by": null,
+      "slot_key": "specify.domain-tags.untagged-warning",
+      "status": "deferred",
+      "step_id": null,
+      "summary_json": null
+    },
+    {
+      "created_at": "2026-05-21T11:59:14.690420Z",
+      "decision_id": "01KS56EX82C5PWC3770N9ED3HK",
+      "final_answer": "no-never",
+      "input_key": "untagged_warning_behavior",
+      "mission_id": "01KS56B1RXDA4JCMAZ6T4NHJ20",
+      "mission_slug": "pack-dashboard-domain-tags-builtin-01KS56B1",
+      "options": [
+        "yes-always",
+        "optional-feature-flagged",
+        "no-never"
+      ],
+      "origin_flow": "specify",
+      "other_answer": false,
+      "question": "Should untagged artifacts surface a dashboard warning?",
+      "rationale": null,
+      "resolved_at": "2026-05-21T11:59:18.483447Z",
+      "resolved_by": null,
+      "slot_key": "specify.domain-tags.untagged-warning-v2",
+      "status": "resolved",
+      "step_id": null,
+      "summary_json": null
+    }
+  ],
+  "mission_id": "01KS56B1RXDA4JCMAZ6T4NHJ20",
+  "version": 1
+}

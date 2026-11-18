@@ -1,0 +1,2470 @@
+WEBVTT
+
+1
+00:05:00.780 --> 00:05:02.390
+Jitendra K: Hi guys, good evening.
+
+2
+00:05:03.100 --> 00:05:05.180
+Jitendra K: And warm welcome to another module.
+
+3
+00:05:05.490 --> 00:05:13.109
+Jitendra K: So before we start for today's tutorial, I just want to understand, how was your weekend, and everything is going well.
+
+4
+00:05:13.440 --> 00:05:14.520
+Jitendra K: At your end.
+
+5
+00:05:19.010 --> 00:05:24.159
+Jitendra K: You're studying, you're doing practice with the code material that we have shared.
+
+6
+00:05:45.550 --> 00:05:46.570
+Jitendra K: Okay, great.
+
+7
+00:05:53.520 --> 00:05:54.450
+Jitendra K: Okay.
+
+8
+00:06:14.690 --> 00:06:21.339
+Jitendra K: And how'd the other… Things going? Are you guys… Practicing RAG,
+
+9
+00:06:21.960 --> 00:06:26.840
+Jitendra K: past, Loras, anything on the top of it? Any question that you would like to ask?
+
+10
+00:07:42.040 --> 00:07:47.690
+Jitendra K: Okay, so is there any question that you guys have before we start today's tutorial?
+
+11
+00:07:55.300 --> 00:07:58.190
+Jitendra K: Human in the loop of subcrafts.
+
+12
+00:07:59.050 --> 00:08:03.010
+Jitendra K: Yeah, we'll discuss human in the Loop during agentic ops.
+
+13
+00:09:21.230 --> 00:09:23.630
+Jitendra K: Yeah, reinforcement learning, okay.
+
+14
+00:09:24.170 --> 00:09:31.550
+Jitendra K: planning to work on proactivity intake workflow development, and authority like New Relate as your app inside so far, so good. Okay.
+
+15
+00:09:32.270 --> 00:09:36.350
+Jitendra K: Alright, so I think, there's no, issue.
+
+16
+00:09:36.920 --> 00:09:40.890
+Jitendra K: So, what we are going to do today is, we are going to start with,
+
+17
+00:09:41.340 --> 00:09:45.689
+Jitendra K: The new topic, which is deploying and Monitoring Agentic System.
+
+18
+00:09:46.130 --> 00:09:49.750
+Jitendra K: With, the defined governance and,
+
+19
+00:09:50.100 --> 00:09:54.329
+Jitendra K: the parameters. So, we'll start with that topic, and we understand
+
+20
+00:09:54.610 --> 00:10:03.539
+Jitendra K: What are these, agents, how it is going to be productionized, what are the different observability, valuation, and deployment frameworks?
+
+21
+00:10:03.870 --> 00:10:07.020
+Jitendra K: That is required, what are the different agentic stack layer.
+
+22
+00:10:07.450 --> 00:10:12.649
+Jitendra K: We already discussed about, the CN rubrics, using what sort of
+
+23
+00:10:13.270 --> 00:10:18.280
+Jitendra K: Analysis we can conduct on the top of the agentic orchestration.
+
+24
+00:10:18.920 --> 00:10:24.569
+Jitendra K: Then we'll compare the framework survey, or maybe we will also understand
+
+25
+00:10:24.930 --> 00:10:29.250
+Jitendra K: The protocol, which is worth tracking this whole stuff.
+
+26
+00:10:29.610 --> 00:10:34.639
+Jitendra K: Some reference architectures, and, stateless, and, maybe…
+
+27
+00:10:35.170 --> 00:10:38.569
+Jitendra K: The traces and evaluation using different tools.
+
+28
+00:10:39.000 --> 00:10:43.279
+Jitendra K: And then, finally, we will, talk about
+
+29
+00:10:43.970 --> 00:10:51.200
+Jitendra K: LLM as a judge in today's tutorial, because this is something which I would like to talk about, how LLM as a judge can be
+
+30
+00:10:51.340 --> 00:10:57.030
+Jitendra K: use, and what are the different metrics which we can be able to use with the help of LLM as such.
+
+31
+00:10:58.790 --> 00:11:10.929
+Jitendra K: Including the guardrails. So, guardrail, we'll continue into more strategy as well, but we will first start with LLM as a judge concept, and then we move on to the guardrails and stuff like that.
+
+32
+00:11:12.500 --> 00:11:22.970
+Jitendra K: All right, so let me share my screen. So today's tutorial is gonna be, on deployment and monitoring strategies for AI Agent. How can we develop such
+
+33
+00:11:23.690 --> 00:11:30.510
+Jitendra K: Opportunities, and making sure that we can have a proper agent which can do this task for us.
+
+34
+00:11:47.370 --> 00:11:52.220
+Jitendra K: Okay, so… so just to give… what… provide you a glimpse of, this particular content.
+
+35
+00:11:52.480 --> 00:11:54.790
+Jitendra K: So here we are talking about,
+
+36
+00:11:54.930 --> 00:12:02.510
+Jitendra K: agents which are going to be production-grade. That means when we deploy the agent, what are the next steps of AIOps?
+
+37
+00:12:02.960 --> 00:12:09.210
+Jitendra K: Right, so… when you talk about AIOps, it's a pretty vast topic.
+
+38
+00:12:09.360 --> 00:12:17.130
+Jitendra K: Right, so… when you're using deployment and monitoring of your agent system in production, this is…
+
+39
+00:12:17.440 --> 00:12:23.870
+Jitendra K: Basically, depends upon your… Primary factors, like what use case you're trying to solve.
+
+40
+00:12:24.280 --> 00:12:29.909
+Jitendra K: How governed it is in terms of environmental integrations, what kind of topological
+
+41
+00:12:30.420 --> 00:12:35.850
+Jitendra K: Agents you're using, if you're using multi-agent tech workflows, then how can you be able to create
+
+42
+00:12:36.120 --> 00:12:41.670
+Jitendra K: Seamless connection between the agents. What are the different frameworks that you're using for developing these agents?
+
+43
+00:12:42.020 --> 00:12:51.319
+Jitendra K: What will be your reference architectures for agentic services, whether you are going with serverless service, containerized, or stateless, or state memory?
+
+44
+00:12:51.740 --> 00:12:53.870
+Jitendra K: based personas.
+
+45
+00:12:54.510 --> 00:13:03.130
+Jitendra K: What are the different scaling requirements that you might have to deal with, specifically in the lines of concurrencies, queue management, and isolation?
+
+46
+00:13:03.740 --> 00:13:06.689
+Jitendra K: And then, of course, observability will have,
+
+47
+00:13:07.100 --> 00:13:13.120
+Jitendra K: Different characteristics, including what you would like to trace, What is your objective?
+
+48
+00:13:13.330 --> 00:13:17.250
+Jitendra K: What are kind of events you would like to consider as an error?
+
+49
+00:13:17.600 --> 00:13:22.929
+Jitendra K: What sort of metrics that will actually matter for your decision-making processes.
+
+50
+00:13:23.230 --> 00:13:28.290
+Jitendra K: That means evaluations and safety is one of the important considerations.
+
+51
+00:13:28.720 --> 00:13:34.940
+Jitendra K: So LLM is adjusted when to trust it, when not, and the policy enforcement using cardrails.
+
+52
+00:13:35.310 --> 00:13:40.760
+Jitendra K: And of course, the tokenizations and the cost tracking mechanism with the help of different tools.
+
+53
+00:13:41.160 --> 00:13:43.060
+Jitendra K: So that means we are going to start with
+
+54
+00:13:43.210 --> 00:13:50.009
+Jitendra K: officially today with Lang Smith as well, so there are too many things I'm talking about right now.
+
+55
+00:13:50.870 --> 00:13:55.409
+Jitendra K: Langsmith for observability, guardrails for monitoring your prompt.
+
+56
+00:13:55.950 --> 00:13:57.939
+Jitendra K: Input and output.
+
+57
+00:13:58.270 --> 00:14:03.590
+Jitendra K: And then… Also, we are talking about AI ethical consideration.
+
+58
+00:14:04.260 --> 00:14:06.430
+Jitendra K: So, what production means for agent?
+
+59
+00:14:07.060 --> 00:14:15.139
+Jitendra K: So, when I say… Basically, a production means for agent means an environment where the agent will be deployed.
+
+60
+00:14:15.550 --> 00:14:17.959
+Jitendra K: So when you're deploying the agent in production.
+
+61
+00:14:18.950 --> 00:14:23.420
+Jitendra K: That means your agents will have different…
+
+62
+00:14:23.770 --> 00:14:27.520
+Jitendra K: Consideration. The key consideration of your agent should be reliability.
+
+63
+00:14:27.940 --> 00:14:32.730
+Jitendra K: That means you should reproduce the behavior across Thousands of runs.
+
+64
+00:14:33.040 --> 00:14:38.119
+Jitendra K: And, gracefully degrade when the tool fails. That means your agent should be.
+
+65
+00:14:38.270 --> 00:14:43.060
+Jitendra K: Traceable and reliable in terms of operation characteristics.
+
+66
+00:14:43.330 --> 00:14:50.079
+Jitendra K: Observability, every decision the agent is making, you should be able to trace, including the token count, tool calls.
+
+67
+00:14:50.470 --> 00:14:55.170
+Jitendra K: The prompt that you're running, what kind of queryable parameters that you're passing.
+
+68
+00:14:55.340 --> 00:15:02.590
+Jitendra K: Whether you're dealing with any sensitive information or not, that means you need to set up all this using the policy enforcement.
+
+69
+00:15:02.970 --> 00:15:14.600
+Jitendra K: The economics, the cost per token that has been a part of your quota or allocated budget, you should look into those aspects, right? How many users are using… what are the different principles that
+
+70
+00:15:14.740 --> 00:15:17.219
+Jitendra K: Your agent is going to be utilized for.
+
+71
+00:15:17.350 --> 00:15:27.260
+Jitendra K: So an AI-genetic system in production, when it comes… when it serves traffic, You can't reach…
+
+72
+00:15:27.750 --> 00:15:40.590
+Jitendra K: the role… I mean, you have to decide what kind of architectures and governments you will deploy, or will use to deploy these agents in production. And there are various ways you can deploy it. You can have your own environment.
+
+73
+00:15:40.830 --> 00:15:45.499
+Jitendra K: You can create a cloud-based agnostic environment to deploy this agent.
+
+74
+00:15:45.950 --> 00:15:49.950
+Jitendra K: So, generally speaking, organizations are using cloud-based,
+
+75
+00:15:50.830 --> 00:15:57.909
+Jitendra K: Infrastructure to deploy this agent in a fast and robust manner, as well as in ethical consider manner.
+
+76
+00:15:58.020 --> 00:16:03.269
+Jitendra K: So, basically, the agentic stack layer comprises of several sub-components.
+
+77
+00:16:04.390 --> 00:16:10.620
+Jitendra K: So, 7 horizontal layer. Each layer will have their own working principle.
+
+78
+00:16:11.220 --> 00:16:15.380
+Jitendra K: And, this is how it looks like. Start from observability.
+
+79
+00:16:15.620 --> 00:16:20.350
+Jitendra K: Where you're going to include the traces, metrics, logs.
+
+80
+00:16:20.900 --> 00:16:26.540
+Jitendra K: Of the agents, how they are coordinating, how they are communicating, and for that, you need to have
+
+81
+00:16:26.670 --> 00:16:32.470
+Jitendra K: Different tools like Langsmith, Langfuse, Arise, Phonix, Pelicon, Datadog.
+
+82
+00:16:32.740 --> 00:16:38.829
+Jitendra K: OpenTelemetry. So these are the best tools in the market for… which will give you the observability traces of the agent.
+
+83
+00:16:39.210 --> 00:16:42.669
+Jitendra K: Similarly, your agent should have
+
+84
+00:16:43.100 --> 00:16:46.759
+Jitendra K: The scalability part, in terms of platform enrichment.
+
+85
+00:16:46.930 --> 00:16:52.010
+Jitendra K: It should be scalable, you should have a proper crewing management system.
+
+86
+00:16:52.320 --> 00:16:58.720
+Jitendra K: Secret management of your API configuration networking and identity that should be allocated while calling the tools.
+
+87
+00:16:58.900 --> 00:17:01.740
+Jitendra K: And for that, there are different…
+
+88
+00:17:02.250 --> 00:17:09.919
+Jitendra K: Kubernetes servers, ECS instances, you can use Langraph platform for injection, and Temple.io for.
+
+89
+00:17:10.099 --> 00:17:11.809
+Jitendra K: Creating the orchestration.
+
+90
+00:17:13.319 --> 00:17:23.910
+Jitendra K: Memory management is very, very important, for agents, so short-term memory, long-term, episodel memories. So these are very, very important because your agent take…
+
+91
+00:17:24.160 --> 00:17:29.089
+Jitendra K: outcome depends upon these factors, how well you craft it.
+
+92
+00:17:29.330 --> 00:17:35.980
+Jitendra K: the memory management between the agent. So for that, there are different tools like Redis, Postgres, Vector.
+
+93
+00:17:36.190 --> 00:17:43.469
+Jitendra K: Quadrant, VB8, MAM0, Rosap, blank memory. So you can see that when you talk about enterprise-grade vector store.
+
+94
+00:17:43.840 --> 00:17:49.849
+Jitendra K: nobody is talking about FAS and ChromaDB, right? Because memory management is important.
+
+95
+00:17:49.980 --> 00:17:56.039
+Jitendra K: And FAS and ChromaDB does not support that part. So, that means you need to think of enterprise-grade.
+
+96
+00:17:56.530 --> 00:17:59.550
+Jitendra K: Systems and, stuff like that.
+
+97
+00:17:59.930 --> 00:18:04.720
+Jitendra K: Tool capability when you're invoking the tool via API.
+
+98
+00:18:05.000 --> 00:18:11.540
+Jitendra K: you are performing some code execution when you're calling the… your MCP server using RPC protocol.
+
+99
+00:18:11.740 --> 00:18:15.009
+Jitendra K: You need to host your tools in a proper…
+
+100
+00:18:15.500 --> 00:18:22.680
+Jitendra K: Govan Server, which is MCP capabilities. There are different types of other representative tooling.
+
+101
+00:18:22.800 --> 00:18:23.950
+Jitendra K: which is available.
+
+102
+00:18:25.360 --> 00:18:33.700
+Jitendra K: Reasoning, that means your model should have proper reasoning capabilities in terms of Giving the right answer to…
+
+103
+00:18:34.230 --> 00:18:37.610
+Jitendra K: the task… And also.
+
+104
+00:18:38.340 --> 00:18:46.010
+Jitendra K: we would like to utilize the best of the best models for different tasks. And for that, you may require some foundry models and
+
+105
+00:18:46.280 --> 00:18:51.379
+Jitendra K: Some basic routers to propagate and utilize as a part of this implementation.
+
+106
+00:18:51.580 --> 00:18:58.809
+Jitendra K: Orchestration, we have few, we have seen a few examples on Langraph, how to create orchestration between the
+
+107
+00:18:59.230 --> 00:19:05.860
+Jitendra K: states of Langraph, but… What if your agents are too complex to handle?
+
+108
+00:19:06.110 --> 00:19:12.149
+Jitendra K: In those scenarios, you required several open source and closed-source tools, which will help you to debug
+
+109
+00:19:12.580 --> 00:19:24.839
+Jitendra K: And, that's the reason where the power of True AI and AutoGen will come into play, instead of Langraph, because in Langraph, you need to orchestrate everything from the scratch, but this will provide you platforms.
+
+110
+00:19:24.970 --> 00:19:26.030
+Jitendra K: to operate.
+
+111
+00:19:26.230 --> 00:19:32.750
+Jitendra K: Similarly, Temporal.io is a platform that will also provide you some way to orchestrate the agents.
+
+112
+00:19:34.260 --> 00:19:38.180
+Jitendra K: UX design, when you're working on streaming versus…
+
+113
+00:19:38.890 --> 00:19:46.960
+Jitendra K: Non-streaming applications, so these are different types of tools which is available, where you can be able to host your agents and then show the outcome.
+
+114
+00:19:47.090 --> 00:19:54.360
+Jitendra K: using Streamlit, Copilot Kit, or… AI SDK using Versal, and Slack or TeamSpot as well.
+
+115
+00:19:56.380 --> 00:20:09.340
+Jitendra K: Now, the decision rubric is very important when you're creating any, when you're trying to solve any business problem. So, first and foremost thing, you should understand how you're going to solve it, whether you require multi-agent, single agent.
+
+116
+00:20:09.630 --> 00:20:13.969
+Jitendra K: or a series of agents to execute. So, multi-agent.
+
+117
+00:20:15.190 --> 00:20:19.179
+Jitendra K: It's expensive, harder to debug, and it's…
+
+118
+00:20:19.950 --> 00:20:24.250
+Jitendra K: Going to be… rely on multiple factors to evaluate.
+
+119
+00:20:24.830 --> 00:20:29.809
+Jitendra K: So these are the do's and don'ts that you should keep in mind when you're selecting the framework.
+
+120
+00:20:30.270 --> 00:20:36.109
+Jitendra K: So, stay single agent when the task is sequential, and strong tool use loop handles
+
+121
+00:20:37.390 --> 00:20:40.869
+Jitendra K: When you have a latency widget less than 5 seconds end-to-end.
+
+122
+00:20:41.080 --> 00:20:44.039
+Jitendra K: The context window can hold all relevant state.
+
+123
+00:20:44.320 --> 00:20:47.450
+Jitendra K: You don't need any parallel exploration of alternative.
+
+124
+00:20:47.740 --> 00:20:53.159
+Jitendra K: You can do failure isolation via try and accept on the tool calling.
+
+125
+00:20:53.430 --> 00:21:00.560
+Jitendra K: Or when you can't, evaluate a single agent baseline. So, in those scenarios, you can go with single agent.
+
+126
+00:21:01.060 --> 00:21:08.939
+Jitendra K: You can escalate it to multiple agents when the subtasks require parallelization. That means you require downstream, upstream tasks to be…
+
+127
+00:21:09.320 --> 00:21:14.860
+Jitendra K: Do in parallel, and when you need to create a disjoint tool data sets.
+
+128
+00:21:15.290 --> 00:21:21.120
+Jitendra K: Basically, when you need a very… verified, and…
+
+129
+00:21:21.340 --> 00:21:34.950
+Jitendra K: when you have different roles to play inside the agents, you have to define subtasks, which may utilize two different sort of LLMs models as well. In those scenarios, also, you can go with multi-agentic workflows.
+
+130
+00:21:35.890 --> 00:21:44.310
+Jitendra K: Now, multi-agenting workflows is… basically… Topology-based agent, and we already understand that design patterns.
+
+131
+00:21:44.680 --> 00:21:50.780
+Jitendra K: So, we have discussed these design patterns, like, there's something called supervisory, hierarchical, network.
+
+132
+00:21:50.970 --> 00:21:55.590
+Jitendra K: Sequential pipeline, parallel, and swarm, which is an emergent pattern as well.
+
+133
+00:21:56.200 --> 00:22:04.259
+Jitendra K: So, when to use what? When we had discussed in the last… I mean, the few tutorials from now, just a quick recap. Supervisory tool is…
+
+134
+00:22:04.650 --> 00:22:10.630
+Jitendra K: Going to be work like a orchestrator, centralized orchestrator, where… you…
+
+135
+00:22:11.130 --> 00:22:14.409
+Jitendra K: Create a delegation of tasks across
+
+136
+00:22:14.810 --> 00:22:20.280
+Jitendra K: Multi-downstream agents, and this is very good for regulated industries and banking scenarios.
+
+137
+00:22:20.810 --> 00:22:26.069
+Jitendra K: When workers have heterogeneous tool permission that shouldn't… shouldn't share a context.
+
+138
+00:22:26.540 --> 00:22:30.890
+Jitendra K: You want to swap individual workers without retraining, re-prompting the rest.
+
+139
+00:22:32.420 --> 00:22:39.559
+Jitendra K: So, in practice, I would say supervisory agent, Is code when you have…
+
+140
+00:22:40.040 --> 00:22:46.469
+Jitendra K: a very clear, defined objective, and you know that I'm going to use a series of these agents.
+
+141
+00:22:47.470 --> 00:22:50.299
+Jitendra K: Which will improve my performance.
+
+142
+00:22:53.930 --> 00:22:59.850
+Jitendra K: You can go with hierarchical swamps and, oracle swarms when you need
+
+143
+00:23:00.200 --> 00:23:04.240
+Jitendra K: To have a very robust and clear separation of concerns.
+
+144
+00:23:04.550 --> 00:23:10.670
+Jitendra K: And you would like to… Ensure that the recursive context blown up
+
+145
+00:23:11.110 --> 00:23:14.060
+Jitendra K: In the previous pattern, you would like to replace it.
+
+146
+00:23:14.320 --> 00:23:19.660
+Jitendra K: So this is very useful when you would like to perform some exploration-heavy tasks.
+
+147
+00:23:19.930 --> 00:23:27.720
+Jitendra K: When you're performing the brainstorm on the ideas, or you can use it for hard reasoning and mostly for…
+
+148
+00:23:28.080 --> 00:23:31.149
+Jitendra K: Maybe a risk assessment, or some sort of…
+
+149
+00:23:32.040 --> 00:23:36.359
+Jitendra K: Advanced use cases which can be utilized to perform this whole analysis.
+
+150
+00:23:39.070 --> 00:23:47.220
+Jitendra K: Now, we already have understanding about the orchestration framework, so we know that there are a few frameworks, including Langraph, TrueAI,
+
+151
+00:23:47.410 --> 00:23:52.300
+Jitendra K: Autogen and Llama Index workflows, which are available in the market.
+
+152
+00:23:52.460 --> 00:23:58.829
+Jitendra K: But, I would like to introduce two more, OpenAI Agent Tech SDK and Temporal Restate Memory.
+
+153
+00:23:58.970 --> 00:24:04.789
+Jitendra K: The temporal.io is a very, very useful framework, which is available in market, if you just look into
+
+154
+00:24:05.560 --> 00:24:06.820
+Jitendra K: this part.
+
+155
+00:24:10.850 --> 00:24:19.369
+Jitendra K: So this is… available… It's not an open source tool, but yes, it is perfect for…
+
+156
+00:24:19.680 --> 00:24:25.860
+Jitendra K: replacing the… asyncQ tool that you're using.
+
+157
+00:24:25.970 --> 00:24:33.669
+Jitendra K: When you're creating the orchestration between the agent. And this is one of the industrial leader, I would say, Templar.io, which will have
+
+158
+00:24:34.660 --> 00:24:40.710
+Jitendra K: Pretty significant… Contribution in open source, as well as
+
+159
+00:24:40.990 --> 00:24:45.230
+Jitendra K: It is also, having very reliable enterprise-based solution.
+
+160
+00:24:46.450 --> 00:24:51.849
+Jitendra K: The template.io is must-to-have when you're dealing with agentic orchestration.
+
+161
+00:24:52.110 --> 00:24:56.100
+Jitendra K: We'll talk about the services in the upcoming tutorials, how to use it.
+
+162
+00:24:56.230 --> 00:25:08.410
+Jitendra K: But, just want to introduce you. Similarly, there's Lama Index workflows that you can manage the event-driven asynchronous process, workflows, and some lightweighted applications.
+
+163
+00:25:11.050 --> 00:25:14.389
+Jitendra K: So these are some simple comparison of the different
+
+164
+00:25:15.880 --> 00:25:23.650
+Jitendra K: Frameworks and their scorecard in terms of durabilities and learning and observability qualities…
+
+165
+00:25:23.980 --> 00:25:28.229
+Jitendra K: So this is where I can see the most important
+
+166
+00:25:28.380 --> 00:25:32.840
+Jitendra K: Thing you can see here is, most of the time, Langraph is the overall winner.
+
+167
+00:25:33.170 --> 00:25:39.379
+Jitendra K: Because of his customized nature, followed by AutoGen, followed by Crew AI, and then OpenAI SDKs.
+
+168
+00:25:39.800 --> 00:25:46.710
+Jitendra K: So that's why these are getting… Very, very useful for… open source…
+
+169
+00:25:46.930 --> 00:25:51.119
+Jitendra K: Contribution, and when it comes to productionization of code.
+
+170
+00:25:51.640 --> 00:25:58.710
+Jitendra K: Most of the organizations are going with Langraphs, they're not going with Crew or Autogen, but they are using Crew and Autogen for…
+
+171
+00:25:59.090 --> 00:26:05.349
+Jitendra K: Experimental purpose… Brainstorming purposes, etc, which is fast prototyping.
+
+172
+00:26:09.080 --> 00:26:16.520
+Jitendra K: Then, we have got… these protocols, which is worth tracking it. We have understood that there is something called
+
+173
+00:26:17.010 --> 00:26:22.120
+Jitendra K: Model context protocol that we have discussed, which is using the…
+
+174
+00:26:23.000 --> 00:26:26.110
+Jitendra K: Server-side capabilities to host the tools.
+
+175
+00:26:27.110 --> 00:26:30.280
+Jitendra K: And based upon that, we are going to utilize
+
+176
+00:26:32.330 --> 00:26:36.900
+Jitendra K: Different sort of use cases to host the communication protocol.
+
+177
+00:26:37.100 --> 00:26:41.180
+Jitendra K: Similarly, we have got A2A, which is agent-to-agent orchestration.
+
+178
+00:26:41.450 --> 00:26:46.960
+Jitendra K: Where we have seen that how to initialize, the discovery and…
+
+179
+00:26:47.130 --> 00:26:51.700
+Jitendra K: Kind of handshake between different agents, and how seamlessly they can be able to connect.
+
+180
+00:26:52.090 --> 00:26:57.820
+Jitendra K: We also talk about ACP protocol, Agentic Communication Protocol, which is an IBM framework.
+
+181
+00:26:57.940 --> 00:27:02.059
+Jitendra K: Which will help us to create asynchronous agentic interaction.
+
+182
+00:27:02.210 --> 00:27:07.460
+Jitendra K: And it will use a REST API or RESTful States while creating
+
+183
+00:27:07.700 --> 00:27:11.179
+Jitendra K: The, seamless connection between the two.
+
+184
+00:27:14.030 --> 00:27:22.189
+Jitendra K: Yeah, Google ADK, is not a player here. Yeah, it depends upon your choice, right? If you are using Google Frameworks or…
+
+185
+00:27:22.590 --> 00:27:27.000
+Jitendra K: Google SDKs, but overall, I'm talking about… this is not a part of it.
+
+186
+00:27:27.390 --> 00:27:31.089
+Jitendra K: So, this is the survey which has been conducted recently.
+
+187
+00:27:33.350 --> 00:27:38.649
+Jitendra K: Okay, so then we'll talk about the reference architecture for agentic services.
+
+188
+00:27:39.270 --> 00:27:44.889
+Jitendra K: So, we'll talk about how… A different, serverless versus
+
+189
+00:27:45.030 --> 00:27:49.510
+Jitendra K: Platforms are integrating together, and then what are the options?
+
+190
+00:27:50.000 --> 00:27:58.330
+Jitendra K: So you can also… you can use serverless or server-based platforms. You have an option, few options. I'm just talking about four options here.
+
+191
+00:27:58.500 --> 00:28:06.599
+Jitendra K: You can use full control, high processing environment for deploying your agent using Kubernetes, Kubeflows, etc.
+
+192
+00:28:06.750 --> 00:28:10.300
+Jitendra K: Which will be giving you more…
+
+193
+00:28:11.150 --> 00:28:16.690
+Jitendra K: useful, I would say, pathway to scale your agent vertically.
+
+194
+00:28:17.060 --> 00:28:21.589
+Jitendra K: And this is one way that you can be able to deploy your agent on cloud using
+
+195
+00:28:22.740 --> 00:28:29.830
+Jitendra K: automated services, etc. You can go with serverless container, where you can able to target container apps.
+
+196
+00:28:30.230 --> 00:28:37.899
+Jitendra K: And, request-driven… Paper load, etc, for making the operation simplicity
+
+197
+00:28:38.310 --> 00:28:41.940
+Jitendra K: And without having any overhead on the scaling criterias.
+
+198
+00:28:42.530 --> 00:28:47.100
+Jitendra K: You can go with agentic platforms. There are different platforms available, like…
+
+199
+00:28:47.900 --> 00:28:50.789
+Jitendra K: Beam platform is there, Langraph platform is there.
+
+200
+00:28:50.920 --> 00:28:56.850
+Jitendra K: Where you can able to mix in with, different sort of durability tasks and,
+
+201
+00:28:57.190 --> 00:29:00.429
+Jitendra K: Again, it is coming under K8 Ecosystem.
+
+202
+00:29:00.890 --> 00:29:02.949
+Jitendra K: Then you can also use…
+
+203
+00:29:03.340 --> 00:29:08.909
+Jitendra K: to different cloud options, like Cloudflare, Virtual Function, which is best for…
+
+204
+00:29:09.070 --> 00:29:13.490
+Jitendra K: Thin orchestration layers and tool proxies, not for orchestration itself.
+
+205
+00:29:13.650 --> 00:29:20.959
+Jitendra K: So you can define, you can go with it. These services are also available in cloud-agnostic platform these days.
+
+206
+00:29:21.140 --> 00:29:22.960
+Jitendra K: When we talk about,
+
+207
+00:29:23.500 --> 00:29:30.949
+Jitendra K: agentic deployment or agentic ops platforms. So these services are available everywhere, because this is our universal services.
+
+208
+00:29:31.100 --> 00:29:39.980
+Jitendra K: That you can able to use, irrespective of the platform, irrespective of the vendor. All you need to do is you just need to enable it, pay as you go, and then it will automatically scale up.
+
+209
+00:29:43.490 --> 00:29:46.869
+Jitendra K: Okay, I think this is what we have discussed so far.
+
+210
+00:29:47.290 --> 00:29:48.750
+Jitendra K: They're… okay.
+
+211
+00:29:48.870 --> 00:29:53.119
+Jitendra K: Now, what we are going to do is, we are going to start today with…
+
+212
+00:29:53.910 --> 00:29:58.720
+Jitendra K: observability pipelines. That means we would like to understand how can we be able to use
+
+213
+00:29:59.130 --> 00:30:05.239
+Jitendra K: Traces, metrics, logs, and evaluation. And what are the different ways that we can be able to trace
+
+214
+00:30:05.500 --> 00:30:07.210
+Jitendra K: the metrics.
+
+215
+00:30:07.490 --> 00:30:14.640
+Jitendra K: When we talk about metrics, we are talking about some way of doing AI ops, AI observability.
+
+216
+00:30:15.190 --> 00:30:20.500
+Jitendra K: Right? So, this is one of the classical… problem.
+
+217
+00:30:20.880 --> 00:30:28.230
+Jitendra K: That will be coming under your… Maintenance part, as well as…
+
+218
+00:30:28.390 --> 00:30:32.539
+Jitendra K: auditable part. That means your agent should be auditable and maintainable.
+
+219
+00:30:32.820 --> 00:30:36.049
+Jitendra K: You should create a proper provision to understand
+
+220
+00:30:36.360 --> 00:30:40.960
+Jitendra K: the traces of every node, every LLM call.
+
+221
+00:30:41.150 --> 00:30:44.909
+Jitendra K: Every retry when it is connected to a different agent.
+
+222
+00:30:45.130 --> 00:30:51.619
+Jitendra K: And the metrics, that means you should have different sort of metrics by which you can able to understand
+
+223
+00:30:52.070 --> 00:31:04.140
+Jitendra K: the… implications of… Getting anything beyond certain thresholds, like, let's say, citation references, quality of generation, ground truth, scenarios.
+
+224
+00:31:04.270 --> 00:31:13.339
+Jitendra K: So those things will definitely going to be work like a matrix for your production LLM, or production agent, that need to be traced every time.
+
+225
+00:31:13.930 --> 00:31:17.140
+Jitendra K: Similarly, logs, you need to maintain for…
+
+226
+00:31:17.730 --> 00:31:22.679
+Jitendra K: At least, highly regulatory environment and workload, because if…
+
+227
+00:31:22.950 --> 00:31:25.370
+Jitendra K: You lose a track on the locks, and…
+
+228
+00:31:25.740 --> 00:31:29.890
+Jitendra K: Matrices, then you don't have auditability on the agents.
+
+229
+00:31:30.160 --> 00:31:39.010
+Jitendra K: Similarly, your agent should be continuously improved as well. For that, we will use DeepVL, PromptFu, Langsmith, LangFuse, and PhoneXRIs.
+
+230
+00:31:39.120 --> 00:31:41.339
+Jitendra K: For doing this whole observation.
+
+231
+00:31:44.400 --> 00:31:46.259
+Jitendra K: Alright, so any question on this?
+
+232
+00:31:47.540 --> 00:31:50.159
+Jitendra K: Do you understand the context, what we are doing now?
+
+233
+00:31:50.680 --> 00:31:52.140
+Jitendra K: Any question on this?
+
+234
+00:32:49.120 --> 00:32:51.140
+Jitendra K: So, is there any question, guys, on this?
+
+235
+00:33:02.790 --> 00:33:04.210
+Jitendra K: Okay, no question.
+
+236
+00:33:08.670 --> 00:33:11.390
+Jitendra K: Okay, so what we're going to do is, we're going to start with…
+
+237
+00:33:12.310 --> 00:33:19.560
+Jitendra K: using Langsmith as a platform. So, for creating a Langesmith, you need to register in this website.
+
+238
+00:33:21.030 --> 00:33:23.329
+Jitendra K: So you just need to click on Try Langsmith.
+
+239
+00:33:25.050 --> 00:33:27.049
+Jitendra K: Log in with your Google account.
+
+240
+00:33:27.650 --> 00:33:30.739
+Jitendra K: Set up a region, and this is one of the best platforms.
+
+241
+00:33:31.130 --> 00:33:33.630
+Jitendra K: That we are going to use for agentic.
+
+242
+00:33:34.020 --> 00:33:42.579
+Jitendra K: Reasoning traces and deep… I would say deep traces of agentic, workflows.
+
+243
+00:33:47.750 --> 00:33:54.050
+Jitendra K: So I would request everybody to create your account on this. Let me share the… URL…
+
+244
+00:33:55.160 --> 00:33:56.500
+Jitendra K: Can you guys quickly?
+
+245
+00:33:57.260 --> 00:33:58.680
+Jitendra K: Create your account here.
+
+246
+00:33:58.870 --> 00:33:59.670
+Jitendra K: Bust.
+
+247
+00:34:17.670 --> 00:34:21.800
+Jitendra K: Yeah, it is cloud-based, Lang… blanketsmith is all cloud-based.
+
+248
+00:34:22.280 --> 00:34:24.469
+Jitendra K: You cannot consume it in local.
+
+249
+00:34:27.080 --> 00:34:29.020
+Jitendra K: It's a cloud-based system.
+
+250
+00:34:32.830 --> 00:34:36.900
+Jitendra K: For that, you have to use LangFuse, with a limited edition, I would say.
+
+251
+00:34:53.449 --> 00:34:58.909
+Jitendra K: Okay, so let's try to understand Langosmith, first, what is this platform is all about.
+
+252
+00:34:59.030 --> 00:35:04.089
+Jitendra K: So you can see that I've run some experimentation, sort of showing me some previous results and all.
+
+253
+00:35:04.710 --> 00:35:09.469
+Jitendra K: But the main point here is, the main crux of Langesmith application is…
+
+254
+00:35:11.060 --> 00:35:17.230
+Jitendra K: It is giving you very good ways to track a particular experimentation.
+
+255
+00:35:17.690 --> 00:35:21.109
+Jitendra K: We'll talk in a while, but this is the homepage of Langsmith.
+
+256
+00:35:21.750 --> 00:35:26.080
+Jitendra K: Where I can able to even manage any experimentation that I've run earlier.
+
+257
+00:35:26.350 --> 00:35:28.379
+Jitendra K: You can see that there are tracing
+
+258
+00:35:28.780 --> 00:35:33.739
+Jitendra K: Monitoring, data, experimentation, and annotation tasks as well.
+
+259
+00:35:34.120 --> 00:35:38.550
+Jitendra K: So there are different types of, tasks that you can define.
+
+260
+00:35:39.000 --> 00:35:47.900
+Jitendra K: By default, we will see how to configure these parameters with the help of CLI, or inside the code itself. Let's say if I'm running some agent.
+
+261
+00:35:48.180 --> 00:35:54.520
+Jitendra K: what are the parameters that I require to operate? Langsmith also provide you a quick Studio.
+
+262
+00:35:54.840 --> 00:36:03.470
+Jitendra K: That you can able to, work with, create your own agent in this environment, and deploy it for traceability purposes.
+
+263
+00:36:03.850 --> 00:36:08.880
+Jitendra K: Right, so it provides you several playgrounds to understand
+
+264
+00:36:09.250 --> 00:36:12.990
+Jitendra K: Different types of applications that you can be able to debug.
+
+265
+00:36:13.200 --> 00:36:19.750
+Jitendra K: One of the classical applications that most of the AI use cases serving is…
+
+266
+00:36:20.190 --> 00:36:24.709
+Jitendra K: The bots, chatbots, so that's how you can see that this application is here as well.
+
+267
+00:36:24.960 --> 00:36:33.409
+Jitendra K: It provides you the context hub where you can able to add skills, are… you can use, MCP
+
+268
+00:36:34.930 --> 00:36:37.800
+Jitendra K: There's tools to create a context.
+
+269
+00:36:38.150 --> 00:36:51.089
+Jitendra K: enrichment for your agent, because this is all developer background, right? So, we will use this tool for traceability purpose only. I'm not talking about development, like, platforms on this. It provides very good
+
+270
+00:36:51.580 --> 00:36:56.880
+Jitendra K: a development platform, by the way, so I'm not talking about development profiles here, but yeah.
+
+271
+00:36:57.120 --> 00:37:01.519
+Jitendra K: We'll just stick with our… Traces part. How to trace…
+
+272
+00:37:01.790 --> 00:37:04.799
+Jitendra K: and monitor with the help of Langesmith.
+
+273
+00:37:42.810 --> 00:37:49.210
+Jitendra K: So what we are going to do now is, we'll take some example to understand this framework a bit more.
+
+274
+00:37:49.510 --> 00:37:56.710
+Jitendra K: With some real-world example, and we'll see how can we be able to invoke this particular tool.
+
+275
+00:37:57.090 --> 00:38:00.170
+Jitendra K: And, use this particular tool with.
+
+276
+00:38:02.700 --> 00:38:06.350
+Jitendra K: Any discovery phase or any exploration phase?
+
+277
+00:38:32.880 --> 00:38:35.370
+Jitendra K: So let me go back to my VS Code.
+
+278
+00:44:10.110 --> 00:44:12.239
+Jitendra K: Yeah, I'm just passing the ENV file.
+
+279
+00:44:36.420 --> 00:44:40.090
+Jitendra K: So, you require these parameters to be passed inside the ENV file.
+
+280
+00:44:45.990 --> 00:44:50.550
+Jitendra K: They'll replace the real… I'm APAs.
+
+281
+00:45:12.930 --> 00:45:19.299
+Jitendra K: I'm making the tracing policy to be true. I'm keeping the name of this project, which will reflect in the Langsmith with this.
+
+282
+00:45:19.580 --> 00:45:24.829
+Jitendra K: And the endpoint that I'm consuming is the same endpoint that I have given, so I will save this file.
+
+283
+00:46:25.630 --> 00:46:29.969
+Jitendra K: So this is a simple example, I will explain the code in a while, let it be run.
+
+284
+00:47:45.930 --> 00:47:49.379
+Jitendra K: Let me do one thing, let me run this in OLAB.
+
+285
+00:49:07.390 --> 00:49:09.499
+Jitendra K: Okay, I have to rename it later.
+
+286
+00:53:06.080 --> 00:53:13.140
+Jitendra K: So you can see that I'm, calling the two services, client and Traceable. So both the services are from Langansmith.
+
+287
+00:53:14.420 --> 00:53:16.800
+Jitendra K: This module always creates problem.
+
+288
+00:54:58.140 --> 00:55:00.610
+Jitendra K: So here, we are using a supervisory pattern.
+
+289
+00:55:01.020 --> 00:55:04.339
+Jitendra K: And, the stateful graph to create agents.
+
+290
+00:55:05.270 --> 00:55:07.170
+Jitendra K: I will explain this in a while.
+
+291
+00:55:14.670 --> 00:55:16.300
+Jitendra K: But it shouldn't…
+
+292
+00:55:25.620 --> 00:55:30.790
+Jitendra K: This is Rita… Dependency issue.
+
+293
+00:59:15.520 --> 00:59:19.729
+Jitendra K: I think it's completed. Now I will create a summary.
+
+294
+00:59:23.660 --> 00:59:30.569
+Jitendra K: Okay, so I think this is completed. Now let me explain the code, and then we move on to the Langsmith overview of this.
+
+295
+00:59:30.810 --> 00:59:39.170
+Jitendra K: So, first and foremost thing is, what we are trying to do is, we are trying to create a dependencies on… and installing those dependencies.
+
+296
+00:59:39.450 --> 00:59:47.629
+Jitendra K: and quiet mode, and updated mode, upgraded to the latest version. So, line graph we are using for building state full cyclic agent graphs.
+
+297
+00:59:47.910 --> 00:59:51.229
+Jitendra K: For supervise the worker topological analysis.
+
+298
+00:59:51.340 --> 00:59:59.700
+Jitendra K: Langchain for abstraction and OpenAI chat model interface creation. Langsmith for tracing database management and evaluation strategies.
+
+299
+01:00:00.110 --> 01:00:10.879
+Jitendra K: We also incorporate data sets from Hugging Face Library, where we have one data called FinQA, which is publicly available, so I'm just using it for demonstration purposes.
+
+300
+01:00:11.210 --> 01:00:18.020
+Jitendra K: So this data is available in FinQA Verified in Hugging Face. If you would like to look into that data, you can see that.
+
+301
+01:00:19.130 --> 01:00:23.570
+Jitendra K: VIN, QE… Verified…
+
+302
+01:00:27.350 --> 01:00:30.670
+Jitendra K: data from… Area.
+
+303
+01:00:37.930 --> 01:00:43.269
+Jitendra K: So this is what this dataset talks about. Kind of a question in the context, including…
+
+304
+01:00:43.760 --> 01:00:47.550
+Jitendra K: the reasoning part of it, and this is a data set that is available.
+
+305
+01:00:49.840 --> 01:00:55.919
+Jitendra K: Now, the Langesmith, needless to say, Langesmith is something which we are using for
+
+306
+01:00:56.190 --> 01:01:04.299
+Jitendra K: tracking data sets for using, the available data set in Hugging Face, Pandas for displaying summary.
+
+307
+01:01:04.430 --> 01:01:10.919
+Jitendra K: a data frame, OpenAI for… OpenAI client, tick token for fast token counting.
+
+308
+01:01:11.660 --> 01:01:15.899
+Jitendra K: So now, once we have this data, then we'll set up the API key.
+
+309
+01:01:16.590 --> 01:01:29.089
+Jitendra K: And the process, involving some flags, including Langdith tracing, enables auto-tracing, projecting the scope of name of the project.
+
+310
+01:01:29.340 --> 01:01:32.739
+Jitendra K: And the endpoint that we are going to serve. And then we are asserting these.
+
+311
+01:01:32.920 --> 01:01:38.879
+Jitendra K: parameters Now, I'm also invoking async queue, that means I would like to run
+
+312
+01:01:39.250 --> 01:01:45.610
+Jitendra K: a loop, event loop, line graph, internal use, so I will use asynq.run to create a task.
+
+313
+01:01:47.120 --> 01:01:49.529
+Jitendra K: And then I'm using a nested async queue.
+
+314
+01:01:49.790 --> 01:01:53.780
+Jitendra K: An apply method to allow nested loop event.
+
+315
+01:01:54.600 --> 01:01:56.199
+Jitendra K: Then I'm using a set of…
+
+316
+01:01:56.480 --> 01:02:00.460
+Jitendra K: these libraries to start with annotation.
+
+317
+01:02:00.740 --> 01:02:03.179
+Jitendra K: Add messages, traceability, and evaluation.
+
+318
+01:02:03.720 --> 01:02:11.700
+Jitendra K: Once I define this, I will define the LLM parameters. I have the… low-cost model for church.
+
+319
+01:02:12.420 --> 01:02:19.690
+Jitendra K: For faster execution, and I'm using low-cost model for creating critic. So, Langchen Rapper.
+
+320
+01:02:19.930 --> 01:02:22.069
+Jitendra K: Keeping the temperature to be deterministic.
+
+321
+01:02:22.440 --> 01:02:25.340
+Jitendra K: A tiny amount of variation when we are
+
+322
+01:02:25.480 --> 01:02:28.990
+Jitendra K: Generating the response, I'm keeping slightly high.
+
+323
+01:02:29.530 --> 01:02:32.420
+Jitendra K: And then, I'm just testing the connectivity.
+
+324
+01:02:33.530 --> 01:02:41.150
+Jitendra K: Then I have got tool restoration, so each function decorator with a direct tool become a line chain structure tool with automated schema management.
+
+325
+01:02:41.480 --> 01:02:58.720
+Jitendra K: And I'm using the first tool called extract table values that will take a raw financial text and list of phrases to search for, and returning a dictionary mapping each terms to list of numerical literals, followed by a line containing them. So basically, it is reading the data from the Hugging Face.
+
+326
+01:02:58.950 --> 01:03:03.650
+Jitendra K: And then I have a series of regex patterns. This will utilize.
+
+327
+01:03:03.990 --> 01:03:10.689
+Jitendra K: For understanding the currency format. I'm just literally reading the lines, and then rendering it.
+
+328
+01:03:10.880 --> 01:03:15.680
+Jitendra K: I've got another tool called Save Automatic, which will simply calculate
+
+329
+01:03:16.200 --> 01:03:22.009
+Jitendra K: the, some sort of evaluations, if I'm going to do, on numerical digits.
+
+330
+01:03:22.440 --> 01:03:25.989
+Jitendra K: And then I'm keeping one method inside it.
+
+331
+01:03:29.000 --> 01:03:30.190
+Jitendra K: evolve.
+
+332
+01:03:30.580 --> 01:03:36.089
+Jitendra K: That means it's a… it's a exception handler, which is having a built-in dictionary object.
+
+333
+01:03:36.600 --> 01:03:41.820
+Jitendra K: And if any arithmetic operation fails, it will simply say that this is
+
+334
+01:03:42.250 --> 01:03:45.710
+Jitendra K: A logical error, like, divide by 0 or something else.
+
+335
+01:03:46.140 --> 01:03:51.780
+Jitendra K: Then we are also keeping one more tool called PercentageChange, which is a simple percentage change with two decimal formatting.
+
+336
+01:03:51.980 --> 01:03:55.460
+Jitendra K: And it is using another invoke method.
+
+337
+01:03:56.690 --> 01:03:59.660
+Jitendra K: to pass… the outcome.
+
+338
+01:04:00.340 --> 01:04:02.320
+Jitendra K: From previous value to a new value.
+
+339
+01:04:02.800 --> 01:04:06.729
+Jitendra K: Then I've got the main class for identic state.
+
+340
+01:04:07.190 --> 01:04:10.199
+Jitendra K: So, the schema that I'm designing here is…
+
+341
+01:04:10.720 --> 01:04:15.380
+Jitendra K: Using the state dictionary, have… Message, a list of…
+
+342
+01:04:16.860 --> 01:04:24.210
+Jitendra K: Add messageReducer. When I load it in a dictionary with message key, the new messages are going to append to the existing list instead of replacing it.
+
+343
+01:04:24.460 --> 01:04:29.209
+Jitendra K: This is very critical, because I would like to keep a track of full conversation history across cycle.
+
+344
+01:04:30.410 --> 01:04:38.090
+Jitendra K: Then I'm creating the agentic supervisory node, which is my Langraph agent now. So I'm keeping the…
+
+345
+01:04:39.890 --> 01:04:44.379
+Jitendra K: State failed to decide the next agent. If critic requested a revision.
+
+346
+01:04:44.650 --> 01:04:47.100
+Jitendra K: which is a downstream agent, it will call.
+
+347
+01:04:47.430 --> 01:04:50.680
+Jitendra K: With a loopback of maximum 2 tries.
+
+348
+01:04:51.300 --> 01:04:59.200
+Jitendra K: And then I will return the next agent, which should be called by supervisor. Supervisor agent is maintaining the searcher node.
+
+349
+01:04:59.590 --> 01:05:05.279
+Jitendra K: So, the researcher node job is to decide what tool to be called during invocation.
+
+350
+01:05:06.320 --> 01:05:08.619
+Jitendra K: Then, I have got calculator node.
+
+351
+01:05:08.820 --> 01:05:17.890
+Jitendra K: The job of this node is to perform arithmetic operations, safe arithmetic operations on the top of my query parameters by calling the tool.
+
+352
+01:05:18.120 --> 01:05:26.400
+Jitendra K: I've got the critic note, which will evaluate, basically, the conditions, and it will first try to decide what to revise.
+
+353
+01:05:26.790 --> 01:05:32.780
+Jitendra K: And then finally, write a note will take the feedback from the critic, and then write on the top of it.
+
+354
+01:05:32.910 --> 01:05:38.789
+Jitendra K: So I'm just wiring the graph by saying that this is how the execution looks like with the start and the end condition.
+
+355
+01:05:40.110 --> 01:05:44.720
+Jitendra K: With a sequence. And compiling the sequence, and then this is my graph.
+
+356
+01:05:45.340 --> 01:05:48.929
+Jitendra K: So you can see that supervisory agent is sitting at the middle layer.
+
+357
+01:05:49.040 --> 01:05:51.820
+Jitendra K: We had two back and forth arrows.
+
+358
+01:05:52.320 --> 01:05:57.179
+Jitendra K: And it is taking the delegation help from these agents.
+
+359
+01:05:57.380 --> 01:05:59.710
+Jitendra K: And operating them individually.
+
+360
+01:05:59.900 --> 01:06:06.990
+Jitendra K: So, there's a sequence here, researcher to calculator, calculator to critic, Again, via supervisory.
+
+361
+01:06:07.220 --> 01:06:10.390
+Jitendra K: So, no agents are communicating.
+
+362
+01:06:10.970 --> 01:06:14.409
+Jitendra K: Within each other. It is going everything via supervisor.
+
+363
+01:06:15.260 --> 01:06:20.699
+Jitendra K: So, and then we have a writer and a state, right? So this is the conditional edge that we're adding.
+
+364
+01:06:21.160 --> 01:06:29.969
+Jitendra K: The conditional edge, after a supervising node run, the graph reads the next agent field from the state and route to the corresponding node. And then you're compiling the graph.
+
+365
+01:06:30.340 --> 01:06:43.539
+Jitendra K: So once you load the data, you split the data into, training and test, converting everything into Pandas copies, and then running the pipelines to match the answer, and then see what is the…
+
+366
+01:06:43.690 --> 01:06:48.960
+Jitendra K: Groundness… Responses, so you're calculating groundness.
+
+367
+01:06:49.470 --> 01:06:53.269
+Jitendra K: I'm calculating roundness, judge, which is…
+
+368
+01:06:53.530 --> 01:06:59.149
+Jitendra K: Using GPT-40 Mini as a judge to decide if the answer is faithful to provide context, the prompt instruct…
+
+369
+01:06:59.920 --> 01:07:10.680
+Jitendra K: To truncate maximum up to 2,000 characters, and then I'm also using tool efficiency, the matrix Inspector trace tree to counter total tool calls.
+
+370
+01:07:11.150 --> 01:07:14.779
+Jitendra K: And then creating a Langsmith dataset here, which will parse.
+
+371
+01:07:15.250 --> 01:07:18.020
+Jitendra K: And run the evaluation sorts on the top of it.
+
+372
+01:07:18.680 --> 01:07:22.469
+Jitendra K: So this is what we are doing in terms of the…
+
+373
+01:07:23.570 --> 01:07:27.530
+Jitendra K: passing the parameter to the model. And you can see that this is giving
+
+374
+01:07:27.980 --> 01:07:34.300
+Jitendra K: all the metrics for each query. That which queries, let's say if I'm looking for groundness.
+
+375
+01:07:34.630 --> 01:07:40.309
+Jitendra K: This is 100% grounded, tool efficiency is 30%, that means I can improve it further.
+
+376
+01:07:40.780 --> 01:07:47.400
+Jitendra K: Similarly, you can see, these traces inside Langsmith. So if I just log in here…
+
+377
+01:07:47.790 --> 01:07:55.289
+Jitendra K: And I just go back to my pipeline. These are the steps that I've run, and the sequence of my agent execution.
+
+378
+01:07:55.540 --> 01:07:56.960
+Jitendra K: And I can compare…
+
+379
+01:07:58.620 --> 01:08:05.280
+Jitendra K: I can compare this output with the help of, these node… nodes parameter that I passed.
+
+380
+01:08:05.590 --> 01:08:19.450
+Jitendra K: And it will give me all the, run-through on the different things that I have used inside the node parameter itself, whether I'm performing safe calculation or not, any exception has been raised or not.
+
+381
+01:08:19.710 --> 01:08:25.479
+Jitendra K: So these are your output. You can also check the inputs parameter, what are the fields which have been passed.
+
+382
+01:08:25.790 --> 01:08:30.160
+Jitendra K: To this agent, and how it is generating the response based upon which input.
+
+383
+01:08:30.710 --> 01:08:48.590
+Jitendra K: So this is where you can able to see the waterfall hierarchy of this agent with token and cost estimation as well. And in case of any exception, you can read the exceptions. Right now, there's no exception that I've seen, so it's all green, but you can see that as well. You can also change
+
+384
+01:08:48.950 --> 01:09:00.880
+Jitendra K: How many LLM calls have been made by this particular tool, or so-called application, and what are the costs involved in this, who has run this, etc. We can do an evaluation, so we have added,
+
+385
+01:09:01.500 --> 01:09:08.080
+Jitendra K: The ground truth and other scenarios, but we can also use these scenarios to perform the analysis.
+
+386
+01:09:09.689 --> 01:09:15.939
+Jitendra K: So, this is all discovery, insights, and in-house. So, right now, this is all paid services.
+
+387
+01:09:16.529 --> 01:09:23.320
+Jitendra K: But yes, some of them I can also use with the help of LLM as a judge, where I can be able to check
+
+388
+01:09:23.550 --> 01:09:29.630
+Jitendra K: The answer relevancy, any toxicity in the answers, any hallucination scenarios.
+
+389
+01:09:29.870 --> 01:09:35.509
+Jitendra K: Or is it within the limit or not? So all those things I can be able to do with the help of monitoring and stuff.
+
+390
+01:09:42.220 --> 01:09:48.090
+Jitendra K: So this will give me the landing page of… Errors, tracing, latencies…
+
+391
+01:09:48.450 --> 01:09:57.389
+Jitendra K: The token count, LLM count, cost per token, output sequencing, etc, with the help of these run-through and the benchmarks.
+
+392
+01:09:57.650 --> 01:10:05.569
+Jitendra K: I can also see the evaluation. So, evaluation in terms of these criteria that I mentioned. You can add more criterias as you want.
+
+393
+01:10:06.030 --> 01:10:10.019
+Jitendra K: You can compare the two experimentations with the help of this tool as well.
+
+394
+01:10:11.630 --> 01:10:22.089
+Jitendra K: Alright, so this is one example that we have covered, so let me share this code with everyone. I want you guys to run this code and let me know if there's any issue that you're facing.
+
+395
+01:10:23.800 --> 01:10:27.489
+Jitendra K: create, your account, I think you have already created.
+
+396
+01:10:27.590 --> 01:10:32.429
+Jitendra K: to use the API key that has been there inside your account, and then run this experimentation.
+
+397
+01:26:53.520 --> 01:26:59.469
+Jitendra K: Yeah, so there's a question… So Tuesday, every 11 call is considered a trace.
+
+398
+01:26:59.960 --> 01:27:09.730
+Jitendra K: not just LLM call, but all the parameters that you're passing to LLM as well, will be a kind of a trace that you're performing on context, reasoning, as well as
+
+399
+01:27:10.410 --> 01:27:12.400
+Jitendra K: The parameters that you're passing.
+
+400
+01:27:16.050 --> 01:27:20.680
+Jitendra K: So it's very… Clearly, you can see here, if I'm going to trace this.
+
+401
+01:27:24.180 --> 01:27:29.620
+Jitendra K: I'll just click on… this demo.
+
+402
+01:27:32.160 --> 01:27:37.699
+Jitendra K: You can see that it is calling agent by agent with all the… tools, LLM,
+
+403
+01:27:38.400 --> 01:27:41.959
+Jitendra K: And, all the functions inside the tool. As a…
+
+404
+01:27:43.400 --> 01:27:50.349
+Jitendra K: pipeline object, and then it is creating a traceability. If we feel that some of the equations are going wrong.
+
+405
+01:27:51.000 --> 01:27:56.779
+Jitendra K: You can able to debug it from this tool by looking into the input, output, and attributes that you're passing.
+
+406
+01:28:08.130 --> 01:28:11.049
+Jitendra K: This is free, I mean, limited edition.
+
+407
+01:28:12.230 --> 01:28:16.740
+Jitendra K: You can go up to, maximum 3 projects, I believe, a month.
+
+408
+01:28:23.190 --> 01:28:31.160
+Jitendra K: Yeah, there's a lot of difference between Langfuse and Langsmith. Langsmith is… Enterprise and Langfuse is basic.
+
+409
+01:28:35.280 --> 01:28:37.790
+Jitendra K: Yeah, not for companies, yes.
+
+410
+01:28:39.030 --> 01:28:40.920
+Jitendra K: So it's not an enterprise solution.
+
+411
+01:28:41.220 --> 01:28:43.980
+Jitendra K: I mean, it's not an enterprise-free solution.
+
+412
+01:29:12.760 --> 01:29:15.809
+Jitendra K: These are your data context question, this is data.
+
+413
+01:29:22.720 --> 01:29:25.229
+Jitendra K: So this will give you the test data that you are passing.
+
+414
+01:29:42.340 --> 01:29:48.239
+Jitendra K: Alright guys, so I think we can take a break of 25 minutes, and once we come back.
+
+415
+01:29:49.450 --> 01:29:52.950
+Jitendra K: Then we will compare LangFuse with Langesmith.
+
+416
+01:29:53.420 --> 01:29:59.109
+Jitendra K: I mean, not the idea to compare, but yes, we'll see what is a limited edition functionality is all about.
+
+417
+01:29:59.210 --> 01:30:03.860
+Jitendra K: With LangFuse. And then we'll take some more examples to understand Langsmith better.
+
+418
+01:30:04.270 --> 01:30:08.680
+Jitendra K: And, then we will run more examples on the Langosmith.
+
+419
+01:30:09.130 --> 01:30:13.550
+Jitendra K: But if you would like to use LangFuse, there are two versions for using LangFuse. One is…
+
+420
+01:30:14.950 --> 01:30:19.500
+Jitendra K: You can go with your own Docker instance, or you can go with a cloud version.
+
+421
+01:30:19.760 --> 01:30:26.299
+Jitendra K: So I'm going to show you the cloud version, and later I will share the steps to deploy it via Docker.
+
+422
+01:30:27.090 --> 01:30:32.849
+Jitendra K: So, that is an open source platform. You can use Docker Compose, self-hosting.
+
+423
+01:30:33.260 --> 01:30:38.530
+Jitendra K: You can use Kubernetes Helm, AWS Terraform, GCP Terraforms, or Azure Terraforms.
+
+424
+01:30:39.190 --> 01:30:41.440
+Jitendra K: As a part of self-hosting capability.
+
+425
+01:30:42.200 --> 01:30:45.960
+Jitendra K: But I'm going to show you the cloud hosting capability.
+
+426
+01:30:46.180 --> 01:30:52.460
+Jitendra K: This is also not free version, so as I mentioned, this platform have…
+
+427
+01:30:53.040 --> 01:31:00.300
+Jitendra K: a lot of downloads recently, so they had also increased their prices for limited pro and enterprise solutions.
+
+428
+01:31:00.600 --> 01:31:05.789
+Jitendra K: You can see the enterprise solution is… 2499 US dollar per month.
+
+429
+01:31:09.490 --> 01:31:13.829
+Jitendra K: So that is something which we are going to talk about in the… after the break.
+
+430
+01:31:14.040 --> 01:31:17.820
+Jitendra K: Let's take a break of 25 minutes, and then we can start the session.
+
+431
+01:31:18.580 --> 01:31:20.900
+Jitendra K: I'm just initializing a timer.
+
+432
+01:31:21.560 --> 01:31:23.190
+Jitendra K: And then we can come back.
+
+433
+01:31:23.550 --> 01:31:24.440
+Jitendra K: Thank you.
+
+434
+01:56:42.910 --> 01:56:45.359
+Jitendra K: Hi guys, I hope you're back.
+
+435
+01:56:52.330 --> 01:56:56.039
+Jitendra K: So, any question on the previous, demo?
+
+436
+01:56:56.170 --> 01:56:58.510
+Jitendra K: Any question, anything that you would like to ask?
+
+437
+01:57:09.700 --> 01:57:11.200
+Jitendra K: I'm audible to everyone.
+
+438
+01:57:21.040 --> 01:57:24.300
+Jitendra K: Okay, any question on the previous code that we have shared?
+
+439
+01:57:24.890 --> 01:57:26.819
+Jitendra K: Able to execute end-to-end now?
+
+440
+01:57:31.370 --> 01:57:32.260
+Jitendra K: Okay.
+
+441
+01:57:32.860 --> 01:57:34.529
+Jitendra K: So let's move on to the next…
+
+442
+01:57:34.850 --> 01:57:38.759
+Jitendra K: code, tutorial, so we are going to use LangFuse now.
+
+443
+01:57:41.110 --> 01:57:45.759
+Jitendra K: And I required API connector keys for, like, fuse.
+
+444
+01:58:33.630 --> 01:58:37.160
+Jitendra K: So in this, I'm going to use another dataset.
+
+445
+01:58:37.700 --> 01:58:43.020
+Jitendra K: Which is from… Legal, and it's a co-pilot.
+
+446
+01:58:43.460 --> 01:58:48.469
+Jitendra K: That has been used to generate this data, so let me show you the data that we are going to use.
+
+447
+01:59:22.150 --> 01:59:24.380
+Jitendra K: Yeah, so I'm going to use this dataset.
+
+448
+01:59:24.500 --> 01:59:26.210
+Jitendra K: And you can see that this is…
+
+449
+01:59:26.850 --> 01:59:30.979
+Jitendra K: CUAD data third, which is turned for Contract Understanding.
+
+450
+01:59:31.270 --> 01:59:33.330
+Jitendra K: articious data set.
+
+451
+01:59:33.710 --> 01:59:36.470
+Jitendra K: So, this data sort is having…
+
+452
+01:59:36.580 --> 01:59:41.240
+Jitendra K: More than 13,000 labels in 510 commercial legal contracts.
+
+453
+01:59:41.690 --> 01:59:47.600
+Jitendra K: And it has been manually labeled to 9541 categories of important clauses that lawyer looks for.
+
+454
+01:59:47.850 --> 01:59:51.650
+Jitendra K: Viewing the contract in connection with corporate transaction.
+
+455
+01:59:51.970 --> 01:59:57.680
+Jitendra K: So, this is the dataset which is available as an open source under Hugging Face.
+
+456
+01:59:58.180 --> 02:00:02.349
+Jitendra K: like, Hugging Face commercials, and we can use this data set.
+
+457
+02:00:02.800 --> 02:00:05.300
+Jitendra K: To perform the analysis.
+
+458
+02:00:05.540 --> 02:00:11.079
+Jitendra K: So it's a high-valuable specialized task, that means this is a rational why we are using this data.
+
+459
+02:00:11.420 --> 02:00:15.250
+Jitendra K: And these are the type of contract which is a part of the training sets.
+
+460
+02:00:16.600 --> 02:00:23.250
+Jitendra K: So the idea is… When you're using… Such sort of data set.
+
+461
+02:00:25.590 --> 02:00:33.749
+Jitendra K: And you can see that this is also used in SQUAT, which is the old technique that has been used to test the NLP-based model.
+
+462
+02:00:34.260 --> 02:00:37.949
+Jitendra K: So, from there, we are running this whole analysis.
+
+463
+02:00:38.750 --> 02:00:45.470
+Jitendra K: So, this particular dataset is a very good candidate for doing this task as well. As you can see that
+
+464
+02:00:45.610 --> 02:00:49.340
+Jitendra K: In 2001, 2021,
+
+465
+02:00:50.380 --> 02:00:57.149
+Jitendra K: We have… we don't have any GPT models, neither any transformer-based models, so this is what…
+
+466
+02:00:57.480 --> 02:01:04.820
+Jitendra K: Transform models are there, so these transformer distilled models have been used to train these old data sets.
+
+467
+02:01:05.180 --> 02:01:08.940
+Jitendra K: And this is the result and the citation references.
+
+468
+02:01:09.670 --> 02:01:15.620
+Jitendra K: So, we are going to use a similar approach, but with… different category.
+
+469
+02:01:17.510 --> 02:01:19.680
+Jitendra K: Here, we are going to use large language model.
+
+470
+02:01:20.010 --> 02:01:23.190
+Jitendra K: And with the help of large language model, we will try to train this.
+
+471
+02:01:23.450 --> 02:01:24.470
+Jitendra K: whole setup.
+
+472
+02:01:28.340 --> 02:01:33.790
+Jitendra K: So let me first… go back to my LangFuse.
+
+473
+02:02:47.910 --> 02:02:50.270
+Jitendra K: So I will create the API key for LangFuse.
+
+474
+02:02:51.170 --> 02:02:54.310
+Jitendra K: And these are the environmental and the public key differences.
+
+475
+02:02:54.790 --> 02:02:58.310
+Jitendra K: Now, what I'm going to do is, I will use the next demo.
+
+476
+02:05:07.110 --> 02:05:20.919
+Jitendra K: The concept remains the same. Here, also, we are going to perform the traceability and context management with the help of this tool. But we'll see what major limitation this tool have. We'll see in a while.
+
+477
+02:05:50.270 --> 02:05:52.930
+Jitendra K: DFactorizer, why it is filling.
+
+478
+02:12:25.120 --> 02:12:31.270
+Jitendra K: I'm seeing it all the way for the very first time, it is missing from an up-and-distribution.
+
+479
+02:16:02.070 --> 02:16:07.670
+Jitendra K: Okay, so this has been… I don't know why it is giving my name… weird format.
+
+480
+02:16:10.750 --> 02:16:15.210
+Jitendra K: So this is something… Recruiting as a project.
+
+481
+02:16:15.800 --> 02:16:17.810
+Jitendra K: Then we run the experimentation.
+
+482
+02:16:19.800 --> 02:16:25.280
+Jitendra K: Just… This version issue, I think, like, fuse, again, we need to change the version.
+
+483
+02:16:26.560 --> 02:16:29.769
+Jitendra K: That is the incompatibility with Langview, so that is what…
+
+484
+02:16:30.060 --> 02:16:34.110
+Jitendra K: That's the reason I do not prefer to use LangFuse, because there's so many issues.
+
+485
+02:17:02.780 --> 02:17:07.569
+Jitendra K: Yeah, it's better to use Langosmith, yeah, if you have option, go with Langosmith.
+
+486
+02:17:10.350 --> 02:17:14.570
+Jitendra K: Because LangFuse is not going to give you any edge or advantage.
+
+487
+02:17:14.920 --> 02:17:19.019
+Jitendra K: It just, In a stable package.
+
+488
+02:17:19.830 --> 02:17:28.350
+Jitendra K: And… I mean… It's better to go with Langesmith as an enterprise, if you have an option.
+
+489
+02:17:32.670 --> 02:17:34.850
+Jitendra K: So, number 13.
+
+490
+02:19:30.799 --> 02:19:34.960
+Jitendra K: And you can see that this is also slow as compared to Langesmith, very, very slow.
+
+491
+02:19:35.500 --> 02:19:38.419
+Jitendra K: Because of non-commercial uses.
+
+492
+02:21:56.370 --> 02:21:58.650
+Jitendra K: Yeah, this is a project, I think.
+
+493
+02:22:03.810 --> 02:22:06.240
+Jitendra K: And these are the metrics that we are tracking.
+
+494
+02:22:06.870 --> 02:22:14.760
+Jitendra K: In terms of observability, as well as model latencies, so you can see… These are the features, but…
+
+495
+02:22:15.140 --> 02:22:18.789
+Jitendra K: In this tool, you cannot see the reasoning traces. That is the most…
+
+496
+02:22:19.390 --> 02:22:22.469
+Jitendra K: Important thing which is missing.
+
+497
+02:22:23.000 --> 02:22:33.590
+Jitendra K: You can just do the cost evaluation, as well as metrics evaluation, as well as you can able to do, modalities in terms of latencies, etc.
+
+498
+02:22:33.870 --> 02:22:43.400
+Jitendra K: So, but this tool does not offer reasoning to filter upon, and then what kind of reasoning parameter, the same way that we are using in Langesmith, it does not provide that.
+
+499
+02:22:44.350 --> 02:22:45.350
+Jitendra K: So that is it.
+
+500
+02:22:45.720 --> 02:22:51.299
+Jitendra K: I would say that's a missing feature in terms of Langosmith, as compared to Langosmith.
+
+501
+02:22:53.270 --> 02:22:56.739
+Jitendra K: So it will give you the JSON file to trace
+
+502
+02:22:57.800 --> 02:23:04.299
+Jitendra K: But you can see that, it's very similar to Langesmith style, but it's slightly…
+
+503
+02:23:04.940 --> 02:23:13.009
+Jitendra K: less accurate in terms of readability, as well as the format. You can change the format to JSON and then use it.
+
+504
+02:23:13.420 --> 02:23:16.839
+Jitendra K: To make the course correction, but, still…
+
+505
+02:23:17.050 --> 02:23:21.370
+Jitendra K: I would suggest, if you have a choice, to go with Lang Smith versus Lang.
+
+506
+02:23:21.860 --> 02:23:25.140
+Jitendra K: Fuse go with Langsmith as a primary tool.
+
+507
+02:23:32.670 --> 02:23:38.380
+Jitendra K: Okay, now let me explain the code, what we are doing in the code. So again, we are relying on Hugging Face data.
+
+508
+02:23:38.640 --> 02:23:41.709
+Jitendra K: Which is publicly available, so I'm going to use the same data.
+
+509
+02:23:41.810 --> 02:23:44.200
+Jitendra K: Which is available in public domain.
+
+510
+02:23:44.480 --> 02:23:50.710
+Jitendra K: Without creating any new data from my own site, from my side.
+
+511
+02:23:51.370 --> 02:23:58.959
+Jitendra K: So again, we are going to have the same setup. Instead of Langsmith, we are going to use LangFuse, and we have a series of functions.
+
+512
+02:24:03.440 --> 02:24:11.510
+Jitendra K: So, again, we're going to start with the installation part. The purpose of installation is to install OpenTelemetry-based SDK.
+
+513
+02:24:11.910 --> 02:24:17.149
+Jitendra K: And then the OpenAI client, which Langviews will wrap with.
+
+514
+02:24:17.310 --> 02:24:24.050
+Jitendra K: And the dataset I'm using is, like, CUAD, which is one of the law commercial data, which is available in public domain.
+
+515
+02:24:24.170 --> 02:24:29.759
+Jitendra K: I'm setting up the APIs for all the tools that we're going to utilize inside this code.
+
+516
+02:24:30.030 --> 02:24:33.500
+Jitendra K: Now, this is where I'm going to use nested async queue.
+
+517
+02:24:33.920 --> 02:24:42.580
+Jitendra K: So, nested async queue will help me to use nested event loop inside Colab, because my agents are gonna be running in nested loop.
+
+518
+02:24:42.980 --> 02:24:55.150
+Jitendra K: The LangFuse is the main client class. Observability is a decorator class, a decorator to wrap a function, or the lengthfuse span. GetClient, I'm going to use getClient as a…
+
+519
+02:24:55.510 --> 02:25:00.910
+Jitendra K: method, or a singleton Langfuse client, that will read the environmental file.
+
+520
+02:25:01.190 --> 02:25:07.260
+Jitendra K: Then I'm going to use, the getClient initialization here.
+
+521
+02:25:07.500 --> 02:25:10.919
+Jitendra K: So this will verify the keys and connections.
+
+522
+02:25:11.250 --> 02:25:13.930
+Jitendra K: Now, I'm keeping the model wrappers.
+
+523
+02:25:14.910 --> 02:25:18.210
+Jitendra K: T for routine tasks, expensive for final synthesis.
+
+524
+02:25:18.500 --> 02:25:24.700
+Jitendra K: So this is a LangFuse wrapper version. All subsequent chat completion will be appeared in the LangFuse UI as a generation span.
+
+525
+02:25:25.250 --> 02:25:28.140
+Jitendra K: Now I'm calling the chat method.
+
+526
+02:25:28.390 --> 02:25:34.210
+Jitendra K: That will wrap that construct a message list and passes them to client chat completion create.
+
+527
+02:25:34.560 --> 02:25:41.770
+Jitendra K: And also, I've got options… Like, name, which will return the tool call and the raw responses.
+
+528
+02:25:42.040 --> 02:25:43.830
+Jitendra K: Now I'm loading the data.
+
+529
+02:25:43.960 --> 02:25:46.910
+Jitendra K: Here, so I'm loading the data…
+
+530
+02:25:48.230 --> 02:25:51.330
+Jitendra K: Using a raw data set, split them into training and test.
+
+531
+02:25:51.890 --> 02:25:57.239
+Jitendra K: And then this is having some 13,155 label contracts.
+
+532
+02:25:57.600 --> 02:26:05.279
+Jitendra K: Which is from CUAD dataset, and this dataset, I'm just copying The initial 1200 contracts.
+
+533
+02:26:06.010 --> 02:26:13.119
+Jitendra K: just for… readability purpose and demonstration purpose. You can go with all as well. It will take time.
+
+534
+02:26:13.260 --> 02:26:20.609
+Jitendra K: So, work category I'm defining, these are the categories of my law addendums, which is defined inside the documents.
+
+535
+02:26:20.770 --> 02:26:27.870
+Jitendra K: So all these law regulations will fall into… These classes.
+
+536
+02:26:28.420 --> 02:26:36.530
+Jitendra K: Now I'm loading the workflow by saying that I have a contact files, let's compile them, create a distinct, unique.
+
+537
+02:26:36.780 --> 02:26:40.740
+Jitendra K: And each contract take up to 5 distinct clause category to have variety.
+
+538
+02:26:40.990 --> 02:26:46.789
+Jitendra K: And then I'm creating a playbook, which will have a synthetic form playbook.
+
+539
+02:26:46.920 --> 02:26:50.479
+Jitendra K: Intentionally, I'm making it restricted to most clauses.
+
+540
+02:26:50.940 --> 02:26:53.660
+Jitendra K: Including the color categories amber and red.
+
+541
+02:26:54.020 --> 02:26:57.849
+Jitendra K: Now I'm keeping a LangFuse prompt, so this is a LangFuse prompt.
+
+542
+02:26:58.070 --> 02:27:04.140
+Jitendra K: Which is, defining the four prompt, the try age, the risk score, the red line, and the memo.
+
+543
+02:27:04.880 --> 02:27:09.860
+Jitendra K: So, these four prompt… Each has a system prompt and default config.
+
+544
+02:27:10.120 --> 02:27:17.820
+Jitendra K: So I'm creating this prompt. If the prompt content change, a new version is created, and make the version current, production version.
+
+545
+02:27:18.150 --> 02:27:19.030
+Jitendra K: to fetch.
+
+546
+02:27:19.560 --> 02:27:24.529
+Jitendra K: Now I've got the stoppers, some bit of text cleaning.
+
+547
+02:27:24.890 --> 02:27:29.499
+Jitendra K: Lowercase, removing punctuations, and dropping the stop words, etc.
+
+548
+02:27:29.930 --> 02:27:35.039
+Jitendra K: Then I'm also performing a lightweight, external dependency on retrieval mode.
+
+549
+02:27:35.550 --> 02:27:36.410
+Jitendra K: Here.
+
+550
+02:27:37.840 --> 02:27:41.770
+Jitendra K: Then I've got a series of agents, so these are 6 agents that I'm using.
+
+551
+02:27:42.030 --> 02:27:48.790
+Jitendra K: Which will work like… a production version of prompt from Langviews, returning the prompt text.
+
+552
+02:27:49.280 --> 02:27:53.149
+Jitendra K: Including the configuration parameters and the version IDs.
+
+553
+02:27:53.650 --> 02:27:57.520
+Jitendra K: So I have a first agent called TriEdge, so this is a TriEdge agent.
+
+554
+02:27:57.870 --> 02:28:02.210
+Jitendra K: So what it does is, it will call the LLM And…
+
+555
+02:28:03.150 --> 02:28:09.500
+Jitendra K: call the OpenAI model and try to generate a span inside the agent tried span.
+
+556
+02:28:09.620 --> 02:28:15.879
+Jitendra K: So, the second agent is the risk score per clause. It will try to understand the risk category
+
+557
+02:28:16.170 --> 02:28:24.380
+Jitendra K: In the loft document, and according to it, it will invoke the color code using the third agent called Redline.
+
+558
+02:28:24.740 --> 02:28:32.280
+Jitendra K: Then I'm going to compose the fourth agent to have all the findings, summarizations, and the review judge will validate those summarizations.
+
+559
+02:28:32.610 --> 02:28:41.060
+Jitendra K: So these are the agents which will read the contract, like, agents, and then they will be able to come up with a category of red and amber.
+
+560
+02:28:41.400 --> 02:28:48.419
+Jitendra K: So that is what we are doing in this whole setup, right? And since we already have the…
+
+561
+02:28:49.420 --> 02:28:55.949
+Jitendra K: labels associated with the right and the wrong output, we can able to justify
+
+562
+02:28:56.360 --> 02:29:09.239
+Jitendra K: whether the agents are performing well or not. But the idea is not to validate the agents here, the idea is to validate the traces of agents. And that's the reason I'm not going in-depth about what is the accuracy of this method, right?
+
+563
+02:29:09.550 --> 02:29:15.809
+Jitendra K: So, we are just tracing the agent using LangFuse, and that's the original objective of doing this analysis.
+
+564
+02:29:17.020 --> 02:29:20.869
+Jitendra K: So I'll share this code. I would like to… you to run this again.
+
+565
+02:29:22.860 --> 02:29:28.910
+Jitendra K: Okay, there's some question… Token, ops, and telemetry, which tool to use?
+
+566
+02:29:29.320 --> 02:29:38.419
+Jitendra K: So, as I mentioned, telemetry is, used for crew AI. It's for Langgraph and Langsmith, sorry, Langgraph and other SDK, go with Langsmith.
+
+567
+02:29:41.300 --> 02:29:46.490
+Jitendra K: Yeah, that is for skills, not… so we are not talking about skills here, skill.amdet tracing.
+
+568
+02:29:47.340 --> 02:29:53.449
+Jitendra K: And ClaudeMam for memory tracing of the… short-term memory inside the agents.
+
+569
+02:30:05.510 --> 02:30:09.940
+Jitendra K: So, Caveman is a optimized prompt which will reduce the token cost.
+
+570
+02:30:13.400 --> 02:30:16.269
+Jitendra K: Recently, I did an India legal system.
+
+571
+02:30:16.810 --> 02:30:19.100
+Jitendra K: project using Agentech RAG.
+
+572
+02:30:24.890 --> 02:30:28.800
+Jitendra K: I made curated Q&A custom dataset for evaluation.
+
+573
+02:30:29.810 --> 02:30:33.319
+Jitendra K: As I couldn't find any publicly, I…
+
+574
+02:30:34.340 --> 02:30:41.819
+Jitendra K: Yeah, I think you can use it, but this is basically… talk about a law firm, so you can try this, for sure.
+
+575
+02:30:55.060 --> 02:31:01.320
+Jitendra K: Alright, so any question? Let me share this code with everyone. I want everybody to run this code.
+
+576
+02:31:01.440 --> 02:31:06.869
+Jitendra K: Because now we are learning, how to solve problems with the help of open source data.
+
+577
+02:31:07.030 --> 02:31:12.030
+Jitendra K: Right, so this is a good example, so please utilize this from Hugging Face.
+
+578
+02:31:12.330 --> 02:31:28.820
+Jitendra K: And, these… you can read the data in the paper later, right? So, I will share this paper with you, so you understand what is the… what are we trying to solve. And the one way that you can be able to learn the skills is by acquiring the existing data, which are publicly available.
+
+579
+02:31:29.370 --> 02:31:47.879
+Jitendra K: Right? So, just make a habit of solving challenges with the help of open source data, like we did in machine learning, right? With machine learning, there are many data sets available, which will be utilized for the purpose of learning and demonstration. Same way now, GenAI stack is growing.
+
+580
+02:31:48.220 --> 02:31:53.990
+Jitendra K: So, you'll find such sort of data publicly available. You need not to worry about data, at least.
+
+581
+02:31:56.110 --> 02:32:01.120
+Jitendra K: You just need to focus on algorithm, mathematics, approach.
+
+582
+02:32:01.590 --> 02:32:05.689
+Jitendra K: tools… And, scalability.
+
+583
+02:32:11.500 --> 02:32:12.949
+Jitendra K: So please run this.
+
+584
+02:32:13.160 --> 02:32:15.100
+Jitendra K: And let me know if there's any question.
+
+585
+02:32:33.220 --> 02:32:51.979
+Jitendra K: So, just to summarize, we are… what we have learned today is, we have learned the observability pipeline, how to create the observability pipeline. So this is just a creation. We will go into a deep dive about each and every metric in the upcoming tutorial as well, to understand, let's say, what if… if something is going
+
+586
+02:32:52.670 --> 02:32:58.999
+Jitendra K: haywire inside this, right? So right now, it is going… everything is fine. That means there's no way to
+
+587
+02:32:59.310 --> 02:33:04.020
+Jitendra K: find any flaw in the existing… so there's only one alert I can see here.
+
+588
+02:33:04.150 --> 02:33:06.289
+Jitendra K: Let's see what is there inside this alert.
+
+589
+02:33:06.710 --> 02:33:09.620
+Jitendra K: Issuing review contact trial error.
+
+590
+02:33:09.980 --> 02:33:13.049
+Jitendra K: An error has been occurred due to…
+
+591
+02:33:17.220 --> 02:33:22.379
+Jitendra K: They're gonna be this… I think this is…
+
+592
+02:33:25.580 --> 02:33:31.409
+Jitendra K: Let me see the scores… okay, it has not been run properly, that's the reason it is showing.
+
+593
+02:33:31.870 --> 02:33:36.570
+Jitendra K: zero scores. So we need to re-trigger this, maybe, review contract.
+
+594
+02:33:36.950 --> 02:33:39.920
+Jitendra K: So that is how you can able to see,
+
+595
+02:33:40.430 --> 02:33:43.670
+Jitendra K: The errors and issue inside your old runs.
+
+596
+02:33:43.880 --> 02:33:47.980
+Jitendra K: And this traceability tool is helping you, too.
+
+597
+02:33:48.650 --> 02:33:52.170
+Jitendra K: Run the module from where it has been breaked.
+
+598
+02:33:54.000 --> 02:33:56.879
+Jitendra K: So please run this, and let me know if there's any question.
+
+599
+02:33:57.870 --> 02:33:59.320
+Jitendra K: I will take a pause here.
+
+600
+02:47:00.540 --> 02:47:02.939
+Jitendra K: Pools, and how can you be able to trace
+
+601
+02:47:03.080 --> 02:47:05.499
+Jitendra K: Your agent, with the help of these tools.
+
+602
+02:47:06.110 --> 02:47:10.460
+Jitendra K: So, in the next tutorial, we will talk… continue with our discussion on…
+
+603
+02:47:11.390 --> 02:47:21.450
+Jitendra K: the guardrails and agentic tracing, and we'll try to learn a few guardrails and mechanisms to operate on PIA-sensitive data.
+
+604
+02:47:23.380 --> 02:47:30.010
+Jitendra K: So, I think this is pretty much what we have for today, guys. Any question before we end this call?
+
+605
+02:47:48.710 --> 02:47:51.430
+Jitendra K: Yeah, the presentation has been shared already.
+
+606
+02:47:56.980 --> 02:47:58.510
+Jitendra K: the HTML file.
+
+607
+02:48:07.760 --> 02:48:10.370
+Jitendra K: So, these are,
+
+608
+02:48:10.750 --> 02:48:24.419
+Jitendra K: concise, so please make sure that you practice this, with the help of open source data. So I've introduced you to the Hugging Phase open source data as well, so that's a good opportunity for you to capitalize hands-on.
+
+609
+02:48:24.660 --> 02:48:32.240
+Jitendra K: Because these days, in interview questions, a lot of people are asking how many problems we have solved in open source, so please make sure that
+
+610
+02:48:32.460 --> 02:48:37.690
+Jitendra K: You have good understanding on the open source data, and then try to capitalize as much as you can.
+
+611
+02:48:43.930 --> 02:48:51.910
+Jitendra K: And of course, you need to read the papers and the details just to understand how,
+
+612
+02:48:52.100 --> 02:48:54.760
+Jitendra K: These data has been defined, what is objective?
+
+613
+02:48:55.120 --> 02:49:01.300
+Jitendra K: And then, what are you trying to solve with the help of new approach? Because this problem has already been solved.
+
+614
+02:49:01.640 --> 02:49:05.479
+Jitendra K: But we are solving this with more efficiency, with help of…
+
+615
+02:49:05.710 --> 02:49:09.120
+Jitendra K: Large language model, and using the agentic frameworks.
+
+616
+02:49:10.520 --> 02:49:17.859
+Jitendra K: So with that, let me thank you guys for attending this, and we'll meet tomorrow for the guardrails and other stuff. Thank you.
+
+617
+02:49:22.940 --> 02:49:23.860
+Jitendra K: Thank you.
+

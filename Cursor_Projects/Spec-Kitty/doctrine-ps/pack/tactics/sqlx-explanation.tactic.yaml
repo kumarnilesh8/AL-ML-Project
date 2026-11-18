@@ -1,0 +1,54 @@
+schema_version: "1.0"
+id: sqlx-explanation
+name: SQLX Code Explanation
+purpose: >
+  Translate SQLX functional unit code into clear business-language explanations for domain
+  experts, auditors, and reviewers. Describe what the FU calculates, what data it uses, what
+  decisions it makes, and what it outputs — without modifying code. Use when the task is
+  "explain this SQLX FU" or "document this functional unit for domain experts". Do not use for
+  generating or validating SQLX or interpreting pseudo code (sqlx-pseudo-code-to-spec).
+steps:
+  - title: Read and Parse the Functional Unit
+    description: >
+      Read all files in the FU directory (component.sqlx, _CF.sqlx, _BL.sqlx, _DD.sqlx, .dec).
+      Build data flow: inputs → CF preparation → BL logic → output. Identify key CASE
+      expressions, decision tables, joins, and conditions.
+
+  - title: Decode Field References
+    description: >
+      Use MCP query_datamodel_definitions per sqlx-mcp toolguide. For each field code (e.g.
+      C774, PTY170), resolve id, caption, description, domain. Build field reference table:
+      Code | Name | Description.
+
+  - title: Decode Domain Values
+    description: >
+      For fields used in conditions, resolve domain value meanings (code, caption). Translate
+      conditions into business language (e.g. "When Asset Category is 'Level 1 Assets' (10) or
+      'Level 2A Assets' (20)").
+
+  - title: Write the Explanation
+    description: >
+      Structure in business language (minimal SQLX jargon): What This Calculates (1–3 sentences,
+      regulatory purpose); Input Data (entities/views, fields, purpose); How It Works — data
+      preparation (CF), business logic (CASE and decision tables as When/Then), Output (result
+      contents); Field Reference table; Dependencies (upstream FUs, downstream if known). Depth:
+      Summary (2–3 sentences), Standard (full structure, default), or Detailed (+ rule-by-rule DT,
+      edge cases) per request.
+
+  - title: Verify Accuracy
+    description: >
+      Re-read SQLX and compare to explanation. Every CASE branch and decision table rule must be
+      covered. No undecoded field references. Explanation describes what the code does, not assumed
+      intent.
+
+failure_modes:
+  - "Undecoded field codes left in the explanation — every code must map to caption/description via MCP."
+  - "Describing assumed intent instead of actual code behavior — re-read BL/CF when in doubt."
+  - "Modifying SQLX source files — this tactic is documentation-only."
+
+notes: >
+  Invoked by SQLX Specialist Simon (sqlx-specialist-simon agent profile) for Explain tasks. Prerequisites:
+  FU directory with component.sqlx, _CF.sqlx, _BL.sqlx, _DD.sqlx, and any .dec files; sqlx-mcp
+  toolguide loaded (manual chapters 2–4, 7 for context). Exit criteria: domain expert without
+  SQLX knowledge understands what the FU calculates; all logic explained in business terms.
+  Output: docs/explanations/[FU_NAME]_explanation.md (optional quick summary for reviews).

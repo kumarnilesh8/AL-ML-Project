@@ -1,0 +1,4454 @@
+WEBVTT
+
+1
+00:01:26.350 --> 00:01:29.700
+Jitendra K: Hello guys, good evening, and warm welcome to another module.
+
+2
+00:01:30.120 --> 00:01:35.180
+Jitendra K: So before we kickstart the session, can we have a quick audio check if my voice is audible to everyone?
+
+3
+00:01:41.440 --> 00:01:42.839
+Jitendra K: Okay, great, thank you.
+
+4
+00:01:43.500 --> 00:01:49.430
+Jitendra K: So, we will start, where we left in the last tutorial. So, we have discussed about MCP.
+
+5
+00:01:50.300 --> 00:02:00.559
+Jitendra K: Now, in this tutorial, we'll talk about A2A and A2C protocol. So, before we delve into the details of A2A, is there any question related with MCP?
+
+6
+00:02:03.150 --> 00:02:05.299
+Jitendra K: Are you guys clear with MCP now?
+
+7
+00:02:13.090 --> 00:02:14.210
+Jitendra K: Okay, great.
+
+8
+00:02:15.090 --> 00:02:19.809
+Jitendra K: So I assume that you have run the code as well that has been shared as a tutorial and material.
+
+9
+00:02:20.110 --> 00:02:24.020
+Jitendra K: And you have a good understanding on MCP.
+
+10
+00:02:24.200 --> 00:02:27.860
+Jitendra K: So, it's no longer… I just,
+
+11
+00:02:28.320 --> 00:02:31.830
+Jitendra K: phrase for you, you have understand MCP in depth.
+
+12
+00:02:33.750 --> 00:02:41.470
+Jitendra K: Okay, similarly, we will try to conduct the same exercise for A2A now, and A2A stands for agent-to-agent communication. So it's a protocol.
+
+13
+00:02:41.710 --> 00:02:47.329
+Jitendra K: So we are learning protocols at this moment, which will set up the foundation for
+
+14
+00:02:47.610 --> 00:02:54.719
+Jitendra K: Agentic orchestration. So in today's tutorial, we'll talk about agentic application development for enterprise readiness.
+
+15
+00:02:54.950 --> 00:02:57.070
+Jitendra K: Which is called A2A Protocol.
+
+16
+00:02:57.270 --> 00:03:04.610
+Jitendra K: Now, before we move on to A2A protocol, let me explain why we required A28 protocol, agent to agent, what is… what is the purpose of it?
+
+17
+00:03:05.050 --> 00:03:09.360
+Jitendra K: So, the design principle that we are using for A2A is…
+
+18
+00:03:09.780 --> 00:03:12.770
+Jitendra K: It's an open source protocol, or it's an open protocol.
+
+19
+00:03:13.160 --> 00:03:22.440
+Jitendra K: That will provide a kind of a standardized way or standard way for agents to collaborate with each other, regardless of their underlying frameworks or vendor preferences.
+
+20
+00:03:22.910 --> 00:03:27.140
+Jitendra K: While designing the protocol, with… let's say…
+
+21
+00:03:27.840 --> 00:03:33.599
+Jitendra K: Within your team or outside your organization, you have to go with 5 key principles.
+
+22
+00:03:35.000 --> 00:03:39.329
+Jitendra K: The first principle is called… Embrace agent capability.
+
+23
+00:03:39.530 --> 00:03:43.870
+Jitendra K: That means agent to agent, focus on enabling agent to collaborate.
+
+24
+00:03:43.990 --> 00:03:48.209
+Jitendra K: In their natural, unstructured modalities.
+
+25
+00:03:48.690 --> 00:03:55.100
+Jitendra K: That is, even they do not require to share any memories, tools, or context. That means they should be seamless.
+
+26
+00:03:55.830 --> 00:04:00.770
+Jitendra K: So they should be enabled… Based on multi-agenting scenarios. So, simple, right?
+
+27
+00:04:00.900 --> 00:04:10.080
+Jitendra K: So, when you're using the… Let's say, when you're using, the 3-pin charger for your laptop.
+
+28
+00:04:12.030 --> 00:04:17.329
+Jitendra K: Right? In India, you have got different configuration. 220 volt.
+
+29
+00:04:18.079 --> 00:04:22.359
+Jitendra K: You're using to plug in, and then you're using it to charge your laptop.
+
+30
+00:04:22.550 --> 00:04:26.519
+Jitendra K: When you visited any other country, they might have a different convention.
+
+31
+00:04:27.240 --> 00:04:30.929
+Jitendra K: Right? Their port changes. So how will you deal with that?
+
+32
+00:04:31.410 --> 00:04:34.940
+Jitendra K: Right? So that is what we are trying to create, an interface.
+
+33
+00:04:35.090 --> 00:04:48.130
+Jitendra K: which will overcome these design principles. That means you are going to build everything on existing standards, and the protocol is built on the top of existing popular standards, including HTTP, SSE,
+
+34
+00:04:48.280 --> 00:04:49.760
+Jitendra K: JSON RPC.
+
+35
+00:04:50.610 --> 00:04:57.259
+Jitendra K: And, any other protocol, which is very easy to integrate with existing IT stacks and business.
+
+36
+00:04:57.720 --> 00:04:59.519
+Jitendra K: for daily consumption.
+
+37
+00:05:01.260 --> 00:05:10.250
+Jitendra K: So this is where agent-to-agent orchestration is going to be… Very, very useful for… that part.
+
+38
+00:05:10.650 --> 00:05:13.900
+Jitendra K: Now, the question is, when we have…
+
+39
+00:05:15.000 --> 00:05:19.260
+Jitendra K: Security by default, and what is the 8-way protocol?
+
+40
+00:05:19.780 --> 00:05:27.510
+Jitendra K: Is going to provide… add-on with, right? So that means E28 is designed to support enterprise-grade authentication and authorization.
+
+41
+00:05:27.690 --> 00:05:31.190
+Jitendra K: with parity to OpenAI authentication Scheme at launch.
+
+42
+00:05:31.700 --> 00:05:45.200
+Jitendra K: So, Google has designed this A2A protocol to be flexible and support scenarios where it excels at completing everything from quick tasks to deep research that may take hours or even days when there's a human in the loop.
+
+43
+00:05:45.350 --> 00:05:47.789
+Jitendra K: That means it is modality agnostic.
+
+44
+00:05:49.050 --> 00:05:56.620
+Jitendra K: So that means this is going to give you a very great user experience when you are using this A2A protocol seamlessly.
+
+45
+00:05:58.800 --> 00:06:04.149
+Jitendra K: Now, A2A facilitate communication between a client, agent, and a remote agent.
+
+46
+00:06:04.550 --> 00:06:11.890
+Jitendra K: So, a client agent is responsible for formulating and communicating a task, while the remote agent is responsible for acting on those tasks.
+
+47
+00:06:12.540 --> 00:06:16.659
+Jitendra K: So, in an attempt to provide the correct information or take the correct action.
+
+48
+00:06:16.780 --> 00:06:22.160
+Jitendra K: This interaction involves several key capabilities. One is capability discovery.
+
+49
+00:06:22.510 --> 00:06:26.360
+Jitendra K: Remember, we talked about capability discovery phase in MCP as well?
+
+50
+00:06:26.750 --> 00:06:32.829
+Jitendra K: So, same phase will go in 8-way as well, where your agent can advertise their capability
+
+51
+00:06:33.020 --> 00:06:35.419
+Jitendra K: using agentic card in JSON format.
+
+52
+00:06:35.580 --> 00:06:42.220
+Jitendra K: And allowing the agent to identify the best agent that can perform a task and leverage A2A communication with the remote agent.
+
+53
+00:06:44.240 --> 00:06:48.610
+Jitendra K: So think of this like, your visiting card that you're giving.
+
+54
+00:06:48.740 --> 00:06:56.199
+Jitendra K: to someone you're meeting with, right? So let's say you have a client meeting, or you have some other business
+
+55
+00:06:57.140 --> 00:07:08.119
+Jitendra K: meeting with someone, right? So you always carry your, visiting card, so that you can hand over your contact details, your designation details.
+
+56
+00:07:08.270 --> 00:07:15.870
+Jitendra K: your, office location, your mobile number, etc, right? So that they can be able to establish
+
+57
+00:07:16.540 --> 00:07:20.369
+Jitendra K: A kind of a channel for communication, formally.
+
+58
+00:07:20.680 --> 00:07:24.289
+Jitendra K: As a part of a business ethic governance criterias.
+
+59
+00:07:25.390 --> 00:07:38.209
+Jitendra K: Similarly, once the capability discovery has been generated by agents, they exchange the agentic card in JSON format, allowing the agent to identify the best agent that can perform a task and leverage A2A to communicate with a remote agent.
+
+60
+00:07:38.690 --> 00:07:48.030
+Jitendra K: Then the second is called task management and state management. So that means the communication between a client and a remote agent is oriented towards task completion.
+
+61
+00:07:48.890 --> 00:07:52.870
+Jitendra K: In which… Agent works to fulfill end-user request.
+
+62
+00:07:53.260 --> 00:07:54.879
+Jitendra K: So, a task is an object.
+
+63
+00:07:55.150 --> 00:07:58.940
+Jitendra K: Which has been defined by a protocol, and it will have a life cycle.
+
+64
+00:07:59.430 --> 00:08:01.940
+Jitendra K: It can complete immediately for…
+
+65
+00:08:02.260 --> 00:08:07.110
+Jitendra K: Long runs, or each of the agents can communicate to stay in sync with each other.
+
+66
+00:08:07.470 --> 00:08:12.100
+Jitendra K: on the latest status of the completion of the task. The output is known as artifacts.
+
+67
+00:08:12.480 --> 00:08:15.639
+Jitendra K: From that layer, you're going to get artifacts.
+
+68
+00:08:15.760 --> 00:08:19.610
+Jitendra K: Vocabulary discovery, just like your visiting card.
+
+69
+00:08:19.820 --> 00:08:28.359
+Jitendra K: artifacts… It's nothing but the communication between agent and remote… client and remote agent towards the task completion.
+
+70
+00:08:28.850 --> 00:08:39.720
+Jitendra K: Now comes the collaboration. Agent can send each other message to communicate context, replies, artifacts, or user instructions based upon which
+
+71
+00:08:39.900 --> 00:08:41.609
+Jitendra K: This layer should be secure.
+
+72
+00:08:42.190 --> 00:08:45.290
+Jitendra K: And finally, you've got user experience negotiation.
+
+73
+00:08:45.440 --> 00:08:51.029
+Jitendra K: Each message includes parts, which is a fully formed piece of content, like generated image.
+
+74
+00:08:51.190 --> 00:08:57.109
+Jitendra K: Each part has a specific content type, allowing the client and remote agent to negotiate the correct format.
+
+75
+00:08:57.470 --> 00:09:05.690
+Jitendra K: Which may be needed to explicitly generate the UI experiences, iframes, videos, web forms, and much more.
+
+76
+00:09:06.020 --> 00:09:13.189
+Jitendra K: So that is what this interop, interoperability between the two agents will be seamless.
+
+77
+00:09:13.410 --> 00:09:15.699
+Jitendra K: And, this is where you're going to have…
+
+78
+00:09:15.880 --> 00:09:20.759
+Jitendra K: Now, let me show you what are the different vendors who has applaud this
+
+79
+00:09:22.050 --> 00:09:25.299
+Jitendra K: A2A protocol. You can see a list is here.
+
+80
+00:09:26.800 --> 00:09:32.310
+Jitendra K: So you can see Atlanteel, one of the biggest, tools for managed services.
+
+81
+00:09:33.010 --> 00:09:36.510
+Jitendra K: has started using A2A into the ecosystem.
+
+82
+00:09:36.840 --> 00:09:40.889
+Jitendra K: Arise.ai, which is, again, one of the Google Launch Partner
+
+83
+00:09:41.060 --> 00:09:46.859
+Jitendra K: They are very good in terms of MLOps. They have also incorporated A2A.
+
+84
+00:09:47.080 --> 00:09:50.689
+Jitendra K: Boston Consulting Group, they're also recognizing it.
+
+85
+00:09:51.040 --> 00:09:54.310
+Jitendra K: Cognizant, coherent, confluent.
+
+86
+00:09:54.790 --> 00:09:57.370
+Jitendra K: So, the list is endless. Elasticsearch.
+
+87
+00:09:57.890 --> 00:10:04.650
+Jitendra K: You can see Intuit, JetBrains, JFrog, LabelBox, Langchain, even Langchain Community.
+
+88
+00:10:04.850 --> 00:10:07.259
+Jitendra K: is a bigger, I would say.
+
+89
+00:10:08.660 --> 00:10:12.130
+Jitendra K: ecosystem, but they are applauding E2A from Google.
+
+90
+00:10:12.250 --> 00:10:18.079
+Jitendra K: Neo4j, again, the cloud that we are using for storing the knowledge graphs.
+
+91
+00:10:18.560 --> 00:10:25.369
+Jitendra K: So they are also start uploading it. PayPal, PwC, SAP, Salesforce, these are all very good and rich.
+
+92
+00:10:25.520 --> 00:10:33.009
+Jitendra K: In terms of UI tools. So they are also utilizing A2A as one of the pivot, and they have launched SAP tool as one of the agents.
+
+93
+00:10:33.450 --> 00:10:37.740
+Jitendra K: very, I think, last year, and other agent which is also using A2A.
+
+94
+00:10:39.060 --> 00:10:48.869
+Jitendra K: Salesforce, which has hired Tableau, team, they're also doing E2A. ServiceNow, UiPath, again, one of the biggest companies for…
+
+95
+00:10:49.720 --> 00:10:52.529
+Jitendra K: Robot processor automation, they're also using it.
+
+96
+00:10:53.110 --> 00:10:57.889
+Jitendra K: Weights and Buyers, one of the emerging, companies for analytics.
+
+97
+00:10:58.300 --> 00:11:03.989
+Jitendra K: Accentures, AppGemini, Deloitte, SCL, KPMG, the list are endless. That means
+
+98
+00:11:04.090 --> 00:11:09.969
+Jitendra K: You can see the full specification and available code as well, if you would like to… Go through it.
+
+99
+00:11:10.650 --> 00:11:19.839
+Jitendra K: So, A2A protocol is, quite innovative, and we can able to utilize this for several purposes.
+
+100
+00:11:20.140 --> 00:11:25.929
+Jitendra K: And this is the code for it, and you can go through it, what… so you can see that the latest update
+
+101
+00:11:26.210 --> 00:11:30.149
+Jitendra K: It's just 2 days ago, and this is just at a GitHub level.
+
+102
+00:11:30.940 --> 00:11:39.359
+Jitendra K: So this means, this particular protocol is continuously evolving with a period of time, with every bugs reported by multiple organizations.
+
+103
+00:11:39.720 --> 00:11:45.290
+Jitendra K: Any new functionality that need to be added, and so on and so forth, so you can…
+
+104
+00:11:45.470 --> 00:11:46.919
+Jitendra K: Keep an eye on this.
+
+105
+00:11:52.410 --> 00:12:03.890
+Jitendra K: Alright, so that is how the skills has been developed with the help of A2A. So, you have… might have heard about agent skills, so that's the pivot for A2A. That means A2A has set up the
+
+106
+00:12:04.020 --> 00:12:06.770
+Jitendra K: Foundation for Agentic Skills.
+
+107
+00:12:07.150 --> 00:12:12.009
+Jitendra K: And now we are moving from Agent Tech Skills to OpenClaw and other agents, right?
+
+108
+00:12:12.140 --> 00:12:14.929
+Jitendra K: So that means, first, we need to have
+
+109
+00:12:15.120 --> 00:12:19.119
+Jitendra K: Proper communication establishment between agent, governance.
+
+110
+00:12:19.320 --> 00:12:25.429
+Jitendra K: And then, you can able to do wonders on the top of those architecture, and that is what we have seen
+
+111
+00:12:25.750 --> 00:12:29.799
+Jitendra K: That, there's a lot of things which is happening after this.
+
+112
+00:12:30.250 --> 00:12:37.769
+Jitendra K: So A2A is just like, so MCP is a USB port, USB-C port, so H2A is like your…
+
+113
+00:12:38.480 --> 00:12:45.289
+Jitendra K: I assume it, like, your communication strength. So once you establish a connection using MCP,
+
+114
+00:12:45.500 --> 00:12:49.190
+Jitendra K: Then how fast you can communicate, how fast you can…
+
+115
+00:12:49.930 --> 00:12:52.909
+Jitendra K: send the data from your USB-C cable.
+
+116
+00:12:53.210 --> 00:12:58.509
+Jitendra K: to the device that you're targeting for, right? So that is what A2A does, in a nutshell.
+
+117
+00:12:59.320 --> 00:13:02.930
+Jitendra K: So it's like a fast charging port for you, along with MCP.
+
+118
+00:13:04.360 --> 00:13:12.179
+Jitendra K: Okay, so… Now, what we are going to do is, we will discover some more
+
+119
+00:13:12.410 --> 00:13:14.670
+Jitendra K: technical nitty-gritties of A2A.
+
+120
+00:13:14.970 --> 00:13:18.929
+Jitendra K: So, as I mentioned, A2A is a protocol, right? So…
+
+121
+00:13:19.250 --> 00:13:25.619
+Jitendra K: When we say protocol, that means it is trying to address the challenge by establishing a standardized framework
+
+122
+00:13:25.900 --> 00:13:28.630
+Jitendra K: for communication between autonomous AI agents.
+
+123
+00:13:29.100 --> 00:13:31.229
+Jitendra K: And this has been developed by Google
+
+124
+00:13:31.360 --> 00:13:34.770
+Jitendra K: cloud, next 25 developer team.
+
+125
+00:13:35.340 --> 00:13:40.960
+Jitendra K: Where they have organized an event in April last year. I mean, it's just a one-year-old.
+
+126
+00:13:41.210 --> 00:13:46.910
+Jitendra K: So, ETA was developed in collaboration with 50 partners. That's the whole idea. So, partners…
+
+127
+00:13:47.050 --> 00:13:51.499
+Jitendra K: They already know that there is something specific coming as a part of the ecosystem.
+
+128
+00:13:51.760 --> 00:13:58.220
+Jitendra K: That's how the Google has launched it. So they have partnered with 50 technology partners and service providers.
+
+129
+00:13:58.450 --> 00:14:06.059
+Jitendra K: So, A2A purpose is to provide a common language and interaction pattern that will establish or enable the agent to communicate.
+
+130
+00:14:06.380 --> 00:14:14.640
+Jitendra K: And collaborate effectively regardless of their underlying implementation, providers, or specific functions that have been used to implement that agents.
+
+131
+00:14:15.020 --> 00:14:18.720
+Jitendra K: So it acts like a networking layer for AI ecosystem.
+
+132
+00:14:18.910 --> 00:14:23.160
+Jitendra K: Remember, there's one challenge which has been put forth by Facebook Meta, that
+
+133
+00:14:23.330 --> 00:14:29.050
+Jitendra K: We have launched some agents, and they are communicating within each other, so that was a challenge overall.
+
+134
+00:14:29.820 --> 00:14:37.410
+Jitendra K: So again, coming back to… the existing standards, so 8-way leverage well-established web technologies.
+
+135
+00:14:37.560 --> 00:14:41.219
+Jitendra K: To ensure broad compatibility and ease of adoption.
+
+136
+00:14:41.380 --> 00:14:48.150
+Jitendra K: So it utilizes HTTP for transport, servers, and events, SSE for real-time streaming.
+
+137
+00:14:48.370 --> 00:14:54.640
+Jitendra K: and JSON RPC for structured data exchanges. That means that Combine all three.
+
+138
+00:14:54.940 --> 00:14:58.449
+Jitendra K: Into one, so that you can secure, by default.
+
+139
+00:14:58.780 --> 00:15:02.230
+Jitendra K: So, it will incorporate enterprise-grade authentication.
+
+140
+00:15:02.540 --> 00:15:07.010
+Jitendra K: Using authorization mechanism, and, with standard practices.
+
+141
+00:15:07.280 --> 00:15:11.970
+Jitendra K: Which are part of security schemas, and ensuring the secure communication between the agent.
+
+142
+00:15:12.760 --> 00:15:20.640
+Jitendra K: Apart from that, agent-to-agent interaction also involves tasks that take significant time to complete, so it will provide a mechanism
+
+143
+00:15:20.830 --> 00:15:29.080
+Jitendra K: for managing these long-running tasks. That means it includes status tracking, real-time feedback, Status update and notification.
+
+144
+00:15:29.740 --> 00:15:32.929
+Jitendra K: from the user. And then communication between the agent.
+
+145
+00:15:33.060 --> 00:15:39.320
+Jitendra K: It's not just limited to text, but it supports modalities, including text, audio, video, and structured data.
+
+146
+00:15:39.520 --> 00:15:44.549
+Jitendra K: Enabling rich multimedia interaction and accommodating diversified identity capability.
+
+147
+00:15:44.810 --> 00:15:50.590
+Jitendra K: Now, let's say you're watching… you have a surveillance camera outside of your home, You would like to…
+
+148
+00:15:50.830 --> 00:15:52.580
+Jitendra K: Create a running commentary.
+
+149
+00:15:54.130 --> 00:16:00.710
+Jitendra K: So this is… capable. This, with the help of this protocol, you can able to… work on…
+
+150
+00:16:01.120 --> 00:16:02.690
+Jitendra K: Those aspects as well.
+
+151
+00:16:03.010 --> 00:16:09.870
+Jitendra K: That means it's not limited to one type of data, but it can be… cover multi-modalities.
+
+152
+00:16:10.060 --> 00:16:18.659
+Jitendra K: Including, including, the different formats of the data that you are going to utilize for the purpose.
+
+153
+00:16:35.220 --> 00:16:37.459
+Jitendra K: Okay, let me go back to the slides.
+
+154
+00:16:49.300 --> 00:16:58.950
+Jitendra K: One doubt, agent could be registered as an MCP tool, so what mode? What is tool here? So, why are you calling agent as a tool? Agent is not a tool.
+
+155
+00:16:59.690 --> 00:17:02.520
+Jitendra K: Tool is a capability of agent.
+
+156
+00:17:03.690 --> 00:17:08.689
+Jitendra K: So how can we say that MCP is registering an agent? In MCP, we're registering a tool.
+
+157
+00:17:09.470 --> 00:17:15.510
+Jitendra K: For context enrichment. There's no agent involved in MCP. Agent will discover that tool.
+
+158
+00:17:18.900 --> 00:17:21.600
+Jitendra K: Right? So when you're opening your,
+
+159
+00:17:22.109 --> 00:17:29.790
+Jitendra K: When you want to watch IPL, you have to switch on the remote. You're not going to use your mobile to switch on your TV, right? So that's a tool for you.
+
+160
+00:17:30.140 --> 00:17:32.150
+Jitendra K: You know what contacts you're going to search.
+
+161
+00:17:37.020 --> 00:17:39.480
+Jitendra K: So, MCP, we're not registering any agent.
+
+162
+00:17:39.740 --> 00:17:42.610
+Jitendra K: We're raising the tools and the capabilities.
+
+163
+00:17:43.650 --> 00:17:49.909
+Jitendra K: We are going to cover ACP and ANP as well. ACP will cover, ANP will not.
+
+164
+00:17:50.360 --> 00:17:54.770
+Jitendra K: ANP is still, I would say, is very decent.
+
+165
+00:17:55.090 --> 00:17:58.409
+Jitendra K: It will take some time to get ratified.
+
+166
+00:18:00.100 --> 00:18:06.770
+Jitendra K: Alright, so when we talk about A2A protocols, agent-to-agent protocol.
+
+167
+00:18:07.120 --> 00:18:14.369
+Jitendra K: We are talking about data and exchange and security layer, so every A2A interaction happens over a secure transport layer.
+
+168
+00:18:14.900 --> 00:18:18.190
+Jitendra K: That means, typically, you're going to use TPS,
+
+169
+00:18:18.750 --> 00:18:23.060
+Jitendra K: So that the data move between agent is encrypted in transit.
+
+170
+00:18:23.200 --> 00:18:25.250
+Jitendra K: Before any meaningful works begin.
+
+171
+00:18:25.800 --> 00:18:29.389
+Jitendra K: Right? So the remote agent verifies the identity and the permissions.
+
+172
+00:18:29.500 --> 00:18:38.920
+Jitendra K: of the client agent and using established authentication standards. So beyond transportation security, A2A protects the structure of the interaction itself.
+
+173
+00:18:39.530 --> 00:18:45.929
+Jitendra K: Because… works happen with defined tasks, right? So each message is tried to a specific unit of work.
+
+174
+00:18:46.200 --> 00:18:48.520
+Jitendra K: With a unique identifier within the agent.
+
+175
+00:18:48.630 --> 00:18:55.039
+Jitendra K: That means the context will not loss between these exchanges, even for longer workflows, which is running.
+
+176
+00:18:55.270 --> 00:18:56.740
+Jitendra K: For quite a while.
+
+177
+00:18:57.030 --> 00:19:01.450
+Jitendra K: And that is the whole idea of… the A2A protocol.
+
+178
+00:19:01.810 --> 00:19:04.359
+Jitendra K: That means you're going to have 3 specific
+
+179
+00:19:04.510 --> 00:19:07.579
+Jitendra K: Specification architecture layer as a part of it.
+
+180
+00:19:07.790 --> 00:19:10.159
+Jitendra K: So the layer number one is called Data Object.
+
+181
+00:19:11.250 --> 00:19:15.899
+Jitendra K: So, as I mentioned, data object, the first task is to exchange the capabilities.
+
+182
+00:19:16.210 --> 00:19:18.130
+Jitendra K: Then you are going to use a task.
+
+183
+00:19:18.400 --> 00:19:19.490
+Jitendra K: a queue.
+
+184
+00:19:19.880 --> 00:19:27.800
+Jitendra K: The task in a queue that your agent is going to perform, when is it exchanging the handshake with other agent.
+
+185
+00:19:27.920 --> 00:19:33.920
+Jitendra K: it will provide this information in a data object. You will have a task, you will have a message ID, you will have a
+
+186
+00:19:34.320 --> 00:19:40.250
+Jitendra K: Part of your data, the artifacts, the task status, and the push notification configuration.
+
+187
+00:19:40.750 --> 00:19:47.200
+Jitendra K: Then the second layer will be your abstract layer, where agent will start sending the message, generate some streaming.
+
+188
+00:19:47.620 --> 00:19:51.199
+Jitendra K: It may look for some, reverse
+
+189
+00:19:51.460 --> 00:19:59.260
+Jitendra K: Mechanism as well. Let's say the task has been canceled, a particular agent has subscribed to a task, a list of tables or tasks.
+
+190
+00:19:59.560 --> 00:20:05.539
+Jitendra K: And then the protocol binding, which includes what transportation layer it should use for performing this.
+
+191
+00:20:06.920 --> 00:20:10.660
+Jitendra K: communication, right? So basically, that's what I'm saying.
+
+192
+00:20:10.930 --> 00:20:17.800
+Jitendra K: So, every A2A protocol We'll utilize this ecosystem
+
+193
+00:20:18.760 --> 00:20:25.260
+Jitendra K: seamlessly. So the idea is, if you have to understand the design constraint of this A2A protocol.
+
+194
+00:20:25.700 --> 00:20:35.289
+Jitendra K: So, A2A protocol is an effort to establish a way for agentic AI to communicate and collaborate, right? That's the main motivation of creating A2A.
+
+195
+00:20:35.470 --> 00:20:39.619
+Jitendra K: There's no other motivation apart from this. So remember this motivation.
+
+196
+00:20:39.830 --> 00:20:47.820
+Jitendra K: The A2A protocol is established, or generated, to establish a way for AI Agent to communicate and collaborate.
+
+197
+00:20:48.340 --> 00:20:54.129
+Jitendra K: So the idea is, the aim is to provide standard framework, allowing the agent to discover capability.
+
+198
+00:20:54.310 --> 00:20:59.300
+Jitendra K: Negotiate interaction, and collaborate in a secure and safe environment.
+
+199
+00:20:59.660 --> 00:21:06.220
+Jitendra K: That means you need to first discover, using DataObject, identify other available agents, and understand their functions.
+
+200
+00:21:06.500 --> 00:21:14.609
+Jitendra K: Negotiate interactions, determine the appropriate modalities for exchange, their capabilities, For a specific task.
+
+201
+00:21:14.780 --> 00:21:20.659
+Jitendra K: It can be a simple task, it can be a structured task, it can be a bi-directional multimedia streamings as well.
+
+202
+00:21:20.990 --> 00:21:30.129
+Jitendra K: And then you are going to collaborate securely, execute tasks cooperatively, passing instruction and data reliably and securely with the help of encryptions.
+
+203
+00:21:31.420 --> 00:21:36.599
+Jitendra K: So… The question is, when we're trying to use A2A,
+
+204
+00:21:37.470 --> 00:21:44.209
+Jitendra K: you are going to create a simple and elegant way so that 8WA can… able to establish this
+
+205
+00:21:44.380 --> 00:21:46.449
+Jitendra K: communication channel.
+
+206
+00:21:46.890 --> 00:21:53.649
+Jitendra K: And it should be enterprise-ready. That means it will include robust mechanism for authentication, security, privacy.
+
+207
+00:21:53.890 --> 00:21:57.369
+Jitendra K: Where you're going to ensure sensitive information is handled properly.
+
+208
+00:21:57.810 --> 00:22:05.899
+Jitendra K: Tracing, that means you can trace logging interaction for auditability purpose, and monitoring for observing the health and performance of the agentic communication.
+
+209
+00:22:06.070 --> 00:22:08.810
+Jitendra K: That means it is enterprise-ready framework.
+
+210
+00:22:09.110 --> 00:22:21.400
+Jitendra K: It is asynchronous, first, because A2A is designed with asynchronous communication as a primary consideration. That means you are going to allow the task to proceed over the extended period and seamlessly integrate
+
+211
+00:22:21.610 --> 00:22:26.619
+Jitendra K: human-the-loop workflows, right? That is very important for asynchronous tasks.
+
+212
+00:22:27.630 --> 00:22:38.679
+Jitendra K: Again, modality agnostic, that means if I'm going to go with multiple types of agent, including text, bi-directional audio, video, streaming, interactive forms.
+
+213
+00:22:39.280 --> 00:22:50.209
+Jitendra K: And even embedded iframes for each user experience, that will allow my agent-to-end communication to be established with the help of modality-agnostic pipelines.
+
+214
+00:22:50.620 --> 00:22:54.859
+Jitendra K: It is also OPAC execution. This is one of the cornerstone of,
+
+215
+00:22:55.400 --> 00:22:59.600
+Jitendra K: A2A protocol, where each agent participate in a collaboration.
+
+216
+00:22:59.880 --> 00:23:06.760
+Jitendra K: which remain invisible to the other. They do not need to retrieve or reveal their internal reasoning process.
+
+217
+00:23:07.050 --> 00:23:11.989
+Jitendra K: Their knowledge representation, memory layers, or specific tools that they are calling.
+
+218
+00:23:12.180 --> 00:23:17.309
+Jitendra K: So, collaboration occurred through well-defined interfaces and message exchange protocols.
+
+219
+00:23:17.500 --> 00:23:23.570
+Jitendra K: Preserving the autonomy and the actual property of each agent. So, when agent operate.
+
+220
+00:23:23.800 --> 00:23:29.500
+Jitendra K: This way, by default, without revealing their specific implementation tools or a way of thinking.
+
+221
+00:23:29.810 --> 00:23:34.820
+Jitendra K: An individual remote agent can choose a selective
+
+222
+00:23:35.050 --> 00:23:37.360
+Jitendra K: State or reasoning process via message.
+
+223
+00:23:37.850 --> 00:23:41.600
+Jitendra K: And then it'll act on that, right? And then it will create
+
+224
+00:23:41.880 --> 00:23:45.510
+Jitendra K: A kind of a threat which will be spawn.
+
+225
+00:23:46.060 --> 00:23:50.220
+Jitendra K: And then it will track via that thread that how the agents are performing.
+
+226
+00:23:51.790 --> 00:23:53.959
+Jitendra K: Let me see if there's any questions…
+
+227
+00:23:57.210 --> 00:23:59.519
+Jitendra K: Does Microsoft Copilot?
+
+228
+00:24:00.790 --> 00:24:06.860
+Jitendra K: is most organized support A2A, or they have their own version, because I know they are mainly using MCPA.
+
+229
+00:24:07.000 --> 00:24:10.930
+Jitendra K: You cannot compare AMCP with A2A, they are different protocol.
+
+230
+00:24:11.130 --> 00:24:16.229
+Jitendra K: So, MCP and 8WA are different. Here, I'm talking about MCP as a tool.
+
+231
+00:24:16.570 --> 00:24:21.020
+Jitendra K: and context management protocol. A2A is a communication protocol.
+
+232
+00:24:21.280 --> 00:24:31.839
+Jitendra K: So when you're communicating with any human, you need to understand the language which they speak, right? If you're speaking Tamil, Telugu, you need to understand Tamil and Telugu, then only you can speak to the native.
+
+233
+00:24:32.400 --> 00:24:50.739
+Jitendra K: So that same way A2A is doing it, on a generic basis. Let's say there's a universal language, which is English, in our world. So everybody, if everybody understands English, then you can able to… why we need regional languages for that purpose then, right? So the whole idea is, A2A is just like your…
+
+234
+00:24:51.590 --> 00:24:55.329
+Jitendra K: Consider as a universal language, which agent can able to?
+
+235
+00:24:55.790 --> 00:24:56.880
+Jitendra K: Speak up with.
+
+236
+00:24:58.020 --> 00:25:01.869
+Jitendra K: So this is a communication foundation stone for Agentic AI system.
+
+237
+00:25:02.980 --> 00:25:06.249
+Jitendra K: Communication Foundation Stone, yeah, kind of, yes.
+
+238
+00:25:06.360 --> 00:25:09.859
+Jitendra K: So this is the main barrier, or I would say.
+
+239
+00:25:10.720 --> 00:25:17.150
+Jitendra K: Barrier removal, that means you are going to have a universal interface to coordinate.
+
+240
+00:25:23.780 --> 00:25:32.720
+Jitendra K: How it is different from multi-agentic functionality? Multi-agentic functionality… what do you mean by multi-agent functionality? I didn't get your question.
+
+241
+00:25:33.100 --> 00:25:37.530
+Jitendra K: We have a multi-agent tick using Langgraph. Why does E2A matter?
+
+242
+00:25:37.930 --> 00:25:41.950
+Jitendra K: Why can't we multi-line graph? Langraph is our ADK tool.
+
+243
+00:25:42.060 --> 00:25:44.319
+Jitendra K: Again, you're comparing apple with orange.
+
+244
+00:25:44.730 --> 00:25:46.490
+Jitendra K: They're serving different purpose.
+
+245
+00:25:46.930 --> 00:25:52.110
+Jitendra K: Inside OpenClaw Client, social media.
+
+246
+00:25:52.400 --> 00:25:56.539
+Jitendra K: Like, model board, which communication protocol followed by the agent. A2A.
+
+247
+00:25:57.570 --> 00:26:02.709
+Jitendra K: Modbot is using it way for doing this. OpenClaw is not,
+
+248
+00:26:03.160 --> 00:26:09.129
+Jitendra K: It's not a protocol, so they are using the protocol inside Their orchestration framework.
+
+249
+00:26:10.020 --> 00:26:16.290
+Jitendra K: So when it is… when you heard about orchestration, agent orchestration, A2A is a default protocol.
+
+250
+00:26:18.670 --> 00:26:24.810
+Jitendra K: Okay, so I hope you understand the key mechanism now of A two-way protocol.
+
+251
+00:26:30.170 --> 00:26:36.040
+Jitendra K: What it does… Yeah, we'll talk about enterprise examples.
+
+252
+00:26:37.870 --> 00:26:42.790
+Jitendra K: For e-commerce, retail, E2A can cover in Predictable Chad to predict business process.
+
+253
+00:26:43.710 --> 00:26:51.449
+Jitendra K: Yeah, kind of, you can say, but, let's say if I have to create a customer service and support bots, right?
+
+254
+00:26:51.680 --> 00:26:57.829
+Jitendra K: So in a customer service environment, you can get some fairly complicated cases. We're not talking about
+
+255
+00:26:58.190 --> 00:27:04.660
+Jitendra K: Simple cases like, order cancel, order, approve. We're talking about complex, complicated cases like
+
+256
+00:27:04.780 --> 00:27:09.280
+Jitendra K: There's a triage agent which might review an incoming issue and recognize.
+
+257
+00:27:09.490 --> 00:27:21.269
+Jitendra K: that it needs to a deeper context before recommending next step. Using A2A, it can communicate with a knowledge agent to search internal documents, and using system status agent to check for active incidents.
+
+258
+00:27:21.460 --> 00:27:24.750
+Jitendra K: So, each agent contributes structured information.
+
+259
+00:27:24.970 --> 00:27:31.919
+Jitendra K: That is tied to the same task, right? So the triage agent consolidates the result into a clear summary
+
+260
+00:27:33.190 --> 00:27:40.960
+Jitendra K: Recommended action, giving the human reviews as a unified view, rather than forcing them to piece together information across system.
+
+261
+00:27:41.730 --> 00:27:53.129
+Jitendra K: That's one example. Sales and revenue operation, let's say you're working for revenue workflow, which often involve multiple checkpoints. So a sales agent can generate a quote automatically.
+
+262
+00:27:53.260 --> 00:27:54.120
+Jitendra K: But…
+
+263
+00:27:54.230 --> 00:28:03.790
+Jitendra K: It may deal with several nuances. If a customer discount is needed, a sales agent communicates through A2A with a pricing agent who evaluates the dynamic rules.
+
+264
+00:28:03.930 --> 00:28:07.000
+Jitendra K: The discount exceeds the predefined limit.
+
+265
+00:28:07.130 --> 00:28:13.179
+Jitendra K: A compliance agent join the workflows and validate that term. Supply and chain, you can also use.
+
+266
+00:28:13.510 --> 00:28:16.589
+Jitendra K: So there are endless use cases. The future is open, right?
+
+267
+00:28:16.920 --> 00:28:20.739
+Jitendra K: So it's a protocol, you can use it for any purpose.
+
+268
+00:28:25.520 --> 00:28:31.180
+Jitendra K: too many questions, but I feel these are… these will be answered towards the end of the tutorial, so please allow me to
+
+269
+00:28:31.500 --> 00:28:33.479
+Jitendra K: Complete this topic.
+
+270
+00:28:33.800 --> 00:28:36.379
+Jitendra K: Otherwise, we will just do a Q&A here.
+
+271
+00:28:37.150 --> 00:28:42.949
+Jitendra K: A2A standard communication protocol between agent by different organization business, is that right? That's correct, yes.
+
+272
+00:28:43.480 --> 00:28:47.880
+Jitendra K: Could we do an example walkthrough? Yeah, we will talk about that.
+
+273
+00:28:48.240 --> 00:28:52.030
+Jitendra K: When we have multiple agents using Langra, why does it really matter?
+
+274
+00:28:53.150 --> 00:28:56.539
+Jitendra K: Why can't we build multiple agents using line graphs?
+
+275
+00:28:57.630 --> 00:29:00.590
+Jitendra K: Again, the same question, so you're using Langra for what?
+
+276
+00:29:01.290 --> 00:29:05.670
+Jitendra K: So, managing the communication, is that what I teach to you, Ellen?
+
+277
+00:29:06.310 --> 00:29:09.780
+Jitendra K: Is that what the purpose of Langraph? To communicate between the agents?
+
+278
+00:29:13.830 --> 00:29:16.849
+Jitendra K: Langraph is an ADK, yes, to build agent, that's correct.
+
+279
+00:29:18.090 --> 00:29:21.090
+Jitendra K: Just a… just an ADK, Agent Development Kit.
+
+280
+00:29:24.120 --> 00:29:29.889
+Jitendra K: And when you're establishing a communication between the ADK, You required A2A.
+
+281
+00:29:35.120 --> 00:29:41.119
+Jitendra K: Yeah, frameworks like Langchain, Langraph, True AI can leverage this protocol. That's right, that's the right answer.
+
+282
+00:29:41.930 --> 00:29:45.950
+Jitendra K: So, you're not end up into any vendor agnostic
+
+283
+00:29:46.200 --> 00:29:52.460
+Jitendra K: lock. So let's say somebody in your team has developed the agent using Langraph, somebody has developed with Crew AI,
+
+284
+00:29:52.630 --> 00:29:56.560
+Jitendra K: But how will you communicate between these two agents now? That's a problem, right?
+
+285
+00:29:59.290 --> 00:30:04.909
+Jitendra K: So, there are two agents which have been developed in two different tools. How did you orchestrate these agents?
+
+286
+00:30:05.560 --> 00:30:07.959
+Jitendra K: There's a serious problem, that's a big problem.
+
+287
+00:30:08.770 --> 00:30:13.090
+Jitendra K: One thing that you have to do is, either you have to convert everything from Crew AI to Langraph.
+
+288
+00:30:13.440 --> 00:30:17.849
+Jitendra K: And then you can able to use state mechanism that has been used in state, line graphs.
+
+289
+00:30:18.140 --> 00:30:22.269
+Jitendra K: Second way is you can convert your Langraph to Crew AI, and then start communicating.
+
+290
+00:30:22.630 --> 00:30:25.100
+Jitendra K: But this is a time-cumbersome process.
+
+291
+00:30:27.580 --> 00:30:30.779
+Jitendra K: Yeah, that's the right answer, Anand. I really appreciate it.
+
+292
+00:30:37.630 --> 00:30:43.519
+Jitendra K: Okay, build out of agentic system using best tool, connect time using it, is that a fair simplification?
+
+293
+00:30:44.350 --> 00:30:48.889
+Jitendra K: Build our agentic AI system using best tool. What is best tool?
+
+294
+00:30:51.590 --> 00:30:56.350
+Jitendra K: When you say best tool, This best tool is a very vague term.
+
+295
+00:30:56.690 --> 00:31:03.430
+Jitendra K: and connect them using E2A, is that fairly simplification? I don't think so this is… Right.
+
+296
+00:31:08.000 --> 00:31:11.340
+Jitendra K: Sub-agent in line graph is independent AI agent.
+
+297
+00:31:13.150 --> 00:31:15.690
+Jitendra K: No, I think this is clear now.
+
+298
+00:31:16.110 --> 00:31:21.790
+Jitendra K: How about API end calls? What is API end calls? You're talking about tools here, again.
+
+299
+00:31:23.260 --> 00:31:33.370
+Jitendra K: You're going to say, can we create and deploy agent using API, and then use another agent as an API, and then start communicating? But how will you establish that communication again?
+
+300
+00:31:33.540 --> 00:31:35.909
+Jitendra K: API, just a hosting API, right?
+
+301
+00:31:37.030 --> 00:31:40.540
+Jitendra K: API will… will API guarantee any data exchanges?
+
+302
+00:31:50.150 --> 00:31:53.980
+Jitendra K: So API is not a solution here. The solution is a protocol.
+
+303
+00:31:54.330 --> 00:31:56.879
+Jitendra K: We don't require API, we require protocol.
+
+304
+00:31:57.430 --> 00:32:07.079
+Jitendra K: And the protocol should have some governing stacks, right? Like, how it has been start establishing the communication, what are the different sequence in which
+
+305
+00:32:07.180 --> 00:32:10.600
+Jitendra K: They start exchanging the identity card artifacts.
+
+306
+00:32:10.710 --> 00:32:14.619
+Jitendra K: How did they trace the task allocated to a particular agent?
+
+307
+00:32:14.760 --> 00:32:15.730
+Jitendra K: So that…
+
+308
+00:32:16.010 --> 00:32:24.530
+Jitendra K: the purpose of coordination here is pets only, right? So let's say you have, created 2 or 3 agents. Let me go back to the same example. Let's say…
+
+309
+00:32:24.710 --> 00:32:27.149
+Jitendra K: I'm creating a supply chain and logistic.
+
+310
+00:32:27.800 --> 00:32:40.760
+Jitendra K: So, operational team deal with constant movements, right? When inventory monitoring agent detects low stock level, it initiates a task and coordinate with the order agent to generate a replenishment request.
+
+311
+00:32:40.940 --> 00:32:45.330
+Jitendra K: That means if I'm maintaining a warehouse, Amazon have this example.
+
+312
+00:32:45.770 --> 00:32:48.850
+Jitendra K: Where they are creating an operational agent.
+
+313
+00:32:49.050 --> 00:32:54.020
+Jitendra K: which constantly check the movement on the inventory. So let's say when you're ordering.
+
+314
+00:32:54.670 --> 00:32:58.499
+Jitendra K: Let me take an example. So let's say this is your Amazon website.
+
+315
+00:32:59.550 --> 00:33:00.840
+Jitendra K: In the USA.
+
+316
+00:33:02.140 --> 00:33:05.939
+Jitendra K: There are different zones in USA, right? So let's say this is…
+
+317
+00:33:06.330 --> 00:33:09.620
+Jitendra K: One city, second city, third city, fourth city.
+
+318
+00:33:09.790 --> 00:33:16.750
+Jitendra K: even let's talk about zones, node zones, right? They have their warehouse. Amazon is operating on the warehouses.
+
+319
+00:33:17.020 --> 00:33:25.620
+Jitendra K: So, they have created an agent, when an inventory monitoring agent detects a low inventory, or stock level, or stock keeping unit.
+
+320
+00:33:26.010 --> 00:33:32.540
+Jitendra K: They initiate a task and coordinate with the order agent to generate a replenishment request.
+
+321
+00:33:32.670 --> 00:33:36.459
+Jitendra K: So the order agent then communicated with the external supplier.
+
+322
+00:33:38.530 --> 00:33:43.339
+Jitendra K: To place an order and retrieve the shipment details back to the server.
+
+323
+00:33:43.630 --> 00:33:47.179
+Jitendra K: So, tracing this information returns an artifact with the same task.
+
+324
+00:33:47.490 --> 00:33:51.469
+Jitendra K: Which makes this sequence traceable from detection to delivery.
+
+325
+00:33:51.880 --> 00:34:01.229
+Jitendra K: And this process remains easily coordinated without embedding all the logic into one system, right? So you can see that clearly I'm just using a supply chain logistic.
+
+326
+00:34:01.760 --> 00:34:07.599
+Jitendra K: Where the agent will see how many inventories are there, what is the stock equipping unit thresholds.
+
+327
+00:34:07.960 --> 00:34:13.789
+Jitendra K: when I'm going to reorder the PO, the PO will generate, the shipping detail will be signed.
+
+328
+00:34:13.949 --> 00:34:16.279
+Jitendra K: Along with the time to accomplish.
+
+329
+00:34:16.790 --> 00:34:22.190
+Jitendra K: And then I will be able to fulfill the next request from Amazon.
+
+330
+00:34:23.080 --> 00:34:24.070
+Jitendra K: website.
+
+331
+00:34:24.460 --> 00:34:26.050
+Jitendra K: Based upon this timing.
+
+332
+00:34:27.239 --> 00:34:33.220
+Jitendra K: Alright, so this is one simple supply chain agent that you can create for doing this.
+
+333
+00:34:33.850 --> 00:34:34.960
+Jitendra K: Automation.
+
+334
+00:34:43.500 --> 00:34:47.850
+Jitendra K: Yeah, it's like a communication channel between the two teams, that's correct.
+
+335
+00:34:51.030 --> 00:34:56.159
+Jitendra K: Yeah, API operate at low layer. Protocol is, like, standard, that's correct.
+
+336
+00:34:57.540 --> 00:35:03.889
+Jitendra K: So… So basically, the idea of A2A is very simple. You have an open standard now.
+
+337
+00:35:04.130 --> 00:35:05.810
+Jitendra K: Open standard for what?
+
+338
+00:35:05.920 --> 00:35:12.640
+Jitendra K: Open standard for coordination. Open standard for communication. Open standard for exchanging the information.
+
+339
+00:35:13.560 --> 00:35:30.720
+Jitendra K: Right? So that is what communication talks about. So communication between the agent. They're not going to say hello and hi to each other. That's not communication for agent. They're going to do some meaningful task when they're exchanging information, right? So communication for human is a different thing, but communication for agent is
+
+340
+00:35:31.060 --> 00:35:37.769
+Jitendra K: quite pinpoint, and then pretty straightforward. They're not going to say hello, and then they start discovering it.
+
+341
+00:35:38.310 --> 00:35:49.609
+Jitendra K: So they are going to use thread IDs to communicate. If the thread resource is stacked to that particular task, and then that this task has been allocated or routed to the second agent.
+
+342
+00:35:49.920 --> 00:35:52.920
+Jitendra K: Then it'll start using that particular thread pool.
+
+343
+00:35:53.100 --> 00:35:58.350
+Jitendra K: to generalize the autonomy of action, right? So that is what the agent card looks like.
+
+344
+00:35:58.680 --> 00:36:01.759
+Jitendra K: So let's say if I'm going to discover a contract.
+
+345
+00:36:02.630 --> 00:36:12.150
+Jitendra K: So I should have a details of these contracts, right? So basically, I should be able to understand that if I'm using an agentic card, this is called agentic manifestos, right?
+
+346
+00:36:12.350 --> 00:36:17.120
+Jitendra K: So I should write this particular card as a bouquet of service.
+
+347
+00:36:17.610 --> 00:36:21.460
+Jitendra K: You can see that My identity card is a JSON file.
+
+348
+00:36:21.920 --> 00:36:30.359
+Jitendra K: Which talks about the name of the agent, a brief description on a particular agent. So let's say we have… we're going to use FINRAG.
+
+349
+00:36:30.590 --> 00:36:32.119
+Jitendra K: For compliance agent.
+
+350
+00:36:32.240 --> 00:36:40.320
+Jitendra K: The description that talks about that I'm going to operate on 54 countries, 54 regulatory compliance, and I'm going to generate a
+
+351
+00:36:40.510 --> 00:36:43.480
+Jitendra K: Reasoning on those reports. That is my job.
+
+352
+00:36:43.950 --> 00:36:50.350
+Jitendra K: What is the description of this agent? It's a job of this agent, right, to perform this action across 54 countries.
+
+353
+00:36:50.460 --> 00:36:53.239
+Jitendra K: Now, this 54 countries are a very important term.
+
+354
+00:36:53.810 --> 00:36:59.220
+Jitendra K: When I say 54 countries, that means… I will reuse this agent.
+
+355
+00:36:59.370 --> 00:37:03.759
+Jitendra K: if I'm getting the similar request across other geographies, right?
+
+356
+00:37:04.000 --> 00:37:15.509
+Jitendra K: So I'm also going to have a version which will simply… a kind of a manifesto where I will talk about which version I'm operating, what URL I'm using to post this model.
+
+357
+00:37:15.880 --> 00:37:21.710
+Jitendra K: What's the protocol version, the preference, transportation layer? I'm using a JSON RPC.
+
+358
+00:37:22.630 --> 00:37:24.970
+Jitendra K: The capabilities, including streaming.
+
+359
+00:37:25.320 --> 00:37:33.870
+Jitendra K: push notification from the UI, state transition metrics, history tracking, I'm keeping it to be true. And then there's some, some other,
+
+360
+00:37:34.270 --> 00:37:39.559
+Jitendra K: part of my… Agent card. The one important thing is, I have an ID.
+
+361
+00:37:40.680 --> 00:37:42.400
+Jitendra K: So this ID will be unique.
+
+362
+00:37:42.890 --> 00:37:49.390
+Jitendra K: And this ID will talk about KYC cross-border checks, right? So this is a workflow ID now I'm repeating.
+
+363
+00:37:49.730 --> 00:37:54.439
+Jitendra K: Now, this workflow ID will be… As it is throughout my…
+
+364
+00:37:55.430 --> 00:38:05.339
+Jitendra K: throughout the lifecycle of this agent, right? And then, I would like to use some sort of authentication mechanism to establish a connection between the other agent
+
+365
+00:38:05.440 --> 00:38:23.660
+Jitendra K: and some sort of encrypted signature. That will help me to understand the JWS tokens, or canonical JSON format, which I'm going to use to perform this. So this is a discovery contract. So this contract is important. When you're registering your agent.
+
+366
+00:38:23.800 --> 00:38:26.560
+Jitendra K: In… A2A protocol.
+
+367
+00:38:35.360 --> 00:38:37.639
+Jitendra K: So, any question on this part, guys?
+
+368
+00:38:41.990 --> 00:38:45.679
+Jitendra K: a bit similar to Handshake between MCP and… yeah, that's correct.
+
+369
+00:38:46.120 --> 00:38:49.560
+Jitendra K: So this is the agentic card. So the card will be…
+
+370
+00:38:49.820 --> 00:38:59.379
+Jitendra K: having these parameters. Some of the main parameters that we are going to use in our code as well. We'll include a name and a description, human identifier readable format.
+
+371
+00:38:59.590 --> 00:39:11.029
+Jitendra K: The version controls, very semantic version of this agent, because you're going to change this agent as well, right? If you encounter any exception, so you should ensure that you are using the right version.
+
+372
+00:39:11.290 --> 00:39:12.820
+Jitendra K: From the coding point of view.
+
+373
+00:39:13.040 --> 00:39:20.709
+Jitendra K: Right? So everything that you are dealing with here, which include your CIOps continuous integration operation.
+
+374
+00:39:20.910 --> 00:39:26.680
+Jitendra K: And CD, continuous deployment, continuous deployment, should be seamlessly reflected in this version.
+
+375
+00:39:27.020 --> 00:39:32.310
+Jitendra K: The URL, the endpoint, the endpoint-based URL that your agent is hosted towards.
+
+376
+00:39:32.650 --> 00:39:37.949
+Jitendra K: The skills that your agent carries, the default input-output modes.
+
+377
+00:39:38.520 --> 00:39:42.860
+Jitendra K: The authentication mechanism, the capabilities, and the signature.
+
+378
+00:39:43.100 --> 00:39:49.000
+Jitendra K: We can, encrypt the signature to some other protocol as well, if you're required.
+
+379
+00:39:49.220 --> 00:39:54.390
+Jitendra K: But you can start with a default JWS and canonical JSON format to begin with.
+
+380
+00:39:57.450 --> 00:40:04.010
+Jitendra K: Now, once you create the identic cart, Now, it will… Go into this workflow.
+
+381
+00:40:04.500 --> 00:40:08.329
+Jitendra K: Where you're going to submit the task.
+
+382
+00:40:09.020 --> 00:40:15.669
+Jitendra K: Track the working flow of the other agent. If any input required, clarification required from the human or the agent.
+
+383
+00:40:15.900 --> 00:40:24.000
+Jitendra K: You can await that clarification. Once you generate a complete that workflow, you'll send a notification back.
+
+384
+00:40:24.370 --> 00:40:29.030
+Jitendra K: If it is failed or some errors have been captured, then you are going to send the logs.
+
+385
+00:40:29.320 --> 00:40:34.570
+Jitendra K: That means this whole… Flow works like a task state machine.
+
+386
+00:40:35.350 --> 00:40:39.419
+Jitendra K: So the lifecycle of A2A protocol is stateful.
+
+387
+00:40:39.860 --> 00:40:45.309
+Jitendra K: it is addressable and resumable. That means you can able to run the task
+
+388
+00:40:46.010 --> 00:40:58.970
+Jitendra K: directly from the point of failure. You can re-execute it from here without overgoing through all this task again, right? So basically, that is how this agent tick A2A protocol has been
+
+389
+00:40:59.610 --> 00:41:01.849
+Jitendra K: Written in such a manner.
+
+390
+00:41:02.090 --> 00:41:09.670
+Jitendra K: That will work like an operating system on the top of your intake capabilities. That means you should have a stateful and addressable
+
+391
+00:41:10.370 --> 00:41:17.650
+Jitendra K: UUIDs are located to your task. That means client can use these UUIDs to track.
+
+392
+00:41:17.920 --> 00:41:25.420
+Jitendra K: If one of my agents are failing, then what is the reasoning, what is the root cause? Why it is failing, what is the tool dependencies, etc.
+
+393
+00:41:25.560 --> 00:41:31.940
+Jitendra K: I can able to… use the terminal and non-terminal, that means I can able to
+
+394
+00:41:32.800 --> 00:41:48.270
+Jitendra K: cancel the particular terminal, and then make further changes on the top of it. Every history that you are going to have, the historical task, will be preserved in a fully state transition history that you can able to use for debugging purposes.
+
+395
+00:41:48.460 --> 00:41:50.750
+Jitendra K: You can also append your artifacts.
+
+396
+00:41:50.940 --> 00:41:53.620
+Jitendra K: Maybe a multiple artifact during tasks.
+
+397
+00:41:53.870 --> 00:42:00.239
+Jitendra K: Once they publish, they become immutable. That means nobody can change that, right? Just like a ledger.
+
+398
+00:42:00.450 --> 00:42:02.959
+Jitendra K: Hyperledger that you're using on a blockchain.
+
+399
+00:42:03.210 --> 00:42:09.039
+Jitendra K: So that is some of the important consideration that you're going to have to create a task state machine.
+
+400
+00:42:12.400 --> 00:42:20.049
+Jitendra K: So the agent can talk to other agents to do something based on skill discretion, and the agent can do instruction using MCP tools.
+
+401
+00:42:21.290 --> 00:42:33.039
+Jitendra K: That's correct. I mean, once you discover the capabilities of the agent, then you're going to call the tools. That's pretty straightforward, right? And how you're going to call the tools? By using MCP call, MCP establishment.
+
+402
+00:42:33.480 --> 00:42:39.910
+Jitendra K: The first and the foremost thing is, you have to coordinate between the two agents. This is your agent A, this is your agent B.
+
+403
+00:42:40.480 --> 00:42:46.779
+Jitendra K: If they're carrying, multiple tools, T1, T2, T3 in their pocket.
+
+404
+00:42:47.790 --> 00:42:50.160
+Jitendra K: That does not matter for A2A, right?
+
+405
+00:42:50.300 --> 00:42:54.540
+Jitendra K: So once they discover that I'm… I'm having these capabilities.
+
+406
+00:42:54.920 --> 00:43:00.379
+Jitendra K: Then only they will establish a connection, and then depending upon the need, they will use the tool.
+
+407
+00:43:00.590 --> 00:43:04.100
+Jitendra K: And they are going to use their own tools, not the other tools, by the way.
+
+408
+00:43:04.820 --> 00:43:09.479
+Jitendra K: If these tools are registered in your centralized MCP server.
+
+409
+00:43:10.680 --> 00:43:13.839
+Jitendra K: And they have a common objective, then you can use the same tool.
+
+410
+00:43:15.370 --> 00:43:17.360
+Jitendra K: Provided that they have access to it.
+
+411
+00:43:23.720 --> 00:43:25.850
+Jitendra K: Alright, so is it clear now?
+
+412
+00:43:33.650 --> 00:43:35.759
+Jitendra K: Is it clear to everyone now?
+
+413
+00:43:37.370 --> 00:43:38.980
+Jitendra K: The purpose, at least.
+
+414
+00:43:50.890 --> 00:43:57.639
+Jitendra K: Okay, now we move on to the second phase, where we'll talk about messages, message parsing.
+
+415
+00:43:58.140 --> 00:44:05.190
+Jitendra K: The part of, messages… And also, we'll talk about something called modality negotiation.
+
+416
+00:44:06.040 --> 00:44:13.270
+Jitendra K: So remember these terms, these are very favorite interview questions, because if you're… Making any interviews.
+
+417
+00:44:13.860 --> 00:44:18.779
+Jitendra K: these questions will arrive, and the interviewer will ask you what are the phases of A2A.
+
+418
+00:44:18.990 --> 00:44:25.489
+Jitendra K: And what are the different, technical specifications that you need to consider when you're writing the A2A protocol from the scratch?
+
+419
+00:44:26.180 --> 00:44:28.719
+Jitendra K: Right? So this is very important.
+
+420
+00:44:28.940 --> 00:44:31.169
+Jitendra K: Now, once we move on to the Phase 1,
+
+421
+00:44:31.290 --> 00:44:33.119
+Jitendra K: we move on to the Phase 2.
+
+422
+00:44:34.310 --> 00:44:38.320
+Jitendra K: So, Phase 2… We'll talk about the format.
+
+423
+00:44:38.690 --> 00:44:41.579
+Jitendra K: So, first phase is about establishment.
+
+424
+00:44:41.830 --> 00:44:46.150
+Jitendra K: Now, here we are talking about a format, in which format I should use.
+
+425
+00:44:46.620 --> 00:44:52.810
+Jitendra K: which format I should, create, the… protocol specifications.
+
+426
+00:44:53.130 --> 00:44:58.349
+Jitendra K: Which include interactions between the two agents in which they are going to exchange information.
+
+427
+00:44:58.720 --> 00:45:01.249
+Jitendra K: Now, one of the important things
+
+428
+00:45:01.440 --> 00:45:07.700
+Jitendra K: That, you should understand here is… 8way comprises of… Mainly.
+
+429
+00:45:09.220 --> 00:45:11.460
+Jitendra K: Let me write it down very clearly.
+
+430
+00:45:14.050 --> 00:45:15.349
+Jitendra K: 7 blocks.
+
+431
+00:45:15.920 --> 00:45:18.680
+Jitendra K: One is, you're going to create your A2A client.
+
+432
+00:45:22.860 --> 00:45:26.329
+Jitendra K: Then you're going to create your A2A server, which would be remote.
+
+433
+00:45:27.710 --> 00:45:28.910
+Jitendra K: or local?
+
+434
+00:45:29.150 --> 00:45:30.590
+Jitendra K: Similar to MCP.
+
+435
+00:45:30.930 --> 00:45:33.330
+Jitendra K: Then you're going to create your agentic card.
+
+436
+00:45:35.460 --> 00:45:37.640
+Jitendra K: Then you're able to assign a task.
+
+437
+00:45:39.310 --> 00:45:40.480
+Jitendra K: U-R-D?
+
+438
+00:45:40.680 --> 00:45:44.180
+Jitendra K: Then you will have a message format, which we are going to discuss in this slide.
+
+439
+00:45:44.990 --> 00:45:46.600
+Jitendra K: Then the artifacts?
+
+440
+00:45:50.520 --> 00:45:52.849
+Jitendra K: And the last is the call depart.
+
+441
+00:45:53.740 --> 00:45:55.780
+Jitendra K: Which you can see on this slide as well.
+
+442
+00:45:56.670 --> 00:46:05.710
+Jitendra K: So, these 7 important phases are there when you're interacting. So, A2A client, as known as Client Agent.
+
+443
+00:46:06.120 --> 00:46:11.530
+Jitendra K: That can be your app, service, or other AI agent that delegates requests to remote agents.
+
+444
+00:46:11.860 --> 00:46:16.809
+Jitendra K: It uses A2A protocol to initiate communication. The server will listen to it.
+
+445
+00:46:17.080 --> 00:46:24.029
+Jitendra K: Which is also called remote agent. So its task is to take requests, process tasks, and respond with a status
+
+446
+00:46:24.240 --> 00:46:30.230
+Jitendra K: Updates or result. Now, how I'm going to do this? That is what we are going to create inside this.
+
+447
+00:46:30.520 --> 00:46:33.900
+Jitendra K: capability. It will use agentic card.
+
+448
+00:46:34.250 --> 00:46:37.070
+Jitendra K: Which is a JSON file format that we have just seen.
+
+449
+00:46:37.930 --> 00:46:41.130
+Jitendra K: Which contain a basic information about an agent.
+
+450
+00:46:41.290 --> 00:46:47.510
+Jitendra K: Their capability, including the name, description, version, service endpoint, supported modalities, and data types.
+
+451
+00:46:47.620 --> 00:46:49.760
+Jitendra K: And authorization tokens.
+
+452
+00:46:50.190 --> 00:47:02.010
+Jitendra K: And then agents cards are similar to model cards for large language models. So, you have seen the model cards in LLMs. So here, also, the agentic cards, similar to a model card in LLM.
+
+453
+00:47:02.280 --> 00:47:03.580
+Jitendra K: Another task.
+
+454
+00:47:04.240 --> 00:47:06.109
+Jitendra K: So once you start the task.
+
+455
+00:47:06.440 --> 00:47:10.679
+Jitendra K: It represents a unit of a work. Unit of a work to accomplish a request.
+
+456
+00:47:11.040 --> 00:47:17.730
+Jitendra K: It will generate, first and the foremost thing, UUID, unique IDs, and progressive
+
+457
+00:47:18.150 --> 00:47:22.989
+Jitendra K: backtracking. That means it will progress throughout a life cycle of a defined state.
+
+458
+00:47:23.810 --> 00:47:27.510
+Jitendra K: Including submission, any task which is working.
+
+459
+00:47:27.790 --> 00:47:33.299
+Jitendra K: Maybe the task which is in wait state, which may require some input justification from the user.
+
+460
+00:47:33.440 --> 00:47:35.180
+Jitendra K: Or from the agent as well.
+
+461
+00:47:35.410 --> 00:47:40.840
+Jitendra K: It will also track the completed task so that it can purge the memory management.
+
+462
+00:47:41.250 --> 00:47:43.560
+Jitendra K: And it also keep a track of the log.
+
+463
+00:47:43.950 --> 00:47:48.110
+Jitendra K: That we have just seen, right? So, any exceptions will be a part of here.
+
+464
+00:47:49.990 --> 00:47:51.720
+Jitendra K: your log mechanism.
+
+465
+00:47:52.230 --> 00:47:59.409
+Jitendra K: And then, the messages, which is a fundamental unit of communication. Now, message is a fundamental unit of communication.
+
+466
+00:47:59.830 --> 00:48:03.970
+Jitendra K: A message will depict a single exchange or intern.
+
+467
+00:48:05.030 --> 00:48:06.999
+Jitendra K: In a form of a conversational loop.
+
+468
+00:48:07.550 --> 00:48:15.620
+Jitendra K: That means, let me take an example. Again, going back to the Amazon warehouse example. Let's say you've defined the agent.
+
+469
+00:48:16.080 --> 00:48:18.710
+Jitendra K: Which is working for stock keeping unit.
+
+470
+00:48:19.220 --> 00:48:22.270
+Jitendra K: So, whenever the stock goes down.
+
+471
+00:48:23.040 --> 00:48:24.640
+Jitendra K: On a particular zone.
+
+472
+00:48:25.350 --> 00:48:29.069
+Jitendra K: You're going to send up the PO order to your replenishment team.
+
+473
+00:48:29.480 --> 00:48:35.180
+Jitendra K: And they will send up the delivery notification back to you. And depending upon that delivery notification.
+
+474
+00:48:35.310 --> 00:48:38.029
+Jitendra K: You will accept the new orders in your web app.
+
+475
+00:48:39.020 --> 00:48:45.430
+Jitendra K: Otherwise, you will start… Showing a notification that this is out of stock.
+
+476
+00:48:47.650 --> 00:48:54.390
+Jitendra K: Now, previously, this has been done by… manual workflows.
+
+477
+00:48:54.670 --> 00:49:06.829
+Jitendra K: This has been automated earlier as well in Amazon, but they are quite manual. It requires some reviews from the humans, and then some exchanges, and that will create some sort of delays between these two processes.
+
+478
+00:49:07.110 --> 00:49:13.379
+Jitendra K: Now, imagine that agentic orchestration has achieved this whole objective.
+
+479
+00:49:14.570 --> 00:49:21.890
+Jitendra K: And without any delay, they are going to communicate with each other, Generate a replenishment order, PO.
+
+480
+00:49:22.190 --> 00:49:29.670
+Jitendra K: Get back the delivery notification, and then you will be able to make this UI… Affirmative.
+
+481
+00:49:29.870 --> 00:49:36.720
+Jitendra K: That is where this message will keep a very fundamental… Role to play.
+
+482
+00:49:36.930 --> 00:49:45.030
+Jitendra K: So the fundamental unit of communication, a message depicts a single exchange or a turn in a conversation. So, it contains one or more part.
+
+483
+00:49:45.170 --> 00:49:46.960
+Jitendra K: Holding the actual contents.
+
+484
+00:49:48.390 --> 00:49:56.849
+Jitendra K: Basically, when you're using a relay answers, the context, instructions, And the replies should update.
+
+485
+00:49:57.190 --> 00:49:59.100
+Jitendra K: Right, with every exchanges.
+
+486
+00:50:00.170 --> 00:50:06.920
+Jitendra K: So in that scenario, you require a structure format that will have a sequence of updates.
+
+487
+00:50:07.530 --> 00:50:11.759
+Jitendra K: That means, depending upon the sender, each message has an associated role.
+
+488
+00:50:11.910 --> 00:50:17.839
+Jitendra K: Which can be either an agentic role for servers and messages, or a user role for clients and messages.
+
+489
+00:50:18.220 --> 00:50:22.589
+Jitendra K: So you can see that I'm defining a role here. Let's say I'm using a user role.
+
+490
+00:50:23.500 --> 00:50:30.069
+Jitendra K: Now, this user role says that I have a support on my message, which talks about a kind of message, which is textual message.
+
+491
+00:50:30.460 --> 00:50:32.910
+Jitendra K: This is the actual message which I'm using.
+
+492
+00:50:33.150 --> 00:50:38.670
+Jitendra K: Then the kind of message is data message, which talks about some Ready?
+
+493
+00:50:39.460 --> 00:50:40.710
+Jitendra K: This is a query.
+
+494
+00:50:40.930 --> 00:50:44.710
+Jitendra K: The third message is of type file, where I'm sending a data.
+
+495
+00:50:46.340 --> 00:50:51.470
+Jitendra K: Right, so this is… the whole format of a message. That means you can be able to use
+
+496
+00:50:51.650 --> 00:50:57.490
+Jitendra K: Multimodalities within the message. You can use data part for structure,
+
+497
+00:50:57.820 --> 00:51:06.070
+Jitendra K: Query formulation, file part for maybe exchanging some context on the fly, and generating the response.
+
+498
+00:51:06.390 --> 00:51:12.659
+Jitendra K: So these are very important in terms of, message parsing protocol, which Eatway is using.
+
+499
+00:51:19.250 --> 00:51:21.109
+Jitendra K: Yeah, is it not readable?
+
+500
+00:51:28.470 --> 00:51:29.879
+Jitendra K: Is it readable now?
+
+501
+00:51:33.380 --> 00:51:34.200
+Jitendra K: Okay.
+
+502
+00:51:41.010 --> 00:51:50.780
+Jitendra K: Yes, the byte will send as Base64 encrypted, and you can change the encryption as well to… because it is a PDF, so…
+
+503
+00:51:51.450 --> 00:51:58.630
+Jitendra K: Right now, maybe I'm using a BS64, but maybe I can change it to some other streaming format.
+
+504
+00:52:00.230 --> 00:52:06.900
+Jitendra K: So, basically, Let me rephrase how the whole ecosystem is working now.
+
+505
+00:52:07.110 --> 00:52:12.239
+Jitendra K: So, basically, we discovered I think this is…
+
+506
+00:52:14.280 --> 00:52:18.740
+Jitendra K: Not good enough to read, let me… Please save this.
+
+507
+00:52:23.350 --> 00:52:31.930
+Jitendra K: Yeah, I think this is more readable. So basically, what we are trying to do is, the agent-to-agent protocol works in three phases.
+
+508
+00:52:32.440 --> 00:52:34.389
+Jitendra K: The first is a discovery phase.
+
+509
+00:52:35.150 --> 00:52:37.409
+Jitendra K: Second is the authentication phase.
+
+510
+00:52:38.120 --> 00:52:41.240
+Jitendra K: Third is the communication phase. This is called DACE.
+
+511
+00:52:43.520 --> 00:52:52.509
+Jitendra K: So, during the discovery phase, The agent-to-agent workflows begin When an entity is defined.
+
+512
+00:52:52.910 --> 00:52:58.009
+Jitendra K: So let's say a human user and another AI agent initiate a request to the client.
+
+513
+00:52:59.210 --> 00:53:06.410
+Jitendra K: So a user might ask for assistance in scheduling a, let's say, something, a trip, or it could be try to book a flight.
+
+514
+00:53:06.800 --> 00:53:11.469
+Jitendra K: So an AI can place an order for a retail store for a low stock item.
+
+515
+00:53:11.610 --> 00:53:12.400
+Jitendra K: Right?
+
+516
+00:53:13.030 --> 00:53:15.130
+Jitendra K: So basically, there are two different requests.
+
+517
+00:53:15.780 --> 00:53:20.109
+Jitendra K: Now, the idea is, when you're discovering, based upon the request.
+
+518
+00:53:20.870 --> 00:53:24.319
+Jitendra K: you need to identify which agent should I call.
+
+519
+00:53:25.220 --> 00:53:29.830
+Jitendra K: Depending upon the capabilities and the… cards.
+
+520
+00:53:30.150 --> 00:53:34.999
+Jitendra K: the agentic card which has been given. So basically, the first and foremost thing is to discover.
+
+521
+00:53:35.600 --> 00:53:40.100
+Jitendra K: The second and the most important protocol is authorization.
+
+522
+00:53:40.530 --> 00:53:41.910
+Jitendra K: or authentication.
+
+523
+00:53:42.760 --> 00:53:44.850
+Jitendra K: Because, without authorization.
+
+524
+00:53:45.390 --> 00:53:52.250
+Jitendra K: you cannot be able to govern security protocols. So once the agent client defines a remote agent capabilities.
+
+525
+00:53:52.550 --> 00:53:56.799
+Jitendra K: For fulfillment of this design task, or designated task.
+
+526
+00:53:57.310 --> 00:54:03.960
+Jitendra K: It then goes through authentication, according to the security schemes, which indicate that the unique card
+
+527
+00:54:04.180 --> 00:54:11.260
+Jitendra K: We'll support various types of authorization, including OpenAI specification, API keys, Auth2,
+
+528
+00:54:12.700 --> 00:54:16.720
+Jitendra K: or OpenID, Connect Discovery, these are all protocols that they are using.
+
+529
+00:54:17.100 --> 00:54:21.889
+Jitendra K: So once this has been established, The third phase is communication.
+
+530
+00:54:22.040 --> 00:54:24.110
+Jitendra K: The communication will happen last.
+
+531
+00:54:25.290 --> 00:54:30.620
+Jitendra K: Right, so the communication starts with the client agent sending a task to the remote agent.
+
+532
+00:54:30.810 --> 00:54:38.690
+Jitendra K: And then the agent-to-agent communication occur over a transportation layer, or let's say I'm using HTTPS for secure transportation.
+
+533
+00:54:38.800 --> 00:54:43.269
+Jitendra K: with JSON RPC remote procedure call, which is a 2.0 format.
+
+534
+00:54:43.630 --> 00:54:45.079
+Jitendra K: For data exchanges.
+
+535
+00:54:45.280 --> 00:54:47.929
+Jitendra K: Right, so the remote agent then process that task.
+
+536
+00:54:48.500 --> 00:54:56.180
+Jitendra K: And it required… if it required more information, it notifies the client agent, asking for additional clarification.
+
+537
+00:54:56.720 --> 00:55:05.479
+Jitendra K: So once it completes the task, the remote agent sends a message to the client agent, along with the generated artifacts. So A2A has provided
+
+538
+00:55:05.740 --> 00:55:09.160
+Jitendra K: Task management feature for more complex tasks.
+
+539
+00:55:09.330 --> 00:55:11.920
+Jitendra K: That cannot be completed immediately.
+
+540
+00:55:12.770 --> 00:55:19.279
+Jitendra K: Right? So it may require human intervention, or may require some multiple steps. So in this case.
+
+541
+00:55:20.510 --> 00:55:23.850
+Jitendra K: A long-running task may take hours or days.
+
+542
+00:55:24.380 --> 00:55:27.039
+Jitendra K: If the agent client gets disconnected.
+
+543
+00:55:27.150 --> 00:55:32.210
+Jitendra K: So the A2A protocol allows for asynchronous update through push notification as well.
+
+544
+00:55:32.570 --> 00:55:36.489
+Jitendra K: That will sign to a secure client-supplied webhook.
+
+545
+00:55:36.950 --> 00:55:44.070
+Jitendra K: And for large or long output for continuous status update, it will use streaming services using SSC protocol.
+
+546
+00:55:44.430 --> 00:55:49.339
+Jitendra K: That means… You are going to have a seamless integration in any of
+
+547
+00:55:50.340 --> 00:55:53.640
+Jitendra K: In any of the exception scenarios.
+
+548
+00:55:53.920 --> 00:55:59.120
+Jitendra K: So, it will offer you privacy, seamless integration, and security.
+
+549
+00:55:59.270 --> 00:56:03.760
+Jitendra K: The privacy… Because you're using the OPEC agents.
+
+550
+00:56:04.250 --> 00:56:12.630
+Jitendra K: And OPEC means autonomous Agent Cannot Can collaborate without having Know their internal mechanism.
+
+551
+00:56:13.080 --> 00:56:18.120
+Jitendra K: That means the privacy is one of the biggest criteria of these agent discovery.
+
+552
+00:56:18.460 --> 00:56:24.770
+Jitendra K: Seamless integration, that means you have got HTTPS, you have got JSON RPC, you have got SSE, all three protocols.
+
+553
+00:56:25.300 --> 00:56:30.059
+Jitendra K: Which is at transportation layer, and make this end… this whole framework
+
+554
+00:56:30.180 --> 00:56:35.340
+Jitendra K: Quite easy, adaptable to enterprise solution with the current technological stack.
+
+555
+00:56:35.630 --> 00:56:37.670
+Jitendra K: Security, protocols.
+
+556
+00:56:37.890 --> 00:56:46.380
+Jitendra K: That means it will support enterprise-grade authentication using auth token and role-based accesses for a triation mechanism.
+
+557
+00:56:46.550 --> 00:56:50.589
+Jitendra K: And it will allow you to have a very secure information exchanges.
+
+558
+00:56:52.160 --> 00:56:55.420
+Jitendra K: But I would say A2A is still in early stage.
+
+559
+00:56:55.960 --> 00:57:02.929
+Jitendra K: So, organization can expect improvement as the protocol matures. So, among these improvements, You might have…
+
+560
+00:57:03.270 --> 00:57:08.860
+Jitendra K: Maybe you will see very supportive, dynamic user experiences.
+
+561
+00:57:09.550 --> 00:57:24.699
+Jitendra K: That means, the word is yet to try with, multimodal agents. That means, can you add audio or videos in the middle of the conversation? And arrange the push notification method for streaming reliability. That is still yet to be tried.
+
+562
+00:57:24.800 --> 00:57:30.170
+Jitendra K: It depends upon the use cases. If you have such use cases, you can try and contribute as well.
+
+563
+00:57:30.690 --> 00:57:34.969
+Jitendra K: Right? So with that, 80-way is still evolving.
+
+564
+00:57:35.750 --> 00:57:45.310
+Jitendra K: That means it may come with different version very soon. You will see a lot of refinements, and as the progression made, you will see nice results as well.
+
+565
+00:58:00.300 --> 00:58:09.800
+Jitendra K: So, this is the end-to-end flow of how this protocol works. So, as I mentioned, these are the seven steps, which include discovery, authentication.
+
+566
+00:58:10.250 --> 00:58:18.089
+Jitendra K: task creation, acknowledgement, streaming, and you can see the arrows very clearly. So what remote agent is sending
+
+567
+00:58:18.340 --> 00:58:20.249
+Jitendra K: And what client agent is signing?
+
+568
+00:58:20.480 --> 00:58:24.389
+Jitendra K: The first and foremost step is to create a GET method.
+
+569
+00:58:24.580 --> 00:58:27.199
+Jitendra K: That means I'm accessing… I'm sending the…
+
+570
+00:58:27.470 --> 00:58:31.769
+Jitendra K: discovery protocol using agenticard.json to a remote agent.
+
+571
+00:58:31.930 --> 00:58:33.919
+Jitendra K: Remote agent acknowledged this.
+
+572
+00:58:35.160 --> 00:58:37.490
+Jitendra K: Then I'm going to send a post message.
+
+573
+00:58:37.740 --> 00:58:41.829
+Jitendra K: to send the task and the message that I need to perform.
+
+574
+00:58:41.980 --> 00:58:48.580
+Jitendra K: With the help of road discoveries. Then again, it sent me the 200 authentication message.
+
+575
+00:58:49.050 --> 00:59:04.680
+Jitendra K: Then I'm going to send the get streaming message SSE to perform the task update, task artifact update, etc. And then the remote agent will perform this whole activity at their end, and then it will send me the final accomplished task, or with an exception.
+
+576
+00:59:04.800 --> 00:59:06.490
+Jitendra K: In the form of an artifacts.
+
+577
+00:59:09.370 --> 00:59:15.110
+Jitendra K: Like, there's a proliferation of MCPS support 8A, which can be used off-shelf.
+
+578
+00:59:16.290 --> 00:59:20.699
+Jitendra K: Yes, you can use it, but provided that how you're going to
+
+579
+00:59:21.410 --> 00:59:26.920
+Jitendra K: work on your host, local host, and stuff like that. So, if you're going to use
+
+580
+00:59:28.440 --> 00:59:33.799
+Jitendra K: some capabilities within your server side of things, that will be better, I believe.
+
+581
+00:59:34.930 --> 00:59:46.200
+Jitendra K: Why we call it a remote agent, why not server? Remote is a client and server, actually, the same terminologies can interchange. So remote means I'm hosting it in some external boundaries.
+
+582
+00:59:46.390 --> 00:59:49.450
+Jitendra K: Within my organization. That's why I'm calling it as remote.
+
+583
+00:59:56.260 --> 00:59:59.089
+Jitendra K: But how client will know where remote agent is?
+
+584
+01:00:03.020 --> 01:00:08.549
+Jitendra K: You mean to say… Discovery, I didn't get your question.
+
+585
+01:00:17.050 --> 01:00:23.899
+Jitendra K: So there will be a configuration, right, that will be saved, where my remote agent is hosted. So that configuration I'm going to use.
+
+586
+01:00:26.100 --> 01:00:28.069
+Jitendra K: Yes, it will be a registry, yes.
+
+587
+01:00:40.020 --> 01:00:46.489
+Jitendra K: Okay, now let me talk about the three transportation layer bindings, and I would like to talk about
+
+588
+01:00:46.970 --> 01:00:52.599
+Jitendra K: this slide in slightly a great detail. When we talk about different formats.
+
+589
+01:00:52.850 --> 01:00:58.940
+Jitendra K: So, which one we should use and why? What is the best way that we should use a transportation layer?
+
+590
+01:00:59.150 --> 01:01:05.799
+Jitendra K: And how to design it. So let's say, if I have to just… talk about JSON RPC versus…
+
+591
+01:01:08.440 --> 01:01:24.939
+Jitendra K: the GRPC protocol, which one is better and why, right? So I'm not comparing this protocol, I'm comparing the use case scenarios only, right? I'm not saying that this protocol is better, this protocol is worse, this protocol is having, some vulnerability.
+
+592
+01:01:25.150 --> 01:01:30.709
+Jitendra K: But what I'm trying to say is, I'm just trying to compare only in the context of A2A.
+
+593
+01:01:31.270 --> 01:01:33.930
+Jitendra K: Right? So basically, let's think about it.
+
+594
+01:01:35.000 --> 01:01:43.590
+Jitendra K: So, how will you perform, how will you benchmark a transportation layer protocol? So, there should be some parameter. The first parameter should be your performance.
+
+595
+01:01:44.430 --> 01:01:52.780
+Jitendra K: Which is faster out of these three, right? Because it used binary serialization and object serialization to communicate.
+
+596
+01:01:53.170 --> 01:01:57.000
+Jitendra K: Second parameter should be Suitability.
+
+597
+01:01:58.750 --> 01:01:59.530
+Jitendra K: Right?
+
+598
+01:01:59.760 --> 01:02:06.720
+Jitendra K: Third scenario should be your flexibility and less complex. Are they flexible? Are they less complex to implement?
+
+599
+01:02:07.750 --> 01:02:10.489
+Jitendra K: Fourth parameter should be your data type support.
+
+600
+01:02:10.740 --> 01:02:12.929
+Jitendra K: Because you are going to use protocol buffers.
+
+601
+01:02:13.580 --> 01:02:16.099
+Jitendra K: Fifth parameter could be standardization.
+
+602
+01:02:16.250 --> 01:02:17.060
+Jitendra K: Right?
+
+603
+01:02:17.270 --> 01:02:22.829
+Jitendra K: So if I have to compare these, 5 or 6 parameters, I would say gRPC is faster.
+
+604
+01:02:23.240 --> 01:02:25.330
+Jitendra K: Then JSON RPC, and REST.
+
+605
+01:02:26.010 --> 01:02:29.470
+Jitendra K: Because gRPC use binary serialization.
+
+606
+01:02:29.850 --> 01:02:32.550
+Jitendra K: an HTTP2 protocol.
+
+607
+01:02:33.180 --> 01:02:35.280
+Jitendra K: Which has been implemented internally.
+
+608
+01:02:36.190 --> 01:02:39.370
+Jitendra K: Suitability point of view, I would say GRPC
+
+609
+01:02:39.670 --> 01:02:42.660
+Jitendra K: is highly suited for A2A scenarios.
+
+610
+01:02:43.670 --> 01:02:51.039
+Jitendra K: Because I will prefer transportation method, which has been written using Java SDKs.
+
+611
+01:02:53.360 --> 01:02:56.189
+Jitendra K: Because many of my servers will be written in the same stack.
+
+612
+01:02:57.740 --> 01:03:01.010
+Jitendra K: Flexibility and complexity, I would say JSON RPC.
+
+613
+01:03:01.440 --> 01:03:04.190
+Jitendra K: is simple to implement on GRPC.
+
+614
+01:03:04.930 --> 01:03:11.600
+Jitendra K: Because… I may require a protocol buffer definition every time when I'm implementing a gRPC.
+
+615
+01:03:14.340 --> 01:03:21.300
+Jitendra K: Data type support, JSON RPC use text, while gRPC use… protocol buffers.
+
+616
+01:03:21.640 --> 01:03:26.539
+Jitendra K: That means I can use plain text to perform the message exchanges.
+
+617
+01:03:27.490 --> 01:03:34.490
+Jitendra K: Communication, GRPCs… bi-directional streaming, while JSON RPC and REST
+
+618
+01:03:34.740 --> 01:03:39.889
+Jitendra K: It's just a unary request-response cycle. This is unidirectional.
+
+619
+01:03:40.530 --> 01:03:45.459
+Jitendra K: Standardization, if I have to compare JSON RPC 2.0 or gRPC,
+
+620
+01:03:45.750 --> 01:03:50.950
+Jitendra K: have a very strict specification, whereas REST is more powerful and flexible.
+
+621
+01:03:51.650 --> 01:03:58.120
+Jitendra K: And it can… you can debate about design, and you can accommodate based upon your requirement.
+
+622
+01:03:58.770 --> 01:04:05.309
+Jitendra K: So that means each of them have some pros and cons. Now, it's up to you what are you trying to design.
+
+623
+01:04:06.010 --> 01:04:06.830
+Jitendra K: Right?
+
+624
+01:04:07.190 --> 01:04:11.130
+Jitendra K: That means, if you're designing any system, you need to use
+
+625
+01:04:12.020 --> 01:04:16.320
+Jitendra K: Either of these three, or maybe a mix of two, or a mix of all three.
+
+626
+01:04:20.630 --> 01:04:24.399
+Jitendra K: So, if you would like to do a comparison, I would say read this.
+
+627
+01:04:24.660 --> 01:04:28.200
+Jitendra K: document from Amazon. This is a nice document.
+
+628
+01:04:29.290 --> 01:04:32.220
+Jitendra K: You can get a lot of insights on the top of it.
+
+629
+01:04:33.780 --> 01:04:36.449
+Jitendra K: And you can compare very clearly.
+
+630
+01:04:45.700 --> 01:04:49.670
+Jitendra K: Yeah, thanks for sharing this, network programmability and automation.
+
+631
+01:04:51.260 --> 01:04:57.179
+Jitendra K: Yeah, please read it if you find… want to find more details about this networking protocol.
+
+632
+01:05:00.890 --> 01:05:06.620
+Jitendra K: Can you list… Or provide a slide on the parameter for comprehension as a format.
+
+633
+01:05:07.410 --> 01:05:13.399
+Jitendra K: We'll take example to understand that. Don't worry about this. We'll take some example to understand.
+
+634
+01:05:14.650 --> 01:05:18.570
+Jitendra K: But any other question apart from this? Are you clear so far?
+
+635
+01:05:19.060 --> 01:05:20.650
+Jitendra K: Z2As now.
+
+636
+01:05:26.240 --> 01:05:29.170
+Jitendra K: Still a black box, or is it clear now?
+
+637
+01:05:29.890 --> 01:05:32.390
+Jitendra K: What is the purpose? What are the building blocks?
+
+638
+01:05:44.190 --> 01:05:48.510
+Jitendra K: So before we move on to A to C, I would request you to take
+
+639
+01:05:48.940 --> 01:05:52.540
+Jitendra K: Maybe 5 to 10 minutes. Go through these slides.
+
+640
+01:05:53.220 --> 01:05:56.149
+Jitendra K: And let me know if there's any question that you have.
+
+641
+01:05:56.440 --> 01:06:00.310
+Jitendra K: Right? So that, before we move on to the code example.
+
+642
+01:06:01.790 --> 01:06:05.180
+Jitendra K: Let's try to understand the protocol stack.
+
+643
+01:06:06.090 --> 01:06:10.600
+Jitendra K: Try to understand the use cases, try to understand the internal architecture.
+
+644
+01:06:11.470 --> 01:06:19.570
+Jitendra K: Because without understanding the architecture, if I simply play with the code, it is of no use. So make sure that you have an understanding on the
+
+645
+01:06:19.780 --> 01:06:26.699
+Jitendra K: architectures, parts, And the, phases of A2A.
+
+646
+01:06:27.040 --> 01:06:28.390
+Jitendra K: So let me share this.
+
+647
+01:06:51.400 --> 01:07:02.710
+Jitendra K: So please go through it, let me know if there's any question, go to until… Slide number… 21.
+
+648
+01:07:04.080 --> 01:07:08.810
+Jitendra K: Security model you can skip, because that is very specific to an organization.
+
+649
+01:07:09.350 --> 01:07:11.930
+Jitendra K: But these are generic pieces that we have discussed.
+
+650
+01:12:41.180 --> 01:12:43.649
+Jitendra K: So please let me know if there's any question.
+
+651
+01:16:27.800 --> 01:16:34.330
+Jitendra K: Yeah, so the Polygot fleet is nothing but… it's a production system where different services are written in different languages.
+
+652
+01:16:34.500 --> 01:16:38.829
+Jitendra K: So let's say, for example, you have authorization services in Go language.
+
+653
+01:16:39.050 --> 01:16:42.159
+Jitendra K: your data pipeline in Python, your trading engine in Rust.
+
+654
+01:16:42.350 --> 01:16:46.500
+Jitendra K: your web front-end in TypeScript, your job is in Java.
+
+655
+01:16:46.660 --> 01:16:52.229
+Jitendra K: They run all together and need not to talk to each other, right? So, similarly, the same concept.
+
+656
+01:16:52.350 --> 01:16:54.599
+Jitendra K: has been used to develop E2A protocol.
+
+657
+01:16:59.920 --> 01:17:04.790
+Jitendra K: Can there be a multiple agent advertised for single server?
+
+658
+01:17:05.420 --> 01:17:11.359
+Jitendra K: Or there would be… There has one server per agent.
+
+659
+01:17:11.970 --> 01:17:14.489
+Jitendra K: You wouldn't see a dedicated server, right?
+
+660
+01:17:19.260 --> 01:17:23.520
+Jitendra K: So basically, one agent card should have one logical agent.
+
+661
+01:17:23.800 --> 01:17:25.329
+Jitendra K: The short answer is that.
+
+662
+01:17:25.520 --> 01:17:28.369
+Jitendra K: One agent card belongs to one logical agent.
+
+663
+01:17:28.840 --> 01:17:36.480
+Jitendra K: But an underlying server process that may have containers or hostname can host as many agents as you want.
+
+664
+01:17:37.220 --> 01:17:43.740
+Jitendra K: So the boundary is the agentic card, and it's not the… and it's the URL, not the operating system process.
+
+665
+01:17:44.740 --> 01:17:54.320
+Jitendra K: So, one agent… One agent card, Will… Worked like,
+
+666
+01:17:54.680 --> 01:17:57.480
+Jitendra K: One server per agent, one URL, one card.
+
+667
+01:17:57.980 --> 01:18:02.799
+Jitendra K: Each agent has its own container, its host name, and its own agent card.
+
+668
+01:18:03.110 --> 01:18:07.119
+Jitendra K: And depending upon that, you are going to have multiple agents per server.
+
+669
+01:18:07.370 --> 01:18:10.579
+Jitendra K: That will be finding the path based upon routing.
+
+670
+01:18:12.470 --> 01:18:17.519
+Jitendra K: The interaction modes are defined at the task level or the high level.
+
+671
+01:18:18.370 --> 01:18:21.649
+Jitendra K: The interaction mode will be define at the task level.
+
+672
+01:18:24.910 --> 01:18:30.180
+Jitendra K: So the task UUID will have those criterias.
+
+673
+01:18:31.300 --> 01:18:38.459
+Jitendra K: I assume as H2A evolves, there might be more method to it. What is the best place to look for update?
+
+674
+01:18:39.240 --> 01:18:45.779
+Jitendra K: Yeah, go for your GitHub repos and check for README files. It will give you…
+
+675
+01:18:46.390 --> 01:18:50.210
+Jitendra K: A one-page summary of what they are adding as a functionality.
+
+676
+01:18:52.170 --> 01:18:58.129
+Jitendra K: How do we know the communication ended once established? Of course, it will send the complete status.
+
+677
+01:19:01.180 --> 01:19:05.989
+Jitendra K: The complete status will be sent, or the cancellation or failed logs will be sent.
+
+678
+01:19:06.570 --> 01:19:08.650
+Jitendra K: Based upon that same UUID.
+
+679
+01:19:14.100 --> 01:19:18.959
+Jitendra K: All right, any other question, before we take a break, guys? Any further questions?
+
+680
+01:19:33.070 --> 01:19:34.550
+Jitendra K: Yeah, that's great.
+
+681
+01:19:35.040 --> 01:19:41.130
+Jitendra K: So it will be… Yeah, that's correct. So let's say…
+
+682
+01:19:41.290 --> 01:19:45.630
+Jitendra K: You might have worked on some payment gateways, right? So, how payment gateway works?
+
+683
+01:19:45.930 --> 01:19:48.870
+Jitendra K: So, payment gateway, you initiate some request.
+
+684
+01:19:51.540 --> 01:19:56.150
+Jitendra K: you're using some scan code, QR code, or some URL.
+
+685
+01:19:56.450 --> 01:20:00.999
+Jitendra K: And then you're sending the amount. Once you log in from your net banking.
+
+686
+01:20:01.130 --> 01:20:05.089
+Jitendra K: and establish this connection with the API payment gateway.
+
+687
+01:20:05.310 --> 01:20:10.929
+Jitendra K: And then it will generate a response that whether your request to send the money has been approved or rejected.
+
+688
+01:20:12.170 --> 01:20:17.249
+Jitendra K: Or maybe it has been timeout. So there are different ways, right? You are tracking your payment. Same way.
+
+689
+01:20:17.350 --> 01:20:19.510
+Jitendra K: It will be a part of your protocol.
+
+690
+01:20:22.410 --> 01:20:26.859
+Jitendra K: So this whole status track, Will be done by this protocol.
+
+691
+01:20:33.860 --> 01:20:39.389
+Jitendra K: Any other question, guys? Any further question? You understand what this thing does?
+
+692
+01:20:40.000 --> 01:20:43.639
+Jitendra K: So we are… I'm just rephrasing, we are talking about protocols.
+
+693
+01:20:48.740 --> 01:20:53.810
+Jitendra K: Once we understand MCP, Now we are into A2A protocol.
+
+694
+01:20:54.320 --> 01:20:56.260
+Jitendra K: Agent-to-agent communication.
+
+695
+01:21:10.080 --> 01:21:16.840
+Jitendra K: Aws Core, Rapid Tools… I didn't get rap means what?
+
+696
+01:21:17.000 --> 01:21:18.869
+Jitendra K: When you say wrap your tools.
+
+697
+01:21:22.040 --> 01:21:25.270
+Jitendra K: Gateway and write its own orchestration service.
+
+698
+01:21:26.310 --> 01:21:27.730
+Jitendra K: So, Gateway…
+
+699
+01:21:28.170 --> 01:21:35.129
+Jitendra K: Basically, the purpose is of Gateway, if you're using AWS service, it will take APIs and Lambda function.
+
+700
+01:21:35.790 --> 01:21:41.200
+Jitendra K: and expose them to an MCP-compatible tool that any agent can be able to utilize for.
+
+701
+01:21:42.580 --> 01:21:45.760
+Jitendra K: Right? So, it's not an orchestration service.
+
+702
+01:21:46.830 --> 01:21:49.859
+Jitendra K: So, Gateway accepts 3 kinds of input.
+
+703
+01:21:50.650 --> 01:21:57.600
+Jitendra K: OpenAPI, Which is… could be describing your existing REST API.
+
+704
+01:21:57.800 --> 01:22:04.249
+Jitendra K: or it can generate via MCP tool definition from each operation. You will have an AWS Lambda, and the sec- third is
+
+705
+01:22:04.390 --> 01:22:06.160
+Jitendra K: Existing MCP server.
+
+706
+01:22:07.110 --> 01:22:14.149
+Jitendra K: So basically, If you have any API written in Java, that will automatically wrap
+
+707
+01:22:14.280 --> 01:22:17.109
+Jitendra K: Spring Boot Calls, a callable tool.
+
+708
+01:22:17.750 --> 01:22:19.700
+Jitendra K: It will not do automatically.
+
+709
+01:22:20.220 --> 01:22:26.330
+Jitendra K: So Gateway will first introspect your code base, what it does…
+
+710
+01:22:27.510 --> 01:22:34.030
+Jitendra K: What specification you have as an endpoint? And then, based upon that, it will…
+
+711
+01:22:34.710 --> 01:22:37.969
+Jitendra K: Establish a connection, right, to your,
+
+712
+01:22:38.650 --> 01:22:42.569
+Jitendra K: whatever Spring Boot dependency that you have, the registry specification.
+
+713
+01:22:43.410 --> 01:22:47.329
+Jitendra K: And then every endpoint will have an access to a MCP tool in that case.
+
+714
+01:22:48.110 --> 01:22:55.050
+Jitendra K: So I'm not sure, but still, you need to give me more details about it, how… what exactly your question is.
+
+715
+01:22:55.350 --> 01:22:56.959
+Jitendra K: then I can able to give it.
+
+716
+01:22:57.180 --> 01:23:00.819
+Jitendra K: quantifiable answer, but I need to understand how did you write
+
+717
+01:23:01.300 --> 01:23:06.559
+Jitendra K: This springboard, callable tools, and what sort of specification you are providing it to it.
+
+718
+01:23:15.910 --> 01:23:22.080
+Jitendra K: Alright, so let's take a quick, 20 minutes break. So once we come back, then we will have,
+
+719
+01:23:22.870 --> 01:23:26.589
+Jitendra K: some demo to understand H2A more comprehensively.
+
+720
+01:23:26.920 --> 01:23:29.149
+Jitendra K: So we run two demos, one is…
+
+721
+01:23:29.460 --> 01:23:32.389
+Jitendra K: Simple demo, and then we will go with the full-fledged.
+
+722
+01:23:33.390 --> 01:23:35.960
+Jitendra K: enterprise demo for A2A.
+
+723
+01:23:36.610 --> 01:23:41.770
+Jitendra K: So let's come back after 20 minutes. So, I will initiate a timer, and then…
+
+724
+01:23:41.880 --> 01:23:43.970
+Jitendra K: Please be on time. Thank you.
+
+725
+01:44:20.140 --> 01:44:22.319
+Jitendra K: Alright guys, I hope you're back.
+
+726
+01:44:23.090 --> 01:44:24.629
+Jitendra K: We have a quick confirmation, please.
+
+727
+01:44:40.770 --> 01:44:41.889
+Jitendra K: Okay, great.
+
+728
+01:44:42.970 --> 01:44:49.269
+Jitendra K: So let me just, walk you through this demo, and we'll talk about this.
+
+729
+01:50:10.010 --> 01:50:14.300
+Jitendra K: One second, guys, I think there's some compatibility issue with this app.
+
+730
+01:54:01.780 --> 01:54:04.829
+Jitendra K: Let me see if it is a bad file.
+
+731
+01:54:11.110 --> 01:54:13.700
+Jitendra K: I want to ensure that these servers are running up
+
+732
+01:57:40.920 --> 01:57:50.019
+Jitendra K: Did anybody know how to, how to tag this JSON file to this run and debug option? Because I have to click on this, and there should be a green icon which should generate.
+
+733
+01:57:50.280 --> 01:57:52.050
+Jitendra K: Anybody is aware about this?
+
+734
+01:57:54.820 --> 01:57:57.659
+Jitendra K: I cannot see any option to do this.
+
+735
+01:58:09.560 --> 01:58:13.760
+Jitendra K: this PowerShell… Not launching here.
+
+736
+01:58:19.560 --> 01:58:20.630
+Jitendra K: If there's more.
+
+737
+01:58:37.220 --> 01:58:40.899
+Jitendra K: No, that is fine, but anybody have done this earlier?
+
+738
+01:58:55.500 --> 01:59:00.489
+Jitendra K: Otherwise, I think we have to relaunch the server, and then restart from there.
+
+739
+01:59:31.880 --> 01:59:36.629
+Jitendra K: No, it's, having a server configuration is a very different file than JSON.
+
+740
+01:59:46.000 --> 01:59:50.610
+Jitendra K: But one thing I cannot be able to find, let me copy this environmental file again.
+
+741
+02:02:23.040 --> 02:02:28.169
+Jitendra K: It's not showing any compatibility.
+
+742
+02:02:31.870 --> 02:02:38.660
+Jitendra K: Here, let me share that. So, what you need to do is, you need to, work with,
+
+743
+02:02:40.030 --> 02:02:41.679
+Jitendra K: I will share the file first.
+
+744
+02:02:42.190 --> 02:02:43.790
+Jitendra K: We need to go to this folder.
+
+745
+02:02:45.000 --> 02:02:51.089
+Jitendra K: And there's a JSON file under vs.vs. So you need to launch it. I need to see the UI as well.
+
+746
+02:02:51.680 --> 02:02:53.800
+Jitendra K: Because everything is stacked to it.
+
+747
+02:02:54.380 --> 02:02:55.630
+Jitendra K: Post QA.
+
+748
+02:02:56.030 --> 02:02:57.860
+Jitendra K: We need to go to this folder.
+
+749
+02:02:58.480 --> 02:03:05.930
+Jitendra K: attach this… lawn.json file, which is having all the configuration inside it. You can see the configuration.
+
+750
+02:03:06.560 --> 02:03:14.770
+Jitendra K: And then, I will have a UI, Which will… track… Wire this…
+
+751
+02:03:20.760 --> 02:03:25.270
+Jitendra K: So you can see, so this is what I need. This has to be bind.
+
+752
+02:03:25.970 --> 02:03:29.129
+Jitendra K: with a JSON that I'm passing, but I'm not able to parse it.
+
+753
+02:03:29.740 --> 02:03:32.690
+Jitendra K: So if anybody have any idea, please let me know.
+
+754
+02:03:34.330 --> 02:03:37.499
+Jitendra K: Otherwise, we have to run different demo for this.
+
+755
+02:03:48.980 --> 02:03:50.290
+Jitendra K: Delete this…
+
+756
+02:08:38.290 --> 02:08:41.099
+Jitendra K: Okay, this is working without UI.
+
+757
+02:08:41.210 --> 02:08:42.440
+Jitendra K: Which is fine.
+
+758
+02:08:47.640 --> 02:08:50.039
+Jitendra K: Let it be complete, and then I will explain.
+
+759
+02:08:55.470 --> 02:08:57.590
+Jitendra K: So I've got 3 demo configured.
+
+760
+02:08:58.060 --> 02:09:02.479
+Jitendra K: I will go each and every demo one by one, but let it be complete first.
+
+761
+02:09:38.740 --> 02:09:43.399
+Jitendra K: Okay, this is 5 hops, so this is error, which is fine, but at least
+
+762
+02:09:43.890 --> 02:09:45.869
+Jitendra K: The task has been accomplished.
+
+763
+02:09:48.560 --> 02:09:53.790
+Jitendra K: You can see the data, API… yeah, everything is done.
+
+764
+02:09:54.480 --> 02:09:58.299
+Jitendra K: So if I have to explain this… whole demo.
+
+765
+02:10:04.960 --> 02:10:11.699
+Jitendra K: So, basically, what we are doing here is, we have created a several series of agents, which will able to fetch the stock price.
+
+766
+02:10:11.950 --> 02:10:13.710
+Jitendra K: And performs my analysis.
+
+767
+02:10:14.060 --> 02:10:25.710
+Jitendra K: So basically, we have got, this main file, pythonrun.demo, which I have just run, which executes three queries. One is for market data, second is for
+
+768
+02:10:26.200 --> 02:10:28.649
+Jitendra K: New search, third is for macrodata.
+
+769
+02:10:29.200 --> 02:10:36.850
+Jitendra K: So basically, demo one, Where I'm asking a very simple question. What is the Apple stock trading
+
+770
+02:10:37.140 --> 02:10:38.499
+Jitendra K: At right now.
+
+771
+02:10:38.720 --> 02:10:42.420
+Jitendra K: Just give me the price and one day change in the stock price.
+
+772
+02:10:43.390 --> 02:10:49.609
+Jitendra K: So this is a simple A2A workflow it will start triggering, where the hop zero
+
+773
+02:10:49.960 --> 02:10:52.050
+Jitendra K: We'll start with the coordinator agent.
+
+774
+02:10:52.410 --> 02:10:55.280
+Jitendra K: Which will receive… the agent ID,
+
+775
+02:10:55.740 --> 02:10:59.830
+Jitendra K: And the message card. We can see it is receiving the message card.
+
+776
+02:11:00.250 --> 02:11:08.950
+Jitendra K: And it says that I'm calling a delegate agent. Using a coordination agent, it will call the delegated agent, delegator agent.
+
+777
+02:11:09.440 --> 02:11:12.500
+Jitendra K: So, basically, the idea is, it will use a POST request.
+
+778
+02:11:13.190 --> 02:11:18.249
+Jitendra K: This is my guide request. Now to use a POST request to accomplish this task.
+
+779
+02:11:19.510 --> 02:11:26.959
+Jitendra K: So, what happened during this is the orchestrator, main orchestrator, created an 8-way message from the user.
+
+780
+02:11:27.360 --> 02:11:30.550
+Jitendra K: Address to the narrative underscore synthesis.
+
+781
+02:11:31.830 --> 02:11:34.660
+Jitendra K: Using a capability which route to the coordinator.
+
+782
+02:11:35.060 --> 02:11:39.470
+Jitendra K: The agent received… This message, which I didn't pick up.
+
+783
+02:11:40.270 --> 02:11:45.500
+Jitendra K: then the HTTP post, which is a transportation layer protocol that I'm using, will post
+
+784
+02:11:46.720 --> 02:11:48.950
+Jitendra K: this in the OpenAI call.
+
+785
+02:11:49.590 --> 02:11:55.650
+Jitendra K: So the coordinating system prompt has been augmented with… Delegated capability tool specification.
+
+786
+02:11:55.990 --> 02:12:01.810
+Jitendra K: So here you can see that I'm calling a delegate to tool capabilities as a part of my
+
+787
+02:12:02.350 --> 02:12:07.309
+Jitendra K: coordination task agent. So I can be able to understand that that is what it is doing.
+
+788
+02:12:07.650 --> 02:12:11.650
+Jitendra K: Then the alarm respond with a tool, The tool is…
+
+789
+02:12:15.410 --> 02:12:18.530
+Jitendra K: market data tool that I'm using, right?
+
+790
+02:12:18.670 --> 02:12:24.229
+Jitendra K: And then, I'm using just one tool with these many tokens, and this is the elapsed.
+
+791
+02:12:24.770 --> 02:12:27.850
+Jitendra K: So, this is just a poll latency check.
+
+792
+02:12:28.250 --> 02:12:37.549
+Jitendra K: Now, the hop one… Will… perform the coordination with Market Data Specialist Agent.
+
+793
+02:12:38.240 --> 02:12:43.039
+Jitendra K: Now, the market data specialist agent, Will come into picture.
+
+794
+02:12:43.370 --> 02:12:45.749
+Jitendra K: Where it will analyze the sequence.
+
+795
+02:12:46.120 --> 02:12:54.600
+Jitendra K: Right? Get the current price and day one change of Apple stock. And then it will use the capability of data discovery that I have just given as a tool.
+
+796
+02:12:54.760 --> 02:12:57.489
+Jitendra K: And then the market data agent will sign.
+
+797
+02:12:58.280 --> 02:13:04.169
+Jitendra K: system and user to OpenAI, and the model decide it need to call getStock quote.
+
+798
+02:13:06.660 --> 02:13:14.350
+Jitendra K: as a tool to generate this response. So this tool will be equipped inside Yahoo Finance. So I'm using that.
+
+799
+02:13:14.620 --> 02:13:21.460
+Jitendra K: So this guides talk tool will be a part of my Yahoo Finance API, and it will call, and the second post request will be sent.
+
+800
+02:13:22.370 --> 02:13:25.010
+Jitendra K: And finally, you will get an answer in this form.
+
+801
+02:13:25.160 --> 02:13:30.050
+Jitendra K: Now, each agent will execute with a traceable ID and the hops.
+
+802
+02:13:30.260 --> 02:13:33.050
+Jitendra K: And how many specialist calls has been made?
+
+803
+02:13:33.500 --> 02:13:37.090
+Jitendra K: So imagine that Yahoo Finance has created their agent.
+
+804
+02:13:37.970 --> 02:13:46.290
+Jitendra K: Let's assume that, right? So, Yahoo Finance have their own agents, which is… Handshake with my local agent.
+
+805
+02:13:47.020 --> 02:13:50.959
+Jitendra K: to generate the response based upon the query that I run in the server.
+
+806
+02:13:51.220 --> 02:13:58.450
+Jitendra K: So, without understanding the capability, what I'm doing, in my… local setup.
+
+807
+02:13:58.970 --> 02:14:00.950
+Jitendra K: It will handshake with my agent.
+
+808
+02:14:01.140 --> 02:14:03.330
+Jitendra K: So the our finance agent has been handshaped.
+
+809
+02:14:03.700 --> 02:14:05.350
+Jitendra K: And then it coordinate.
+
+810
+02:14:06.210 --> 02:14:09.319
+Jitendra K: It… Return the response.
+
+811
+02:14:09.550 --> 02:14:18.470
+Jitendra K: which my agent is needed, and then I perform a search. Sorry, I perform a filter on the top of the query, and then I'm generating a response.
+
+812
+02:14:20.190 --> 02:14:26.130
+Jitendra K: Right? So this is what A2A does, in a nutshell. Now let me go to a demo number 2.
+
+813
+02:14:27.210 --> 02:14:30.049
+Jitendra K: So in the demo number 2, what we are doing is…
+
+814
+02:14:30.740 --> 02:14:35.810
+Jitendra K: We are comparing the Apple stock with Microsoft performance over the last month.
+
+815
+02:14:38.360 --> 02:14:45.989
+Jitendra K: And this is more interesting because the coordinator delegate to the same capability twice. One's for Apple stock, and one's for Microsoft.
+
+816
+02:14:47.070 --> 02:14:52.050
+Jitendra K: So the hop button will look like this. So in the first hop, which is hop 0,
+
+817
+02:14:52.930 --> 02:14:58.030
+Jitendra K: The coordinator agent will call and will decide to get the Apple stock first.
+
+818
+02:15:00.060 --> 02:15:05.030
+Jitendra K: Right, so it will first decide that I'm going to call the Apple stock data first.
+
+819
+02:15:05.820 --> 02:15:11.190
+Jitendra K: Then the half fun, during the half fun, Which is here.
+
+820
+02:15:13.130 --> 02:15:16.969
+Jitendra K: I will get, market data batched via AAPL.
+
+821
+02:15:17.260 --> 02:15:22.460
+Jitendra K: And the coordinator decide to guide the next node, which is Microsoft.
+
+822
+02:15:25.710 --> 02:15:30.830
+Jitendra K: Now… During this time, the coordinator…
+
+823
+02:15:31.590 --> 02:15:34.199
+Jitendra K: will need AAPL data to delegate.
+
+824
+02:15:34.420 --> 02:15:37.469
+Jitendra K: Because it has to compare, right?
+
+825
+02:15:38.200 --> 02:15:41.019
+Jitendra K: So, it will put the first agent
+
+826
+02:15:41.710 --> 02:15:47.769
+Jitendra K: Into delegated mode, so that it can wait for the second data to be retrieved as a part of a market data agent.
+
+827
+02:15:48.210 --> 02:15:52.560
+Jitendra K: So the coordinated agent will hop twice, because it has to get
+
+828
+02:15:52.860 --> 02:15:54.930
+Jitendra K: Two data points and compare them.
+
+829
+02:15:55.290 --> 02:15:58.679
+Jitendra K: Because the query has been written in such a manner that I'm comparing the two.
+
+830
+02:15:59.200 --> 02:16:02.279
+Jitendra K: Performance over the last… 30 days.
+
+831
+02:16:03.500 --> 02:16:11.320
+Jitendra K: Right? So, it will do this hopping, during… 4 rounds.
+
+832
+02:16:12.560 --> 02:16:15.259
+Jitendra K: And then, it will generate an output.
+
+833
+02:16:20.130 --> 02:16:23.419
+Jitendra K: So you can see that it is using TotalHop S4.
+
+834
+02:16:23.960 --> 02:16:27.389
+Jitendra K: And the specialist agent has been called twice. One for…
+
+835
+02:16:32.070 --> 02:16:35.850
+Jitendra K: Sorry, one for coordination, and second for comparison.
+
+836
+02:16:36.490 --> 02:16:38.720
+Jitendra K: Right, so it has been called twice.
+
+837
+02:16:40.750 --> 02:16:44.630
+Jitendra K: Right, so the specialist agent job is to coordinate as well as
+
+838
+02:16:45.209 --> 02:16:47.789
+Jitendra K: Return the response that we are getting.
+
+839
+02:16:48.530 --> 02:16:56.689
+Jitendra K: That means… This particular system I can able to extend it to any scenarios.
+
+840
+02:16:57.280 --> 02:16:59.569
+Jitendra K: Alright, so let's take an example here.
+
+841
+02:16:59.820 --> 02:17:05.220
+Jitendra K: Again, going back to… going back to Amazon supply chain agents.
+
+842
+02:17:05.610 --> 02:17:08.670
+Jitendra K: So let's say you're working for Amazon AWS team.
+
+843
+02:17:09.809 --> 02:17:16.060
+Jitendra K: And the task that has been given by your boss is to create an agent, which will…
+
+844
+02:17:16.190 --> 02:17:24.200
+Jitendra K: Coordinate with the… data warehouse, stock keeping unit agent, SKU Agent.
+
+845
+02:17:24.430 --> 02:17:31.470
+Jitendra K: Which is stored in… which is using… all these sense… Data, sensory data.
+
+846
+02:17:32.730 --> 02:17:36.969
+Jitendra K: Including your, inventory details.
+
+847
+02:17:38.170 --> 02:17:43.179
+Jitendra K: Right? Etc. So you will have all the stock clipping unit details inside this.
+
+848
+02:17:43.500 --> 02:17:47.550
+Jitendra K: warehouse. So, let's say there are hundreds of such warehouses.
+
+849
+02:17:48.040 --> 02:17:54.110
+Jitendra K: And each stock keeping units are different, because you are maintaining different sort of stocks at each warehouse.
+
+850
+02:17:54.700 --> 02:17:59.990
+Jitendra K: Now, as an Amazon manager, there's a task given to you that you need to create a system
+
+851
+02:18:00.660 --> 02:18:06.029
+Jitendra K: Which we're able to forecast this replenishment
+
+852
+02:18:06.420 --> 02:18:13.269
+Jitendra K: order, or PU orders, right? That means you need to… Backfill this inventory.
+
+853
+02:18:13.500 --> 02:18:16.309
+Jitendra K: When the stock goes below a certain threshold.
+
+854
+02:18:17.420 --> 02:18:18.940
+Jitendra K: But you have forecasted.
+
+855
+02:18:19.139 --> 02:18:21.629
+Jitendra K: That means you have to predict it before time.
+
+856
+02:18:22.440 --> 02:18:26.130
+Jitendra K: So if you're going to forecast this, you have to have certain accuracy.
+
+857
+02:18:26.280 --> 02:18:29.059
+Jitendra K: You need to have certain types of,
+
+858
+02:18:29.320 --> 02:18:33.110
+Jitendra K: Assumptions as well. Seasonality, cyclic patterns, etc.
+
+859
+02:18:33.360 --> 02:18:40.280
+Jitendra K: So based upon that, let's say your model is predicting 99%, 99.5%, let's say.
+
+860
+02:18:42.000 --> 02:18:46.880
+Jitendra K: with a higher confidence of CIE of 99.5%. That means your model is the best.
+
+861
+02:18:48.230 --> 02:18:58.599
+Jitendra K: So, if you are maintaining this whole workflow on the basis of this You will reorder this…
+
+862
+02:18:59.549 --> 02:19:07.260
+Jitendra K: Way before time, so that by the time it reached to your, delivery center, DC.
+
+863
+02:19:07.670 --> 02:19:09.450
+Jitendra K: Against that warehouse.
+
+864
+02:19:10.850 --> 02:19:17.659
+Jitendra K: The minimum… sorry, the time to delivery back to the client will be reduced, because you are forecasting it.
+
+865
+02:19:20.709 --> 02:19:28.350
+Jitendra K: So that means… You're dealing with an optimal Timelines to deliver
+
+866
+02:19:28.820 --> 02:19:37.379
+Jitendra K: You know, with minimal effort, right? So your agents are coordinating with these 100 warehouse, They're expecting…
+
+867
+02:19:39.129 --> 02:19:45.239
+Jitendra K: the, PO orders for each Of them, per day.
+
+868
+02:19:45.600 --> 02:19:48.719
+Jitendra K: And then they are generating a report back to your manager.
+
+869
+02:19:49.900 --> 02:19:53.360
+Jitendra K: who will see… What is the error?
+
+870
+02:19:53.610 --> 02:19:55.120
+Jitendra K: In terms of which?
+
+871
+02:19:55.500 --> 02:20:00.890
+Jitendra K: you are getting this PU order fulfilled. Because remember, we are having 0.5% error.
+
+872
+02:20:01.810 --> 02:20:03.659
+Jitendra K: Which may become big.
+
+873
+02:20:04.040 --> 02:20:07.700
+Jitendra K: If you're constantly reordering from this warehouse.
+
+874
+02:20:08.640 --> 02:20:15.210
+Jitendra K: So that means… Depending upon his approval, human approval, we are going to…
+
+875
+02:20:16.410 --> 02:20:18.620
+Jitendra K: Approve or reject these workflows.
+
+876
+02:20:19.330 --> 02:20:20.170
+Jitendra K: Right?
+
+877
+02:20:21.010 --> 02:20:29.430
+Jitendra K: So that is the whole idea. Now, these agents, which is a part of your inventory or warehouse, you don't have any idea how they are operating, what sort of
+
+878
+02:20:30.200 --> 02:20:37.789
+Jitendra K: Azure devices, or they are manually feeded by someone, or they are using some other automation tools.
+
+879
+02:20:38.410 --> 02:20:42.219
+Jitendra K: Right? You do not care about it. All you need to do is you just need to handshake.
+
+880
+02:20:43.530 --> 02:20:45.789
+Jitendra K: And that is what exactly A2A can do.
+
+881
+02:20:46.050 --> 02:20:53.769
+Jitendra K: Right? So here, we are using a Yahoo Finance Agents, which will generate the data and send back to our local agents.
+
+882
+02:20:53.930 --> 02:20:57.050
+Jitendra K: Where we are comparing this box.
+
+883
+02:20:57.770 --> 02:20:59.100
+Jitendra K: to perform.
+
+884
+02:21:01.520 --> 02:21:06.549
+Jitendra K: The total returns for each, and which one is a better stock to invest.
+
+885
+02:21:07.470 --> 02:21:09.400
+Jitendra K: So, I'm doing some analysis.
+
+886
+02:21:09.630 --> 02:21:16.099
+Jitendra K: But Yahoo Finance does not care what analysis I'm doing. And also, I'm not care how Yahoo Finance has been developed.
+
+887
+02:21:17.500 --> 02:21:24.839
+Jitendra K: Because this is beyond my scope, if Yahoo Finance Agent is returning Crew AI, Langshain, Langraph.
+
+888
+02:21:25.150 --> 02:21:29.159
+Jitendra K: I really do not care. All I required is, I need to gather data.
+
+889
+02:21:30.230 --> 02:21:34.899
+Jitendra K: which I'm getting it from API anyway, but let's say there's an agent.
+
+890
+02:21:35.190 --> 02:21:38.100
+Jitendra K: Right? I'm just giving a hypothetical scenario here.
+
+891
+02:21:38.780 --> 02:21:43.120
+Jitendra K: Which need to do a warm handshake, and then exchange the information.
+
+892
+02:21:43.280 --> 02:21:48.170
+Jitendra K: In those scenarios, I required… A protocol to be set up.
+
+893
+02:21:48.860 --> 02:21:52.709
+Jitendra K: To govern those state exchanges and coordination.
+
+894
+02:21:54.590 --> 02:21:57.069
+Jitendra K: Right, so same thing we are doing here.
+
+895
+02:21:57.210 --> 02:22:02.970
+Jitendra K: So basically, what we are going to have, if I have to just give you the sequence of execution.
+
+896
+02:22:03.680 --> 02:22:05.910
+Jitendra K: The sequence of acquisition looks like this.
+
+897
+02:22:19.960 --> 02:22:21.850
+Jitendra K: So this is what it is happening.
+
+898
+02:22:22.380 --> 02:22:24.910
+Jitendra K: First, the coordination agent will delegate
+
+899
+02:22:25.280 --> 02:22:30.950
+Jitendra K: the tasks using a tool to market data agent, which will fetch the Apple stock.
+
+900
+02:22:31.320 --> 02:22:36.850
+Jitendra K: Then the market data agent will generate a content back to the coordinator agent.
+
+901
+02:22:37.030 --> 02:22:42.950
+Jitendra K: Then the coordinated delegated tasks for Microsoft, and then it generated data for Microsoft.
+
+902
+02:22:43.130 --> 02:22:45.400
+Jitendra K: Then the coordinated agent will finally…
+
+903
+02:22:45.540 --> 02:22:50.590
+Jitendra K: Compare it. So I'm calling this coordinator agent 4 times. 1, 2, 3, 4.
+
+904
+02:22:51.410 --> 02:22:53.800
+Jitendra K: Right, so that is what it is for, Hub.
+
+905
+02:22:54.530 --> 02:23:00.570
+Jitendra K: And, I'm performing… for each… pop, I'm doing some.
+
+906
+02:23:00.940 --> 02:23:04.829
+Jitendra K: unique, proportions on my agent, and remember that
+
+907
+02:23:05.040 --> 02:23:08.430
+Jitendra K: the traces will remain the same, the trace ID.
+
+908
+02:23:09.220 --> 02:23:11.129
+Jitendra K: And here it is changing.
+
+909
+02:23:11.370 --> 02:23:13.630
+Jitendra K: Because the task has been changed.
+
+910
+02:23:14.240 --> 02:23:19.370
+Jitendra K: I think it's the same, 74631. Yeah, this is the same. This should change.
+
+911
+02:23:20.130 --> 02:23:21.660
+Jitendra K: Yeah, this has been changed.
+
+912
+02:23:29.260 --> 02:23:32.200
+Jitendra K: And you can see that the message IDs that keep on changing.
+
+913
+02:23:33.100 --> 02:23:36.149
+Jitendra K: In fact, here it is changed.
+
+914
+02:23:36.550 --> 02:23:37.880
+Jitendra K: Here it is changed.
+
+915
+02:23:42.460 --> 02:23:45.140
+Jitendra K: So Trey's ID will remain the same, and the hop…
+
+916
+02:23:45.540 --> 02:23:47.659
+Jitendra K: And the specialist count you're getting.
+
+917
+02:23:48.710 --> 02:23:54.080
+Jitendra K: Third demo, I think it is… Failed because of…
+
+918
+02:23:54.200 --> 02:23:57.470
+Jitendra K: multi-hop exception that I've added in the code.
+
+919
+02:23:57.800 --> 02:24:01.620
+Jitendra K: That's the unit is failing. So let me explain the flow of the code.
+
+920
+02:24:02.260 --> 02:24:04.459
+Jitendra K: Now, what are we trying to achieve here?
+
+921
+02:24:05.840 --> 02:24:11.520
+Jitendra K: So our code is quite monolithic. I mean, it has been written quite well.
+
+922
+02:24:12.040 --> 02:24:16.400
+Jitendra K: So the starting point for my…
+
+923
+02:24:17.310 --> 02:24:20.629
+Jitendra K: I would say, recreatability purpose. I will start with…
+
+924
+02:24:20.920 --> 02:24:24.470
+Jitendra K: configuration. So I will go to the configuration and the setting file.
+
+925
+02:24:25.040 --> 02:24:29.109
+Jitendra K: This is the… POST file that I would like to explain.
+
+926
+02:24:29.550 --> 02:24:33.910
+Jitendra K: Now, this particular file have… friend.
+
+927
+02:24:34.530 --> 02:24:36.030
+Jitendra K: queuing mechanism.
+
+928
+02:24:36.170 --> 02:24:39.579
+Jitendra K: So I'm using a least, recurrent unit, sorry.
+
+929
+02:24:41.570 --> 02:24:44.319
+Jitendra K: LARU cash for doing this.
+
+930
+02:24:44.840 --> 02:24:48.390
+Jitendra K: management, a queue management, I'm using LRU caching.
+
+931
+02:24:48.900 --> 02:24:55.309
+Jitendra K: The purpose of LRU caching is… to maintain…
+
+932
+02:24:57.510 --> 02:25:07.860
+Jitendra K: the queue, right? So it's a caching algorithm, least recently used. It's a caching algorithm that removes the least accessed, or least recent access item.
+
+933
+02:25:08.050 --> 02:25:09.710
+Jitendra K: First, when cash…
+
+934
+02:25:10.520 --> 02:25:18.779
+Jitendra K: With a maximum capacity. The purpose is to optimize the cache space, because I'm maintaining the states, right, so I required LRU.
+
+935
+02:25:19.120 --> 02:25:21.590
+Jitendra K: To be implemented at a prototype level.
+
+936
+02:25:22.410 --> 02:25:26.089
+Jitendra K: Right, so the first thing is, I have a configuration file.
+
+937
+02:25:26.280 --> 02:25:29.270
+Jitendra K: Which is using the cache setting using LRU.
+
+938
+02:25:29.960 --> 02:25:36.970
+Jitendra K: Then I'm also using some settings, in which I will be able to exchange the message format and stuff.
+
+939
+02:25:37.650 --> 02:25:39.490
+Jitendra K: And then I have got,
+
+940
+02:25:40.150 --> 02:25:45.010
+Jitendra K: some environmental files, which I'm going to utilize for API configuration and management.
+
+941
+02:25:45.620 --> 02:25:50.610
+Jitendra K: So once I have those files, then I will go to the logging Mechanism.
+
+942
+02:25:51.090 --> 02:25:53.769
+Jitendra K: Now, it will be part of my utils.
+
+943
+02:25:54.660 --> 02:25:56.060
+Jitendra K: This is my logging.
+
+944
+02:25:58.120 --> 02:26:05.310
+Jitendra K: So here, I'm just using standard lib logging, using transport… underneath the transportation layer.
+
+945
+02:26:05.550 --> 02:26:12.650
+Jitendra K: Where I'm going to use all the corrupted or standard output JSON RPC streams.
+
+946
+02:26:12.830 --> 02:26:15.089
+Jitendra K: If there's any failure, I can able to do…
+
+947
+02:26:15.420 --> 02:26:18.549
+Jitendra K: The course correction with the help of this file.
+
+948
+02:26:19.180 --> 02:26:25.960
+Jitendra K: Now, I'm going to use the agent protocol. This is an important file. So I've got agent protocol, which is this file.
+
+949
+02:26:26.420 --> 02:26:28.870
+Jitendra K: Now, this is the main file for…
+
+950
+02:26:29.100 --> 02:26:31.890
+Jitendra K: Creating a synchronization between my agent.
+
+951
+02:26:32.330 --> 02:26:38.730
+Jitendra K: And this is the most important file conceptually, because I'm defining the message between agent that should look like.
+
+952
+02:26:39.170 --> 02:26:41.690
+Jitendra K: Then I'm also using,
+
+953
+02:26:42.970 --> 02:26:47.509
+Jitendra K: some sort of wiring between them, right? So I have an agent card defined here.
+
+954
+02:26:47.950 --> 02:26:54.619
+Jitendra K: Which talks about all the fields that we have discussed, model configuration, agent ID, display name, description, capabilities.
+
+955
+02:26:54.860 --> 02:26:58.940
+Jitendra K: schema and, cost tier, I can… make it…
+
+956
+02:26:59.720 --> 02:27:07.410
+Jitendra K: router preferred, that means if I have to go with cheap model, standard model, premium model, I will… by default, I'm making it standard, right?
+
+957
+02:27:07.630 --> 02:27:12.019
+Jitendra K: So it'll use the standard model, GPT 4.0. But if I have to go with cheap model.
+
+958
+02:27:12.180 --> 02:27:17.889
+Jitendra K: I may go with lower versions of GPT-4 as well, right?
+
+959
+02:27:18.320 --> 02:27:20.209
+Jitendra K: Now, I'm creating…
+
+960
+02:27:21.010 --> 02:27:28.589
+Jitendra K: So once I define the agentic part, the discovery part, then I have to remember, I have to create a message
+
+961
+02:27:28.720 --> 02:27:29.670
+Jitendra K: Protocol.
+
+962
+02:27:30.090 --> 02:27:34.830
+Jitendra K: message, role enumeration. So I have a class called message roll.
+
+963
+02:27:35.920 --> 02:27:41.329
+Jitendra K: this one, where I'm defining the request originated from human.
+
+964
+02:27:41.850 --> 02:27:47.169
+Jitendra K: then I have a delegation, agent-to-agent delegation, and a system framework injection as well.
+
+965
+02:27:47.470 --> 02:27:53.039
+Jitendra K: Then, I'm also using the A2A message envelope, and this is the base model class.
+
+966
+02:27:53.530 --> 02:28:02.050
+Jitendra K: Basically, I'm just encompassing the UID and the message ID inside this, and then… try to…
+
+967
+02:28:02.160 --> 02:28:07.220
+Jitendra K: create a systematic, trace on the CUID updates.
+
+968
+02:28:07.580 --> 02:28:09.649
+Jitendra K: Which is a message format, right?
+
+969
+02:28:09.820 --> 02:28:13.799
+Jitendra K: Then, after that, I will have several delegation requests.
+
+970
+02:28:14.370 --> 02:28:18.710
+Jitendra K: Which can be performed by this agent. This is my main agent previously.
+
+971
+02:28:18.820 --> 02:28:25.200
+Jitendra K: Now I can able to check if the delegation requests end up into an error, then I will have those error response.
+
+972
+02:28:25.460 --> 02:28:28.579
+Jitendra K: generated from these agents, and then I will be able to track it.
+
+973
+02:28:28.870 --> 02:28:36.979
+Jitendra K: Now, I'm also maintaining the tools.py. Ideally, it should be inside my MCP server, but for sake of simplicity, I'm just keeping it here itself.
+
+974
+02:28:37.440 --> 02:28:52.999
+Jitendra K: So this is… this is another… create another, you know, complexity in understanding the code, so I just ease off this part. So I'm creating tool.py inside my local. So this tool will have all the, required formats.
+
+975
+02:28:53.440 --> 02:29:02.900
+Jitendra K: what message I required to execute from the APIs that I'm using, etc, right? Including the
+
+976
+02:29:03.540 --> 02:29:10.009
+Jitendra K: identic written formats. So I will have everything that I required, and then I will create as a decorator.
+
+977
+02:29:10.840 --> 02:29:16.850
+Jitendra K: Finally, once I have run this, based upon the tools, I will have a registry of tools as well.
+
+978
+02:29:17.070 --> 02:29:19.879
+Jitendra K: So all the tools will be registered inside.
+
+979
+02:29:28.230 --> 02:29:31.120
+Jitendra K: this… dictionary.
+
+980
+02:29:31.430 --> 02:29:36.380
+Jitendra K: So I've got 1, 2, 3, 4, 5, 6, 7 tools, right, registered.
+
+981
+02:29:36.880 --> 02:29:41.230
+Jitendra K: Now, once I have registered this tool, I can go for execution as well.
+
+982
+02:29:41.790 --> 02:29:45.640
+Jitendra K: That is where I will create a client connection, A2C server.
+
+983
+02:29:45.940 --> 02:29:49.509
+Jitendra K: Which will listen, and then the client will send a request.
+
+984
+02:29:50.130 --> 02:29:55.780
+Jitendra K: with my questions that I have hypothetically put up inside the main function.
+
+985
+02:29:56.390 --> 02:29:59.029
+Jitendra K: So this is how this whole port run.
+
+986
+02:29:59.620 --> 02:30:05.929
+Jitendra K: And, you can see that… how seamlessly we can able to track each and every agent.
+
+987
+02:30:07.250 --> 02:30:09.190
+Jitendra K: With the help of this pipeline.
+
+988
+02:30:09.400 --> 02:30:13.420
+Jitendra K: So, right? So basically, this is one of the…
+
+989
+02:30:15.110 --> 02:30:19.239
+Jitendra K: Best way to coordinate with external agents that you're going to use.
+
+990
+02:30:23.590 --> 02:30:28.320
+Jitendra K: Parentic is not an agent, Parentic is a data frames, just a…
+
+991
+02:30:29.080 --> 02:30:32.880
+Jitendra K: So, I mean, you can see the colors and all. This is all from Pardemic.
+
+992
+02:30:37.600 --> 02:30:42.120
+Jitendra K: So you have to use Pyntic, framework for readability purpose.
+
+993
+02:30:43.790 --> 02:30:45.930
+Jitendra K: This is all pedantic data frames.
+
+994
+02:30:51.450 --> 02:30:52.999
+Jitendra K: So, any question on this?
+
+995
+02:30:54.200 --> 02:31:00.680
+Jitendra K: I will share this code as well. I want everybody to run and execute this in your machine, and let me know if there's any
+
+996
+02:31:01.690 --> 02:31:03.010
+Jitendra K: Issue with it.
+
+997
+02:31:16.430 --> 02:31:20.190
+Jitendra K: People start disappearing from the class, I don't know why.
+
+998
+02:31:20.650 --> 02:31:23.680
+Jitendra K: It's going slightly off-tangent, I don't know.
+
+999
+02:31:41.500 --> 02:31:44.850
+Jitendra K: Is it too difficult, guys, to understand this concept?
+
+1000
+02:31:45.890 --> 02:31:52.780
+Jitendra K: All tangents… Or… you have absorbed something.
+
+1001
+02:31:58.390 --> 02:32:00.070
+Jitendra K: Okay, how about others?
+
+1002
+02:32:20.780 --> 02:32:25.909
+Jitendra K: Yeah, that's why I have to, practice Anirudha.
+
+1003
+02:32:26.830 --> 02:32:33.130
+Jitendra K: So these… I know that some of you are… even don't have clear concept about API itself.
+
+1004
+02:32:35.250 --> 02:32:37.180
+Jitendra K: We don't know how API works.
+
+1005
+02:32:37.800 --> 02:32:40.850
+Jitendra K: You don't know how HTTP works, I know that part.
+
+1006
+02:32:43.620 --> 02:32:45.769
+Jitendra K: But you have to start somewhere, right?
+
+1007
+02:32:48.510 --> 02:32:54.729
+Jitendra K: Does A2A allow some kind of negotiation between agent as well, or do we have to define separately? That's a good question.
+
+1008
+02:32:55.280 --> 02:32:59.529
+Jitendra K: But can you elaborate what is negotiation, as far as your understanding?
+
+1009
+02:33:12.650 --> 02:33:14.430
+Jitendra K: Yes, it will.
+
+1010
+02:33:17.560 --> 02:33:21.209
+Jitendra K: So if there's any conflict, let's say your agent card
+
+1011
+02:33:22.060 --> 02:33:27.070
+Jitendra K: Have insufficient capability to execute a particular tool.
+
+1012
+02:33:27.790 --> 02:33:32.230
+Jitendra K: then the discovery agent will not fall to a default version.
+
+1013
+02:33:33.920 --> 02:33:38.969
+Jitendra K: So, it will… Try to negotiate hard to find a better tool.
+
+1014
+02:33:44.180 --> 02:33:59.579
+Jitendra K: one of our agentic projects designed completely using Pygentic AI, not for readability, even for tools and action. The Parentic modules is a way that you are going to use to get a structured output every time. So you can see how well this structured
+
+1015
+02:33:59.770 --> 02:34:01.320
+Jitendra K: Response we are getting.
+
+1016
+02:34:01.600 --> 02:34:03.540
+Jitendra K: Very good readability, right?
+
+1017
+02:34:03.900 --> 02:34:06.099
+Jitendra K: So, using Pygentic for…
+
+1018
+02:34:06.590 --> 02:34:16.610
+Jitendra K: tools and action, because your tools need to generate some insights as well, right? So when you're calling a tool, you should showcase which tool you're calling.
+
+1019
+02:34:16.910 --> 02:34:22.259
+Jitendra K: When you're selecting an action, you should show which particular reasoning traces you're getting.
+
+1020
+02:34:22.400 --> 02:34:24.190
+Jitendra K: And for that, you're using PyntonTech.
+
+1021
+02:34:24.750 --> 02:34:25.840
+Jitendra K: modules.
+
+1022
+02:34:26.410 --> 02:34:31.529
+Jitendra K: There's no pajantic AI. I don't think so there's any pajantic, even your spelling is incorrect.
+
+1023
+02:34:32.240 --> 02:34:34.290
+Jitendra K: It's D-A-N-T-E-I-C.
+
+1024
+02:34:34.910 --> 02:34:38.310
+Jitendra K: It's Parentic modules, it's not Parentic AI.
+
+1025
+02:34:44.350 --> 02:34:48.210
+Jitendra K: So there's no parenting AI as such, it's a database, sorry.
+
+1026
+02:34:48.380 --> 02:34:54.030
+Jitendra K: data structure that we are using to consume the output from the response of the AI agent.
+
+1027
+02:35:14.610 --> 02:35:21.029
+Jitendra K: Alright, so how many of you are still struggling with Python, classes, objects.
+
+1028
+02:35:22.070 --> 02:35:28.580
+Jitendra K: Are you guys practicing from somewhere, as we have already agreed that you are going to practice?
+
+1029
+02:35:29.850 --> 02:35:32.589
+Jitendra K: So how many of you are practicing the Python concepts?
+
+1030
+02:35:35.000 --> 02:35:38.830
+Jitendra K: good with basic, but is basic as sufficient?
+
+1031
+02:35:40.400 --> 02:35:43.380
+Jitendra K: That is, again, question.
+
+1032
+02:35:54.680 --> 02:35:59.410
+Jitendra K: So what are the things that you guys do when you do not understand the concept?
+
+1033
+02:36:04.280 --> 02:36:05.820
+Jitendra K: really comfortable.
+
+1034
+02:36:10.580 --> 02:36:14.459
+Jitendra K: Trying to build Simple Agent, and that's the practice I'm doing. Okay, good.
+
+1035
+02:36:16.640 --> 02:36:19.080
+Jitendra K: But how did you create a simple agent?
+
+1036
+02:36:22.050 --> 02:36:24.230
+Jitendra K: With a small data set, you mean to say?
+
+1037
+02:36:28.270 --> 02:36:33.740
+Jitendra K: Okay, but what kind of data set, if I may ask? PDFs, right?
+
+1038
+02:36:44.950 --> 02:36:46.819
+Jitendra K: One rug with PDF.
+
+1039
+02:36:48.990 --> 02:36:50.120
+Jitendra K: Okay…
+
+1040
+02:36:54.940 --> 02:36:58.070
+Jitendra K: Yeah, one rag with PDF will not be sufficient to…
+
+1041
+02:36:58.840 --> 02:37:03.199
+Jitendra K: Excel here for you. So basically, you need to understand
+
+1042
+02:37:03.910 --> 02:37:08.950
+Jitendra K: That these concepts is also useful when you're treating an enterprise-grade agent.
+
+1043
+02:37:09.290 --> 02:37:11.610
+Jitendra K: As I mentioned, it's a full stack.
+
+1044
+02:37:11.980 --> 02:37:13.100
+Jitendra K: force, right?
+
+1045
+02:37:13.610 --> 02:37:19.179
+Jitendra K: So here, the focus is not to create RAG and then hand over the quote to someone who will do all this thing for you.
+
+1046
+02:37:19.580 --> 02:37:21.230
+Jitendra K: There's a full-stack board.
+
+1047
+02:37:21.470 --> 02:37:23.010
+Jitendra K: That you need to understand.
+
+1048
+02:37:28.340 --> 02:37:34.000
+Jitendra K: It's not Python requirement, it's pip… Install hyphen R.
+
+1049
+02:37:40.280 --> 02:37:42.449
+Jitendra K: This pip install you are doing, right?
+
+1050
+02:38:20.650 --> 02:38:26.309
+Jitendra K: was able to launch Index and one agent's agents into all that I'm saying.
+
+1051
+02:38:29.010 --> 02:38:35.259
+Jitendra K: So, okay, great. So if you're using, OpenAI API or some other API, because…
+
+1052
+02:38:35.670 --> 02:38:41.159
+Jitendra K: I'm… I'm using the… Okay, opening a key.
+
+1053
+02:38:42.290 --> 02:38:46.470
+Jitendra K: Can you please show me how did you run this? Let me give you the presenter, right?
+
+1054
+02:38:52.980 --> 02:38:54.970
+Jitendra K: Can you show us, I mean…
+
+1055
+02:38:56.650 --> 02:38:58.440
+Jitendra K: Let me give you the co-host.
+
+1056
+02:39:33.390 --> 02:39:35.429
+Jitendra K: My team is dropped off.
+
+1057
+02:39:36.590 --> 02:39:38.940
+Jitendra K: Okay, anyway, I will check with him.
+
+1058
+02:39:42.470 --> 02:39:44.670
+Jitendra K: So, any question, guys?
+
+1059
+02:39:53.390 --> 02:39:56.850
+Jitendra K: Okay, OpenTelemetry has some issues.
+
+1060
+02:39:58.170 --> 02:39:59.880
+Jitendra K: So, dependencies…
+
+1061
+02:40:29.300 --> 02:40:31.859
+Jitendra K: Yeah, I will download this book, but…
+
+1062
+02:40:40.940 --> 02:40:47.100
+Jitendra K: Can you just try this command and see if it is… Solving the issue.
+
+1063
+02:41:17.730 --> 02:41:27.829
+Jitendra K: Okay, now what are we going to do next is, so this is the conclusion for A2A. So we'll revisit these topics, MCP, A2A,
+
+1064
+02:41:28.230 --> 02:41:32.440
+Jitendra K: In the upcoming tutorials, when we are dealing with…
+
+1065
+02:41:41.370 --> 02:41:45.330
+Jitendra K: this… These two modules.
+
+1066
+02:41:45.880 --> 02:41:50.359
+Jitendra K: on June, right? So we'll talk about the full-fledged AI agents.
+
+1067
+02:41:50.840 --> 02:41:53.239
+Jitendra K: And then we'll discuss on this part again.
+
+1068
+02:41:53.690 --> 02:42:00.639
+Jitendra K: So now our focus will be shifted from, The protocols back to…
+
+1069
+02:42:02.850 --> 02:42:07.269
+Jitendra K: the rack pipelines, right? So we'll talk about how to use
+
+1070
+02:42:07.840 --> 02:42:14.420
+Jitendra K: learning and adaptation with Agent, what are different ways to… create…
+
+1071
+02:42:15.370 --> 02:42:18.870
+Jitendra K: even more advanced, right? So we talked about a few methods.
+
+1072
+02:42:19.480 --> 02:42:25.089
+Jitendra K: And then we'll move on to, the monitoring and evaluation strategies in AIGN.
+
+1073
+02:42:25.880 --> 02:42:31.480
+Jitendra K: And then, we will talk about ethical consideration, governance, and…
+
+1074
+02:42:31.950 --> 02:42:35.039
+Jitendra K: Low-code platforms as a part of our coverage.
+
+1075
+02:42:35.200 --> 02:42:45.920
+Jitendra K: So, focus will be, for tomorrow would be, we'll revisit some more… Prompting technique with adaptive instruction.
+
+1076
+02:42:46.300 --> 02:42:50.879
+Jitendra K: And we'll talk about the patterns that we should use to write system prompts.
+
+1077
+02:42:52.020 --> 02:42:57.559
+Jitendra K: So that includes… How to clearly, right, use chain of thought, lay of thought.
+
+1078
+02:42:57.720 --> 02:43:01.589
+Jitendra K: React, review patterns to write a good prompt.
+
+1079
+02:43:01.900 --> 02:43:06.039
+Jitendra K: And then, with the help of that, we will talk about how to utilize
+
+1080
+02:43:06.640 --> 02:43:11.050
+Jitendra K: Those techniques to create instruction fine-tuning.
+
+1081
+02:43:11.600 --> 02:43:15.589
+Jitendra K: Right? So that is a very important topic that we are going to cover tomorrow.
+
+1082
+02:43:23.760 --> 02:43:30.960
+Jitendra K: Yeah, I think you have a telemetry issue, so dependency issue with Crew AI. You need to uninstall it, and then reinstall it.
+
+1083
+02:43:31.730 --> 02:43:36.089
+Jitendra K: Or you need to upgrade the package, I think that's the two-way that I can see.
+
+1084
+02:44:23.290 --> 02:44:26.239
+Jitendra K: I think you need to upgrade some packages.
+
+1085
+02:44:26.450 --> 02:44:28.150
+Jitendra K: Can you just try this?
+
+1086
+02:44:30.170 --> 02:44:34.170
+Jitendra K: And then we have to also create click package.
+
+1087
+02:45:06.940 --> 02:45:11.210
+Jitendra K: So just try this, for debugging steps and see if it is…
+
+1088
+02:45:12.830 --> 02:45:17.479
+Jitendra K: Removing any issue with your current compilation errors.
+
+1089
+02:45:41.320 --> 02:45:49.329
+Jitendra K: So tomorrow, we are going to talk about prompt engineering again. We are going to revisit the same topic, prompt engineering, how to write good prompt, bad prompt.
+
+1090
+02:45:50.290 --> 02:45:53.090
+Jitendra K: And, how about, using…
+
+1091
+02:45:54.060 --> 02:45:57.970
+Jitendra K: The mechanism to evaluate your prompt efficacies as well.
+
+1092
+02:45:58.450 --> 02:46:04.090
+Jitendra K: So, we'll talk about, we'll revisit the design patterns, topic…
+
+1093
+02:46:04.340 --> 02:46:06.979
+Jitendra K: I think we have discussed in the second class.
+
+1094
+02:46:07.480 --> 02:46:15.690
+Jitendra K: But we'll revisit a topic with much more detail. And, the idea is, because in every class, we are using system prompts, right?
+
+1095
+02:46:16.070 --> 02:46:20.519
+Jitendra K: The system prompt is a de facto for your instruction.
+
+1096
+02:46:20.880 --> 02:46:25.869
+Jitendra K: So we need to understand When we're writing an instruction to the agent.
+
+1097
+02:46:26.070 --> 02:46:28.489
+Jitendra K: Does… are we using the right set of…
+
+1098
+02:46:31.410 --> 02:46:39.150
+Jitendra K: patterns to run this instruction, or do we need to do some course correction? So all these things we are going to discuss in next tutorial.
+
+1099
+02:46:40.140 --> 02:46:45.069
+Jitendra K: So I think this is pretty much what we have for today, guys, so I hope you enjoy the session.
+
+1100
+02:46:45.760 --> 02:46:51.860
+Jitendra K: And, I know it's… Quite the… A complex topic.
+
+1101
+02:46:52.140 --> 02:46:55.219
+Jitendra K: And I agree, because this is a new topic, right? If it is not…
+
+1102
+02:46:55.850 --> 02:46:59.829
+Jitendra K: Complex, and why the world is against, chasing them.
+
+1103
+02:47:01.770 --> 02:47:05.560
+Jitendra K: So this is… Really important that you should
+
+1104
+02:47:06.680 --> 02:47:09.349
+Jitendra K: Adapt to the change, right?
+
+1105
+02:47:09.610 --> 02:47:13.410
+Jitendra K: As I mentioned, if you are not even able to understand
+
+1106
+02:47:14.890 --> 02:47:19.870
+Jitendra K: If you're understanding some part of it, maybe 10-20%, that is good enough.
+
+1107
+02:47:20.890 --> 02:47:27.870
+Jitendra K: Because code writing and all will be easy, but concept understanding is a cumbersome task, right? If you do not know the concept.
+
+1108
+02:47:28.410 --> 02:47:34.760
+Jitendra K: And if you're just blindly writing the code with your GPTs and code writers, it is of no use.
+
+1109
+02:47:34.950 --> 02:47:36.820
+Jitendra K: You understand the concept first.
+
+1110
+02:47:40.120 --> 02:47:45.670
+Jitendra K: So with that, let me thank you guys for attending this session, and thanks for rating on the higher side.
+
+1111
+02:47:45.990 --> 02:47:53.390
+Jitendra K: So we'll meet tomorrow for prompt engineering again, and we'll take some scenarios to improve the prompts.
+
+1112
+02:47:54.730 --> 02:47:57.540
+Jitendra K: So thank you, and have a pleasant evening ahead. We'll meet tomorrow.
+
+1113
+02:47:59.080 --> 02:47:59.960
+Jitendra K: Thank you.
+

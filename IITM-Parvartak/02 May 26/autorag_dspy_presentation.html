@@ -1,0 +1,2494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoRAG × DSPy — A Technical Deep Dive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@300;400;500;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.js"></script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  chtml: { scale: 1.0 }
+};
+</script>
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-2: #111114;
+    --bg-3: #16161a;
+    --ink: #e8e6e1;
+    --ink-dim: #9a978f;
+    --ink-faint: #5a5853;
+    --accent: #ff5722;
+    --accent-2: #ffb84d;
+    --accent-3: #4ade80;
+    --accent-4: #60a5fa;
+    --accent-5: #c084fc;
+    --line: #26252a;
+    --line-2: #1a1a1f;
+    --code-bg: #0f0f12;
+    --paper: #f4f1ea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter Tight', -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(255, 87, 34, 0.06), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.05), transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  /* ───── Top progress / nav ───── */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    gap: 24px;
+  }
+
+  .topbar .brand {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .topbar .brand span { color: var(--accent); }
+
+  .topbar .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .topbar .progress-track {
+    flex: 1;
+    height: 2px;
+    background: var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .topbar .progress-fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.1s linear;
+  }
+
+  .topbar .counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+    min-width: 80px;
+    text-align: right;
+  }
+
+  /* ───── Slide container ───── */
+  .deck {
+    position: relative;
+    z-index: 1;
+    padding-top: 56px;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 80px 64px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .slide-num {
+    position: absolute;
+    top: 80px;
+    right: 64px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .slide-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+  }
+
+  h1.slide-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 5.5vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+    max-width: 1100px;
+  }
+  h1.slide-title em { font-style: italic; color: var(--accent-2); }
+
+  h2.section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 3.5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  h2.section-title em { font-style: italic; color: var(--accent-2); }
+
+  h3.sub {
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 16px;
+  }
+
+  p.lede {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.45;
+    color: var(--ink-dim);
+    max-width: 900px;
+    margin-bottom: 24px;
+  }
+
+  p.body {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 850px;
+    margin-bottom: 16px;
+  }
+  p.body.dim { color: var(--ink-dim); }
+
+  /* ───── Title slide ───── */
+  .slide-cover {
+    background:
+      radial-gradient(ellipse at top right, rgba(255, 87, 34, 0.15), transparent 60%),
+      radial-gradient(ellipse at bottom left, rgba(96, 165, 250, 0.12), transparent 60%),
+      var(--bg);
+    overflow: hidden;
+  }
+
+  .cover-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.4;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  .cover-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cover-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .cover-eyebrow::before {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .cover-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(60px, 9vw, 140px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 24px;
+  }
+  .cover-title .ital { font-style: italic; font-weight: 400; }
+  .cover-title .accent { color: var(--accent); }
+  .cover-title .ampersand {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent-2);
+  }
+
+  .cover-sub {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(20px, 2vw, 28px);
+    color: var(--ink-dim);
+    max-width: 700px;
+    line-height: 1.4;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .cover-foot {
+    position: absolute;
+    bottom: 64px;
+    left: 64px;
+    right: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 2;
+  }
+  .cover-foot .meta-block {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+  .cover-foot .meta-block strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ───── Layouts ───── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 32px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--ink-faint); }
+
+  .card .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  .card h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .card p {
+    font-size: 14px;
+    color: var(--ink-dim);
+    line-height: 1.55;
+  }
+
+  /* ───── Code blocks ───── */
+  pre.code {
+    background: var(--code-bg);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 0;
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin: 20px 0;
+    color: var(--ink);
+  }
+  pre.code .kw { color: #ff79c6; }
+  pre.code .str { color: #f1fa8c; }
+  pre.code .com { color: var(--ink-faint); font-style: italic; }
+  pre.code .fn { color: #50fa7b; }
+  pre.code .num { color: #bd93f9; }
+  pre.code .cls { color: #8be9fd; }
+
+  /* ───── Math display ───── */
+  .math-block {
+    background: linear-gradient(135deg, rgba(255,184,77,0.04), rgba(255,87,34,0.02));
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+  .math-block .math-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent-2);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* ───── Pillars / step layouts ───── */
+  .step-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 32px 0;
+    flex-wrap: wrap;
+  }
+  .step {
+    flex: 1;
+    min-width: 180px;
+    padding: 20px 24px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-right: none;
+    position: relative;
+  }
+  .step:last-child { border-right: 1px solid var(--line); }
+  .step::after {
+    content: "→";
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--bg);
+    color: var(--accent);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    z-index: 2;
+  }
+  .step:last-child::after { display: none; }
+  .step .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+  .step .step-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .step .step-desc {
+    font-size: 12px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+
+  /* ───── Tables ───── */
+  table.tech {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 14px;
+  }
+  table.tech th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--bg-2);
+    border-bottom: 2px solid var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  table.tech td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-dim);
+    vertical-align: top;
+  }
+  table.tech td:first-child {
+    color: var(--ink);
+    font-weight: 500;
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+  }
+  table.tech tr:hover td { background: var(--bg-2); }
+
+  /* ───── Diagram boxes ───── */
+  .diagram {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    padding: 32px;
+    margin: 24px 0;
+    position: relative;
+  }
+  .diagram-label {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ───── Pull quotes / call-outs ───── */
+  .callout {
+    border-left: 3px solid var(--accent);
+    padding: 16px 24px;
+    margin: 24px 0;
+    background: rgba(255,87,34,0.04);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* ───── Lists ───── */
+  ul.tech-list {
+    list-style: none;
+    margin: 16px 0;
+  }
+  ul.tech-list li {
+    position: relative;
+    padding: 8px 0 8px 28px;
+    border-bottom: 1px dashed var(--line);
+    font-size: 15px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+  ul.tech-list li:last-child { border-bottom: none; }
+  ul.tech-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 8px;
+    color: var(--accent);
+    font-size: 12px;
+    top: 11px;
+  }
+  ul.tech-list li strong { color: var(--ink); font-weight: 500; }
+
+  /* ───── Teleprompter big card ───── */
+  .tele-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--accent);
+    padding: 32px;
+    margin: 24px 0;
+  }
+  .tele-card.alt { border-top-color: var(--accent-4); }
+  .tele-card.green { border-top-color: var(--accent-3); }
+  .tele-card.purp { border-top-color: var(--accent-5); }
+  .tele-card.gold { border-top-color: var(--accent-2); }
+
+  .tele-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 16px;
+  }
+  .tele-name {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .tele-name .ital { font-style: italic; color: var(--accent-2); }
+  .tele-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .tele-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .tele-block h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tele-block p {
+    font-size: 14px;
+    color: var(--ink-dim);
+    line-height: 1.6;
+  }
+
+  /* ───── Number stat ───── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 32px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .stat {
+    padding: 24px;
+    border-right: 1px solid var(--line);
+  }
+  .stat:last-child { border-right: none; }
+  .stat .stat-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--accent-2);
+  }
+  .stat .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  /* ───── Final / closing ───── */
+  .slide-end {
+    background: linear-gradient(135deg, #1a1a1f 0%, #0a0a0b 100%);
+    text-align: left;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .slide { padding: 60px 32px; }
+    .slide-num { right: 32px; top: 60px; }
+    .grid-2, .grid-3, .grid-4, .tele-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: repeat(2,1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--line); }
+    .step-flow { flex-direction: column; }
+    .step { border: 1px solid var(--line); }
+    .step::after { display: none; }
+    .cover-foot { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .topbar { padding: 0 16px; gap: 12px; }
+    .topbar .meta { display: none; }
+  }
+
+  /* Print */
+  @media print {
+    .topbar { display: none; }
+    .slide { page-break-after: always; min-height: 100vh; }
+  }
+
+  /* Selection */
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  /* Anchors */
+  .slide { scroll-margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<!-- ─────── TOPBAR ─────── -->
+<div class="topbar">
+  <div class="brand">Auto<span>RAG</span> × DSPy</div>
+  <div class="meta">TECHNICAL DEEP DIVE · 44 SLIDES</div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="counter" id="counter">01 / 44</div>
+</div>
+
+<div class="deck">
+
+<!-- ============================================================ -->
+<!-- SLIDE 1 — COVER                                               -->
+<!-- ============================================================ -->
+<section class="slide slide-cover" id="s1">
+  <div class="cover-grid"></div>
+  <div class="cover-content">
+    <div class="cover-eyebrow">A Technical Architecture Treatise</div>
+    <h1 class="cover-title">
+      Auto<span class="accent">RAG</span><br>
+      <span class="ampersand">&amp;</span> <span class="ital">DSPy</span>
+    </h1>
+    <p class="cover-sub">
+      From hand-tuned prompts to <em>compiled</em>, self-optimizing language pipelines —
+      with every teleprompter, every metric, every gradient.
+    </p>
+  </div>
+  <div class="cover-foot">
+    <div class="meta-block">
+      <strong>FOR</strong> AI Architects · ML Engineers<br>
+      <strong>SCOPE</strong> 44 slides · ~12k words<br>
+      <strong>FORMAT</strong> Math + Code + Diagrams
+    </div>
+    <div class="meta-block">
+      <strong>v1.0</strong> · 2026<br>
+      Production-grade reference
+    </div>
+  </div>
+  <div class="slide-num">01 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2 — Table of Contents                                   -->
+<!-- ============================================================ -->
+<section class="slide" id="s2">
+  <span class="slide-tag">CONTENTS</span>
+  <h1 class="slide-title">A map of <em>what we'll build</em></h1>
+  <div class="grid-2" style="margin-top:40px;">
+    <div>
+      <h3 class="sub">PART I — AutoRAG</h3>
+      <ul class="tech-list">
+        <li><strong>02–03</strong> RAG, the bottleneck, and why "auto"</li>
+        <li><strong>04</strong> AutoRAG taxonomy &amp; node graph</li>
+        <li><strong>05–07</strong> Modules: chunking, retrieval, reranking, generation</li>
+        <li><strong>08</strong> Evaluation metrics &amp; objective surface</li>
+        <li><strong>09</strong> Search algorithms over pipeline space</li>
+        <li><strong>10</strong> Reference architecture &amp; YAML config</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="sub">PART II — DSPy</h3>
+      <ul class="tech-list">
+        <li><strong>11–13</strong> Signatures, Modules, Predictors</li>
+        <li><strong>14</strong> Metrics &amp; the optimization objective</li>
+        <li><strong>15</strong> Compilation as gradient-free learning</li>
+        <li><strong>16–32</strong> <strong>Every teleprompter</strong>, mathematically</li>
+        <li><strong>33–36</strong> AutoRAG ⊗ DSPy: the unified stack</li>
+        <li><strong>37–43</strong> Patterns, anti-patterns, production</li>
+        <li><strong>44</strong> Closing</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-num">02 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3 — Why RAG breaks                                      -->
+<!-- ============================================================ -->
+<section class="slide" id="s3">
+  <span class="slide-tag">PART I · MOTIVATION</span>
+  <h1 class="slide-title">RAG works <em>until it doesn't</em></h1>
+  <p class="lede">
+    A naive RAG pipeline has at least 14 hyperparameters spread across 6 stages. Tune one, the others shift. Hand-engineering each is a combinatorial nightmare.
+  </p>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="num">01 — INGESTION</div>
+      <h4>Chunking strategy</h4>
+      <p>Token vs. recursive vs. semantic. Window size 256 / 512 / 1024. Overlap 0–50%. Each shifts retrieval distribution.</p>
+    </div>
+    <div class="card">
+      <div class="num">02 — INDEX</div>
+      <h4>Embedding choice</h4>
+      <p>BGE, E5, OpenAI, Cohere, Voyage. Different geometries, different recall ceilings.</p>
+    </div>
+    <div class="card">
+      <div class="num">03 — RETRIEVAL</div>
+      <h4>Hybrid weights</h4>
+      <p>BM25 vs. dense. Top-k. RRF k-constant. Query rewriting on/off.</p>
+    </div>
+    <div class="card">
+      <div class="num">04 — RERANK</div>
+      <h4>Cross-encoder?</h4>
+      <p>Cohere rerank, BGE-reranker, ColBERT. Latency-vs-recall tradeoff.</p>
+    </div>
+    <div class="card">
+      <div class="num">05 — PROMPT</div>
+      <h4>Template format</h4>
+      <p>Few-shot count. Citation style. Refusal scaffolding. Order of context.</p>
+    </div>
+    <div class="card">
+      <div class="num">06 — GENERATION</div>
+      <h4>Model + decoding</h4>
+      <p>Sonnet vs. Opus vs. open. Temperature. Reasoning budget. Self-consistency.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:32px;">
+    The combinatorial space is roughly $|C| \times |E| \times |R| \times |M| \times |T| \times |G| \approx 10^7$ configurations. You cannot grid-search this by hand.
+  </div>
+  <div class="slide-num">03 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4 — AutoRAG core idea                                   -->
+<!-- ============================================================ -->
+<section class="slide" id="s4">
+  <span class="slide-tag">AUTORAG · CORE IDEA</span>
+  <h1 class="slide-title">AutoRAG = <em>AutoML</em>, but for retrieval pipelines</h1>
+  <p class="body">
+    AutoRAG (Marker-Inc) treats a RAG pipeline as a <strong>directed graph of swappable nodes</strong>. Given an evaluation dataset $\mathcal{D} = \{(q_i, a_i^*, \text{ctx}_i^*)\}_{i=1}^{N}$, it searches the configuration space $\Theta$ for the pipeline $\pi^* \in \Pi$ that maximizes a composite metric.
+  </p>
+
+  <div class="math-block">
+    <div class="math-label">Optimization formulation</div>
+    $$
+    \pi^* \;=\; \arg\max_{\pi \in \Pi}\;\; \mathbb{E}_{(q,a^*) \sim \mathcal{D}}\Big[\, \mathcal{M}\big(\pi(q),\; a^*\big) - \lambda\,\mathcal{C}(\pi)\,\Big]
+    $$
+    <p style="font-size:13px; color:var(--ink-dim); margin-top:14px;">
+      where $\mathcal{M}$ is the quality metric (faithfulness, answer-correctness, semantic similarity), $\mathcal{C}(\pi)$ is the cost (latency, $/query, tokens), and $\lambda$ trades quality for cost.
+    </p>
+  </div>
+
+  <h3 class="sub" style="margin-top:32px;">The five AutoRAG primitives</h3>
+  <div class="step-flow">
+    <div class="step"><div class="step-num">N1</div><div class="step-title">QueryExpansion</div><div class="step-desc">HyDE, multi-query, query decomposition</div></div>
+    <div class="step"><div class="step-num">N2</div><div class="step-title">Retrieval</div><div class="step-desc">BM25, dense, hybrid, ColBERT</div></div>
+    <div class="step"><div class="step-num">N3</div><div class="step-title">PassageReranker</div><div class="step-desc">Cross-encoder, RankGPT, FlashRank</div></div>
+    <div class="step"><div class="step-num">N4</div><div class="step-title">PassageFilter</div><div class="step-desc">Threshold, recency, percentile</div></div>
+    <div class="step"><div class="step-num">N5</div><div class="step-title">PromptMaker → Generator</div><div class="step-desc">Template + LLM + decode params</div></div>
+  </div>
+  <div class="slide-num">04 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5 — Chunking                                            -->
+<!-- ============================================================ -->
+<section class="slide" id="s5">
+  <span class="slide-tag">AUTORAG · INGESTION</span>
+  <h1 class="slide-title">Chunking is <em>retrieval geometry</em></h1>
+
+  <p class="body">A chunk $c$ is a contiguous span of tokens from a document. The chunking function $\phi: \mathcal{D} \to \{c_1, c_2, \ldots\}$ defines the unit of recall. Three regimes dominate:</p>
+
+  <table class="tech">
+    <thead>
+      <tr><th>Strategy</th><th>Function</th><th>Strength</th><th>Weakness</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Token (fixed)</td>
+        <td>$\phi_\tau(d) = \{d[i\cdot s : i\cdot s + w]\}$</td>
+        <td>Predictable, dense recall</td>
+        <td>Splits sentences, boundary errors</td>
+      </tr>
+      <tr>
+        <td>Recursive</td>
+        <td>Split on $[\backslash n\backslash n, \backslash n, ".", " "]$ in priority</td>
+        <td>Respects structure</td>
+        <td>Variance in chunk size</td>
+      </tr>
+      <tr>
+        <td>Semantic</td>
+        <td>Boundary at $\cos(e_i, e_{i+1}) &lt; \tau$</td>
+        <td>Topical coherence</td>
+        <td>Embedding-cost at ingest</td>
+      </tr>
+      <tr>
+        <td>Late chunking</td>
+        <td>Embed full doc → pool spans</td>
+        <td>Global context preserved</td>
+        <td>Requires long-context encoder</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pre class="code"><span class="com"># AutoRAG YAML — chunker search space</span>
+<span class="kw">chunker</span>:
+  modules:
+    - module_type: llama_index_chunk
+      chunk_method: [Token, Sentence, SentenceWindow, Semantic_llama_index]
+      chunk_size: [256, 512, 1024]
+      chunk_overlap: [0, 24, 50]
+      add_file_name: ko</pre>
+  <div class="slide-num">05 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6 — Retrieval & rerank                                  -->
+<!-- ============================================================ -->
+<section class="slide" id="s6">
+  <span class="slide-tag">AUTORAG · RETRIEVAL</span>
+  <h1 class="slide-title">Hybrid retrieval, then a <em>cross-encoder</em></h1>
+
+  <div class="math-block">
+    <div class="math-label">Reciprocal Rank Fusion (RRF)</div>
+    $$
+    \text{RRF}(d) \;=\; \sum_{r \in R} \frac{1}{k + \text{rank}_r(d)}, \qquad k = 60 \text{ (canonical)}
+    $$
+    <p style="font-size:13px; color:var(--ink-dim); margin-top:14px;">
+      Used to fuse BM25 and dense retrieval into a single ranking, robust to score-scale differences.
+    </p>
+  </div>
+
+  <div class="math-block">
+    <div class="math-label">Cross-encoder rerank score</div>
+    $$
+    s(q, d) \;=\; \sigma\big(\mathrm{MLP}([\text{CLS}]\;\text{Encoder}([q\,;\,d]))\big), \qquad \text{sort } d \text{ by } s
+    $$
+    <p style="font-size:13px; color:var(--ink-dim); margin-top:14px;">
+      Bi-encoders embed $q$ and $d$ independently (fast, lossy). Cross-encoders attend $q$↔$d$ jointly (slow, accurate). Typical pattern: bi-encoder retrieves top-100, cross-encoder reranks to top-5.
+    </p>
+  </div>
+
+  <pre class="code"><span class="com"># AutoRAG retrieval + rerank stage</span>
+<span class="kw">retrieval</span>:
+  modules:
+    - module_type: bm25
+      bm25_tokenizer: [porter_stemmer, ko_kiwi]
+    - module_type: vectordb
+      vectordb: default
+      embedding_model: [openai, BAAI/bge-m3, intfloat/multilingual-e5-large]
+    - module_type: hybrid_rrf
+      weight: [40, 60, 80]
+
+<span class="kw">passage_reranker</span>:
+  modules:
+    - module_type: pass_reranker
+    - module_type: koreranker
+    - module_type: upr
+    - module_type: rankgpt
+    - module_type: <span class="cls">flag_embedding_reranker</span>
+      model_name: [BAAI/bge-reranker-v2-m3]</pre>
+  <div class="slide-num">06 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7 — Prompt + Generator                                  -->
+<!-- ============================================================ -->
+<section class="slide" id="s7">
+  <span class="slide-tag">AUTORAG · GENERATION</span>
+  <h1 class="slide-title">Prompts are <em>parameters</em></h1>
+
+  <p class="body">In AutoRAG, the prompt template itself is part of the search space. The generator node accepts a list of templates and a list of LLMs; the search algorithm picks the cartesian-product winner under the metric.</p>
+
+  <pre class="code"><span class="kw">prompt_maker</span>:
+  modules:
+    - module_type: fstring
+      prompt:
+        - <span class="str">"Answer using ONLY the passages below.\n\n{retrieved_contents}\n\nQ: {query}\nA:"</span>
+        - <span class="str">"You are an ESG analyst. Cite passages by [n].\n\n{retrieved_contents}\n\nQuestion: {query}"</span>
+    - module_type: long_context_reorder
+    - module_type: window_replacement
+
+<span class="kw">generator</span>:
+  modules:
+    - module_type: <span class="fn">llama_index_llm</span>
+      llm: [openai, anthropic, vllm]
+      model: [gpt-4o-mini, claude-sonnet-4-6, Qwen/Qwen2.5-7B-Instruct]
+      temperature: [0.0, 0.3]
+      batch: 16</pre>
+
+  <div class="callout">
+    Insight: the <em>order</em> of retrieved passages matters. <code>long_context_reorder</code> places highest-relevance passages at the head and tail to mitigate the lost-in-the-middle effect (Liu et al., 2023).
+  </div>
+  <div class="slide-num">07 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8 — Metrics                                             -->
+<!-- ============================================================ -->
+<section class="slide" id="s8">
+  <span class="slide-tag">AUTORAG · METRICS</span>
+  <h1 class="slide-title">What does <em>"better"</em> mean, formally?</h1>
+
+  <p class="body">AutoRAG evaluates two surfaces — <strong>retrieval</strong> and <strong>generation</strong> — with composable metrics. The pipeline-level objective is a weighted sum (or hierarchical filter).</p>
+
+  <div class="grid-2" style="margin-top:24px;">
+    <div>
+      <h3 class="sub">Retrieval metrics</h3>
+      <div class="math-block">
+        <div class="math-label">Recall@k, Precision@k</div>
+        $$\text{R@}k = \frac{|\mathcal{R}_k \cap \mathcal{R}^*|}{|\mathcal{R}^*|}, \quad \text{P@}k = \frac{|\mathcal{R}_k \cap \mathcal{R}^*|}{k}$$
+      </div>
+      <div class="math-block">
+        <div class="math-label">Mean Reciprocal Rank</div>
+        $$\text{MRR} = \frac{1}{N}\sum_{i=1}^{N} \frac{1}{\text{rank}_i^*}$$
+      </div>
+      <div class="math-block">
+        <div class="math-label">nDCG@k</div>
+        $$\text{nDCG@}k = \frac{1}{\text{IDCG}_k}\sum_{i=1}^{k} \frac{2^{\text{rel}_i} - 1}{\log_2(i+1)}$$
+      </div>
+    </div>
+    <div>
+      <h3 class="sub">Generation metrics</h3>
+      <div class="math-block">
+        <div class="math-label">BLEU / ROUGE-L (lexical)</div>
+        $$\text{ROUGE-L} = \frac{(1+\beta^2)\,R\,P}{R + \beta^2 P}$$
+      </div>
+      <div class="math-block">
+        <div class="math-label">Semantic similarity</div>
+        $$\text{Sem} = \cos\!\big(E(\hat{a}), E(a^*)\big)$$
+      </div>
+      <div class="math-block">
+        <div class="math-label">Faithfulness (RAGAS)</div>
+        $$\text{Faith} = \frac{|\text{claims}(\hat{a}) \models \text{ctx}|}{|\text{claims}(\hat{a})|}$$
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">08 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9 — Search strategies                                   -->
+<!-- ============================================================ -->
+<section class="slide" id="s9">
+  <span class="slide-tag">AUTORAG · SEARCH</span>
+  <h1 class="slide-title">How AutoRAG <em>searches</em> the pipeline space</h1>
+
+  <p class="body">Naive grid search is $|\Theta|$-expensive. AutoRAG uses a <strong>greedy node-wise search</strong>: each node's best variant is selected against the per-node metric while downstream nodes are held to a default. This reduces complexity from $\prod_n |M_n|$ to $\sum_n |M_n|$.</p>
+
+  <div class="math-block">
+    <div class="math-label">Greedy node-wise selection</div>
+    $$
+    \pi^*_n \;=\; \arg\max_{m \in M_n}\; \mathcal{M}_n\!\Big(m \circ \pi^*_{1:n-1} \circ \pi^{\text{default}}_{n+1:N}\Big), \quad n = 1, \ldots, N
+    $$
+    <p style="font-size:13px; color:var(--ink-dim); margin-top:14px;">
+      Per-node metrics differ: retrieval nodes use Recall@k / nDCG, generation nodes use semantic similarity + faithfulness.
+    </p>
+  </div>
+
+  <h3 class="sub" style="margin-top:32px;">Search algorithms supported</h3>
+  <table class="tech">
+    <thead><tr><th>Algorithm</th><th>Cost</th><th>Optimality</th><th>When to use</th></tr></thead>
+    <tbody>
+      <tr><td>Greedy (default)</td><td>Linear in module count</td><td>Local optimum</td><td>Most production cases</td></tr>
+      <tr><td>Grid</td><td>$\mathcal{O}(\prod_n |M_n|)$</td><td>Global</td><td>Small spaces, research</td></tr>
+      <tr><td>Random</td><td>Tunable budget</td><td>Probabilistic</td><td>Quick first cut</td></tr>
+      <tr><td>Bayesian (Optuna)</td><td>Sample-efficient</td><td>Asymptotic global</td><td>Expensive eval, long runs</td></tr>
+    </tbody>
+  </table>
+  <div class="slide-num">09 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10 — Reference architecture                             -->
+<!-- ============================================================ -->
+<section class="slide" id="s10">
+  <span class="slide-tag">AUTORAG · REFERENCE ARCH</span>
+  <h1 class="slide-title">A complete <em>config.yaml</em></h1>
+
+  <pre class="code"><span class="kw">node_lines</span>:
+- node_line_name: retrieve_node_line
+  nodes:
+    - node_type: retrieval
+      strategy:
+        metrics: [retrieval_f1, retrieval_recall, retrieval_ndcg, retrieval_mrr]
+      top_k: 10
+      modules:
+        - module_type: bm25
+        - module_type: vectordb
+          vectordb: chroma_default
+          embedding_model: BAAI/bge-m3
+        - module_type: hybrid_rrf
+          weight: [40, 60, 80]
+
+    - node_type: passage_reranker
+      strategy:
+        metrics: [retrieval_f1, retrieval_recall, retrieval_precision]
+        speed_threshold: 10
+      top_k: 5
+      modules:
+        - module_type: pass_reranker
+        - module_type: flag_embedding_reranker
+          model_name: BAAI/bge-reranker-v2-m3
+
+- node_line_name: generate_node_line
+  nodes:
+    - node_type: prompt_maker
+      strategy:
+        metrics: [bleu, meteor, rouge, sem_score, g_eval, bert_score]
+        speed_threshold: 30
+        generator_modules:
+          - module_type: llama_index_llm
+            llm: openai
+            model: gpt-4o-mini
+      modules:
+        - module_type: fstring
+          prompt: [<span class="str">"..."</span>, <span class="str">"..."</span>]
+        - module_type: long_context_reorder
+
+    - node_type: generator
+      strategy:
+        metrics: [bleu, rouge, sem_score, g_eval]
+      modules:
+        - module_type: llama_index_llm
+          llm: [openai, anthropic]
+          model: [gpt-4o-mini, claude-sonnet-4-6]
+          temperature: [0.0, 0.3]</pre>
+  <div class="slide-num">10 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 11 — DSPy intro                                         -->
+<!-- ============================================================ -->
+<section class="slide" id="s11">
+  <span class="slide-tag">PART II · DSPY</span>
+  <h1 class="slide-title">DSPy: <em>"programming, not prompting"</em></h1>
+
+  <p class="lede">
+    Stop hand-engineering brittle prompt strings. Declare what you want as a typed signature; let DSPy <em>compile</em> the prompt — including few-shot demos, instructions, and chain-of-thought scaffolds — against a metric on real data.
+  </p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="num">THE PROBLEM</div>
+      <h4>Prompt brittleness</h4>
+      <p>Swap GPT-4o → Claude → Llama and your handcrafted prompt loses 10–30 points. Re-tune by hand. Repeat for every task.</p>
+    </div>
+    <div class="card">
+      <div class="num">THE INSIGHT</div>
+      <h4>Prompts are parameters</h4>
+      <p>Treat instructions and demonstrations as learnable. Define modules with clear input/output contracts. Optimize the parameters automatically.</p>
+    </div>
+    <div class="card">
+      <div class="num">THE INTERFACE</div>
+      <h4>Signature → Module → Optimizer</h4>
+      <p>A signature is a typed I/O spec. A module is a callable LM program. An optimizer (teleprompter) tunes the program against a metric.</p>
+    </div>
+    <div class="card">
+      <div class="num">THE OUTPUT</div>
+      <h4>A compiled program</h4>
+      <p>Portable across LMs. Re-compile in minutes when you swap models. Versioned, diffable, testable.</p>
+    </div>
+  </div>
+  <div class="slide-num">11 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 12 — Signatures                                         -->
+<!-- ============================================================ -->
+<section class="slide" id="s12">
+  <span class="slide-tag">DSPY · SIGNATURES</span>
+  <h1 class="slide-title">Signatures: <em>typed contracts</em> for LM calls</h1>
+
+  <p class="body">A <code>Signature</code> declares input fields, output fields, and a docstring instruction. DSPy uses this to construct the prompt template — and later, to optimize it.</p>
+
+  <pre class="code"><span class="kw">import</span> dspy
+
+<span class="com"># Inline form</span>
+qa = dspy.<span class="cls">Predict</span>(<span class="str">"context, question -> answer"</span>)
+
+<span class="com"># Class form (preferred for production)</span>
+<span class="kw">class</span> <span class="cls">RAGAnswer</span>(dspy.<span class="cls">Signature</span>):
+    <span class="str">"""Answer the question using ONLY the provided context.
+    Cite passages by their bracketed index. Refuse if context is insufficient."""</span>
+
+    context: <span class="cls">list</span>[<span class="cls">str</span>] = dspy.<span class="fn">InputField</span>(desc=<span class="str">"retrieved passages"</span>)
+    question: <span class="cls">str</span>     = dspy.<span class="fn">InputField</span>()
+    answer:   <span class="cls">str</span>     = dspy.<span class="fn">OutputField</span>(desc=<span class="str">"≤3 sentences, cite as [1]"</span>)
+    citations: <span class="cls">list</span>[<span class="cls">int</span>] = dspy.<span class="fn">OutputField</span>(desc=<span class="str">"passage indices used"</span>)
+
+predict_qa = dspy.<span class="cls">ChainOfThought</span>(<span class="cls">RAGAnswer</span>)
+result = <span class="fn">predict_qa</span>(context=ctx, question=q)
+<span class="fn">print</span>(result.answer, result.citations, result.reasoning)</pre>
+
+  <div class="callout">
+    The docstring becomes the <em>system instruction</em>. Field names become prompt slots. Field types control parsing. This is the entire surface area you write — DSPy generates the prompt.
+  </div>
+  <div class="slide-num">12 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13 — Modules                                            -->
+<!-- ============================================================ -->
+<section class="slide" id="s13">
+  <span class="slide-tag">DSPY · MODULES</span>
+  <h1 class="slide-title">Modules compose into <em>programs</em></h1>
+
+  <p class="body">DSPy modules are PyTorch-flavored: subclass <code>dspy.Module</code>, declare predictors in <code>__init__</code>, define <code>forward</code>. They compose freely.</p>
+
+  <pre class="code"><span class="kw">class</span> <span class="cls">RAGProgram</span>(dspy.<span class="cls">Module</span>):
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, k=<span class="num">5</span>):
+        <span class="kw">super</span>().<span class="fn">__init__</span>()
+        self.retrieve = dspy.<span class="cls">Retrieve</span>(k=k)
+        self.refine_query = dspy.<span class="cls">ChainOfThought</span>(<span class="str">"question -> refined_query"</span>)
+        self.generate = dspy.<span class="cls">ChainOfThought</span>(<span class="cls">RAGAnswer</span>)
+
+    <span class="kw">def</span> <span class="fn">forward</span>(self, question):
+        rq  = self.<span class="fn">refine_query</span>(question=question).refined_query
+        ctx = self.<span class="fn">retrieve</span>(rq).passages
+        out = self.<span class="fn">generate</span>(context=ctx, question=question)
+        <span class="kw">return</span> dspy.<span class="cls">Prediction</span>(answer=out.answer, citations=out.citations, ctx=ctx)
+
+<span class="com"># Built-in predictor types:</span>
+<span class="com"># - dspy.Predict         (single-pass)</span>
+<span class="com"># - dspy.ChainOfThought  (adds `reasoning` field)</span>
+<span class="com"># - dspy.ProgramOfThought (executes generated Python)</span>
+<span class="com"># - dspy.ReAct           (tools + reasoning loop)</span>
+<span class="com"># - dspy.MultiChainComparison  (self-consistency)</span></pre>
+
+  <h3 class="sub" style="margin-top:24px;">What DSPy tracks for each predictor</h3>
+  <ul class="tech-list">
+    <li><strong>Instruction</strong> — the textual task description (mutable by optimizers)</li>
+    <li><strong>Demonstrations</strong> — few-shot examples (selected/synthesized by optimizers)</li>
+    <li><strong>Format hints</strong> — output schema directives</li>
+    <li><strong>Adapter</strong> — how the signature is rendered for a specific LM (Chat, JSON, completion)</li>
+  </ul>
+  <div class="slide-num">13 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 14 — Metric & objective                                 -->
+<!-- ============================================================ -->
+<section class="slide" id="s14">
+  <span class="slide-tag">DSPY · OBJECTIVE</span>
+  <h1 class="slide-title">A metric is a <em>differentiable surrogate</em> we can't differentiate</h1>
+
+  <p class="body">DSPy metrics are arbitrary Python functions $\mu: (\text{example}, \text{prediction}) \mapsto \mathbb{R}$ (or $\{0,1\}$). They can call LMs, run code, or check exact match. The optimizer's job is to find a program that maximizes their <em>expectation</em>.</p>
+
+  <div class="math-block">
+    <div class="math-label">Compilation as expected-utility maximization</div>
+    $$
+    \theta^* \;=\; \arg\max_{\theta \in \Theta}\; \frac{1}{|\mathcal{D}_{\text{train}}|} \sum_{(x,y) \in \mathcal{D}_{\text{train}}} \mu\!\big(y,\; \pi_\theta(x)\big)
+    $$
+    <p style="font-size:13px; color:var(--ink-dim); margin-top:14px;">
+      where $\theta$ collects all instructions and demonstrations across all predictors in the program. $\Theta$ is discrete and high-dimensional, so we cannot use gradients — hence <strong>teleprompters</strong> (search-based optimizers).
+    </p>
+  </div>
+
+  <pre class="code"><span class="kw">def</span> <span class="fn">faithfulness_metric</span>(example, pred, trace=<span class="kw">None</span>):
+    <span class="com"># LM-as-judge: are all answer claims entailed by ctx?</span>
+    judge = dspy.<span class="cls">ChainOfThought</span>(<span class="str">"context, claim -> entailed:bool"</span>)
+    claims = <span class="fn">extract_claims</span>(pred.answer)
+    score  = <span class="fn">np.mean</span>([<span class="fn">judge</span>(context=pred.ctx, claim=c).entailed <span class="kw">for</span> c <span class="kw">in</span> claims])
+
+    <span class="com"># Combine with answer correctness</span>
+    correct = <span class="fn">semantic_sim</span>(pred.answer, example.answer) > <span class="num">0.75</span>
+    <span class="kw">return</span> <span class="num">0.6</span> * score + <span class="num">0.4</span> * <span class="cls">float</span>(correct)</pre>
+  <div class="slide-num">14 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 15 — Compilation overview                               -->
+<!-- ============================================================ -->
+<section class="slide" id="s15">
+  <span class="slide-tag">DSPY · COMPILATION</span>
+  <h1 class="slide-title">Compilation = <em>gradient-free</em> program synthesis</h1>
+
+  <p class="body">A teleprompter takes <code>(student_program, trainset, metric)</code> and returns a <em>compiled</em> program with optimized instructions and demonstrations. Conceptually, it solves a discrete optimization in three families:</p>
+
+  <div class="step-flow">
+    <div class="step">
+      <div class="step-num">FAMILY A</div>
+      <div class="step-title">Demo selection</div>
+      <div class="step-desc">Search over which (input, output) traces to use as few-shot exemplars. Bootstrap, LabeledFewShot, KNNFewShot.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">FAMILY B</div>
+      <div class="step-title">Instruction synthesis</div>
+      <div class="step-desc">Use an LM to propose better natural-language instructions. COPRO, MIPROv2, GEPA.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">FAMILY C</div>
+      <div class="step-title">Weight finetuning</div>
+      <div class="step-desc">Distill or finetune the underlying LM on bootstrapped traces. BootstrapFinetune, Ensemble.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    "Compilation" is exact: the teleprompter mutates a tree of <code>Predict</code> objects in-place by setting <code>.demos</code> and <code>.signature.instructions</code>, then returns the program. You can <code>pickle</code> the result.
+  </div>
+  <div class="slide-num">15 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 16 — Teleprompter map                                   -->
+<!-- ============================================================ -->
+<section class="slide" id="s16">
+  <span class="slide-tag">DSPY · TELEPROMPTER ATLAS</span>
+  <h1 class="slide-title">The full <em>teleprompter</em> taxonomy</h1>
+
+  <table class="tech">
+    <thead>
+      <tr><th>Name</th><th>Family</th><th>What it tunes</th><th>Cost</th><th>When</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>LabeledFewShot</td><td>A</td><td>Static demos</td><td>None</td><td>Quick baseline</td></tr>
+      <tr><td>BootstrapFewShot</td><td>A</td><td>Self-generated demos</td><td>Low</td><td>Default starting point</td></tr>
+      <tr><td>BootstrapFewShotWithRandomSearch</td><td>A</td><td>+ search over demo sets</td><td>Med</td><td>Better demos, modest budget</td></tr>
+      <tr><td>KNNFewShot</td><td>A</td><td>Per-input dynamic demos</td><td>Low</td><td>Heterogeneous inputs</td></tr>
+      <tr><td>COPRO</td><td>B</td><td>Instructions only</td><td>Med</td><td>Demos already good</td></tr>
+      <tr><td>MIPROv2</td><td>A+B</td><td>Demos + instructions jointly</td><td>High</td><td>Production default</td></tr>
+      <tr><td>GEPA</td><td>B (reflective)</td><td>Instructions via reflection</td><td>High</td><td>Hard tasks, complex programs</td></tr>
+      <tr><td>SIMBA</td><td>A+B (online)</td><td>Demos + instructions, mini-batch</td><td>Med</td><td>Streaming / iterative</td></tr>
+      <tr><td>BetterTogether</td><td>A+B+C</td><td>Prompt opt + finetune</td><td>Very high</td><td>Open models you can FT</td></tr>
+      <tr><td>BootstrapFinetune</td><td>C</td><td>Model weights</td><td>Very high</td><td>Distill to small LM</td></tr>
+      <tr><td>Ensemble</td><td>—</td><td>Combine compiled programs</td><td>Inference-time</td><td>Diversity, robustness</td></tr>
+      <tr><td>AvatarOptimizer</td><td>B</td><td>Tool-using agent prompts</td><td>High</td><td>ReAct / agentic flows</td></tr>
+      <tr><td>InferRules</td><td>B</td><td>Rule extraction → instruction</td><td>Med</td><td>When demos imply rules</td></tr>
+      <tr><td>Signature Optimizer (legacy)</td><td>B</td><td>Signature instruction</td><td>Med</td><td>Pre-COPRO codebase</td></tr>
+    </tbody>
+  </table>
+
+  <p class="body dim" style="margin-top:16px;">
+    The next 16 slides cover each in depth — math, pseudocode, when-to-use, common pitfalls.
+  </p>
+  <div class="slide-num">16 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 17 — LabeledFewShot                                     -->
+<!-- ============================================================ -->
+<section class="slide" id="s17">
+  <span class="slide-tag">TELEPROMPTER · 01 / 13</span>
+  <div class="tele-card">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">Labeled</span>FewShot</div>
+      <div class="tele-tag">FAMILY A · ZERO-COMPUTE BASELINE</div>
+    </div>
+
+    <div class="tele-grid">
+      <div class="tele-block">
+        <h5>WHAT IT DOES</h5>
+        <p>Selects $k$ examples directly from the labeled trainset and attaches them as demonstrations to <em>every</em> predictor. No bootstrap, no search.</p>
+        <h5 style="margin-top:16px;">FORMAL</h5>
+        <div class="math-block">
+          $$\mathcal{D}_{\text{demo}} = \text{sample}_k(\mathcal{D}_{\text{train}})$$
+        </div>
+        <h5 style="margin-top:16px;">WHEN TO USE</h5>
+        <p>As your "no optimization" control. Often beats unoptimized zero-shot by a wide margin and costs nothing.</p>
+      </div>
+      <div class="tele-block">
+        <h5>CODE</h5>
+        <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">LabeledFewShot</span>
+
+tp = <span class="cls">LabeledFewShot</span>(k=<span class="num">8</span>)
+compiled = tp.<span class="fn">compile</span>(
+    student=<span class="cls">RAGProgram</span>(),
+    trainset=trainset
+)</pre>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">17 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 18 — BootstrapFewShot                                   -->
+<!-- ============================================================ -->
+<section class="slide" id="s18">
+  <span class="slide-tag">TELEPROMPTER · 02 / 13</span>
+  <div class="tele-card alt">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">Bootstrap</span>FewShot</div>
+      <div class="tele-tag">FAMILY A · SELF-GENERATED DEMOS</div>
+    </div>
+
+    <div class="tele-grid">
+      <div class="tele-block">
+        <h5>WHAT IT DOES</h5>
+        <p>Runs the (uncompiled) student program on trainset examples; <em>keeps</em> traces where the metric passes. Those traces — including intermediate predictor outputs — become the few-shot demonstrations.</p>
+
+        <h5 style="margin-top:16px;">ALGORITHM</h5>
+        <p style="font-size:13px;">For each $(x_i, y_i)$ in $\mathcal{D}_{\text{train}}$ until $K$ successes per predictor:</p>
+        <div class="math-block">
+          $$
+          \tau_i = \pi_\theta(x_i),\quad
+          \text{accept iff } \mu(y_i, \tau_i.\text{out}) \geq \tau^*
+          $$
+        </div>
+        <p style="font-size:13px;">The teacher LM (often a stronger model) generates these traces; the student LM uses them at inference.</p>
+      </div>
+      <div class="tele-block">
+        <h5>CODE</h5>
+        <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">BootstrapFewShot</span>
+
+tp = <span class="cls">BootstrapFewShot</span>(
+    metric=faithfulness_metric,
+    max_bootstrapped_demos=<span class="num">4</span>,
+    max_labeled_demos=<span class="num">4</span>,
+    max_rounds=<span class="num">1</span>,
+    teacher_settings={<span class="str">"lm"</span>: opus},
+)
+compiled = tp.<span class="fn">compile</span>(
+    student=<span class="cls">RAGProgram</span>(),
+    trainset=trainset
+)</pre>
+        <h5 style="margin-top:16px;">PITFALL</h5>
+        <p>If the teacher fails on most examples, demos are sparse. Either lower the metric threshold or use a stronger teacher.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">18 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 19 — BootstrapFewShotWithRandomSearch                   -->
+<!-- ============================================================ -->
+<section class="slide" id="s19">
+  <span class="slide-tag">TELEPROMPTER · 03 / 13</span>
+  <div class="tele-card alt">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">Bootstrap</span> + RandomSearch</div>
+      <div class="tele-tag">FAMILY A · DEMO-SET SEARCH</div>
+    </div>
+
+    <div class="tele-block">
+      <h5>WHAT IT DOES</h5>
+      <p>Runs <code>BootstrapFewShot</code> $T$ times with different random seeds (different demo subsets), evaluates each compiled program on a validation set, returns the best.</p>
+    </div>
+
+    <div class="math-block">
+      <div class="math-label">Outer loop</div>
+      $$
+      \theta^* = \arg\max_{t \in \{1,\ldots,T\}}\; \frac{1}{|\mathcal{D}_{\text{val}}|}\sum_{(x,y) \in \mathcal{D}_{\text{val}}} \mu\!\big(y,\; \pi_{\theta_t}(x)\big)
+      $$
+      <p style="font-size:13px; color:var(--ink-dim); margin-top:12px;">
+        $\theta_t$ is the parameter set produced by the $t$-th BootstrapFewShot run with seed $t$.
+      </p>
+    </div>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">BootstrapFewShotWithRandomSearch</span>
+
+tp = <span class="cls">BootstrapFewShotWithRandomSearch</span>(
+    metric=faithfulness_metric,
+    max_bootstrapped_demos=<span class="num">4</span>,
+    max_labeled_demos=<span class="num">4</span>,
+    num_candidate_programs=<span class="num">10</span>,   <span class="com"># T</span>
+    num_threads=<span class="num">8</span>,
+)
+best = tp.<span class="fn">compile</span>(student=program, trainset=train, valset=val)</pre>
+
+    <div class="callout">
+      Reliable workhorse. Its variance comes only from demo selection — instructions are unchanged. Combine with COPRO afterwards if you have budget.
+    </div>
+  </div>
+  <div class="slide-num">19 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 20 — KNNFewShot                                         -->
+<!-- ============================================================ -->
+<section class="slide" id="s20">
+  <span class="slide-tag">TELEPROMPTER · 04 / 13</span>
+  <div class="tele-card alt">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">KNN</span>FewShot</div>
+      <div class="tele-tag">FAMILY A · DYNAMIC PER-INPUT DEMOS</div>
+    </div>
+
+    <p class="body">Demos are not chosen once at compile-time — they are <em>retrieved per query</em> from the trainset. For each test input $x$, find the $k$ nearest training examples by embedding similarity and use them as demos.</p>
+
+    <div class="math-block">
+      <div class="math-label">Per-query demo selection</div>
+      $$
+      \mathcal{D}_{\text{demo}}(x) = \text{top-}k\;\arg\max_{(x_i, y_i) \in \mathcal{D}_{\text{train}}} \cos\!\big(E(x), E(x_i)\big)
+      $$
+    </div>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">KNNFewShot</span>
+<span class="kw">from</span> dspy <span class="kw">import</span> <span class="cls">Embedder</span>
+
+embedder = <span class="cls">Embedder</span>(<span class="str">"openai/text-embedding-3-small"</span>)
+tp = <span class="cls">KNNFewShot</span>(k=<span class="num">5</span>, trainset=trainset, vectorizer=embedder)
+compiled = tp.<span class="fn">compile</span>(student=program)</pre>
+
+    <div class="tele-grid">
+      <div class="tele-block">
+        <h5>SHINES WHEN</h5>
+        <p>Heterogeneous inputs (different domains, languages, styles) where a single static demo set under-fits some clusters.</p>
+      </div>
+      <div class="tele-block">
+        <h5>WATCH OUT</h5>
+        <p>Adds embedding latency at inference. Demo quality only as good as your trainset coverage in embedding space.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">20 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 21 — COPRO                                              -->
+<!-- ============================================================ -->
+<section class="slide" id="s21">
+  <span class="slide-tag">TELEPROMPTER · 05 / 13</span>
+  <div class="tele-card green">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">COPRO</span></div>
+      <div class="tele-tag">FAMILY B · COORDINATE-ASCENT INSTRUCTION OPT</div>
+    </div>
+
+    <p class="body">COPRO (Coordinate Prompt Optimization) optimizes <em>instructions</em> only. For each predictor in the program, it generates a population of candidate instructions, scores them, breeds the top performers, repeats for $D$ depth iterations.</p>
+
+    <div class="math-block">
+      <div class="math-label">Iterative coordinate ascent over instructions</div>
+      $$
+      I_n^{(d+1)} = \text{LM}_{\text{prop}}\!\Big(\,I_n^{(d)},\; \{\mu(\pi_{I_n^{(d)}})\}_{\text{best}}\,\Big), \qquad d = 1, \ldots, D
+      $$
+      <p style="font-size:13px; color:var(--ink-dim); margin-top:12px;">
+        For predictor $n$, propose new instructions conditioned on the best previous instructions and their scores. Keep the top breadth $B$ at each depth.
+      </p>
+    </div>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">COPRO</span>
+
+tp = <span class="cls">COPRO</span>(metric=metric, breadth=<span class="num">10</span>, depth=<span class="num">3</span>, init_temperature=<span class="num">1.4</span>)
+compiled = tp.<span class="fn">compile</span>(
+    student=program,
+    trainset=trainset,
+    eval_kwargs={<span class="str">"num_threads"</span>: <span class="num">8</span>, <span class="str">"display_progress"</span>: <span class="kw">True</span>},
+)
+<span class="com"># Total LM calls ≈ breadth × depth × |trainset| × predictors</span></pre>
+
+    <div class="callout">
+      Use COPRO when your demos are already strong (e.g. via BootstrapFewShot) and you suspect your instruction is the bottleneck. Often gains 3–8 points on top of bootstrapped demos.
+    </div>
+  </div>
+  <div class="slide-num">21 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 22 — MIPROv2 part 1                                     -->
+<!-- ============================================================ -->
+<section class="slide" id="s22">
+  <span class="slide-tag">TELEPROMPTER · 06 / 13</span>
+  <div class="tele-card gold">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">MIPRO</span>v2</div>
+      <div class="tele-tag">FAMILY A+B · BAYESIAN JOINT OPT</div>
+    </div>
+
+    <p class="body">
+      <strong>Multi-prompt Instruction PRoposal Optimizer v2.</strong> The current production default. Joint Bayesian optimization over <em>both</em> instructions and demonstrations across all predictors.
+    </p>
+
+    <h5 style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:.15em; margin-top:16px;">THREE-STAGE PIPELINE</h5>
+    <div class="step-flow" style="margin-top:12px;">
+      <div class="step">
+        <div class="step-num">STAGE 1</div>
+        <div class="step-title">Bootstrap demos</div>
+        <div class="step-desc">Run student → collect successful traces → demo pool $\mathcal{P}_D$</div>
+      </div>
+      <div class="step">
+        <div class="step-num">STAGE 2</div>
+        <div class="step-title">Propose instructions</div>
+        <div class="step-desc">LM-as-proposer reads program code + dataset summary → instruction pool $\mathcal{P}_I$</div>
+      </div>
+      <div class="step">
+        <div class="step-num">STAGE 3</div>
+        <div class="step-title">Bayesian search</div>
+        <div class="step-desc">TPE / Optuna picks (instruction, demo-set) combos for each predictor; minibatch eval</div>
+      </div>
+    </div>
+
+    <div class="math-block">
+      <div class="math-label">Joint search problem</div>
+      $$
+      \big(\mathbf{I}^*, \mathbf{D}^*\big) \;=\; \arg\max_{(\mathbf{I},\mathbf{D}) \in \mathcal{P}_I^N \times \mathcal{P}_D^N}\; \mathbb{E}_{(x,y)\sim\mathcal{D}_{\text{val}}}\big[\,\mu(y, \pi_{\mathbf{I},\mathbf{D}}(x))\,\big]
+      $$
+      <p style="font-size:13px; color:var(--ink-dim); margin-top:12px;">
+        With $N$ predictors, the search space is exponential. MIPROv2 uses a <strong>Tree-structured Parzen Estimator</strong> to model $p(\mu | \mathbf{I}, \mathbf{D})$ and propose promising configurations.
+      </p>
+    </div>
+  </div>
+  <div class="slide-num">22 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 23 — MIPROv2 part 2                                     -->
+<!-- ============================================================ -->
+<section class="slide" id="s23">
+  <span class="slide-tag">TELEPROMPTER · 06 / 13 (CONT.)</span>
+  <div class="tele-card gold">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">MIPRO</span>v2 — usage</div>
+      <div class="tele-tag">CODE · CONFIG · BUDGET</div>
+    </div>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">MIPROv2</span>
+
+tp = <span class="cls">MIPROv2</span>(
+    metric=composite_metric,
+    auto=<span class="str">"medium"</span>,            <span class="com"># "light" | "medium" | "heavy"</span>
+    num_threads=<span class="num">12</span>,
+    prompt_model=opus,        <span class="com"># the proposer (use a strong LM)</span>
+    task_model=sonnet,        <span class="com"># the model the program runs on</span>
+    teacher_settings={<span class="str">"lm"</span>: opus},
+)
+
+compiled = tp.<span class="fn">compile</span>(
+    student=program,
+    trainset=trainset,
+    valset=valset,
+    max_bootstrapped_demos=<span class="num">4</span>,
+    max_labeled_demos=<span class="num">4</span>,
+    minibatch=<span class="kw">True</span>,
+    minibatch_size=<span class="num">25</span>,
+    requires_permission_to_run=<span class="kw">False</span>,
+)
+
+compiled.<span class="fn">save</span>(<span class="str">"compiled_rag.json"</span>)</pre>
+
+    <div class="grid-2" style="margin-top:16px;">
+      <div class="card">
+        <div class="num">BUDGET MODES</div>
+        <h4>Auto presets</h4>
+        <p><strong>light</strong>: ~10 trials · ~1k LM calls<br>
+           <strong>medium</strong>: ~25 trials · ~3k LM calls<br>
+           <strong>heavy</strong>: ~50 trials · ~10k LM calls</p>
+      </div>
+      <div class="card">
+        <div class="num">PROPOSER PROMPT</div>
+        <h4>What the proposer LM sees</h4>
+        <p>(a) the program source code, (b) a summary of the trainset, (c) past instructions and their scores. It then proposes a fresh instruction in natural language.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">23 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 24 — GEPA                                               -->
+<!-- ============================================================ -->
+<section class="slide" id="s24">
+  <span class="slide-tag">TELEPROMPTER · 07 / 13</span>
+  <div class="tele-card purp">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">GEPA</span></div>
+      <div class="tele-tag">FAMILY B · REFLECTIVE EVOLUTION</div>
+    </div>
+
+    <p class="body">
+      <strong>Genetic-Pareto.</strong> GEPA (Agrawal et al., 2025) treats prompt optimization as evolutionary search guided by <em>natural-language reflection</em>. After each rollout, an LM critic reads the trajectory + metric and writes a textual diagnosis; that diagnosis seeds the next instruction proposal.
+    </p>
+
+    <div class="math-block">
+      <div class="math-label">Reflective mutation operator</div>
+      $$
+      I^{(t+1)} \;=\; \text{LM}_{\text{reflect}}\!\Big(\,I^{(t)},\; \tau^{(t)},\; \mu^{(t)},\; \text{rationale}^{(t)}\,\Big)
+      $$
+      <p style="font-size:13px; color:var(--ink-dim); margin-top:12px;">
+        Where $\tau^{(t)}$ is the rollout trace, $\mu^{(t)}$ is the metric score, and rationale is the LM-judge's natural-language critique. Population maintained on Pareto front of (quality, cost).
+      </p>
+    </div>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">GEPA</span>
+
+tp = <span class="cls">GEPA</span>(
+    metric=composite_metric,
+    auto=<span class="str">"heavy"</span>,
+    reflection_lm=opus,        <span class="com"># reads traces, writes diagnoses</span>
+    num_threads=<span class="num">8</span>,
+    track_stats=<span class="kw">True</span>,
+)
+compiled = tp.<span class="fn">compile</span>(student=program, trainset=train, valset=val)</pre>
+
+    <div class="callout">
+      GEPA shines on <em>complex, multi-step</em> programs (agentic flows, long-horizon RAG, code generation) where instruction quality is far from the local optimum and reflective signal is rich. Often beats MIPROv2 with fewer rollouts on hard tasks.
+    </div>
+  </div>
+  <div class="slide-num">24 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 25 — SIMBA                                              -->
+<!-- ============================================================ -->
+<section class="slide" id="s25">
+  <span class="slide-tag">TELEPROMPTER · 08 / 13</span>
+  <div class="tele-card alt">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">SIMBA</span></div>
+      <div class="tele-tag">FAMILY A+B · ONLINE STOCHASTIC</div>
+    </div>
+
+    <p class="body">
+      <strong>Stochastic Introspective Mini-Batch Ascent.</strong> Online optimizer that updates demos and instructions on rolling minibatches. Designed for streaming or live-data settings where the trainset grows over time.
+    </p>
+
+    <div class="math-block">
+      <div class="math-label">Mini-batch update step</div>
+      $$
+      \theta^{(t+1)} \;=\; \theta^{(t)} \;\oplus\; \Delta_{\text{rule}}\!\Big(\mathcal{B}_t,\; \mu(\pi_{\theta^{(t)}}, \mathcal{B}_t)\Big)
+      $$
+      <p style="font-size:13px; color:var(--ink-dim); margin-top:12px;">
+        $\oplus$ denotes parameter merging (instruction concat / demo replacement). $\Delta_{\text{rule}}$ is one of <code>append_a_demo</code>, <code>append_a_rule</code> derived from the minibatch-level introspection.
+      </p>
+    </div>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">SIMBA</span>
+
+tp = <span class="cls">SIMBA</span>(
+    metric=metric,
+    bsize=<span class="num">32</span>,
+    num_candidates=<span class="num">6</span>,
+    max_steps=<span class="num">8</span>,
+    max_demos=<span class="num">4</span>,
+    temperature_for_sampling=<span class="num">0.2</span>,
+    temperature_for_candidates=<span class="num">0.2</span>,
+)
+compiled = tp.<span class="fn">compile</span>(student=program, trainset=trainset)</pre>
+
+    <p class="body">SIMBA is the right pick when you have a continuous data stream and want the program to keep adapting without full re-compilation. Lower variance than COPRO, lower cost than MIPROv2.</p>
+  </div>
+  <div class="slide-num">25 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 26 — BetterTogether                                     -->
+<!-- ============================================================ -->
+<section class="slide" id="s26">
+  <span class="slide-tag">TELEPROMPTER · 09 / 13</span>
+  <div class="tele-card gold">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">Better</span>Together</div>
+      <div class="tele-tag">FAMILY A+B+C · PROMPT OPT × FINETUNE</div>
+    </div>
+
+    <p class="body">
+      Alternates between prompt optimization (e.g. BootstrapFewShotWithRandomSearch) and weight finetuning (LoRA on the underlying open LM). Each round of finetuning produces traces that, in turn, sharpen the next prompt-opt pass — and vice versa.
+    </p>
+
+    <div class="math-block">
+      <div class="math-label">Alternating maximization</div>
+      $$
+      \begin{aligned}
+      \theta_{\text{prompt}}^{(t+1)} &= \arg\max_{\theta_p} \mathcal{M}\!\big(\pi_{\theta_p, w^{(t)}}\big)\\[4pt]
+      w^{(t+1)} &= \arg\max_{w}\; \log p_w\!\big(\mathcal{T}_{\theta_{\text{prompt}}^{(t+1)}}\big)
+      \end{aligned}
+      $$
+      <p style="font-size:13px; color:var(--ink-dim); margin-top:12px;">
+        $\mathcal{T}$ are the bootstrapped traces; finetuning is supervised learning on those traces. Convergence is empirical, not guaranteed.
+      </p>
+    </div>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">BetterTogether</span>
+
+tp = <span class="cls">BetterTogether</span>(
+    metric=metric,
+    prompt_optimizer=<span class="cls">BootstrapFewShotWithRandomSearch</span>(metric=metric, ...),
+    weight_optimizer=<span class="cls">BootstrapFinetune</span>(metric=metric, ...),
+    strategy=<span class="str">"p -> w -> p"</span>,
+)
+compiled = tp.<span class="fn">compile</span>(student=program, trainset=trainset)</pre>
+
+    <div class="callout">
+      Use only when you control the underlying LM (open weights, can finetune). Distillation play: get a small open model to match a frontier teacher's behavior on your task.
+    </div>
+  </div>
+  <div class="slide-num">26 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 27 — BootstrapFinetune                                  -->
+<!-- ============================================================ -->
+<section class="slide" id="s27">
+  <span class="slide-tag">TELEPROMPTER · 10 / 13</span>
+  <div class="tele-card">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">Bootstrap</span>Finetune</div>
+      <div class="tele-tag">FAMILY C · WEIGHT-LEVEL DISTILLATION</div>
+    </div>
+
+    <p class="body">Generates teacher traces via bootstrap, filters by metric, then runs supervised finetuning on the student LM. The result: a model where the optimized prompt is "baked in" to weights.</p>
+
+    <div class="math-block">
+      <div class="math-label">SFT objective on filtered traces</div>
+      $$
+      w^* \;=\; \arg\min_{w}\; -\sum_{(x,\hat{y}) \in \mathcal{T}^+} \log p_w(\hat{y}\,|\,x), \qquad
+      \mathcal{T}^+ = \{(x,\hat{y}) : \mu(\hat{y}, y^*) \geq \tau\}
+      $$
+    </div>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">BootstrapFinetune</span>
+
+tp = <span class="cls">BootstrapFinetune</span>(metric=metric)
+compiled = tp.<span class="fn">compile</span>(
+    student=program,
+    trainset=trainset,
+    target=<span class="str">"meta-llama/Llama-3.1-8B-Instruct"</span>,
+    teacher_settings={<span class="str">"lm"</span>: opus},
+    train_kwargs={<span class="str">"epochs"</span>: <span class="num">3</span>, <span class="str">"lr"</span>: <span class="num">1e-5</span>, <span class="str">"bsz"</span>: <span class="num">8</span>},
+)</pre>
+
+    <p class="body dim">Useful when latency or unit-cost matter more than the last 2 points of quality, and you have GPU access. Pairs naturally with a downstream prompt-opt pass on the finetuned model.</p>
+  </div>
+  <div class="slide-num">27 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 28 — Ensemble                                           -->
+<!-- ============================================================ -->
+<section class="slide" id="s28">
+  <span class="slide-tag">TELEPROMPTER · 11 / 13</span>
+  <div class="tele-card green">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">Ensemble</span></div>
+      <div class="tele-tag">INFERENCE-TIME · NO SEARCH</div>
+    </div>
+
+    <p class="body">Take $K$ already-compiled programs (different teleprompters, different seeds, different LMs) and combine their predictions. Reduces variance, often boosts robustness.</p>
+
+    <div class="math-block">
+      <div class="math-label">Aggregation rules</div>
+      $$
+      \hat{y} \;=\; \begin{cases}
+      \text{mode}(\hat{y}_1, \ldots, \hat{y}_K) & \text{majority vote} \\[4pt]
+      \arg\max_{y} \sum_k p_k(y\,|\,x) & \text{prob. average} \\[4pt]
+      \text{LM-judge}(\hat{y}_1, \ldots, \hat{y}_K) & \text{learned aggregator}
+      \end{cases}
+      $$
+    </div>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">Ensemble</span>
+<span class="kw">from</span> dspy <span class="kw">import</span> majority
+
+tp = <span class="cls">Ensemble</span>(reduce_fn=majority, size=<span class="num">5</span>)
+ensemble = tp.<span class="fn">compile</span>(
+    programs=[compiled_v1, compiled_v2, compiled_v3, compiled_v4, compiled_v5]
+)
+out = <span class="fn">ensemble</span>(question=q)</pre>
+
+    <div class="callout">
+      Cheap variance reduction. Particularly useful for classification-style outputs. Costs $K\times$ at inference — gate by latency budget.
+    </div>
+  </div>
+  <div class="slide-num">28 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 29 — AvatarOptimizer                                    -->
+<!-- ============================================================ -->
+<section class="slide" id="s29">
+  <span class="slide-tag">TELEPROMPTER · 12 / 13</span>
+  <div class="tele-card purp">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">Avatar</span>Optimizer</div>
+      <div class="tele-tag">FAMILY B · TOOL-USING AGENTS</div>
+    </div>
+
+    <p class="body">Specialized teleprompter for ReAct / tool-using agents. Optimizes the agent's <em>persona instruction</em> and <em>tool-selection prompt</em> by analyzing failed trajectories and proposing a richer agent identity.</p>
+
+    <div class="math-block">
+      <div class="math-label">Avatar update</div>
+      $$
+      \text{Avatar}^{(t+1)} \;=\; \text{LM}_{\text{prop}}\!\Big(\,\text{Avatar}^{(t)},\; \mathcal{F}^{(t)},\; \text{tools},\; \text{goals}\,\Big)
+      $$
+      <p style="font-size:13px; color:var(--ink-dim); margin-top:12px;">
+        $\mathcal{F}^{(t)}$ is the set of failure trajectories (where the agent timed out, looped, or hit metric &lt; threshold). The proposer rewrites the avatar to address those failure modes.
+      </p>
+    </div>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">AvatarOptimizer</span>
+
+tp = <span class="cls">AvatarOptimizer</span>(
+    metric=tool_use_metric,
+    max_iters=<span class="num">5</span>,
+    lower_bound=<span class="num">0.0</span>,
+    upper_bound=<span class="num">1.0</span>,
+)
+compiled_agent = tp.<span class="fn">compile</span>(
+    student=react_agent,
+    trainset=agentic_trainset
+)</pre>
+  </div>
+  <div class="slide-num">29 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 30 — InferRules + others                                -->
+<!-- ============================================================ -->
+<section class="slide" id="s30">
+  <span class="slide-tag">TELEPROMPTER · 13 / 13</span>
+  <div class="tele-card alt">
+    <div class="tele-header">
+      <div class="tele-name"><span class="ital">InferRules</span> + Legacy SignatureOptimizer</div>
+      <div class="tele-tag">FAMILY B · RULE EXTRACTION</div>
+    </div>
+
+    <p class="body"><strong>InferRules</strong> reads bootstrapped successful traces and asks an LM to extract <em>rules</em> ("if the question contains X, do Y") which it then concatenates into the instruction. Useful when there's latent structure your demos imply but don't state.</p>
+
+    <pre class="code"><span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">InferRules</span>
+
+tp = <span class="cls">InferRules</span>(
+    num_rules=<span class="num">8</span>,
+    num_threads=<span class="num">4</span>,
+    teacher_settings={<span class="str">"lm"</span>: opus},
+)
+compiled = tp.<span class="fn">compile</span>(student=program, trainset=trainset)</pre>
+
+    <p class="body" style="margin-top:24px;"><strong>SignatureOptimizer</strong> (legacy / pre-COPRO) — optimizes one signature's instruction in isolation. Replaced by COPRO in the modern API but still appears in older codebases.</p>
+
+    <pre class="code"><span class="com"># Pre-2024 codebases — for completeness only</span>
+<span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">SignatureOptimizer</span>
+tp = <span class="cls">SignatureOptimizer</span>(metric=metric, breadth=<span class="num">10</span>, depth=<span class="num">3</span>)</pre>
+  </div>
+  <div class="slide-num">30 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 31 — Decision tree                                      -->
+<!-- ============================================================ -->
+<section class="slide" id="s31">
+  <span class="slide-tag">TELEPROMPTERS · DECISION TREE</span>
+  <h1 class="slide-title"><em>Which</em> teleprompter, <em>when</em>?</h1>
+
+  <div class="diagram">
+    <div class="diagram-label">CHOICE FLOW</div>
+<pre style="font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.65; color:var(--ink); margin:0;">
+START
+  │
+  ├── Need a fast baseline? ─────────────────────► <span style="color:var(--accent-3);">LabeledFewShot</span>
+  │
+  ├── Have a metric and trainset (typical case)?
+  │     │
+  │     ├── Heterogeneous inputs? ──────────────► <span style="color:var(--accent-3);">KNNFewShot</span>
+  │     │
+  │     ├── Modest budget, demos suffice? ──────► <span style="color:var(--accent-3);">BootstrapFewShot</span>
+  │     │
+  │     ├── Want best demo set? ────────────────► <span style="color:var(--accent-3);">BootstrapFewShotWithRandomSearch</span>
+  │     │
+  │     ├── Demos OK, instructions weak? ───────► <span style="color:var(--accent-3);">COPRO</span>
+  │     │
+  │     ├── Production default, joint opt? ─────► <span style="color:var(--accent-2);">MIPROv2</span>
+  │     │
+  │     └── Hard task, complex program? ────────► <span style="color:var(--accent-5);">GEPA</span>
+  │
+  ├── Streaming / live data? ───────────────────► <span style="color:var(--accent-4);">SIMBA</span>
+  │
+  ├── Tool-using agent? ────────────────────────► <span style="color:var(--accent-5);">AvatarOptimizer</span>
+  │
+  ├── Open weights + GPU access? ───────────────► <span style="color:var(--accent-2);">BetterTogether / BootstrapFinetune</span>
+  │
+  └── Multiple compiled programs? ──────────────► <span style="color:var(--accent-3);">Ensemble</span>
+</pre>
+  </div>
+
+  <div class="callout">
+    Pragmatic recipe for most production RAG: <strong>BootstrapFewShotWithRandomSearch</strong> first (fast signal), then <strong>MIPROv2</strong> with auto="medium" (joint refinement), then optionally <strong>GEPA</strong> if you have headroom and a complex program.
+  </div>
+  <div class="slide-num">31 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 32 — Cost + budgets                                     -->
+<!-- ============================================================ -->
+<section class="slide" id="s32">
+  <span class="slide-tag">TELEPROMPTERS · BUDGETING</span>
+  <h1 class="slide-title">The <em>cost surface</em> of compilation</h1>
+
+  <p class="body">Teleprompters call LMs many times. A rough order-of-magnitude formula for budget planning:</p>
+
+  <div class="math-block">
+    <div class="math-label">LM-call budget</div>
+    $$
+    \text{Calls} \;\approx\; T \cdot N_{\text{pred}} \cdot \big(|\mathcal{D}_{\text{val}}| \cdot k_{\text{eval}} + k_{\text{prop}}\big)
+    $$
+    <p style="font-size:13px; color:var(--ink-dim); margin-top:12px;">
+      $T$ trials, $N_{\text{pred}}$ predictors, $k_{\text{eval}}$ calls per evaluation (judge LMs add $\geq 1$), $k_{\text{prop}}$ proposer calls per trial.
+    </p>
+  </div>
+
+  <table class="tech">
+    <thead><tr><th>Teleprompter</th><th>Typical calls</th><th>Wall-clock</th><th>Cost @ Sonnet</th></tr></thead>
+    <tbody>
+      <tr><td>LabeledFewShot</td><td>0</td><td>seconds</td><td>$0.00</td></tr>
+      <tr><td>BootstrapFewShot</td><td>~ 100</td><td>2–5 min</td><td>~ $0.50</td></tr>
+      <tr><td>BootstrapFS+RandomSearch</td><td>~ 1k</td><td>15–30 min</td><td>~ $5</td></tr>
+      <tr><td>COPRO (depth=3, breadth=10)</td><td>~ 2k</td><td>30–60 min</td><td>~ $10</td></tr>
+      <tr><td>MIPROv2 (medium)</td><td>~ 3k</td><td>45–90 min</td><td>~ $15</td></tr>
+      <tr><td>MIPROv2 (heavy)</td><td>~ 10k</td><td>3–6 hrs</td><td>~ $50</td></tr>
+      <tr><td>GEPA (heavy)</td><td>~ 8k</td><td>2–5 hrs</td><td>~ $60 (Opus reflector)</td></tr>
+      <tr><td>BetterTogether</td><td>~ 5k + GPU-hrs</td><td>4–12 hrs</td><td>~ $100+</td></tr>
+    </tbody>
+  </table>
+
+  <p class="body dim" style="margin-top:16px;">Numbers indicative; ground truth depends on dataset size, predictor count, and judge complexity. Always run a "light" preset first.</p>
+  <div class="slide-num">32 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 33 — Putting them together: AutoRAG ⊗ DSPy              -->
+<!-- ============================================================ -->
+<section class="slide" id="s33">
+  <span class="slide-tag">PART III · UNIFIED STACK</span>
+  <h1 class="slide-title">AutoRAG <em>chooses the pipeline.</em><br>DSPy <em>compiles each LM stage.</em></h1>
+
+  <p class="lede">
+    They are not competitors — they live at different layers of the optimization hierarchy.
+  </p>
+
+  <div class="diagram" style="margin-top:24px;">
+    <div class="diagram-label">LAYERED OPTIMIZATION</div>
+<pre style="font-family:'JetBrains Mono',monospace; font-size:12.5px; line-height:1.7; color:var(--ink); margin:0;">
+┌────────────────────────────────────────────────────────────────────────┐
+│  LAYER 3 · Pipeline topology    ◄── <span style="color:var(--accent);">AutoRAG</span> picks chunker, retriever,   │
+│                                     reranker, prompt template, LM     │
+├────────────────────────────────────────────────────────────────────────┤
+│  LAYER 2 · LM stage prompts     ◄── <span style="color:var(--accent-2);">DSPy teleprompters</span> compile        │
+│                                     query-rewriter, generator, judge   │
+├────────────────────────────────────────────────────────────────────────┤
+│  LAYER 1 · Token decoding       ◄── temperature, top-p, JSON mode      │
+├────────────────────────────────────────────────────────────────────────┤
+│  LAYER 0 · Model weights        ◄── (BootstrapFinetune / LoRA)         │
+└────────────────────────────────────────────────────────────────────────┘
+</pre>
+  </div>
+
+  <h3 class="sub" style="margin-top:32px;">The unified objective</h3>
+  <div class="math-block">
+    $$
+    \pi^* \;=\; \arg\max_{\substack{\text{topo} \in \Pi_{\text{AutoRAG}}\\ \theta \in \Theta_{\text{DSPy}}}}\;
+    \mathbb{E}_{\mathcal{D}}\big[\,\mu(\pi_{\text{topo},\,\theta})\,\big] - \lambda\,\mathcal{C}(\pi)
+    $$
+    <p style="font-size:13px; color:var(--ink-dim); margin-top:12px;">
+      Outer search (AutoRAG) over topologies; inner compilation (DSPy) over prompt parameters. Solved bilevel via alternating: AutoRAG fixes topo, DSPy compiles; AutoRAG re-evaluates with compiled stages.
+    </p>
+  </div>
+  <div class="slide-num">33 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 34 — End-to-end code                                    -->
+<!-- ============================================================ -->
+<section class="slide" id="s34">
+  <span class="slide-tag">UNIFIED STACK · CODE</span>
+  <h1 class="slide-title">A <em>complete</em> ESG RAG pipeline</h1>
+
+  <pre class="code"><span class="kw">import</span> dspy
+<span class="kw">from</span> dspy.teleprompt <span class="kw">import</span> <span class="cls">MIPROv2</span>
+
+<span class="com"># 1. LMs</span>
+sonnet = dspy.<span class="cls">LM</span>(<span class="str">"anthropic/claude-sonnet-4-6"</span>, temperature=<span class="num">0.0</span>)
+opus   = dspy.<span class="cls">LM</span>(<span class="str">"anthropic/claude-opus-4-7"</span>, temperature=<span class="num">0.7</span>)
+dspy.<span class="fn">configure</span>(lm=sonnet)
+
+<span class="com"># 2. Signatures</span>
+<span class="kw">class</span> <span class="cls">RewriteQuery</span>(dspy.<span class="cls">Signature</span>):
+    <span class="str">"""Rewrite a vague ESG question into a precise retrieval query."""</span>
+    question: <span class="cls">str</span> = dspy.<span class="fn">InputField</span>()
+    refined: <span class="cls">str</span>  = dspy.<span class="fn">OutputField</span>()
+
+<span class="kw">class</span> <span class="cls">ESGAnswer</span>(dspy.<span class="cls">Signature</span>):
+    <span class="str">"""Answer ESG questions citing only the supplied context. Be quantitative."""</span>
+    context: <span class="cls">list</span>[<span class="cls">str</span>] = dspy.<span class="fn">InputField</span>()
+    question: <span class="cls">str</span>     = dspy.<span class="fn">InputField</span>()
+    answer:   <span class="cls">str</span>     = dspy.<span class="fn">OutputField</span>(desc=<span class="str">"≤4 sentences with [n] citations"</span>)
+
+<span class="com"># 3. Program</span>
+<span class="kw">class</span> <span class="cls">ESGRag</span>(dspy.<span class="cls">Module</span>):
+    <span class="kw">def</span> <span class="fn">__init__</span>(self):
+        <span class="kw">super</span>().<span class="fn">__init__</span>()
+        self.rewrite  = dspy.<span class="cls">ChainOfThought</span>(<span class="cls">RewriteQuery</span>)
+        self.retrieve = dspy.<span class="cls">Retrieve</span>(k=<span class="num">5</span>)
+        self.answer   = dspy.<span class="cls">ChainOfThought</span>(<span class="cls">ESGAnswer</span>)
+
+    <span class="kw">def</span> <span class="fn">forward</span>(self, question):
+        rq  = self.<span class="fn">rewrite</span>(question=question).refined
+        ctx = self.<span class="fn">retrieve</span>(rq).passages
+        out = self.<span class="fn">answer</span>(context=ctx, question=question)
+        <span class="kw">return</span> dspy.<span class="cls">Prediction</span>(answer=out.answer, context=ctx)
+
+<span class="com"># 4. Compile with MIPROv2</span>
+metric = <span class="fn">make_composite_metric</span>(faith_w=<span class="num">0.6</span>, ans_w=<span class="num">0.4</span>)
+tp = <span class="cls">MIPROv2</span>(metric=metric, prompt_model=opus, task_model=sonnet, auto=<span class="str">"medium"</span>)
+compiled = tp.<span class="fn">compile</span>(student=<span class="cls">ESGRag</span>(), trainset=esg_train, valset=esg_val)
+compiled.<span class="fn">save</span>(<span class="str">"esg_rag.compiled.json"</span>)</pre>
+  <div class="slide-num">34 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 35 — Faithfulness diagnosis                             -->
+<!-- ============================================================ -->
+<section class="slide" id="s35">
+  <span class="slide-tag">FAILURE MODE · FAITHFULNESS</span>
+  <h1 class="slide-title">Faithfulness <em>degrades</em> after compilation — why?</h1>
+
+  <p class="body">A common production observation: BLEU/ROUGE/answer-correctness rise after MIPROv2, but RAGAS-faithfulness drops. The optimizer learned to <em>infer</em> from limited context, which improves apparent quality but increases hallucination.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="num">DIAGNOSIS</div>
+      <h4>The metric was wrong</h4>
+      <p>Pure semantic similarity rewards plausible-sounding answers. The optimizer exploits this by being <em>more confident</em>, even when context is insufficient.</p>
+    </div>
+    <div class="card">
+      <div class="num">FIX 1</div>
+      <h4>Composite metric with faithfulness floor</h4>
+      <p>$\mu = \alpha\cdot\text{ans} + \beta\cdot\text{faith},\quad \mu \to 0\text{ if faith} &lt; 0.7$</p>
+    </div>
+    <div class="card">
+      <div class="num">FIX 2</div>
+      <h4>Add a refusal predictor</h4>
+      <p>Insert a <code>can_answer:bool</code> ChainOfThought stage. Only generate if true. Train on counterfactual "unanswerable" examples.</p>
+    </div>
+    <div class="card">
+      <div class="num">FIX 3</div>
+      <h4>Constrained instruction</h4>
+      <p>In the signature docstring, require: "If any claim is not entailed by passages, say 'context insufficient'." MIPROv2 will preserve this constraint while tuning around it.</p>
+    </div>
+  </div>
+
+  <pre class="code"><span class="kw">def</span> <span class="fn">faith_floored_metric</span>(ex, pred, trace=<span class="kw">None</span>):
+    faith = <span class="fn">faithfulness</span>(pred, ex.context)
+    <span class="kw">if</span> faith &lt; <span class="num">0.7</span>: <span class="kw">return</span> <span class="num">0.0</span>           <span class="com"># hard penalty</span>
+    ans = <span class="fn">semantic_sim</span>(pred.answer, ex.answer)
+    <span class="kw">return</span> <span class="num">0.5</span>*faith + <span class="num">0.5</span>*ans</pre>
+  <div class="slide-num">35 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 36 — Eval discipline                                    -->
+<!-- ============================================================ -->
+<section class="slide" id="s36">
+  <span class="slide-tag">DISCIPLINE · EVAL</span>
+  <h1 class="slide-title">Three datasets, never overlapping</h1>
+
+  <div class="step-flow">
+    <div class="step">
+      <div class="step-num">SET 1</div>
+      <div class="step-title">Train</div>
+      <div class="step-desc">Used inside the teleprompter (bootstrap, propose). Can be small (50–200 ex.).</div>
+    </div>
+    <div class="step">
+      <div class="step-num">SET 2</div>
+      <div class="step-title">Val</div>
+      <div class="step-desc">Used by the teleprompter to score candidate programs. Larger (200–1k).</div>
+    </div>
+    <div class="step">
+      <div class="step-num">SET 3</div>
+      <div class="step-title">Test (held-out)</div>
+      <div class="step-desc">Touched ONCE after compilation. The number you report.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    Reusing the val set as test is the #1 source of inflated DSPy benchmarks. The teleprompter is an <em>optimizer over val</em> — its score on val is biased by definition.
+  </div>
+
+  <h3 class="sub" style="margin-top:32px;">Sanity-check checklist</h3>
+  <ul class="tech-list">
+    <li><strong>Calibration:</strong> compiled program should beat zero-shot on test by ≥ optimizer's variance on val (3 seed runs).</li>
+    <li><strong>Robustness:</strong> swap the LM at inference. If quality collapses, you over-fit to model-specific quirks.</li>
+    <li><strong>Distribution shift:</strong> hold out a "domain shift" test slice (different topic, language, format).</li>
+    <li><strong>Cost regression:</strong> track tokens/query as well as quality. MIPROv2 sometimes adds long demos.</li>
+    <li><strong>Faithfulness floor:</strong> compute RAGAS-faith on test even if not in your composite metric.</li>
+  </ul>
+  <div class="slide-num">36 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 37 — Patterns                                           -->
+<!-- ============================================================ -->
+<section class="slide" id="s37">
+  <span class="slide-tag">PRODUCTION · PATTERNS</span>
+  <h1 class="slide-title">Five patterns that <em>scale</em></h1>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="num">PATTERN 01</div>
+      <h4>Compile once, deploy many</h4>
+      <p>Save compiled programs as JSON artifacts. Version them in git. Roll back like any other model artifact. Treat re-compilation as a CI/CD step triggered on data drift.</p>
+    </div>
+    <div class="card">
+      <div class="num">PATTERN 02</div>
+      <h4>Two-tier LM</h4>
+      <p>Strong <em>prompt_model</em> (Opus) for the proposer at compile time. Cheap <em>task_model</em> (Sonnet, Haiku) at inference. The expensive model never runs in prod.</p>
+    </div>
+    <div class="card">
+      <div class="num">PATTERN 03</div>
+      <h4>Metric as code</h4>
+      <p>Your composite metric IS the spec. Code-review it. Test it on adversarial examples. Track its agreement with human judgment.</p>
+    </div>
+    <div class="card">
+      <div class="num">PATTERN 04</div>
+      <h4>AutoRAG → DSPy handoff</h4>
+      <p>Let AutoRAG select chunker/retriever/reranker. Export the topology. Let DSPy take over for query-rewriter + generator + judge with that fixed topology.</p>
+    </div>
+    <div class="card">
+      <div class="num">PATTERN 05</div>
+      <h4>Refusal as a first-class output</h4>
+      <p>Always include a "can_answer" or "confidence" field. Compile against a metric that rewards correct refusal as much as correct answers.</p>
+    </div>
+    <div class="card">
+      <div class="num">PATTERN 06</div>
+      <h4>Trace logging</h4>
+      <p>In prod, log every predictor's full input/output. Failures become next compile's trainset. The pipeline learns from itself.</p>
+    </div>
+  </div>
+  <div class="slide-num">37 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 38 — Anti-patterns                                      -->
+<!-- ============================================================ -->
+<section class="slide" id="s38">
+  <span class="slide-tag">PRODUCTION · ANTI-PATTERNS</span>
+  <h1 class="slide-title">What goes wrong in <em>real</em> deployments</h1>
+
+  <table class="tech">
+    <thead><tr><th>Anti-pattern</th><th>Why it fails</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Tiny trainset (&lt; 30)</td>
+        <td>Bootstrap finds 0 successes; teleprompter has nothing to learn from</td>
+        <td>Synthesize examples (use Opus to generate from a seed), then human-validate</td>
+      </tr>
+      <tr>
+        <td>Single-LM judge metric</td>
+        <td>Optimizer learns to game the judge</td>
+        <td>Use 3-judge consensus or program-of-thought verification</td>
+      </tr>
+      <tr>
+        <td>Optimizing on a leaky metric</td>
+        <td>Metric correlates with surface form, not truth</td>
+        <td>Add adversarial examples; check metric's discrimination ability</td>
+      </tr>
+      <tr>
+        <td>Re-compiling on every commit</td>
+        <td>$50–$100 per CI run; nondeterministic</td>
+        <td>Pin compile to data-version triggers, not code triggers</td>
+      </tr>
+      <tr>
+        <td>"Heavy" budget by default</td>
+        <td>Burns money for marginal gain after light/medium</td>
+        <td>Always run light → measure lift → escalate</td>
+      </tr>
+      <tr>
+        <td>Mixing AutoRAG and DSPy on same prompt</td>
+        <td>Two optimizers disagree; one undoes the other's work</td>
+        <td>Topology in AutoRAG; LM-stage prompts in DSPy. Strict separation.</td>
+      </tr>
+      <tr>
+        <td>Ignoring temperature</td>
+        <td>Bootstrap at temp=0 misses diverse demos; production at temp=1 hallucinates</td>
+        <td>Compile at temp=0.7 (proposer) / 0.0 (task); deploy at temp=0.0</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="slide-num">38 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 39 — Observability                                      -->
+<!-- ============================================================ -->
+<section class="slide" id="s39">
+  <span class="slide-tag">PRODUCTION · OBSERVABILITY</span>
+  <h1 class="slide-title">Tracing a compiled DSPy program in <em>flight</em></h1>
+
+  <pre class="code"><span class="kw">import</span> dspy
+<span class="kw">import</span> mlflow
+
+<span class="com"># Auto-instrument every Predict / ChainOfThought / ReAct call</span>
+mlflow.<span class="fn">set_tracking_uri</span>(<span class="str">"http://mlflow:5000"</span>)
+mlflow.<span class="fn">set_experiment</span>(<span class="str">"esg-rag-prod"</span>)
+mlflow.dspy.<span class="fn">autolog</span>()
+
+<span class="com"># Or use Langfuse / Phoenix / LangSmith via OpenTelemetry</span>
+<span class="kw">from</span> opentelemetry.instrumentation.dspy <span class="kw">import</span> <span class="cls">DSPyInstrumentor</span>
+<span class="cls">DSPyInstrumentor</span>().<span class="fn">instrument</span>()
+
+compiled = dspy.<span class="cls">Module</span>.<span class="fn">load</span>(<span class="str">"esg_rag.compiled.json"</span>)
+
+<span class="kw">with</span> mlflow.<span class="fn">start_run</span>():
+    <span class="kw">for</span> q <span class="kw">in</span> live_questions:
+        out = <span class="fn">compiled</span>(question=q)
+        mlflow.<span class="fn">log_metrics</span>({
+            <span class="str">"latency_ms"</span>: out._latency,
+            <span class="str">"tokens_in"</span>:  out._tokens_in,
+            <span class="str">"tokens_out"</span>: out._tokens_out,
+            <span class="str">"faith"</span>:      <span class="fn">faithfulness</span>(out, ctx),
+        })</pre>
+
+  <h3 class="sub" style="margin-top:24px;">What to alarm on</h3>
+  <ul class="tech-list">
+    <li><strong>p95 latency drift</strong> — proposer added a long demo; reverify size</li>
+    <li><strong>Token-out variance</strong> — hallucination indicator; check faithfulness</li>
+    <li><strong>Refusal rate</strong> — if &gt; baseline by 5pp, retrieval recall regressed</li>
+    <li><strong>Judge disagreement rate</strong> — if &gt; 15%, your metric is uncalibrated</li>
+  </ul>
+  <div class="slide-num">39 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 40 — Stat snapshot                                      -->
+<!-- ============================================================ -->
+<section class="slide" id="s40">
+  <span class="slide-tag">EMPIRICAL</span>
+  <h1 class="slide-title">Indicative gains (your mileage <em>will</em> vary)</h1>
+
+  <p class="body dim">Synthesised from public DSPy benchmarks (HotpotQA, GSM8K, FinanceBench) and reported industrial deployments. Treat as orders of magnitude, not promises.</p>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat-num">+18 pt</div>
+      <div class="stat-label">Zero-shot → BootstrapFewShot</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">+5 pt</div>
+      <div class="stat-label">+ COPRO instructions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">+7 pt</div>
+      <div class="stat-label">→ MIPROv2 (medium)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">+3 pt</div>
+      <div class="stat-label">→ GEPA (heavy)</div>
+    </div>
+  </div>
+
+  <div class="stat-row" style="margin-top:0;">
+    <div class="stat">
+      <div class="stat-num">3×</div>
+      <div class="stat-label">Token reduction via finetune</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">−40%</div>
+      <div class="stat-label">Hallucination rate w/ faith floor</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">15min</div>
+      <div class="stat-label">Re-compile on LM swap</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">$15</div>
+      <div class="stat-label">Median MIPROv2 medium run</div>
+    </div>
+  </div>
+  <div class="slide-num">40 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 41 — Comparing to alternatives                          -->
+<!-- ============================================================ -->
+<section class="slide" id="s41">
+  <span class="slide-tag">LANDSCAPE</span>
+  <h1 class="slide-title">Where DSPy sits among <em>prompt-opt</em> frameworks</h1>
+
+  <table class="tech">
+    <thead><tr><th>Framework</th><th>Approach</th><th>Granularity</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr><td>DSPy</td><td>Compiled programs, joint demo+instruction opt</td><td>Per-predictor</td><td>Multi-stage LM pipelines, RAG, agents</td></tr>
+      <tr><td>AutoRAG</td><td>AutoML over pipeline modules</td><td>Per-node</td><td>RAG topology selection</td></tr>
+      <tr><td>PromptHub / PromptPerfect</td><td>Hand + LM-assisted iteration</td><td>Per-prompt</td><td>Single-shot prompts</td></tr>
+      <tr><td>OPRO (raw)</td><td>LM proposes new prompts from history</td><td>Per-prompt</td><td>Research, simple tasks</td></tr>
+      <tr><td>APE</td><td>Search over instruction candidates</td><td>Per-prompt</td><td>Single-task instruction tuning</td></tr>
+      <tr><td>TextGrad</td><td>Natural-language "gradients" via LM critique</td><td>Per-variable</td><td>End-to-end systems with code+prompts</td></tr>
+      <tr><td>LangChain Hub</td><td>Curated human-written prompts</td><td>Per-prompt</td><td>Quick start, no opt budget</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    DSPy's edge: it treats the <em>whole program</em> (multiple predictors, control flow, retrievers) as the unit of compilation. Single-prompt optimizers can't reason about cross-predictor effects.
+  </div>
+  <div class="slide-num">41 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 42 — Roadmap to adopt                                   -->
+<!-- ============================================================ -->
+<section class="slide" id="s42">
+  <span class="slide-tag">ADOPTION · ROADMAP</span>
+  <h1 class="slide-title">A 30-day path to <em>compiled</em> RAG</h1>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="num">WEEK 1 — INVENTORY</div>
+      <h4>Map the current pipeline</h4>
+      <p>List every prompt, every LM call, every retrieval step. Tag each as a candidate predictor. Identify the bottleneck stage by manual error analysis on 50 examples.</p>
+    </div>
+    <div class="card">
+      <div class="num">WEEK 2 — DATA</div>
+      <h4>Build train/val/test (200/300/200)</h4>
+      <p>Source from prod logs, synthetic generation, or domain SMEs. Each split must be label-clean and metric-evaluable. This is the bottleneck — invest here.</p>
+    </div>
+    <div class="card">
+      <div class="num">WEEK 3 — SIGNATURES</div>
+      <h4>Port to DSPy</h4>
+      <p>Rewrite each prompt as a Signature. Compose into a Module. Verify zero-shot baseline matches old system within 2 pt. This proves portability.</p>
+    </div>
+    <div class="card">
+      <div class="num">WEEK 4 — COMPILE</div>
+      <h4>Light → Medium → Heavy</h4>
+      <p>BootstrapFewShot first. Measure lift. Then MIPROv2 medium. Measure lift. Stop if marginal. Save the compiled artifact, ship behind a feature flag.</p>
+    </div>
+  </div>
+
+  <h3 class="sub" style="margin-top:32px;">Day 31 onwards</h3>
+  <ul class="tech-list">
+    <li><strong>Add observability</strong> with MLflow / Langfuse autolog</li>
+    <li><strong>Set re-compile cadence</strong> tied to data drift, not calendar</li>
+    <li><strong>Try GEPA</strong> if program is multi-stage and MIPROv2 plateaus</li>
+    <li><strong>Layer AutoRAG</strong> for retrieval-stack search if topology is uncertain</li>
+  </ul>
+  <div class="slide-num">42 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 43 — References                                         -->
+<!-- ============================================================ -->
+<section class="slide" id="s43">
+  <span class="slide-tag">FURTHER READING</span>
+  <h1 class="slide-title">Primary <em>sources</em></h1>
+
+  <h3 class="sub">DSPy</h3>
+  <ul class="tech-list">
+    <li><strong>Khattab et al. 2023</strong> — <em>DSPy: Compiling Declarative Language Model Calls into State-of-the-Art Pipelines</em> (ICLR 2024)</li>
+    <li><strong>Opsahl-Ong et al. 2024</strong> — <em>Optimizing Instructions and Demonstrations for Multi-Stage Language Model Programs</em> (MIPROv2 paper)</li>
+    <li><strong>Agrawal et al. 2025</strong> — <em>GEPA: Reflective Prompt Evolution Outperforms Reinforcement Learning</em></li>
+    <li><strong>Soylu et al. 2024</strong> — <em>Fine-Tuning and Prompt Optimization: Two Great Steps that Work Better Together</em> (BetterTogether)</li>
+  </ul>
+
+  <h3 class="sub" style="margin-top:24px;">AutoRAG</h3>
+  <ul class="tech-list">
+    <li><strong>Marker-Inc</strong> — <em>AutoRAG repository &amp; documentation</em> (github.com/Marker-Inc-Korea/AutoRAG)</li>
+    <li><strong>Es et al. 2023</strong> — <em>RAGAS: Automated Evaluation of Retrieval Augmented Generation</em></li>
+    <li><strong>Liu et al. 2023</strong> — <em>Lost in the Middle: How Language Models Use Long Contexts</em></li>
+    <li><strong>Cormack et al. 2009</strong> — <em>Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods</em></li>
+  </ul>
+
+  <h3 class="sub" style="margin-top:24px;">Adjacent</h3>
+  <ul class="tech-list">
+    <li><strong>Yang et al. 2023</strong> — <em>Large Language Models as Optimizers</em> (OPRO)</li>
+    <li><strong>Zhou et al. 2022</strong> — <em>Large Language Models Are Human-Level Prompt Engineers</em> (APE)</li>
+    <li><strong>Yuksekgonul et al. 2024</strong> — <em>TextGrad: Automatic "Differentiation" via Text</em></li>
+  </ul>
+  <div class="slide-num">43 / 44</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 44 — Closing                                            -->
+<!-- ============================================================ -->
+<section class="slide slide-end" id="s44">
+  <div class="cover-grid"></div>
+  <div style="position:relative; z-index:2;">
+    <div class="cover-eyebrow">— END —</div>
+    <h1 class="cover-title" style="font-size:clamp(48px,7vw,110px);">
+      Compile<br>
+      <span class="ital accent">don't</span> prompt.
+    </h1>
+    <p class="cover-sub" style="margin-top:32px;">
+      AutoRAG finds the right pipeline. DSPy makes every LM stage in it self-improving. Together, the prompt becomes <em>code that learns from data</em> — versioned, testable, replayable.
+    </p>
+
+    <div style="margin-top:64px; padding-top:24px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+      <div class="meta-block" style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faint); letter-spacing:0.1em; text-transform:uppercase; line-height:1.8;">
+        <div style="color:var(--ink); font-weight:500;">Auto<span style="color:var(--accent);">RAG</span> × DSPy — A Technical Deep Dive</div>
+        44 slides · 13 teleprompters · ~12k words<br>
+        Prepared for AI architects &amp; ML engineers
+      </div>
+      <div class="meta-block" style="font-family:'Fraunces',serif; font-style:italic; color:var(--ink-dim); font-size:18px;">
+        "Programs, not strings."
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">44 / 44</div>
+</section>
+
+</div>
+
+<!-- ─────── Scripts ─────── -->
+<script>
+  // Progress bar + counter
+  const fill = document.getElementById('progressFill');
+  const counter = document.getElementById('counter');
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function update() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = Math.min(1, Math.max(0, scrollTop / docHeight));
+    fill.style.transform = `scaleX(${ratio})`;
+
+    let active = 1;
+    const mid = window.scrollY + window.innerHeight * 0.4;
+    slides.forEach((s, i) => {
+      if (s.offsetTop <= mid) active = i + 1;
+    });
+    counter.textContent = String(active).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    const cur = parseInt(counter.textContent) || 1;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      const next = slides[Math.min(total - 1, cur)];
+      next && next.scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      const prev = slides[Math.max(0, cur - 2)];
+      prev && prev.scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'Home') {
+      slides[0].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'End') {
+      slides[total - 1].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+</script>
+
+</body>
+</html>

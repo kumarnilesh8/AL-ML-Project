@@ -1,0 +1,52 @@
+target:
+  term: regnology-default
+  replacement: ps-agent-enabled-factory
+  operation: rename
+
+categories:
+  code_symbols:        { action: rename }
+  import_paths:        { action: rename }
+  filesystem_paths:    { action: manual_review }
+  serialized_keys:     { action: manual_review }
+  cli_commands:        { action: manual_review }
+  user_facing_strings: { action: rename_if_user_visible }
+  tests_fixtures:      { action: rename }
+  logs_telemetry:      { action: do_not_change }
+
+exceptions:
+  - path: ".gitignore"
+    action: manual_review
+    reason: "Generated-surface untracking requires explicit repository-hygiene review."
+  - path: "tools/surfaces/**"
+    action: manual_review
+    reason: "Relocated authored canon from generated harness surfaces is mission-scope and must be reviewed."
+  - path: "docs/engineering_notes/2026-06-18-surface-preservation-readiness.md"
+    action: manual_review
+    reason: "Current-mission readiness evidence is newly authored and not a retroactive rewrite."
+  - path: "docs/engineering_notes/2026-06-18-ps-pack-validation-evidence.md"
+    action: manual_review
+    reason: "WP05 validation evidence artifact is mission-scope and intentionally authored during execution."
+  - path: "README.md"
+    action: rename
+    reason: "Active install and layering documentation must use the normalized slug."
+  - path: "pack/README.md"
+    action: rename
+    reason: "Pack-facing installation and layering docs are active user-facing references."
+  - path: "pack/org-charter.yaml"
+    action: rename
+    reason: "Canonical pack identity metadata must be migrated atomically."
+  - path: "dist/scripts/**"
+    action: rename
+    reason: "Installer commands and coordinates are active execution paths, not historical references."
+  - path: "config/**"
+    action: manual_review
+    reason: "Configuration values may include active slug references or historical labels; verify per file."
+  - path: "CHANGELOG.md"
+    action: rename_if_user_visible
+    reason: "Current release notes should use the normalized slug while preserving explicit migration history."
+  - path: "docs/engineering_notes/**"
+    action: do_not_change
+    reason: "Historical records are immutable; current mission scope excludes retroactive rewrite."
+  - path: "kitty-specs/**"
+    action: manual_review
+    reason: "Mission history and prior specs may intentionally preserve old slug references."

@@ -1,0 +1,38 @@
+terms:
+
+  # Mission-local terms for the regnology-agent-doctrine repository.
+  # These are terms specific to the pack migration and SK integration work.
+
+  - surface: pack migration
+    definition: >
+      The active process of converting Markdown governance artifacts from the doctrine/
+      directory into typed YAML artifacts in pack/, tracked in docs/pack-migration-plan.md.
+      A migration is complete when spec-kitty doctrine pack validate pack/ reports 0 errors
+      and the artifact is registered in drg/fragment.yaml.
+    status: active
+    confidence: 1.0
+
+  - surface: sk migration
+    definition: >
+      Short for spec-kitty migration. The broader programme of moving the regnology-default
+      doctrine pack to full spec-kitty 3.x compatibility: completing pack/, wiring
+      org-charter.yaml, finalising the DRG fragment, and retiring TO_BE_REMOVED/ content.
+    status: active
+    confidence: 1.0
+
+  - surface: forward reference
+    definition: >
+      A DRG edge or org-charter entry that references an artifact not yet present in the
+      pack. Forward references are permitted during migration but must be tracked and
+      resolved before the pack is considered complete. The DRG fragment header comments
+      document known forward references.
+    status: active
+    confidence: 1.0
+
+  - surface: batch
+    definition: >
+      A migration increment. Each batch migrates a group of related Markdown artifacts
+      from doctrine/ to pack/ YAML. Batches are numbered and tracked in
+      docs/pack-migration-plan.md.
+    status: active
+    confidence: 1.0

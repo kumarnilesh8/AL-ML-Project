@@ -1,0 +1,46 @@
+schema_version: "1.0"
+id: powershell-module-scaffold
+name: PowerShell Module Scaffold
+purpose: >
+  Bootstrap a Regnology-standard PowerShell module layout with manifest, Public/Private
+  split, test folder, and build.ps1 task runner. Apply when creating a new reusable
+  module for deployment or administration automation. Conforms to powershell-conventions.
+steps:
+  - title: Create module manifest (.psd1)
+    description: >
+      Add a module manifest at the module root named `<ModuleName>.psd1`. Set RootModule
+      to `<ModuleName>.psm1`, ModuleVersion to 0.1.0, and an explicit FunctionsToExport
+      list (or document Export-ModuleMember usage in the root module). Include
+      RequiredModules when the module depends on gallery modules.
+  - title: Create root module (.psm1)
+    description: >
+      Add `<ModuleName>.psm1` that dot-sources all scripts under Public/ and Private/.
+      Keep exported surface limited to Public functions. Example pattern:
+      Get-ChildItem "$PSScriptRoot/Public" -Filter '*.ps1' | ForEach-Object { . $_.FullName }.
+  - title: Create Public/ and Private/ folders
+    description: >
+      Place user-facing functions in Public/ as one function per file (Verb-Noun.ps1).
+      Place helper functions in Private/. Only Public functions may appear in
+      FunctionsToExport or Export-ModuleMember.
+  - title: Create Tests/ folder
+    description: >
+      Add Tests/ at the module root. Name test files `<FunctionName>.Tests.ps1` or
+      `<ModuleName>.Tests.ps1`. Include at least one Describe block placeholder aligned
+      with powershell-conventions Pester pattern.
+  - title: Create build.ps1 task runner
+    description: >
+      Add build.ps1 with param([ValidateSet('Lint','Test','Build','Clean')]$Task = 'Build').
+      Implement stub tasks: Lint (PSScriptAnalyzer), Test (Invoke-Pester), Build (compile/package
+      step or manifest validation), Clean (remove artifacts). Document usage in a comment
+      header: ./build.ps1 -Task Test.
+failure_modes:
+  - "FunctionsToExport empty but Public scripts exist — sync manifest with Export-ModuleMember or explicit export list."
+  - "Root module does not dot-source Public/ — functions are undefined at import time."
+  - "Missing Tests/ folder — add before marking module complete per conventions."
+applies_to_languages:
+  - powershell
+notes: >
+  Does not configure Jenkins, SonarQube, or SBOM pipelines. CI/AppSec integration
+  belongs in the DevOps pipeline when the engagement charter requires deliverable
+  application software. Use the companion powershell-module-layout template for a
+  complete project scaffold with example files.

@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "mission_slug": "pack-governance-dashboard-01KS2WM1",
+  "mission_id": "01KS2WM1PKXSNB3C61G3M7YND5",
+  "mission_branch": "kitty/mission-pack-governance-dashboard-01KS2WM1",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "lanes": [
+    {
+      "lane_id": "lane-a",
+      "wp_ids": [
+        "WP01",
+        "WP02",
+        "WP03",
+        "WP04",
+        "WP05",
+        "WP06"
+      ],
+      "write_scope": [
+        "tools/pack-dashboard/angular.json",
+        "tools/pack-dashboard/package.json",
+        "tools/pack-dashboard/scripts/validate_artifact.py",
+        "tools/pack-dashboard/server/package.json",
+        "tools/pack-dashboard/server/src/config.ts",
+        "tools/pack-dashboard/server/src/index.ts",
+        "tools/pack-dashboard/server/src/models/artifact.model.ts",
+        "tools/pack-dashboard/server/src/models/review.model.ts",
+        "tools/pack-dashboard/server/src/routes/artifacts.routes.ts",
+        "tools/pack-dashboard/server/src/routes/drg.routes.ts",
+        "tools/pack-dashboard/server/src/routes/reviews.routes.ts",
+        "tools/pack-dashboard/server/src/routes/validation.routes.ts",
+        "tools/pack-dashboard/server/src/services/pack-scanner.service.ts",
+        "tools/pack-dashboard/server/src/services/review-store.service.ts",
+        "tools/pack-dashboard/server/src/services/validator.service.ts",
+        "tools/pack-dashboard/server/tsconfig.json",
+        "tools/pack-dashboard/src/app/app.component.ts",
+        "tools/pack-dashboard/src/app/app.routes.ts",
+        "tools/pack-dashboard/src/app/components/review-panel/**",
+        "tools/pack-dashboard/src/app/components/validation-badge/**",
+        "tools/pack-dashboard/src/app/components/yaml-editor/**",
+        "tools/pack-dashboard/src/app/layout/**",
+        "tools/pack-dashboard/src/app/models/artifact.model.ts",
+        "tools/pack-dashboard/src/app/models/review.model.ts",
+        "tools/pack-dashboard/src/app/pages/**",
+        "tools/pack-dashboard/src/app/services/artifact.service.ts",
+        "tools/pack-dashboard/src/app/services/review.service.ts",
+        "tools/pack-dashboard/src/assets/css/**",
+        "tools/pack-dashboard/src/main.ts",
+        "tools/pack-dashboard/src/styles.scss",
+        "tools/pack-dashboard/tsconfig.base.json"
+      ],
+      "predicted_surfaces": [
+        "api",
+        "app-shell",
+        "artifact-rendering",
+        "dashboard",
+        "workspace"
+      ],
+      "depends_on_lanes": [],
+      "parallel_group": 0
+    }
+  ],
+  "computed_at": "2026-05-20T14:42:55.439614+00:00",
+  "computed_from": "dependency_graph+ownership",
+  "planning_artifact_wps": [],
+  "collapse_report": {
+    "events": [
+      {
+        "wp_a": "WP02",
+        "wp_b": "WP01",
+        "rule": "dependency",
+        "evidence": "WP02 depends on WP01"
+      },
+      {
+        "wp_a": "WP03",
+        "wp_b": "WP01",
+        "rule": "dependency",
+        "evidence": "WP03 depends on WP01"
+      },
+      {
+        "wp_a": "WP04",
+        "wp_b": "WP02",
+        "rule": "dependency",
+        "evidence": "WP04 depends on WP02"
+      },
+      {
+        "wp_a": "WP05",
+        "wp_b": "WP04",
+        "rule": "dependency",
+        "evidence": "WP05 depends on WP04"
+      },
+      {
+        "wp_a": "WP06",
+        "wp_b": "WP04",
+        "rule": "dependency",
+        "evidence": "WP06 depends on WP04"
+      }
+    ],
+    "total_merges": 5,
+    "independent_wps_collapsed": 0,
+    "by_rule": {
+      "dependency": 5
+    }
+  }
+}

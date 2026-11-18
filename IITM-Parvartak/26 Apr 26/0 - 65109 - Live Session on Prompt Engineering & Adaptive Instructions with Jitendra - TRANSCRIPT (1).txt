@@ -1,0 +1,3750 @@
+WEBVTT
+
+1
+00:00:55.600 --> 00:00:57.650
+Jitendra K: Hey guys, good evening.
+
+2
+00:00:58.410 --> 00:01:04.370
+Jitendra K: And warm welcome to another module, and thank you. I think, this session will be of 2 hours.
+
+3
+00:01:04.620 --> 00:01:08.410
+Jitendra K: Because of some personal work commitment that I'm having, so…
+
+4
+00:01:08.810 --> 00:01:11.149
+Jitendra K: So this will be of 2 hours without any break.
+
+5
+00:01:11.970 --> 00:01:29.100
+Jitendra K: So, we will start with the agenda for today. What are the things that we are going to discuss, and what are the roadmaps for today's session? So, in today's tutorial, we'll talk about something called advanced prompt techniques. So, advanced prompting is one of the essential core components. We have seen that.
+
+6
+00:01:29.340 --> 00:01:31.350
+Jitendra K: That we are using,
+
+7
+00:01:32.830 --> 00:01:41.309
+Jitendra K: Yeah, A2C will be covered later. A2C we will cover later. So first, let's try to cover… because A2C, as I mentioned, we will have
+
+8
+00:01:41.810 --> 00:01:44.030
+Jitendra K: To revisit, some more…
+
+9
+00:01:44.340 --> 00:01:55.660
+Jitendra K: in-depth concepts before we laid the foundation for A2C, because that is for UI, it's not for agents, right? So we need to understand what are the functions that we are tracking.
+
+10
+00:01:55.890 --> 00:02:07.009
+Jitendra K: in UI, with a human in the loop, right? So that is very important, and I believe the class has no idea about what are we going to do as a part of cost evaluation on LLMs.
+
+11
+00:02:07.490 --> 00:02:19.060
+Jitendra K: And what are the functions that we're going to use, including hallucinations, criterias of groundness, etc. So first, we'll cover those concepts, and then we revisit A to C.
+
+12
+00:02:19.380 --> 00:02:20.670
+Jitendra K: So will that be okay?
+
+13
+00:02:25.690 --> 00:02:32.339
+Jitendra K: Alright, so let's begin with this tutorial. So we are going to talk about something called prompt engineering, and it's an advanced tutorial.
+
+14
+00:02:32.590 --> 00:02:38.259
+Jitendra K: For prompt engineering. So, first and foremost thing, I have to explain to you why prompt engineering.
+
+15
+00:02:38.890 --> 00:02:46.039
+Jitendra K: And what are the different ways that we can be able to use to improve the prompt engineering? That is something which we need to understand from the real-world case study.
+
+16
+00:02:46.290 --> 00:02:49.290
+Jitendra K: So before agents, before Agent KI,
+
+17
+00:02:49.460 --> 00:02:56.159
+Jitendra K: there's a prompt engineering, right? So, now we have moved from Prompts to agents.
+
+18
+00:02:56.310 --> 00:02:59.420
+Jitendra K: Right? So that's the most important scope.
+
+19
+00:03:00.090 --> 00:03:04.500
+Jitendra K: That we have seen as a part of a transition, but… with all…
+
+20
+00:03:05.970 --> 00:03:11.999
+Jitendra K: emphasis on the real-world problem. Prompt itself is… one of the…
+
+21
+00:03:12.260 --> 00:03:15.720
+Jitendra K: Biggest building block of agents as well.
+
+22
+00:03:16.690 --> 00:03:21.090
+Jitendra K: Right? So, smarter prompts will help you to create a lot of business impact.
+
+23
+00:03:22.740 --> 00:03:29.820
+Jitendra K: So some of the real-world examples is, let's say if I'm creating a healthcare chatbot, and
+
+24
+00:03:30.990 --> 00:03:34.980
+Jitendra K: And, the… my users is interacting with the agents, or bots.
+
+25
+00:03:35.210 --> 00:03:38.070
+Jitendra K: And they are giving in inappropriate answers.
+
+26
+00:03:38.270 --> 00:03:41.419
+Jitendra K: That means they don't have sufficient instruction to operate.
+
+27
+00:03:41.800 --> 00:03:47.600
+Jitendra K: So we are going to focus today on multi-hub reasoning prompts, and we will try to cover
+
+28
+00:03:47.750 --> 00:03:56.440
+Jitendra K: how to use advanced prompting technique to an extent. And we'll cover a lot of techniques today with hands-on tutorials on the top of it.
+
+29
+00:03:56.850 --> 00:04:04.600
+Jitendra K: So some of the tutorials will cover these essential techniques, so we'll start with Chain of Thought. Chain of Thought is one of the advanced prompting techniques.
+
+30
+00:04:04.880 --> 00:04:10.939
+Jitendra K: That'll help us to encourage step-by-step thinking before answering, instead of jumping to a conclusion.
+
+31
+00:04:11.390 --> 00:04:18.250
+Jitendra K: So, we will try to mimic the human reasoning. We'll also create some examples on math, mathematics solutions.
+
+32
+00:04:18.370 --> 00:04:22.030
+Jitendra K: Logic and root cause and effect problems.
+
+33
+00:04:22.930 --> 00:04:29.970
+Jitendra K: So we'll see how chain of thought, or typically COT, will help us to solve this. Then we move on to the tree of thought.
+
+34
+00:04:31.180 --> 00:04:36.680
+Jitendra K: Which is essentially, I would say, an advanced version of COT,
+
+35
+00:04:36.900 --> 00:04:42.800
+Jitendra K: Where we are going to prompt the model, or guide the model to explore multiple reasoning parts, not just one.
+
+36
+00:04:43.080 --> 00:04:52.790
+Jitendra K: And we'll explore alternative backtracks on the flawed logic, and then select the consistent outcomes from the… prompt technique.
+
+37
+00:04:54.020 --> 00:04:57.479
+Jitendra K: Then we move on to the third technique, which is called…
+
+38
+00:04:57.650 --> 00:05:08.209
+Jitendra K: Self-consistence prompting, or self-consistency prompting. Self-consistency is, again, an advanced technique, which will boost the reliability by sampling multiple reasoning parts.
+
+39
+00:05:08.460 --> 00:05:15.339
+Jitendra K: and select the most common answer. So, it will use something called voting criterias for multiple diversified output.
+
+40
+00:05:15.530 --> 00:05:20.149
+Jitendra K: Unlike Chain of Thought, which gives a single result, it will be useful for
+
+41
+00:05:20.490 --> 00:05:27.230
+Jitendra K: multi-step tasks, where one short answer can be, differ significantly. We'll talk about self-consistency.
+
+42
+00:05:28.560 --> 00:05:35.279
+Jitendra K: Then we move on to the generated knowledge prompting, or specifically call it GK prompting.
+
+43
+00:05:35.490 --> 00:05:39.669
+Jitendra K: Which is useful for context before answering a question.
+
+44
+00:05:39.890 --> 00:05:46.289
+Jitendra K: So we'll see how… Generated knowledge will help us to create a domain-specific, or…
+
+45
+00:05:46.470 --> 00:05:49.269
+Jitendra K: Acquire the recent knowledge within the domain.
+
+46
+00:05:49.500 --> 00:05:55.140
+Jitendra K: And it is useful, very useful in, technical reviews, board reviews.
+
+47
+00:05:55.550 --> 00:06:03.389
+Jitendra K: Legal document preparation, scientific paper, citations, or any fictional sightings that you would like to perform.
+
+48
+00:06:03.870 --> 00:06:07.550
+Jitendra K: So, this is one of the best techniques that we are going to use as well.
+
+49
+00:06:07.870 --> 00:06:15.140
+Jitendra K: Then we move on to the self-step-back prompting, which guides the model to reflect on context or a step before answering.
+
+50
+00:06:15.410 --> 00:06:21.139
+Jitendra K: Which can help us to get better reasoning and accuracy, and we'll see the strategic thinking
+
+51
+00:06:21.460 --> 00:06:24.250
+Jitendra K: How to define that in this type of form.
+
+52
+00:06:25.030 --> 00:06:31.100
+Jitendra K: Then we move on to the least to most prompting, which is the basic reasoning and incremental at
+
+53
+00:06:31.710 --> 00:06:33.680
+Jitendra K: complexity-based prompts.
+
+54
+00:06:34.110 --> 00:06:38.010
+Jitendra K: So the model will solve intermediate subproblems, and then
+
+55
+00:06:38.350 --> 00:06:43.750
+Jitendra K: It will move on to, the set of steps that is required to perform.
+
+56
+00:06:44.150 --> 00:06:46.819
+Jitendra K: The subproblems, resolutions.
+
+57
+00:06:47.440 --> 00:06:51.390
+Jitendra K: So we'll try to perform some sort of debugging with the help of this prompt as well.
+
+58
+00:06:51.610 --> 00:06:54.300
+Jitendra K: There's something called adversarial injections.
+
+59
+00:06:54.600 --> 00:06:57.629
+Jitendra K: and injection prompting. So adversarial prompting is…
+
+60
+00:06:57.990 --> 00:07:03.589
+Jitendra K: quite intentionally craft for input to mislead or subvert an AI model.
+
+61
+00:07:03.970 --> 00:07:11.600
+Jitendra K: So we'll bypass the restriction, trigger harmful output, and try to understand how to avoid any kind of prompt injections.
+
+62
+00:07:11.770 --> 00:07:13.719
+Jitendra K: With the help of this kind of prompting.
+
+63
+00:07:14.180 --> 00:07:18.330
+Jitendra K: We'll also look for some use cases on jailbreaking.
+
+64
+00:07:18.490 --> 00:07:24.680
+Jitendra K: Phenomenas, prompt injection attacks, type of vulnerabilities that can be there in prompting.
+
+65
+00:07:25.090 --> 00:07:31.680
+Jitendra K: So for that, we need to prepare a defense system for prompts, which is a part of your guardrail system anyway.
+
+66
+00:07:31.810 --> 00:07:35.979
+Jitendra K: But we will try to understand the basic principles of guardrails.
+
+67
+00:07:36.300 --> 00:07:40.059
+Jitendra K: Using prompt injection that can be fully solved at a model level alone.
+
+68
+00:07:40.870 --> 00:07:47.329
+Jitendra K: Then, finally, we'll move on to auto-prompting and optimization. Auto-prompting is an algorithm.
+
+69
+00:07:47.740 --> 00:07:54.929
+Jitendra K: That model used to generate prompt, and we will use something called template-based composition, and some sort of
+
+70
+00:07:55.330 --> 00:08:00.059
+Jitendra K: DSPY, in the next tutorial to understand this type of protein.
+
+71
+00:08:01.040 --> 00:08:03.650
+Jitendra K: So we have got a lot of things to cover today.
+
+72
+00:08:04.150 --> 00:08:06.769
+Jitendra K: So let's start with chain of thought prompting.
+
+73
+00:08:07.530 --> 00:08:14.220
+Jitendra K: So, as the name suggests, chain of thought. That means you're going to create a sequence of thought or chain of thoughts, right?
+
+74
+00:08:14.530 --> 00:08:19.529
+Jitendra K: So chain of thought is a very standard way of writing the prompts.
+
+75
+00:08:19.640 --> 00:08:24.399
+Jitendra K: So when you say chain of thought, that means we are instructing and encouraging
+
+76
+00:08:24.670 --> 00:08:31.920
+Jitendra K: A step-by-step thinking before answering. Instead of jumping to a conclusion, the model thinks aloud.
+
+77
+00:08:32.970 --> 00:08:38.929
+Jitendra K: So basically, it is very ideal for tasks which require intermediate steps, not just direct answers.
+
+78
+00:08:39.260 --> 00:08:43.159
+Jitendra K: And, it will be able to help you to generate a lot of impact
+
+79
+00:08:43.570 --> 00:08:46.779
+Jitendra K: On common sense reasoning tasks.
+
+80
+00:08:47.860 --> 00:08:54.539
+Jitendra K: So this is… One of the important, mechanism that modern day…
+
+81
+00:08:55.190 --> 00:09:00.170
+Jitendra K: ecosystems are using to solve the problem. Let's take an example of it.
+
+82
+00:09:01.470 --> 00:09:09.290
+Jitendra K: So let's say if I'm creating a system which is going to… perform.
+
+83
+00:09:11.320 --> 00:09:16.840
+Jitendra K: the calculation on this problem. So let's say I have given this prompt to a ChatGPT model.
+
+84
+00:09:17.150 --> 00:09:21.540
+Jitendra K: If a train travels 60 miles in 1.5 hours, what is the average speed?
+
+85
+00:09:22.280 --> 00:09:30.580
+Jitendra K: Basically, I need to systematically perform the… Dependent variable calculation first.
+
+86
+00:09:30.710 --> 00:09:34.609
+Jitendra K: Right? So, first and foremost thing, I'm going to calculate the average speed of the train.
+
+87
+00:09:34.780 --> 00:09:38.670
+Jitendra K: Using this formula, total distance by total time.
+
+88
+00:09:38.940 --> 00:09:45.509
+Jitendra K: And here, the distance given by the user is 60 miles, and the total time is 90 minutes, which is 1.5 hours.
+
+89
+00:09:45.950 --> 00:09:54.440
+Jitendra K: So I will be able to calculate the average speed by saying 60 point… 60 miles divided by 1.5, which is 40 miles per hour, and it will return.
+
+90
+00:09:54.790 --> 00:09:57.379
+Jitendra K: So, basically, chain of thought.
+
+91
+00:09:57.580 --> 00:10:04.620
+Jitendra K: automatically inhibit inside some of the best of the best models, like GPT-5, GPT-4, right?
+
+92
+00:10:04.760 --> 00:10:10.640
+Jitendra K: So you need not to consider any special calculation to do This kind of instruction.
+
+93
+00:10:11.230 --> 00:10:18.679
+Jitendra K: But the most important criteria with this chain of thought method is you're going to… you are going to instruct
+
+94
+00:10:19.190 --> 00:10:22.180
+Jitendra K: The model to think step by step.
+
+95
+00:10:22.690 --> 00:10:28.740
+Jitendra K: So there are different variants of chain of thought, which include zero shot, fuse shot, and auto COT.
+
+96
+00:10:29.450 --> 00:10:37.160
+Jitendra K: So in the zero-shot COT, you can see that I'm not supplying any examples, but the model will perform by default.
+
+97
+00:10:37.580 --> 00:10:40.910
+Jitendra K: So let's say this is a problem. A farmer has 17 sheep.
+
+98
+00:10:41.050 --> 00:10:43.169
+Jitendra K: All but 9 dies.
+
+99
+00:10:43.410 --> 00:10:44.560
+Jitendra K: How many are left?
+
+100
+00:10:45.770 --> 00:10:47.890
+Jitendra K: I'm instructing things step by step.
+
+101
+00:10:48.800 --> 00:10:51.839
+Jitendra K: So that means the output would be this.
+
+102
+00:10:52.080 --> 00:10:53.379
+Jitendra K: Which is 9.
+
+103
+00:10:54.120 --> 00:10:57.169
+Jitendra K: Which is given by the chain of thought model.
+
+104
+00:10:57.420 --> 00:11:00.029
+Jitendra K: Few short, I have to give some example.
+
+105
+00:11:00.280 --> 00:11:04.429
+Jitendra K: Right? So basically, I'm going to provide some 2 or 3 examples, so that my prompt
+
+106
+00:11:05.040 --> 00:11:10.649
+Jitendra K: We'll be using this illustrative examples to generate the real-world outcomes.
+
+107
+00:11:11.270 --> 00:11:14.319
+Jitendra K: Similarly, the auto COT will generate
+
+108
+00:11:14.890 --> 00:11:17.660
+Jitendra K: Without zero shot, I mean, I'm not going to use…
+
+109
+00:11:17.930 --> 00:11:24.429
+Jitendra K: Any example, I may, but it is not… subjective that I should use.
+
+110
+00:11:25.020 --> 00:11:33.019
+Jitendra K: Now, some of the important considerations before we jump onto the example, the best practices that you should consider when writing the chain of thought prompts.
+
+111
+00:11:34.620 --> 00:11:37.229
+Jitendra K: Think your problem step by step.
+
+112
+00:11:37.700 --> 00:11:42.600
+Jitendra K: You need to consider, your reasoning carefully. That means,
+
+113
+00:11:42.770 --> 00:11:49.419
+Jitendra K: Because we have seen that we are going to assign agents with responsibilities, with set of reasoning capabilities.
+
+114
+00:11:49.730 --> 00:11:57.540
+Jitendra K: And the step-by-step, Q&A capabilities. That means the agent will follow those instructions and generate an answer.
+
+115
+00:11:58.140 --> 00:11:59.690
+Jitendra K: So you need to think…
+
+116
+00:12:00.330 --> 00:12:07.939
+Jitendra K: Of the same, before you carefully craft a prompt, you should go with very careful reasoning on the parameters.
+
+117
+00:12:09.020 --> 00:12:18.170
+Jitendra K: Keep example diversified, so that means if you are using a very domain-agnostic problem, try to give some few short examples to prevent overfitting.
+
+118
+00:12:18.420 --> 00:12:20.220
+Jitendra K: To a single reasoning pattern.
+
+119
+00:12:21.200 --> 00:12:30.009
+Jitendra K: Because, as I mentioned, LLMs are quite smart in pleasing the human way of writing, and they will use memories to generate a response.
+
+120
+00:12:30.290 --> 00:12:36.150
+Jitendra K: Right? They will use memories, right? We have seen the memories are in two types, long memory and short memory.
+
+121
+00:12:36.450 --> 00:12:40.819
+Jitendra K: So they will use a long memory to please your output every time.
+
+122
+00:12:41.030 --> 00:12:43.620
+Jitendra K: So they were able to utilize,
+
+123
+00:12:43.790 --> 00:12:48.399
+Jitendra K: The long memories to see what kind of answers you expect.
+
+124
+00:12:48.790 --> 00:12:52.980
+Jitendra K: And accordingly, it will be able to generate an answer, right, based upon the policy function.
+
+125
+00:12:53.290 --> 00:13:05.179
+Jitendra K: So you need to keep some example diversified to prevent overfitting to a single reasoning pattern. You also need to verify intermediate steps, ask the model to recheck and reformulate anything.
+
+126
+00:13:05.430 --> 00:13:11.640
+Jitendra K: Which may have some arithmetic and logical errors, just to ensure that you will get a consistent output.
+
+127
+00:13:11.810 --> 00:13:14.759
+Jitendra K: In case of any exceptions which may arise.
+
+128
+00:13:15.390 --> 00:13:18.469
+Jitendra K: Some of the common thing that you should avoid is…
+
+129
+00:13:18.610 --> 00:13:24.769
+Jitendra K: Avoid over long chains. That means your chain should not be less… greater than 10.
+
+130
+00:13:24.910 --> 00:13:25.860
+Jitendra K: steps.
+
+131
+00:13:26.310 --> 00:13:32.720
+Jitendra K: And try to break down into sub-problems instead of creating a single, holistic problem.
+
+132
+00:13:33.630 --> 00:13:37.969
+Jitendra K: Similarly, avoid vague questions. That means you should have a
+
+133
+00:13:38.450 --> 00:13:42.480
+Jitendra K: Bounded question, which will work best for this particular framework.
+
+134
+00:13:44.420 --> 00:13:48.000
+Jitendra K: So, let's take an example of chain of thought.
+
+135
+00:13:48.380 --> 00:13:54.400
+Jitendra K: Let me go back to my… Ulab.
+
+136
+00:14:52.310 --> 00:14:55.570
+Jitendra K: Let me change this, I'm facing some issues with mine.
+
+137
+00:15:17.660 --> 00:15:22.819
+Jitendra K: So basically, this particular tutorial will explain you the basic chain of thought prompting.
+
+138
+00:15:23.120 --> 00:15:26.410
+Jitendra K: And we'll consider some examples to go for it.
+
+139
+00:15:26.930 --> 00:15:35.539
+Jitendra K: So I will talk about some of the key components in this tutorial, which includes… sorry, this code walkthrough, which talks about basic COT prompting.
+
+140
+00:15:35.820 --> 00:15:41.039
+Jitendra K: some advanced COT prompting technique, which will explore more sophisticated COT approaches.
+
+141
+00:15:41.260 --> 00:15:47.020
+Jitendra K: We'll also compare the analysis, let's say I have to examine the difference between standard and COT prompting.
+
+142
+00:15:47.250 --> 00:15:50.089
+Jitendra K: And then we'll apply CO2 to various complex tasks.
+
+143
+00:15:50.390 --> 00:15:55.419
+Jitendra K: So, first and the foremost thing that I'm going to do is to set up my environment, including my API key.
+
+144
+00:15:55.820 --> 00:15:57.499
+Jitendra K: So I will do it quickly.
+
+145
+00:17:51.510 --> 00:17:59.029
+Jitendra K: Let me use VSport, I think this is… Holy… Please quickly open the files.
+
+146
+00:22:16.090 --> 00:22:18.860
+Jitendra K: Let me use this itself.
+
+147
+00:22:19.030 --> 00:22:20.090
+Jitendra K: One second…
+
+148
+00:24:32.530 --> 00:24:37.189
+Jitendra K: Okay, this is weird, why it is not accepting this.
+
+149
+00:27:42.610 --> 00:27:44.549
+Jitendra K: But this is working now.
+
+150
+00:27:46.440 --> 00:27:48.619
+Jitendra K: I can put my PI key.
+
+151
+00:27:56.610 --> 00:27:59.690
+Jitendra K: Okay, so I will start with some simple example.
+
+152
+00:28:02.500 --> 00:28:07.360
+Jitendra K: So basically, I hope you're familiar with this class from Template, from Langshan.
+
+153
+00:28:07.540 --> 00:28:11.010
+Jitendra K: Which we have discussed, this is the placeholder that we are going to use to write.
+
+154
+00:28:11.300 --> 00:28:15.469
+Jitendra K: the template prompt. So here, what I'm doing is, I'm writing a standard prompt.
+
+155
+00:28:16.610 --> 00:28:22.739
+Jitendra K: Where I'm expecting an input variable as a question, the template would be generating the answer.
+
+156
+00:28:22.930 --> 00:28:26.819
+Jitendra K: By taking the variable at the question. This is the placeholder for a variable.
+
+157
+00:28:27.060 --> 00:28:29.540
+Jitendra K: And then I'm creating,
+
+158
+00:28:29.650 --> 00:28:39.250
+Jitendra K: This is a standard prompt, right? Very simple prompt where you're going to accept a question as a variable. In the chain of thought prompt, I'm creating an instruction
+
+159
+00:28:39.850 --> 00:28:45.110
+Jitendra K: To follow the… steps… Concisely, right?
+
+160
+00:28:45.270 --> 00:28:47.289
+Jitendra K: And then the question will be.
+
+161
+00:28:47.520 --> 00:28:51.939
+Jitendra K: here, which is hard-coded, and then I'm going to generate the contents on the top of it.
+
+162
+00:28:52.310 --> 00:28:58.390
+Jitendra K: So this is a very simple example, which I'm trying to deliver with the help of chain of thought prompts.
+
+163
+00:28:58.990 --> 00:29:00.269
+Jitendra K: Let me run this.
+
+164
+00:29:19.340 --> 00:29:21.719
+Jitendra K: Yeah, I can show you that part.
+
+165
+00:29:22.910 --> 00:29:28.059
+Jitendra K: The prompt template card, you can take a help on it, and you will see the class.
+
+166
+00:29:38.130 --> 00:29:41.829
+Jitendra K: So this is a class, of from template.
+
+167
+00:29:47.180 --> 00:29:51.930
+Jitendra K: We just start with a langchain core package, which will accept the prompt as a string.
+
+168
+00:29:52.210 --> 00:29:54.869
+Jitendra K: And then you have a list of optional variables.
+
+169
+00:29:55.490 --> 00:30:01.800
+Jitendra K: and the core modules in Langchain, and then it will utilize the submodules.
+
+170
+00:30:01.950 --> 00:30:04.769
+Jitendra K: To generate the extension on the base model plus.
+
+171
+00:30:05.220 --> 00:30:07.230
+Jitendra K: Right, including lambdas enable.
+
+172
+00:30:07.730 --> 00:30:15.760
+Jitendra K: So that is how it is going to bind your prompt template with the LLM calls. So the purpose of this prompt template is just to
+
+173
+00:30:16.170 --> 00:30:19.289
+Jitendra K: wrap your questions and send it to the LLM model.
+
+174
+00:30:19.730 --> 00:30:24.989
+Jitendra K: So here, what we are doing is, we are again using LCEL, Lang Chain Expression Language.
+
+175
+00:30:25.110 --> 00:30:27.519
+Jitendra K: So whenever you see these pipe symbols.
+
+176
+00:30:27.890 --> 00:30:32.490
+Jitendra K: This is another thing word, LCEL notations. Lang Chain Expression Language.
+
+177
+00:30:32.880 --> 00:30:38.880
+Jitendra K: So, you can see here, when I'm using… I'm creating a chain.
+
+178
+00:30:39.680 --> 00:30:45.910
+Jitendra K: I'm joining via pipe. So basically, that's a standard chain by piping the standard prompt into an LLM.
+
+179
+00:30:46.260 --> 00:30:48.760
+Jitendra K: So, similarly, I'm using a chain of thought.
+
+180
+00:30:48.870 --> 00:30:52.049
+Jitendra K: to combine prompt with LLM.
+
+181
+00:30:53.260 --> 00:30:56.330
+Jitendra K: So the question now is, this is my variable.
+
+182
+00:30:56.770 --> 00:31:02.130
+Jitendra K: Which will be passed to this… Template in both.
+
+183
+00:31:02.620 --> 00:31:06.720
+Jitendra K: So I have a standard, I have a basic prompt, and then I have a chain of thought prompt.
+
+184
+00:31:07.120 --> 00:31:09.400
+Jitendra K: But a question variable will remain the same.
+
+185
+00:31:09.620 --> 00:31:11.470
+Jitendra K: And then I'm going to invoke…
+
+186
+00:31:11.830 --> 00:31:15.729
+Jitendra K: the question via LLM, and then it will generate an answer for me.
+
+187
+00:31:16.260 --> 00:31:22.209
+Jitendra K: So the standard response generates very simple one-line answer. The average speed of the train is 60 kilometers per hour.
+
+188
+00:31:22.600 --> 00:31:24.990
+Jitendra K: But with Chain of Thought, you can see the reasoning.
+
+189
+00:31:25.110 --> 00:31:27.200
+Jitendra K: How to generating the answer?
+
+190
+00:31:27.460 --> 00:31:35.219
+Jitendra K: So when I'm writing a system prompt, I'm going to prefer Okay, let me zoom in.
+
+191
+00:31:36.030 --> 00:31:41.409
+Jitendra K: I'm going to prefer chain of thought rather than standard prompt, because I can able to trace
+
+192
+00:31:41.580 --> 00:31:46.950
+Jitendra K: The outcome with a proper Comprehension and reasoning behind the scene.
+
+193
+00:31:47.420 --> 00:31:53.320
+Jitendra K: And that is where the chain of thought will be very, very useful in terms of creating a system prompt.
+
+194
+00:31:54.050 --> 00:31:56.500
+Jitendra K: Now, let's try to understand some advanced prompt.
+
+195
+00:31:56.620 --> 00:31:58.900
+Jitendra K: And I'm going to do a systematic…
+
+196
+00:31:59.580 --> 00:32:03.800
+Jitendra K: instruction, I'm going to write systematic instruction to create this prompt.
+
+197
+00:32:04.800 --> 00:32:06.150
+Jitendra K: So, I will say…
+
+198
+00:32:13.050 --> 00:32:20.450
+Jitendra K: Can chain of thought be feed to critic agent to check if they're… yes, it will. So that's the whole purpose of creating this,
+
+199
+00:32:21.850 --> 00:32:30.380
+Jitendra K: catching these, sorry, these instructions from chain of thought. So basically, we will feed it back to the predict model so that it will be able to evaluate
+
+200
+00:32:30.630 --> 00:32:34.849
+Jitendra K: whether a step being performed by a COT model is appropriate or not.
+
+201
+00:32:36.380 --> 00:32:49.419
+Jitendra K: Now, here I'm creating another advanced chain of thought prompt template using the same class prompt template, no change in the prompt template class. Now, here I'm creating input variable as question, which is a list now, right?
+
+202
+00:32:49.620 --> 00:32:52.560
+Jitendra K: And the template I'm using is a dictionary.
+
+203
+00:32:53.300 --> 00:32:57.939
+Jitendra K: Where I will have a series of sequences that I'm going to instruct.
+
+204
+00:32:58.290 --> 00:33:06.770
+Jitendra K: So I'm emphasizing the step-by-step problem with four sub-specific, or four specific sub-steps for each major calculation.
+
+205
+00:33:07.220 --> 00:33:15.669
+Jitendra K: The first step that I'm passing here is the state intention. That means what kind of reasoning that I would like to generalize from the…
+
+206
+00:33:15.940 --> 00:33:17.030
+Jitendra K: this model.
+
+207
+00:33:17.550 --> 00:33:23.659
+Jitendra K: Step number two is, I'm going to show the formula, asking him to show the formula, demonstrate the mathematical knowledge.
+
+208
+00:33:24.240 --> 00:33:27.590
+Jitendra K: Third is, I'm going to see how…
+
+209
+00:33:27.730 --> 00:33:31.500
+Jitendra K: They are performing the calculation, or actual automatic calculations.
+
+210
+00:33:31.710 --> 00:33:33.680
+Jitendra K: And also interpret the results.
+
+211
+00:33:34.370 --> 00:33:42.310
+Jitendra K: So the placeholder is the question where the user question will be inserted, solution label will be given to instruct LLM.
+
+212
+00:33:42.470 --> 00:33:48.739
+Jitendra K: And again, I'm just combining the prompt, which is advanced COT variable with LLM.
+
+213
+00:33:49.990 --> 00:33:54.770
+Jitendra K: Now, the question is, a car travels 150 kilometer at 60 kilometer per hour.
+
+214
+00:33:55.570 --> 00:34:03.969
+Jitendra K: Then another 100 kilometer at 50 kilometer per hour, what is average speed for entire journey? So this is actually a complex question, right, because it is having subpar to it.
+
+215
+00:34:04.420 --> 00:34:10.159
+Jitendra K: You will take a question, insert into the prompt template, send the complete prompt to the LLM, and return the LLM response.
+
+216
+00:34:10.560 --> 00:34:13.110
+Jitendra K: So, what we are going to do is, we'll see…
+
+217
+00:34:13.690 --> 00:34:18.460
+Jitendra K: What are the different steps that this model takes to generate an answer?
+
+218
+00:34:22.350 --> 00:34:27.470
+Jitendra K: So you can see that the very first step it takes is to calculate a total distance travel.
+
+219
+00:34:28.010 --> 00:34:31.159
+Jitendra K: So it performed this analysis to total distance travel.
+
+220
+00:34:31.790 --> 00:34:33.540
+Jitendra K: Then I'd bifurcate
+
+221
+00:34:34.110 --> 00:34:42.590
+Jitendra K: another layer, or another, I would say, sub-process to calculate total time. Distance by time will be your speed.
+
+222
+00:34:42.830 --> 00:34:49.959
+Jitendra K: And then it is calculating the average speed for the entire journey, which is exactly what it is doing here, right, based upon these two results.
+
+223
+00:34:50.230 --> 00:34:54.280
+Jitendra K: So basically, this shows our capability of the prompt.
+
+224
+00:34:54.949 --> 00:35:03.870
+Jitendra K: writing that we are using with advanced COT. So it is very structured, very… Output-oriented, format-specific.
+
+225
+00:35:04.190 --> 00:35:07.569
+Jitendra K: Very predictable, very structured, very…
+
+226
+00:35:08.050 --> 00:35:14.659
+Jitendra K: useful to debug as well, right? If, let's say, if this answer is incorrect, then you can be able to see which assumptions
+
+227
+00:35:14.990 --> 00:35:24.619
+Jitendra K: the model… what are the assumption, underlying assumption that model is taking before generating an answer, right? So you can be able to do this tracing with the Alpo chain of thought process.
+
+228
+00:35:26.010 --> 00:35:28.870
+Jitendra K: Now, let me move on to the… another example.
+
+229
+00:35:31.010 --> 00:35:35.970
+Jitendra K: I will try to perform some comparative analysis. That means I would like to compare.
+
+230
+00:35:38.310 --> 00:35:44.659
+Jitendra K: some mathematical calculation by performing this chain of thought. So let's say my question is.
+
+231
+00:35:44.900 --> 00:35:49.750
+Jitendra K: I have some cylindrical water tank with certain radius and a height.
+
+232
+00:35:50.290 --> 00:35:56.059
+Jitendra K: And also, I have some volume to it. So if the water is added at a rate
+
+233
+00:35:56.190 --> 00:35:57.790
+Jitendra K: Of 10 liter per minute.
+
+234
+00:35:57.960 --> 00:36:02.599
+Jitendra K: How long it will take to… Be a tank to overflow.
+
+235
+00:36:03.360 --> 00:36:06.500
+Jitendra K: Give your answer in hours and minutes. This is an instruction.
+
+236
+00:36:06.960 --> 00:36:12.809
+Jitendra K: Round it to a nearest minute. This is, again, an example that I'm setting it up.
+
+237
+00:36:13.310 --> 00:36:18.560
+Jitendra K: Use the formula for pi as 3.14 with up to 5 decimal places.
+
+238
+00:36:18.950 --> 00:36:25.790
+Jitendra K: And this is the conversion, 1000 liter is equals to 1 cubic meter, right? Although LLM know all these things.
+
+239
+00:36:25.970 --> 00:36:33.950
+Jitendra K: But I'm instructing it pretty clearly. So never assume that LLM are smart and they will be able to generate answer by default.
+
+240
+00:36:34.210 --> 00:36:38.379
+Jitendra K: You need to perform groundless. This is the whole classical example of the groundness.
+
+241
+00:36:38.540 --> 00:36:43.130
+Jitendra K: So we are performing the groundness based upon our own parameters, user parameters.
+
+242
+00:36:43.610 --> 00:36:47.269
+Jitendra K: Now, let's see how step-by-step it performed.
+
+243
+00:36:54.620 --> 00:37:01.470
+Jitendra K: So you can see that it op… it generates an answer in exact the units that I'm asking for.
+
+244
+00:37:05.890 --> 00:37:07.970
+Jitendra K: Give you your answer in hours and minutes.
+
+245
+00:37:08.360 --> 00:37:14.249
+Jitendra K: Then, this is the breakdown on volume calculation, with 2x3 as full.
+
+246
+00:37:14.640 --> 00:37:19.379
+Jitendra K: Then it is using the formula volume of slender, which is pi's R squared h.
+
+247
+00:37:20.000 --> 00:37:23.550
+Jitendra K: And then it is calculating it in the given,
+
+248
+00:37:24.310 --> 00:37:28.430
+Jitendra K: Decimal places, along with the units that I have passed or instructed to.
+
+249
+00:37:28.750 --> 00:37:34.100
+Jitendra K: Then it is calculating the remaining volume before it overflow, and then converting the remaining volume to liters.
+
+250
+00:37:34.220 --> 00:37:35.850
+Jitendra K: And then calculated time.
+
+251
+00:37:36.160 --> 00:37:39.050
+Jitendra K: So this is what it is doing behind the scene.
+
+252
+00:37:39.480 --> 00:37:45.159
+Jitendra K: Now, you can see that how clearly it is, right? So basically, I need not… if I have to debug anything.
+
+253
+00:37:45.290 --> 00:37:47.310
+Jitendra K: I can able to just go through it.
+
+254
+00:37:47.510 --> 00:37:51.910
+Jitendra K: And then able to understand what this method can do.
+
+255
+00:37:53.050 --> 00:37:54.750
+Jitendra K: As a part of my execution.
+
+256
+00:37:55.530 --> 00:38:05.819
+Jitendra K: Now, I would like to apply a chain of thought prompting to a logical scenario. You might have some logical comprehension, you might be generating some reports, right?
+
+257
+00:38:06.080 --> 00:38:07.720
+Jitendra K: On… based upon the reasoning.
+
+258
+00:38:08.080 --> 00:38:10.549
+Jitendra K: So, this is the style that I'm going to use.
+
+259
+00:38:11.290 --> 00:38:15.539
+Jitendra K: Now, I'm instructing with a very clear role now.
+
+260
+00:38:16.250 --> 00:38:21.730
+Jitendra K: So I'm saying that analyze the following logical puzzle thoroughly, follow these steps in your analysis.
+
+261
+00:38:22.510 --> 00:38:27.900
+Jitendra K: Identify and list the facts. So I'm creating a very high structural logical reasoning prompt.
+
+262
+00:38:28.350 --> 00:38:34.130
+Jitendra K: Declaring the input variable as scenario, the puzzle text will be inserted. The template, the list of facts.
+
+263
+00:38:34.690 --> 00:38:44.039
+Jitendra K: Which will extract all the given information, analyze and identify the character, In this fictitious, prompt.
+
+264
+00:38:44.980 --> 00:38:48.609
+Jitendra K: Which is the character including Amy, Bob, and Charlie.
+
+265
+00:38:48.930 --> 00:38:52.299
+Jitendra K: And identify their roles, that they are…
+
+266
+00:38:52.620 --> 00:38:58.300
+Jitendra K: This is the biggest… I mean, this is the classical puzzle that you might have solved in your college days.
+
+267
+00:38:58.500 --> 00:39:08.829
+Jitendra K: That who is the truth? Who's the liar, right? Who is telling the truth? Who's lying, right? And with a set of constraints. So I'm just trying to generate all possible scenarios, test each scenario.
+
+268
+00:39:09.090 --> 00:39:15.790
+Jitendra K: And eliminate the inconsistent scenarios, and conclude the solution. And providing a very clear answer as part of this response.
+
+269
+00:39:16.140 --> 00:39:23.399
+Jitendra K: Now, you can see that this is a logical puzzle, that I'm determining all possible roles, behavior, and states of the user.
+
+270
+00:39:23.650 --> 00:39:28.000
+Jitendra K: And outline, the given… user
+
+271
+00:39:28.180 --> 00:39:34.409
+Jitendra K: So now, this is the instruction that I've given to the… as a system prompt. This is my system prompt.
+
+272
+00:39:34.800 --> 00:39:36.520
+Jitendra K: Which will remain fixed now.
+
+273
+00:39:37.030 --> 00:39:37.820
+Jitendra K: Right?
+
+274
+00:39:38.010 --> 00:39:43.719
+Jitendra K: Now, I have a user prompt, where I'm saying, in a room there are 3 people, ABC,
+
+275
+00:39:44.020 --> 00:39:49.220
+Jitendra K: One of them tells the truth, one always lies, and one alternate between the truth and lies.
+
+276
+00:39:49.650 --> 00:39:56.839
+Jitendra K: Now, A and B… A says B is liar, B says C is… is alternate between truth and lies.
+
+277
+00:39:57.040 --> 00:40:01.409
+Jitendra K: She says, Amy and I both are liars. Determine the nature.
+
+278
+00:40:01.960 --> 00:40:14.149
+Jitendra K: determine which one is a liar, right? So that is what the instruction been given to solve a logical puzzle. Now, it can solve any kind of logical puzzle, right? This is one such logical puzzle, which is having
+
+279
+00:40:14.530 --> 00:40:18.550
+Jitendra K: Certain facts and some conditions into it.
+
+280
+00:40:19.120 --> 00:40:23.650
+Jitendra K: So, it will use this facts and condition to generate an answer.
+
+281
+00:40:26.860 --> 00:40:30.880
+Jitendra K: Okay, this is, again, failing, let me check why.
+
+282
+00:41:23.210 --> 00:41:26.780
+Jitendra K: This is due to my API limit issue, let me check my API.
+
+283
+00:42:54.720 --> 00:42:56.570
+Jitendra K: So this is what it is showing.
+
+284
+00:42:57.410 --> 00:42:59.020
+Jitendra K: As a part of my output.
+
+285
+00:42:59.830 --> 00:43:03.299
+Jitendra K: In the previous example, it is showing 0 or 0 minute.
+
+286
+00:43:07.580 --> 00:43:09.820
+Jitendra K: 60 minutes is equals to 1 hour.
+
+287
+00:43:11.240 --> 00:43:14.670
+Jitendra K: Okay, so here it is filling to convert.
+
+288
+00:43:15.790 --> 00:43:21.000
+Jitendra K: Okay, 0… Remaining is 0.
+
+289
+00:43:23.700 --> 00:43:31.409
+Jitendra K: But the standard response is this, chain of thought is… Calculating this volume correctly…
+
+290
+00:43:32.090 --> 00:43:35.320
+Jitendra K: Remaining volume is zero, that is the issue here.
+
+291
+00:43:47.530 --> 00:43:50.470
+Jitendra K: Yeah, we need to… Change the prompt.
+
+292
+00:43:51.240 --> 00:43:55.409
+Jitendra K: To make it, I think the conversion is failing.
+
+293
+00:43:55.770 --> 00:44:00.279
+Jitendra K: And this is a classical example where you can be able to trace the prompt as well, right?
+
+294
+00:44:00.460 --> 00:44:06.630
+Jitendra K: So you can see that my prompt, although I have written, but I am not getting the expected response.
+
+295
+00:44:06.900 --> 00:44:13.559
+Jitendra K: It is always advisable that you can see, the standard prompt and the chain of thought prompt.
+
+296
+00:44:13.730 --> 00:44:19.230
+Jitendra K: When you're generating the answer, or maybe when you're writing the code, right? So when you're writing an agentic code.
+
+297
+00:44:19.640 --> 00:44:22.719
+Jitendra K: Just tried to see… there's a bug here, right?
+
+298
+00:44:22.870 --> 00:44:23.910
+Jitendra K: So…
+
+299
+00:44:28.890 --> 00:44:31.150
+Jitendra K: So I need to change this prompt.
+
+300
+00:44:32.710 --> 00:44:34.869
+Jitendra K: Is a solution for this.
+
+301
+00:45:17.270 --> 00:45:22.109
+Jitendra K: So I have to add some sanity check into this, so that it should perform.
+
+302
+00:45:22.510 --> 00:45:28.499
+Jitendra K: the calculation… the proper… So I'm just writing a sanity check.
+
+303
+00:45:32.970 --> 00:45:34.689
+Jitendra K: Rules are similar.
+
+304
+00:45:35.870 --> 00:45:37.079
+Jitendra K: If we've done this.
+
+305
+00:45:56.170 --> 00:45:58.230
+Jitendra K: Now it is giving the right answer.
+
+306
+00:45:59.320 --> 00:46:01.659
+Jitendra K: 15 hour, 42-minute tour flow.
+
+307
+00:46:03.100 --> 00:46:07.089
+Jitendra K: By doing a sanity check here, you can able to get better results.
+
+308
+00:46:10.860 --> 00:46:14.379
+Jitendra K: Alright, so I will share this sheet with everyone.
+
+309
+00:46:15.500 --> 00:46:20.399
+Jitendra K: So this is a chain of thought instruction prompt that we have just understood.
+
+310
+00:46:21.110 --> 00:46:27.240
+Jitendra K: And, now we move on to 3 of Thought. So before moving on to Tree of Thought,
+
+311
+00:46:27.690 --> 00:46:31.109
+Jitendra K: Can you guys just run this and let me know if there's any question?
+
+312
+00:46:31.520 --> 00:46:33.490
+Jitendra K: Let me delete the previous prompt.
+
+313
+00:46:34.630 --> 00:46:36.299
+Jitendra K: This one I will delete.
+
+314
+00:46:45.570 --> 00:46:49.400
+Jitendra K: The remaining thing is fine. I can delete this one as well.
+
+315
+00:47:18.440 --> 00:47:21.899
+Jitendra K: Can you guys just please try this example and let me know if there's any question?
+
+316
+00:47:22.360 --> 00:47:27.300
+Jitendra K: This is a good opportunity, because if you want to improve your prompter skills, please…
+
+317
+00:47:28.140 --> 00:47:30.690
+Jitendra K: Check and let me know if there's any question.
+
+318
+00:52:35.750 --> 00:52:41.100
+Jitendra K: Yeah, so you need to use the prompt templates for writing the system prompt and user prompt, both.
+
+319
+00:52:42.580 --> 00:52:46.200
+Jitendra K: So, this particular template we are going to use in system prompt.
+
+320
+00:53:03.790 --> 00:53:09.099
+Jitendra K: Is everybody able to understand the COT prompts now? Any issue with COT?
+
+321
+00:53:09.780 --> 00:53:12.160
+Jitendra K: Before we move on to Tree of Thoughts.
+
+322
+00:53:25.000 --> 00:53:29.879
+Jitendra K: Yeah, please use this collab notebook, which is having…
+
+323
+00:53:34.720 --> 00:53:41.119
+Jitendra K: Yeah, please take, some… Five more minutes, and just try to make sure that you understand this.
+
+324
+00:56:13.840 --> 00:56:19.640
+Jitendra K: Yes, you can use a calibrator tool, but in the calibrator tool, also, you need to write instructions, right?
+
+325
+00:56:20.030 --> 00:56:25.329
+Jitendra K: So the same behavior for a tool also applicable. So we are using a tool as a node.
+
+326
+00:56:26.010 --> 00:56:32.929
+Jitendra K: During your agent tick orchestration, That is also required a system prompt to understand the instruction from the user.
+
+327
+00:56:33.210 --> 00:56:38.460
+Jitendra K: So, yes, you can create a tool, and then register the tool in your MCP server.
+
+328
+00:56:38.740 --> 00:56:43.789
+Jitendra K: And then, hmm… Based upon the intent router, which,
+
+329
+00:56:44.350 --> 00:56:46.910
+Jitendra K: Basically, given by the user as a query.
+
+330
+00:56:47.070 --> 00:56:48.579
+Jitendra K: You will be able to call that.
+
+331
+00:56:54.660 --> 00:57:01.760
+Jitendra K: Alright, so let's move on to the tree of thought patterns now. So, we'll move on to a second type of prompt instruction technique.
+
+332
+00:57:02.240 --> 00:57:08.309
+Jitendra K: which is called TOT, or Tree of Thought. So, Tree of Thought is also one of the important, techniques.
+
+333
+00:57:10.200 --> 00:57:17.740
+Jitendra K: Which we'll cover under, the complex from technical analysis as well.
+
+334
+00:57:18.120 --> 00:57:22.139
+Jitendra K: So what Tree of Thought does is… Let me open my notebook.
+
+335
+00:57:43.920 --> 00:57:47.650
+Jitendra K: So, Tree of Thought, will convert.
+
+336
+00:57:49.050 --> 00:57:51.789
+Jitendra K: Your questions into multiple hop reasoning.
+
+337
+00:57:52.280 --> 00:57:54.499
+Jitendra K: That means it will try to find it out.
+
+338
+00:57:54.830 --> 00:58:00.459
+Jitendra K: the… All possible solution for your problem.
+
+339
+00:58:00.730 --> 00:58:08.469
+Jitendra K: So Tree of Thought is an advanced AI prompting framework that will certainly go to improve the complex problem solving by enabling the LLM to explore
+
+340
+00:58:08.600 --> 00:58:11.839
+Jitendra K: Evaluate and backtrack through multiple reasoning paths.
+
+341
+00:58:12.320 --> 00:58:17.509
+Jitendra K: So it's like a reassembling a tree structure, unlike a chain of thought.
+
+342
+00:58:17.710 --> 00:58:21.670
+Jitendra K: Tree of thought and generate multiple potential next steps.
+
+343
+00:58:22.130 --> 00:58:24.620
+Jitendra K: And evaluate their effectiveness and search.
+
+344
+00:58:24.910 --> 00:58:27.110
+Jitendra K: For optimal parameters.
+
+345
+00:58:27.220 --> 00:58:31.520
+Jitendra K: And make it ideal for a task which requires strategic planning or exploration.
+
+346
+00:58:31.900 --> 00:58:40.479
+Jitendra K: That means, through decomposition, you can achieve better results by breaking down your problem into smaller, actionable steps.
+
+347
+00:58:41.720 --> 00:58:47.609
+Jitendra K: And thought generation, where you're going to create multiple possible steps for each node in the tree.
+
+348
+00:58:47.910 --> 00:58:54.519
+Jitendra K: And also, you can add some evaluation criterias before we move on to the next step, right? So you can add some criterias.
+
+349
+00:58:54.860 --> 00:58:58.210
+Jitendra K: Accessing the potential, use cases.
+
+350
+00:58:58.500 --> 00:59:03.109
+Jitendra K: And then, you can also utilize the algorithms like bread-first search and depth-first search.
+
+351
+00:59:03.400 --> 00:59:08.660
+Jitendra K: to explore the thought space. So this is one of the important
+
+352
+00:59:08.860 --> 00:59:14.980
+Jitendra K: Prompt technique that you can able to use for… Writing the complex use cases.
+
+353
+00:59:16.830 --> 00:59:22.960
+Jitendra K: Now let's try to understand how we can able to use Tree of Thought for creating a good amount of use cases.
+
+354
+00:59:25.940 --> 00:59:30.370
+Jitendra K: So… This is… One other example.
+
+355
+00:59:31.540 --> 00:59:33.720
+Jitendra K: let's say I'm creating a system prompt.
+
+356
+00:59:34.170 --> 00:59:41.519
+Jitendra K: Where I'm defining some responsibility to my system by saying that you are solving a problem, generate 3 different approaches.
+
+357
+00:59:41.870 --> 00:59:46.110
+Jitendra K: We scored these approaches on a scale of 1 to 10, and then developed the best one.
+
+358
+00:59:46.930 --> 00:59:57.119
+Jitendra K: So the user has provided a prompt, find a minimum number of moves to sort, 312. That means it is looking for optimal solution, minimum number of moves.
+
+359
+00:59:57.760 --> 01:00:01.900
+Jitendra K: And I would like to sort this list, which is having 3 elements.
+
+360
+01:00:02.910 --> 01:00:06.710
+Jitendra K: So, it suggested 3 approaches. One is the bubble sort.
+
+361
+01:00:06.970 --> 01:00:08.960
+Jitendra K: where I will swap the variables.
+
+362
+01:00:09.520 --> 01:00:13.190
+Jitendra K: Which is on order of N square. Very simple, but…
+
+363
+01:00:13.530 --> 01:00:16.459
+Jitendra K: Complex in terms of operational time complexity.
+
+364
+01:00:17.190 --> 01:00:22.520
+Jitendra K: insertion short, where I would like to… Generate
+
+365
+01:00:23.380 --> 01:00:25.820
+Jitendra K: Efficient search on a scale of N.
+
+366
+01:00:26.430 --> 01:00:32.129
+Jitendra K: order of N, and count sort, which is also working on order of n. So it is giving the score.
+
+367
+01:00:32.590 --> 01:00:37.210
+Jitendra K: On a scale of 0 to 10, Or 1 to 10.
+
+368
+01:00:37.360 --> 01:00:44.529
+Jitendra K: So, 9 being the highest, so I will say count sort will be… Useful for solving this problem.
+
+369
+01:00:44.730 --> 01:00:47.399
+Jitendra K: And the problem is very simple, I have to sort.
+
+370
+01:00:47.760 --> 01:00:48.649
+Jitendra K: a list.
+
+371
+01:00:51.250 --> 01:00:54.729
+Jitendra K: But it finds some alternative approach to solve this problem.
+
+372
+01:00:55.140 --> 01:00:55.900
+Jitendra K: Right?
+
+373
+01:00:56.160 --> 01:01:02.449
+Jitendra K: So basically, the idea of Tree of Thought is very simple. It will try to break down your problem into multiple reasoning traces.
+
+374
+01:01:02.930 --> 01:01:08.180
+Jitendra K: And each reasoning traces will be evaluated. And what are the criteria for evaluation?
+
+375
+01:01:08.400 --> 01:01:11.050
+Jitendra K: I haven't given any criteria for evaluation here.
+
+376
+01:01:11.610 --> 01:01:18.610
+Jitendra K: I'm just saying that each score should be on a scale of 1 to 10. So the criteria of evaluation would be operation time complexity.
+
+377
+01:01:21.220 --> 01:01:23.699
+Jitendra K: Right? Or the time complexity of the search.
+
+378
+01:01:23.980 --> 01:01:25.520
+Jitendra K: So, it is sorting.
+
+379
+01:01:25.740 --> 01:01:27.610
+Jitendra K: By using some internet data.
+
+380
+01:01:27.750 --> 01:01:33.859
+Jitendra K: So, there's a lot of blogs which talks about Comparison of different sorting algorithms.
+
+381
+01:01:34.190 --> 01:01:36.080
+Jitendra K: So, this model has been trained
+
+382
+01:01:36.190 --> 01:01:45.850
+Jitendra K: with a lot of data, such data, so it is… it is having a very clear understanding that if I'm going to use operation time complexity or time complexity analysis.
+
+383
+01:01:46.390 --> 01:01:50.189
+Jitendra K: which is object notation, I will be able to achieve better results.
+
+384
+01:01:54.860 --> 01:02:00.160
+Jitendra K: So let's take an example, some more advanced example, to understand tree of thought pattern.
+
+385
+01:02:00.480 --> 01:02:08.130
+Jitendra K: And then we will… move on to the other patterns. So first, let me… Go back to my collab.
+
+386
+01:02:53.270 --> 01:02:55.029
+Jitendra K: Let me quickly open this.
+
+387
+01:04:05.950 --> 01:04:08.329
+Jitendra K: Okay, let me use this prompt.
+
+388
+01:04:08.970 --> 01:04:10.280
+Jitendra K: Hmm, let me show you.
+
+389
+01:04:10.720 --> 01:04:12.550
+Jitendra K: What's the problem, what I'm going to do?
+
+390
+01:04:12.970 --> 01:04:16.559
+Jitendra K: So this is what I'm going to share as an example.
+
+391
+01:04:16.710 --> 01:04:19.840
+Jitendra K: And this example, we will use tree of thought pattern.
+
+392
+01:04:20.010 --> 01:04:21.170
+Jitendra K: To solve this.
+
+393
+01:04:23.100 --> 01:04:26.660
+Jitendra K: Now, here you can see in this example that I'm using.
+
+394
+01:04:30.910 --> 01:04:38.539
+Jitendra K: some… Some… some sort of, imagination. I mean, these are all hypothetical questions.
+
+395
+01:04:38.970 --> 01:04:44.820
+Jitendra K: Now, what I'm going to do is, I would like to simulate this example, right, using Tree of Thought.
+
+396
+01:04:57.850 --> 01:05:00.150
+Jitendra K: Let me just oversimplify this.
+
+397
+01:05:06.280 --> 01:05:12.860
+Jitendra K: Okay, so now here the question is, I have given some assumption by saying that imagine there are 3 different experts.
+
+398
+01:05:13.030 --> 01:05:16.859
+Jitendra K: which are answering the same questions. All experts will write down.
+
+399
+01:05:17.040 --> 01:05:21.879
+Jitendra K: The first thing they are going to do is, is to write the steps of their thinking, then share with the group.
+
+400
+01:05:22.120 --> 01:05:29.439
+Jitendra K: Then all experts will go through the next step. If any expert realized that their answers are wrong at any point of time, the question is.
+
+401
+01:05:30.690 --> 01:05:32.440
+Jitendra K: Simulate 3 billion.
+
+402
+01:05:32.680 --> 01:05:35.999
+Jitendra K: Logical expert, collaborative answers, and questions.
+
+403
+01:05:36.490 --> 01:05:48.819
+Jitendra K: And then I'm giving some instruction, and then some set of exceptions, right? So this is the analysis that I'm going to perform with the help of condition. That means the condition will have some routing mechanism.
+
+404
+01:05:48.970 --> 01:05:56.540
+Jitendra K: Based upon the based upon my input that I'm going to provide, right?
+
+405
+01:05:56.930 --> 01:06:04.729
+Jitendra K: Now, the question is, if I'm going to use chain of thought versus tree of thought, what do you think that which one is going to consume more tokens?
+
+406
+01:06:09.300 --> 01:06:13.049
+Jitendra K: Which algorithm will use more tokens? Free of thought?
+
+407
+01:06:13.790 --> 01:06:14.890
+Jitendra K: That's correct.
+
+408
+01:06:15.150 --> 01:06:20.490
+Jitendra K: Because it will explore multiple routes to generate the answer. And then.
+
+409
+01:06:20.650 --> 01:06:23.920
+Jitendra K: It will also use LLM as a critic inside it.
+
+410
+01:06:24.320 --> 01:06:29.129
+Jitendra K: I mean, there's a… I can show you the package as well, how it has been defined.
+
+411
+01:06:29.410 --> 01:06:35.060
+Jitendra K: But there's a critic inside Itself, where each board.
+
+412
+01:06:35.490 --> 01:06:41.680
+Jitendra K: will be… Verified, and then generate to a next steps.
+
+413
+01:06:46.380 --> 01:06:56.610
+Jitendra K: Yes, this could be one example where we are not providing any observations, not any involvement. So this is… but we are not using explicit rewoop package.
+
+414
+01:06:56.740 --> 01:07:02.240
+Jitendra K: it's subjective, because Review will be… Something additional.
+
+415
+01:07:03.600 --> 01:07:07.280
+Jitendra K: Here we are not talking about any observations and environment.
+
+416
+01:07:07.550 --> 01:07:09.950
+Jitendra K: But we are just using the facts and…
+
+417
+01:07:10.750 --> 01:07:16.320
+Jitendra K: I would say logical manipulation on the data, right? So this kind of pattern will be very, very useful.
+
+418
+01:07:16.520 --> 01:07:22.650
+Jitendra K: When you're performing a very thorough analysis on legal documents, let's say you're creating some agents for legal documents.
+
+419
+01:07:22.820 --> 01:07:25.350
+Jitendra K: And I would like to use…
+
+420
+01:07:25.530 --> 01:07:31.559
+Jitendra K: you are puzzled, like, which technique should I use, whether I should go with COT or TOT.
+
+421
+01:07:31.750 --> 01:07:37.680
+Jitendra K: So I will definitely suggest go for TOT if you're not sure about the patterns in the data.
+
+422
+01:07:38.810 --> 01:07:40.659
+Jitendra K: Right? Because if you code.
+
+423
+01:07:41.140 --> 01:07:47.959
+Jitendra K: with COT, chain of thought, and you miss any condition, it'll give a weird answer to the user every time.
+
+424
+01:07:48.410 --> 01:07:50.889
+Jitendra K: So make sure that when you're using a tree of thought.
+
+425
+01:07:52.430 --> 01:07:59.639
+Jitendra K: you will list down all the assumptions, all the logical comprehension that you'd like to drive. I will give an example, let's say…
+
+426
+01:08:00.130 --> 01:08:03.679
+Jitendra K: of… You're creating a system prompt for an agent.
+
+427
+01:08:04.010 --> 01:08:11.389
+Jitendra K: Which will do some… risk rating analysis on the underlying factors. Let's say the factors are
+
+428
+01:08:15.270 --> 01:08:17.189
+Jitendra K: market indicators.
+
+429
+01:08:17.390 --> 01:08:21.489
+Jitendra K: And they are linked with GDP or some other macroeconomic variables, right?
+
+430
+01:08:22.850 --> 01:08:30.229
+Jitendra K: So in those scenarios, what you need to do is, you need to understand what are the set of constraints, how many factors you should consider.
+
+431
+01:08:30.420 --> 01:08:33.079
+Jitendra K: Before you generate any answer to the user query.
+
+432
+01:08:33.439 --> 01:08:36.319
+Jitendra K: And then, you are going to utilize…
+
+433
+01:08:36.680 --> 01:08:44.109
+Jitendra K: this pattern to perform the analysis, right? So, first and foremost thing, what you need to do is…
+
+434
+01:08:44.590 --> 01:08:48.189
+Jitendra K: You need to… Think of all the exceptions.
+
+435
+01:08:55.090 --> 01:08:58.799
+Jitendra K: So once you have a list of exceptions, the very next thing that you're going to do is…
+
+436
+01:08:59.200 --> 01:09:05.610
+Jitendra K: you're going to join the conditions, right? So, first and foremost thing was, once you have a list of exceptions that I'm going to use.
+
+437
+01:09:05.710 --> 01:09:09.999
+Jitendra K: these analysts with the help of this agent. I have a defined boundaries now.
+
+438
+01:09:10.200 --> 01:09:18.609
+Jitendra K: And then, finally, I'm going to use these exceptions to be create, joined by a condition.
+
+439
+01:09:18.859 --> 01:09:25.120
+Jitendra K: So in those scenarios, Tree of Thought will be very, very useful. And then it will give you a very good amount of
+
+440
+01:09:25.500 --> 01:09:27.990
+Jitendra K: control over the…
+
+441
+01:09:29.399 --> 01:09:36.489
+Jitendra K: prompts that you're going to write. And as we have already seen that the… when you're writing a system prompt, you are defining
+
+442
+01:09:36.930 --> 01:09:41.770
+Jitendra K: The responsibilities that you're going to allocate to an agent.
+
+443
+01:09:41.939 --> 01:09:47.100
+Jitendra K: And then you're going to start with writing the logical flow of that particular prompt.
+
+444
+01:09:47.550 --> 01:09:50.039
+Jitendra K: Right? So similarly, we are going to solve this problem.
+
+445
+01:09:50.390 --> 01:09:52.529
+Jitendra K: And I'm going to show you how to solve this.
+
+446
+01:09:54.229 --> 01:09:59.290
+Jitendra K: Let me go back to the solution now. So this is the problem, and this is what we are going as a solution.
+
+447
+01:09:59.670 --> 01:10:02.350
+Jitendra K: Now, this is a solution for this prompt.
+
+448
+01:10:04.250 --> 01:10:07.189
+Jitendra K: I will explain the code in a while. First, let me run this.
+
+449
+01:11:08.540 --> 01:11:11.880
+Jitendra K: So I'm just solving the same puzzle which I have given earlier.
+
+450
+01:11:12.570 --> 01:11:17.039
+Jitendra K: And then it determined… the output.
+
+451
+01:11:20.400 --> 01:11:23.669
+Jitendra K: So you can see that how nicely it is creating a logical constraint.
+
+452
+01:11:24.430 --> 01:11:29.430
+Jitendra K: And then analysis on the statements, and followed by… the steps.
+
+453
+01:11:41.440 --> 01:11:48.699
+Jitendra K: So it is verifying each and every steps with the proper reasoning and the permutations which may be utilized for that scenario.
+
+454
+01:11:54.140 --> 01:11:56.450
+Jitendra K: So it is quite extensive search.
+
+455
+01:11:57.460 --> 01:12:02.420
+Jitendra K: And then, finally, performing the analysis to exclude the criterias.
+
+456
+01:12:02.710 --> 01:12:04.570
+Jitendra K: And then generating the scores.
+
+457
+01:12:05.500 --> 01:12:07.580
+Jitendra K: To perform this analysis.
+
+458
+01:12:11.140 --> 01:12:15.479
+Jitendra K: Okay, now let me show you the code, what exactly we have done here.
+
+459
+01:12:16.100 --> 01:12:20.330
+Jitendra K: So we are using a tree of thought as a pattern to write this.
+
+460
+01:12:20.460 --> 01:12:25.840
+Jitendra K: prompt, right? So this is a pattern that we are using to write a prompt. Design pattern, you can consider.
+
+461
+01:12:26.290 --> 01:12:29.520
+Jitendra K: Now, in this design pattern, when I'm using a tree of thought.
+
+462
+01:12:29.780 --> 01:12:32.360
+Jitendra K: The first and foremost thing that I'm using is…
+
+463
+01:12:32.890 --> 01:12:39.150
+Jitendra K: the, the prompt template, again, the same class, which is… we have used in Chain of Thought as well.
+
+464
+01:12:39.340 --> 01:12:45.100
+Jitendra K: So this is a simple interface that I'm going to use that will create a reusable prompt template with variable.
+
+465
+01:12:45.350 --> 01:12:48.389
+Jitendra K: Standard output parsers, I will use…
+
+466
+01:12:48.740 --> 01:12:52.040
+Jitendra K: to extract string contents from LLM response.
+
+467
+01:12:52.190 --> 01:12:53.910
+Jitendra K: And removing the metadata.
+
+468
+01:12:54.050 --> 01:12:59.059
+Jitendra K: some API configuration, which I need to pass, initialize the LLM model.
+
+469
+01:13:00.380 --> 01:13:03.019
+Jitendra K: Now, defining the puzzle, so I'm saying…
+
+470
+01:13:03.150 --> 01:13:06.260
+Jitendra K: I have, this puzzle which talks about
+
+471
+01:13:06.630 --> 01:13:12.390
+Jitendra K: The same nature of logical comprehension between A, B, and C users, and I would like to find who's the liar.
+
+472
+01:13:12.780 --> 01:13:20.589
+Jitendra K: Then I'm creating an expert template. So this is a template that I'm using, where I have an expert role, which I can define.
+
+473
+01:13:21.160 --> 01:13:29.059
+Jitendra K: I've worked… Other experts, list of other collaborators, the scenarios, which I'm using for testing this puzzles.
+
+474
+01:13:29.400 --> 01:13:37.150
+Jitendra K: Any prior reasoning, any prior steps that has been completed from the previous node, it will pass on as a variable.
+
+475
+01:13:37.480 --> 01:13:43.999
+Jitendra K: then I would like to determine the steps. It is a four-step process, so I would like to follow that steps.
+
+476
+01:13:44.260 --> 01:13:47.120
+Jitendra K: And the instruction given by that particular step.
+
+477
+01:13:47.250 --> 01:13:50.860
+Jitendra K: The scoring logic template is also defined.
+
+478
+01:13:51.420 --> 01:13:55.880
+Jitendra K: So, each scoring… Will be on a 5-point scale.
+
+479
+01:13:56.120 --> 01:13:59.859
+Jitendra K: And these are the 5-point scales parameters.
+
+480
+01:14:00.310 --> 01:14:04.500
+Jitendra K: And then I would like to critically eliminate, some of the…
+
+481
+01:14:04.760 --> 01:14:10.179
+Jitendra K: logics, which is below 2.5 across the group. That means I'm using some voting criterias.
+
+482
+01:14:10.780 --> 01:14:14.310
+Jitendra K: And then, I would like to restrict the output format parsing.
+
+483
+01:14:14.510 --> 01:14:17.120
+Jitendra K: Based upon the generated response.
+
+484
+01:14:17.790 --> 01:14:22.170
+Jitendra K: Now I've got the consensus template, which is basically…
+
+485
+01:14:22.770 --> 01:14:27.860
+Jitendra K: synthesize all the prior reasoning, and I'm requiring 3 outputs.
+
+486
+01:14:28.440 --> 01:14:32.290
+Jitendra K: The first is, I need to have some definite answers.
+
+487
+01:14:32.870 --> 01:14:36.969
+Jitendra K: Then justification and the attribution that had been used to select this answer.
+
+488
+01:14:37.470 --> 01:14:39.280
+Jitendra K: Now I'm writing some steps.
+
+489
+01:14:41.160 --> 01:14:46.730
+Jitendra K: where I'm instructing To formulate the fat extraction.
+
+490
+01:14:47.320 --> 01:14:51.940
+Jitendra K: Permotation generation, that means all possible assignments, scenarios.
+
+491
+01:14:52.190 --> 01:15:00.379
+Jitendra K: And then, if there's any assumptions that may require further breakdown of that condition, I'm using hypothesis testing.
+
+492
+01:15:00.710 --> 01:15:09.550
+Jitendra K: And then, I would like to exclude some unique criterias for contradictory statement and Making the conclusions.
+
+493
+01:15:10.050 --> 01:15:12.509
+Jitendra K: Now, the experts that I'm having is…
+
+494
+01:15:12.870 --> 01:15:18.910
+Jitendra K: Basically, these are the three experts. You cannot… you cannot say that these are the agents, they are just the nodes in the tree.
+
+495
+01:15:19.100 --> 01:15:21.140
+Jitendra K: They're not agents, first of all.
+
+496
+01:15:21.690 --> 01:15:26.800
+Jitendra K: Then I've got mathematician, logical, and philosopher. These are all three experts, given in my problem.
+
+497
+01:15:27.200 --> 01:15:33.719
+Jitendra K: And then, I'm creating a simple helper function that will take a template, strings, and list of variable names.
+
+498
+01:15:34.020 --> 01:15:36.550
+Jitendra K: And then, initialize the prompt template.
+
+499
+01:15:37.280 --> 01:15:38.579
+Jitendra K: And then chain it.
+
+500
+01:15:39.350 --> 01:15:40.770
+Jitendra K: generate the answer.
+
+501
+01:15:42.090 --> 01:15:46.919
+Jitendra K: Now, I'm using… The export chain 8 variable.
+
+502
+01:15:47.570 --> 01:15:49.709
+Jitendra K: To follow the same steps.
+
+503
+01:15:49.990 --> 01:15:55.409
+Jitendra K: And the scoring logic, 4 variables. And the consensus chain, which is having 3 variables.
+
+504
+01:15:55.830 --> 01:15:57.969
+Jitendra K: Now I'm going to run the Tree of Thought.
+
+505
+01:16:01.150 --> 01:16:02.190
+Jitendra K: pattern.
+
+506
+01:16:02.340 --> 01:16:03.880
+Jitendra K: And then it will execute.
+
+507
+01:16:04.460 --> 01:16:08.199
+Jitendra K: Right? So I'm running this whole logic in the form of a loop.
+
+508
+01:16:08.900 --> 01:16:13.190
+Jitendra K: So basically, I have to just give you a very systematic overview of this tree.
+
+509
+01:16:14.020 --> 01:16:19.050
+Jitendra K: it will be like this. So the first tab would be the fact extraction.
+
+510
+01:16:19.190 --> 01:16:21.400
+Jitendra K: Where I'm going to call these nodes.
+
+511
+01:16:21.970 --> 01:16:26.960
+Jitendra K: The permutation generation, which will call these nodes, and the hypothesis testing.
+
+512
+01:16:27.240 --> 01:16:31.089
+Jitendra K: If any, I don't think so it is running, and a deduction and conclusion.
+
+513
+01:16:31.700 --> 01:16:38.620
+Jitendra K: So basically, this is what it does, very systematic analysis being performed by using tree of thought, right?
+
+514
+01:16:39.010 --> 01:16:43.149
+Jitendra K: So the whole idea that I would like to talk about is, tree of thought.
+
+515
+01:16:44.130 --> 01:16:51.750
+Jitendra K: Maybe expensive when you're running a small task, simple task, because it is using too many tokens to generalize the answer.
+
+516
+01:16:52.120 --> 01:16:54.850
+Jitendra K: And unnecessary, you end up into too many…
+
+517
+01:16:56.220 --> 01:16:59.449
+Jitendra K: Checks, spectral checks, consistency checks.
+
+518
+01:16:59.900 --> 01:17:02.980
+Jitendra K: And, that can be a problem when you are…
+
+519
+01:17:03.310 --> 01:17:08.489
+Jitendra K: you know, bound with a token limitations. Don't use tree of thought for solving simple problem.
+
+520
+01:17:09.560 --> 01:17:19.040
+Jitendra K: Use Tree of Thought for solving the problems which are cold start. That means you don't have any idea about it. You're exploring the solution.
+
+521
+01:17:19.250 --> 01:17:21.829
+Jitendra K: So you can use Tree of Thought for solving those.
+
+522
+01:17:22.000 --> 01:17:33.490
+Jitendra K: problems, right? Where you are clueless about domain, where you're clueless about data part, where you don't have any understanding on the document structures.
+
+523
+01:17:33.850 --> 01:17:35.450
+Jitendra K: Then you can use Tree of Thought.
+
+524
+01:17:35.630 --> 01:17:38.300
+Jitendra K: But it may, again, as I mentioned.
+
+525
+01:17:38.470 --> 01:17:43.719
+Jitendra K: You need to define a set of constraints, which is always beneficial when you start a tree of thought.
+
+526
+01:17:43.890 --> 01:17:53.819
+Jitendra K: And for doing this, you need to talk to your business, you need to get in touch with your SMEs, understand their problems, try to break down the problem into multiple subparts.
+
+527
+01:17:53.970 --> 01:18:04.199
+Jitendra K: And then for each subpart, you need to work on subproblem formulation. And that is a best practice that you can able to use to write a sleet of thought patterns
+
+528
+01:18:04.300 --> 01:18:08.510
+Jitendra K: And make it… More comprehensively fit for your use cases.
+
+529
+01:18:12.220 --> 01:18:14.710
+Jitendra K: So, any question on this, guys? Anything?
+
+530
+01:18:15.350 --> 01:18:18.090
+Jitendra K: that you would like to ask? Can you please run this?
+
+531
+01:18:40.080 --> 01:18:44.469
+Jitendra K: Would it generate better response on TOT based upon LM we choose?
+
+532
+01:18:45.750 --> 01:18:49.570
+Jitendra K: If you're using a reasoning-based model, like Gemini.
+
+533
+01:18:50.060 --> 01:18:52.950
+Jitendra K: Or cloth on it and above.
+
+534
+01:18:54.460 --> 01:18:59.960
+Jitendra K: Definitely, it will change the scope of reasoning, for sure, if you're using a better model.
+
+535
+01:19:00.220 --> 01:19:01.640
+Jitendra K: Better reasoning model.
+
+536
+01:19:02.270 --> 01:19:07.949
+Jitendra K: So if you're using a better reasoning model, which can be able to solve mathematical tasks, you're…
+
+537
+01:19:08.190 --> 01:19:13.139
+Jitendra K: Logical comprehension task on a scale, it will improve the answer, for sure.
+
+538
+01:19:13.720 --> 01:19:17.059
+Jitendra K: But if your tasks are deterministic, that means…
+
+539
+01:19:17.530 --> 01:19:23.920
+Jitendra K: You have a const… sorry, you have a constant flow, or some simple flow.
+
+540
+01:19:24.210 --> 01:19:27.139
+Jitendra K: then LLM reasoning does not matter in those scenarios.
+
+541
+01:19:28.850 --> 01:19:32.379
+Jitendra K: But yeah, certainly the models which may have
+
+542
+01:19:32.710 --> 01:19:37.999
+Jitendra K: better reasoning capability as compared to the one that we are using, it may improve the answer for sure.
+
+543
+01:19:39.350 --> 01:19:41.960
+Jitendra K: Let's say if I have to compare the reasoning models.
+
+544
+01:19:51.100 --> 01:19:53.690
+Jitendra K: I should go to the leadership board.
+
+545
+01:19:54.770 --> 01:19:56.789
+Jitendra K: And I would like to look for it.
+
+546
+01:20:02.100 --> 01:20:08.090
+Jitendra K: So, if I go with Venom… Yeah, you can see Claude…
+
+547
+01:20:09.520 --> 01:20:14.010
+Jitendra K: 3.5 Oppos, and then Cloud OPUS 4.7, both are…
+
+548
+01:20:15.790 --> 01:20:19.970
+Jitendra K: At our top, GPT-5.5, which has been launched recently.
+
+549
+01:20:21.970 --> 01:20:24.240
+Jitendra K: GPT-5.2 and Gemini Pro.
+
+550
+01:20:26.040 --> 01:20:31.920
+Jitendra K: Yeah, they are not agents. These are not agents. Don't confuse this with agents. They are just prompts.
+
+551
+01:20:32.850 --> 01:20:34.409
+Jitendra K: They're not even agents.
+
+552
+01:20:42.610 --> 01:20:49.589
+Jitendra K: These are just system prompts. So we are instructing the prompts to perform the calculation in a certain manner.
+
+553
+01:20:52.040 --> 01:20:55.399
+Jitendra K: Yeah, that's correct. So this will be sent to LLM, that's correct.
+
+554
+01:21:26.290 --> 01:21:29.799
+Jitendra K: Let's try to see, I will create one prompt.
+
+555
+01:21:30.110 --> 01:21:32.559
+Jitendra K: Which will help us to solve our murder mystery.
+
+556
+01:21:32.680 --> 01:21:35.550
+Jitendra K: So let's assume, like, you're working like a detective.
+
+557
+01:21:36.040 --> 01:21:38.140
+Jitendra K: And, there are certain clues.
+
+558
+01:21:38.700 --> 01:21:43.830
+Jitendra K: And we would like to… Take one case study called Blackboard Manor Case.
+
+559
+01:21:44.570 --> 01:21:47.519
+Jitendra K: And the Blackfoot Manor case is one of the…
+
+560
+01:21:50.630 --> 01:21:53.389
+Jitendra K: Task which has been used by leadership board as well.
+
+561
+01:21:53.870 --> 01:21:55.689
+Jitendra K: to test the LLM response.
+
+562
+01:21:55.860 --> 01:22:00.830
+Jitendra K: So we'll use a tree of thought patterns to generate an insight on that murder case.
+
+563
+01:22:01.040 --> 01:22:03.940
+Jitendra K: And then see who's the victim, and who's the culprit.
+
+564
+01:22:05.490 --> 01:22:09.390
+Jitendra K: Does our LM support COT and TOT capability? Yes.
+
+565
+01:22:10.250 --> 01:22:11.870
+Jitendra K: Every LLM support.
+
+566
+01:22:11.980 --> 01:22:13.400
+Jitendra K: COT and TOT.
+
+567
+01:22:16.680 --> 01:22:23.349
+Jitendra K: So even the code writer agent that you're using, they are also using Tree of Thought, because that is a very expensive search.
+
+568
+01:22:23.660 --> 01:22:26.610
+Jitendra K: When you're writing a code, it's always an expensive search.
+
+569
+01:22:29.660 --> 01:22:33.200
+Jitendra K: And many LLMs like Claude, they are using their patents
+
+570
+01:22:33.350 --> 01:22:39.549
+Jitendra K: they're instruct… I mean, these companies are… running… On system prompt only.
+
+571
+01:22:40.720 --> 01:22:44.319
+Jitendra K: Right? Otherwise… LLMs are almost same.
+
+572
+01:22:45.300 --> 01:22:49.919
+Jitendra K: But they are using a system prompt to behave differently on a different task.
+
+573
+01:22:52.280 --> 01:23:00.860
+Jitendra K: Alright, so let's try to solve this murder mystery with the help of Tree of Thought Package. Let me give you an example of this. What are we trying to solve?
+
+574
+01:23:04.410 --> 01:23:10.060
+Jitendra K: So you're solving this case, the Blackboard Manor case.
+
+575
+01:23:15.330 --> 01:23:20.430
+Jitendra K: So, there's a priceless diamond that has been stolen from Blackboard Manor, and a detective has narrowed
+
+576
+01:23:20.650 --> 01:23:23.130
+Jitendra K: to 5 suspect, A, B, C, D, E.
+
+577
+01:23:23.950 --> 01:23:29.140
+Jitendra K: And, they have tapped… occurred between 9am… 9pm to 11pm.
+
+578
+01:23:29.590 --> 01:23:33.920
+Jitendra K: And these are the recorded, evidence from the…
+
+579
+01:23:35.690 --> 01:23:41.280
+Jitendra K: Owners, house owners, and support stuff.
+
+580
+01:23:42.380 --> 01:23:49.129
+Jitendra K: Okay, this is not a murder mystery, it's actually, it's a… Just a diamond theft, okay.
+
+581
+01:23:50.050 --> 01:23:55.740
+Jitendra K: Now, we would like to understand who stole a diamond and what is the complete sequence of events, right? So the experts…
+
+582
+01:23:55.890 --> 01:24:01.319
+Jitendra K: Involved in this case study include detectives, psychologists, logicians, forensic lawyers.
+
+583
+01:24:01.670 --> 01:24:07.520
+Jitendra K: And they will perform based upon their roles, right? So we're just using the statements.
+
+584
+01:24:08.080 --> 01:24:10.879
+Jitendra K: To understand a contradiction.
+
+585
+01:24:11.470 --> 01:24:13.029
+Jitendra K: Into these scenarios.
+
+586
+01:24:14.690 --> 01:24:20.529
+Jitendra K: So, first is a detective, where the role of detective is to understand the criminal investigator.
+
+587
+01:24:21.210 --> 01:24:25.820
+Jitendra K: Who will verify the timelines, identify the contradiction in witness statements.
+
+588
+01:24:26.320 --> 01:24:31.399
+Jitendra K: His speciality will include cross-referencing and collecting physical evidences.
+
+589
+01:24:31.550 --> 01:24:34.569
+Jitendra K: Psychologists will be more of a behavioral analyst.
+
+590
+01:24:35.030 --> 01:24:39.869
+Jitendra K: Who will evaluate deceptions, patterns, and motive in the suspect statement?
+
+591
+01:24:40.320 --> 01:24:44.840
+Jitendra K: And then look for identifying who's lying based on the statement structure.
+
+592
+01:24:45.060 --> 01:24:52.280
+Jitendra K: logical… Expert will form… The connection between the two sites.
+
+593
+01:24:53.020 --> 01:24:56.719
+Jitendra K: And use some mathematical model to perform the conditional analysis.
+
+594
+01:24:57.480 --> 01:25:03.259
+Jitendra K: Forensic analysts will analyze a physical evidence specialist, will be… act like a physical evidence specialist.
+
+595
+01:25:03.680 --> 01:25:09.679
+Jitendra K: Who will interpret the clues like footprint, uniforms, and access rights, and matching the physical evidence to the suspect.
+
+596
+01:25:10.060 --> 01:25:13.889
+Jitendra K: And ruling out the planted evidences. So this is a team now.
+
+597
+01:25:14.040 --> 01:25:16.340
+Jitendra K: And, these are a team of experts.
+
+598
+01:25:16.670 --> 01:25:21.580
+Jitendra K: Now, the steps that we are going to give is build an evidence map and timelines on the event.
+
+599
+01:25:21.920 --> 01:25:26.900
+Jitendra K: instruction we are giving We are giving a timeline.
+
+600
+01:25:27.290 --> 01:25:32.110
+Jitendra K: And then asking the model to understand the contractor claims.
+
+601
+01:25:32.510 --> 01:25:37.280
+Jitendra K: And then, goal is to identify a single liar using contradiction clues.
+
+602
+01:25:38.010 --> 01:25:42.789
+Jitendra K: And then we are given a set of constraints, similar to what we have given in the previous example.
+
+603
+01:25:43.110 --> 01:25:49.189
+Jitendra K: And then the goal we are giving to each node is this. That means these are all nodes, right?
+
+604
+01:25:49.380 --> 01:25:53.610
+Jitendra K: Because I'm creating a list of dictionaries, so it will become a tray of nodes.
+
+605
+01:25:54.370 --> 01:26:01.340
+Jitendra K: So then I'm saying the goal is to apply key vault, value key, and uniform constraints, and these are the instructions.
+
+606
+01:26:01.680 --> 01:26:05.669
+Jitendra K: For cost cross-referencing, and then another goal, followed by another goal.
+
+607
+01:26:06.030 --> 01:26:11.410
+Jitendra K: Now, this is the expert template, so I'm passing this expert name, expert role, and it will…
+
+608
+01:26:11.940 --> 01:26:21.249
+Jitendra K: Perform the multi, justification scenarios, and collecting the factual consistency of their, their statements.
+
+609
+01:26:21.420 --> 01:26:28.820
+Jitendra K: If the factual consistency of the statement is greater than 2.5, then only I will say this is permissible, otherwise it will be a factual error.
+
+610
+01:26:30.010 --> 01:26:34.980
+Jitendra K: So, this is what I'm doing as a part of Prompt.
+
+611
+01:26:37.610 --> 01:26:43.360
+Jitendra K: Template creation that each export will Work on that.
+
+612
+01:26:43.750 --> 01:26:46.179
+Jitendra K: Scenarios, and then generate their reply.
+
+613
+01:26:46.470 --> 01:26:50.030
+Jitendra K: And then finally, I will get a… aggregated response.
+
+614
+01:26:50.550 --> 01:26:51.989
+Jitendra K: So I'm going to run this…
+
+615
+01:27:07.140 --> 01:27:08.890
+Jitendra K: Let me pass on the key.
+
+616
+01:27:11.060 --> 01:27:13.150
+Jitendra K: So I will pass my key here.
+
+617
+01:27:18.810 --> 01:27:22.650
+Jitendra K: So the LLM Leadership Board is using these kind of
+
+618
+01:27:23.680 --> 01:27:29.760
+Jitendra K: So this is called… there is something called, right, Software Agent AI, there is something called AGI.
+
+619
+01:27:31.040 --> 01:27:33.819
+Jitendra K: So, we talk about genetic intelligence.
+
+620
+01:27:34.840 --> 01:27:38.770
+Jitendra K: So that means the agent will self… generate…
+
+621
+01:27:39.210 --> 01:27:49.660
+Jitendra K: their logical power and improve it over a period of time. So this… these are the kind of use cases which are part of the testing scenarios for agents as well, or LLMs as well.
+
+622
+01:27:53.970 --> 01:27:57.590
+Jitendra K: So you can see that it is going into the step number 2.
+
+623
+01:27:59.820 --> 01:28:01.580
+Jitendra K: I generated a scores.
+
+624
+01:28:09.570 --> 01:28:11.980
+Jitendra K: Then, looking for all possible scenarios.
+
+625
+01:28:35.060 --> 01:28:37.830
+Jitendra K: Spyclist also verifies something.
+
+626
+01:28:38.210 --> 01:28:40.659
+Jitendra K: And we'll move on to the third round.
+
+627
+01:28:42.400 --> 01:28:43.750
+Jitendra K: Physical analyst.
+
+628
+01:29:43.030 --> 01:29:47.820
+Jitendra K: Now, start reconstructing the complete sequence of event using Forensic.
+
+629
+01:29:49.510 --> 01:29:51.390
+Jitendra K: Then it will generate an answer.
+
+630
+01:31:10.400 --> 01:31:12.210
+Jitendra K: Lerning the final verdict.
+
+631
+01:33:10.880 --> 01:33:16.789
+Jitendra K: Yeah, if you're using a legal, console app, or aluminum console app.
+
+632
+01:33:17.200 --> 01:33:20.630
+Jitendra K: For legal document, I think, yeah, Tree of Thought will make sense.
+
+633
+01:33:23.240 --> 01:33:26.239
+Jitendra K: But again, as I mentioned, you need to understand the constraints.
+
+634
+01:33:26.690 --> 01:33:31.300
+Jitendra K: Before you use Tree of Thought, otherwise it will be very rigorous search.
+
+635
+01:33:31.550 --> 01:33:38.720
+Jitendra K: You need to cut the branches of the tree, right? That is something called pruning techniques in the… in machine learning.
+
+636
+01:33:38.900 --> 01:33:43.570
+Jitendra K: Same techniques apply in LLM. When you're searching an extensive search space.
+
+637
+01:33:43.880 --> 01:33:48.310
+Jitendra K: You need to use pruning, and pruning can be done with the help of constraints.
+
+638
+01:34:01.630 --> 01:34:03.170
+Jitendra K: Okay, final verdict.
+
+639
+01:34:04.970 --> 01:34:06.420
+Jitendra K: What is the final verdict?
+
+640
+01:34:10.250 --> 01:34:16.510
+Jitendra K: Everything is… Based on the thresholds, all the decisions are coming in the thresholds.
+
+641
+01:34:17.340 --> 01:34:20.410
+Jitendra K: Let's see what is the final verdict. We're stealing that diamond.
+
+642
+01:34:47.070 --> 01:34:51.389
+Jitendra K: So, Alina, the governess, has stolen the dimer.
+
+643
+01:34:51.750 --> 01:34:53.290
+Jitendra K: I steal the diamond.
+
+644
+01:34:54.010 --> 01:34:59.429
+Jitendra K: So… So this is a set of evidences and the conclusion.
+
+645
+01:35:08.050 --> 01:35:14.809
+Jitendra K: So, as you can see that this works like a very well-structured, reasoning-based prompt.
+
+646
+01:35:15.140 --> 01:35:20.000
+Jitendra K: And we have generated a very thorough reasoning on every aspect of this problem.
+
+647
+01:35:20.210 --> 01:35:24.750
+Jitendra K: Before coming to a conclusion, right? So, tree of thought, again, as I mentioned.
+
+648
+01:35:24.990 --> 01:35:27.829
+Jitendra K: You have to use with a pinch of salt, and then…
+
+649
+01:35:28.060 --> 01:35:30.649
+Jitendra K: Each and every step will be a reasoning task.
+
+650
+01:35:31.090 --> 01:35:32.190
+Jitendra K: As a node.
+
+651
+01:35:32.360 --> 01:35:33.180
+Jitendra K: Right?
+
+652
+01:35:33.340 --> 01:35:38.450
+Jitendra K: So you need to verify the output before delving into the new creation of another node.
+
+653
+01:35:39.060 --> 01:35:42.319
+Jitendra K: Otherwise, this structure will keep on growing.
+
+654
+01:35:42.820 --> 01:35:44.590
+Jitendra K: You cannot able to control it.
+
+655
+01:35:46.880 --> 01:35:48.710
+Jitendra K: So that is called height of the tree.
+
+656
+01:35:51.070 --> 01:35:55.059
+Jitendra K: Sorry, so this height of the tree, you need to cover with the help of…
+
+657
+01:35:55.570 --> 01:36:00.589
+Jitendra K: your constraint that you're going to employ. And these constraints will be applicable per node.
+
+658
+01:36:00.980 --> 01:36:06.400
+Jitendra K: that if I'm going to verify the output, which are actually consistent across the node or not.
+
+659
+01:36:06.770 --> 01:36:13.529
+Jitendra K: That has to be determined by some threshold values, and depending upon the threshold, it will create a new node.
+
+660
+01:36:14.680 --> 01:36:16.209
+Jitendra K: So,
+
+661
+01:36:16.930 --> 01:36:26.070
+Jitendra K: Tree of Thought is another very expensive method, but well structured, and with the help of constraint, you can able to govern the height of the tree as well.
+
+662
+01:36:27.240 --> 01:36:31.639
+Jitendra K: So, any question before we move on to the third pattern, guys? Any question on this?
+
+663
+01:36:38.080 --> 01:36:40.290
+Jitendra K: Shall we move on to the self-consistence?
+
+664
+01:36:40.420 --> 01:36:42.020
+Jitendra K: C-prompt technique.
+
+665
+01:36:47.520 --> 01:36:57.010
+Jitendra K: Yes, aggregated response is performed by the final expert, which is assigned to collect all the evidence and then generator.
+
+666
+01:36:57.540 --> 01:37:02.989
+Jitendra K: output on the top of the findings. So this is another note that we have created.
+
+667
+01:37:03.960 --> 01:37:10.809
+Jitendra K: The final output can vary. No, I think it's a simple task, so it will not vary much.
+
+668
+01:37:12.300 --> 01:37:14.929
+Jitendra K: If you're changing the model, this will remain.
+
+669
+01:37:15.400 --> 01:37:16.350
+Jitendra K: the same.
+
+670
+01:37:17.370 --> 01:37:18.700
+Jitendra K: Because this is fact.
+
+671
+01:37:19.550 --> 01:37:27.810
+Jitendra K: And you have statements that have been recorded and all. The model will get a different answer when you're using some additional data.
+
+672
+01:37:28.880 --> 01:37:32.079
+Jitendra K: Right? But the reasoning power of this model will remain the same.
+
+673
+01:37:32.980 --> 01:37:35.519
+Jitendra K: You got a different result. Okay.
+
+674
+01:37:38.560 --> 01:37:40.110
+Jitendra K: Interesting to see.
+
+675
+01:37:43.370 --> 01:37:46.690
+Jitendra K: Can I share the results, the file in TXT format?
+
+676
+01:37:49.400 --> 01:37:52.570
+Jitendra K: Yeah, data may… based on data, it will change, yes.
+
+677
+01:37:58.390 --> 01:38:02.250
+Jitendra K: So this fact, if you're changing, it will change the result, for sure.
+
+678
+01:38:06.880 --> 01:38:15.339
+Jitendra K: Alright, so that concludes the TOT. Now we'll move on to the third type of prompt technique called self-consistent, or self-consistency prompting.
+
+679
+01:38:15.700 --> 01:38:24.210
+Jitendra K: Self-consistency prompting is another technique That will be useful for getting your response.
+
+680
+01:38:24.360 --> 01:38:28.950
+Jitendra K: quite consistent. That means… Yeah, I'm going to generate a multiple…
+
+681
+01:38:30.740 --> 01:38:33.720
+Jitendra K: Reasoning patterns and path for the same prong.
+
+682
+01:38:34.020 --> 01:38:36.280
+Jitendra K: But they are going to aggregate by votes.
+
+683
+01:38:37.060 --> 01:38:39.960
+Jitendra K: Now, this is like a random forest, right?
+
+684
+01:38:40.180 --> 01:38:45.020
+Jitendra K: So when you're creating a random forest, on several decent tree.
+
+685
+01:38:45.460 --> 01:38:50.970
+Jitendra K: You're going to conclude the final output, which is your binary classification class.
+
+686
+01:38:51.530 --> 01:38:55.199
+Jitendra K: Only basis upon the… Maximum number of votes.
+
+687
+01:38:56.350 --> 01:38:57.340
+Jitendra K: poultry.
+
+688
+01:38:57.590 --> 01:39:00.799
+Jitendra K: Similarly, the same, thing applied here.
+
+689
+01:39:01.350 --> 01:39:03.460
+Jitendra K: I'm using a self-consistency.
+
+690
+01:39:03.740 --> 01:39:05.630
+Jitendra K: Which will use a specific vote
+
+691
+01:39:06.050 --> 01:39:08.720
+Jitendra K: From each node to generate an answer.
+
+692
+01:39:08.930 --> 01:39:11.620
+Jitendra K: That means it will still explore multiple solutions.
+
+693
+01:39:11.780 --> 01:39:14.120
+Jitendra K: Right? So here we're not constraining.
+
+694
+01:39:14.520 --> 01:39:18.869
+Jitendra K: To explore the model, to go with multiple solutions.
+
+695
+01:39:19.010 --> 01:39:28.340
+Jitendra K: But the only thing that we are using here is, we are bound to use the… prompts.
+
+696
+01:39:28.580 --> 01:39:33.589
+Jitendra K: In such a manner that it will data maximum votes, and then generate an output.
+
+697
+01:39:34.240 --> 01:39:37.280
+Jitendra K: So you'll see one example how to use this pattern.
+
+698
+01:39:40.960 --> 01:39:45.789
+Jitendra K: And I will also instruct How many paths it should generate, and why.
+
+699
+01:39:46.830 --> 01:39:49.589
+Jitendra K: Let me go back to my notebook.
+
+700
+01:39:50.600 --> 01:39:53.629
+Jitendra K: And here we are running self-consistency prompt.
+
+701
+01:40:12.570 --> 01:40:18.679
+Jitendra K: So I will create a function that will generate a multiple pattern, and the number of paths, I'm keeping it to be 3.
+
+702
+01:40:19.880 --> 01:40:25.599
+Jitendra K: Now, I would like to test this… With a simple prompt.
+
+703
+01:40:26.430 --> 01:40:33.110
+Jitendra K: So I'm saying a ball is thrown upward with an initial velocity of 20 meters per second. How high it will go? So it's a projectile…
+
+704
+01:40:33.860 --> 01:40:36.540
+Jitendra K: Motion use case.
+
+705
+01:40:40.670 --> 01:40:43.500
+Jitendra K: So basically, it would take 3 paths to solve this problem.
+
+706
+01:40:53.710 --> 01:40:58.720
+Jitendra K: So you can see that it is applying a physical equations…
+
+707
+01:40:58.850 --> 01:41:02.010
+Jitendra K: Initial velocity of the ball, initial height.
+
+708
+01:41:02.440 --> 01:41:07.229
+Jitendra K: Final condition, conservation of energy, momentum, and energy equation.
+
+709
+01:41:07.430 --> 01:41:12.579
+Jitendra K: And then generate an answer on the top of it, right? So it generates… The solution with 3…
+
+710
+01:41:13.810 --> 01:41:22.520
+Jitendra K: scenarios. Conservation of energy, Energy, I think it's similar, but here we are talking about kinetic energy.
+
+711
+01:41:22.840 --> 01:41:24.720
+Jitendra K: And the third one is…
+
+712
+01:41:33.790 --> 01:41:38.170
+Jitendra K: Okay, so basically, so it's a projectile motion, so basically, first.
+
+713
+01:41:39.260 --> 01:41:42.860
+Jitendra K: When you're throwing the ball, it will attend the maximum height.
+
+714
+01:41:43.350 --> 01:41:44.260
+Jitendra K: Right?
+
+715
+01:41:44.880 --> 01:41:47.290
+Jitendra K: So this is the maximum height it retained.
+
+716
+01:41:47.440 --> 01:41:49.749
+Jitendra K: And then it will fall down from here.
+
+717
+01:41:50.430 --> 01:41:53.339
+Jitendra K: So basically, it's a complete projectile motion.
+
+718
+01:41:55.190 --> 01:41:59.360
+Jitendra K: So, when you're throwing the ball, how much height it will attend, what's the…
+
+719
+01:41:59.500 --> 01:42:02.080
+Jitendra K: Energy, kinetic energy at this point of time.
+
+720
+01:42:02.360 --> 01:42:07.059
+Jitendra K: Is all the potential energy has been conserved at this point of time, and then back to this.
+
+721
+01:42:07.350 --> 01:42:09.259
+Jitendra K: Initial position, right?
+
+722
+01:42:09.490 --> 01:42:16.570
+Jitendra K: So it's a three-step process. That's the reason it is taking three steps to generate a reasoning. And we have instructed that we have to use three-step reasoning.
+
+723
+01:42:17.030 --> 01:42:23.580
+Jitendra K: So, the whole idea is, it will give you a very consistent output all the time, without changing too much.
+
+724
+01:42:24.400 --> 01:42:28.389
+Jitendra K: Because here we are just using a very formal approach.
+
+725
+01:42:28.740 --> 01:42:31.159
+Jitendra K: That I need to solve this problem with.
+
+726
+01:42:32.700 --> 01:42:35.629
+Jitendra K: Three possible scenarios, and then use it.
+
+727
+01:42:36.620 --> 01:42:42.579
+Jitendra K: Now, I would like to aggregate the results. So, I have these results. Now, I would like to define a function.
+
+728
+01:42:42.780 --> 01:42:47.949
+Jitendra K: That will aggregate this result. So this is about generation part, now I would like to perform the aggregation.
+
+729
+01:42:48.340 --> 01:42:50.229
+Jitendra K: So I've aggregated the results.
+
+730
+01:42:51.200 --> 01:42:56.639
+Jitendra K: And then I will see… The votes in favor and disfavor.
+
+731
+01:43:01.440 --> 01:43:05.820
+Jitendra K: And then I would like to improve the result with the help of self-consistence prompting.
+
+732
+01:43:06.620 --> 01:43:08.739
+Jitendra K: So I will add one more function.
+
+733
+01:43:17.410 --> 01:43:20.049
+Jitendra K: And then apply it to my resource.
+
+734
+01:43:31.630 --> 01:43:38.420
+Jitendra K: So you can see that for 3 solutions, I'm getting 20.41.
+
+735
+01:43:41.360 --> 01:43:43.110
+Jitendra K: 20.41.
+
+736
+01:43:45.210 --> 01:43:49.050
+Jitendra K: Again, 20.41. That means there's a tie between the three.
+
+737
+01:43:50.010 --> 01:43:55.809
+Jitendra K: So, if they're different, let's say one is giving 20.42, then I will go with the maximum one.
+
+738
+01:43:57.070 --> 01:43:58.499
+Jitendra K: Maximum voting one.
+
+739
+01:44:00.690 --> 01:44:01.550
+Jitendra K: Right?
+
+740
+01:44:01.730 --> 01:44:08.140
+Jitendra K: So that's the whole idea of self-consistent prompting. No other changes apart from what we have Utilize.
+
+741
+01:44:08.730 --> 01:44:13.279
+Jitendra K: The only difference is, we are… Considering a limit.
+
+742
+01:44:13.480 --> 01:44:15.549
+Jitendra K: To generate the answer here.
+
+743
+01:44:15.690 --> 01:44:19.299
+Jitendra K: By saying that, I would like to go up to 3 solutions, 3 portable solutions.
+
+744
+01:44:21.510 --> 01:44:25.220
+Jitendra K: Now, I would like to apply… some more…
+
+745
+01:44:29.390 --> 01:44:31.720
+Jitendra K: Logical task to this prompt.
+
+746
+01:44:33.150 --> 01:44:35.060
+Jitendra K: And for that, I would like to use…
+
+747
+01:44:36.420 --> 01:44:39.389
+Jitendra K: Some problem which is factual.
+
+748
+01:44:39.790 --> 01:44:44.170
+Jitendra K: So, what is the capital of France? It will not change, right? I know that capital of France
+
+749
+01:44:44.690 --> 01:44:45.919
+Jitendra K: Will not change.
+
+750
+01:44:47.060 --> 01:44:52.240
+Jitendra K: Explain the concept of supply and demand economics. That will change.
+
+751
+01:44:54.060 --> 01:44:55.620
+Jitendra K: And this is a logical task.
+
+752
+01:44:55.810 --> 01:45:00.080
+Jitendra K: That means I've got 3 types of tasks. One is factual tasks, second is…
+
+753
+01:45:00.670 --> 01:45:03.469
+Jitendra K: Elaborative task. Third is a logical task.
+
+754
+01:45:03.920 --> 01:45:05.570
+Jitendra K: So let me compile this.
+
+755
+01:45:14.050 --> 01:45:16.829
+Jitendra K: And I will get the interpretation on the results.
+
+756
+01:45:23.980 --> 01:45:25.809
+Jitendra K: So, I'm getting the answer.
+
+757
+01:45:27.270 --> 01:45:29.289
+Jitendra K: Based upon the three reasoning path.
+
+758
+01:45:30.630 --> 01:45:34.180
+Jitendra K: So it is using… online search…
+
+759
+01:45:35.080 --> 01:45:39.399
+Jitendra K: And, the pre-trained, model weights to generate a response.
+
+760
+01:46:05.050 --> 01:46:08.959
+Jitendra K: Okay, so self-consistent prompting will definitely going to help me, too.
+
+761
+01:46:09.470 --> 01:46:11.910
+Jitendra K: Generate the answer.
+
+762
+01:46:12.970 --> 01:46:19.389
+Jitendra K: in the same format every time. So you might be struggling with that part, right? When you're productionizing your LLMs.
+
+763
+01:46:19.640 --> 01:46:22.180
+Jitendra K: So when you're productionizing your LLM agents.
+
+764
+01:46:22.420 --> 01:46:30.810
+Jitendra K: you might be getting maybe slightly different answers all the time, and the user might maybe complain about it, like, why I'm getting a different answer all the time.
+
+765
+01:46:31.540 --> 01:46:38.180
+Jitendra K: So you need to use this particular pattern to write your prompt, system prompt, to instruct the LLM that, hey.
+
+766
+01:46:38.370 --> 01:46:44.869
+Jitendra K: Out of all the possible scenarios that you are going to search, I will split the scenarios into multiple juries.
+
+767
+01:46:45.540 --> 01:46:48.260
+Jitendra K: Each jury is having a different set of trees.
+
+768
+01:46:48.720 --> 01:46:51.540
+Jitendra K: And then I would like to use the voting criterias.
+
+769
+01:46:51.670 --> 01:46:52.960
+Jitendra K: to differentiate.
+
+770
+01:46:53.080 --> 01:46:55.660
+Jitendra K: Right, so I will go with the maximum voting all the time.
+
+771
+01:46:56.570 --> 01:47:03.439
+Jitendra K: That is what this pattern is telling us, that I'm going to use a consistency in the response.
+
+772
+01:47:03.700 --> 01:47:05.810
+Jitendra K: Whenever there's an ambiguity.
+
+773
+01:47:06.240 --> 01:47:10.919
+Jitendra K: Right? So I would like to resolve this ambiguity with the help of voting criterias.
+
+774
+01:47:11.230 --> 01:47:15.369
+Jitendra K: And that is what this… Prompt technique will help us.
+
+775
+01:47:18.800 --> 01:47:23.959
+Jitendra K: So, any question on this third prompting technique, guys? Any question that you would like to ask?
+
+776
+01:47:30.210 --> 01:47:33.650
+Jitendra K: What is the temperature each of these prompt techniques used by default?
+
+777
+01:47:34.100 --> 01:47:38.549
+Jitendra K: So, by default, we are using a low temperature. You can change it.
+
+778
+01:47:39.040 --> 01:47:43.350
+Jitendra K: Specifically when you're running these kind of…
+
+779
+01:47:44.000 --> 01:47:49.769
+Jitendra K: Questions, you may require a higher temperature, but for these questions, you can go with deterministic models.
+
+780
+01:47:51.640 --> 01:47:54.460
+Jitendra K: The temperature will be low in this scenario.
+
+781
+01:48:06.910 --> 01:48:08.889
+Jitendra K: Any further question, guys, on this?
+
+782
+01:48:11.760 --> 01:48:15.699
+Jitendra K: Shall we move on to the last prompt technique for today, and then we have to wind up
+
+783
+01:48:15.970 --> 01:48:17.200
+Jitendra K: a tutorial.
+
+784
+01:48:17.940 --> 01:48:22.910
+Jitendra K: So, the last technique that we're going to discuss today is called Generated Knowledge Prompt.
+
+785
+01:48:24.290 --> 01:48:29.850
+Jitendra K: So, generate a knowledge prompt, Basically, as you can see on my screen.
+
+786
+01:48:30.440 --> 01:48:36.750
+Jitendra K: What it does is, it will first ask the model to generate relevant facts. That means it will use the existing trainings.
+
+787
+01:48:37.170 --> 01:48:39.900
+Jitendra K: Which is applicable as a part of embedding models.
+
+788
+01:48:40.010 --> 01:48:44.530
+Jitendra K: It'll use existing model capability to generate the relevant fact.
+
+789
+01:48:45.110 --> 01:48:49.979
+Jitendra K: Then it will use those facts as a context in the second prompt.
+
+790
+01:48:51.230 --> 01:48:54.519
+Jitendra K: So, tell you the concept, In the second prompt.
+
+791
+01:48:55.370 --> 01:48:59.639
+Jitendra K: And then it grounds the model response and self-generated verified knowledge.
+
+792
+01:49:01.140 --> 01:49:06.210
+Jitendra K: Now, the question is… It will retrieve the…
+
+793
+01:49:06.390 --> 01:49:11.339
+Jitendra K: fact from the existing training of the model, which is your LLM-specific trainings.
+
+794
+01:49:11.880 --> 01:49:17.069
+Jitendra K: Then use those prompts… sorry, facts, as a context in the second prompt.
+
+795
+01:49:17.840 --> 01:49:21.140
+Jitendra K: And then try to generate the ground truth labels.
+
+796
+01:49:21.500 --> 01:49:23.679
+Jitendra K: In the self-generated verified knowledge.
+
+797
+01:49:24.090 --> 01:49:25.499
+Jitendra K: So when do you use this?
+
+798
+01:49:25.640 --> 01:49:33.960
+Jitendra K: kind of technique. So, you need to use this technique when you're performing some complex Factual question, domain-specific task.
+
+799
+01:49:35.760 --> 01:49:42.320
+Jitendra K: Where the model may hallucinate without grounding. That means your model have higher chances to ground… to hallucinate.
+
+800
+01:49:42.770 --> 01:49:45.189
+Jitendra K: And he would like to perform the grounding.
+
+801
+01:49:46.210 --> 01:49:49.910
+Jitendra K: Second is… You can see on my screen the tip.
+
+802
+01:49:50.730 --> 01:49:53.230
+Jitendra K: Is use temperature to be deterministic.
+
+803
+01:49:54.150 --> 01:49:55.259
+Jitendra K: Which is zero.
+
+804
+01:49:55.920 --> 01:49:59.100
+Jitendra K: For knowledge generation, and higher temperature for answer generation.
+
+805
+01:50:00.550 --> 01:50:03.200
+Jitendra K: And it will be a kind of an extension to…
+
+806
+01:50:04.080 --> 01:50:06.719
+Jitendra K: The chain of thought reasoning that we have used.
+
+807
+01:50:06.960 --> 01:50:13.629
+Jitendra K: Where the chain will be invoked with a multiple knowledge passes. It will generate paths, Filter the facts.
+
+808
+01:50:14.110 --> 01:50:18.620
+Jitendra K: And then generate a precise answer for a very complex domain-specific task.
+
+809
+01:50:19.880 --> 01:50:28.279
+Jitendra K: So, generated knowledge is another good prompt technique that he can be able to use for legal and counseling and other documents.
+
+810
+01:50:28.890 --> 01:50:33.879
+Jitendra K: Even banking, policies for banking policy, insurance policies.
+
+811
+01:50:34.130 --> 01:50:35.549
+Jitendra K: We can go with this.
+
+812
+01:50:35.660 --> 01:50:36.799
+Jitendra K: Prompt technique.
+
+813
+01:50:37.300 --> 01:50:39.889
+Jitendra K: Now, this prompt technique is very useful.
+
+814
+01:50:42.960 --> 01:50:50.590
+Jitendra K: When you are looking for… groundness, right? That means you would like to know what are your scenarios.
+
+815
+01:50:51.710 --> 01:51:02.470
+Jitendra K: On which, instruction the prompt… sorry, the agent will deliver the right answer. Or maybe you're doing some testing, right, on response, because this is, again, very important.
+
+816
+01:51:02.580 --> 01:51:06.059
+Jitendra K: Once you deploy your model, what are you going to do next?
+
+817
+01:51:07.040 --> 01:51:08.790
+Jitendra K: You're going to end up into…
+
+818
+01:51:10.810 --> 01:51:14.570
+Jitendra K: Several other tasks. Once you deploy your model in production.
+
+819
+01:51:15.240 --> 01:51:18.400
+Jitendra K: Before even deploying your model in production, you need to do testing.
+
+820
+01:51:19.750 --> 01:51:21.600
+Jitendra K: And the testing will be done.
+
+821
+01:51:21.730 --> 01:51:24.579
+Jitendra K: Based upon the business objective and their feedbacks.
+
+822
+01:51:24.700 --> 01:51:26.789
+Jitendra K: For these feedbacks, we are going to pull it.
+
+823
+01:51:26.970 --> 01:51:28.470
+Jitendra K: And improve your model.
+
+824
+01:51:28.580 --> 01:51:32.110
+Jitendra K: Right? So this is your LLM model, or your authentic models.
+
+825
+01:51:32.470 --> 01:51:37.940
+Jitendra K: that you are… hosting in UAT instance, and you would like to productionize this.
+
+826
+01:51:38.260 --> 01:51:42.429
+Jitendra K: So you should have a test to run. Test routes to run.
+
+827
+01:51:42.660 --> 01:51:44.929
+Jitendra K: Some automated simulations to run.
+
+828
+01:51:45.750 --> 01:51:47.709
+Jitendra K: Some scenarios to evaluate.
+
+829
+01:51:47.860 --> 01:51:49.209
+Jitendra K: from the users.
+
+830
+01:51:49.400 --> 01:51:54.530
+Jitendra K: And not only you can deploy it, right, based upon the quality, based upon the consistency, based upon the…
+
+831
+01:51:54.730 --> 01:51:57.109
+Jitendra K: Factual consistency of your response.
+
+832
+01:51:57.460 --> 01:52:04.609
+Jitendra K: Because your user will not rely on numbers if you're claiming that my model is 90%, 95% accurate.
+
+833
+01:52:05.390 --> 01:52:11.790
+Jitendra K: Your user does not care about it. They will write some odd query, and they will say your model is 0%.
+
+834
+01:52:12.430 --> 01:52:16.329
+Jitendra K: So it's… it should be per user, right? So that means you need to…
+
+835
+01:52:16.600 --> 01:52:19.570
+Jitendra K: Make sure that you have different fallback mechanism.
+
+836
+01:52:21.570 --> 01:52:28.539
+Jitendra K: You need to use techniques to perform fallbacks. You need to use the techniques to perform groundless.
+
+837
+01:52:28.710 --> 01:52:33.200
+Jitendra K: You need to use a technique to… Even extrapolate your prompts.
+
+838
+01:52:33.380 --> 01:52:36.890
+Jitendra K: And that is something which we are going to talk about in DSPY.
+
+839
+01:52:38.980 --> 01:52:42.450
+Jitendra K: an auto-rag, right? So… but just to…
+
+840
+01:52:43.020 --> 01:52:45.129
+Jitendra K: Give you a very simple answer.
+
+841
+01:52:45.270 --> 01:52:51.549
+Jitendra K: generated knowledge… It's another prong technique that will help us to do groundness.
+
+842
+01:52:51.880 --> 01:52:53.170
+Jitendra K: on the response.
+
+843
+01:52:54.060 --> 01:52:59.629
+Jitendra K: That means those… Prompts you can select, which are not
+
+844
+01:53:00.350 --> 01:53:04.969
+Jitendra K: Doing that great in terms of production scenarios, or maybe your domain-specific scenario.
+
+845
+01:53:05.310 --> 01:53:09.219
+Jitendra K: You can change that, and then use generated knowledge from technique.
+
+846
+01:53:10.630 --> 01:53:12.429
+Jitendra K: To perform the analysis.
+
+847
+01:53:18.440 --> 01:53:21.779
+Jitendra K: So we'll say… take one example to understand this technique.
+
+848
+01:53:22.540 --> 01:53:26.860
+Jitendra K: And then we'll conclude for a day, because this class is for 2 hours.
+
+849
+01:53:28.380 --> 01:53:30.310
+Jitendra K: Yeah, I will share the PPD as well.
+
+850
+01:53:32.990 --> 01:53:38.849
+Jitendra K: Now, in the… in this particular type of prompt, you have got the stage number one, which is called knowledge generation.
+
+851
+01:53:39.690 --> 01:53:43.779
+Jitendra K: And I would like to keep my temperature of the model to be zero.
+
+852
+01:53:44.310 --> 01:53:49.789
+Jitendra K: And during the knowledge critic, a second pass, which will review the generated knowledge for errors and gaps.
+
+853
+01:53:50.450 --> 01:53:54.830
+Jitendra K: I will still keep the temperature to be low, and the stage number 3 will be the gap filling.
+
+854
+01:53:57.420 --> 01:54:01.570
+Jitendra K: And the fourth stage would be the answer generation, where I can increase the temperature.
+
+855
+01:54:02.200 --> 01:54:04.160
+Jitendra K: Right? And then, I will have…
+
+856
+01:54:04.540 --> 01:54:10.930
+Jitendra K: answer critic reviews done by model, and then I will use some examples to illustrate.
+
+857
+01:54:13.340 --> 01:54:15.630
+Jitendra K: So this is the example that I'm going to use.
+
+858
+01:54:17.610 --> 01:54:21.389
+Jitendra K: So I'm going to use the same four-stage model. The first stage is…
+
+859
+01:54:23.930 --> 01:54:26.540
+Jitendra K: I would like to use, sorry.
+
+860
+01:54:27.250 --> 01:54:33.539
+Jitendra K: The first stage is, I would like to use knowledge generation. First, you need to ask the model to generate relevant knowledge before answering.
+
+861
+01:54:34.100 --> 01:54:37.820
+Jitendra K: That means I'm relying on the existing, train embeddings.
+
+862
+01:54:38.050 --> 01:54:40.069
+Jitendra K: So here, I'm using GPT-4.0.
+
+863
+01:54:40.380 --> 01:54:43.450
+Jitendra K: So I will use the GPT-4 embeddings to generate the facts.
+
+864
+01:54:44.160 --> 01:54:46.480
+Jitendra K: Second is Knowledge Critic.
+
+865
+01:54:46.690 --> 01:54:49.130
+Jitendra K: a second pass, where I'm going to…
+
+866
+01:54:49.510 --> 01:54:54.390
+Jitendra K: Pass the initial finding from the LLM embeddings, back to the second pass reviews.
+
+867
+01:54:54.650 --> 01:54:56.989
+Jitendra K: And generate a knowledge for errors and gaps.
+
+868
+01:54:58.250 --> 01:55:02.500
+Jitendra K: Third is the gap filling, so if I identify the gaps, I would like to fill it.
+
+869
+01:55:03.260 --> 01:55:05.580
+Jitendra K: And the fourth state would be the answer generation.
+
+870
+01:55:05.990 --> 01:55:08.970
+Jitendra K: And the fifth will be our critics and refinements.
+
+871
+01:55:09.890 --> 01:55:11.309
+Jitendra K: So I will run this.
+
+872
+01:55:31.360 --> 01:55:33.730
+Jitendra K: Okay, some formatting error in my prompt.
+
+873
+01:55:33.870 --> 01:55:35.399
+Jitendra K: Let me remove this.
+
+874
+01:57:02.990 --> 01:57:05.129
+Jitendra K: Okay, now my question is,
+
+875
+01:57:05.790 --> 01:57:12.620
+Jitendra K: Why did the global bee population decline significantly between 2026… sorry, 2006 to 2023?
+
+876
+01:57:12.950 --> 01:57:15.399
+Jitendra K: What are the most effective interventions?
+
+877
+01:57:15.700 --> 01:57:16.809
+Jitendra K: to reverse it.
+
+878
+01:57:17.460 --> 01:57:21.930
+Jitendra K: And this is one of the case studies, which has been performed by the U.S. government.
+
+879
+01:57:22.220 --> 01:57:24.240
+Jitendra K: Recently, and
+
+880
+01:57:24.390 --> 01:57:30.429
+Jitendra K: They would like to make sure that the honey production should be optimized with this case study.
+
+881
+01:57:30.980 --> 01:57:37.400
+Jitendra K: The fact which has been collected By the knowledge generation node, comprised of
+
+882
+01:57:37.540 --> 01:57:42.519
+Jitendra K: Ecology balances. That means it talks about colony collapse disorder.
+
+883
+01:57:42.740 --> 01:57:53.860
+Jitendra K: Then followed by agriculture Science Practices, economics… Global Economic Pollination Services, Maybe it has been… pretty…
+
+884
+01:57:55.990 --> 01:58:02.839
+Jitendra K: I would say subjective to country, but here we are talking about U.S, And the climate science…
+
+885
+01:58:03.050 --> 01:58:07.529
+Jitendra K: And then followed by the Great Tree Policies, Agriculture Science, and economics.
+
+886
+01:58:07.680 --> 01:58:10.130
+Jitendra K: So, we have got these 12 facts.
+
+887
+01:58:10.510 --> 01:58:13.800
+Jitendra K: Now, I would like to understand the knowledge critics and gap analysis.
+
+888
+01:58:14.230 --> 01:58:17.129
+Jitendra K: So they have fined… 5 gaps.
+
+889
+01:58:17.320 --> 01:58:19.669
+Jitendra K: In it, and then they start gap filling.
+
+890
+01:58:21.670 --> 01:58:25.270
+Jitendra K: Then it generated the gap-filled answers.
+
+891
+01:58:25.640 --> 01:58:29.350
+Jitendra K: To grab the, knowledge ground truth answer generated.
+
+892
+01:58:29.660 --> 01:58:37.910
+Jitendra K: So it talks about the, proportions where the B, populations, or They're, they're,
+
+893
+01:58:38.720 --> 01:58:46.820
+Jitendra K: Production has been decreased due to these number of consequences, and the area of uncertainty and the recommendation has been given very clearly.
+
+894
+01:58:47.080 --> 01:58:54.369
+Jitendra K: And then I'm refining this answer by making another critic Reviews before releasing this node.
+
+895
+01:58:54.640 --> 01:58:56.869
+Jitendra K: This is a refined answer that I'm getting.
+
+896
+01:58:57.640 --> 01:59:02.639
+Jitendra K: Right? And these are the… Effective ways that we can be able to sustain.
+
+897
+01:59:02.970 --> 01:59:09.700
+Jitendra K: Now, as I mentioned, We are reducing the hallucination from this model.
+
+898
+01:59:09.900 --> 01:59:13.100
+Jitendra K: Let's say the first and the foremost thing that we are doing is…
+
+899
+01:59:13.400 --> 01:59:15.610
+Jitendra K: We are given an opportunity to the…
+
+900
+01:59:17.980 --> 01:59:23.969
+Jitendra K: models, or I would say the node, which is using the OpenAI embedding.
+
+901
+01:59:25.250 --> 01:59:29.149
+Jitendra K: That means I'm using the embedding, or knowledge which has been trained
+
+902
+01:59:30.650 --> 01:59:34.790
+Jitendra K: or which my LLM has been trained upon. And here, I'm using GPT-40.
+
+903
+01:59:35.300 --> 01:59:40.350
+Jitendra K: So I'm using the… Existing internet data to generate the facts.
+
+904
+01:59:41.650 --> 01:59:43.390
+Jitendra K: After generating the facts.
+
+905
+01:59:46.510 --> 01:59:48.199
+Jitendra K: I would like to perform.
+
+906
+01:59:49.450 --> 01:59:58.020
+Jitendra K: some reviews and gaps on the top of it. Again, I'm not passing any document, neither anything, to do this, but let's say if I have some policy document.
+
+907
+01:59:58.420 --> 02:00:02.339
+Jitendra K: That would be a good opportunity, if I can be able to read a document.
+
+908
+02:00:02.950 --> 02:00:06.949
+Jitendra K: And perform the gap check using my domain agnostic document.
+
+909
+02:00:07.120 --> 02:00:11.019
+Jitendra K: So that I can be able to make my LLM response grounded every time.
+
+910
+02:00:11.750 --> 02:00:19.510
+Jitendra K: Because ultimately, I'm going to serve my business, right? It's not for generic users. I'm going to use this specific case study for my business.
+
+911
+02:00:20.560 --> 02:00:28.189
+Jitendra K: So maybe if I have a policy or I have some internal document, I can pass on this document to analyze the knowledge critics and gaps.
+
+912
+02:00:28.900 --> 02:00:35.929
+Jitendra K: The third stage would be to fulfill that gap. That means I will use another opportunity to use my existing documents and policies
+
+913
+02:00:36.340 --> 02:00:39.410
+Jitendra K: To fulfill these gaps with a proper reasoning.
+
+914
+02:00:39.900 --> 02:00:43.099
+Jitendra K: And finally, I was able to use some critic views.
+
+915
+02:00:43.530 --> 02:00:46.740
+Jitendra K: And generating the response, final response, on the top of it.
+
+916
+02:00:47.140 --> 02:00:56.630
+Jitendra K: So you can change the LLM here if you would like to perform the critic review by another LLM, a low-cost LLM. So here's an opportunity for you to save your tokens as well.
+
+917
+02:00:58.540 --> 02:01:04.400
+Jitendra K: So that is how this whole, knowledge check works.
+
+918
+02:01:04.740 --> 02:01:08.609
+Jitendra K: And this will be useful for so many use cases.
+
+919
+02:01:08.980 --> 02:01:13.619
+Jitendra K: Where you're training your own domain agnostic,
+
+920
+02:01:13.770 --> 02:01:19.919
+Jitendra K: models, you are consuming the domain agnostic vectors from your agents as well, so you can do this
+
+921
+02:01:20.480 --> 02:01:24.330
+Jitendra K: whole groundness check and factual consistency check with ALPO.
+
+922
+02:01:24.460 --> 02:01:26.070
+Jitendra K: These type of prompting.
+
+923
+02:01:27.670 --> 02:01:33.690
+Jitendra K: So, any question, guys? Any final comments before we wind up for today? Anything that you would like to ask?
+
+924
+02:01:34.680 --> 02:01:37.020
+Jitendra K: So we have covered 4 design patterns.
+
+925
+02:01:37.530 --> 02:01:41.230
+Jitendra K: We have to cover 6… Or 7 more.
+
+926
+02:01:41.870 --> 02:01:45.050
+Jitendra K: In the second tutorial, we'll continue with the same.
+
+927
+02:01:45.830 --> 02:01:50.560
+Jitendra K: But any question, I think this class is for 2 hours, guys. Again, I would like to emphasize.
+
+928
+02:01:50.790 --> 02:01:57.110
+Jitendra K: And, we will use some extra time in the next tutorial to complete that.
+
+929
+02:01:57.590 --> 02:02:01.440
+Jitendra K: But any other questions, any other thoughts that you would like to share?
+
+930
+02:02:06.330 --> 02:02:08.050
+Jitendra K: Yeah, I've shared that.
+
+931
+02:02:09.610 --> 02:02:11.980
+Jitendra K: Just use my previous chart.
+
+932
+02:02:38.830 --> 02:02:42.180
+Jitendra K: Old generation, we have to visit Llama model for that.
+
+933
+02:02:42.490 --> 02:02:48.760
+Jitendra K: So… We'll try to see if we can cover coordination llamas as well.
+
+934
+02:03:02.780 --> 02:03:07.480
+Jitendra K: Alright guys, so this is pretty much what we have for today, and thank you for ending the session.
+
+935
+02:03:07.870 --> 02:03:09.469
+Jitendra K: And we'll meet in the next…
+
+936
+02:03:10.110 --> 02:03:13.910
+Jitendra K: Saturday for continuation of this topic.
+
+937
+02:03:14.100 --> 02:03:16.429
+Jitendra K: Thank you, and have a pleasant evening. Thank you.
+

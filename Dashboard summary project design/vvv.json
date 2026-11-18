@@ -1,0 +1,10 @@
+{
+  "applicationReference": "dashboard-summary-project-design-6e6c9dd4",
+  "baseToken": "9e309cb2-a891-4bad-b240-845ab520232d",
+  "name": "Dashboard Summary Project Design",
+  "description": "Static bundled dashboard summary design page served over HTTP with a health endpoint for Cloud Run.",
+  "costCenterId": "401000",
+  "securityTier": "UNRESTRICTED",
+  "recordStoreKind": "NONE",
+  "aiAccessKind": "NONE"
+}

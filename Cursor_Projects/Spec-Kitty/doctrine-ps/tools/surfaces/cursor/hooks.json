@@ -1,0 +1,13 @@
+{
+  "hooks": [
+    {
+      "name": "check-drg-fresh",
+      "description": "Warn when pack/drg/fragment.yaml is staged but ps-agent-enabled-factory.graph.yaml is stale. Run `make compile-drg` to fix.",
+      "event": "pre-tool-call",
+      "matcher": {
+        "tool_names": ["create_file", "edit_file", "rewrite_file"]
+      },
+      "command": "tools/surfaces/cursor/hooks/check-drg-fresh.sh"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "coordination_branch": "kitty/mission-regnology-stack-distribution-pipeline-01KSWHFT",
+  "created_at": "2026-05-30T13:34:30.758507+00:00",
+  "friendly_name": "Regnology Stack Distribution Pipeline",
+  "mission_id": "01KSWHFTB563Q23BZG4WC5BGTR",
+  "mission_number": 4,
+  "mission_slug": "regnology-stack-distribution-pipeline-01KSWHFT",
+  "mission_type": "software-dev",
+  "purpose_context": "The Regnology Agent Stack installer scripts (install-regnology-stack.sh / .ps1) were written but cannot download the doctrine pack because no Artefactory publish pipeline exists yet. This mission closes that gap by adding a pack version file, a Jenkins publish stage that pushes versioned archives on merge to main, and an updated HOW_TO_USE guide that replaces the manual 6-step setup with a single bootstrap command.",
+  "purpose_tldr": "Publish versioned pack archives to Artefactory and document the bootstrap installer as the primary setup path",
+  "slug": "regnology-stack-distribution-pipeline-01KSWHFT",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "vcs": "git",
+  "vcs_locked_at": "2026-05-30T19:26:32.277798+00:00"
+}

@@ -1,0 +1,149 @@
+{
+  "mission_slug": "doctrine-ps-structural-alignment-01KWVM5C",
+  "mission_number": "",
+  "mission_type": "software-dev",
+  "overall_verdict": "fail",
+  "criteria": [
+    {
+      "criterion_id": "FR-001",
+      "description": "Correct `.cursor/`/`.claude/` claims in AGENTS.md and CLAUDE.md: both files must describe these as generated, gitignored directories (matching README.md's accurate model), not committed repository directories.",
+      "proof_type": "manual_review",
+      "evidence": "WP01 approval (status.events.jsonl, event 01KWVYMFFR00ETSECGSW55AQ5E): 'all FR-001-FR-008/NFR-003 acceptance criteria independently grep/manually verified against diff and current file state'; frozen surfaces (.cursor/.claude/pack/drg/.gitignore/pack/agent_profiles/pack/templates/gemini) confirmed untouched; scope confirmed clean (only AGENTS.md/CLAUDE.md/README.md touched, 3 commits); branding headers preserved on all 3 files.",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T14:52:06.008759+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-002",
+      "description": "Correct `src/framework`, `tests/*`, and `fixtures/` structural claims in AGENTS.md and CLAUDE.md to reflect actual current state (src/ = .gitkeep only; tests/ = test_pack_schema_validation.py only; fixtures/ absent), or explicitly mark as aspirational/planned.",
+      "proof_type": "manual_review",
+      "evidence": "WP01 approval (status.events.jsonl, event 01KWVYMFFR00ETSECGSW55AQ5E): grep/manual review confirmed FR-001-FR-008 acceptance criteria satisfied against the diff and current file state; this criterion is explicitly outside the FR-009 lint's automated coverage per spec.md FR-002's own acceptance criteria, so grep/manual verification (not lint) is the correct proof mechanism, consistent with the reviewer's stated method.",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T14:52:06.008759+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-003",
+      "description": "Correct the `pack/tools/fallback/agentic_model_leaderboard.yaml` toolguide reference in AGENTS.md to note it is inherited from the `regnology-all-company` parent pack via `extends:`, not a local file.",
+      "proof_type": "manual_review",
+      "evidence": "WP01 approval reason confirms FR-003 verified as part of the FR-001-FR-008 batch. Independently corroborated downstream by the WP03 cycle-1 reviewer, who quoted WP01's committed FR-003 wording verbatim while diagnosing lint false positives: \"there is no local `pack/tools/fallback/` directory in this repository\" / \"no local `pack/tactics/model-discipline-selection.tactic.yaml` file exists\" (WP03 review-cycle-1.md, section 2) \u2014 confirming the corrected inheritance-explaining text exists in the merged WP01 diff.",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T14:52:06.008759+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-004",
+      "description": "Reconcile AGENTS.md \u00a79's directive index with pack/directives/ reality: only directives 037 and 050 (confirmed locally present) remain linked as [pack] local artifacts; the other ten (006, 018, 022, 023, 028, 038, 041, 042, 043, 044) are re-labeled as inherited; the '12 migrated YAML artifacts' count is corrected.",
+      "proof_type": "manual_review",
+      "evidence": "WP01 approval (status.events.jsonl, event 01KWVYMFFR00ETSECGSW55AQ5E): grep/manual verification of all FR-001-FR-008 criteria against diff and current file state; scope confirmed limited to AGENTS.md/CLAUDE.md/README.md (3 commits), consistent with an in-place \u00a79 table correction.",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T14:52:06.008759+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-005",
+      "description": "Fix README.md's Repository Structure tree to reference `docs/installation/HOW_TO_USE.md` (matching the already-correct prose links elsewhere in the file), not the dangling `docs/HOW_TO_USE.md`.",
+      "proof_type": "manual_review",
+      "evidence": "WP01 approval reason confirms FR-005 verified as part of the FR-001-FR-008 batch via grep/manual review against diff and current file state.",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T14:52:06.008759+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-006",
+      "description": "Fix or remove README.md's 'Pack Contents' table and Repository Structure tree reference to a non-existent `pack/mission_step_contracts/` directory (6 contracts).",
+      "proof_type": "manual_review",
+      "evidence": "WP01 approval reason confirms FR-006 verified as part of the FR-001-FR-008 batch via grep/manual review against diff and current file state; scope confirmed clean (no new directory created, matching Out-of-Scope constraint that this corrects documentation only).",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T14:52:06.008759+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-007",
+      "description": "Fix or annotate README.md's Repository Structure tree entry for `pack/tools/fallback/` with the same extends:-inheritance explanation approach used for FR-003.",
+      "proof_type": "manual_review",
+      "evidence": "WP01 approval reason confirms FR-007 verified as part of the FR-001-FR-008 batch. The WP03 cycle-1 reviewer's item 2 finding (review-cycle-1.md) independently confirms `pack/tools/fallback/` is documented, in the merged WP01/WP02 diff, as a genuinely inherited-from-parent-pack path (subsequently added to WP03's CROSS_REPO_ALLOWLIST for that reason).",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T14:52:06.008759+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-008",
+      "description": "Fix or remove README.md's Repository Structure tree reference to a non-existent `tools/pack-dashboard/` (Angular + Express pack health dashboard) subdirectory, unless clearly labeled as a separate deliverable.",
+      "proof_type": "manual_review",
+      "evidence": "WP01 approval reason confirms FR-008 verified as part of the FR-001-FR-008 batch via grep/manual review against diff and current file state; 0 new markdownlint violations confirmed (rule-set diff vs base branch shows pre-existing violations only).",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T14:52:06.008759+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-009",
+      "description": "Add a doc-path dangle lint script (`tools/lint-doc-paths.py`) that scans tracked .md files for dangling backtick-quoted repo-relative paths, runs standalone with no args, reports source file + path per finding, exits non-zero on any unexplained dangling path, and ships a fixture-based automated test proving detection and clearance.",
+      "proof_type": "automated_test",
+      "evidence": "WP03 cycle-2 approval (status.events.jsonl, event 01KWW842D3ZCMN3M6N0AMGSQ1F): reviewer independently re-ran `python3 tools/lint-doc-paths.py` -> exits 1 with 158 findings; cross-checked every finding via `git blame` and confirmed zero trace to content FR-001-FR-008/FR-013 introduced or left dangling (all are unrelated pre-existing drift, matching FR-009's own scoped acceptance criterion). Fixture test verified: `pytest -v tests/test_lint_doc_paths.py` -> 2 passed; `test_dangling_reference_is_detected` asserts via capsys that both fixture.md and the offending path token appear in stdout (cycle-2 fix for cycle-1 review-cycle-1.md item 5). `make lint-doc-paths` reproduces identical script output/exit code.",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T17:37:54.083850+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-010",
+      "description": "Lint script must not flag paths that are gitignored but explicitly documented as generated (at minimum `.cursor/` and `.claude/`), via an allow-list mechanism with inline justification comments.",
+      "proof_type": "automated_test",
+      "evidence": "WP03 cycle-1 review (review-cycle-1.md, 'What already passes cleanly'): 'T019 allow-list format: every ALLOWLIST/CROSS_REPO_ALLOWLIST entry has a substantive inline justification; .cursor/.claude/ present with the correct README.md-sourced rationale. Correctly did not add dist/ ... or .doctrine-cache/ ... matches T017's only-if-actually-gitignored-and-documented instruction.' WP03 cycle-2 approval further confirms CROSS_REPO_ALLOWLIST was extended to also cover pack/tools/fallback/ and pack/tactics/model-discipline-selection.tactic.yaml with proper inline justification (fixing cycle-1's item 2 gap).",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T17:37:54.083850+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-011",
+      "description": "Wire the lint script into the Makefile with a new `lint-doc-paths` target (header-comment-block, `.PHONY`, `@echo`-style output, listed in `help`), not wired into Jenkinsfile or pre-commit hooks (C-003).",
+      "proof_type": "automated_test",
+      "evidence": "WP03 cycle-1 review (review-cycle-1.md, 'What already passes cleanly'): 'T021 Makefile wiring: .PHONY updated, header-comment-block target description, @echo-style help entry added, make lint-doc-paths reproduces the script's exact behavior/exit code.' WP03 cycle-2 approval reconfirms: 'make lint-doc-paths reproduces script output/exit identically; Jenkinsfile untouched (C-003 intact).'",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T17:37:54.083850+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-012",
+      "description": "Repoint `pack/agent_profiles/gemini-bot-georgia.agent.yaml`'s purpose, specialization, collaboration.output-artifacts, and initialization-declaration fields to describe output landing in the `regnology-ps-chatbots` repository's actual gemini-agents/ layout (incl. shared/glossary/, shared/branding/), while leaving profile-id/roles/routing-priority/collaboration wiring (C-002) unchanged.",
+      "proof_type": "manual_review",
+      "evidence": "WP02 cycle-2 review (review-cycle-2.md, 'Passing Criteria'): 'C-002 (CRITICAL CHECK): PASSED. Full manual diff of gemini-bot-georgia.agent.yaml confirms only purpose, specialization.primary-focus, specialization.success-definition, a comment added immediately above collaboration.output-artifacts ... and initialization-declaration changed. profile-id, roles, routing-priority, capabilities, context-sources, collaboration.handoff-from/handoff-to/works-with (values), mode-defaults, specialization-context, directive-references, styleguide-references are byte-identical.' WP02 approval (event 01KWW0ZRJQN4QYRCWQEXFP3AEK) confirms the cycle-1-flagged bare `description` field reference (line 9) was fixed and C-002 was re-verified clean across both cycles combined.",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T15:33:12.919440+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-013",
+      "description": "Update the six `pack/templates/gemini/*` files (instructions, about, set-up-guide, review-submission, per-agent-folder, roster) so embedded example paths match regnology-ps-chatbots' actual layout (glossary/branding -> shared/glossary,branding), without changing the underlying output-structure contract.",
+      "proof_type": "manual_review",
+      "evidence": "WP02 cycle-2 review (review-cycle-2.md, 'Passing Criteria'): 'FR-013 glossary/branding -> shared/glossary,branding path corrections: correctly applied everywhere; zero remaining un-migrated occurrences found via grep. FR-013 placeholders (e.g. {chatbot-slug}/) preserved correctly, not corrected.' WP02 approval (event 01KWW0ZRJQN4QYRCWQEXFP3AEK) confirms cycle-1's SC-005 gap (missing regnology-ps-chatbots qualifier in all six templates, incl. previously-untouched review-submission.template.md) was resolved. Independently corroborated by the WP03 cycle-2 reviewer's regression check: 'grep -c regnology-ps-chatbots matches all 6 gemini template files.'",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T15:33:12.919440+00:00",
+      "notes": null
+    },
+    {
+      "criterion_id": "FR-014",
+      "description": "Update surface-description docs (pack/README.md, pack/agent_profiles/README.md, docs/SURFACES.md, .gitignore) so the Gemini chatbot surface is described as living in the separate regnology-ps-chatbots repository, not as a directory inside doctrine-ps, while preserving the 'two agent surfaces' distinction and removing dead .gitignore rules.",
+      "proof_type": "manual_review",
+      "evidence": "WP02 cycle-2 review (review-cycle-2.md, 'Passing Criteria'): 'FR-014: pack/README.md, pack/agent_profiles/README.md, docs/SURFACES.md all correctly state the Gemini chatbot surface lives in regnology-ps-chatbots, are mutually consistent (SC-006 passes), and preserve the two agent surfaces split. .gitignore: dead gemini-agents/onboarding-odysseus/... rules and the gemini-agents/README.md comment removed; nothing unrelated touched.'",
+      "pass_fail": "pass",
+      "verified_by": "Stijn Dejongh",
+      "verified_at": "2026-07-06T15:33:12.919440+00:00",
+      "notes": null
+    }
+  ],
+  "negative_invariants": []
+}

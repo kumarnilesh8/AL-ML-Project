@@ -1,0 +1,5094 @@
+WEBVTT
+
+1
+00:01:23.870 --> 00:01:25.769
+Jitendra K: Hi guys, good evening.
+
+2
+00:01:26.490 --> 00:01:29.310
+Jitendra K: And warm welcome to another module on…
+
+3
+00:01:29.440 --> 00:01:35.570
+Jitendra K: prompt engineering. So, before we start, I just want to announce that today class will be of 2 hours, without any break.
+
+4
+00:01:36.070 --> 00:01:42.140
+Jitendra K: I have some urgent work to catch up, and we will try to backfill this, maybe in the upcoming modules.
+
+5
+00:01:42.570 --> 00:01:51.189
+Jitendra K: So with that, let me start the session. So before we start, is my voice audible to everyone, and my screen is visible as well?
+
+6
+00:01:55.460 --> 00:01:57.050
+Jitendra K: Alright, great, thank you.
+
+7
+00:02:00.530 --> 00:02:08.929
+Jitendra K: Okay, so today we are going to start with another programming paradigm called DSPY. So DSPY, as I mentioned, it stands for
+
+8
+00:02:10.169 --> 00:02:15.880
+Jitendra K: It's a framework that we're going to use for utilizing and building the prompts.
+
+9
+00:02:16.300 --> 00:02:19.029
+Jitendra K: So, the purpose of DSPY
+
+10
+00:02:19.660 --> 00:02:24.350
+Jitendra K: Is… we are going to use a declarative style of writing the prompts, instead of…
+
+11
+00:02:25.380 --> 00:02:33.860
+Jitendra K: managing the prompt by the user, we will use a declarative programming to rephrase the prompt. And this particular framework has been developed by Stanfords.
+
+12
+00:02:34.300 --> 00:02:40.020
+Jitendra K: Stanford and LP Lab, that fundamentally change how we build systems with large language models.
+
+13
+00:02:40.380 --> 00:02:42.099
+Jitendra K: So, assuming that
+
+14
+00:02:42.340 --> 00:02:49.939
+Jitendra K: that you're creating a lot of prompts and handcrafting it. So instead of laborious handcrafting little prompt.
+
+15
+00:02:50.340 --> 00:02:55.229
+Jitendra K: You write small composition programs using declarative signatures.
+
+16
+00:02:55.560 --> 00:03:05.369
+Jitendra K: And then let the framework compile, use the compilers and the optimizer to automatically fine-tune the prompts, or even fine-tune the model to maximize the performance.
+
+17
+00:03:05.660 --> 00:03:07.120
+Jitendra K: Matrix you define.
+
+18
+00:03:07.320 --> 00:03:10.509
+Jitendra K: So think of this as a manual tweaking a prompt.
+
+19
+00:03:10.740 --> 00:03:13.670
+Jitendra K: to build a self-optimized LLM pipeline.
+
+20
+00:03:14.620 --> 00:03:23.120
+Jitendra K: So, you might have worked on PyTorch, where you define the neural networks and then optimize its weights. So, similar… similar way, here we are optimizing the model.
+
+21
+00:03:23.360 --> 00:03:26.619
+Jitendra K: With a declarative style of writing the prompts, right?
+
+22
+00:03:39.300 --> 00:03:45.880
+Jitendra K: So the core problem that we are trying to solve here is we are trying to create a modern AI application
+
+23
+00:03:46.120 --> 00:03:55.399
+Jitendra K: which is going to create a compound system. That means you will have a rack pipeline with a query rewriter, retriever, context re-anchors, and answer generation.
+
+24
+00:03:55.830 --> 00:04:02.860
+Jitendra K: And if you are going to use some optimizer on the top of it, that means, using a declarative way, you can able to fix
+
+25
+00:04:03.140 --> 00:04:05.689
+Jitendra K: Some of the issues with the entire pipeline.
+
+26
+00:04:11.310 --> 00:04:17.680
+Jitendra K: So basically, if I have to give you a very simple answer, So, DSPY…
+
+27
+00:04:18.370 --> 00:04:22.959
+Jitendra K: It's… basically, you are going to program Not prompt.
+
+28
+00:04:23.090 --> 00:04:25.089
+Jitendra K: Right? So the idea here is.
+
+29
+00:04:25.260 --> 00:04:35.619
+Jitendra K: We are going to use some algorithms to write the prompt. Instead of rewriting as a user, rewriting means, let's say, if I'm going to use a bot, chatbot.
+
+30
+00:04:35.900 --> 00:04:42.789
+Jitendra K: in any domain. And, I'm depending upon the users, right? Let's say… let's assume that I've written all the…
+
+31
+00:04:43.330 --> 00:04:50.329
+Jitendra K: Pipeline, all the frameworks, including the perfect choice of vector DBs, rack pipeline.
+
+32
+00:04:50.540 --> 00:04:52.860
+Jitendra K: And then Dan and I deploy the model.
+
+33
+00:04:53.130 --> 00:05:03.499
+Jitendra K: But it's still my model, which I'm using, which is the best reasoning model, but it is not giving me the right answer. Maybe it is partially correct, or half complete.
+
+34
+00:05:03.740 --> 00:05:11.520
+Jitendra K: So in those scenarios, I may have to rephrase the prompt depending upon the users, depending upon their way of writing their…
+
+35
+00:05:12.020 --> 00:05:16.260
+Jitendra K: prompts, so I have a lot of dependency on the users, right?
+
+36
+00:05:16.360 --> 00:05:25.249
+Jitendra K: But that particular part, I cannot be able to govern, because the user will be business users, and they may have their own way of writing the prompts.
+
+37
+00:05:26.000 --> 00:05:31.049
+Jitendra K: So what if, if I'm going to use some programmatical algorithms that will help
+
+38
+00:05:31.580 --> 00:05:38.039
+Jitendra K: to optimize the prompt written by the user in such a manner that I will get a right answer from the top of it.
+
+39
+00:05:38.750 --> 00:05:45.610
+Jitendra K: So that's a core problem that we are trying to solve. So basically, we are trying to hand… create a kind of a tuning strategy
+
+40
+00:05:45.900 --> 00:05:48.050
+Jitendra K: Where the prompt will become manageable.
+
+41
+00:05:49.390 --> 00:05:52.690
+Jitendra K: So DSPY built on 3 important components.
+
+42
+00:05:53.800 --> 00:05:56.300
+Jitendra K: The first component is called Signature.
+
+43
+00:05:57.000 --> 00:06:03.520
+Jitendra K: The signature is a type of contract for large model… large language model calls.
+
+44
+00:06:04.170 --> 00:06:10.890
+Jitendra K: So it's a declarative specification of the input-output behavior. You want an LLM, to be generated.
+
+45
+00:06:11.500 --> 00:06:18.529
+Jitendra K: So, basically, it is going to utilize the function signature and programming language. So, a simple signature looks like this.
+
+46
+00:06:18.890 --> 00:06:25.040
+Jitendra K: Where I'm going to use a DSPY module, so this is the DSPY module that we are going to import.
+
+47
+00:06:25.530 --> 00:06:29.359
+Jitendra K: And using this DSPY module, I'm going to instruct
+
+48
+00:06:30.640 --> 00:06:36.649
+Jitendra K: I'm going to instruct a question in the right answer pair. That means I will have a right answer
+
+49
+00:06:37.090 --> 00:06:39.409
+Jitendra K: from the user. So, imagine that…
+
+50
+00:06:40.270 --> 00:06:46.380
+Jitendra K: let me give you a full scenario. Imagine that you are working on deploying your rack pipeline, and this is your rack pipeline.
+
+51
+00:06:47.340 --> 00:06:54.800
+Jitendra K: Now, when you're deploying your rack pipeline, you are validating your rack pipeline as well? Like, how effective this pipeline is for yours?
+
+52
+00:06:55.230 --> 00:06:59.110
+Jitendra K: Users, how many queries it is generating the right answer against.
+
+53
+00:06:59.400 --> 00:07:05.920
+Jitendra K: That means you're benchmarking on something, right? So your query will be benchmarked against user output.
+
+54
+00:07:06.860 --> 00:07:08.070
+Jitendra K: Or user.
+
+55
+00:07:08.250 --> 00:07:09.870
+Jitendra K: Ground truth labels.
+
+56
+00:07:09.970 --> 00:07:14.920
+Jitendra K: So this ground truth labels… We are going to use to validate your output.
+
+57
+00:07:15.070 --> 00:07:20.730
+Jitendra K: the rack pipeline that you have created, right? So let's say I have got Hundreds of queries run.
+
+58
+00:07:20.840 --> 00:07:23.850
+Jitendra K: And then, out of which, I'm getting 50%
+
+59
+00:07:24.500 --> 00:07:29.559
+Jitendra K: Or nearly 60% of the query, which is giving… getting 5-star.
+
+60
+00:07:30.290 --> 00:07:33.860
+Jitendra K: And remaining queries are below 3 star, right?
+
+61
+00:07:34.380 --> 00:07:37.729
+Jitendra K: That means 50-60% of the queries are getting 5-star, but…
+
+62
+00:07:38.470 --> 00:07:42.639
+Jitendra K: Near about 20% to 25% of the query is below
+
+63
+00:07:43.680 --> 00:07:50.249
+Jitendra K: 3-star. That means they are getting either 2 or 1, right, rating, in terms of… The client satisfaction criterias.
+
+64
+00:07:50.600 --> 00:07:56.170
+Jitendra K: So… what should I do here? These ratings are not gonna impact
+
+65
+00:07:56.310 --> 00:07:59.240
+Jitendra K: I should ask a user what should be the right answer instead.
+
+66
+00:07:59.800 --> 00:08:02.590
+Jitendra K: So that I can be able to test my model where I'm lacking.
+
+67
+00:08:03.440 --> 00:08:10.539
+Jitendra K: Right? So, for every… Questions, you cannot able to ask user that what should be the right answer.
+
+68
+00:08:11.060 --> 00:08:14.810
+Jitendra K: So instead of that, what you need to do is, you need to go traditional.
+
+69
+00:08:15.430 --> 00:08:19.400
+Jitendra K: You need to prepare those set of questions beforehand.
+
+70
+00:08:21.860 --> 00:08:25.600
+Jitendra K: You need to prepare these set of questions beforehand, right?
+
+71
+00:08:25.750 --> 00:08:30.629
+Jitendra K: And these questions will help you to test your rack pipeline.
+
+72
+00:08:31.150 --> 00:08:33.600
+Jitendra K: Before you deploy it to a production.
+
+73
+00:08:34.080 --> 00:08:36.969
+Jitendra K: So, in production, you cannot do,
+
+74
+00:08:37.750 --> 00:08:39.729
+Jitendra K: You cannot do a hit and trial approach.
+
+75
+00:08:40.669 --> 00:08:54.999
+Jitendra K: You have to go conventional. So, before pre-prod, you're going to run something called AutoRag and DSPY together to optimize your outcome, and has been tested against the known scenarios.
+
+76
+00:08:55.430 --> 00:08:58.620
+Jitendra K: That is what you are doing in machine learning as well, right? Before…
+
+77
+00:08:59.010 --> 00:09:03.590
+Jitendra K: You get enough confidence that my model is going to do fairly good in production.
+
+78
+00:09:03.960 --> 00:09:08.040
+Jitendra K: I will deploy it, once I get up, make maximum confidence on the model.
+
+79
+00:09:09.260 --> 00:09:11.760
+Jitendra K: The same idea has been used by DSPY.
+
+80
+00:09:12.070 --> 00:09:17.829
+Jitendra K: Now, I would like to introduce you to one of the data sets that is very famous as an open source data.
+
+81
+00:09:18.160 --> 00:09:21.320
+Jitendra K: Which is called Hot Pot… You weird.
+
+82
+00:09:22.490 --> 00:09:28.279
+Jitendra K: And this dataset… is available in Hugging Face.
+
+83
+00:09:29.080 --> 00:09:30.470
+Jitendra K: You can see…
+
+84
+00:09:38.160 --> 00:09:40.859
+Jitendra K: So this dataset is available in Hugging Face.
+
+85
+00:09:41.340 --> 00:09:45.210
+Jitendra K: You can download this. You can see that I have got a… I have…
+
+86
+00:09:45.650 --> 00:09:49.700
+Jitendra K: I have a benchmark now. So this is a benchmark data set.
+
+87
+00:09:50.070 --> 00:09:56.840
+Jitendra K: Which has been designed specifically for multi-hop question answering capability and explainability fundamentals.
+
+88
+00:09:57.060 --> 00:10:01.890
+Jitendra K: So, like traditional QA datasets, where a question can be answered from a single document.
+
+89
+00:10:02.070 --> 00:10:07.000
+Jitendra K: Hotpot QA required reasoning across multiple articles from Wikipedia.
+
+90
+00:10:07.130 --> 00:10:09.330
+Jitendra K: To arrive at the correct answer.
+
+91
+00:10:09.660 --> 00:10:12.580
+Jitendra K: So, if you look into this data side.
+
+92
+00:10:13.170 --> 00:10:16.069
+Jitendra K: We have a single hop question.
+
+93
+00:10:16.790 --> 00:10:19.050
+Jitendra K: We might have a multi-hop questions.
+
+94
+00:10:19.470 --> 00:10:22.170
+Jitendra K: And we might have complex questions.
+
+95
+00:10:22.680 --> 00:10:29.890
+Jitendra K: So let's say this particular question can be of Very simple terminologies.
+
+96
+00:10:30.240 --> 00:10:34.339
+Jitendra K: let's say the question could be, where's Barack Obama born?
+
+97
+00:10:35.760 --> 00:10:40.519
+Jitendra K: So you will generate an answer for it, right? Because Baragomo can, will be…
+
+98
+00:10:41.380 --> 00:10:43.610
+Jitendra K: Born in one country.
+
+99
+00:10:43.940 --> 00:10:47.780
+Jitendra K: Then, the multiple hop question could be, which city, which…
+
+100
+00:10:48.050 --> 00:10:53.749
+Jitendra K: Which is the birthplace of the first president of the United States, which is having a population of over 70,000.
+
+101
+00:10:54.390 --> 00:10:58.590
+Jitendra K: Right? So this required finding the first president, which is George Washington.
+
+102
+00:10:58.700 --> 00:11:04.019
+Jitendra K: And then finding his birthplace, which is… Virginia, I think.
+
+103
+00:11:04.240 --> 00:11:08.670
+Jitendra K: And then… Based upon those facts, you're comparing the answer.
+
+104
+00:11:09.930 --> 00:11:18.160
+Jitendra K: Right? So that is where you need to use this dataset, which will give you some liberty on the top of complex set of queries.
+
+105
+00:11:18.380 --> 00:11:27.460
+Jitendra K: That means Hotpot QA, It's first introduced in the year 2018 by CMU,
+
+106
+00:11:27.970 --> 00:11:33.200
+Jitendra K: And then, based upon that, Stanford and University of Montreal, as…
+
+107
+00:11:33.710 --> 00:11:36.720
+Jitendra K: Adopted this framework, and they have also defined it.
+
+108
+00:11:36.950 --> 00:11:41.760
+Jitendra K: So the key feature of this Hotpot QA dataset comprises of…
+
+109
+00:11:42.230 --> 00:11:45.349
+Jitendra K: Multi-hop reasoning, that means question required.
+
+110
+00:11:46.150 --> 00:11:50.790
+Jitendra K: To rephrase and… Finding, reasoning over multiple supporting documents.
+
+111
+00:11:51.060 --> 00:11:55.840
+Jitendra K: To answer, forcing model to correct… to connect information across sources.
+
+112
+00:11:56.170 --> 00:12:02.529
+Jitendra K: It may require several… Pre-existing knowledge with schemas as well.
+
+113
+00:12:02.640 --> 00:12:03.750
+Jitendra K: to operate.
+
+114
+00:12:04.160 --> 00:12:05.260
+Jitendra K: And then…
+
+115
+00:12:27.760 --> 00:12:35.470
+Jitendra K: So, basically, the questions… each question should come from Different annotations, sentences.
+
+116
+00:12:35.890 --> 00:12:40.890
+Jitendra K: and different type of documentation. That means you are creating some sort of labels.
+
+117
+00:12:41.350 --> 00:12:47.250
+Jitendra K: to get the answers, right? So basically, you are creating some system, Which will help you, too.
+
+118
+00:12:47.820 --> 00:12:57.150
+Jitendra K: Understand the… efficacy of the rack that you are going to build. So, Hotport QA… is… having…
+
+119
+00:12:57.760 --> 00:13:03.119
+Jitendra K: approximately 113K Wikipedia-based questions and answers pair.
+
+120
+00:13:03.540 --> 00:13:06.610
+Jitendra K: So, it's a pretty large data set.
+
+121
+00:13:06.710 --> 00:13:13.810
+Jitendra K: And, you can be able to use question, answers, pairs as well, so the answer is also given.
+
+122
+00:13:14.330 --> 00:13:16.180
+Jitendra K: We can see the answers is there.
+
+123
+00:13:16.800 --> 00:13:21.139
+Jitendra K: Right? So… And then you can use a question and answer pair.
+
+124
+00:13:21.480 --> 00:13:25.649
+Jitendra K: to generate the… insight. So let's take in this example.
+
+125
+00:13:26.240 --> 00:13:29.629
+Jitendra K: the question talks about…
+
+126
+00:13:30.520 --> 00:13:35.139
+Jitendra K: Yeah, the Oberai family is part of a hotel company that has head office in West City.
+
+127
+00:13:35.890 --> 00:13:38.629
+Jitendra K: So, say, Dali, and then a type of…
+
+128
+00:13:39.190 --> 00:13:43.659
+Jitendra K: this document is given, right? And the citation reference is also given.
+
+129
+00:13:44.410 --> 00:13:52.439
+Jitendra K: So basically, this is where the dataset will have a pretty large number of questions and answers, and the context which is given by the
+
+130
+00:13:53.030 --> 00:13:56.820
+Jitendra K: SMEs are labeled by a Stanford team as well.
+
+131
+00:13:57.960 --> 00:14:04.420
+Jitendra K: So, is this… Dataset is clear to everyone. What is this dataset is all about.
+
+132
+00:14:05.220 --> 00:14:12.740
+Jitendra K: Is it just a data set for training model? I am assuming that this is the case for several datasets. This is not for training the model, this is for testing the model.
+
+133
+00:14:13.170 --> 00:14:15.799
+Jitendra K: So we are testing the model, we are not training the model.
+
+134
+00:14:23.340 --> 00:14:29.700
+Jitendra K: Yeah, the format will change depending upon your business, depending upon your use case.
+
+135
+00:14:29.900 --> 00:14:33.450
+Jitendra K: But our essence of the testing will remain the same.
+
+136
+00:14:33.750 --> 00:14:37.260
+Jitendra K: The answer… question has to match the answer. Mother sense, right?
+
+137
+00:14:37.650 --> 00:14:42.120
+Jitendra K: Now, the format you can change. You can use list, you can use dictionary, you can use hash.
+
+138
+00:14:42.450 --> 00:14:46.310
+Jitendra K: You can use CSVs, you can use databases, you can use agents.
+
+139
+00:14:50.800 --> 00:14:53.610
+Jitendra K: This will be, like, the domain knowledge, right?
+
+140
+00:14:54.790 --> 00:14:56.669
+Jitendra K: Yeah, it will lack, but…
+
+141
+00:14:57.280 --> 00:15:02.009
+Jitendra K: your RAG, your model, has been trained on a vast amount of Wikipedia data as well, right?
+
+142
+00:15:02.270 --> 00:15:05.680
+Jitendra K: So if you're passing a bunch of additional data.
+
+143
+00:15:05.970 --> 00:15:10.539
+Jitendra K: To your model, then how the model respond to that data, that is what you're testing.
+
+144
+00:15:25.060 --> 00:15:30.789
+Jitendra K: Do you could say that this is an eval data set for improving? Yeah, that's correct. This is an evaluation data set, kind of.
+
+145
+00:15:31.590 --> 00:15:35.100
+Jitendra K: Does this assume model has knowledge of Wikipedia already in it?
+
+146
+00:15:36.090 --> 00:15:41.790
+Jitendra K: It will, but what about closed source and open source models? What about small models?
+
+147
+00:15:42.910 --> 00:15:48.660
+Jitendra K: Right? You cannot trace… you cannot guarantee that every model has been trained on the same Wikipedia data.
+
+148
+00:15:49.170 --> 00:15:54.449
+Jitendra K: So that's a good opportunity when you're trying to compare different LLMs as well. Which LLM is the best?
+
+149
+00:15:55.500 --> 00:16:07.469
+Jitendra K: I think the dataset are usually split between training and test, how this is dataset, different, and called test on your dataset. You're training the model on documents, you're not training the model on questions.
+
+150
+00:16:07.570 --> 00:16:12.450
+Jitendra K: If you're training the model in question, it will mesmerize the output like a parrot.
+
+151
+00:16:13.230 --> 00:16:13.990
+Jitendra K: Right?
+
+152
+00:16:14.380 --> 00:16:20.969
+Jitendra K: So you have to train the model on the document, not on the questions. And then, this is the QA part of it.
+
+153
+00:16:21.360 --> 00:16:24.940
+Jitendra K: So you're testing the model with the help of conventional Q&A.
+
+154
+00:16:28.130 --> 00:16:32.899
+Jitendra K: You cannot train the model on questions and answers. This is not a right approach.
+
+155
+00:16:34.110 --> 00:16:36.129
+Jitendra K: So, how many questions you are going to write?
+
+156
+00:16:36.820 --> 00:16:39.960
+Jitendra K: First of all, infinite, not less than that.
+
+157
+00:16:44.970 --> 00:16:46.689
+Jitendra K: So that is the crux of this.
+
+158
+00:16:48.380 --> 00:16:55.119
+Jitendra K: Alright, so we have got a good amount of samples to run this, and these samples are forming a squad.
+
+159
+00:16:55.380 --> 00:16:59.949
+Jitendra K: So there, it serves a squad of HotPotQA. That means I can group
+
+160
+00:17:00.520 --> 00:17:02.819
+Jitendra K: Pairs of questions which are similar.
+
+161
+00:17:03.120 --> 00:17:10.650
+Jitendra K: So there are threes, I would say there are… Basically, as… several facets.
+
+162
+00:17:11.150 --> 00:17:15.760
+Jitendra K: which Hotpot QA use to… Perform the hopping.
+
+163
+00:17:16.460 --> 00:17:18.570
+Jitendra K: Some of the criterias would be
+
+164
+00:17:19.119 --> 00:17:26.370
+Jitendra K: If you are using more than two ops, let's say there are two queries inside a single question.
+
+165
+00:17:26.790 --> 00:17:32.500
+Jitendra K: then it should consider as a medium complex. If it is more than that, it will be considered as high complex.
+
+166
+00:17:32.990 --> 00:17:42.259
+Jitendra K: Now, what are you going to do? So, Hotpot evaluate model on two-dimension. Now, this Hotpot QA is also part of LLM benchmark, by the way, right?
+
+167
+00:17:42.550 --> 00:17:49.019
+Jitendra K: But this is also an LLM benchmark, Hotpot QA, right? So, if I have to show you the leadership board.
+
+168
+00:18:30.010 --> 00:18:36.000
+Jitendra K: So you can see there are reasoning models, right? So when you say reasoning model, there are different set of, questions.
+
+169
+00:18:36.650 --> 00:18:45.589
+Jitendra K: Which has been used to test the model. When I say reasoning model, what do you mean by reasoning model? I'm not going to ask them to solve for X problems in physics books.
+
+170
+00:18:46.450 --> 00:18:49.669
+Jitendra K: They will have a defined set of criteria that I'm going to test.
+
+171
+00:18:49.880 --> 00:18:55.579
+Jitendra K: against it. And then… Based upon those benchmarks, there's something called GPQA.
+
+172
+00:18:57.490 --> 00:19:04.100
+Jitendra K: general purpose query understanding, and basically, I would say, is one of the benchmarks that has been used.
+
+173
+00:19:04.290 --> 00:19:08.070
+Jitendra K: So, GPQA is one of the benchmarks that has been used by
+
+174
+00:19:08.250 --> 00:19:12.830
+Jitendra K: the model, and this stands for Graduate Level Google Proof Q&A Benchmark.
+
+175
+00:19:13.230 --> 00:19:23.670
+Jitendra K: So, graduate-level Google-proof Q&A benchmark. That means we are estimating the model to behave like a… University grad student.
+
+176
+00:19:24.000 --> 00:19:25.639
+Jitendra K: Who can able to solve?
+
+177
+00:19:26.550 --> 00:19:32.689
+Jitendra K: The, multiple choice questions with Varies from extreme difficulty to…
+
+178
+00:19:32.880 --> 00:19:36.969
+Jitendra K: Sorry, which varies from simple to extreme difficult questions.
+
+179
+00:19:37.520 --> 00:19:42.440
+Jitendra K: Right? So the core problem why GPA exists is… GPQA exists is…
+
+180
+00:19:43.790 --> 00:19:51.039
+Jitendra K: The idea is, we would like to use… Some powerful way of… Analyzing the model.
+
+181
+00:19:52.050 --> 00:19:55.930
+Jitendra K: Right? So these benchmarks are always better when
+
+182
+00:19:56.290 --> 00:20:04.639
+Jitendra K: the vendors like OpenAI, Claude, they are launching, sorry, OpenAI model that they are launching as GPT versions.
+
+183
+00:20:05.200 --> 00:20:10.490
+Jitendra K: Anthropic, they are launching the cloud versions. Open Source Quen models has also been there.
+
+184
+00:20:10.760 --> 00:20:22.089
+Jitendra K: DeepSeek is there, Gemini is there, right? So, you're going to compete… this is a very competitive world, right? So, they are going to compete against each other based upon the architecture's formulation.
+
+185
+00:20:22.460 --> 00:20:32.439
+Jitendra K: So how they are going to evaluate on which benchmark, there should be common benchmark, right? And that's the whole idea the common benchmark has been made, and one of the common benchmark methods
+
+186
+00:20:32.690 --> 00:20:35.060
+Jitendra K: is Hotpot QA questions as well.
+
+187
+00:20:36.250 --> 00:20:42.950
+Jitendra K: So this means they are… white… Skilled questions.
+
+188
+00:20:43.100 --> 00:20:45.139
+Jitendra K: high labeled.
+
+189
+00:20:45.360 --> 00:20:53.860
+Jitendra K: That means you will have a good amount of control over the skills… Reasoning and knowledge capabilities.
+
+190
+00:20:54.120 --> 00:21:00.910
+Jitendra K: And also, it will be designed based upon the question styles and the key metrics that is intended to be compare against.
+
+191
+00:21:01.360 --> 00:21:09.800
+Jitendra K: So, the idea is, when you build a program, or build any RAG application, You need to understand which…
+
+192
+00:21:10.030 --> 00:21:14.620
+Jitendra K: kind of model should I integrate for that particular domain adaptability?
+
+193
+00:21:15.400 --> 00:21:22.839
+Jitendra K: Right? That is also you need to do as an analysis. What are the factors that you should consider to train the model on the rack pipeline?
+
+194
+00:21:23.100 --> 00:21:27.529
+Jitendra K: And then, what are the features that I should control to improve the overall prompts?
+
+195
+00:21:28.130 --> 00:21:35.400
+Jitendra K: So, all these three… Questions and scenarios will be given by these systematic data points.
+
+196
+00:21:37.470 --> 00:21:46.590
+Jitendra K: All right, so I'm talking about signatures. So this is the first module, which talks about signatures, and it's a very declarative way of
+
+197
+00:21:47.810 --> 00:21:52.190
+Jitendra K: Constraining and creating a type contract for large language model calls.
+
+198
+00:21:52.450 --> 00:21:57.399
+Jitendra K: So you can see that I'm using a signature as a question and answer pair.
+
+199
+00:21:58.000 --> 00:22:04.410
+Jitendra K: Now, when I say signature, Signature is followed by, some design patterns here as well.
+
+200
+00:22:04.920 --> 00:22:11.180
+Jitendra K: So basically, what I'm… Saying here is… the signature…
+
+201
+00:22:11.440 --> 00:22:14.939
+Jitendra K: It's nothing word, it's a… it's a module that I'm going to use.
+
+202
+00:22:15.250 --> 00:22:23.990
+Jitendra K: So… Signature in DSPY, is a declarative specification. Basically, what it does is, it defines
+
+203
+00:22:24.510 --> 00:22:28.210
+Jitendra K: The interface between your program, And the LLM.
+
+204
+00:22:28.670 --> 00:22:32.160
+Jitendra K: So it tells the… language model.
+
+205
+00:22:32.970 --> 00:22:36.860
+Jitendra K: what input you receive, and what output I expect.
+
+206
+00:22:38.390 --> 00:22:42.810
+Jitendra K: So, to match these two numbers, or these two… propositions.
+
+207
+00:22:43.730 --> 00:22:46.069
+Jitendra K: I need to instruct what to do.
+
+208
+00:22:46.410 --> 00:22:50.710
+Jitendra K: So that is where you are going to replace the fragile manual writing prompt.
+
+209
+00:22:50.830 --> 00:22:53.579
+Jitendra K: With a type structure contract.
+
+210
+00:22:55.060 --> 00:22:59.820
+Jitendra K: And I will come into… come, come into, the details.
+
+211
+00:23:00.050 --> 00:23:05.689
+Jitendra K: how the DSP web modules are rewriting the prompts. There is something called teleprompters.
+
+212
+00:23:05.990 --> 00:23:07.899
+Jitendra K: That we will use to write the prompts.
+
+213
+00:23:09.470 --> 00:23:14.730
+Jitendra K: So basically, DSPY signatures… Solves the problem by treating large model.
+
+214
+00:23:15.190 --> 00:23:21.629
+Jitendra K: That may interact with a type function call with clear input, output, and constraint. So that's why it is called signature.
+
+215
+00:23:22.170 --> 00:23:27.109
+Jitendra K: So here you can see that I'm using a signature with a tuple, question and answer pair.
+
+216
+00:23:27.510 --> 00:23:35.360
+Jitendra K: And then I have a class, which is… Using this signature module, to write…
+
+217
+00:23:35.610 --> 00:23:37.770
+Jitendra K: The list of input and output.
+
+218
+00:23:37.920 --> 00:23:38.970
+Jitendra K: fields.
+
+219
+00:23:39.690 --> 00:23:42.870
+Jitendra K: So, I'm using annotation here, pull annotation.
+
+220
+00:23:43.570 --> 00:23:49.539
+Jitendra K: And then, I'm saying that my input will be some predefined fields.
+
+221
+00:23:50.220 --> 00:23:52.980
+Jitendra K: Which is… List of strings.
+
+222
+00:23:53.590 --> 00:23:58.189
+Jitendra K: That means I will have multiple paragraphs to train, to input a model.
+
+223
+00:23:58.510 --> 00:24:04.260
+Jitendra K: And a list of questions, which will be a string, mostly. And the answer will be… basically…
+
+224
+00:24:04.920 --> 00:24:09.620
+Jitendra K: Less than or equal to 3 sentences with a citation references.
+
+225
+00:24:10.000 --> 00:24:18.410
+Jitendra K: Alright, so I will pass on the citation references on paragraphs, Documents, maybe entity as well.
+
+226
+00:24:18.850 --> 00:24:23.050
+Jitendra K: And then I will predict the… Quality of the outcome.
+
+227
+00:24:23.500 --> 00:24:27.740
+Jitendra K: So basically, when I'm predicting the quality of the outcome, I need to perform.
+
+228
+00:24:28.380 --> 00:24:31.160
+Jitendra K: the… I need to use the…
+
+229
+00:24:31.540 --> 00:24:33.619
+Jitendra K: design pattern. So, chain of thought.
+
+230
+00:24:33.910 --> 00:24:39.610
+Jitendra K: Will extend my signature by adding an intermediate reasoning output field, and this becomes a separate step in the prompt.
+
+231
+00:24:40.230 --> 00:24:47.600
+Jitendra K: And then maybe I'm going to use React or Reasing style of… Managing this, field validation.
+
+232
+00:24:47.790 --> 00:24:54.230
+Jitendra K: So, signature, in a nutshell, is a contract where you are going to write your input-output expectation.
+
+233
+00:24:54.350 --> 00:24:59.569
+Jitendra K: In terms of your, your domain agnostic Q&A.
+
+234
+00:25:01.290 --> 00:25:04.970
+Jitendra K: The second component of DSPY is called modules.
+
+235
+00:25:05.710 --> 00:25:12.270
+Jitendra K: Now, you can see that I'm extending everything from this class, DSPY class now?
+
+236
+00:25:12.560 --> 00:25:16.140
+Jitendra K: through DSPY, Also have modules.
+
+237
+00:25:17.560 --> 00:25:19.710
+Jitendra K: So, what is the purpose of modules?
+
+238
+00:25:20.320 --> 00:25:21.510
+Jitendra K: or module.
+
+239
+00:25:22.150 --> 00:25:25.669
+Jitendra K: Right, so if I have to explain to you, so module is…
+
+240
+00:25:26.280 --> 00:25:34.110
+Jitendra K: Like, a reusable component is a fundamental building block for a program that use language model.
+
+241
+00:25:35.170 --> 00:25:39.299
+Jitendra K: So think of these modules as an encapsulated unit of behavior.
+
+242
+00:25:39.580 --> 00:25:45.369
+Jitendra K: That takes your type signature, And add a specific prompting strategies.
+
+243
+00:25:47.000 --> 00:25:53.340
+Jitendra K: Right? So basically, it's a kind of a pre-package reasoning strategy that will simply plug into your program.
+
+244
+00:25:53.640 --> 00:26:00.029
+Jitendra K: And each module will have a same signature interface, but implement a different logical structure.
+
+245
+00:26:00.600 --> 00:26:05.040
+Jitendra K: So there are two ways to use module. One is you can use a custom
+
+246
+00:26:05.350 --> 00:26:08.359
+Jitendra K: build-in modules from the SPY class.
+
+247
+00:26:09.570 --> 00:26:16.450
+Jitendra K: Sorry, you can use built-in module from DSPY class, or you can write your own custom modules.
+
+248
+00:26:18.320 --> 00:26:25.650
+Jitendra K: So if you're writing a custom module, you need to use… the extension on DSPY module.
+
+249
+00:26:25.820 --> 00:26:32.849
+Jitendra K: Right? So here, I'm just using an extension of DSPY, and that means I have to inherit this class.
+
+250
+00:26:33.080 --> 00:26:37.800
+Jitendra K: And then write my own… New class that will adapt
+
+251
+00:26:38.380 --> 00:26:41.560
+Jitendra K: to this base class, the SPY module.
+
+252
+00:26:42.090 --> 00:26:47.679
+Jitendra K: So how modules work internally is, when you call a module, a predictable flow will happen behind the scene.
+
+253
+00:26:48.450 --> 00:26:53.510
+Jitendra K: So, first you call the module, with input arguments.
+
+254
+00:26:54.210 --> 00:26:57.199
+Jitendra K: Then put argument to layer questions, right?
+
+255
+00:26:57.930 --> 00:27:04.949
+Jitendra K: Then, in the second step, what it does is, it uses adapter format. That means it will take your signature input.
+
+256
+00:27:05.570 --> 00:27:10.480
+Jitendra K: And any few short example that has been given, by the prompt.
+
+257
+00:27:10.790 --> 00:27:18.309
+Jitendra K: Then it constructs the actual prompt message that has been sent to a large model. And then large model… language model generates response.
+
+258
+00:27:18.600 --> 00:27:22.969
+Jitendra K: Within the module's specific signature, It will also include reasoning.
+
+259
+00:27:23.420 --> 00:27:28.750
+Jitendra K: Traces, etc. And then the adapter parse the response back to the structure output fields.
+
+260
+00:27:29.090 --> 00:27:35.210
+Jitendra K: So you receive… you're going to receive the predicted output, or DSVY.prediction.
+
+261
+00:27:35.630 --> 00:27:40.810
+Jitendra K: Object with a field matching your signature, plus any module-added fields.
+
+262
+00:27:40.940 --> 00:27:42.489
+Jitendra K: And then you can compare it.
+
+263
+00:27:43.060 --> 00:27:51.310
+Jitendra K: So this is where the module will govern Between your signature, and… The kind of,
+
+264
+00:27:52.570 --> 00:27:57.330
+Jitendra K: the teleprompters, which I'm going to talk now, And sandwich between the two.
+
+265
+00:28:03.960 --> 00:28:08.670
+Jitendra K: Now, I will come about teleprompters. So, what is teleprompters?
+
+266
+00:28:10.850 --> 00:28:15.689
+Jitendra K: in DSPY. So, think of these modules like a compiler.
+
+267
+00:28:16.250 --> 00:28:20.620
+Jitendra K: Right, so when you're compiling any code in any programming language.
+
+268
+00:28:21.470 --> 00:28:40.940
+Jitendra K: Or, let's say you're writing a code in Python, you have a compiler in Python. When you're writing a code in Java, you have a code in Java… JVM, right? You're going to compile in JVM, Java Virtual Machine. When you're writing a code in C-sharp, you have a Visual Basic compiler that is going to compile your code and convert into a byte stream.
+
+269
+00:28:41.530 --> 00:28:48.420
+Jitendra K: Now, similarly, teleprompter, which has been renamed to Optimizer recently.
+
+270
+00:28:48.930 --> 00:28:55.810
+Jitendra K: is an automatic optimization engine in DSPY. So think of this as a compiler for your language model programs.
+
+271
+00:28:55.950 --> 00:28:59.739
+Jitendra K: So take your program evaluation metrics, and training data.
+
+272
+00:28:59.960 --> 00:29:04.699
+Jitendra K: Then systematically find the best prompt, or fine-tune the model to maximize the performance.
+
+273
+00:29:04.860 --> 00:29:10.729
+Jitendra K: So when you're writing any program in Java or C++ or Python, let's say you're writing a code.
+
+274
+00:29:16.270 --> 00:29:20.640
+Jitendra K: Let's say you're writing a quote to reverse a list. Simple program.
+
+275
+00:29:21.200 --> 00:29:23.590
+Jitendra K: Reverse a list, single link list.
+
+276
+00:29:24.630 --> 00:29:27.669
+Jitendra K: Now, there are different ways of reversing a single linked list.
+
+277
+00:29:29.720 --> 00:29:30.490
+Jitendra K: Correct.
+
+278
+00:29:30.640 --> 00:29:35.090
+Jitendra K: So there are a number of methods that you can able to use to reverse a single linked list.
+
+279
+00:29:36.910 --> 00:29:45.530
+Jitendra K: But… Your program should compile Based upon the time complexity and operational time complexity.
+
+280
+00:29:47.030 --> 00:29:53.550
+Jitendra K: So, if the time complexity of your algorithm and the operational complexity of your algorithm is in the order of N,
+
+281
+00:29:53.820 --> 00:29:55.290
+Jitendra K: or 1.
+
+282
+00:29:55.700 --> 00:29:57.679
+Jitendra K: That means your program is efficient.
+
+283
+00:29:58.120 --> 00:30:07.769
+Jitendra K: So when you're writing these questions, or when you're writing these solutions and data structures, you're following some convention to write it.
+
+284
+00:30:08.490 --> 00:30:11.570
+Jitendra K: Similarly, think of this convention.
+
+285
+00:30:11.790 --> 00:30:14.219
+Jitendra K: That you're using to write prompts.
+
+286
+00:30:15.400 --> 00:30:21.870
+Jitendra K: So what are the conventions? Your convention is declarative, right? So you have a question, you have an answer.
+
+287
+00:30:22.840 --> 00:30:32.129
+Jitendra K: We need to generate and use these methods, which are basically a statistical method, To match these pairs.
+
+288
+00:30:33.030 --> 00:30:35.389
+Jitendra K: So, teleprompter is an optimizer.
+
+289
+00:30:35.630 --> 00:30:38.470
+Jitendra K: So, how optimizer works? It will take 3 inputs.
+
+290
+00:30:39.980 --> 00:30:43.060
+Jitendra K: The first is your module or multi-module pipeline.
+
+291
+00:30:43.230 --> 00:30:45.770
+Jitendra K: The second is the metrics of evaluation.
+
+292
+00:30:46.880 --> 00:30:57.129
+Jitendra K: That means you can custom build metrics, you can use LLM as a judge, you can use F1 score, you can use recall, precision, faithfulness, completeness, etc.
+
+293
+00:30:57.540 --> 00:31:02.799
+Jitendra K: You will have a training input. Small site, maybe 5 to 10 example, possibly without labels.
+
+294
+00:31:04.490 --> 00:31:08.619
+Jitendra K: So, optimization runs your program across different inputs.
+
+295
+00:31:08.740 --> 00:31:13.609
+Jitendra K: Collector traces, input-output behavior, filter for high-scoring trajectories.
+
+296
+00:31:14.050 --> 00:31:20.830
+Jitendra K: Review your program code, data, and collect traces to draft many candidate instructions for each, every prompt.
+
+297
+00:31:21.470 --> 00:31:24.689
+Jitendra K: And then it applies something called mini batches.
+
+298
+00:31:24.920 --> 00:31:26.759
+Jitendra K: The stochastic mini-watches.
+
+299
+00:31:27.180 --> 00:31:31.490
+Jitendra K: which will test… The instruction, demo, and combination.
+
+300
+00:31:32.720 --> 00:31:34.130
+Jitendra K: Hello, I'm audible.
+
+301
+00:31:37.330 --> 00:31:38.589
+Jitendra K: Am I audible to you?
+
+302
+00:31:40.230 --> 00:31:48.560
+Jitendra K: Okay, so it will use… Are kind of a simulation scenarios to perform testing, instruction, and demo combination.
+
+303
+00:31:49.000 --> 00:31:53.669
+Jitendra K: And score them, update a surrogate model to improve the proposal over that period of time.
+
+304
+00:31:54.190 --> 00:31:59.540
+Jitendra K: So that is what this optimizers or teleprompters are.
+
+305
+00:32:00.140 --> 00:32:01.400
+Jitendra K: useful for.
+
+306
+00:32:02.040 --> 00:32:04.249
+Jitendra K: So, there are different types of teleprompter.
+
+307
+00:32:04.610 --> 00:32:07.430
+Jitendra K: The first is called Label Short.
+
+308
+00:32:07.800 --> 00:32:09.459
+Jitendra K: Or label few short.
+
+309
+00:32:13.800 --> 00:32:18.089
+Jitendra K: So let me explain this… Slightly mathematically, and…
+
+310
+00:32:19.500 --> 00:32:25.229
+Jitendra K: slightly in-depth, what is this algorithm? So, assume it, like, they're all algorithms now, right?
+
+311
+00:32:25.580 --> 00:32:30.510
+Jitendra K: So, label few short, as the name suggests, labeling few short learners.
+
+312
+00:32:31.610 --> 00:32:35.299
+Jitendra K: That means you have a label with few short or few examples.
+
+313
+00:32:35.900 --> 00:32:37.400
+Jitendra K: They are static demos.
+
+314
+00:32:39.470 --> 00:32:42.399
+Jitendra K: Maybe good for quick baselining the model.
+
+315
+00:32:42.720 --> 00:32:46.030
+Jitendra K: So, LabelViewShort is a simplest optimizer.
+
+316
+00:32:46.460 --> 00:32:49.220
+Jitendra K: We select a fixed number of training examples.
+
+317
+00:32:49.860 --> 00:32:53.499
+Jitendra K: And include them as a few short demonstrations in the prompt.
+
+318
+00:32:54.270 --> 00:32:57.690
+Jitendra K: And what it does is… it's select.
+
+319
+00:32:58.120 --> 00:33:00.119
+Jitendra K: From your existing label data only.
+
+320
+00:33:01.170 --> 00:33:03.679
+Jitendra K: So, in a nutshell, when you're using
+
+321
+00:33:24.400 --> 00:33:27.809
+Jitendra K: Label free share, shh, label few short.
+
+322
+00:33:28.800 --> 00:33:30.120
+Jitendra K: Optimizer.
+
+323
+00:33:33.570 --> 00:33:34.990
+Jitendra K: So, what is your input?
+
+324
+00:33:40.510 --> 00:33:43.059
+Jitendra K: So your input will be your training examples.
+
+325
+00:33:44.950 --> 00:33:46.310
+Jitendra K: That you're using.
+
+326
+00:33:49.980 --> 00:33:51.600
+Jitendra K: which comprise of…
+
+327
+00:33:58.880 --> 00:34:02.369
+Jitendra K: several… And labeled examples.
+
+328
+00:34:10.790 --> 00:34:11.970
+Jitendra K: your query.
+
+329
+00:34:15.280 --> 00:34:21.009
+Jitendra K: And the K, which is the number of few short examples to be selected as a hyperparameter.
+
+330
+00:34:21.900 --> 00:34:26.340
+Jitendra K: So, LabelView Short Learner will… perform.
+
+331
+00:34:27.610 --> 00:34:34.409
+Jitendra K: Basically, Bosch… Shuffling your examples and try to find the best pair.
+
+332
+00:34:34.870 --> 00:34:39.939
+Jitendra K: That means, what I'm trying to do with the help of a few short learners is…
+
+333
+00:34:41.100 --> 00:34:49.160
+Jitendra K: I would like to feed in some multiple scenarios to the model, so that it can able to adapt to generate a right answer.
+
+334
+00:34:49.610 --> 00:34:50.590
+Jitendra K: So…
+
+335
+00:34:54.260 --> 00:34:57.439
+Jitendra K: Let me show you with a diagram.
+
+336
+00:35:23.150 --> 00:35:25.720
+Jitendra K: Yeah, so this is what I'm trying to say.
+
+337
+00:35:37.470 --> 00:35:39.550
+Jitendra K: And this is your input.
+
+338
+00:35:46.930 --> 00:35:50.949
+Jitendra K: Okay, so what are you trying to achieve here is, with the help of this optimizer.
+
+339
+00:35:51.770 --> 00:35:55.049
+Jitendra K: You are trying to achieve an automated few-shot learning.
+
+340
+00:35:55.340 --> 00:35:58.260
+Jitendra K: So, when you're writing any prompt.
+
+341
+00:35:58.950 --> 00:36:09.950
+Jitendra K: You're using some few short examples to explain what should be the output looks like, right, when you're writing a prompt. And this is one of the strategies that you're using to write a good prompt.
+
+342
+00:36:10.590 --> 00:36:18.640
+Jitendra K: Now, few-shot, label few-shot, comes under automated few-shot learning. There are some advanced packages as well. This is a very basic method.
+
+343
+00:36:19.830 --> 00:36:28.149
+Jitendra K: So what it does is… What it does is… It will simply…
+
+344
+00:36:30.480 --> 00:36:35.740
+Jitendra K: use, or simplest technique, it will use a copy-paste mechanism, for example.
+
+345
+00:36:36.390 --> 00:36:40.330
+Jitendra K: So the basic idea is, imagine that you're taking a test.
+
+346
+00:36:41.790 --> 00:36:46.200
+Jitendra K: Let's say you are taking some tests, right? Some sort of test you're using.
+
+347
+00:36:46.570 --> 00:36:48.559
+Jitendra K: You appear in some tests.
+
+348
+00:36:49.640 --> 00:36:52.369
+Jitendra K: And the teacher gave you the few examples.
+
+349
+00:36:52.480 --> 00:36:55.650
+Jitendra K: Or some few questions with their answers.
+
+350
+00:36:55.880 --> 00:36:58.170
+Jitendra K: Before giving you the real question.
+
+351
+00:36:58.390 --> 00:37:01.459
+Jitendra K: like HackerRank, right? So HackerRank gives you some…
+
+352
+00:37:02.210 --> 00:37:06.589
+Jitendra K: Illustrative view of how the question will appear, what will be the…
+
+353
+00:37:06.900 --> 00:37:10.559
+Jitendra K: Fundamental, type of question will appear.
+
+354
+00:37:10.960 --> 00:37:14.009
+Jitendra K: And then… You're going to use that.
+
+355
+00:37:14.700 --> 00:37:21.409
+Jitendra K: So the idea of… This label few short demonstration is, you should adapt to the environment.
+
+356
+00:37:22.710 --> 00:37:28.350
+Jitendra K: So this is exactly what label fuel short does. It takes a few examples from your training data.
+
+357
+00:37:28.600 --> 00:37:31.770
+Jitendra K: And paste them into a prompt before your real question.
+
+358
+00:37:34.020 --> 00:37:34.890
+Jitendra K: Right?
+
+359
+00:37:35.190 --> 00:37:40.089
+Jitendra K: So, some real-world analogy would be, let's say, you're cooking from a recipe book.
+
+360
+00:37:40.790 --> 00:37:44.890
+Jitendra K: So you have a cook… work with 100 SCP, your training data.
+
+361
+00:37:45.620 --> 00:37:47.499
+Jitendra K: You're about to cook a new dish.
+
+362
+00:37:47.960 --> 00:37:49.580
+Jitendra K: Which will become your query.
+
+363
+00:37:50.290 --> 00:37:54.319
+Jitendra K: You pick 3 random species, Oh, sorry, recipes.
+
+364
+00:37:54.430 --> 00:37:56.489
+Jitendra K: And put them on the counter.
+
+365
+00:37:56.820 --> 00:38:03.530
+Jitendra K: And you follow the same pattern. As those three SCP, To cook… Or your new dish.
+
+366
+00:38:04.590 --> 00:38:09.170
+Jitendra K: Right? So this is the simple analogy that we can think of
+
+367
+00:38:09.850 --> 00:38:13.330
+Jitendra K: how LabelFut Learner works, you know?
+
+368
+00:38:13.510 --> 00:38:14.500
+Jitendra K: Backhand.
+
+369
+00:38:15.700 --> 00:38:17.290
+Jitendra K: Right? So basically.
+
+370
+00:38:24.510 --> 00:38:26.129
+Jitendra K: In a nutshell.
+
+371
+00:38:27.510 --> 00:38:33.349
+Jitendra K: If I'm going to use a very simple label few-short learner, let's say if I'm asking.
+
+372
+00:38:33.800 --> 00:38:36.140
+Jitendra K: A simple question, right?
+
+373
+00:38:36.450 --> 00:38:38.589
+Jitendra K: What is the capital of Japan?
+
+374
+00:38:39.860 --> 00:38:42.810
+Jitendra K: So… this is my question, right?
+
+375
+00:38:43.580 --> 00:38:45.350
+Jitendra K: What is the capital of Japan?
+
+376
+00:38:56.410 --> 00:38:58.880
+Jitendra K: So what this free-shot learner will do is…
+
+377
+00:38:59.440 --> 00:39:02.219
+Jitendra K: If I'm passing the parameter of K,
+
+378
+00:39:02.420 --> 00:39:08.150
+Jitendra K: to be 2. That means I need to provide 2 more examples, so that it will generate the right answer.
+
+379
+00:39:10.140 --> 00:39:18.109
+Jitendra K: So here, my teleprompter will force to understand the relationship between these two terms, capital and Japan.
+
+380
+00:39:19.550 --> 00:39:25.020
+Jitendra K: So it will first use some examples from the existing data. It will read some questions.
+
+381
+00:39:25.330 --> 00:39:34.990
+Jitendra K: And their answer… let's say the question says, what is the… Capital off… France.
+
+382
+00:39:37.190 --> 00:39:39.879
+Jitendra K: I'm gonna say Paris as the right answer.
+
+383
+00:39:41.020 --> 00:39:43.880
+Jitendra K: And then, what is the capital of Germany? Germany.
+
+384
+00:39:55.240 --> 00:40:01.849
+Jitendra K: It's a Berlin… And then it will use these two pairs to generate the third answer.
+
+385
+00:40:02.410 --> 00:40:05.570
+Jitendra K: Although it's a fact, right, it is not going to change.
+
+386
+00:40:06.110 --> 00:40:08.260
+Jitendra K: But I'm forcing the compiler to…
+
+387
+00:40:08.420 --> 00:40:11.250
+Jitendra K: Do some cross-validation before generating an answer.
+
+388
+00:40:12.410 --> 00:40:14.890
+Jitendra K: Right, so I'm exposing some examples.
+
+389
+00:40:15.550 --> 00:40:19.390
+Jitendra K: A kind of a style that should be used to generate an answer.
+
+390
+00:40:20.290 --> 00:40:26.329
+Jitendra K: So that is where I'm going to choose some examples, so that a label few short will pick a few examples from the
+
+391
+00:40:26.840 --> 00:40:32.420
+Jitendra K: Previous generated answers, and then work upon that.
+
+392
+00:40:34.170 --> 00:40:37.280
+Jitendra K: Right? So that is called Few Short Example.
+
+393
+00:40:37.900 --> 00:40:44.239
+Jitendra K: Now, we'll move on to some advanced technique, like bootstrap few-shot, and we would bootstrap with
+
+394
+00:40:44.910 --> 00:40:46.730
+Jitendra K: Too short with random search.
+
+395
+00:40:49.620 --> 00:40:56.980
+Jitendra K: So the difference between boots, label few short and bootstrap Fuse Short… Bootstrap… bootstrap, few short.
+
+396
+00:40:57.380 --> 00:41:00.349
+Jitendra K: It's like having a smart tutor.
+
+397
+00:41:01.050 --> 00:41:08.390
+Jitendra K: who does not just copy your homework, they try to solve problems as well. Check their work, and keep the solution that are correct.
+
+398
+00:41:09.050 --> 00:41:12.299
+Jitendra K: So instead of copying examples from retaining data, just, like.
+
+399
+00:41:12.410 --> 00:41:17.580
+Jitendra K: Table few short. Bootstrap few short, generates its own copy, or an example.
+
+400
+00:41:18.040 --> 00:41:21.619
+Jitendra K: By actually running your program, and then keep only the good ones.
+
+401
+00:41:23.290 --> 00:41:31.190
+Jitendra K: Right? So basically what it does is… It will work like a… Peter.
+
+402
+00:41:32.040 --> 00:41:38.589
+Jitendra K: Which are often more powerful large models to answer all the questions, and then it created their own metrics.
+
+403
+00:41:39.310 --> 00:41:40.890
+Jitendra K: To yield a response.
+
+404
+00:41:42.630 --> 00:41:46.069
+Jitendra K: Right? So let me explain this with an example.
+
+405
+00:41:57.040 --> 00:41:59.999
+Jitendra K: Let me quickly open this Word document.
+
+406
+00:42:13.390 --> 00:42:18.360
+Jitendra K: So let's say my first question is… here I'm asking the first question, what is the capital of France?
+
+407
+00:42:18.880 --> 00:42:26.669
+Jitendra K: And, say, Paris. Who wrote Romeo and Juliet novel? Shakespeare, who is the photosynthesis? What is photosynthesis?
+
+408
+00:42:26.910 --> 00:42:28.730
+Jitendra K: No answer provided for that.
+
+409
+00:42:28.980 --> 00:42:34.780
+Jitendra K: So in the second step, if I'm employing a bootstrap with few short, I will employ…
+
+410
+00:42:34.980 --> 00:42:38.559
+Jitendra K: More powerful reasoning models to generate all the answers.
+
+411
+00:42:38.730 --> 00:42:42.310
+Jitendra K: So, to validate whether the answer is right.
+
+412
+00:42:44.950 --> 00:42:50.169
+Jitendra K: And then it will fill those answers as well, which has not been answered appropriately.
+
+413
+00:42:50.370 --> 00:42:52.910
+Jitendra K: And then it creates a matrix to evaluate.
+
+414
+00:42:54.470 --> 00:43:00.690
+Jitendra K: based upon the scores. So here you can see that William, the first name of Shakespeare's, is missing.
+
+415
+00:43:01.030 --> 00:43:04.760
+Jitendra K: To generate a score of 8, 0.8, 80% accurate.
+
+416
+00:43:04.890 --> 00:43:06.570
+Jitendra K: And it will keep this.
+
+417
+00:43:06.830 --> 00:43:08.820
+Jitendra K: Into the consideration.
+
+418
+00:43:09.170 --> 00:43:13.170
+Jitendra K: Their tweet is saying that the consistency of the response is missing.
+
+419
+00:43:14.370 --> 00:43:20.949
+Jitendra K: Then it says the correct score for photosynthesis in three words have been defined properly.
+
+420
+00:43:21.160 --> 00:43:22.500
+Jitendra K: And I can use it.
+
+421
+00:43:24.920 --> 00:43:30.400
+Jitendra K: Right? So Bootstrap is much more than that. It does not depend upon the example that you provide.
+
+422
+00:43:30.660 --> 00:43:33.580
+Jitendra K: But it generates its own methods.
+
+423
+00:43:33.690 --> 00:43:35.899
+Jitendra K: Internally, by using LLMs.
+
+424
+00:43:36.760 --> 00:43:41.379
+Jitendra K: Now, if I have to compare the bootstrap few shot with random search.
+
+425
+00:43:42.430 --> 00:43:45.170
+Jitendra K: It is actually the explorer method.
+
+426
+00:43:46.480 --> 00:43:52.940
+Jitendra K: So, it is more… And it will try many combinations and pick the best one.
+
+427
+00:43:53.860 --> 00:43:56.460
+Jitendra K: Similar to your random forest.
+
+428
+00:43:57.030 --> 00:44:01.770
+Jitendra K: That you might have worked upon. The real difference between deceantry and random forest.
+
+429
+00:44:01.940 --> 00:44:05.940
+Jitendra K: When you're creating a random forest, it tries to reduce auto-bag errors.
+
+430
+00:44:06.760 --> 00:44:11.860
+Jitendra K: So here, also, I'm doing a random search. It's not random forest, it's random search.
+
+431
+00:44:12.220 --> 00:44:17.000
+Jitendra K: That means instead of bootstrapping once, it bootstrapped many times with random variation.
+
+432
+00:44:17.600 --> 00:44:19.850
+Jitendra K: So that it can find the perfect score.
+
+433
+00:44:20.140 --> 00:44:21.990
+Jitendra K: By trying different rials.
+
+434
+00:44:22.240 --> 00:44:26.349
+Jitendra K: Randomly shuffling your training data around bootstrap, too short.
+
+435
+00:44:26.470 --> 00:44:30.110
+Jitendra K: On this shuffle… shuffle data, and then grant a candidate program.
+
+436
+00:44:30.460 --> 00:44:35.179
+Jitendra K: And then evaluate the scan rate on your validation set, and record its score.
+
+437
+00:44:35.350 --> 00:44:38.489
+Jitendra K: And then pick the winner based upon the outcome.
+
+438
+00:44:40.170 --> 00:44:47.829
+Jitendra K: So, real-world analogy could be, you prepare for one set of example, you practice once, you give one interview performance.
+
+439
+00:44:48.110 --> 00:44:51.210
+Jitendra K: And if you're lucky, it's great. If not, it's too bad.
+
+440
+00:44:52.480 --> 00:44:55.939
+Jitendra K: But bootstrap, few shot with random search.
+
+441
+00:44:56.260 --> 00:45:04.400
+Jitendra K: is like… You prepare different examples, stories each time. You practice 20 different ways to answer same question.
+
+442
+00:45:04.730 --> 00:45:07.360
+Jitendra K: And then you appear in 20 different interviews.
+
+443
+00:45:08.180 --> 00:45:13.740
+Jitendra K: And you keep the best performance and use the strategies to achieve better results all the time.
+
+444
+00:45:16.380 --> 00:45:20.320
+Jitendra K: Right? So that is the whole idea of bootstrap with random search.
+
+445
+00:45:22.430 --> 00:45:30.590
+Jitendra K: Now, we'll talk about the K&N few-shot. So, KNN fewShot is another algorithm. So K&N… I hope…
+
+446
+00:45:30.750 --> 00:45:34.550
+Jitendra K: You might correlate what is KNN, K nearest neighbor.
+
+447
+00:45:34.940 --> 00:45:41.110
+Jitendra K: So, KNN is a DSPY optimizer that uses semantic similarity.
+
+448
+00:45:42.590 --> 00:45:49.659
+Jitendra K: As a score, which is a cosine similarity, to pick the most relevant example for each specific question.
+
+449
+00:45:50.470 --> 00:45:54.699
+Jitendra K: So think of this as a smart librarian who does not just
+
+450
+00:45:55.410 --> 00:45:58.770
+Jitendra K: Hand you the same 3 books for every question.
+
+451
+00:45:59.100 --> 00:46:03.809
+Jitendra K: But instead, they find a book most similar to what you're asking about right now.
+
+452
+00:46:04.440 --> 00:46:07.570
+Jitendra K: let's say you're asking a librarian, I want to
+
+453
+00:46:07.760 --> 00:46:12.510
+Jitendra K: purchase a book, or maybe I would like to, you know, I want
+
+454
+00:46:13.480 --> 00:46:17.359
+Jitendra K: Can you help me to find a book in the library which will…
+
+455
+00:46:17.890 --> 00:46:20.920
+Jitendra K: I have some real-world examples on DSPY.
+
+456
+00:46:23.940 --> 00:46:29.170
+Jitendra K: So, of course, librarian… Here…
+
+457
+00:46:30.240 --> 00:46:38.139
+Jitendra K: will be in a dilemma, because if you're asking about DSPY itself as a module, there are different books
+
+458
+00:46:38.340 --> 00:46:41.549
+Jitendra K: Nearly all Gen AI books will have DSPY topics.
+
+459
+00:46:41.880 --> 00:46:46.140
+Jitendra K: But here, you're mentioning one key phrase, real-world examples on DSPY.
+
+460
+00:46:46.960 --> 00:46:54.360
+Jitendra K: Not just theoretical examples. So that means, if librarians are smart enough, then he will be able to rank it as well.
+
+461
+00:46:54.690 --> 00:46:59.509
+Jitendra K: The same idea has been used by query rephrasers in Rack Pipeline.
+
+462
+00:47:00.210 --> 00:47:07.849
+Jitendra K: So, KNN few short, We'll use semantic similarity to pick the most relevant example for a specific question.
+
+463
+00:47:10.810 --> 00:47:17.730
+Jitendra K: So, label few-shot, same K example for every query. Bootstrap fewshot, same bootstrap example for every query.
+
+464
+00:47:18.010 --> 00:47:21.060
+Jitendra K: Ken and few short different example for each query.
+
+465
+00:47:21.210 --> 00:47:23.549
+Jitendra K: And it is depending upon the similarity.
+
+466
+00:47:23.790 --> 00:47:24.710
+Jitendra K: Search.
+
+467
+00:47:27.330 --> 00:47:33.409
+Jitendra K: Right? So that is the difference between the K&N and the bootstrap few-shot learners.
+
+468
+00:47:34.680 --> 00:47:43.530
+Jitendra K: Now we'll move on to some advanced methods, and these are very advanced methods for two reasons. One is, here we are going to use very
+
+469
+00:47:44.310 --> 00:47:46.300
+Jitendra K: Huge search space.
+
+470
+00:47:50.310 --> 00:47:55.390
+Jitendra K: Search space, when it comes to search space, that means you need to optimize the search space.
+
+471
+00:47:55.810 --> 00:47:58.550
+Jitendra K: And the algorithm that we are going to use is Bayesian.
+
+472
+00:47:59.800 --> 00:48:03.480
+Jitendra K: So this is coming under automated few-shot learners.
+
+473
+00:48:07.130 --> 00:48:11.470
+Jitendra K: But these optimizers are coming under automated instruction optimizers.
+
+474
+00:48:14.940 --> 00:48:21.010
+Jitendra K: So, automated instruction optimizers… The first algorithm we are going to use is ScorePo.
+
+475
+00:48:22.080 --> 00:48:23.110
+Jitendra K: Opera.
+
+476
+00:48:23.390 --> 00:48:24.930
+Jitendra K: C-O-P-R-O.
+
+477
+00:48:27.490 --> 00:48:35.589
+Jitendra K: So, COPRO… stands for Cooperative Prompt Optimizer, or Coordinate Prompt Optimization.
+
+478
+00:48:38.210 --> 00:48:42.689
+Jitendra K: So think of Corpo or Pro as a meticulous editor.
+
+479
+00:48:43.360 --> 00:48:45.989
+Jitendra K: Who takes your draft instruction?
+
+480
+00:48:46.760 --> 00:48:53.459
+Jitendra K: Tries dozens of rewrites. Keep that, keep what works, and repeat the process until the instructions.
+
+481
+00:48:53.870 --> 00:48:56.259
+Jitendra K: Are as good as they can possibly be.
+
+482
+00:48:57.120 --> 00:49:03.620
+Jitendra K: So the core idea behind this algorithm is… It's a mathematical strategies.
+
+483
+00:49:04.820 --> 00:49:10.290
+Jitendra K: Which is… Working on gradients, or greedy search.
+
+484
+00:49:11.540 --> 00:49:16.570
+Jitendra K: And then try to move in that direction, following some sort of errors.
+
+485
+00:49:17.210 --> 00:49:21.129
+Jitendra K: Right? To train, or I would say, iterate the model.
+
+486
+00:49:23.490 --> 00:49:32.870
+Jitendra K: So, the steps behind Corpo, when you're implementing a CORPO technique in… Corpo technique in… ESPY module.
+
+487
+00:49:33.370 --> 00:49:35.630
+Jitendra K: It will be 3-step process.
+
+488
+00:49:38.540 --> 00:49:42.080
+Jitendra K: The first step is you need to define with your instructions.
+
+489
+00:49:43.850 --> 00:49:48.659
+Jitendra K: The technique will generate 16 candidate variation. That means it will create
+
+490
+00:49:48.830 --> 00:49:52.050
+Jitendra K: 16 breath, which is a search space.
+
+491
+00:49:52.930 --> 00:50:00.540
+Jitendra K: That will test each candidate out of these 16 metrics that you… it's not metrics, 16 candidates examples that I've generated.
+
+492
+00:50:00.840 --> 00:50:03.920
+Jitendra K: Test each of them on your train assets.
+
+493
+00:50:04.660 --> 00:50:06.970
+Jitendra K: Find the best performing instruction.
+
+494
+00:50:07.790 --> 00:50:10.800
+Jitendra K: Then it increase, go to the depth number 2.
+
+495
+00:50:11.560 --> 00:50:18.539
+Jitendra K: it will… Use these results, start from the best instruction, which has been found in step number one.
+
+496
+00:50:18.890 --> 00:50:22.180
+Jitendra K: Generate another 16 new variation based upon it.
+
+497
+00:50:22.440 --> 00:50:25.909
+Jitendra K: Test each one again, and then find a new instruction.
+
+498
+00:50:26.900 --> 00:50:32.050
+Jitendra K: And it can repeat until the final best instruction has been achieved.
+
+499
+00:50:36.270 --> 00:50:38.959
+Jitendra K: So that means death will become a round.
+
+500
+00:50:39.340 --> 00:50:40.510
+Jitendra K: or iteration.
+
+501
+00:50:44.460 --> 00:50:48.899
+Jitendra K: And, what are you trying to achieve?
+
+502
+00:50:50.280 --> 00:50:56.879
+Jitendra K: You're going to achieve, with each depth, your response will increase and make it more accurate.
+
+503
+00:51:01.980 --> 00:51:07.310
+Jitendra K: So let's take an example. Let's say, as a user, I'm using some sentiment analyzer.
+
+504
+00:51:08.020 --> 00:51:09.330
+Jitendra K: rack pipeline.
+
+505
+00:51:09.900 --> 00:51:12.270
+Jitendra K: So as a user, I'm writing a very simple prompt.
+
+506
+00:51:13.720 --> 00:51:18.170
+Jitendra K: classify the sentence, sentiment of the given text. And here's the text.
+
+507
+00:51:19.890 --> 00:51:22.960
+Jitendra K: some… Two, three sentences.
+
+508
+00:51:23.090 --> 00:51:26.059
+Jitendra K: Sentence 1, sentence 2, Sentence 3.
+
+509
+00:51:28.400 --> 00:51:32.579
+Jitendra K: This is my input, right? And I'm asking, classify the sentiment at a given text.
+
+510
+00:51:33.820 --> 00:51:35.809
+Jitendra K: But what Corpo will do is…
+
+511
+00:51:40.510 --> 00:51:43.990
+Jitendra K: It will create… Candidates.
+
+512
+00:51:46.560 --> 00:51:50.730
+Jitendra K: So, in the first… Candidate, it may rephrase the query.
+
+513
+00:51:51.340 --> 00:51:55.320
+Jitendra K: And write the same base query in different format.
+
+514
+00:51:56.130 --> 00:52:02.119
+Jitendra K: Instead of saying classify the sentiment of the given text, it says, analyze the following text and determine
+
+515
+00:52:02.350 --> 00:52:07.310
+Jitendra K: If it is expressive, express as positive or negative sentiment.
+
+516
+00:52:08.860 --> 00:52:11.190
+Jitendra K: Then it'll think of further improvement.
+
+517
+00:52:15.770 --> 00:52:19.140
+Jitendra K: And may write another… ROMC.
+
+518
+00:52:21.740 --> 00:52:24.919
+Jitendra K: Using a… Chain of thought now.
+
+519
+00:52:26.400 --> 00:52:31.360
+Jitendra K: Read attacks carefully, output positive, that means it is using condition now.
+
+520
+00:52:31.630 --> 00:52:35.729
+Jitendra K: If the tone of this sentence is happy or approving.
+
+521
+00:52:36.130 --> 00:52:39.430
+Jitendra K: Output should be negative, it is critical or unhappy.
+
+522
+00:52:40.520 --> 00:52:43.430
+Jitendra K: Then it can write the third candidate.
+
+523
+00:52:45.960 --> 00:52:49.300
+Jitendra K: By using the… prompt instruction.
+
+524
+00:52:49.740 --> 00:52:56.189
+Jitendra K: And stating that you're a sentiment analyzer expert, classify the text's emotional tone as positive or negative.
+
+525
+00:52:56.720 --> 00:53:02.120
+Jitendra K: So you can see that these three prompts, if I'm going to write in the same sentence.
+
+526
+00:53:02.520 --> 00:53:06.219
+Jitendra K: Definitely, it'll have a major impact on the results.
+
+527
+00:53:07.070 --> 00:53:11.220
+Jitendra K: That means COPRO is going to work on candidate selection.
+
+528
+00:53:11.730 --> 00:53:16.999
+Jitendra K: And with each iteration, it is improving the prompt further, so that I can be able to cover
+
+529
+00:53:17.570 --> 00:53:19.290
+Jitendra K: the edge cases.
+
+530
+00:53:22.780 --> 00:53:23.620
+Jitendra K: Right?
+
+531
+00:53:29.660 --> 00:53:35.669
+Jitendra K: when to use DSPY, when to use DSPY. So, DSPY will… okay, so…
+
+532
+00:53:36.350 --> 00:53:38.709
+Jitendra K: When do you use machine learning testing?
+
+533
+00:53:39.190 --> 00:53:43.620
+Jitendra K: When are you going to use machine learning testing? And why? Can you give me the answer?
+
+534
+00:53:44.490 --> 00:53:46.770
+Jitendra K: Why machine learning testing is important.
+
+535
+00:53:48.670 --> 00:53:53.380
+Jitendra K: Why don't you deploy a model as it is in production, while you're testing the machine learning model?
+
+536
+00:53:54.070 --> 00:53:55.310
+Jitendra K: What is the purpose?
+
+537
+00:54:07.340 --> 00:54:08.880
+Jitendra K: Is there any answer for that?
+
+538
+00:54:15.710 --> 00:54:22.790
+Jitendra K: So let's say you create some algorithm, why don't you simply deploy it? What is the purpose of testing the model, machine learning model?
+
+539
+00:54:22.950 --> 00:54:27.470
+Jitendra K: With unseen, with validation, with hold-off samples and all.
+
+540
+00:54:28.010 --> 00:54:30.710
+Jitendra K: Why we are doing all this systematic analysis?
+
+541
+00:54:31.090 --> 00:54:32.530
+Jitendra K: Before deploying it.
+
+542
+00:54:38.030 --> 00:54:42.879
+Jitendra K: Yes, if the model generalized the learning and not memorize it, that's correct answer.
+
+543
+00:54:44.770 --> 00:54:49.379
+Jitendra K: That means it is passing all the scenarios or not, known scenarios I'm talking about.
+
+544
+00:54:53.070 --> 00:55:00.499
+Jitendra K: Similarly, RAG is like your algorithm, right? RAG is a solution that you're providing, it's not a magic box. Anybody can develop RAG.
+
+545
+00:55:02.630 --> 00:55:04.229
+Jitendra K: How will you test your rack?
+
+546
+00:55:04.550 --> 00:55:05.900
+Jitendra K: That's the whole idea.
+
+547
+00:55:07.790 --> 00:55:15.059
+Jitendra K: How will you validate whether your rag is optimal, is running optimally, or not, before you deploy it to a production?
+
+548
+00:55:15.650 --> 00:55:17.660
+Jitendra K: Anybody can write rag, right?
+
+549
+00:55:18.310 --> 00:55:23.670
+Jitendra K: You can use Claude code, and then you can simply say, I need to create a rag on this document.
+
+550
+00:55:23.800 --> 00:55:25.150
+Jitendra K: Provide me the code.
+
+551
+00:55:25.290 --> 00:55:27.380
+Jitendra K: It can give you thousands of lines of code.
+
+552
+00:55:27.540 --> 00:55:29.150
+Jitendra K: You can deploy it, right?
+
+553
+00:55:29.880 --> 00:55:30.970
+Jitendra K: Where did it harm?
+
+554
+00:55:33.140 --> 00:55:35.969
+Jitendra K: But the problem is whether your rag is fit
+
+555
+00:55:36.440 --> 00:55:41.279
+Jitendra K: on the known scenarios itself, that is what you are going to test with the help of DSPY.
+
+556
+00:55:46.620 --> 00:55:58.560
+Jitendra K: Can you please explain the overall flow of this optimizer once again? At the end of the optimizer, what is the output? Is it a prompt? Yes, the output is a prompt, or is it programmed data using optimizer?
+
+557
+00:55:58.790 --> 00:56:04.679
+Jitendra K: It will be a prompt, so the prompt will be generated after running this optimization technique.
+
+558
+00:56:05.190 --> 00:56:09.480
+Jitendra K: So, similar to this… This is your input prompt, this is your output prompt.
+
+559
+00:56:16.500 --> 00:56:17.940
+Jitendra K: Is it clear now?
+
+560
+00:56:24.730 --> 00:56:26.219
+Jitendra K: Is it clear to everyone?
+
+561
+00:56:35.530 --> 00:56:43.699
+Jitendra K: Alright, so let's move on. So, we talk about the third algorithm called COPRO. So, COPRO, stands for…
+
+562
+00:56:46.940 --> 00:56:51.389
+Jitendra K: Corporate prompt optimization, or coordinate prompt optimization.
+
+563
+00:56:52.260 --> 00:56:53.070
+Jitendra K: Right?
+
+564
+00:56:53.480 --> 00:56:55.829
+Jitendra K: Now, I will talk about something called MIPRO.
+
+565
+00:56:55.960 --> 00:57:01.709
+Jitendra K: So… BIPRO is another algorithm that has been designed for
+
+566
+00:57:02.550 --> 00:57:05.449
+Jitendra K: Combining the demos and instruction jointly.
+
+567
+00:57:06.010 --> 00:57:10.990
+Jitendra K: That means MIPRO stands for Multiple Prompt Instruction Proposal Optimizer.
+
+568
+00:57:11.770 --> 00:57:19.140
+Jitendra K: So these are all research papers from Stanford, guys, so, this is something which you might have to go and then search for it.
+
+569
+00:57:19.660 --> 00:57:27.810
+Jitendra K: And these research papers are available, in archive, and you can read it, the mathematical principle behind
+
+570
+00:57:28.080 --> 00:57:29.920
+Jitendra K: These searches face criteria.
+
+571
+00:57:30.270 --> 00:57:35.730
+Jitendra K: So, what I'm trying to do is, I'm just trying to give you a highlight and overview of this technique.
+
+572
+00:57:36.770 --> 00:57:41.020
+Jitendra K: And, so that, you can reference it If you need.
+
+573
+00:57:41.380 --> 00:57:42.839
+Jitendra K: To get more details.
+
+574
+00:57:43.060 --> 00:57:51.529
+Jitendra K: So MIPRO stands for Multiple Prompt Instruction Proposal Optimizer. So it's another DSPY sophisticated optimizer.
+
+575
+00:57:51.800 --> 00:57:59.239
+Jitendra K: So what it does is… It simultaneously optimized both your instruction and your few short examples.
+
+576
+00:58:00.970 --> 00:58:07.489
+Jitendra K: So what if some algorithm can do simultaneously? Let's say, both your instruction and your few short examples.
+
+577
+00:58:07.880 --> 00:58:11.229
+Jitendra K: And then, search through thousands of such combinations.
+
+578
+00:58:11.580 --> 00:58:14.549
+Jitendra K: To find the absolute best configuration for your task.
+
+579
+00:58:15.690 --> 00:58:18.460
+Jitendra K: So think of me pro as a MasterChef.
+
+580
+00:58:19.200 --> 00:58:24.300
+Jitendra K: Who does not just improve your recipe instruction, or pick your best ingredient.
+
+581
+00:58:24.690 --> 00:58:31.419
+Jitendra K: they do best, they do both at the same time. That means they're picking the recipe, right recipe instruction.
+
+582
+00:58:31.780 --> 00:58:37.319
+Jitendra K: And also selecting the best ingredients that is required to cook the… particular dish.
+
+583
+00:58:38.150 --> 00:58:42.580
+Jitendra K: And that two atop at the same time, in a coordinated manner.
+
+584
+00:58:43.020 --> 00:58:46.729
+Jitendra K: That means the taste and the test continuously
+
+585
+00:58:47.060 --> 00:58:49.530
+Jitendra K: Improve until a dish is getting perfect.
+
+586
+00:58:50.790 --> 00:58:56.410
+Jitendra K: Right? So, when your master chef is cooking something, It will try to…
+
+587
+00:58:56.730 --> 00:59:00.230
+Jitendra K: Continuously provide a dish once it becomes perfect.
+
+588
+00:59:01.900 --> 00:59:04.840
+Jitendra K: Right? So similarly, the MepRO algorithm is like that.
+
+589
+00:59:05.330 --> 00:59:09.899
+Jitendra K: So, Mipro… Use vision optimization.
+
+590
+00:59:10.970 --> 00:59:20.080
+Jitendra K: So that means… If you are using a Bayesian optimization as a search criteria, you're working on postulate probabilities.
+
+591
+00:59:20.860 --> 00:59:29.799
+Jitendra K: So, MIPRO uses Bayesian optimization, and the mathematics behind the scene, it is using posterior probabilities to generate the right candidates.
+
+592
+00:59:30.260 --> 00:59:34.799
+Jitendra K: So again, imagine that you're trying to find a best pizza recipe.
+
+593
+00:59:36.610 --> 00:59:40.469
+Jitendra K: And you have 100 possible ingredient combinations.
+
+594
+00:59:41.760 --> 00:59:44.630
+Jitendra K: And 50 possible topping combination.
+
+595
+00:59:45.660 --> 00:59:49.700
+Jitendra K: So if you use 100 possible ingredients and 50 possible toppings.
+
+596
+00:59:50.870 --> 00:59:55.409
+Jitendra K: What is the combination size? Search space? 5,000 combination.
+
+597
+00:59:56.330 --> 01:00:01.899
+Jitendra K: That means you have to try 5,000 possible combinations to create a best pizza.
+
+598
+01:00:02.600 --> 01:00:07.930
+Jitendra K: And if you tried each one sequentially, you will be tasting pizza for over a year.
+
+599
+01:00:08.840 --> 01:00:10.740
+Jitendra K: So you need a smarter strategy.
+
+600
+01:00:14.550 --> 01:00:19.190
+Jitendra K: The strategy should be, you should take some random guesses. Try a random pizza.
+
+601
+01:00:19.320 --> 01:00:25.890
+Jitendra K: O1 is good. Pick a random instruction, and then… Understand that pattern.
+
+602
+01:00:26.470 --> 01:00:32.359
+Jitendra K: You can go with brute force as well, try every single combination, try as all possible scenarios.
+
+603
+01:00:32.700 --> 01:00:35.440
+Jitendra K: But it'll be too much time-consuming.
+
+604
+01:00:36.490 --> 01:00:39.490
+Jitendra K: Or you can go with Bayesian optimization.
+
+605
+01:00:40.410 --> 01:00:47.010
+Jitendra K: So, invasion optimization, after each pizza, guess which region will have good PISA focus there.
+
+606
+01:00:47.480 --> 01:00:52.480
+Jitendra K: Build a mental map of promising combination and focus search there.
+
+607
+01:00:52.860 --> 01:00:58.149
+Jitendra K: So, Bayesian optimization is like having a smart assistant that learns from every trial.
+
+608
+01:00:58.490 --> 01:01:00.720
+Jitendra K: And after trying a few combinations.
+
+609
+01:01:01.150 --> 01:01:06.910
+Jitendra K: It says, based upon what I've seen so far, the best combination probably having these properties.
+
+610
+01:01:07.240 --> 01:01:09.459
+Jitendra K: So let's focus on that path.
+
+611
+01:01:09.890 --> 01:01:16.789
+Jitendra K: So Bayesian optimization will give you the posterior probability of… Chasing that particular successful path.
+
+612
+01:01:18.700 --> 01:01:27.290
+Jitendra K: So, MIPRO, or M-I-P-R-O, operates in three stages. The first stage is… It will use Bootstrap.
+
+613
+01:01:28.120 --> 01:01:29.939
+Jitendra K: Few short examples.
+
+614
+01:01:31.030 --> 01:01:34.289
+Jitendra K: To run on random training example.
+
+615
+01:01:35.170 --> 01:01:37.269
+Jitendra K: So it initialized the search space.
+
+616
+01:01:38.150 --> 01:01:42.310
+Jitendra K: If the output is correct according to the matrix that you define.
+
+617
+01:01:42.840 --> 01:01:46.709
+Jitendra K: In their algorithm, it keeps the example as a candidate demonstration.
+
+618
+01:01:49.370 --> 01:01:57.249
+Jitendra K: Then, the stage number 2, it will use instruction candidates. So, Mipro analyze your program, your data set.
+
+619
+01:01:57.490 --> 01:02:00.420
+Jitendra K: And a bootstrap example from stage number one.
+
+620
+01:02:01.000 --> 01:02:04.190
+Jitendra K: And then, it generates many different instructions.
+
+621
+01:02:05.000 --> 01:02:09.470
+Jitendra K: Using a… critic models like GPT-4,
+
+622
+01:02:09.980 --> 01:02:14.000
+Jitendra K: And each variation approach a task formed from a slightly different angle.
+
+623
+01:02:15.470 --> 01:02:18.210
+Jitendra K: The third is the Bayshian optimization search.
+
+624
+01:02:18.750 --> 01:02:23.230
+Jitendra K: Basically, Mipro tries every combination of the instruction from stage number 2.
+
+625
+01:02:23.850 --> 01:02:30.150
+Jitendra K: And then score each combination on a small batch of your data, and then use Bayesian optimization to predict
+
+626
+01:02:30.480 --> 01:02:36.160
+Jitendra K: which combination works well. And it will focus on enhancing that solution.
+
+627
+01:02:36.520 --> 01:02:38.120
+Jitendra K: From that point of view.
+
+628
+01:02:40.220 --> 01:02:43.480
+Jitendra K: So, that is where MiPro is.
+
+629
+01:02:44.310 --> 01:02:46.409
+Jitendra K: Quite useful technique.
+
+630
+01:02:46.990 --> 01:02:49.830
+Jitendra K: For performing this analysis.
+
+631
+01:02:52.090 --> 01:02:54.550
+Jitendra K: Now, there's something called GEPA.
+
+632
+01:02:54.750 --> 01:03:02.360
+Jitendra K: So, GEPA is pareto, basically Pareto-based instruction. Pareto means…
+
+633
+01:03:03.090 --> 01:03:09.260
+Jitendra K: you can assume it's Pareto, like, when you're summarizing everything into one page, right? That is called Pareto.
+
+634
+01:03:09.500 --> 01:03:12.560
+Jitendra K: So, GEPA stands for Genetic Pareto.
+
+635
+01:03:13.890 --> 01:03:18.429
+Jitendra K: And it's a new state-of-the-art optimizer in DSP, a very recent addition.
+
+636
+01:03:19.270 --> 01:03:21.239
+Jitendra K: And it will be designed to solve
+
+637
+01:03:24.350 --> 01:03:29.230
+Jitendra K: And optimize the prompt through natural language reflection rather than numerical scoring.
+
+638
+01:03:31.080 --> 01:03:32.500
+Jitendra K: So what does that mean?
+
+639
+01:03:33.700 --> 01:03:36.409
+Jitendra K: So, GEPA use genetic algorithm.
+
+640
+01:03:36.560 --> 01:03:39.480
+Jitendra K: With natural language mutation.
+
+641
+01:03:40.940 --> 01:03:45.650
+Jitendra K: So, GABA will start with… Population of the prompt candidate.
+
+642
+01:03:47.830 --> 01:03:52.870
+Jitendra K: And then, it used reflection. Execute a program on training example.
+
+643
+01:03:53.300 --> 01:03:59.150
+Jitendra K: It captured the full execution trace, including reasoning, tool use, output, errors.
+
+644
+01:03:59.710 --> 01:04:06.800
+Jitendra K: And then generate the feedback. What worked well, what failed? And why it failed, and how could the prompt be improved?
+
+645
+01:04:07.170 --> 01:04:09.360
+Jitendra K: So, to use the reasoning power of the model.
+
+646
+01:04:09.780 --> 01:04:14.180
+Jitendra K: Because you agree, right? These techniques are slightly old.
+
+647
+01:04:15.540 --> 01:04:17.890
+Jitendra K: And they are solving the problem of…
+
+648
+01:04:18.130 --> 01:04:21.750
+Jitendra K: Reasoning capability of the model, in some or other manner.
+
+649
+01:04:22.710 --> 01:04:27.840
+Jitendra K: But since we are living in the year 2026, and with the advent of,
+
+650
+01:04:28.360 --> 01:04:31.940
+Jitendra K: New techniques and new architecture layouts.
+
+651
+01:04:32.440 --> 01:04:35.219
+Jitendra K: The models have been improved drastically in reasoning.
+
+652
+01:04:35.840 --> 01:04:39.069
+Jitendra K: So do we still require to trace reasoning capability of the model?
+
+653
+01:04:39.550 --> 01:04:45.280
+Jitendra K: what if I'm going to use natural language capability of the model, rather than numbers?
+
+654
+01:04:45.740 --> 01:04:47.590
+Jitendra K: And that is what GEPA does.
+
+655
+01:04:49.550 --> 01:04:54.819
+Jitendra K: So basically what it does is, it will use a feedback and create a new prompt candidate through it.
+
+656
+01:04:54.940 --> 01:05:00.090
+Jitendra K: So it avoid… it creates mutation, modify a single prompt based upon the reflection.
+
+657
+01:05:00.610 --> 01:05:04.150
+Jitendra K: And combine the successful part from different prompts.
+
+658
+01:05:04.490 --> 01:05:06.560
+Jitendra K: Which is becoming apparent to selection.
+
+659
+01:05:06.780 --> 01:05:12.220
+Jitendra K: So, Pareto… Means, it will go iteratively, And then?
+
+660
+01:05:12.330 --> 01:05:14.449
+Jitendra K: Combine them into one.
+
+661
+01:05:14.780 --> 01:05:15.940
+Jitendra K: That's what is?
+
+662
+01:05:16.280 --> 01:05:17.860
+Jitendra K: genetic Pareto.
+
+663
+01:05:25.670 --> 01:05:26.530
+Jitendra K: Right?
+
+664
+01:05:26.810 --> 01:05:29.870
+Jitendra K: So maybe I can explain this with an example.
+
+665
+01:05:34.940 --> 01:05:36.870
+Jitendra K: Let me just write down.
+
+666
+01:06:00.590 --> 01:06:03.720
+Jitendra K: Okay, so let me say that you're using
+
+667
+01:06:09.610 --> 01:06:13.150
+Jitendra K: Let's say you've created some… Regions.
+
+668
+01:06:14.990 --> 01:06:16.070
+Jitendra K: Right.
+
+669
+01:06:17.090 --> 01:06:17.880
+Jitendra K: Ode.
+
+670
+01:06:22.870 --> 01:06:26.400
+Jitendra K: Right? So you have created some agent, and
+
+671
+01:06:29.800 --> 01:06:35.379
+Jitendra K: And, you're using… These agents to write a code.
+
+672
+01:06:36.160 --> 01:06:40.750
+Jitendra K: Imagine that you have 3 pieces of the code, For same programming problem.
+
+673
+01:06:46.460 --> 01:06:48.100
+Jitendra K: Let me write down this.
+
+674
+01:07:00.550 --> 01:07:04.370
+Jitendra K: Now, what they are trying to do is, with DC solution that has been generated.
+
+675
+01:07:05.310 --> 01:07:12.630
+Jitendra K: You need to monitor, or you need to create a monitor that need to score each piece of the code on a scale of 0 to 100.
+
+676
+01:07:12.860 --> 01:07:16.030
+Jitendra K: Where the higher score means more suspicious.
+
+677
+01:07:16.700 --> 01:07:18.939
+Jitendra K: And the goal that you're going to have is…
+
+678
+01:07:20.350 --> 01:07:25.479
+Jitendra K: Or maybe let me use a very simple example. Let me write down a simple example.
+
+679
+01:07:26.810 --> 01:07:33.539
+Jitendra K: Because I need to explain you the style of… Code evaluation as well.
+
+680
+01:07:44.650 --> 01:07:49.719
+Jitendra K: Okay, let me put into this manner. Let me, again, go with the real-world analogy for GEPA.
+
+681
+01:07:50.180 --> 01:07:51.550
+Jitendra K: So imagine that.
+
+682
+01:07:52.570 --> 01:07:56.950
+Jitendra K: You have… A coffee shop.
+
+683
+01:08:01.640 --> 01:08:03.879
+Jitendra K: You're operating a coffee shop.
+
+684
+01:08:04.050 --> 01:08:04.840
+Jitendra K: Right?
+
+685
+01:08:05.270 --> 01:08:09.499
+Jitendra K: And you hire a new barrista, which is your language model.
+
+686
+01:08:10.330 --> 01:08:16.050
+Jitendra K: I need to give them instruction, the prompt, on how to make each customer order correctly.
+
+687
+01:08:18.010 --> 01:08:23.640
+Jitendra K: Right? So, you will have a score. You will say score of… 1.
+
+688
+01:08:24.790 --> 01:08:26.630
+Jitendra K: That means a perfect coffee.
+
+689
+01:08:29.540 --> 01:08:31.660
+Jitendra K: Score of 0.
+
+690
+01:08:33.029 --> 01:08:37.029
+Jitendra K: Means… A wrong coffee.
+
+691
+01:08:42.170 --> 01:08:43.020
+Jitendra K: Right?
+
+692
+01:08:44.080 --> 01:08:50.609
+Jitendra K: But here's the magic of GPA. Your metrics also give written feedback. So let's say a customer's saying.
+
+693
+01:08:51.750 --> 01:08:58.590
+Jitendra K: I like the texture, composition, everything is perfect, right? And here, your customer is disagreeing.
+
+694
+01:08:58.790 --> 01:09:02.639
+Jitendra K: On everything, including the ingredients, quality.
+
+695
+01:09:03.560 --> 01:09:11.399
+Jitendra K: And, the textures, and the taste, and maybe he's also complaining about the price as well, let's say.
+
+696
+01:09:11.870 --> 01:09:13.499
+Jitendra K: Should give a score of 0.
+
+697
+01:09:14.560 --> 01:09:20.870
+Jitendra K: So… but assume that the customer has given some feedback in return, explaining why it is wrong.
+
+698
+01:09:21.680 --> 01:09:23.149
+Jitendra K: The problem is…
+
+699
+01:09:27.930 --> 01:09:33.850
+Jitendra K: You're going to have… a customer… feedbacks.
+
+700
+01:09:34.479 --> 01:09:35.920
+Jitendra K: as an instruction.
+
+701
+01:09:37.660 --> 01:09:40.979
+Jitendra K: Right? So, how GAPA learned from feedback is…
+
+702
+01:09:42.100 --> 01:09:44.559
+Jitendra K: It will start learning from the feedback.
+
+703
+01:09:46.609 --> 01:09:49.480
+Jitendra K: So it will learn, in iteration.
+
+704
+01:09:49.620 --> 01:09:53.689
+Jitendra K: By doing the analysis on these written instructions.
+
+705
+01:09:55.180 --> 01:10:00.559
+Jitendra K: So in the iteration number 1, it will learn from the feedback. So it will write a parent prompt, what we have.
+
+706
+01:10:04.540 --> 01:10:09.320
+Jitendra K: To make the coffee lucrative for the customer ask.
+
+707
+01:10:10.540 --> 01:10:13.929
+Jitendra K: And then it will look for a feedback related to this.
+
+708
+01:10:16.280 --> 01:10:17.840
+Jitendra K: And then it improved.
+
+709
+01:10:18.780 --> 01:10:23.080
+Jitendra K: With the help of child prompt, and additional modifiers.
+
+710
+01:10:24.220 --> 01:10:26.980
+Jitendra K: Now it will go to additional step.
+
+711
+01:10:27.290 --> 01:10:28.879
+Jitendra K: Iteration number 2.
+
+712
+01:10:30.940 --> 01:10:34.660
+Jitendra K: So first, it improved the prompt filter criteria, then it looked for
+
+713
+01:10:35.260 --> 01:10:38.449
+Jitendra K: The specific problem, a specific type of an order.
+
+714
+01:10:39.690 --> 01:10:42.169
+Jitendra K: So let's say this is the previous…
+
+715
+01:10:42.520 --> 01:10:48.500
+Jitendra K: response. Now, this is the new order, a cappuccino with an almond milk, double shot, less foam.
+
+716
+01:10:49.410 --> 01:10:53.540
+Jitendra K: So, result is, barista use almond mail, double shot, but normal form.
+
+717
+01:10:53.790 --> 01:10:58.799
+Jitendra K: So the matrix will generate to be 1 over 3, which is 66%, plus the feedback.
+
+718
+01:10:59.760 --> 01:11:01.850
+Jitendra K: From the previous response.
+
+719
+01:11:02.960 --> 01:11:05.419
+Jitendra K: So it will look for those mutations.
+
+720
+01:11:09.520 --> 01:11:11.780
+Jitendra K: And try to increase the search space.
+
+721
+01:11:13.810 --> 01:11:17.320
+Jitendra K: Right? And it will check for the substitution.
+
+722
+01:11:18.060 --> 01:11:20.399
+Jitendra K: if I can able to find any other…
+
+723
+01:11:20.700 --> 01:11:23.920
+Jitendra K: Ingredient that will make this coffee more enriched.
+
+724
+01:11:24.910 --> 01:11:29.670
+Jitendra K: Similarly, if you're using this algorithm, GPA…
+
+725
+01:11:30.190 --> 01:11:32.779
+Jitendra K: It will try to break down your problem.
+
+726
+01:11:33.880 --> 01:11:36.219
+Jitendra K: Or your query into piecemeal.
+
+727
+01:11:37.150 --> 01:11:44.860
+Jitendra K: And then it generates multiple candidates evaluation for each piecemeal query, and then find the suboptimal solution all the time.
+
+728
+01:11:45.780 --> 01:11:49.920
+Jitendra K: And then generate and combine those suboptimal solutions as a parity.
+
+729
+01:11:50.030 --> 01:11:52.140
+Jitendra K: A single-page report.
+
+730
+01:11:53.430 --> 01:11:57.359
+Jitendra K: And then use the solution to generalize the answer.
+
+731
+01:11:58.510 --> 01:12:02.090
+Jitendra K: So that means it is quite extensive search you're doing.
+
+732
+01:12:02.900 --> 01:12:09.379
+Jitendra K: And that's why the complexity, time complexity of this algorithm is very, very high as compared to any other algorithm.
+
+733
+01:12:09.520 --> 01:12:15.530
+Jitendra K: But with modern-day LLMs, This technique is very, very useful.
+
+734
+01:12:16.850 --> 01:12:24.980
+Jitendra K: Assuming a fact that… the modern-day LLMs, like Jam, Jam, GPT 5.2…
+
+735
+01:12:25.740 --> 01:12:34.139
+Jitendra K: Claude 4.7, right? They have very high… ended… Reasoning Powerful Machines.
+
+736
+01:12:37.290 --> 01:12:39.089
+Jitendra K: We're very good in reasoning.
+
+737
+01:12:39.590 --> 01:12:44.169
+Jitendra K: They're very good in coding. They are very good in task-specific understanding.
+
+738
+01:12:44.730 --> 01:12:47.480
+Jitendra K: They're very good in query understanding as well.
+
+739
+01:12:49.250 --> 01:12:53.259
+Jitendra K: So instead of working on numbers, why don't you work on the feedback?
+
+740
+01:12:56.490 --> 01:12:58.260
+Jitendra K: So to learn from the feedback.
+
+741
+01:13:04.250 --> 01:13:07.090
+Jitendra K: Now, I will cover this part.
+
+742
+01:13:07.870 --> 01:13:12.550
+Jitendra K: As well, and then I will ignore these algorithms, which is not very useful.
+
+743
+01:13:13.160 --> 01:13:18.540
+Jitendra K: So, again, the Simba package… Which is stochastic…
+
+744
+01:13:20.230 --> 01:13:26.459
+Jitendra K: Introspective multi-batch ascent algorithm is, again, a kind of an optimizer.
+
+745
+01:13:26.880 --> 01:13:32.529
+Jitendra K: that learn from self-reflection and feedback. So unlike GEPA, which focus on evolving prompt.
+
+746
+01:13:33.590 --> 01:13:38.439
+Jitendra K: SIMBA, Simba is designed to analyze its own performance on mini batches.
+
+747
+01:13:40.860 --> 01:13:49.680
+Jitendra K: Right, so GPA is a parallel selection, same a focus on stochastic minibatch sense, meaning it repeatedly… it generates a repeated sample.
+
+748
+01:13:50.020 --> 01:13:56.570
+Jitendra K: A small batch of data, identify failures, and ascend towards a better instruction through reflective feedback loops.
+
+749
+01:13:57.080 --> 01:14:01.079
+Jitendra K: And by the way, they are all using LLMs internally, critical LLMs.
+
+750
+01:14:01.590 --> 01:14:02.420
+Jitendra K: Right?
+
+751
+01:14:03.450 --> 01:14:15.230
+Jitendra K: So… again, Instead of doing query-level search, they are using… Their own criteria soft?
+
+752
+01:14:15.380 --> 01:14:18.279
+Jitendra K: performing the… Sergeant Space.
+
+753
+01:14:19.930 --> 01:14:30.650
+Jitendra K: But I would say this algorithm is… Great when you have… Streaming and iterative instruction.
+
+754
+01:14:31.450 --> 01:14:35.089
+Jitendra K: That means you're not using a hard task or complex problem.
+
+755
+01:14:35.530 --> 01:14:42.859
+Jitendra K: But you're rather focusing on iterative problems, such like, demos. You have a good amount of
+
+756
+01:14:43.440 --> 01:14:50.669
+Jitendra K: Candidate instruction, and you can use this technique for solving the medium complexity task.
+
+757
+01:14:51.610 --> 01:14:56.439
+Jitendra K: The last algorithm that we are going to talk about is called Better Together. So Better Together, as the name suggests.
+
+758
+01:14:56.960 --> 01:15:01.340
+Jitendra K: is an ensemble technique. The matter together is an ensemble technique.
+
+759
+01:15:01.700 --> 01:15:07.939
+Jitendra K: that will combine everything. So Better Together is a meta-optimizer and DSPY that combine the prompt optimization.
+
+760
+01:15:08.190 --> 01:15:12.050
+Jitendra K: And the weight optimization in a configurable sequences.
+
+761
+01:15:16.810 --> 01:15:22.160
+Jitendra K: So basically, it is doing both. First, improve the manual, then train them on the improved procedures.
+
+762
+01:15:22.410 --> 01:15:25.449
+Jitendra K: And then update the manual again based upon what they have learned.
+
+763
+01:15:38.430 --> 01:15:43.380
+Jitendra K: So, I think this is clear now to everyone. Any question on these algorithms?
+
+764
+01:15:44.780 --> 01:15:47.069
+Jitendra K: We'll take an example now.
+
+765
+01:15:47.210 --> 01:15:49.790
+Jitendra K: To demonstrate, but any question on this part?
+
+766
+01:16:17.850 --> 01:16:19.350
+Jitendra K: Yeah, I'll share that.
+
+767
+01:16:36.610 --> 01:16:42.689
+Jitendra K: one dot for every user query. This optimization is happening in real time, or optimization…
+
+768
+01:16:43.180 --> 01:16:46.010
+Jitendra K: It will happen once during training phase only.
+
+769
+01:16:46.940 --> 01:16:49.440
+Jitendra K: It will not run during inference.
+
+770
+01:16:55.490 --> 01:16:58.389
+Jitendra K: So once you optimize your rack, you deploy it.
+
+771
+01:16:59.840 --> 01:17:01.850
+Jitendra K: the purpose of DSPO is over.
+
+772
+01:17:11.400 --> 01:17:13.980
+Jitendra K: Okay, so let me go back to my collab.
+
+773
+01:17:53.800 --> 01:18:01.470
+Jitendra K: So when you're running your hyperparameter tuning in machine learning, you're not going to run… do hyperparameter tuning for every new request, right?
+
+774
+01:18:04.610 --> 01:18:13.719
+Jitendra K: So once your model has been tuned, you will maybe do a hyperparameter tuning once in a month, or once in a quarter, or once in a year.
+
+775
+01:18:15.170 --> 01:18:19.169
+Jitendra K: The same sequence has been applied to DSPY as well.
+
+776
+01:18:26.850 --> 01:18:33.420
+Jitendra K: Alright, so now let me quickly show you what are the modules that you need to install to operate on DSP wire.
+
+777
+01:18:33.750 --> 01:18:37.819
+Jitendra K: So if you would like to work on DSPY, you need to install a module.
+
+778
+01:18:38.670 --> 01:18:39.920
+Jitendra K: Auto package.
+
+779
+01:18:41.340 --> 01:18:43.240
+Jitendra K: or DSPY.
+
+780
+01:18:43.640 --> 01:18:44.550
+Jitendra K: Yay.
+
+781
+01:18:48.510 --> 01:18:55.850
+Jitendra K: And this is the main, main module that I'm talking about that has been designed by Stanford University, and you can use this module
+
+782
+01:18:57.030 --> 01:18:58.490
+Jitendra K: Or doing here.
+
+783
+01:19:00.280 --> 01:19:01.790
+Jitendra K: prompt optimization.
+
+784
+01:19:06.060 --> 01:19:07.519
+Jitendra K: This is a website.
+
+785
+01:19:11.280 --> 01:19:12.630
+Jitendra K: And this is the code.
+
+786
+01:19:17.520 --> 01:19:20.299
+Jitendra K: You can read the papers, citation.
+
+787
+01:19:25.810 --> 01:19:28.030
+Jitendra K: This is all community, you can join.
+
+788
+01:19:28.740 --> 01:19:29.950
+Jitendra K: LinkedIn.
+
+789
+01:19:31.130 --> 01:19:34.930
+Jitendra K: You can go to this module, I think this is the same one.
+
+790
+01:19:40.030 --> 01:19:43.349
+Jitendra K: These are some of the real-world examples that they have given.
+
+791
+01:19:43.870 --> 01:19:45.970
+Jitendra K: And this is all Stanford NLP.
+
+792
+01:19:46.950 --> 01:19:54.359
+Jitendra K: Similar to Speaky and, they've also created space key package, data sentiment analyzers.
+
+793
+01:19:54.730 --> 01:19:57.790
+Jitendra K: This is a great lab from Stanford. They are using
+
+794
+01:20:00.840 --> 01:20:04.800
+Jitendra K: They always deliver new… Real.
+
+795
+01:20:04.940 --> 01:20:07.020
+Jitendra K: Optimizing and doing things.
+
+796
+01:20:07.400 --> 01:20:10.740
+Jitendra K: So this is one, powerful package.
+
+797
+01:20:11.160 --> 01:20:16.620
+Jitendra K: That we are going to use to use the methods applicable and available.
+
+798
+01:20:30.310 --> 01:20:34.000
+Jitendra K: So, what we are going to do is… yeah, I will share that paper.
+
+799
+01:20:34.980 --> 01:20:39.239
+Jitendra K: In fact, I will share this link so that you can take a reference.
+
+800
+01:20:46.060 --> 01:20:49.460
+Jitendra K: And this is the main… Package.
+
+801
+01:20:53.180 --> 01:20:55.600
+Jitendra K: Okay, so what we are going to do now is…
+
+802
+01:20:57.000 --> 01:21:02.479
+Jitendra K: We are going to import this package first. I will say import VSPY.
+
+803
+01:21:13.020 --> 01:21:14.500
+Jitendra K: No, I will import.
+
+804
+01:21:15.100 --> 01:21:16.760
+Jitendra K: And configure the LLM.
+
+805
+01:21:19.250 --> 01:21:22.420
+Jitendra K: Let me use my… API key?
+
+806
+01:21:33.380 --> 01:21:35.060
+Jitendra K: Let me delete this.
+
+807
+01:22:05.350 --> 01:22:12.930
+Jitendra K: Okay, read the… API key now, so I'm ready to use LLM as a judge now.
+
+808
+01:22:13.310 --> 01:22:19.779
+Jitendra K: So this is the configuration that I'm using. So I'm saying that configure, dspy.configure. DSPY is a class.
+
+809
+01:22:20.210 --> 01:22:25.349
+Jitendra K: And configure is a function, that means member variable, member function of the class.
+
+810
+01:22:25.550 --> 01:22:31.479
+Jitendra K: And I'm invoking the language model. So I'm saying I'm going to use GPT-40 Mini.
+
+811
+01:22:31.930 --> 01:22:44.630
+Jitendra K: With a maximum token of 300 generation… during generation part, so that means I can generate maximum of 300 tokens during generation, so that I can avoid any overflow of tokens as well.
+
+812
+01:22:44.790 --> 01:22:46.250
+Jitendra K: So I'm just keeping it safe.
+
+813
+01:22:46.420 --> 01:22:56.580
+Jitendra K: So then, once I configure this, that means I can able to use this model in my responses.
+
+814
+01:22:57.110 --> 01:23:08.970
+Jitendra K: Now, the concept that we have learned so far is, we have to think of creating… A signature.
+
+815
+01:23:09.570 --> 01:23:16.850
+Jitendra K: So let's say this is a signature that I'm creating. So I'm creating… a simple class called Sentiment.
+
+816
+01:23:17.790 --> 01:23:25.439
+Jitendra K: And creating a signature of this class. That means what this class will take as input.
+
+817
+01:23:27.150 --> 01:23:30.169
+Jitendra K: What is… it is going to return as an output?
+
+818
+01:23:31.840 --> 01:23:33.899
+Jitendra K: And how it is going to evaluate.
+
+819
+01:23:34.050 --> 01:23:35.679
+Jitendra K: On a scale of 0 to 1.
+
+820
+01:23:36.210 --> 01:23:42.460
+Jitendra K: So I'm just saying that I have a review, which is an input, sentiment, On the basis of which?
+
+821
+01:23:43.080 --> 01:23:47.569
+Jitendra K: The DSP deployer compiler will evaluate.
+
+822
+01:23:48.890 --> 01:23:56.519
+Jitendra K: And it will categorize the previous review into 3 classes, positive, negative, and neutral, or neutral, not AND.
+
+823
+01:23:57.120 --> 01:24:02.179
+Jitendra K: And confidence will be between 0 to 1. Higher the confidence, higher the class proportion.
+
+824
+01:24:03.370 --> 01:24:10.799
+Jitendra K: Now, I would like to create a module which should be Composable Optimizable Unit. That means I would like to predict and adapt
+
+825
+01:24:11.190 --> 01:24:12.470
+Jitendra K: Using React.
+
+826
+01:24:12.590 --> 01:24:16.930
+Jitendra K: pattern. So, I would like to use… the module.
+
+827
+01:24:17.370 --> 01:24:19.190
+Jitendra K: Now, remember the module we'll use?
+
+828
+01:24:19.370 --> 01:24:21.739
+Jitendra K: The output of signature.
+
+829
+01:24:21.930 --> 01:24:24.419
+Jitendra K: Signature just like a contract.
+
+830
+01:24:25.120 --> 01:24:30.110
+Jitendra K: Now, once you define a contract that this is what I'm going to use, an input-output.
+
+831
+01:24:31.590 --> 01:24:33.609
+Jitendra K: Right? And the intimidated steps.
+
+832
+01:24:33.860 --> 01:24:36.109
+Jitendra K: Now, you're going to use this contract.
+
+833
+01:24:36.650 --> 01:24:46.620
+Jitendra K: to perform the… Perform the review. So here I'm saying that I would like to classify the sentiment.
+
+834
+01:24:46.920 --> 01:24:53.989
+Jitendra K: And then classify the outcome using chain of thought as well. That is one of the patterns that I'm going to elaborate.
+
+835
+01:24:54.820 --> 01:24:57.260
+Jitendra K: I would like to use to elaborate the prompt.
+
+836
+01:24:58.200 --> 01:25:00.789
+Jitendra K: And this is the sample review.
+
+837
+01:25:01.040 --> 01:25:07.169
+Jitendra K: Which talks about the movie rating. The plot was confusing whether cinemography was breathtaking.
+
+838
+01:25:07.630 --> 01:25:09.939
+Jitendra K: And then, I would like to pass on
+
+839
+01:25:10.430 --> 01:25:14.190
+Jitendra K: To see what is the basic sentiment which has been generated from this.
+
+840
+01:25:14.640 --> 01:25:15.710
+Jitendra K: Analysis.
+
+841
+01:25:53.810 --> 01:25:55.660
+Jitendra K: No matter if…
+
+842
+01:26:40.860 --> 01:26:45.890
+Jitendra K: Okay, so it is showing the output as neutral, confidence score of 0.7.
+
+843
+01:26:46.670 --> 01:26:49.049
+Jitendra K: And this is a chain of thought with reasoning.
+
+844
+01:26:50.240 --> 01:26:56.459
+Jitendra K: So it says that it evaluated the output in a very elaborative manner, so you can see how elaborative this output is.
+
+845
+01:26:56.810 --> 01:27:03.889
+Jitendra K: The review expressed misfeeling about the movie. The first part mentioned that the plot was confusing, indicating negative aspects.
+
+846
+01:27:04.240 --> 01:27:12.059
+Jitendra K: While the second part, rat-takings, choreography, or some typical term.
+
+847
+01:27:12.220 --> 01:27:18.470
+Jitendra K: Which is positive overall. The sentiments are somehow conflicting, leading to a neutral overall sentiment.
+
+848
+01:27:18.910 --> 01:27:22.159
+Jitendra K: And it is staying neutral with a confidence of 70%.
+
+849
+01:27:22.850 --> 01:27:30.579
+Jitendra K: That means what it does is, I'm just trying to show you one example, very simple example, that once you generate an output from LLM,
+
+850
+01:27:30.690 --> 01:27:32.540
+Jitendra K: Let's say this is the output.
+
+851
+01:27:33.150 --> 01:27:36.829
+Jitendra K: Or maybe a human review. I would like to establish…
+
+852
+01:27:38.120 --> 01:27:43.240
+Jitendra K: a procedure by which I can be able to utilize this whole output
+
+853
+01:27:43.490 --> 01:27:46.820
+Jitendra K: Using a chain of thought, writing, prompt writing.
+
+854
+01:27:47.120 --> 01:27:54.399
+Jitendra K: And then try to evaluate the whole part of this output. So this is one way that you can do it.
+
+855
+01:27:55.340 --> 01:27:59.270
+Jitendra K: Now, I would like to compose module into a pipeline.
+
+856
+01:28:05.630 --> 01:28:07.950
+Jitendra K: Which is the fifth part.
+
+857
+01:28:08.330 --> 01:28:15.830
+Jitendra K: So, in this… This is a whole module of DSVY now, which includes signature, module, and the execution.
+
+858
+01:28:16.220 --> 01:28:20.520
+Jitendra K: So here, I'm just doing one very simple English-to-French translation.
+
+859
+01:28:21.280 --> 01:28:27.189
+Jitendra K: And then using, the chain of thought to perform the sentiment analysis.
+
+860
+01:28:27.610 --> 01:28:30.479
+Jitendra K: And prediction for doing the, again, the…
+
+861
+01:28:30.620 --> 01:28:34.810
+Jitendra K: Precise, overview of the overall sentiment.
+
+862
+01:28:39.340 --> 01:28:41.680
+Jitendra K: So, I just translated the same prompt.
+
+863
+01:28:42.110 --> 01:28:43.300
+Jitendra K: Into French.
+
+864
+01:28:44.320 --> 01:28:48.250
+Jitendra K: And it is generating, again, the neutral review as an output.
+
+865
+01:28:48.820 --> 01:28:52.070
+Jitendra K: So that means I can use DSPY for doing…
+
+866
+01:28:53.850 --> 01:28:59.430
+Jitendra K: I mean, I'm just trying to show you a simple example. I'm not rephrasing any prompt, I'm not doing anything.
+
+867
+01:29:00.030 --> 01:29:01.380
+Jitendra K: conventional yet.
+
+868
+01:29:01.790 --> 01:29:08.379
+Jitendra K: But the idea is just to give you the familiarity with the style of TSPY. So TSPY is a class.
+
+869
+01:29:08.560 --> 01:29:11.399
+Jitendra K: I've got signature, I've got module, I've got…
+
+870
+01:29:12.870 --> 01:29:15.550
+Jitendra K: teleprompters, which I'm going to add now.
+
+871
+01:29:18.030 --> 01:29:20.899
+Jitendra K: Yeah, let me share this code,
+
+872
+01:29:58.200 --> 01:30:03.629
+Jitendra K: Okay, now what we are going to do is, we are going to use, now, the Hotpot QA.
+
+873
+01:30:04.190 --> 01:30:11.570
+Jitendra K: And I will… Write each and every teleprompters.
+
+874
+01:30:12.300 --> 01:30:13.910
+Jitendra K: To generate insight.
+
+875
+01:30:14.240 --> 01:30:18.089
+Jitendra K: So, we will use all teleprompters that we have learned so far.
+
+876
+01:30:25.500 --> 01:30:30.270
+Jitendra K: And I'm going to use Hotpot QA, and… The idea is…
+
+877
+01:30:35.480 --> 01:30:36.370
+Jitendra K: Okay
+
+878
+01:31:20.660 --> 01:31:22.300
+Jitendra K: We have shared the code now.
+
+879
+01:31:23.200 --> 01:31:25.919
+Jitendra K: So you would like to take a time, maybe 5 minutes?
+
+880
+01:31:27.410 --> 01:31:35.339
+Jitendra K: And then… We will revisit the new question, new… sorry, new, code again.
+
+881
+01:35:06.970 --> 01:35:10.270
+Jitendra K: I hope you're able to run… the program now.
+
+882
+01:35:10.960 --> 01:35:12.110
+Jitendra K: Any issue?
+
+883
+01:35:47.480 --> 01:35:50.119
+Jitendra K: Shall we proceed now, guys? Are you…
+
+884
+01:35:50.410 --> 01:35:52.850
+Jitendra K: Are you able to install your DSPY now?
+
+885
+01:35:58.260 --> 01:36:01.619
+Jitendra K: So I will skip this part. Let's try this.
+
+886
+01:37:19.660 --> 01:37:21.830
+Jitendra K: Let me first download the data.
+
+887
+01:37:22.440 --> 01:37:25.390
+Jitendra K: output QA, and then run this.
+
+888
+01:37:26.210 --> 01:37:27.739
+Jitendra K: I'll load this now.
+
+889
+01:38:44.690 --> 01:38:47.700
+Jitendra K: Okay, so this is, downloaded.
+
+890
+01:38:48.630 --> 01:38:51.649
+Jitendra K: Now, I will write the crack pipeline.
+
+891
+01:38:52.590 --> 01:38:55.550
+Jitendra K: To perform this, some of the analysis.
+
+892
+01:39:09.830 --> 01:39:12.979
+Jitendra K: This is getting some timeout issue…
+
+893
+01:39:14.530 --> 01:39:17.540
+Jitendra K: With the API limit, let me check.
+
+894
+01:39:45.830 --> 01:39:49.439
+Jitendra K: I'll explain the code to us, guys, so don't worry about the code part.
+
+895
+01:39:49.870 --> 01:39:54.360
+Jitendra K: But, first make sure that you understand the essence, what are we trying to achieve.
+
+896
+01:45:14.980 --> 01:45:19.789
+Jitendra K: Okay, so this has been downloaded now, I think this is working fine.
+
+897
+01:45:21.380 --> 01:45:26.160
+Jitendra K: There's no depreciation… On the data as well.
+
+898
+01:45:27.470 --> 01:45:30.370
+Jitendra K: Okay, so this is downloaded perfectly.
+
+899
+01:45:32.810 --> 01:45:36.449
+Jitendra K: So I've got 20 trained, 50 dev example, loaded into memory.
+
+900
+01:45:36.640 --> 01:45:42.100
+Jitendra K: And then, I will also have… Systematically, token arrangements.
+
+901
+01:45:42.590 --> 01:45:46.640
+Jitendra K: Now, I will build a local retriever. I will explain this code again.
+
+902
+01:45:46.770 --> 01:45:49.309
+Jitendra K: Just give me a while to run this first.
+
+903
+01:45:49.780 --> 01:45:54.799
+Jitendra K: Then we'll reun… I will explain the lines that we are executing at this moment.
+
+904
+01:45:56.950 --> 01:45:59.690
+Jitendra K: So this time, I'm just putting up the compact passages.
+
+905
+01:48:38.080 --> 01:48:42.300
+Jitendra K: So, just chunking the passages, so it will take a while.
+
+906
+01:49:19.070 --> 01:49:23.720
+Jitendra K: Yeah, today's classes will be of 2 hours, provaca, so…
+
+907
+01:49:24.180 --> 01:49:29.600
+Jitendra K: I think there is no break in between, but we'll try to cover as many as… as much as we can.
+
+908
+01:50:06.520 --> 01:50:14.940
+Jitendra K: So, first thing, DSPY is very, very highly computational program. Very, very computation intensive. So, I have one…
+
+909
+01:50:15.140 --> 01:50:16.700
+Jitendra K: Maybe I can show you.
+
+910
+01:50:17.400 --> 01:50:21.819
+Jitendra K: I have a executable code, which I've saved.
+
+911
+01:50:22.220 --> 01:50:24.019
+Jitendra K: Okay, now this has run.
+
+912
+01:50:25.210 --> 01:50:27.710
+Jitendra K: Maybe I can try to index…
+
+913
+01:50:31.250 --> 01:50:35.409
+Jitendra K: This is a previous error that we are facing in AutoRag as well.
+
+914
+01:51:55.110 --> 01:52:00.880
+Jitendra K: Yeah, so it will take a while, but I think I have, executable code.
+
+915
+01:52:37.770 --> 01:52:41.930
+Jitendra K: So we're in the formatting error, percentage formatting, I think.
+
+916
+01:52:42.620 --> 01:52:46.590
+Jitendra K: It is taking 4.02 decimal pieces.
+
+917
+01:52:49.620 --> 01:52:51.550
+Jitendra K: So, baseline…
+
+918
+01:53:57.560 --> 01:54:01.369
+Jitendra K: Okay, this is what changes the floating point exception.
+
+919
+01:55:11.040 --> 01:55:15.999
+Jitendra K: Okay, I will not run CORPO today. We will complete until bootstrap.
+
+920
+01:55:16.890 --> 01:55:19.729
+Jitendra K: And let me explain the code, because this is important.
+
+921
+01:55:46.500 --> 01:55:49.700
+Jitendra K: Okay, so trailer time it is running, let me explain the code.
+
+922
+01:55:50.220 --> 01:55:55.630
+Jitendra K: So what we are doing here is, we are comparing these algorithms. So assume it like,
+
+923
+01:55:55.950 --> 01:56:00.759
+Jitendra K: You have a series of algorithms that you're comparing. Which one is fitting?
+
+924
+01:56:01.790 --> 01:56:03.330
+Jitendra K: On this dataset.
+
+925
+01:56:03.920 --> 01:56:11.000
+Jitendra K: And the dataset that I've just used is Open Source Hotpot QA. You can also download it, you can also play around with this.
+
+926
+01:56:11.160 --> 01:56:15.929
+Jitendra K: Right, so we have 8 algorithms. These 8 algorithms, you can see here.
+
+927
+01:56:16.220 --> 01:56:17.410
+Jitendra K: They're listed.
+
+928
+01:56:18.810 --> 01:56:22.939
+Jitendra K: We are going to use these 8 algorithms to fine-tune.
+
+929
+01:56:23.080 --> 01:56:24.890
+Jitendra K: the model results.
+
+930
+01:56:25.130 --> 01:56:28.539
+Jitendra K: So when we say model results, we are doing a prompt fine-tuning.
+
+931
+01:56:29.400 --> 01:56:34.359
+Jitendra K: Right? So we have a list of questions with the right answers.
+
+932
+01:56:34.820 --> 01:56:38.660
+Jitendra K: with the explanations… Etc, right?
+
+933
+01:56:38.920 --> 01:56:45.820
+Jitendra K: That means this is our label. The query, answer, and… Explanation, tuples.
+
+934
+01:56:46.560 --> 01:56:48.560
+Jitendra K: So, with the help of this dataset.
+
+935
+01:56:48.840 --> 01:56:50.820
+Jitendra K: What we are trying to achieve is…
+
+936
+01:56:51.490 --> 01:56:55.480
+Jitendra K: We have a list of wrong answers as well, by the way.
+
+937
+01:56:55.630 --> 01:57:00.749
+Jitendra K: Hotpot QA does not talk about all the right answers. It'll have wrong answers as well.
+
+938
+01:57:01.050 --> 01:57:06.400
+Jitendra K: So we would like to take an opportunity to improve the response on the wrong answers.
+
+939
+01:57:06.610 --> 01:57:11.510
+Jitendra K: Right? So basically, let's say… I've got Hotpot QA.
+
+940
+01:57:11.910 --> 01:57:13.420
+Jitendra K: 100 queries.
+
+941
+01:57:13.820 --> 01:57:15.250
+Jitendra K: 100 questions.
+
+942
+01:57:16.050 --> 01:57:19.900
+Jitendra K: Out of which… 90 questions.
+
+943
+01:57:25.960 --> 01:57:30.060
+Jitendra K: 90% of my questions… are coming accurate?
+
+944
+01:57:30.750 --> 01:57:36.660
+Jitendra K: 10% of the questions Remaining 10 queries are coming as incorrect.
+
+945
+01:57:38.880 --> 01:57:42.239
+Jitendra K: So, what I need to do is, I need to improve these answers.
+
+946
+01:57:43.330 --> 01:57:47.649
+Jitendra K: And maybe take an opportunity to improve this further as well.
+
+947
+01:57:48.230 --> 01:57:52.220
+Jitendra K: That is what we are doing with this experimentation. Now, what we are trying to do is…
+
+948
+01:57:52.420 --> 01:57:54.990
+Jitendra K: We have a set of algorithms to compare.
+
+949
+01:57:55.210 --> 01:57:57.409
+Jitendra K: These are the algorithms that we are comparing.
+
+950
+01:57:57.540 --> 01:58:00.099
+Jitendra K: 1, 2, 3, 4, 5, 6, 7, 8.
+
+951
+01:58:00.240 --> 01:58:02.949
+Jitendra K: These 8 algorithms we are going to compare against.
+
+952
+01:58:03.140 --> 01:58:11.070
+Jitendra K: And then try to run across multiple sections of the data, and then prove the point that which algorithm is best for this purpose.
+
+953
+01:58:11.720 --> 01:58:15.520
+Jitendra K: So that is what we are going to do. So, any question on the problem statement?
+
+954
+01:58:15.670 --> 01:58:18.630
+Jitendra K: is the problem statement is clear. I cannot make it…
+
+955
+01:58:19.030 --> 01:58:26.180
+Jitendra K: more simpler than that. You have to go and study what is there in the Hotpot QA dataset, and I think I have given you
+
+956
+01:58:26.510 --> 01:58:30.449
+Jitendra K: this exercise yesterday. So, how many of you have gone through the data site?
+
+957
+01:58:38.630 --> 01:58:44.170
+Jitendra K: Have you heard about Hotpot QA dataset and such sort of benchmarking technique earlier?
+
+958
+01:58:44.530 --> 01:58:46.930
+Jitendra K: Or this is an entirely new session.
+
+959
+01:58:47.810 --> 01:58:48.670
+Jitendra K: No.
+
+960
+01:58:50.880 --> 01:58:56.630
+Jitendra K: Okay… But what is your understanding now with Hotpot QA?
+
+961
+01:58:59.820 --> 01:59:02.150
+Jitendra K: What are we trying to do with HotBotQA?
+
+962
+01:59:10.270 --> 01:59:13.430
+Jitendra K: Yeah, so dataset used to fine-tune the model.
+
+963
+01:59:13.710 --> 01:59:16.390
+Jitendra K: It's a benchmark model data set, right?
+
+964
+01:59:17.250 --> 01:59:20.399
+Jitendra K: That means we are using some open source of label.
+
+965
+01:59:20.760 --> 01:59:21.760
+Jitendra K: That's correct.
+
+966
+01:59:22.260 --> 01:59:28.089
+Jitendra K: We are teaching the model how to reason and… Reflect, self-reflect on the…
+
+967
+01:59:28.610 --> 01:59:31.720
+Jitendra K: performance criteria. That's correct, that's the right answer.
+
+968
+01:59:33.150 --> 01:59:36.649
+Jitendra K: So how many of you understand this question clearly?
+
+969
+01:59:37.480 --> 01:59:40.070
+Jitendra K: But what are we trying to achieve in this class?
+
+970
+01:59:40.970 --> 01:59:43.350
+Jitendra K: Multi-op reasoning is a sub-part of it.
+
+971
+01:59:43.730 --> 01:59:45.820
+Jitendra K: Is another sub-part of it, but…
+
+972
+01:59:47.430 --> 01:59:50.160
+Jitendra K: Are you understanding what are we trying to do here?
+
+973
+01:59:55.100 --> 01:59:59.360
+Jitendra K: Benchmark of RAF system, that's right, RAC system, yeah.
+
+974
+02:00:00.930 --> 02:00:06.669
+Jitendra K: Yeah, that's correct. Benchmark of RAC, benchmark for your reasoning capabilities of the model.
+
+975
+02:00:07.100 --> 02:00:11.070
+Jitendra K: You can say… you can prepare a similar set of data for your domain as well, right?
+
+976
+02:00:11.500 --> 02:00:18.530
+Jitendra K: So let's say you launch a chatbot. How will you produce… how will you understand whether your chatbot is generating the right answer every time or not?
+
+977
+02:00:18.950 --> 02:00:25.710
+Jitendra K: You're not going to literally email all the users who's using the chatbot and ask what you like, what do you do not like.
+
+978
+02:00:26.380 --> 02:00:32.390
+Jitendra K: They will not be able to help you in that, right? Because they are non-technical users, they are just using your bot.
+
+979
+02:00:32.630 --> 02:00:44.519
+Jitendra K: They will have extreme bad reviews against your bot, or they will have extreme good review against your bot. That's the only thing that you will expect from the non-technical users. Don't expect too much from non-technical users, by the way.
+
+980
+02:00:44.960 --> 02:00:47.370
+Jitendra K: If you're expecting that they will…
+
+981
+02:00:47.480 --> 02:00:52.089
+Jitendra K: They will be pleased with your rack pipeline, so don't get into wrong impression.
+
+982
+02:00:52.260 --> 02:00:57.769
+Jitendra K: They are very critic review. They are very good in giving the critic review to your business stakeholders, your bosses.
+
+983
+02:00:58.750 --> 02:01:03.809
+Jitendra K: The very next day, what is going to happen is your rack system will be blown away from the production.
+
+984
+02:01:06.760 --> 02:01:13.789
+Jitendra K: Don't believe or don't trust on the non-technical users, first and the foremost thing. You need to create your own benchmark.
+
+985
+02:01:14.640 --> 02:01:18.320
+Jitendra K: As a data scientist, or as a full-stack engineer.
+
+986
+02:01:19.120 --> 02:01:23.490
+Jitendra K: If you just believe on star rating, 3-star, 4-star.
+
+987
+02:01:23.880 --> 02:01:29.389
+Jitendra K: 5-star, somebody's writing a good email about your chatbot. That does not mean your chatbot is doing good.
+
+988
+02:01:29.940 --> 02:01:34.760
+Jitendra K: You need to prove that your bot is doing good, your product pipeline is doing good in production.
+
+989
+02:01:35.520 --> 02:01:37.849
+Jitendra K: And this is the way that you should test.
+
+990
+02:01:38.470 --> 02:01:40.049
+Jitendra K: This is called stress testing.
+
+991
+02:01:41.750 --> 02:01:46.539
+Jitendra K: Alright, so what we are doing here is we are installing a set of packages to do this
+
+992
+02:01:46.690 --> 02:01:51.609
+Jitendra K: So, we install the DSPY framework, Yeah, I will share that
+
+993
+02:01:51.810 --> 02:02:01.770
+Jitendra K: And then this framework, we are going to use for optimizing the language model, prompts, and the weights, and this includes the core frameworks about all teleprompters, 8,
+
+994
+02:02:02.190 --> 02:02:07.829
+Jitendra K: Teleprompter that we're going to use, and also the data loaders and evaluation utilities.
+
+995
+02:02:08.260 --> 02:02:17.420
+Jitendra K: Now, I'm creating some API management, just maintain my Google SQL app secret file here, in this locker secret file.
+
+996
+02:02:17.530 --> 02:02:23.060
+Jitendra K: And I just put Google Colab user data into this secret store, Vault store.
+
+997
+02:02:23.650 --> 02:02:31.019
+Jitendra K: Then I'm using the LLM configuration that I'm going to use a constructor. DSPY.LM is a constructor.
+
+998
+02:02:31.260 --> 02:02:41.120
+Jitendra K: which create a language model client with a specific parameters. It execute a model strength, that means which model provider, which type of model I'm using.
+
+999
+02:02:41.540 --> 02:02:47.829
+Jitendra K: So I'm limiting the maximum token to be 300 output token with a temperature to be 0.
+
+1000
+02:02:48.420 --> 02:02:50.799
+Jitendra K: So I'm keeping the things deterministic.
+
+1001
+02:02:51.220 --> 02:02:54.929
+Jitendra K: That means I'm disabling the stochastic sampling entirely.
+
+1002
+02:02:55.090 --> 02:03:01.359
+Jitendra K: Making the model deterministic, and this is critical for producing evaluation and optimization.
+
+1003
+02:03:01.480 --> 02:03:05.560
+Jitendra K: Because any randomness could confound the teleprompter search process.
+
+1004
+02:03:06.480 --> 02:03:12.130
+Jitendra K: Then I'm loading the Hotpot QA, dataset, So, this is my dataset.
+
+1005
+02:03:12.420 --> 02:03:19.440
+Jitendra K: So the dataset is for multi-hop QA reasoning across multiple Wikipedia articles to answer.
+
+1006
+02:03:19.630 --> 02:03:20.770
+Jitendra K: Questions?
+
+1007
+02:03:21.350 --> 02:03:28.900
+Jitendra K: So I will have three sort of labels for this data. First is your question, second is your answer, third is your justification.
+
+1008
+02:03:29.290 --> 02:03:33.910
+Jitendra K: So I'm… Again, assume this data set is like…
+
+1009
+02:03:34.690 --> 02:03:37.560
+Jitendra K: your train and test. When you split the data.
+
+1010
+02:03:37.920 --> 02:03:43.920
+Jitendra K: That means you have access to all the Wikipedia articles. All the Wikipedia articles is in the form of a
+
+1011
+02:03:45.300 --> 02:03:51.320
+Jitendra K: PDF files that you're using as a knowledge vet, knowledge base, or vector store.
+
+1012
+02:03:52.080 --> 02:03:55.280
+Jitendra K: And then you're querying against this… data.
+
+1013
+02:03:56.290 --> 02:03:59.400
+Jitendra K: To generate the output. And you store this output.
+
+1014
+02:03:59.850 --> 02:04:03.750
+Jitendra K: Now, what I did is… I have something called true labels.
+
+1015
+02:04:04.910 --> 02:04:06.139
+Jitendra K: from this data.
+
+1016
+02:04:06.270 --> 02:04:09.409
+Jitendra K: We say that this answer is matched, this answer does not match.
+
+1017
+02:04:09.690 --> 02:04:12.780
+Jitendra K: This answer matches, this answer matches, this answer does not match.
+
+1018
+02:04:14.000 --> 02:04:22.890
+Jitendra K: Right? So what I did is, I will split this data into… 60-40, or 80-20 ratio.
+
+1019
+02:04:23.480 --> 02:04:25.419
+Jitendra K: 80% I will use for.
+
+1020
+02:04:25.640 --> 02:04:33.130
+Jitendra K: training, and 20% I will use for testing. So when I'm saying training, that does not mean that I'm training the model from the scratch.
+
+1021
+02:04:33.440 --> 02:04:38.639
+Jitendra K: Training the model means I'm using this vector store and running these questions.
+
+1022
+02:04:39.010 --> 02:04:42.479
+Jitendra K: To understand the style of generating the answers. That's it.
+
+1023
+02:04:43.040 --> 02:04:48.080
+Jitendra K: And then, during the testing, I will use that learning to generate the right answer.
+
+1024
+02:04:48.980 --> 02:04:52.640
+Jitendra K: Right, so this is what I'm doing here in this Hotpot QA dataset.
+
+1025
+02:04:53.290 --> 02:05:02.410
+Jitendra K: Now, this dataset is multiple hop, multiple instruction, with 20% of my data I'm going to use for testing.
+
+1026
+02:05:03.040 --> 02:05:09.930
+Jitendra K: So, then I will define my rack pipeline, because ultimately I'm going to test my rack, so I have to create my rack first.
+
+1027
+02:05:10.300 --> 02:05:12.260
+Jitendra K: So I'm creating a rack pipeline.
+
+1028
+02:05:14.240 --> 02:05:17.640
+Jitendra K: Local retriever, sorry, generate answer, yeah, this one.
+
+1029
+02:05:17.910 --> 02:05:25.970
+Jitendra K: Now, defining a rack pipeline, which will use the DSPY signature as a declarative specification of the module, input-output interface.
+
+1030
+02:05:26.320 --> 02:05:28.980
+Jitendra K: And there are functions that I'm using.
+
+1031
+02:05:29.310 --> 02:05:37.250
+Jitendra K: That… Function will typically have signatures, semantic descriptions, and Docker strings to…
+
+1032
+02:05:37.410 --> 02:05:44.859
+Jitendra K: perform this, module integration. So, I will mark the input fields, output fields…
+
+1033
+02:05:45.710 --> 02:05:48.310
+Jitendra K: Which I am going to utilize to generate the answer.
+
+1034
+02:05:48.950 --> 02:05:52.870
+Jitendra K: Right? Now I've got… a rack class.
+
+1035
+02:05:53.810 --> 02:05:58.159
+Jitendra K: Now, this class, sorry, this configuration file that I'm using here.
+
+1036
+02:05:58.580 --> 02:06:03.500
+Jitendra K: Will utilize for the purpose of… running…
+
+1037
+02:06:03.880 --> 02:06:07.559
+Jitendra K: all algorithms, or a combination of the two. So I'm just disabling.
+
+1038
+02:06:07.900 --> 02:06:10.549
+Jitendra K: These expensive algorithms for time being.
+
+1039
+02:06:11.430 --> 02:06:20.180
+Jitendra K: Because we will use this demo in the next tutorial, and these are something which I'm going to run today. So I will allow selective execution of expensive optimizers.
+
+1040
+02:06:20.760 --> 02:06:23.960
+Jitendra K: Now, I would like to set up baseline criteria.
+
+1041
+02:06:24.210 --> 02:06:29.040
+Jitendra K: So, baseline criteria is very, very important when you're running these teleprompters.
+
+1042
+02:06:29.700 --> 02:06:36.450
+Jitendra K: So, I'm saying that evaluate the unoptimized RAC program, and then try to improve that accuracy.
+
+1043
+02:06:37.510 --> 02:06:41.510
+Jitendra K: then I'm running this set of… four algorithms.
+
+1044
+02:06:43.100 --> 02:06:46.589
+Jitendra K: to see… Which one exceeds the benchmark?
+
+1045
+02:06:47.430 --> 02:06:50.050
+Jitendra K: on the score criteria. So, baseline is…
+
+1046
+02:06:50.690 --> 02:06:53.960
+Jitendra K: For this run, I'm creating a baseline at 4.0.
+
+1047
+02:06:54.180 --> 02:06:57.020
+Jitendra K: Right? And then I run the algorithms.
+
+1048
+02:06:57.540 --> 02:07:03.049
+Jitendra K: So you can see that every time when I'm running the new algorithm, it is exceeding the baseline.
+
+1049
+02:07:03.590 --> 02:07:05.470
+Jitendra K: From 4 to 26.
+
+1050
+02:07:07.220 --> 02:07:10.920
+Jitendra K: Here, I'm getting… 32, right?
+
+1051
+02:07:11.550 --> 02:07:14.720
+Jitendra K: So that means I'm getting the output
+
+1052
+02:07:15.240 --> 02:07:18.640
+Jitendra K: Better than the baseline for these algorithms.
+
+1053
+02:07:19.020 --> 02:07:32.329
+Jitendra K: And what it is doing is, we'll do a deep dive in next tutorial, how these programs internally create a candidate summaries and announcement. We'll do this analysis in deep manner.
+
+1054
+02:07:32.860 --> 02:07:41.709
+Jitendra K: But let me first explain, unto this point, whatever we have achieved is actually a good result, considering the baseline is just merely 4.
+
+1055
+02:07:42.020 --> 02:07:44.099
+Jitendra K: And we have exceeded it to 32.
+
+1056
+02:07:44.440 --> 02:07:48.610
+Jitendra K: Right? With the help of Bootstrap with random search, empirical model.
+
+1057
+02:07:52.780 --> 02:07:57.400
+Jitendra K: Now, the homework for you guys is, I want, maybe…
+
+1058
+02:07:57.550 --> 02:08:01.380
+Jitendra K: you guys run the remaining algorithms, including Corpo.
+
+1059
+02:08:01.710 --> 02:08:05.869
+Jitendra K: and Mip Pro in the next tutorial, before the next tutorial.
+
+1060
+02:08:06.100 --> 02:08:11.909
+Jitendra K: And then we'll take a deep dive into the… how these algorithms are doing our candidate selections.
+
+1061
+02:08:12.520 --> 02:08:17.159
+Jitendra K: But before… calling it a day. I just want to understand…
+
+1062
+02:08:17.590 --> 02:08:20.199
+Jitendra K: That when you're comparing the algorithm.
+
+1063
+02:08:20.300 --> 02:08:22.589
+Jitendra K: Right? Let's say against the baseline.
+
+1064
+02:08:22.820 --> 02:08:25.509
+Jitendra K: How did you set up the baseline criteria itself?
+
+1065
+02:08:27.460 --> 02:08:31.569
+Jitendra K: Have anybody… did anybody in the class have set up a baseline?
+
+1066
+02:08:32.330 --> 02:08:35.720
+Jitendra K: In any form and shape, in machine learning algorithms.
+
+1067
+02:08:36.190 --> 02:08:38.000
+Jitendra K: What do you understand on a baseline?
+
+1068
+02:08:51.130 --> 02:08:53.559
+Jitendra K: Bare minimal result for acceptance.
+
+1069
+02:08:54.490 --> 02:08:58.759
+Jitendra K: That's correct. Baseline is acceptance criteria, but who decides the baseline?
+
+1070
+02:09:00.330 --> 02:09:03.790
+Jitendra K: Yeah, I've already shared the full code, so please download it.
+
+1071
+02:09:05.820 --> 02:09:10.010
+Jitendra K: No, no, but who? Human… of course, human will decide what who.
+
+1072
+02:09:16.980 --> 02:09:20.949
+Jitendra K: Yes, we use a pass trend from the machine from baseline, that's correct.
+
+1073
+02:09:21.470 --> 02:09:25.099
+Jitendra K: So we will use the base best of the best result achieved so far.
+
+1074
+02:09:25.450 --> 02:09:27.930
+Jitendra K: And domain experts will decide it, that's correct.
+
+1075
+02:09:28.510 --> 02:09:32.919
+Jitendra K: So basically, we will use the baseline, whatever best has been achieved so far.
+
+1076
+02:09:34.110 --> 02:09:36.130
+Jitendra K: We will consider this as baseline.
+
+1077
+02:09:37.270 --> 02:09:42.880
+Jitendra K: So we'll say that, okay, so if you… even if you're getting 40% accuracy by some
+
+1078
+02:09:43.280 --> 02:09:52.440
+Jitendra K: XYZ algorithms, you will say that, okay, my previous run results show 40%, and that's the maximum that I can achieve, and that's the baseline. I'm challenging you, can you improve it?
+
+1079
+02:09:54.540 --> 02:10:01.460
+Jitendra K: That is what baseline is, right? So that is how the competition in Kegel and other repositories also work.
+
+1080
+02:10:02.730 --> 02:10:05.320
+Jitendra K: This will not be a trial and error, that's correct.
+
+1081
+02:10:05.540 --> 02:10:14.179
+Jitendra K: That's correct. This is not a trial and error. Now I think you get a sense. This is not a trial and error experimentation. We are challenging a baseline. Okay, I have achieved…
+
+1082
+02:10:14.360 --> 02:10:16.520
+Jitendra K: This much accuracy in these prompts.
+
+1083
+02:10:16.870 --> 02:10:21.700
+Jitendra K: Can I do something, using the evolutionary algorithms?
+
+1084
+02:10:21.850 --> 02:10:28.810
+Jitendra K: Teleprompters, optimizers, to make it more… Intuitive or more foolproof.
+
+1085
+02:10:28.990 --> 02:10:33.059
+Jitendra K: That is what we are doing. We are not doing random experimentation here. That's correct.
+
+1086
+02:10:34.440 --> 02:10:36.810
+Jitendra K: We have a bunch of algorithms, for sure.
+
+1087
+02:10:38.480 --> 02:10:44.850
+Jitendra K: But we're not doing it we are not doing random iteration here.
+
+1088
+02:10:49.250 --> 02:10:55.610
+Jitendra K: So, baseline for subjective answer, so let's imagine that you're running 10 questions.
+
+1089
+02:10:57.500 --> 02:11:04.659
+Jitendra K: And, these 10 questions… are directed to 10 users.
+
+1090
+02:11:06.370 --> 02:11:12.120
+Jitendra K: So, I'm assuming that they are all SMEs. They're using this… For the air.
+
+1091
+02:11:12.230 --> 02:11:14.169
+Jitendra K: Doing a specific task.
+
+1092
+02:11:15.560 --> 02:11:19.679
+Jitendra K: So, if you are generating some answer, if they are using your bot or rack.
+
+1093
+02:11:19.970 --> 02:11:25.339
+Jitendra K: or your conversational AI solution, Then they will have their own opinion.
+
+1094
+02:11:25.990 --> 02:11:30.510
+Jitendra K: They're not here to criticize your results, right, or evaluating your results.
+
+1095
+02:11:30.870 --> 02:11:38.789
+Jitendra K: If your bot is giving the right answer, which can be useful for business, they will simply say, okay, this is the right answer. One on zero.
+
+1096
+02:11:40.410 --> 02:11:44.059
+Jitendra K: And they can also share some idea, like, how can it be further improved?
+
+1097
+02:11:44.990 --> 02:11:50.289
+Jitendra K: That means they are not talking about numerical scale. They are saying that, okay, there's an opportunity to improvement.
+
+1098
+02:11:51.000 --> 02:11:56.170
+Jitendra K: But they will not give you a very decisive answer that this is 80% accurate or 90% accurate.
+
+1099
+02:11:56.530 --> 02:11:58.690
+Jitendra K: That you have to fulfill by the…
+
+1100
+02:12:00.390 --> 02:12:05.600
+Jitendra K: RAC pipeline, or the faithfulness score, coverage scores, and all these criterias.
+
+1101
+02:12:05.740 --> 02:12:09.589
+Jitendra K: We have to generate your numerical scores, not the business user will decide it.
+
+1102
+02:12:10.340 --> 02:12:14.959
+Jitendra K: Now, the question is, if 10 out of 10 users are saying that you're
+
+1103
+02:12:15.220 --> 02:12:18.840
+Jitendra K: Prompts are running fine, your output is correct.
+
+1104
+02:12:19.700 --> 02:12:23.540
+Jitendra K: Do you still require this technique? The answer is no, you do not require it.
+
+1105
+02:12:24.940 --> 02:12:26.440
+Jitendra K: Because you don't have any…
+
+1106
+02:12:26.720 --> 02:12:33.749
+Jitendra K: flaw in the RAG pipeline itself. So, you know, what are you going to optimize? Which, when your RAG is already 100% accurate?
+
+1107
+02:12:34.110 --> 02:12:35.949
+Jitendra K: As far as the business users.
+
+1108
+02:12:37.920 --> 02:12:39.350
+Jitendra K: But let's say if you're…
+
+1109
+02:12:39.560 --> 02:12:45.979
+Jitendra K: Users are saying… 6 users are saying that your prompts are good, response from the prompt are good.
+
+1110
+02:12:46.340 --> 02:12:52.379
+Jitendra K: But only 4% of the user… 40% of the users are saying this is terribly bad.
+
+1111
+02:12:53.280 --> 02:12:56.919
+Jitendra K: I'm not able to get the expected answer from your rack pipeline.
+
+1112
+02:12:57.250 --> 02:13:01.980
+Jitendra K: Now you understand the complexity of the problem, what kind of problem they're writing.
+
+1113
+02:13:02.820 --> 02:13:09.390
+Jitendra K: Is there a prompt? Is… Sufficient enough to retrieve the right context.
+
+1114
+02:13:09.710 --> 02:13:11.129
+Jitendra K: And generate the answer.
+
+1115
+02:13:11.900 --> 02:13:14.750
+Jitendra K: Then you go with… DSPY.
+
+1116
+02:13:15.000 --> 02:13:20.519
+Jitendra K: To understand the root cause of why you're not getting the right answer for those 40% of the user.
+
+1117
+02:13:20.960 --> 02:13:22.929
+Jitendra K: And then, you have to fine-tune the…
+
+1118
+02:13:23.560 --> 02:13:26.070
+Jitendra K: parameters, that's the only thing you can do.
+
+1119
+02:13:27.560 --> 02:13:32.430
+Jitendra K: Because you don't have any control on an LLM model, you cannot fine-tune the LLM model, right?
+
+1120
+02:13:37.240 --> 02:13:44.270
+Jitendra K: Trying to understand the scenarios, all of them are giving right answers, how people prefer responses of…
+
+1121
+02:13:45.470 --> 02:13:48.700
+Jitendra K: They have their own mechanism, so they are very smart.
+
+1122
+02:13:48.820 --> 02:13:53.540
+Jitendra K: So don't worry about… They're… how they're evaluating. They are already doing it.
+
+1123
+02:13:54.470 --> 02:13:56.460
+Jitendra K: They already know what kind of…
+
+1124
+02:13:56.720 --> 02:14:01.989
+Jitendra K: Answer they are giving, whether it is right and wrong, what kind of model you are using.
+
+1125
+02:14:02.160 --> 02:14:05.539
+Jitendra K: what kind of functionality you're using, if you're writing
+
+1126
+02:14:05.850 --> 02:14:11.619
+Jitendra K: If you're enabling a fast response, then of course the accuracy will drop drastically.
+
+1127
+02:14:11.780 --> 02:14:18.429
+Jitendra K: If you're looking for deep reasoning, then the accuracy will improve. They have all the tracking mechanisms, so don't worry about that part.
+
+1128
+02:14:18.690 --> 02:14:25.449
+Jitendra K: They're already doing it. ChatGPT, Anthropic, they have all the systems in build. Teleprompters.
+
+1129
+02:14:27.620 --> 02:14:30.729
+Jitendra K: But they are just giving you a simple interface to…
+
+1130
+02:14:31.180 --> 02:14:34.270
+Jitendra K: That they are not going to disclose how they are measuring
+
+1131
+02:14:34.470 --> 02:14:37.070
+Jitendra K: The accuracy of the response, and all those things.
+
+1132
+02:14:38.570 --> 02:14:39.480
+Jitendra K: Right.
+
+1133
+02:14:39.870 --> 02:14:43.870
+Jitendra K: So they are just… Giving you an API.
+
+1134
+02:14:44.080 --> 02:14:45.919
+Jitendra K: And then you're using that model?
+
+1135
+02:14:46.240 --> 02:14:53.210
+Jitendra K: You're using it for your own business domain use cases, or maybe you're using it for some other purposes.
+
+1136
+02:14:54.410 --> 02:14:58.149
+Jitendra K: But behind the scene, they are doing all these things to understand
+
+1137
+02:14:58.400 --> 02:15:02.300
+Jitendra K: How well the response are, what is the factual consistency of the output?
+
+1138
+02:15:02.940 --> 02:15:07.690
+Jitendra K: Considering the fact that when you're uploading any document, they will definitely want to use it.
+
+1139
+02:15:08.030 --> 02:15:09.750
+Jitendra K: To do all this analysis.
+
+1140
+02:15:13.640 --> 02:15:18.569
+Jitendra K: And that's how the model has been improved. Otherwise, what is the way that they can improve the model?
+
+1141
+02:15:19.090 --> 02:15:21.249
+Jitendra K: What is there in ChatGPT7?
+
+1142
+02:15:21.480 --> 02:15:22.920
+Jitendra K: Which may be launch.
+
+1143
+02:15:23.540 --> 02:15:25.580
+Jitendra K: The upcoming weeks or months.
+
+1144
+02:15:27.610 --> 02:15:34.319
+Jitendra K: Right? It's not about new internet data they are using to retrain the model, because that's a… that's not a right thing to say.
+
+1145
+02:15:35.390 --> 02:15:40.930
+Jitendra K: That, they are releasing because the internet data has been increasing. That's not a right answer.
+
+1146
+02:15:41.520 --> 02:15:43.530
+Jitendra K: Even the internet data is limited.
+
+1147
+02:15:43.650 --> 02:15:51.450
+Jitendra K: They have used a limited amount of training until 2025. They… they have the best of the best freezing model till date.
+
+1148
+02:15:51.710 --> 02:15:53.750
+Jitendra K: Then what are they trying to optimize?
+
+1149
+02:15:58.070 --> 02:16:07.439
+Jitendra K: Your example benchmarked a different teleprompter for open source data. In your case, the baseline is taken from open source data. Yes, that's correct. So, all the right answer is a baseline.
+
+1150
+02:16:07.740 --> 02:16:12.060
+Jitendra K: let's say I've got 100 queries in Hotpot QA,
+
+1151
+02:16:12.510 --> 02:16:21.400
+Jitendra K: And for those unread queries, 80% are correct. That means my baseline is 80%. I have to prove that, and can I improve it to 81, to 85?
+
+1152
+02:16:21.940 --> 02:16:23.919
+Jitendra K: 290 or 95.
+
+1153
+02:16:24.640 --> 02:16:25.890
+Jitendra K: With these techniques.
+
+1154
+02:16:43.889 --> 02:16:50.459
+Jitendra K: I think LinkedIn and, You can keep an eye on… LinkedIn…
+
+1155
+02:16:50.610 --> 02:16:53.260
+Jitendra K: Top trending search and all those things.
+
+1156
+02:16:53.540 --> 02:16:57.180
+Jitendra K: Apart from that, there are some good websites.
+
+1157
+02:16:57.740 --> 02:17:02.890
+Jitendra K: Some good blogs… Which is also useful.
+
+1158
+02:17:03.370 --> 02:17:09.700
+Jitendra K: So, the stack is… wasn't such… Silver Star.
+
+1159
+02:17:10.709 --> 02:17:16.760
+Jitendra K: decoding, AI, these are the very good, website, you can look forward.
+
+1160
+02:17:20.230 --> 02:17:23.450
+Jitendra K: You can subscribe as well, upgrade to paid, I think…
+
+1161
+02:17:24.129 --> 02:17:27.179
+Jitendra K: Decoding AIM, Maxine is also there.
+
+1162
+02:17:28.280 --> 02:17:29.780
+Jitendra K: And, there's a lot of…
+
+1163
+02:17:30.580 --> 02:17:32.119
+Jitendra K: Thing that you can see here.
+
+1164
+02:17:37.260 --> 02:17:43.050
+Jitendra K: Apart from that, I think Medium is a good blog you can definitely look for.
+
+1165
+02:17:45.670 --> 02:17:49.289
+Jitendra K: So, yeah, these websites will definitely going to have these blocks.
+
+1166
+02:17:49.629 --> 02:17:53.440
+Jitendra K: Substack, I think I have also contributed with Thumza.
+
+1167
+02:17:54.040 --> 02:18:02.220
+Jitendra K: One dark… So this is… A good forum.
+
+1168
+02:18:22.330 --> 02:18:28.259
+Jitendra K: So yeah, you can even look for LinkedIn. I think LinkedIn have a lot of recent articles.
+
+1169
+02:18:40.930 --> 02:18:47.039
+Jitendra K: Alright guys, so I think this is pretty much what we have for today. Can we quickly launch a poll now?
+
+1170
+02:18:58.010 --> 02:19:03.209
+Jitendra K: So, what we are going to do in the next tutorial is, we'll continue with DSPY,
+
+1171
+02:19:03.719 --> 02:19:09.699
+Jitendra K: So I hope you understand the crux of it, right? So at least the crux of DSPY should be very, very clear.
+
+1172
+02:19:10.080 --> 02:19:15.390
+Jitendra K: I know that, these topics, you're hearing it for the very first time in your life.
+
+1173
+02:19:16.299 --> 02:19:19.689
+Jitendra K: So, with due respect, I mean, you need to work hard.
+
+1174
+02:19:20.230 --> 02:19:24.670
+Jitendra K: Because this world is… going crazy.
+
+1175
+02:19:26.709 --> 02:19:28.380
+Jitendra K: So we need to work hard.
+
+1176
+02:19:31.000 --> 02:19:33.449
+Jitendra K: Yeah, definitely. I will try to make it…
+
+1177
+02:19:34.309 --> 02:19:41.249
+Jitendra K: as, aligned as possible, but I want everybody to… Maybe open up, and then…
+
+1178
+02:19:41.590 --> 02:19:44.230
+Jitendra K: share their ideas as well, because…
+
+1179
+02:19:44.379 --> 02:19:49.170
+Jitendra K: These things are new, I know, but you need to correlate the concept, so…
+
+1180
+02:19:49.630 --> 02:19:57.219
+Jitendra K: If you don't have a machine learning background, that's fine. At least you have programmatical background, right? Yeah, it's changing very fast, that's correct.
+
+1181
+02:19:58.030 --> 02:20:03.520
+Jitendra K: So, maybe DSPY itself, I don't think so it is that useful these days.
+
+1182
+02:20:04.180 --> 02:20:10.409
+Jitendra K: But some techniques are… Some techniques are very, very useful.
+
+1183
+02:20:11.860 --> 02:20:18.830
+Jitendra K: Because you have two options, right? You can fine-tune the pro… fine-tune the LLM from the scratch, which is very, very, very costly.
+
+1184
+02:20:20.030 --> 02:20:25.329
+Jitendra K: If you fine-tune the LLM from the scratch, imagine the amount of money that you have to invest.
+
+1185
+02:20:25.970 --> 02:20:28.780
+Jitendra K: The amount of data that you need to look forward.
+
+1186
+02:20:29.610 --> 02:20:31.040
+Jitendra K: So what else you have?
+
+1187
+02:20:31.430 --> 02:20:34.360
+Jitendra K: the SPY, right? So these two techniques.
+
+1188
+02:20:34.920 --> 02:20:39.729
+Jitendra K: Definitely going to have more and more practical use cases.
+
+1189
+02:20:40.750 --> 02:20:44.520
+Jitendra K: Based upon which you can fine-tune and…
+
+1190
+02:20:44.720 --> 02:20:47.020
+Jitendra K: Do we get better results in production?
+
+1191
+02:20:47.350 --> 02:20:52.820
+Jitendra K: So you might have heard about a case study from, I think, MIT or Harvard that,
+
+1192
+02:20:53.180 --> 02:20:56.169
+Jitendra K: 95% of the racks are failing.
+
+1193
+02:20:57.630 --> 02:21:00.350
+Jitendra K: 85 or 95, I don't know the exact number.
+
+1194
+02:21:00.810 --> 02:21:03.550
+Jitendra K: But that's a real… claim.
+
+1195
+02:21:05.150 --> 02:21:08.910
+Jitendra K: Why it is failing? Because people does not understand how to trace
+
+1196
+02:21:11.440 --> 02:21:17.839
+Jitendra K: They don't know how to evaluate. They know how to code, because there are a lot of code interpreters these days, right?
+
+1197
+02:21:17.990 --> 02:21:21.580
+Jitendra K: So everybody can write a code, and everybody can do it, but…
+
+1198
+02:21:22.140 --> 02:21:25.839
+Jitendra K: The real engineer required testing mindset as well.
+
+1199
+02:21:26.150 --> 02:21:27.979
+Jitendra K: So you need to become full stack.
+
+1200
+02:21:29.230 --> 02:21:33.229
+Jitendra K: Without full stack, I don't think so there's any job in agent decay.
+
+1201
+02:21:40.400 --> 02:21:47.040
+Jitendra K: So you need to be expert in deployment, you need to be expert in evaluation, you need to be expert in re-strategy.
+
+1202
+02:21:48.050 --> 02:21:51.899
+Jitendra K: adaptation of… Racks and modules.
+
+1203
+02:21:52.230 --> 02:21:57.470
+Jitendra K: Unity also good in domain. So these are… that is why it is becoming a full-stack job these days.
+
+1204
+02:21:58.800 --> 02:22:05.509
+Jitendra K: I was hearing that one AI engineer was saying, like, which is SLMs, fine-tuned and water.
+
+1205
+02:22:05.650 --> 02:22:14.020
+Jitendra K: Yeah, SLM is another new world, but assume SLM is nothing but the delta of your LLM, right? Whatever you're doing.
+
+1206
+02:22:14.460 --> 02:22:21.969
+Jitendra K: you're going to do with limited memory, limited embedding size, limited chunking capability, etc, but still the…
+
+1207
+02:22:22.850 --> 02:22:27.360
+Jitendra K: Whole proportion will remain the same, you're still using a vector rag, you're still using a…
+
+1208
+02:22:27.690 --> 02:22:33.389
+Jitendra K: Ontology search, you are still using the cosine similarity scores, right?
+
+1209
+02:22:33.810 --> 02:22:40.089
+Jitendra K: So SLM are nothing but… they are becoming kind of a bit and pieces of LLM itself, let's say.
+
+1210
+02:22:40.620 --> 02:22:46.639
+Jitendra K: The… the gigantic models are not good to generalize the aspect, so that means you're…
+
+1211
+02:22:47.850 --> 02:22:50.060
+Jitendra K: Narrow down the data.
+
+1212
+02:22:50.260 --> 02:22:53.819
+Jitendra K: to then making it SLM, rather than LM.
+
+1213
+02:22:54.280 --> 02:22:58.629
+Jitendra K: So, SLM, I think what they have the quantize model, quantize NF4.
+
+1214
+02:22:59.430 --> 02:23:04.520
+Jitendra K: Non-floating, weights, which is… Up to 4 precision.
+
+1215
+02:23:04.850 --> 02:23:08.220
+Jitendra K: So, you're using a… basically,
+
+1216
+02:23:08.320 --> 02:23:11.309
+Jitendra K: archive version of the LLM, and call it as SLM.
+
+1217
+02:23:11.850 --> 02:23:17.600
+Jitendra K: But, Main mechanism, the… the kind of…
+
+1218
+02:23:19.140 --> 02:23:25.910
+Jitendra K: behind the scene will remain the same, right? It's just that you have shrink the embedding, you have shrink the memory structures.
+
+1219
+02:23:26.060 --> 02:23:29.149
+Jitendra K: You have quantized the model, you have…
+
+1220
+02:23:29.350 --> 02:23:35.979
+Jitendra K: use a specific data set, and calling this an expert model on the top of it. That means you can fine-tune it
+
+1221
+02:23:36.430 --> 02:23:37.560
+Jitendra K: To an extent.
+
+1222
+02:23:42.370 --> 02:23:46.699
+Jitendra K: Yeah, that is correct. So that's… that means they're, like, lacking in testing, right?
+
+1223
+02:23:47.090 --> 02:23:52.429
+Jitendra K: That means, during non-prod, they are doing everything well.
+
+1224
+02:23:52.700 --> 02:23:57.200
+Jitendra K: But when it goes to broad, it fails. That's the same… concept.
+
+1225
+02:23:57.440 --> 02:23:59.619
+Jitendra K: In machine learning 10 years ago.
+
+1226
+02:24:01.050 --> 02:24:08.060
+Jitendra K: So 2014-15, when machine learning is in peak, People are failing to get
+
+1227
+02:24:09.470 --> 02:24:15.110
+Jitendra K: Value from machine learning algorithms, because they lack the understanding on testing scenarios.
+
+1228
+02:24:18.950 --> 02:24:27.309
+Jitendra K: So that's the same problem here as well, but since we already have passed that phase of machine learning, so we are reusing the idea of
+
+1229
+02:24:27.620 --> 02:24:32.670
+Jitendra K: Or did we train the machine learning algorithm? So let's try to use the GenAI stack with the same preparation.
+
+1230
+02:24:34.400 --> 02:24:36.650
+Jitendra K: Right, so that's the whole idea here as well.
+
+1231
+02:24:37.090 --> 02:24:42.649
+Jitendra K: So the idea will not change, because whatever we are doing is all stats, right?
+
+1232
+02:24:43.250 --> 02:24:50.739
+Jitendra K: We are playing with numbers, we are playing with big data, we are playing with algorithms, we are playing with hypothesis.
+
+1233
+02:24:51.230 --> 02:24:56.539
+Jitendra K: We're not changing anything here, either. GenAI, I cannot say it's a… it's a…
+
+1234
+02:24:57.270 --> 02:25:01.690
+Jitendra K: stream of text analytics. I will still say it's a stream of numerical analysis.
+
+1235
+02:25:02.870 --> 02:25:06.220
+Jitendra K: I will not say GenAI is a text analytics-driven…
+
+1236
+02:25:06.640 --> 02:25:10.689
+Jitendra K: I will still say there are numerical analysis we are doing on text vectors.
+
+1237
+02:25:12.720 --> 02:25:23.829
+Jitendra K: Right, so we are still using hardcore statistical technique to generate the right and wrong answers, to generate the right answers, using the tech stack, which we call it a gen AI.
+
+1238
+02:25:24.050 --> 02:25:30.969
+Jitendra K: An agent is not anything different from it, right? Agent AKI is nothing but… We are using…
+
+1239
+02:25:31.530 --> 02:25:35.460
+Jitendra K: One more layer on the top of Gen AI.
+
+1240
+02:25:35.770 --> 02:25:38.749
+Jitendra K: To ensure that we are using a responsibility framework.
+
+1241
+02:25:39.520 --> 02:25:44.050
+Jitendra K: On agents, rather than… Creating a monolithic pipelines.
+
+1242
+02:25:45.250 --> 02:25:49.179
+Jitendra K: Right? That means a single agent pipeline, which will do all the things.
+
+1243
+02:25:50.020 --> 02:26:00.840
+Jitendra K: So we tried to break down… we are just using object-oriented paradigm, similar concepts that has been used in early 1990s, that let's try to use classes instead of functions.
+
+1244
+02:26:00.940 --> 02:26:04.379
+Jitendra K: The same thing applies, let's try to use agents instead of Gen AI.
+
+1245
+02:26:04.660 --> 02:26:05.470
+Jitendra K: Right.
+
+1246
+02:26:07.180 --> 02:26:13.819
+Jitendra K: Same concept applies here. So the… it's all about reusability, it's all about… How you cater these…
+
+1247
+02:26:14.090 --> 02:26:16.509
+Jitendra K: Fundamental subunits of
+
+1248
+02:26:17.160 --> 02:26:25.499
+Jitendra K: the, the Gen AI components to a greater extent, so that you can control the flow, you can able to trace the flow.
+
+1249
+02:26:25.710 --> 02:26:27.870
+Jitendra K: You can able to get better reasoning.
+
+1250
+02:26:29.050 --> 02:26:30.800
+Jitendra K: Better deterministic tasks.
+
+1251
+02:26:31.280 --> 02:26:33.020
+Jitendra K: Right? That's the whole idea here.
+
+1252
+02:26:33.980 --> 02:26:36.710
+Jitendra K: Of course, it comes with a lot of…
+
+1253
+02:26:38.000 --> 02:26:43.510
+Jitendra K: Good understanding about your domain, your infra-requared readiness, and of course, with
+
+1254
+02:26:43.980 --> 02:26:50.100
+Jitendra K: The right set of mindset in developing code-based agents, etc.
+
+1255
+02:26:50.870 --> 02:26:53.069
+Jitendra K: So all these things does matter a lot.
+
+1256
+02:26:53.220 --> 02:26:57.579
+Jitendra K: In making a huge toll on the productionization quality.
+
+1257
+02:26:57.920 --> 02:27:02.379
+Jitendra K: If you're productionizing any agent or multiple agent.
+
+1258
+02:27:03.990 --> 02:27:06.780
+Jitendra K: I'm damn sure that your organization will have a framework.
+
+1259
+02:27:07.950 --> 02:27:09.469
+Jitendra K: To evaluate as well.
+
+1260
+02:27:10.560 --> 02:27:15.459
+Jitendra K: Without any evaluation framework, if your organization is simply passing.
+
+1261
+02:27:15.770 --> 02:27:22.179
+Jitendra K: Because you're getting appreciation from the non-technical users, and they are saying your agents are doing good.
+
+1262
+02:27:22.870 --> 02:27:27.669
+Jitendra K: I don't think so it's a right path, because these agents will definitely going to be crashed
+
+1263
+02:27:28.170 --> 02:27:32.420
+Jitendra K: And maybe have, severe consequences on the decision-making.
+
+1264
+02:27:33.660 --> 02:27:37.610
+Jitendra K: Rather than… positive contribution.
+
+1265
+02:27:37.950 --> 02:27:44.530
+Jitendra K: So make sure that you follow those Principles and ethical considerations, and…
+
+1266
+02:27:44.870 --> 02:27:52.609
+Jitendra K: Right set of, evaluation strategies to qualify your model or agents into production.
+
+1267
+02:27:53.240 --> 02:27:55.239
+Jitendra K: And the SPY could be a good…
+
+1268
+02:27:56.370 --> 02:27:58.689
+Jitendra K: Package that will help you to do so.
+
+1269
+02:27:59.700 --> 02:28:06.200
+Jitendra K: So with that, guys, let me thank you guys for attending the session. So we'll meet in the next tutorial. We'll continue with DSPY.
+
+1270
+02:28:06.480 --> 02:28:09.220
+Jitendra K: for another two sessions, I believe.
+
+1271
+02:28:09.550 --> 02:28:15.009
+Jitendra K: Because these algorithms are extensive, and then we need to maybe take…
+
+1272
+02:28:15.740 --> 02:28:18.299
+Jitendra K: A good amount of propositions on the top of it.
+
+1273
+02:28:19.830 --> 02:28:25.699
+Jitendra K: So with that, thank you guys for attending the session. It was a pleasure to have an interaction. We'll meet in the next tutorial. Thank you.
+

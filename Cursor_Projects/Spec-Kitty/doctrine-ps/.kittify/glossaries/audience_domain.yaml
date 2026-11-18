@@ -1,0 +1,46 @@
+terms:
+
+  # These terms represent how the end user (consultant, technical lead) understands
+  # key concepts — not how the system implements them internally.
+
+  - surface: agent
+    definition: >
+      An AI assistant operating under a specific role definition (agent profile) within
+      a governed workflow. Agents in this context are not autonomous processes — they
+      operate within mission lane constraints, require human approval for irreversible
+      actions, and produce traceable outputs.
+    status: active
+    confidence: 1.0
+
+  - surface: engagement
+    definition: >
+      A client-facing consulting project that uses the Regnology PS agent framework.
+      Each engagement runs in its own repository and inherits the regnology-default doctrine
+      pack. Local .doctrine-config/ overrides may be added for project-specific constraints.
+    status: active
+    confidence: 1.0
+
+  - surface: governance
+    definition: >
+      The set of constraints, standards, and decision records that shape how agents
+      and consultants work. In this system, governance is encoded as typed YAML artifacts
+      in the doctrine pack and enforced by the spec-kitty CLI at validation time.
+    status: active
+    confidence: 1.0
+
+  - surface: escalation
+    definition: >
+      The act of pausing agent execution and requesting human review before proceeding.
+      Defined by Directive 040 (Human-in-Charge Escalation). Triggered when uncertainty
+      exceeds 30%, when an operation is irreversible, or when conflicting directives
+      cannot be resolved autonomously.
+    status: active
+    confidence: 1.0
+
+  - surface: doctrine
+    definition: >
+      The accumulated governance knowledge of the organisation, encoded as versioned
+      YAML artifacts in the doctrine pack. Doctrine is the answer to "how do we do
+      things here" — it travels with the pack and is inherited by every engagement.
+    status: active
+    confidence: 1.0

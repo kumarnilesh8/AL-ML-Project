@@ -1,0 +1,43 @@
+project:
+  uuid: 6e1de56f-e609-42b5-9a19-d04f27ebbc90
+  slug: regnology-agent-doctrine
+  node_id: 26ae9a8b6053
+  build_id: a09b318e-2f29-4330-837c-6cc3289390d7
+vcs:
+  type: git
+agents:
+  available:
+  - claude
+  auto_commit: true
+# All-Company base layer (layer 1). This PS overlay `extends:` it
+# (pack/org-charter.yaml); the pinned spec-kitty unions the parent's
+# required_<kind> baseline into this overlay at charter-load time.
+# Source of truth: RAF/doctrine-org on Bitbucket, pack root `pack/`.
+#
+# 2026-07-06: repointed from RFG/skills. Investigation squad (Doctrine Daphne,
+# corroborated independently) found RFG/skills has no pack/agent_profiles/ at all
+# (its org-charter.yaml is byte-identical to RAF/doctrine-org's, but the two repos'
+# actual pack contents have diverged) — the June-19 "slim PS pack" promotion and the
+# 2026-07-06 comms-cleo/juno-mcp/lexical-style-diagnostic promotion (migration PR #1)
+# both landed in RAF/doctrine-org, not RFG/skills, which this config was pointing at.
+# RAF/doctrine-org self-describes as "Regnology's main doctrine pack — everyone in
+# Regnology should have at least this pack installed", which is the intended All-Company
+# source. See docs/decisions/DDR-019-action-scoped-activation-stopgap.md for the
+# investigation record. Confirmed 2026-07-06 (repo owner): RFG/skills is a precursor/
+# predecessor of RAF/doctrine-org, not a competing candidate — same RFG/CONS -> RAF
+# rename/move pattern seen elsewhere in this migration (e.g. this repo's own
+# CONS/doctrine-ps -> RAF/doctrine-ps). No governance conflict; RFG/skills is simply
+# deprecated and left alone (not deleted, since it's not this pack's repo to delete).
+#
+# `subdir: pack` support landed in spec-kitty PR #2098 (issue #2083).
+# `spec-kitty doctrine fetch` clones the repo into local_path and resolves
+# the effective pack root as local_path/subdir automatically.
+doctrine:
+  org:
+    packs:
+      - name: regnology-all-company
+        source_type: git
+        url: ssh://git@bitbucket.regnology.net:7999/raf/doctrine-org.git
+        ref: main
+        local_path: .kittify/doctrine-cache/doctrine-org
+        subdir: pack

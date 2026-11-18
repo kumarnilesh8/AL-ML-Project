@@ -1,0 +1,54 @@
+schema_version: "1.0"
+id: sqlx-pseudo-code-to-spec
+name: SQLX Pseudo Code to Specification
+purpose: >
+  Transform pseudo code or informal regulatory logic into a structured functional unit
+  specification with resolved ABACUS360 data model references, ready for sqlx-generation.
+  Output is specification only — no SQLX syntax. Use when the task is "pseudo code → spec"
+  or "interpret pseudo code into SQLX specification". Do not use for generating SQLX
+  (sqlx-generation) or explaining existing SQLX (sqlx-explanation).
+steps:
+  - title: Ingest Pseudo Code
+    description: >
+      Read the provided pseudo code in full. Identify FU name, purpose, regulatory context
+      (LCR/NSFR/ALMM etc.), and high-level data flow: inputs → transformations → outputs.
+
+  - title: Resolve Data Model References
+    description: >
+      Use MCP query_datamodel_definitions per sqlx-mcp toolguide. Resolve entity references
+      (e.g. entities WHERE caption LIKE '%position%'), field references to concrete field IDs
+      (fields + domains), and enumerated values via domain membership (domain_values). Build a
+      resolved reference table: pseudo code term → ABACUS360 entity/field/domain. If a reference
+      cannot be resolved, add to Unresolved Items — do not guess.
+
+  - title: Structure the Specification
+    description: >
+      Decompose into the standard SQLX FU pattern: component manifest (imports from other FUs or
+      input, exports); Calculation Flow (input view preparation — fields, joins, coalesce defaults);
+      Business Logic (CASE expressions, decision table inputs/outputs, intermediate views,
+      aggregations); Dataset Definition (output schema — field names, types, primary key); decision
+      tables if tabular conditional logic applies (input/output columns and rule rows).
+
+  - title: Validate Completeness
+    description: >
+      Confirm all referenced entities and fields are resolved or listed as unresolved; output schema
+      covers all fields the pseudo code produces; primary key fields identified; no circular
+      dependencies; join keys exist on both sides of every join.
+
+  - title: Produce Specification Document
+    description: >
+      Write structured markdown to specs/ (or as directed). Include Overview (name, purpose,
+      regulatory context, module); Resolved References table; Data Flow; CF/BL/DD specifications;
+      Decision Tables summary if applicable; Unresolved Items with specific clarification questions.
+      Optionally write specs/[FU_NAME]_references.md and specs/[FU_NAME]_questions.md.
+
+failure_modes:
+  - "Guessing unresolved data model references — list as unresolved with answerable questions instead."
+  - "Embedding SQLX syntax in the spec — output must be consumable by sqlx-generation without SQLX in the spec body."
+  - "Skipping primary key or join key validation — incomplete specs block generation."
+
+notes: >
+  Invoked by SQLX Specialist Simon (sqlx-specialist-simon agent profile) for Interpret tasks. Prerequisites:
+  toolguide sqlx-mcp loaded, access to pseudo code source. Exit criteria: specification complete
+  and internally consistent; sqlx-generation can proceed for all resolved items; unresolved items
+  listed with specific questions. Downstream: sqlx-generation consumes the produced spec.

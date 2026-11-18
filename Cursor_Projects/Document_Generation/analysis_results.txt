@@ -1,0 +1,19 @@
+DOCUMENT PATTERN ANALYSIS
+==================================================
+
+COMMON HEADINGS (appearing in multiple documents):
+--------------------------------------------------
+version control (appears in 3 documents)
+introduction (appears in 3 documents)
+entities in scope (appears in 3 documents)
+4.1 contexts (appears in 2 documents)
+specifications (appears in 2 documents)
+functional specification signoff (appears in 2 documents)
+
+WORK ORDER ANALYSIS:
+--------------------------------------------------
+Work Order has 39 paragraphs
+Work Order has 0 headings
+Work Order has 11 tables
+
+Key headings in Work Order:

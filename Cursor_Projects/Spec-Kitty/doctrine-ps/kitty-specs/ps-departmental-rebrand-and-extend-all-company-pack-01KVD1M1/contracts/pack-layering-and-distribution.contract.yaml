@@ -1,0 +1,81 @@
+schema_version: "1.0"
+contract_id: ps-pack-layering-and-distribution
+mission_slug: ps-departmental-rebrand-and-extend-all-company-pack-01KVD1M1
+title: PS departmental pack rebrand and layered distribution contract
+
+inputs:
+  upstream_pack_id: regnology-all-company
+  downstream_pack_id: ps-agent-enabled-factory
+  upstream_repo_url: https://bitbucket.regnology.net/projects/RFG/repos/skills/browse
+
+acceptance:
+  - id: AC-001
+    given: README.md and pack/README.md
+    when: documentation is reviewed
+    then: both include Professional Services Departmental Agent Doctrine naming and upstream link
+  - id: AC-002
+    given: pack/org-charter.yaml
+    when: metadata is validated
+    then:
+      - org_name equals ps-agent-enabled-factory
+      - extends equals regnology-all-company
+      - layering comment explicitly states additive non-relaxing inheritance
+  - id: AC-002B
+    given: downstream pack configured to extend upstream all-company pack
+    when: charter/doctrine context is resolved in a consumer setup
+    then:
+      - upstream required directives are present in effective context
+      - downstream additions are present without removing upstream requirements
+  - id: AC-003
+    given: dist/scripts/install-regnology-stack.sh and dist/scripts/install-regnology-stack.ps1
+    when: installer parity and sequence are validated
+    then:
+      - base pack regnology-all-company is pulled first
+      - overlay pack ps-agent-enabled-factory is pulled second
+      - shell and PowerShell variants expose equivalent base/overlay coordinates
+      - shell script passes bash syntax check
+      - PowerShell script passes parser validation
+      - dry-run output logs both pack IDs in the same order
+  - id: AC-004
+    given: .cursor/ and .claude/
+    when: repository hygiene checks run
+    then:
+      - generated outputs are no longer committed artifacts
+      - preserved hand-authored configs remain tracked from canonical source locations
+      - surface-preservation-inventory.yaml verification checklist is fully satisfied
+  - id: AC-005
+    given: operational/governance files
+    when: ai-initiatives references are searched
+    then: no active path-coupling references remain
+  - id: AC-006
+    given: pack/ directory
+    when: spec-kitty doctrine pack validate pack/ is executed
+    then: validation result has zero errors
+  - id: AC-007
+    given: CHANGELOG.md
+    when: release notes are reviewed
+    then:
+      - rename to ps-agent-enabled-factory is documented
+      - upstream layering and installer changes are documented
+  - id: AC-008
+    given: migration documentation
+    when: contributors review slug transition guidance
+    then:
+      - explicit migration note exists for regnology-default -> ps-agent-enabled-factory
+      - active-path replacement scope is distinguished from historical references
+  - id: AC-009
+    given: slug/reference scan report
+    when: grep-based cleanup checks run
+    then:
+      - no active operational file retains regnology-default
+      - preserved historical references are constrained to approved allowlist paths
+
+non_functional:
+  - id: NFR-001
+    requirement: No credentials or secrets introduced in changed files.
+  - id: NFR-002
+    requirement: Slug migration is atomic across metadata, docs, and installer paths.
+  - id: NFR-003
+    requirement: Changes remain compatible with beta branch integration workflow.
+  - id: NFR-004
+    requirement: Shell and PowerShell installer behaviors remain semantically equivalent for layering sequence and failure handling.

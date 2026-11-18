@@ -1,0 +1,71 @@
+{
+  "mcpServers": {
+    "excel": {
+      "command": "uvx",
+      "args": [
+        "excel-mcp-server",
+        "stdio"
+      ]
+    },
+    "Atlassian-MCP-Server": {
+      "url": "https://mcp.atlassian.com/v1/sse"
+    },
+    "pdf-doc-converter": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "C:\\AI_ML\\Cursor_Projects\\PreBuild_MCP\\pdf_doc_mcp",
+        "python",
+        "pdf_doc.py"
+      ],
+      "env": {
+        "DEFAULT_DOCS_PATH": "C:\\AI_ML\\Cursor_Projects\\PreBuild_MCP\\pdf_doc_mcp"
+      }
+    },
+    "moodys-pptx": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "http://0.0.0.0:8000/mcp-server/mcp/",
+        "--allow-http",
+        "--transport",
+        "http-only"
+      ]
+    },
+    "salesforce": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "mcp-salesforce-connector",
+        "salesforce"
+      ],
+      "env": {
+        "SALESFORCE_ACCESS_TOKEN": "CfIamaSEPamjBWc0CQzxMGN9",
+        "SALESFORCE_INSTANCE_URL": "https://moodysanalytics.lightning.force.com/lightning/page/home",
+        "SALESFORCE_DOMAIN": "login"
+      }
+    },
+    "oracle-mcp": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "C:\\AI_ML\\Cursor_Projects\\RFO-IsDB",
+        "python",
+        "mcp_server.py"
+      ],
+      "env": {
+        "ORACLE_USERNAME": "Central",
+        "ORACLE_PASSWORD": "a",
+        "ORACLE_HOST": "ADB-WXISDBIN002",
+        "ORACLE_PORT": "1521",
+        "ORACLE_SERVICE": "ORCLPDB"
+      }
+    },
+    "word-doc-server": {
+      "command": "python",
+      "args": ["C:\\AI_ML\\Cursor_Projects\\PreBuild_MCP\\Generate_Documents-mcp\\Office-Word-MCP-Server\\word_mcp_server.py"]
+    }
+  }
+}

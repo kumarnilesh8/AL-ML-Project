@@ -1,0 +1,58 @@
+schema_version: "1.0"
+id: sqlx-test-data-conventions
+title: SQLX Test Data Conventions
+scope: testing
+principles:
+  - "Use 3-digit prefix for test files (001_, 060_, 109_) and group related tests in subdirectories."
+  - "Separate shared counterparties into _CP.xml files using 00X_ prefix for all shared entities."
+  - "Every test file must declare name (matching filename without extension), date (YYYY-MM-DD), and level attributes."
+  - "Header comments must list all test case IDs with format: CASE_ID - TYPE - COUNTERPARTY - CURRENCY - AMOUNT."
+  - "Amount in section comment MUST match the actual VALUE in the corresponding field."
+  - "Assets have positive values (Loans, Bonds, Gold, Silver); Liabilities have negative values (Deposits, Bonds Issued)."
+  - "Date values use ISO 8601 YYYY-MM-DD format; perpetual dates use 2999-12-31."
+  - "Do NOT duplicate shared definitions in test files — reference shared _CP.xml files instead."
+patterns:
+  - name: Entity Definition Pattern
+    description: "Define entities and their fields using the standard ENTITY_TYPE / ENTITY_TYPE_FIELD pattern."
+    good_example: |
+      <PARTNER ENTITY_ID="001_A1_CP"/>
+      <PARTNER_FIELD ENTITY_ID="001_A1_CP" FIELDNAME="B001" VALUE="Counterparty Name"/>
+
+  - name: ID Structure
+    description: "IDs follow the pattern PREFIX_LETTER_SUFFIX to make the test file origin and type readable."
+    good_example: |
+      001_A1_DEPOSIT_SGD    <!-- test file 001, case A1, deposit in SGD -->
+      00X_A_PARTNER         <!-- shared entity across test files -->
+
+  - name: Test Case Ordering
+    description: "For each test case: test case comment, then PARTNER, PARTNER_TO_INSTRUMENT, INSTRUMENT, POSITION, RATING, PLEDGE."
+    good_example: |
+      <!-- A1 - DEPOSIT_1 - 00X_A_PARTNER - SGD - 1000 -->
+      <!-- COUNTERPARTY -->
+      <PARTNER ENTITY_ID="001_A1_CP"/>
+      <!-- INSTRUMENT -->
+      <INSTRUMENT ENTITY_ID="001_A1_DEPOSIT_SGD"/>
+
+anti_patterns:
+  - name: Duplicate Shared Definitions
+    description: "Duplicating shared counterparty definitions across test files causes maintenance burden and inconsistency."
+    bad_example: |
+      <!-- Each test file redefines the same counterparty -->
+      <PARTNER ENTITY_ID="SHARED_CP"/>
+    good_example: |
+      <!-- Include via _CP.xml reference; do not redefine -->
+      <!-- See TEST_SUITE_CP.xml for counterparty definitions -->
+
+  - name: Missing Amount Validation
+    description: "Comment amounts that do not match actual field values silently corrupt test intent documentation."
+    bad_example: |
+      <!-- A1 - DEPOSIT_1 - CP - SGD - 1000 -->
+      <POSITION_FIELD ENTITY_ID="001_A1" FIELDNAME="VAL115" VALUE="2000"/>
+    good_example: |
+      <!-- A1 - DEPOSIT_1 - CP - SGD - 2000 -->
+      <POSITION_FIELD ENTITY_ID="001_A1" FIELDNAME="VAL115" VALUE="2000"/>
+
+quality_test: >
+  Validate that test file name attribute matches filename (without extension), that every
+  comment amount matches the corresponding VALUE field, and that shared entities use 00X_
+  prefix and reside in _CP.xml files only.

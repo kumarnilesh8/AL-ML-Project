@@ -1,0 +1,34 @@
+# API Contract: Enriched Charter Endpoint
+# Feature: Charter Orphan Indicator & Test Fix
+# New endpoint: GET /api/charter/enriched
+
+# Note: pack/org-charter.yaml (spec-kitty governance artifact) is NOT touched.
+# All operations target config/charter-config.yaml via CharterService.list().
+
+endpoint: GET /api/charter/enriched
+description: >
+  Returns the full charter entry list, each augmented with an `exists` boolean.
+  `exists` is true when findArtifact(packRoot, artifact_kind, artifact_id) resolves
+  to an artefact file in the current pack; false when the artefact is absent
+  (orphaned entry). This endpoint is read-only and does not modify any config file.
+
+invariants:
+  - All entries from charter-config.yaml are returned regardless of exists value
+  - exists check uses findArtifact() from pack-scanner.service.ts exclusively (C-004)
+  - Response is computed per-request; no server-side cache
+  - artifact_id values are the lowercase-normalised form stored at POST time (mission #5, FR-010)
+
+responses:
+  200:
+    description: Enriched charter entries
+    body: |
+      {
+        entries: Array<{
+          artifact_id: string,
+          artifact_kind: ArtifactKind,
+          exists: boolean
+        }>
+      }
+  500:
+    description: File read or pack scan failure
+    body: "{ error: string }"

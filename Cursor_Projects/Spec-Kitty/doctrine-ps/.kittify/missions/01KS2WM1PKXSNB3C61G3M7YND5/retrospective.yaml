@@ -1,0 +1,96 @@
+schema_version: 1
+mission_id: 01KS2WM1PKXSNB3C61G3M7YND5
+mission_slug: pack-governance-dashboard-01KS2WM1
+mission_number: 1
+friendly_name: Pack Governance Dashboard
+mission_type: software-dev
+target_branch: overhaul/migrate_to_kitty
+created_at: '2026-05-21T05:58:34.552313+00:00'
+created_by:
+  kind: human
+  id: cli
+  display: spec-kitty retrospect
+provenance:
+  kind: explicit_create
+  invoked_at: '2026-05-21T05:58:34.552313+00:00'
+  policy_resolved_from:
+    enabled: <default>
+    timing: <default>
+    failure_policy: <default>
+    write_record: <default>
+    generate_proposals: <default>
+    apply_proposals: <default>
+    permissions.write_record: <default>
+    permissions.inspect_mission_artifacts: <default>
+    permissions.propose_glossary_changes: <default>
+    permissions.propose_drg_changes: <default>
+    permissions.propose_doctrine_changes: <default>
+    permissions.apply_low_risk_changes: <default>
+    permissions.apply_structural_changes: <default>
+    precedence: <default>
+    generator: <default>
+  command: spec-kitty retrospect create
+policy_source:
+  enabled: <default>
+  timing: <default>
+  failure_policy: <default>
+  write_record: <default>
+  generate_proposals: <default>
+  apply_proposals: <default>
+  permissions.write_record: <default>
+  permissions.inspect_mission_artifacts: <default>
+  permissions.propose_glossary_changes: <default>
+  permissions.propose_drg_changes: <default>
+  permissions.propose_doctrine_changes: <default>
+  permissions.apply_low_risk_changes: <default>
+  permissions.apply_structural_changes: <default>
+  precedence: <default>
+  generator: <default>
+findings_status: has_findings
+helped: []
+not_helpful: []
+gaps:
+- id: g-001
+  category: doc
+  summary: research.md absent
+  evidence_refs:
+  - e-002
+  details: spec.md is present but research.md is missing. Research artifacts help future maintainers understand design 
+    decisions.
+proposals: []
+evidence_refs:
+- id: e-001
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/meta.json
+- id: e-002
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/spec.md
+- id: e-003
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/plan.md
+- id: e-004
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/tasks.md
+- id: e-005
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/tasks/WP01-project-scaffold.md
+- id: e-006
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/tasks/WP02-backend-artifact-api.md
+- id: e-007
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/tasks/WP03-python-validation-bridge.md
+- id: e-008
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/tasks/WP04-frontend-artifact-browser.md
+- id: e-009
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/tasks/WP05-live-yaml-editor.md
+- id: e-010
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/tasks/WP06-review-workflow.md
+- id: e-011
+  kind: file
+  path: kitty-specs/pack-governance-dashboard-01KS2WM1/status.events.jsonl
+generator_version: '1.0'
+provenance_history: []

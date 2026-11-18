@@ -1,0 +1,110 @@
+schema_version: "1.0"
+id: gcloud-proxy-setup
+name: Set Up Google Cloud Interaction Through Proxy
+purpose: >
+  Enable local tools and MCP servers to interact with Google Cloud Run services
+  via an authenticated gcloud proxy. This procedure is generic and reusable across
+  any GCloud-backed tool in the Regnology ecosystem (e.g. the SQLX data model
+  MCP server, future Cloud Run services). It covers one-time workstation setup,
+  per-session proxy startup, and Cursor MCP configuration.
+entry_condition: >
+  A Google Cloud Run service exists that needs to be reachable from a local
+  development machine or MCP client. The operator has a @regnology.net Google
+  account and knows the target GCP project ID, region, and service name.
+exit_condition: >
+  The gcloud proxy is running in a dedicated terminal, the local port is
+  reachable (e.g. curl http://localhost:<port>/health returns a response), and
+  any dependent MCP entry in ~/.cursor/mcp.json points to the correct local URL.
+steps:
+  - title: Install gcloud CLI (one-time)
+    description: >
+      If gcloud is not installed, follow the official Google Cloud SDK installation
+      guide for your OS. On macOS/Linux: download the archive, run the install
+      script, and restart your shell. Verify with `gcloud --version`. Minimum
+      required version: 400.0.0.
+    actor: human
+
+  - title: Install the Cloud Run proxy component (one-time)
+    description: >
+      Run `gcloud components install google-cloud-cli-cloud-run-proxy` to add the
+      Cloud Run proxy component. Confirm the installation when prompted. Verify
+      with `gcloud components list | grep cloud-run-proxy`.
+    actor: human
+
+  - title: Authenticate with your Regnology account (one-time per machine)
+    description: >
+      Run `gcloud auth login` and sign in with your @regnology.net Google account
+      in the browser window that opens. Then run
+      `gcloud auth application-default login` so tools that use ADC (Application
+      Default Credentials) also resolve correctly. Verify: `gcloud auth list`
+      should show your @regnology.net account as ACTIVE.
+    actor: human
+
+  - title: Verify IAM access (one-time per project)
+    description: >
+      Confirm that roles/run.invoker is granted on the target GCP project for
+      your account. Ask the project owner if the permission is missing. You can
+      check via `gcloud projects get-iam-policy <project-id> --flatten="bindings[].members"
+      --filter="bindings.members:<your-email>"`.
+    actor: human
+
+  - title: Start the proxy (each session)
+    description: >
+      Open a dedicated terminal and run:
+        gcloud run services proxy <service-name> \
+          --region=<region> \
+          --project=<project-id> \
+          --port=<local-port>
+      Keep this terminal open for the duration of the session; closing it drops
+      the proxy connection. Example for the SQLX data model server:
+        gcloud run services proxy sqlx-mcp \
+          --region=europe-west1 \
+          --project=dmm-01 \
+          --port=8080
+    actor: human
+
+  - title: Verify the proxy is reachable
+    description: >
+      In a second terminal, confirm the proxy is accepting connections:
+        curl -s http://localhost:<local-port>/
+      A non-connection-refused response (even an HTML error page from the
+      upstream service) confirms the proxy is up. For MCP-style servers,
+      try the /mcp endpoint: `curl -s http://localhost:<local-port>/mcp`.
+    actor: human
+
+  - title: Configure the MCP client (one-time per service, or when port changes)
+    description: >
+      Add or update the service entry in ~/.cursor/mcp.json under the `mcpServers`
+      key. Use type "http" and point url to the local proxy address. Example:
+        "data-model-definitions": {
+          "url": "http://localhost:8080/mcp",
+          "type": "http"
+        }
+      Restart Cursor (or reload the MCP connection) after editing mcp.json.
+      Do not use type "sse" — the /sse endpoint is not exposed; use /mcp with
+      type http.
+    actor: human
+
+anti_patterns:
+  - name: Proxy terminal closed mid-session
+    description: >
+      If the MCP client shows "disconnected", the proxy terminal was closed.
+      Reopen the terminal and re-run the proxy start command (step 5). Always
+      keep the proxy terminal pinned or named to avoid accidentally closing it.
+
+  - name: Wrong endpoint type in mcp.json
+    description: >
+      Using type "sse" causes a 404 on /sse. The Cloud Run proxy only exposes
+      /mcp. Always use type "http" with the /mcp endpoint.
+
+  - name: Authentication expired
+    description: >
+      gcloud credentials expire. If the proxy fails to start with an auth error,
+      re-run `gcloud auth login` and `gcloud auth application-default login`
+      before retrying.
+
+  - name: Port already in use
+    description: >
+      If --port=8080 fails with "address already in use", check for an existing
+      proxy process (`lsof -i :8080`) and kill it, or choose a different port
+      and update mcp.json to match.

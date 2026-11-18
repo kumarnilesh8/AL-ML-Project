@@ -1,0 +1,93 @@
+# API Contract: Org Charter Management
+# Feature: Dashboard Domain & Charter Governance — Feature B
+# New resource: /api/charter
+
+# Note: pack/org-charter.yaml (spec-kitty governance artifact) is NOT touched
+# by any of these endpoints. All operations target config/charter-config.yaml.
+
+valid_artifact_kinds:
+  - directives
+  - tactics
+  - procedures
+  - styleguides
+  - toolguides
+  - paradigms
+  - agent_profiles
+  - mission_step_contracts
+  - templates
+
+endpoints:
+
+  - method: GET
+    path: /api/charter
+    description: >
+      Return the full list of chartered artefact entries. Returns an empty entries
+      array if charter-config.yaml does not yet exist.
+    responses:
+      200:
+        description: Charter entries
+        body: |
+          {
+            entries: Array<{
+              artifact_id: string,
+              artifact_kind: ArtifactKind
+            }>
+          }
+      500:
+        description: File read failure
+        body: "{ error: string }"
+
+  - method: POST
+    path: /api/charter
+    description: >
+      Add an artefact to the org charter. The server does NOT validate that the
+      artifact_id refers to an existing pack artefact — any valid string is accepted.
+      The /charter view must handle missing/unknown artefact IDs gracefully
+      (render a "not found" indicator rather than an error), AND must provide
+      a remove action on all entries including unknown-artefact entries so that
+      orphaned entries can be removed without direct YAML editing.
+
+    request_body:
+      content_type: application/json
+      schema:
+        required: [artifact_id, artifact_kind]
+        properties:
+          artifact_id:
+            type: string
+            pattern: "^[A-Za-z0-9_-]{1,200}$"
+            description: >
+              ID of the artefact to charter. Must match ^[A-Za-z0-9_-]{1,200}$.
+              Normalised to lowercase before storage and duplicate detection —
+              "REGNOLOGY_BRANDING" and "regnology_branding" are the same entry;
+              stored as "regnology_branding".
+          artifact_kind:
+            type: string
+            enum: [directives, tactics, procedures, styleguides, toolguides, paradigms, agent_profiles, mission_step_contracts, templates]
+    responses:
+      201:
+        description: Artefact added to charter
+        body: "{ entry: { artifact_id: string, artifact_kind: ArtifactKind } }"
+      400:
+        description: Missing or invalid field (unknown artifact_kind, or artifact_id fails pattern)
+        body: "{ error: string, code?: 'INVALID_ARTIFACT_ID' | 'INVALID_KIND' | 'MISSING_FIELD' }"
+      409:
+        description: Artefact already in charter
+        body: "{ error: string, artifact_id: string }"
+      500:
+        description: File write failure
+        body: "{ error: string }"
+
+  - method: DELETE
+    path: /api/charter/:artifactId
+    description: Remove an artefact from the org charter
+    path_params:
+      artifactId: artifact_id of the entry to remove (URL-encoded)
+    responses:
+      204:
+        description: Entry removed; no response body
+      404:
+        description: Artefact not currently in charter
+        body: "{ error: string, artifact_id: string }"
+      500:
+        description: File write failure
+        body: "{ error: string }"

@@ -1,0 +1,31 @@
+{
+  "accept_commit": "be546f69de8e629eb03515de72245304e4a57fc7",
+  "acceptance_history": [
+    {
+      "accept_commit": "be546f69de8e629eb03515de72245304e4a57fc7",
+      "acceptance_mode": "pr",
+      "accepted_at": "2026-07-06T17:54:11.231810+00:00",
+      "accepted_by": "Stijn Dejongh",
+      "accepted_from_commit": "e47e93cf085b56b949fec171ddd7216985118c5b"
+    }
+  ],
+  "acceptance_mode": "pr",
+  "accepted_at": "2026-07-06T17:54:11.231810+00:00",
+  "accepted_by": "Stijn Dejongh",
+  "accepted_from_commit": "e47e93cf085b56b949fec171ddd7216985118c5b",
+  "baseline_merge_commit": "384796884171133d7493a4fd147f286ceb562539",
+  "created_at": "2026-07-06T11:49:05.730330+00:00",
+  "flattened": true,
+  "friendly_name": "Doctrine-PS Structural Alignment",
+  "mission_id": "01KWVM5CJ0HM2JEYTGRGM7BBK4",
+  "mission_number": 9,
+  "mission_slug": "doctrine-ps-structural-alignment-01KWVM5C",
+  "mission_type": "software-dev",
+  "purpose_context": "A prior investigation squad found that CLAUDE.md, AGENTS.md, and README.md describe repository structure that no longer exists (committed .cursor//.claude/, a src/framework + tests/framework|orchestration|integration|unit tree, a local pack/tools/fallback/ toolguide, several dangling doc paths), and that gemini-bot-georgia's agent profile still targets a retired local gemini-agents/ directory instead of the new dedicated regnology-ps-chatbots repository. This mission reconciles the docs with reality and repoints Georgia, and adds a lightweight lint script so doc-path drift is caught going forward.",
+  "purpose_tldr": "Fix structural-documentation drift in CLAUDE.md/AGENTS.md/README.md and repoint Georgia's chatbot profile to the new regnology-ps-chatbots repo",
+  "slug": "doctrine-ps-structural-alignment-01KWVM5C",
+  "target_branch": "feature/migration-2915-structural-alignment",
+  "topology": "single_branch",
+  "vcs": "git",
+  "vcs_locked_at": "2026-07-06T14:19:34.725343+00:00"
+}

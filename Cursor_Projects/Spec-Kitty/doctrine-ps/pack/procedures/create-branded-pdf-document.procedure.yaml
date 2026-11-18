@@ -1,0 +1,92 @@
+schema_version: "1.0"
+id: create-branded-pdf-document
+name: Create Branded PDF Document
+purpose: >
+  Produce one or more branded PDF documents from Markdown sources using the Regnology
+  PDF generator. Ensures every output document carries consistent
+  Regnology visual identity (colours, fonts, logo, header/footer) as mandated by
+  Directive 041 (Use Regnology Branding).
+entry_condition: >
+  A Regnology repository needs to produce a branded PDF — role descriptions, programme
+  overviews, qualification documents, or any structured artefact that must carry Regnology
+  visual identity. Markdown section files are ready (or ready to be authored). The doctrine
+  stack is accessible at pack/templates/documents/pdf/. Do not use this procedure for
+  presentation decks — use create-branded-slidedeck instead.
+exit_condition: >
+  One or more PDF files exist in the output/ directory. No WeasyPrint errors in generator
+  output. Cover page shows correct metadata from document-config.toml. All images are
+  present and correctly sized. Page header shows document title; footer shows organisation
+  and page number.
+steps:
+  - title: Initialise from Template
+    description: >
+      Copy the PDF template directory into the project build/ directory:
+      cp -r pack/templates/documents/pdf/ <project>/build/
+      This sets up the CSS, font assets, and generator script baseline.
+    actor: agent
+
+  - title: Create the Configuration File
+    description: >
+      Copy the example config and populate all fields:
+      cp build/document-config.example.toml build/document-config.toml
+      Fill in [document] (title, subtitle, author, author_title, organisation, date,
+      classification, version), [assets] (absolute paths to logo, negative logo, cover
+      background), [output] (output directory, default output/), and [variants.*] (one
+      named block per PDF variant with filename and ordered section list).
+    actor: human
+
+  - title: Install Python Dependencies
+    description: >
+      Install required packages: pip install -e . (if pyproject.toml with generate-pdf
+      entry point exists) or pip install weasyprint Markdown tomli (tomli only required
+      on Python < 3.11). pandoc is optional — when present on PATH it is used as the
+      primary Markdown-to-HTML converter; when absent, the pure-Python Markdown package
+      is the fallback.
+    actor: agent
+
+  - title: Author Markdown Section Files
+    description: >
+      Write one Markdown file per chapter or logical section. Constraints: use standard
+      CommonMark Markdown; image paths must be relative to the Markdown file (generator
+      resolves to absolute file:// URLs); do not use remote image URLs (WeasyPrint cannot
+      fetch them); use \newpage for explicit page breaks if needed.
+    actor: agent
+
+  - title: Run the Generator
+    description: >
+      Build all variants: generate-pdf (or python build/generate_pdf.py if the entry point
+      is not installed). To build a specific variant: generate-pdf --variant <key>.
+      All defined variants are written to the output/ directory.
+    actor: agent
+
+  - title: Verify Output
+    description: >
+      Open each generated PDF and confirm: cover page renders with correct title, subtitle,
+      author, date, classification, and version; all images present (no broken placeholders);
+      page header and footer appear on every page except the cover; Regnology branding
+      (colours, fonts, logo) is consistent; tables render without overflow.
+    actor: human
+
+  - title: Commit
+    description: >
+      Stage generated PDFs and configuration. Commit with message:
+      docs: <topic> - generate branded PDF document
+    actor: agent
+
+anti_patterns:
+  - name: Remote Images
+    description: >
+      Do not use remote image URLs in Markdown section files. WeasyPrint only supports
+      file:// URLs. Remote images will appear as broken placeholders in the PDF.
+
+  - name: Hard-Coded Brand Colors
+    description: >
+      Do not add brand colours directly to regnology.css or slide HTML. All brand token
+      changes must go through regnology-brand.css, which is the single source of truth
+      for colours, fonts, and spacing.
+
+  - name: Missing document-config.toml
+    description: >
+      Do not run the generator without a fully populated document-config.toml. The
+      [assets] paths must be absolute and the files must exist on disk, otherwise the
+      cover page will be missing or blank.

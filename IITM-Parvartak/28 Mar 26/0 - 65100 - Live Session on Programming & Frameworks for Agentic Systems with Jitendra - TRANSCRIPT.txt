@@ -1,0 +1,5330 @@
+WEBVTT
+
+1
+00:02:29.430 --> 00:02:31.510
+Jitendra K: Hi guys, good evening.
+
+2
+00:02:32.380 --> 00:02:35.410
+Jitendra K: And warm welcome to another module on Agent AKI.
+
+3
+00:02:35.750 --> 00:02:41.310
+Jitendra K: So before we start the session, can we have a quick audio check if my voice is audible?
+
+4
+00:02:48.160 --> 00:02:54.270
+Jitendra K: So before we start, can we have a quick audio check? If my voice is audible to everyone, my screen's visible as well?
+
+5
+00:02:55.650 --> 00:02:56.790
+Jitendra K: Okay, thank you.
+
+6
+00:02:58.440 --> 00:03:09.110
+Jitendra K: So just a quick recap where we stand as a module. So, we started from… in the month of January, we started with some live sessions on Python and ChatGPT.
+
+7
+00:03:09.520 --> 00:03:12.680
+Jitendra K: And then we move on to the Python debrief.
+
+8
+00:03:12.840 --> 00:03:15.719
+Jitendra K: So just a quick recap what we have done so far.
+
+9
+00:03:16.560 --> 00:03:23.489
+Jitendra K: And, we have taken some example to understand Python as a de facto for Agent AKI, and…
+
+10
+00:03:23.700 --> 00:03:26.859
+Jitendra K: We have deep dive into some of the core essentials of Python.
+
+11
+00:03:27.100 --> 00:03:36.640
+Jitendra K: In the month of February, we started with, Few… Important considerations, including…
+
+12
+00:03:37.200 --> 00:03:43.529
+Jitendra K: Large language models, as well as understand a bit on vector databases and embedding models.
+
+13
+00:03:44.050 --> 00:03:46.899
+Jitendra K: And the month of March, we started with,
+
+14
+00:03:48.080 --> 00:04:01.649
+Jitendra K: the agentic tools in Python. So now we are into the core week 9. So this is a week 9. So we are going to continue with frameworks for Agentic AI. Basically.
+
+15
+00:04:01.980 --> 00:04:03.840
+Jitendra K: We are going to emphasize on
+
+16
+00:04:04.130 --> 00:04:10.389
+Jitendra K: few of the frameworks or EDK platforms, including Open source and,
+
+17
+00:04:10.630 --> 00:04:16.739
+Jitendra K: Few of them are no-code, low-code as well, right? So we have started with Langraph just to give
+
+18
+00:04:16.970 --> 00:04:19.030
+Jitendra K: some, some…
+
+19
+00:04:19.640 --> 00:04:25.049
+Jitendra K: understanding. We have started with Langraph as one of the toolkits that we are going to use for creating
+
+20
+00:04:25.440 --> 00:04:30.949
+Jitendra K: agents. And that is one thing that we have understand that agents take,
+
+21
+00:04:31.540 --> 00:04:38.079
+Jitendra K: Tools required a lot of memory management, as well as conditional routing to begin with.
+
+22
+00:04:38.360 --> 00:04:45.229
+Jitendra K: So, in this tutorial, what we are going to do is, we are going to continue with our journey on frameworks for Agentech AI.
+
+23
+00:04:45.750 --> 00:04:47.770
+Jitendra K: And, we are going to talk about
+
+24
+00:04:48.060 --> 00:04:54.849
+Jitendra K: Or maybe revisit Langraph, and I would like to introduce two more tools called Crew and Autogen.
+
+25
+00:04:55.120 --> 00:05:03.950
+Jitendra K: So, Crew AI and Autogen are the two great tools that we are going to use, for creating agent, specifically multi-agentic system.
+
+26
+00:05:04.260 --> 00:05:09.419
+Jitendra K: And we'll talk about what are the difference between these three tools, predominantly, what are the
+
+27
+00:05:10.940 --> 00:05:15.379
+Jitendra K: pros and cons of using one tool over the other, right? So we'll try to…
+
+28
+00:05:15.660 --> 00:05:24.230
+Jitendra K: accomplish a complete understanding on Crew AI and Autogen. AutoGen is a great tool which has been developed by Microsoft. Crew AI is equally good.
+
+29
+00:05:24.680 --> 00:05:28.329
+Jitendra K: I found this tool to be very innovative and very…
+
+30
+00:05:28.820 --> 00:05:40.259
+Jitendra K: well-versed in terms of API, SPAC, documentation, ease of use, and you will appreciate the idea why I'm talking about these tools, right? These two tools are great.
+
+31
+00:05:40.590 --> 00:05:45.329
+Jitendra K: There are other tools which have been launched, like PhiData, there's something called…
+
+32
+00:05:51.480 --> 00:05:55.009
+Jitendra K: Sorry, yeah, there's something called,
+
+33
+00:05:55.920 --> 00:06:00.390
+Jitendra K: semantic kernel, which is also part of Microsoft Commercial.
+
+34
+00:06:00.560 --> 00:06:07.040
+Jitendra K: So we'll also talk about those tools, in the upcoming tutorial, but some of the tools, like PhiData, is not that great.
+
+35
+00:06:07.440 --> 00:06:14.229
+Jitendra K: And, you will find, that phi date is not very useful just because of…
+
+36
+00:06:14.800 --> 00:06:20.449
+Jitendra K: the open source backup that they have. But Crew AI and Autogen are the great tool that we are going to use.
+
+37
+00:06:23.450 --> 00:06:28.420
+Jitendra K: All right, so before we start, let's try to have a quick round of
+
+38
+00:06:28.920 --> 00:06:34.940
+Jitendra K: discussion, I think last week you were on holiday, not holiday, I think there's a break in between.
+
+39
+00:06:35.260 --> 00:06:41.019
+Jitendra K: So, just want to understand how are the things so far? Are you submitting the assignments on time?
+
+40
+00:06:41.350 --> 00:06:46.789
+Jitendra K: Anything on the lab setup, tokens that you're facing any issue with?
+
+41
+00:06:47.300 --> 00:06:50.369
+Jitendra K: And everything is on time now.
+
+42
+00:06:50.810 --> 00:06:56.919
+Jitendra K: Have you submitted your assignments? Is it… Already been evaluated.
+
+43
+00:06:57.880 --> 00:07:00.289
+Jitendra K: Any feedback that you would like to provide?
+
+44
+00:07:07.120 --> 00:07:13.510
+Jitendra K: Great, so you're done with assignment and everything, right? Light exam is remaining. Okay, last exam is remaining.
+
+45
+00:07:13.800 --> 00:07:14.670
+Jitendra K: Alright.
+
+46
+00:07:17.190 --> 00:07:26.009
+Jitendra K: Last week was IBM week, but I don't know how to access… Okay, so IBM Lab, you mean to say, right? So I… is any lab session been provided?
+
+47
+00:07:31.840 --> 00:07:34.180
+Jitendra K: Yeah, the graduate project I'm talking about.
+
+48
+00:07:34.320 --> 00:07:37.450
+Jitendra K: Anything, any difficulty in attempting those graded projects?
+
+49
+00:07:46.100 --> 00:07:50.399
+Jitendra K: Okay, if not, then I think I'm considering everything is doing
+
+50
+00:07:51.090 --> 00:07:55.600
+Jitendra K: In a great pace, and with a proper… Structure…
+
+51
+00:07:56.720 --> 00:08:01.880
+Jitendra K: Okay, so core certification by IBM. On Agentic AI, you mean to say, right? Not Gen AI.
+
+52
+00:08:02.190 --> 00:08:05.020
+Jitendra K: It's not a prompt, is it an agentic course, or…
+
+53
+00:08:05.430 --> 00:08:06.969
+Jitendra K: Gen AI, okay.
+
+54
+00:08:09.780 --> 00:08:18.140
+Jitendra K: Okay, great. So, that means… I have also no… have… don't have an idea how to access that.
+
+55
+00:08:18.630 --> 00:08:22.750
+Jitendra K: Basic introduction code. We have only two grade modules now. Okay.
+
+56
+00:08:28.540 --> 00:08:29.900
+Jitendra K: Okay, understood.
+
+57
+00:08:31.380 --> 00:08:36.270
+Jitendra K: Okay, so… So I hope, the things are in the right direction.
+
+58
+00:08:36.539 --> 00:08:40.760
+Jitendra K: I found one thing that I need to share as well,
+
+59
+00:08:40.950 --> 00:08:48.070
+Jitendra K: We are yet to cover Transformer Deep Drive, right? So, we haven't covered Transformer Deep Drive, and we haven't talked about
+
+60
+00:08:48.510 --> 00:08:55.589
+Jitendra K: methods to perform optimization on LLM core models, so we have to cover that session.
+
+61
+00:08:56.050 --> 00:08:57.860
+Jitendra K: And I would like to cover this
+
+62
+00:08:57.990 --> 00:09:05.200
+Jitendra K: maybe tomorrow, we are going to talk about PEFT and LORAS, which is parametric efficient fine-tuning and Low Rank Adaptation.
+
+63
+00:09:05.440 --> 00:09:11.520
+Jitendra K: And before moving on to LoRAS, PAFTQ LORAS, we have to understand transformer architecture, because
+
+64
+00:09:11.980 --> 00:09:16.049
+Jitendra K: Otherwise, you will understand the mechanism to…
+
+65
+00:09:16.480 --> 00:09:19.259
+Jitendra K: Fix engine, but you don't know what is engine.
+
+66
+00:09:20.340 --> 00:09:25.459
+Jitendra K: Right, so that is what we have to first understand, what is transformer, because that is the…
+
+67
+00:09:25.680 --> 00:09:28.450
+Jitendra K: engine that you're going to fix with Baft and Loras.
+
+68
+00:09:28.990 --> 00:09:34.379
+Jitendra K: So we have to understand transformer, deep drive, and then understand a bit of contextual
+
+69
+00:09:34.490 --> 00:09:37.429
+Jitendra K: And attention layers on transformers.
+
+70
+00:09:37.620 --> 00:09:44.269
+Jitendra K: And we'll take a very deep drive, a bit mathematical, so we prepare mentally and physically for tomorrow.
+
+71
+00:09:44.530 --> 00:09:49.880
+Jitendra K: It will be slightly, overwhelming session, so just a disclaimer before we start, right?
+
+72
+00:09:50.260 --> 00:09:55.989
+Jitendra K: So, transformer, mathematics is always confusing, and
+
+73
+00:09:56.370 --> 00:10:02.690
+Jitendra K: it can be more confusing if you don't know metrics and linear algebra, right? So make sure that you have
+
+74
+00:10:03.380 --> 00:10:06.469
+Jitendra K: Some brush-up before joining the class.
+
+75
+00:10:07.450 --> 00:10:09.669
+Jitendra K: When you're talking about transformers.
+
+76
+00:10:09.990 --> 00:10:17.429
+Jitendra K: So we will focus on attention layers, we'll focus on, different mechanisms to perform weight freezing, and
+
+77
+00:10:17.660 --> 00:10:19.170
+Jitendra K: parametric fine-tuning.
+
+78
+00:10:19.580 --> 00:10:26.500
+Jitendra K: And we will use, RunPots to do this lab, and I have a RunPot account, I will demonstrate.
+
+79
+00:10:27.420 --> 00:10:36.219
+Jitendra K: I would encourage everybody to have that account, but if not, then that's perfectly fine. You can go with a small data set, and you can run in Colab. That's perfectly fine as well.
+
+80
+00:10:37.130 --> 00:10:46.760
+Jitendra K: All right, so let's try to move on from here. So, as I mentioned, the course that we are going to… the topic that we are going to cover today is essentially
+
+81
+00:10:47.060 --> 00:10:50.800
+Jitendra K: We are going to talk about the frameworks of Agent AI.
+
+82
+00:10:50.930 --> 00:10:54.110
+Jitendra K: So we have to understand some amount of,
+
+83
+00:10:55.320 --> 00:11:04.790
+Jitendra K: walkthrough on the line graph and langchain, which is a part of a Langchain ecosystem. We understand what is Langchain, what are the different components of Langchain.
+
+84
+00:11:04.900 --> 00:11:11.719
+Jitendra K: Including their architecture discussion. We have made a very detailed-oriented session on Langchain, including LCEL.
+
+85
+00:11:12.040 --> 00:11:15.730
+Jitendra K: Which is line chain extraction, chain language.
+
+86
+00:11:15.890 --> 00:11:21.270
+Jitendra K: And then we move on from Langchain to Langraph. We understand the benefits of using Langraph.
+
+87
+00:11:22.090 --> 00:11:25.570
+Jitendra K: When we are creating conditional flows.
+
+88
+00:11:25.860 --> 00:11:32.619
+Jitendra K: And this helped us to develop even the core and the most complex agent, right, with the help of a line graph.
+
+89
+00:11:32.960 --> 00:11:38.869
+Jitendra K: So we'll revisit what is Langraph and try to understand some of the use cases, that I have covered.
+
+90
+00:11:39.110 --> 00:11:45.889
+Jitendra K: So what we will cover today is, we are going to talk about, again, the foundation on the Agent Tech AI
+
+91
+00:11:46.060 --> 00:11:52.440
+Jitendra K: development forums. We have clearly understood what is single and multi-agent paradigms.
+
+92
+00:11:52.640 --> 00:11:56.999
+Jitendra K: But I would like to talk about the framework perspective, which framework is more…
+
+93
+00:11:57.100 --> 00:12:01.539
+Jitendra K: align with the objective, so this is something which I'm going to talk about.
+
+94
+00:12:01.770 --> 00:12:07.209
+Jitendra K: We'll also talk about, revisit, recap line graphs.
+
+95
+00:12:07.400 --> 00:12:16.490
+Jitendra K: So I will talk about how to use stateful orchestration specifically when you're dealing with Topologies, like cyclic agents.
+
+96
+00:12:17.440 --> 00:12:22.929
+Jitendra K: And we will try to cover some use cases around that in terms of industrial fitments.
+
+97
+00:12:23.290 --> 00:12:32.319
+Jitendra K: Then we'll move on to the most important topic for today, called Crew AI. And Crew AI, you will appreciate the idea that why it is a very important tool.
+
+98
+00:12:32.780 --> 00:12:36.000
+Jitendra K: Because of the ease of integration. Less…
+
+99
+00:12:36.180 --> 00:12:42.529
+Jitendra K: amount of code you have to write in Crew AI. Very less amount, very minimalistic approach you have to follow.
+
+100
+00:12:42.940 --> 00:12:51.639
+Jitendra K: with Crew AI. It's not complex like Langraph, right? LandGraph is just like… The advanced mathematical tool.
+
+101
+00:12:52.050 --> 00:12:58.480
+Jitendra K: maybe I can just correlate this with calculus, right? And then Crew AI is just like your trigonometry.
+
+102
+00:12:58.690 --> 00:13:01.270
+Jitendra K: So that's the difference between Langraph and crew.A.
+
+103
+00:13:01.370 --> 00:13:06.200
+Jitendra K: So Crew AI will be useful, as far as Langraph, but…
+
+104
+00:13:06.410 --> 00:13:12.359
+Jitendra K: The way you're going to reuse Langraph or Crew.ai is totally different, the implementation part.
+
+105
+00:13:12.680 --> 00:13:16.650
+Jitendra K: Although Crow AI internally use line graphs, that is one thing.
+
+106
+00:13:16.800 --> 00:13:24.150
+Jitendra K: But, it will use wrappers around Langra, so that you should not be exposed to the high-level details of Langra.
+
+107
+00:13:24.390 --> 00:13:35.550
+Jitendra K: you're still going to conduct, sorry, you're not going to expose the low-level details of Langraph, but you are going to use high-level APIs and wrappers to operate on Langraph as a wrappers.
+
+108
+00:13:35.990 --> 00:13:42.620
+Jitendra K: Then we'll talk about one more great tool called Autogen. If time permits, we'll take some example on AutoGen.
+
+109
+00:13:42.880 --> 00:13:47.539
+Jitendra K: AutoGene is a great Microsoft tool, again, an open source tool, which will
+
+110
+00:13:47.940 --> 00:13:51.460
+Jitendra K: have similar functionality as Langraph and Crew AI.
+
+111
+00:13:51.890 --> 00:14:02.169
+Jitendra K: But one of the important things that I would like to talk about, AutoGen is very powerful in code writing, because of Microsoft Copilot and other stuff. They are very powerful tools.
+
+112
+00:14:02.320 --> 00:14:14.790
+Jitendra K: for code writing and evaluation. So, you might have used Microsoft Copilot earlier, maybe in some project, and you will appreciate the idea why Microsoft Copilot is a great tool for coding.
+
+113
+00:14:15.180 --> 00:14:20.109
+Jitendra K: So, Autogen is also having several tools that is great for that purpose.
+
+114
+00:14:20.640 --> 00:14:29.070
+Jitendra K: Then we'll have a head-to-head comparison between these three tools, Langraph, Pro, and Autogen. We'll try to understand the performance
+
+115
+00:14:29.330 --> 00:14:40.630
+Jitendra K: bottleneck in either of the three, and what should be a decision criteria when you're working in real-world projects? So that means if given a choice, if you have to pick one, then which one should you pick and why?
+
+116
+00:14:41.320 --> 00:14:46.210
+Jitendra K: And then we'll try to understand the adoption strategies for enterprise-level
+
+117
+00:14:47.560 --> 00:14:54.679
+Jitendra K: Structures, specifically when you're dealing with hybrid architectures, which involve cloud integrations, which include
+
+118
+00:14:55.170 --> 00:15:00.429
+Jitendra K: LLM-hosted models on-prem, on cloud, etc, right? So all these things…
+
+119
+00:15:00.590 --> 00:15:04.150
+Jitendra K: It's very important for… for this part, and
+
+120
+00:15:04.370 --> 00:15:08.190
+Jitendra K: You will get some clear picture on the limitation of
+
+121
+00:15:08.460 --> 00:15:12.200
+Jitendra K: Either of the three frameworks, and how to deal with that limitations.
+
+122
+00:15:14.270 --> 00:15:15.230
+Jitendra K: Alright.
+
+123
+00:15:15.960 --> 00:15:20.070
+Jitendra K: Yeah, all are free, so all… all three are free. There's… all are open source.
+
+124
+00:15:21.200 --> 00:15:23.960
+Jitendra K: All are open source, so you can use any of them.
+
+125
+00:15:24.600 --> 00:15:34.949
+Jitendra K: Okay, just a quick recap. What is an agentic AI? So, agentic AI, as we have discussed, is an autonomous system that perceives reason and plan from the environment, and an act
+
+126
+00:15:35.200 --> 00:15:37.089
+Jitendra K: Optimally, to achieve goals.
+
+127
+00:15:37.730 --> 00:15:46.799
+Jitendra K: So, AI system is an autonomous system that perceives, reason, and plan based upon the environmental constraint, and act to achieve optimal goals.
+
+128
+00:15:47.160 --> 00:15:56.639
+Jitendra K: And it's going far beyond simple prompts-response interaction, right? So you might have used prompts in the year 2023-24.
+
+129
+00:15:56.840 --> 00:16:02.749
+Jitendra K: when you're interacting with LLMs like GPT models, or plot models, or…
+
+130
+00:16:03.020 --> 00:16:11.229
+Jitendra K: even Gemini models, right? So these are great in terms of prompt, that means they are hosted in the ecosystem, and then you're just using
+
+131
+00:16:11.820 --> 00:16:16.950
+Jitendra K: the, the plain LLMs or vanilla LLMs to interact.
+
+132
+00:16:17.450 --> 00:16:18.990
+Jitendra K: But in Agent.
+
+133
+00:16:19.110 --> 00:16:26.620
+Jitendra K: It's more sophisticated, which can able to take user query and then perform a reasoning on the top of it, along with
+
+134
+00:16:26.810 --> 00:16:30.419
+Jitendra K: Tool execution by implementing a plan systematically.
+
+135
+00:16:30.520 --> 00:16:37.489
+Jitendra K: And then act on the environment to achieve the objective. So we have seen so many examples.
+
+136
+00:16:37.700 --> 00:16:41.670
+Jitendra K: In the last tutorial, we talked about Alpha Researcher, which will be able to
+
+137
+00:16:42.020 --> 00:16:45.100
+Jitendra K: Give you a recommendation on the trading
+
+138
+00:16:46.050 --> 00:16:51.209
+Jitendra K: Or trading platform, right? Where it will give you a very clear opinion on
+
+139
+00:16:51.590 --> 00:16:59.749
+Jitendra K: what are the asset classes that you should use to trade, right? And what is the volatility index and marketing conditions? Specifically, we are living in macro…
+
+140
+00:16:59.930 --> 00:17:04.440
+Jitendra K: In a world where a lot of uncertainties has been pushed forth.
+
+141
+00:17:04.550 --> 00:17:10.700
+Jitendra K: This is a great tool for making those calibrated criterias into consideration.
+
+142
+00:17:11.520 --> 00:17:20.590
+Jitendra K: Then we move on to single versus multi-agentic system. We understand, that single agent can be able to handle everything, including reasoning tools, output.
+
+143
+00:17:21.000 --> 00:17:26.329
+Jitendra K: But, model or agent will struggle with complex and multi-domain tasks.
+
+144
+00:17:27.500 --> 00:17:30.479
+Jitendra K: Because of the context window, limitation of tokens.
+
+145
+00:17:30.740 --> 00:17:37.769
+Jitendra K: Every model will have their own context window, so let's say, if I'm talking about LLM, GPT-4 model.
+
+146
+00:17:37.900 --> 00:17:45.170
+Jitendra K: it will have a different contextual window as compared to slots on it, right? So context window is one of the important considerations.
+
+147
+00:17:45.320 --> 00:17:53.460
+Jitendra K: When you're choosing the one model over the other, right? So, the context window is always important. Now, what is context window, if I have to just…
+
+148
+00:17:53.770 --> 00:17:59.859
+Jitendra K: explain in a bit layman term. So, context window… Is the amount of token.
+
+149
+00:18:00.700 --> 00:18:05.180
+Jitendra K: That your model can able to utilize for generating the answer.
+
+150
+00:18:05.500 --> 00:18:07.379
+Jitendra K: So, the maximum amount of text.
+
+151
+00:18:07.530 --> 00:18:10.959
+Jitendra K: Major in token. As a model, then consider advance.
+
+152
+00:18:11.180 --> 00:18:21.129
+Jitendra K: Will work like an… will act like a working memory for prompts, which include conversational memory instruction, your documents, your previous chats.
+
+153
+00:18:21.360 --> 00:18:29.359
+Jitendra K: The modern model, including Claude and Gemini, supports increasing large window ranging from 1,000 to over millions token.
+
+154
+00:18:29.620 --> 00:18:34.969
+Jitendra K: And it will allow those tokens to analyze massive document, and the key aspect is
+
+155
+00:18:35.100 --> 00:18:46.680
+Jitendra K: A context is measured in tokens, that is a sub-word unit, where 1000 token is 750 words, roughly, so it will have a key aspect of context window limitation.
+
+156
+00:18:47.000 --> 00:18:57.469
+Jitendra K: Now, the context window, once the window is full, older information is forgotten, truncated to make a room for the new input, often causing the model to lose track of early conversation details.
+
+157
+00:18:57.840 --> 00:19:01.690
+Jitendra K: And that is one of the drawbacks in terms of capsidian forgetting.
+
+158
+00:19:02.400 --> 00:19:05.759
+Jitendra K: That means you need to use some sort of policies and stuff.
+
+159
+00:19:06.050 --> 00:19:21.569
+Jitendra K: deal with that, catastrophic forbidding, right? So performance trade-off can also be utilized when we are using a large Windows, allowing for analyzing entire data or code base, but can increase latencies. It can also improve
+
+160
+00:19:21.970 --> 00:19:25.809
+Jitendra K: Sorry, increase the cost and lead to higher rate of
+
+161
+00:19:26.020 --> 00:19:38.250
+Jitendra K: irrelevant information or hallucination as well. And that's a needle in the haystack problem, because you need to find it out, the relevant information from the past interaction, which may or may not be there inside the model.
+
+162
+00:19:38.710 --> 00:19:40.380
+Jitendra K: So, some models are…
+
+163
+00:19:40.510 --> 00:19:51.520
+Jitendra K: creating a massive theoretical limit on their effective context-like management, where performance remains reliable. That means, some models are following a core rule.
+
+164
+00:19:51.670 --> 00:19:55.980
+Jitendra K: Some of them are going with hybrid approach, so there are different ways in which
+
+165
+00:19:56.210 --> 00:19:59.399
+Jitendra K: You are going to utilize the context for that purpose.
+
+166
+00:20:01.670 --> 00:20:09.170
+Jitendra K: Now, let's try to understand and compare the LLM context window
+
+167
+00:20:09.680 --> 00:20:13.100
+Jitendra K: with, I think, yeah, you said it correctly, attention.
+
+168
+00:20:13.250 --> 00:20:18.360
+Jitendra K: Right? So Windows, understand LLM context, Windows, tokens, attention, and challenges.
+
+169
+00:20:18.800 --> 00:20:22.689
+Jitendra K: Now, when we talk about the three nuances.
+
+170
+00:20:23.090 --> 00:20:25.550
+Jitendra K: Which we are talking as cost.
+
+171
+00:20:26.110 --> 00:20:29.430
+Jitendra K: In any LLM integration, Right?
+
+172
+00:20:31.030 --> 00:20:32.349
+Jitendra K: Let me go back…
+
+173
+00:20:57.240 --> 00:21:00.510
+Jitendra K: So there are three schools of thought when you're dealing with context.
+
+174
+00:21:00.780 --> 00:21:04.920
+Jitendra K: Which include your performance, bottlenecks, competition cost.
+
+175
+00:21:05.400 --> 00:21:08.099
+Jitendra K: Safety concerns. So you have to manage all three.
+
+176
+00:21:08.850 --> 00:21:12.159
+Jitendra K: So, if you're giving a large context window.
+
+177
+00:21:12.530 --> 00:21:14.780
+Jitendra K: when you're rolling it out LLM,
+
+178
+00:21:15.120 --> 00:21:22.819
+Jitendra K: When you talk about large language model, you're essentially engaging with a system that is having a limited working memory, and this memory is called context window.
+
+179
+00:21:23.130 --> 00:21:28.209
+Jitendra K: So determine how much the conversation the model can keep in mind at a given point of time.
+
+180
+00:21:28.370 --> 00:21:34.209
+Jitendra K: If the conversation stays within the context window, the model will definitely gonna have
+
+181
+00:21:34.710 --> 00:21:41.449
+Jitendra K: higher, challenges. That means the model can recall everything you said and respond coherently.
+
+182
+00:21:41.710 --> 00:21:54.450
+Jitendra K: But if the conversation goes too long, the models start to forget the earlier parts, and the sponsor will become less reliable. So basically, it's like, imagine that you have a conversation with someone, every time you speak, you say.
+
+183
+00:21:54.760 --> 00:21:58.680
+Jitendra K: Some phrases, fillers, like blah, or to exchange.
+
+184
+00:21:58.990 --> 00:22:02.499
+Jitendra K: The other person responds with their own words, back and forth.
+
+185
+00:22:02.750 --> 00:22:06.669
+Jitendra K: Now, imagine there's a box that represents the person working memory.
+
+186
+00:22:07.350 --> 00:22:13.169
+Jitendra K: If the entire conversation fits inside the box, that can remember everything you said and responds appropriately.
+
+187
+00:22:13.420 --> 00:22:27.599
+Jitendra K: But if the conversation goes too long and overflow the box, they start to forget the earlier parts, and this may… this might still try to infer what you mean, but there are responses which become less accurate as you progress.
+
+188
+00:22:27.770 --> 00:22:29.850
+Jitendra K: So that means the size of the context
+
+189
+00:22:30.680 --> 00:22:36.199
+Jitendra K: Is, of course, is measured in tokens, and tokens are the smallest unit of large language models.
+
+190
+00:22:36.550 --> 00:22:42.749
+Jitendra K: For human, the smallest unit of language is single character. That means the alphabet, or a punctuation mark.
+
+191
+00:22:42.920 --> 00:22:49.199
+Jitendra K: But for LLM, a token can be represented as a character, part of a word, or a whole word itself, or even a short phrase.
+
+192
+00:22:49.580 --> 00:22:52.379
+Jitendra K: Right? So this is where you have to…
+
+193
+00:22:52.710 --> 00:22:56.780
+Jitendra K: Use, maybe a large context window.
+
+194
+00:22:56.910 --> 00:22:59.709
+Jitendra K: So, context window has significantly
+
+195
+00:23:00.810 --> 00:23:05.620
+Jitendra K: grow over a period of time. Early LLM have context window of around 2,000 tokens.
+
+196
+00:23:05.920 --> 00:23:12.109
+Jitendra K: Today model, can be able to handle millions of such tokens, not just limited to thousands, right?
+
+197
+00:23:12.340 --> 00:23:16.409
+Jitendra K: So, when you talk about context window, what is the…
+
+198
+00:23:16.670 --> 00:23:22.320
+Jitendra K: what are the parameters which context window is trying to improve? So, what actually
+
+199
+00:23:22.870 --> 00:23:28.329
+Jitendra K: In which architecture layer the context window is making, A huge amount of changes.
+
+200
+00:23:28.720 --> 00:23:36.370
+Jitendra K: And that is called self-attention mechanism. So when you say self-attention mechanism, the challenges of long context maybe…
+
+201
+00:23:36.860 --> 00:23:42.949
+Jitendra K: The obvious challenge is the computation cost. That means you have to process the amount of token to retrieve the answer.
+
+202
+00:23:43.070 --> 00:23:45.019
+Jitendra K: The scale become quadratically.
+
+203
+00:23:46.150 --> 00:23:51.299
+Jitendra K: With the length of input. If you double the number of tokens, the model need 4 times as much compute to handle it.
+
+204
+00:23:51.610 --> 00:24:01.290
+Jitendra K: And this is because the model has to calculate the relationship between every token, every other token in the sequence, and so on and so forth. So long context can hurt performance.
+
+205
+00:24:02.240 --> 00:24:06.939
+Jitendra K: Right? There were several case studies, and there are several experimentations which have been conducted.
+
+206
+00:24:07.110 --> 00:24:15.510
+Jitendra K: Which says that if you're presenting a context, you are going to have too much inference cost. Specifically, the GPU will consume a lot of.
+
+207
+00:24:15.620 --> 00:24:16.700
+Jitendra K: 4Hz.
+
+208
+00:24:16.900 --> 00:24:33.570
+Jitendra K: So, you have to act balanced here. That means you have to choose the right context and kind of a balancing act on your… on… on one hand, you want to give the model enough information to generate accurate and coherent responses. On the other hand, you need to manage the competition cost as well.
+
+209
+00:24:33.760 --> 00:24:39.120
+Jitendra K: To avoid performance degradation and mitigation of safety and risk.
+
+210
+00:24:39.570 --> 00:24:44.240
+Jitendra K: So, the crucial idea here is, when we talk about context.
+
+211
+00:24:44.890 --> 00:24:49.830
+Jitendra K: How much size of context window is required for my application?
+
+212
+00:24:50.420 --> 00:24:53.270
+Jitendra K: Right? That is the most important question that you should ask.
+
+213
+00:24:53.570 --> 00:24:56.599
+Jitendra K: How does the LLM process token with a context window?
+
+214
+00:24:56.750 --> 00:25:04.140
+Jitendra K: So, as I mentioned, transformer models use a mechanism called self-attention to process token in a context window. So, self-attention
+
+215
+00:25:04.260 --> 00:25:07.890
+Jitendra K: Calculate the relationship dependency between different tokens.
+
+216
+00:25:08.100 --> 00:25:11.459
+Jitendra K: And even those who are far apart in the input sequence.
+
+217
+00:26:30.660 --> 00:26:42.660
+Jitendra K: Okay, so, so basically, how does the LLM process token with a context window? So, transformer use a mechanism called self-attention to process token in a contextual window. So, self-retention will calculate the relationship.
+
+218
+00:26:42.880 --> 00:26:53.890
+Jitendra K: between the dependency of different tokens, and even those who are far apart in the input sequence. So basically, the attention mechanism will allow the model to understand word at the beginning of the paragraph.
+
+219
+00:26:54.200 --> 00:26:57.850
+Jitendra K: Related to those at the end. So, self-attention mechanism, compute.
+
+220
+00:26:58.080 --> 00:27:07.719
+Jitendra K: weights, and it will improve the relevance of each token to the other. And the size of the context window will determine the maximum number of token the model can consider at any
+
+221
+00:27:07.960 --> 00:27:09.059
+Jitendra K: Point of time.
+
+222
+00:27:09.370 --> 00:27:17.450
+Jitendra K: So basically, if I have to just, maybe, explain in a bit lamer term, so context window will help you to improve the
+
+223
+00:27:17.680 --> 00:27:22.439
+Jitendra K: Modern, model efficacy in terms of response time during the inference time.
+
+224
+00:27:22.870 --> 00:27:28.410
+Jitendra K: So if you're choosing the context window to be too long, too small, you will lose some information.
+
+225
+00:27:28.730 --> 00:27:35.300
+Jitendra K: If you're choosing to be too large, you will increase the computation cost. So you have to find a sweet spot between the two.
+
+226
+00:27:35.520 --> 00:27:42.829
+Jitendra K: to ensure… that, the context window has been tackled properly, right? So that is something
+
+227
+00:27:42.970 --> 00:27:47.110
+Jitendra K: Which we are going to learn over a period of time, how to manage
+
+228
+00:27:47.350 --> 00:27:49.449
+Jitendra K: The context window, and what is…
+
+229
+00:27:49.660 --> 00:27:52.890
+Jitendra K: The right number that you should consider for your project.
+
+230
+00:27:53.360 --> 00:28:04.169
+Jitendra K: Ultimately, you're going to work on a project which will have several costs associated, and then you have to work on bottleneck… removing the bottleneck from the top of it.
+
+231
+00:28:04.770 --> 00:28:10.170
+Jitendra K: Now… Okay, let me share you one…
+
+232
+00:28:11.570 --> 00:28:14.769
+Jitendra K: paper that I believe you should read.
+
+233
+00:28:16.680 --> 00:28:18.550
+Jitendra K: Let me share that paper.
+
+234
+00:28:32.610 --> 00:28:37.020
+Jitendra K: So this paper, this abstract, is must-read, so I will share this paper with you.
+
+235
+00:28:41.550 --> 00:28:46.070
+Jitendra K: So this paper will have, all the relevant case studies.
+
+236
+00:28:46.370 --> 00:28:50.110
+Jitendra K: That you can able to think through, and then it will give you
+
+237
+00:28:52.180 --> 00:28:57.389
+Jitendra K: Also, some sort of benchmarks on the industrial use cases at the time.
+
+238
+00:29:05.710 --> 00:29:06.660
+Jitendra K: Alright.
+
+239
+00:29:07.500 --> 00:29:09.270
+Jitendra K: So we'll move on from here.
+
+240
+00:29:09.480 --> 00:29:16.459
+Jitendra K: Okay, I can see some question. Can you explain how safety is compromised with long context adversarial attack?
+
+241
+00:29:16.640 --> 00:29:21.849
+Jitendra K: Yeah, of course, if you're managing everything in memory, and let's say there's a prompt injection.
+
+242
+00:29:22.310 --> 00:29:32.929
+Jitendra K: or a prompt attack, or jailbreaking phenomena did happen. Then, of course, the hacker or the intruder will have access to your past information, and he can easily manipulate the answers from that.
+
+243
+00:29:33.240 --> 00:29:43.209
+Jitendra K: Because everything that you're running is in the server side of capability, and then it will use caching to instantiate every session.
+
+244
+00:29:43.460 --> 00:29:54.239
+Jitendra K: And by the time you log in, the other person, the intruder, will have access to the same data set. And that's the reason they could be prone to adversarial attacks and, several
+
+245
+00:29:55.460 --> 00:30:02.849
+Jitendra K: vulnerabilities which should be designed properly when you're designing a system, right? So, this can lead to several
+
+246
+00:30:03.040 --> 00:30:06.150
+Jitendra K: Obligations when you're designing the system.
+
+247
+00:30:06.700 --> 00:30:07.890
+Jitendra K: Confidently.
+
+248
+00:30:13.480 --> 00:30:16.900
+Jitendra K: Is the context window for LLM1, or…
+
+249
+00:30:17.320 --> 00:30:22.579
+Jitendra K: It's for LLM. No, it's for LLM, right? We are talking about LLM. So LLM is a building block for agent.
+
+250
+00:30:23.150 --> 00:30:29.540
+Jitendra K: So, we are using LLM as an agent, I mean, as a centralized piece of an agentic design.
+
+251
+00:30:29.770 --> 00:30:33.700
+Jitendra K: And pretty much contextual window is related to LLM only.
+
+252
+00:30:36.800 --> 00:30:37.640
+Jitendra K: Yep.
+
+253
+00:30:42.000 --> 00:30:46.909
+Jitendra K: Alright, so we'll move on from here now. So let me go back to my slides.
+
+254
+00:30:55.170 --> 00:31:03.679
+Jitendra K: So, we talked about, the contacts window, that can… they need to be handled by a single agent, and this single agent will work like,
+
+255
+00:31:04.270 --> 00:31:09.730
+Jitendra K: multi… task operator. That means it will handle
+
+256
+00:31:09.850 --> 00:31:15.309
+Jitendra K: Everything at once. But at a time, when you have to create a specialized agent.
+
+257
+00:31:15.730 --> 00:31:26.770
+Jitendra K: or maybe you feel that I need to separate the design constraint from one agent to another, and since you're operating with single agent, it is of no use, right? You cannot be able to
+
+258
+00:31:27.070 --> 00:31:31.270
+Jitendra K: differentiate the responsibility. You're not able to make your architecture
+
+259
+00:31:31.490 --> 00:31:37.509
+Jitendra K: Seamlessly, loosely coupled, and there are a lot of, constraints that you're going to face.
+
+260
+00:31:37.860 --> 00:31:45.009
+Jitendra K: So it is always advisable when you're thinking of any agentic design, or solving any agentic design use cases.
+
+261
+00:31:45.120 --> 00:31:51.329
+Jitendra K: You have to think of agentic manifestos. That means how many agents you require to operate.
+
+262
+00:31:51.430 --> 00:31:54.720
+Jitendra K: What are their responsibility? What sort of…
+
+263
+00:31:54.880 --> 00:31:56.970
+Jitendra K: Data sites they are going to deal with.
+
+264
+00:31:57.150 --> 00:32:01.510
+Jitendra K: How they are going to interact with downstream tasks.
+
+265
+00:32:01.810 --> 00:32:04.670
+Jitendra K: All those things has to be taken care of.
+
+266
+00:32:05.080 --> 00:32:09.580
+Jitendra K: That means, the single agent responsibility will not be sufficient.
+
+267
+00:32:09.940 --> 00:32:16.699
+Jitendra K: Which will help you to work on multi-domain tasks and complex reasoning tasks, right? So that is very important.
+
+268
+00:32:17.070 --> 00:32:23.709
+Jitendra K: So you should, I mean, I'm not saying you should avoid single agent, you can use single agent, but there should be…
+
+269
+00:32:24.560 --> 00:32:28.660
+Jitendra K: Some reasoning around why you're selecting a single agent architecture.
+
+270
+00:32:28.820 --> 00:32:37.020
+Jitendra K: Similarly, multi-agenting architecture is a pool of agents that can collaborate, that can exchange ideas, that can be able to
+
+271
+00:32:37.180 --> 00:32:44.950
+Jitendra K: Converse, make, and it was able to work like a crew, or army of agent, or swamps of agent.
+
+272
+00:32:45.080 --> 00:32:55.949
+Jitendra K: That can be able to work on complex problems by dividing those problems into multiple substances. That means they can execute parallelly, they can be able to have higher throughput.
+
+273
+00:32:56.220 --> 00:32:59.849
+Jitendra K: They… you can able to manage fault isolation pretty seamlessly.
+
+274
+00:33:00.090 --> 00:33:04.160
+Jitendra K: With an enterprise-grade, complexities structures.
+
+275
+00:33:04.280 --> 00:33:14.539
+Jitendra K: And you can manage their memories internally. So, as we have talked about, that if I'm going to manage the contextual window, and even the memories of the session memory of the agents.
+
+276
+00:33:14.660 --> 00:33:16.850
+Jitendra K: It will lead to several vulnerabilities.
+
+277
+00:33:17.290 --> 00:33:20.130
+Jitendra K: One of the vulnerability could be adversarial attacks.
+
+278
+00:33:21.170 --> 00:33:28.269
+Jitendra K: So if I'm using a specialized agent and I'm prohibiting a particular team to access that agent, that will solve the problem, right?
+
+279
+00:33:28.420 --> 00:33:37.710
+Jitendra K: That is where we have to utilize the core architecture's differences between single and multi-agent. But as I mentioned, you have to first
+
+280
+00:33:37.970 --> 00:33:43.420
+Jitendra K: Think of your use case, Create a proper manifestos on agent.
+
+281
+00:33:43.910 --> 00:33:47.049
+Jitendra K: Jot down all the tasks that you would like to perform.
+
+282
+00:33:47.720 --> 00:33:48.580
+Jitendra K: Right?
+
+283
+00:33:48.860 --> 00:33:55.329
+Jitendra K: And then decide which architecture should I choose. Should I go with single, or should I go with multi-agenting architecture?
+
+284
+00:33:55.540 --> 00:34:00.760
+Jitendra K: And that means, you're trying to think from first principle point of view by saying.
+
+285
+00:34:00.980 --> 00:34:05.860
+Jitendra K: I have a task which I need to… perform, let's say, VC,
+
+286
+00:34:06.320 --> 00:34:11.960
+Jitendra K: Right? And then I required a pool of agents rather than single-agenting architecture.
+
+287
+00:34:12.150 --> 00:34:18.840
+Jitendra K: So with that, you will be able to decide, much comprehensively what architecture will fit you.
+
+288
+00:34:19.270 --> 00:34:20.530
+Jitendra K: For your purpose.
+
+289
+00:34:21.550 --> 00:34:26.330
+Jitendra K: Now, we talked about when we're dealing with multi-agenic architecture from the scratch.
+
+290
+00:34:26.540 --> 00:34:30.289
+Jitendra K: Framework will provide some scaffolding for orchestration.
+
+291
+00:34:30.409 --> 00:34:34.740
+Jitendra K: Which include memory management, tool management, and orchestration.
+
+292
+00:34:34.940 --> 00:34:41.170
+Jitendra K: So these are some of the bottlenecks that we have faced, right? So… To avoid this bottleneck.
+
+293
+00:34:41.370 --> 00:34:48.760
+Jitendra K: There's something called ADK platforms, Agent Development Kit platform, that will help you to organize your code
+
+294
+00:34:49.030 --> 00:34:55.629
+Jitendra K: Seamlessly, where you need to have a proper way to integrate with different tools.
+
+295
+00:34:55.840 --> 00:35:01.560
+Jitendra K: Different, memory setups, some policy setup, like guardrailing and safety
+
+296
+00:35:01.780 --> 00:35:14.500
+Jitendra K: measurement, and you can also create traceability and AIOps, right, in the interim. So one of the frameworks that you have seen is Langraph, which is a great tool for state management, which can maintain the conversation histories.
+
+297
+00:35:14.630 --> 00:35:20.360
+Jitendra K: Immediate result, and also share the context across multiple agents during the execution step.
+
+298
+00:35:20.620 --> 00:35:25.030
+Jitendra K: And you can also use, tool integration with the help of MCP and
+
+299
+00:35:25.920 --> 00:35:33.690
+Jitendra K: other protocols. Now, agent skills has came across, which is overshadowing MCP now, so Agent Skills is a new term.
+
+300
+00:35:33.890 --> 00:35:46.290
+Jitendra K: which is given by Cloud agents, and they have a pretty decent skills that you can able to code without need to have separate tools, registered on RAM CPU. So there are a lot of changes which is happening already, right?
+
+301
+00:35:46.400 --> 00:35:53.150
+Jitendra K: So, but I'm talking about the challenges first, right? So these are all challenges earlier, before the advent of Langraph.
+
+302
+00:35:53.380 --> 00:35:59.700
+Jitendra K: So these challenges have been overcome with the help of a Langraph crew and Autogen tools, which will help us to
+
+303
+00:35:59.830 --> 00:36:08.740
+Jitendra K: Manage all these six underlying principles more seamlessly. That means you can do orchestration, control agentic execution in some train orders.
+
+304
+00:36:08.960 --> 00:36:15.060
+Jitendra K: By using branching and condition statement. You can also create an exception handler forward strategies.
+
+305
+00:36:15.210 --> 00:36:18.230
+Jitendra K: Without reinventing the workflow engine from the scratch.
+
+306
+00:36:18.410 --> 00:36:24.319
+Jitendra K: You can also manage your state seamlessly, synchronously, asynchronously, maintain a conversation.
+
+307
+00:36:24.520 --> 00:36:30.050
+Jitendra K: As well, within the different, agent take, orchestration lifecycle management.
+
+308
+00:36:30.420 --> 00:36:37.600
+Jitendra K: You can also create a more controlled way of tool calibration, that means you can integrate your tools.
+
+309
+00:36:38.010 --> 00:36:43.289
+Jitendra K: In the form of an API, database, search engine, enterprise systems, knowledge graphs.
+
+310
+00:36:43.720 --> 00:36:51.240
+Jitendra K: document, semantic search, managing those indexes in the document. You can do a lot of things with tool integration.
+
+311
+00:36:51.680 --> 00:37:01.649
+Jitendra K: Similarly, you can be able to do memory management, short-term, long-term, and entire memory will allow again to learn from past interactions and maintain a context across sessions.
+
+312
+00:37:01.960 --> 00:37:05.679
+Jitendra K: The guardrails and security and safety will help you to
+
+313
+00:37:06.070 --> 00:37:13.910
+Jitendra K: Maybe user build-in patents, which is a part of a line graph commercial, including human in the loop for approval.
+
+314
+00:37:14.060 --> 00:37:22.549
+Jitendra K: Output validation and making… And preventing the runaway agentic loops, which can exhaust your tokens and the cost.
+
+315
+00:37:22.780 --> 00:37:30.750
+Jitendra K: Observability, which is AIOps, that means you're using agents more comprehensively with proper ethical governance.
+
+316
+00:37:30.850 --> 00:37:44.230
+Jitendra K: and responsible AI functionalities, and you're using observability, which has been given by these ecosystems, including Langesmith, LangFuse, for agent decision-making process. That means you can be able to use agent decision
+
+317
+00:37:44.460 --> 00:37:49.909
+Jitendra K: Which is no longer a black box, but you can… able to make it more deterministic.
+
+318
+00:37:50.240 --> 00:37:55.230
+Jitendra K: And, also using proper ways to create
+
+319
+00:37:55.490 --> 00:37:58.180
+Jitendra K: Agent tracing on reasoning part as well.
+
+320
+00:37:58.370 --> 00:38:05.530
+Jitendra K: But these things are very important for… Making, the whole pipeline.
+
+321
+00:38:05.680 --> 00:38:09.549
+Jitendra K: Seamlessly, and production rate writing, right?
+
+322
+00:38:10.160 --> 00:38:15.849
+Jitendra K: Now, some of the foundational, layers that we have talked about is, about line graph.
+
+323
+00:38:16.050 --> 00:38:22.270
+Jitendra K: which has been introduced by Langchain, and Langraph is an orchestration framework which is relying on state machines.
+
+324
+00:38:22.470 --> 00:38:25.199
+Jitendra K: Which can help you to control
+
+325
+00:38:25.460 --> 00:38:30.799
+Jitendra K: Or make sure that you can able to use conditional routing much more seamlessly.
+
+326
+00:38:31.240 --> 00:38:42.569
+Jitendra K: With the help of a graph, state, and cycles. On the other hand, we are going to introduce… I'm going to introduce you to the core philosophy of True AI and AutoGen, which are the two great ADK platforms as well.
+
+327
+00:38:43.240 --> 00:38:47.260
+Jitendra K: But these two platforms are quite,
+
+328
+00:38:48.100 --> 00:38:59.560
+Jitendra K: high-level API, they are not low-level codes. You need not to worry too much about low-level code integration as well. All you're going to focus on, creating a role, defining the model.
+
+329
+00:38:59.790 --> 00:39:04.840
+Jitendra K: And then performing a system and a user from writeups, that's it.
+
+330
+00:39:05.070 --> 00:39:12.579
+Jitendra K: You don't have to worry too much about memory management, tool integrations, which will be automatically a part of your crew AI.
+
+331
+00:39:13.490 --> 00:39:19.490
+Jitendra K: So we learned the Crew AI class, the wrapper that has been used to design Crew AI.
+
+332
+00:39:19.840 --> 00:39:25.229
+Jitendra K: And we will understand what are the different submodules on which we can able to use True AI for.
+
+333
+00:39:26.210 --> 00:39:30.590
+Jitendra K: And use those submodules to integrate the roles and standards.
+
+334
+00:39:32.830 --> 00:39:35.540
+Jitendra K: Okay, so I can see some question.
+
+335
+00:39:35.820 --> 00:39:46.929
+Jitendra K: Let me also have requested, okay, for multi-agent architecture, it taught us language, but there's a new thing called as well. No, this is not a new thing, A2 is, already there.
+
+336
+00:39:47.360 --> 00:39:52.309
+Jitendra K: A2A is not a new thing. A2A protocol is for communicating between the agent.
+
+337
+00:39:55.120 --> 00:40:02.039
+Jitendra K: There's equivalent tool temporal for… Temporal is for orchestration, not for line graph.
+
+338
+00:40:02.800 --> 00:40:09.989
+Jitendra K: temporal.io, I think you're talking about. It's not, it's not an ADK platform.
+
+339
+00:40:11.610 --> 00:40:20.249
+Jitendra K: In my team, I have preference over Crew AI or LandGrab because of the easy management? Yeah, it could be. It depends, as I mentioned, it depends upon your team. It depends upon
+
+340
+00:40:20.720 --> 00:40:22.450
+Jitendra K: your stakeholders.
+
+341
+00:40:24.880 --> 00:40:32.830
+Jitendra K: So, it depends upon too many factors. One is the ease of use, second is your budget, third is your infrastructure, fourth is your
+
+342
+00:40:33.160 --> 00:40:41.370
+Jitendra K: Programming experience, fifth is your… Debugging capabilities, etc. So all these things does matter to choose a framework.
+
+343
+00:40:42.260 --> 00:40:45.730
+Jitendra K: If you can debug a land graph-based code.
+
+344
+00:40:46.500 --> 00:40:48.430
+Jitendra K: I don't think so you need true AI.
+
+345
+00:40:48.550 --> 00:40:51.500
+Jitendra K: And if you're facing an issue.
+
+346
+00:40:51.720 --> 00:40:56.420
+Jitendra K: enable understanding the line graph code, then you have to definitely go with Crew AI and Autogen.
+
+347
+00:40:57.470 --> 00:41:03.359
+Jitendra K: Alright, so let's try to discover each and every core philosophy one by one again. So, Langraph…
+
+348
+00:41:03.750 --> 00:41:07.470
+Jitendra K: Is an extended langchain capability with an in-built graph.
+
+349
+00:41:07.570 --> 00:41:09.120
+Jitendra K: Base orchestration.
+
+350
+00:41:09.460 --> 00:41:12.549
+Jitendra K: And that will help us to develop model, agent.
+
+351
+00:41:13.060 --> 00:41:15.540
+Jitendra K: And create a model-agenic workflows
+
+352
+00:41:15.910 --> 00:41:23.290
+Jitendra K: In a form of a direct graph with an explicit state transition, right? So basically, line graph will support
+
+353
+00:41:23.430 --> 00:41:25.900
+Jitendra K: State transition with a conditional routing.
+
+354
+00:41:26.270 --> 00:41:32.929
+Jitendra K: We have… we can take some example… some more examples to understand, but the core philosophy remains the same. That means line graph is more…
+
+355
+00:41:33.720 --> 00:41:40.990
+Jitendra K: align with the dynamicness of the environment. So building a line graph will definitely going to give you
+
+356
+00:41:42.010 --> 00:41:48.230
+Jitendra K: Different sort of graph functions, like node, address, and straight flows.
+
+357
+00:41:49.020 --> 00:41:59.900
+Jitendra K: So, unlike directed acyclic graph, Langgraph supports iterative refinement and retry logic. So, it's not a DAG. If you ask me what is Langgraph, is it a DAG? The answer is no.
+
+358
+00:42:00.120 --> 00:42:03.749
+Jitendra K: Langraph is more of an iterative refinement using React.
+
+359
+00:42:04.350 --> 00:42:08.240
+Jitendra K: And then you can able to even create checkpoints for…
+
+360
+00:42:08.730 --> 00:42:12.860
+Jitendra K: Pausing resumption or recovering the agentic workflows.
+
+361
+00:42:13.000 --> 00:42:20.319
+Jitendra K: You can able to use Human in the Loop for approvals, human intervention, and also for… AI observability.
+
+362
+00:42:20.710 --> 00:42:34.510
+Jitendra K: So the key differentiator that Langraph produced here is it's a state machine. You explicitly define state, transition, and condition, and it will give you control over all the complex workflow that is required to be managed
+
+363
+00:42:34.800 --> 00:42:40.400
+Jitendra K: by the developer team. That means you're not ending up into any vendor locking. Vendor locking means…
+
+364
+00:42:40.750 --> 00:42:44.110
+Jitendra K: If you're using Crew AI, you depend upon their commercials.
+
+365
+00:42:44.430 --> 00:42:47.590
+Jitendra K: Right? Once they launch new feature, then you can use it.
+
+366
+00:42:48.090 --> 00:42:50.130
+Jitendra K: But in Langraph, you don't have that.
+
+367
+00:42:50.340 --> 00:42:54.280
+Jitendra K: limitation. You can create as many features as you want.
+
+368
+00:42:55.400 --> 00:42:59.260
+Jitendra K: Right, so Crew AI, you have to end up into vendor lock-in.
+
+369
+00:42:59.700 --> 00:43:04.560
+Jitendra K: But in Langraph, you're free to use, you're free to collaborate, you're free to develop.
+
+370
+00:43:05.060 --> 00:43:10.549
+Jitendra K: It is best suited for complex overflow with conditional branching, iterative loop, and parallel execution.
+
+371
+00:43:10.980 --> 00:43:20.890
+Jitendra K: And it follows state management pretty seamlessly, and it is particularly useful for regulated industries, like finance, healthcare, insurance.
+
+372
+00:43:21.270 --> 00:43:24.689
+Jitendra K: We'll take some more examples to understand, right? But as I mentioned.
+
+373
+00:43:25.240 --> 00:43:29.760
+Jitendra K: There's no hard and fast rule that you can be able to go with. Langraph always.
+
+374
+00:43:31.730 --> 00:43:36.449
+Jitendra K: No, Crew AI is Crew AI. There's no Microsoft involvement in Crew AI.
+
+375
+00:43:37.640 --> 00:43:47.319
+Jitendra K: So, this is the model that we have seen, the architecture of Langraph. So, let's take an example that we have seen earlier, that, let's say I'm writing a review.
+
+376
+00:43:47.610 --> 00:43:52.430
+Jitendra K: on certain, commodity markets, and I'm using the write-ups.
+
+377
+00:43:52.860 --> 00:44:02.149
+Jitendra K: from the internet, So this particular line graph will start like a… node structure.
+
+378
+00:44:02.710 --> 00:44:08.010
+Jitendra K: So it'll split the responsibility by saying that your responsibility is to work like a classifier.
+
+379
+00:44:08.350 --> 00:44:12.140
+Jitendra K: And then the classifier will be a node. This is my starting point.
+
+380
+00:44:14.100 --> 00:44:20.459
+Jitendra K: And I will have an end point, so this is fixed. I will have a start, and I will have an end. This is the two things which is fixed, right?
+
+381
+00:44:20.760 --> 00:44:25.330
+Jitendra K: But in the between the two things, what are the things that I'm going to split up?
+
+382
+00:44:25.760 --> 00:44:31.069
+Jitendra K: So I will have some sort of core modules by which I will try to create
+
+383
+00:44:32.810 --> 00:44:40.810
+Jitendra K: and supervisory agent, which can able to look after multiple agents. So I will have a series of agents, like the searcher, analyst, and writer.
+
+384
+00:44:41.330 --> 00:44:49.640
+Jitendra K: And as you can see that, I'm routing the request to all three, Depending upon their roles.
+
+385
+00:44:50.410 --> 00:44:54.090
+Jitendra K: So the graph… function, or sorry, the Python function.
+
+386
+00:44:54.560 --> 00:45:01.520
+Jitendra K: We'll process and, make this to a transformation state, and each node receives state and written updated state.
+
+387
+00:45:01.990 --> 00:45:11.039
+Jitendra K: The edge, which is the connecting nodes, which is connecting the two nodes, can be conditional or can be a unconditional sequencing as well.
+
+388
+00:45:11.390 --> 00:45:15.990
+Jitendra K: So if I'm here, you can see that I'm not using any condition to route the…
+
+389
+00:45:17.580 --> 00:45:21.130
+Jitendra K: 0th node to the first node, and so on and so forth.
+
+390
+00:45:21.370 --> 00:45:27.640
+Jitendra K: But I'm just maintaining a dictionary or a parentee function that will perform this sequencing.
+
+391
+00:45:27.970 --> 00:45:36.109
+Jitendra K: That means what I'm trying to do here is, I'm just trying to use a simple graph that will manage the state across multiple.
+
+392
+00:45:36.670 --> 00:45:37.930
+Jitendra K: level of…
+
+393
+00:45:39.630 --> 00:45:45.840
+Jitendra K: traversal between the graph nodes, right? So that means each node will become an agent for me in a line graph.
+
+394
+00:45:46.050 --> 00:45:51.980
+Jitendra K: And that's why it is a state graph model, because each state that I'm making as a transition from a node
+
+395
+00:45:52.230 --> 00:45:54.449
+Jitendra K: We'll call multiple agents.
+
+396
+00:45:56.640 --> 00:46:04.569
+Jitendra K: Now, once we, I mean, we have taken a lot of example in the last tutorial as well. The concept is, you have conditional edges.
+
+397
+00:46:04.910 --> 00:46:12.369
+Jitendra K: Where the, node will execute a path, or maybe node will change the path.
+
+398
+00:46:12.630 --> 00:46:17.690
+Jitendra K: Based upon certain condition, based upon the current state, and it will return next node.
+
+399
+00:46:17.930 --> 00:46:22.919
+Jitendra K: So the idea is, when we talk about conditional edging, we are talking about enabling a dynamicness
+
+400
+00:46:23.310 --> 00:46:25.629
+Jitendra K: Without hard-coding the paths.
+
+401
+00:46:25.820 --> 00:46:28.340
+Jitendra K: So let's take an example, let's say I'm writing.
+
+402
+00:46:28.810 --> 00:46:31.750
+Jitendra K: I'm creating, an agent.
+
+403
+00:46:33.840 --> 00:46:35.209
+Jitendra K: To book the flight.
+
+404
+00:46:35.490 --> 00:46:39.010
+Jitendra K: Or maybe I'm creating a trip planner agent, let's say.
+
+405
+00:46:39.250 --> 00:46:44.010
+Jitendra K: So, my trip planner agent, I will give you an example. Let's say I'm creating a…
+
+406
+00:46:44.270 --> 00:46:48.679
+Jitendra K: Trip Planner Agent, and the trip planner agent comprise of several things.
+
+407
+00:46:49.250 --> 00:46:58.740
+Jitendra K: Which include flight booking, hotel booking, Dine-out booking.
+
+408
+00:47:00.400 --> 00:47:06.340
+Jitendra K: Taxi booking, And all it is going to do with a fixed budget.
+
+409
+00:47:06.740 --> 00:47:14.139
+Jitendra K: some fixed budget that I'm having, right? So basically, the trip planner agent will have to retrieve the data from each and every
+
+410
+00:47:14.260 --> 00:47:15.600
+Jitendra K: execution task.
+
+411
+00:47:16.190 --> 00:47:19.459
+Jitendra K: That means the conditional branch will depend upon my…
+
+412
+00:47:20.160 --> 00:47:26.770
+Jitendra K: amount that I'm going to invest, likely to invest, or I'm clear that this is the amount that I'm going to invest for this trip.
+
+413
+00:47:27.260 --> 00:47:31.130
+Jitendra K: Based upon this constraint, it will use a conditional routing.
+
+414
+00:47:31.360 --> 00:47:36.470
+Jitendra K: It will try to use multiple agents collaboratively, 2…
+
+415
+00:47:37.160 --> 00:47:48.300
+Jitendra K: perform this search optimally within this budget, right? So maybe it will be able to understand the constraint that I'm putting up. Maybe I would like to go not lesser than 4-star hotel.
+
+416
+00:47:49.910 --> 00:47:54.350
+Jitendra K: I don't want to have any connecting flight, I would like to book a direct flight.
+
+417
+00:47:55.090 --> 00:48:01.799
+Jitendra K: I would like to spend, maybe a limited amount of money on dine-out option per day.
+
+418
+00:48:02.860 --> 00:48:05.279
+Jitendra K: I would like to go with,
+
+419
+00:48:05.790 --> 00:48:11.040
+Jitendra K: particular types of a cab and taxi. I can also… I'm also open for
+
+420
+00:48:11.410 --> 00:48:14.820
+Jitendra K: Maybe, local commutations within the…
+
+421
+00:48:16.350 --> 00:48:27.599
+Jitendra K: travel destination. So all these things will become, ultimately, my input to the model, and my model, or my agent, will be able to accustom to those parameters using system prompts.
+
+422
+00:48:27.750 --> 00:48:36.039
+Jitendra K: And then try to utilize these constraints to maximize my search. And the search criteria that I'm passing on here is.
+
+423
+00:48:36.200 --> 00:48:41.189
+Jitendra K: I have to make sure that my output will be within the… defined budget.
+
+424
+00:48:41.350 --> 00:48:44.210
+Jitendra K: And I will get all the liberties within the…
+
+425
+00:48:44.490 --> 00:48:49.309
+Jitendra K: search criteria. That means that I'm depending upon conditional branching.
+
+426
+00:48:49.880 --> 00:49:00.290
+Jitendra K: So, conditional routing is very important, which has been naturally supported by Langraph, and this will help us to maintain the states, conversations, schemas.
+
+427
+00:49:00.430 --> 00:49:05.450
+Jitendra K: And it will help us to dynamically branching without hardcode products.
+
+428
+00:49:06.580 --> 00:49:11.470
+Jitendra K: I can split this… Tripliner agent to a multiple sub-goals.
+
+429
+00:49:11.770 --> 00:49:17.389
+Jitendra K: So if I'm going to find each goal optimally, ultimately, I will be able to achieve this goal, right?
+
+430
+00:49:17.640 --> 00:49:29.750
+Jitendra K: If I'm working on each goal, ultimately, as an optimal parameter, I will achieve this automatically. That means each subgraph will be able to break down your complex problem into a subproblem.
+
+431
+00:49:30.340 --> 00:49:35.399
+Jitendra K: And each… Graph or subgraph will maintain their own state schema.
+
+432
+00:49:35.570 --> 00:49:39.790
+Jitendra K: While communicating through well-defined interfaces with a parent graph.
+
+433
+00:49:40.010 --> 00:49:47.450
+Jitendra K: So that means… I will have a very systematic way of managing the internal subgraphs with the help of
+
+434
+00:49:47.790 --> 00:49:48.890
+Jitendra K: Langraphs.
+
+435
+00:49:49.590 --> 00:49:53.679
+Jitendra K: Similarly, Langraph offers you an important parameter called human in the loop.
+
+436
+00:49:54.160 --> 00:50:04.589
+Jitendra K: Now, let me explain, even in the loop, I think we have already discussed, but let me re-explain. So, let's say, in a highly regulated environment, like financial banks.
+
+437
+00:50:04.970 --> 00:50:11.199
+Jitendra K: So the decision that you're taking from agents, even if it is a small decision, the impact can be large.
+
+438
+00:50:11.810 --> 00:50:15.019
+Jitendra K: Let me take an example. Let's say I'm creating…
+
+439
+00:50:16.190 --> 00:50:19.060
+Jitendra K: The alpha Researcher for my traders.
+
+440
+00:50:19.340 --> 00:50:26.590
+Jitendra K: An alpha researcher are simply interacting with my traders and recommending them asset classes to trade.
+
+441
+00:50:26.770 --> 00:50:27.580
+Jitendra K: Right?
+
+442
+00:50:27.750 --> 00:50:35.439
+Jitendra K: But bank will be fined heavily by regulators. If my client goes bankrupt.
+
+443
+00:50:35.770 --> 00:50:37.770
+Jitendra K: Let's say he's just following blindly.
+
+444
+00:50:38.300 --> 00:50:47.759
+Jitendra K: The trade execution, and then he's investing, keeps on investing on the high-risk markets, and ultimately he end up into bankrupt, right?
+
+445
+00:50:47.910 --> 00:50:50.890
+Jitendra K: So, he will file a complaint against the bank.
+
+446
+00:50:51.080 --> 00:50:54.330
+Jitendra K: And then, regulator will fine heavily on us.
+
+447
+00:50:54.850 --> 00:51:03.920
+Jitendra K: That means, if you are using… without using human-the-loop, you're using AI agents or agentic solution.
+
+448
+00:51:04.150 --> 00:51:10.000
+Jitendra K: Without a full… Lifecycle management, it will always lead to an issue.
+
+449
+00:51:10.410 --> 00:51:13.379
+Jitendra K: And the critical high decision making
+
+450
+00:51:14.680 --> 00:51:19.109
+Jitendra K: Pharmas can be… leads to several obligations, for sure.
+
+451
+00:51:22.720 --> 00:51:34.799
+Jitendra K: Checkpoint and persistent, that means you can save the graph in any state, you can be able to resume from any state, and that is one of the important criterias that you can be able to use from blank graph. That means the checkpoint and persistent
+
+452
+00:51:34.930 --> 00:51:37.800
+Jitendra K: Way of managing the core modules.
+
+453
+00:51:38.170 --> 00:51:44.259
+Jitendra K: Parallel fan in and fan-out, that means you can execute multiple nodes simultaneously using the send API.
+
+454
+00:51:44.500 --> 00:51:48.649
+Jitendra K: And then you can merge the result with a custom reducer function.
+
+455
+00:51:48.980 --> 00:51:52.249
+Jitendra K: And it will help you to do multiple research.
+
+456
+00:51:52.570 --> 00:51:55.880
+Jitendra K: Points that you're executing in parallel.
+
+457
+00:51:56.470 --> 00:52:04.190
+Jitendra K: So that means, We can able to utilize much more seamlessly asynchronous code.
+
+458
+00:52:04.570 --> 00:52:08.979
+Jitendra K: Which can run independently, and with the help of a custom reducer function.
+
+459
+00:52:09.170 --> 00:52:12.919
+Jitendra K: You can able to make it, highly comprehensive.
+
+460
+00:52:14.410 --> 00:52:24.760
+Jitendra K: Langraph is also very useful for streaming and real-time monitoring. That means your stream notes, state updates, LLM tokens, all consume in the real-time.
+
+461
+00:52:24.970 --> 00:52:29.499
+Jitendra K: It also supports… Serverless or server-side event enablement.
+
+462
+00:52:29.660 --> 00:52:34.039
+Jitendra K: That can show you, what is happening at each node level.
+
+463
+00:52:34.340 --> 00:52:38.220
+Jitendra K: Let's say, again, coming back to this example, you can able to debug
+
+464
+00:52:38.390 --> 00:52:40.790
+Jitendra K: How many flights my agent has searched.
+
+465
+00:52:40.920 --> 00:52:43.550
+Jitendra K: You can see, literally, the list of itineraries.
+
+466
+00:52:43.740 --> 00:52:51.220
+Jitendra K: You can get… This validated by a user, and then user ticks, then you can proceed with hotel search.
+
+467
+00:52:51.430 --> 00:52:54.969
+Jitendra K: So all these things is… Happening at a real time.
+
+468
+00:52:55.650 --> 00:53:02.459
+Jitendra K: And the basis of the real-time functions, or server-side capability, you can be able to enable this seamlessly.
+
+469
+00:53:03.390 --> 00:53:08.719
+Jitendra K: And this has happened with the help of… I mean, this is possible with the help of Elangra-based agents.
+
+470
+00:53:11.190 --> 00:53:18.779
+Jitendra K: Now, let's try to deep dive into some of the use cases. I will not go into the code for Langraph today. We'll focus on True AI.
+
+471
+00:53:19.150 --> 00:53:22.190
+Jitendra K: So the idea is, maybe just to…
+
+472
+00:53:22.490 --> 00:53:27.699
+Jitendra K: Understand some more functional part and industrial fitment criterias.
+
+473
+00:53:27.910 --> 00:53:33.899
+Jitendra K: And then we'll move on to the crew, and then we'll take some lab exercise as well. But let's start to first understand
+
+474
+00:53:34.360 --> 00:53:43.190
+Jitendra K: the line graph, and at any point of time you feel that you're working on similar use case, I'm open to discuss on your ideas as well. How differently are you doing?
+
+475
+00:53:43.470 --> 00:53:47.410
+Jitendra K: So let's take a regulatory compliance document analysis use case.
+
+476
+00:53:47.670 --> 00:53:54.669
+Jitendra K: So, every financial institution Sorry, every financial institution or a bank
+
+477
+00:53:55.830 --> 00:54:01.599
+Jitendra K: will try to automate compliance review. That means they are very much concerned about regulatory breaches.
+
+478
+00:54:05.850 --> 00:54:13.020
+Jitendra K: So the part of, multiple regulatory policies which operate in multiple countries, multiple geography.
+
+479
+00:54:13.970 --> 00:54:16.920
+Jitendra K: You always have plenty of data to play with.
+
+480
+00:54:18.340 --> 00:54:24.680
+Jitendra K: Now, when we are using any agentic use case to automate some of the
+
+481
+00:54:25.000 --> 00:54:29.489
+Jitendra K: reporting generation part, so I'm focusing on, let's say, report generation part.
+
+482
+00:54:30.050 --> 00:54:32.819
+Jitendra K: So it has to go through certain human reviews.
+
+483
+00:54:33.350 --> 00:54:35.270
+Jitendra K: Alright, this is a very important step.
+
+484
+00:54:35.500 --> 00:54:37.890
+Jitendra K: So, basically, I'm creating a policy
+
+485
+00:54:38.320 --> 00:54:44.650
+Jitendra K: based upon certain data points, which is a free-flow document, PDFs, websites.
+
+486
+00:54:45.680 --> 00:54:52.680
+Jitendra K: And am I extracting the entities which are impacted, or likely to be impacted, like country, are…
+
+487
+00:54:53.800 --> 00:54:59.130
+Jitendra K: regulations, right? And then, based upon that, I'm doing some semantic search on rule-based matching.
+
+488
+00:54:59.400 --> 00:55:05.469
+Jitendra K: So, basically, the idea is, Why should I prefer Langraph to solve such complex challenges?
+
+489
+00:55:06.120 --> 00:55:08.239
+Jitendra K: Now, as you can see, the word regulatory.
+
+490
+00:55:08.350 --> 00:55:13.670
+Jitendra K: and compliance, right? So this is a part of my financial, industrial use case.
+
+491
+00:55:13.800 --> 00:55:20.020
+Jitendra K: If I'm going to use a crew AI and Autogen frameworks, It will still…
+
+492
+00:55:20.290 --> 00:55:23.770
+Jitendra K: Fail during the model review management part.
+
+493
+00:55:24.410 --> 00:55:30.549
+Jitendra K: So there's a team, which is called MRM Team in Bank, which will be able to do this whole check thoroughly.
+
+494
+00:55:31.120 --> 00:55:34.480
+Jitendra K: So let's say under stress scenarios, how will your agent react?
+
+495
+00:55:35.150 --> 00:55:43.619
+Jitendra K: under… under exception, how will your agent react? Right? All those things has to be seamlessly part of your review cycles.
+
+496
+00:55:43.740 --> 00:55:48.930
+Jitendra K: But if I'm going to use Pro and Autogen, My reviews will fail.
+
+497
+00:55:51.040 --> 00:55:58.450
+Jitendra K: So, Langraph will help me to overcome these challenges. A production-ready code, an enterprise-ready code. That means I can be able to incorporate
+
+498
+00:56:04.230 --> 00:56:12.590
+Jitendra K: I can able to incorporate any sort of conditional routing, branching, and even I can able to scope descope high-risk document.
+
+499
+00:56:13.220 --> 00:56:15.060
+Jitendra K: Blue for deeper analysis.
+
+500
+00:56:15.270 --> 00:56:18.930
+Jitendra K: The state management, that means the state carry
+
+501
+00:56:20.500 --> 00:56:23.360
+Jitendra K: Matching rules, risk scores, and review decisions.
+
+502
+00:56:23.550 --> 00:56:29.050
+Jitendra K: Which is all persisted across my audit regulatory document, and I can able to make it
+
+503
+00:56:29.180 --> 00:56:34.449
+Jitendra K: seamlessly integrated. That means a bank undergoes through certain audits, right?
+
+504
+00:56:34.600 --> 00:56:39.700
+Jitendra K: So, for every product that you're marketing, it will go through certain audits.
+
+505
+00:56:40.070 --> 00:56:44.300
+Jitendra K: So here, you're automating one process. So it has to be undergone through the audit.
+
+506
+00:56:44.900 --> 00:56:48.900
+Jitendra K: And, it will… the auditor will look from the adverse scenarios.
+
+507
+00:56:49.550 --> 00:56:55.010
+Jitendra K: So basically, they're not going to look for… simple
+
+508
+00:56:55.580 --> 00:57:02.140
+Jitendra K: likely… likelihood to happen scenarios. They are always thinking of worst-case scenarios, right?
+
+509
+00:57:02.590 --> 00:57:05.069
+Jitendra K: So, you have to pass that asset test.
+
+510
+00:57:05.220 --> 00:57:09.220
+Jitendra K: In a regulatory and compliance-driven… Environment.
+
+511
+00:57:09.470 --> 00:57:16.790
+Jitendra K: And for that, Langraph will help you to make sure that you will have the control over your designs.
+
+512
+00:57:17.110 --> 00:57:23.080
+Jitendra K: You have a full control over your workflows management, and you have a full control over your business impact.
+
+513
+00:57:26.330 --> 00:57:29.330
+Jitendra K: Yeah, we'll take one example to understand why Crew AI failed.
+
+514
+00:57:29.490 --> 00:57:38.150
+Jitendra K: Is it possible to make an identifier system that does futures and option trading in hydrogen? Yeah, it is possible. That is called Alpha Researcher, as a part of
+
+515
+00:57:38.960 --> 00:57:43.449
+Jitendra K: the open source communities as well. Sulfur Researcher is a great tool.
+
+516
+00:57:46.240 --> 00:57:56.349
+Jitendra K: Let's take another example, a perfect candidate for Langraph, where we are trying to create an adaptive customer support escalation in an e-commerce retail segment.
+
+517
+00:57:56.640 --> 00:57:57.710
+Jitendra K: use case.
+
+518
+00:57:57.960 --> 00:58:00.900
+Jitendra K: So imagine that you're working for an e-commerce platform.
+
+519
+00:58:01.010 --> 00:58:03.829
+Jitendra K: And, you have to maybe…
+
+520
+00:58:04.350 --> 00:58:08.680
+Jitendra K: design everything from land graph to route customer issues through
+
+521
+00:58:08.920 --> 00:58:12.090
+Jitendra K: Specialized agent nodes based upon the complexity.
+
+522
+00:58:12.560 --> 00:58:19.109
+Jitendra K: The first and foremost thing, you have to understand the intent of the query, the intent of the call, the kind of
+
+523
+00:58:19.760 --> 00:58:24.089
+Jitendra K: Main, driving force, why the customer has raised a concern.
+
+524
+00:58:24.450 --> 00:58:27.659
+Jitendra K: And then route it to a particular agent.
+
+525
+00:58:28.610 --> 00:58:33.600
+Jitendra K: Seamlessly. That means you need… you already know that I have got several agents.
+
+526
+00:58:33.850 --> 00:58:42.590
+Jitendra K: Some of the agent can be able to answer frequently asked questions. Some of the agents are very good in answering technical questions, queries from the agent.
+
+527
+00:58:42.830 --> 00:58:46.809
+Jitendra K: Some of them are very good in human handoff, that means they understand the queries.
+
+528
+00:58:47.170 --> 00:58:52.000
+Jitendra K: Understand the feedbacks, and then they transfer the call to the human for handoffs.
+
+529
+00:58:52.510 --> 00:58:59.960
+Jitendra K: Some of them required conditional routing, so that means that, based upon your intent, based upon the query parameter.
+
+530
+00:59:01.080 --> 00:59:03.269
+Jitendra K: You're going to call the specialized agent.
+
+531
+00:59:03.510 --> 00:59:07.719
+Jitendra K: Which will be able to understand the context and route it to the right node.
+
+532
+00:59:07.980 --> 00:59:10.080
+Jitendra K: And that's the first thing that you're going to do.
+
+533
+00:59:10.650 --> 00:59:14.949
+Jitendra K: Similarly, the cyclic re-evaluation, so let's say if I'm…
+
+534
+00:59:15.090 --> 00:59:18.240
+Jitendra K: Dealing with this scenario, Tile 1 bot failed.
+
+535
+00:59:18.600 --> 00:59:23.730
+Jitendra K: then I have to maybe take human into consideration, or maybe wait for
+
+536
+00:59:24.060 --> 00:59:29.540
+Jitendra K: cycle 2 to be continue, and then generate an output, right? So that is where I have to ensure
+
+537
+00:59:30.890 --> 00:59:36.989
+Jitendra K: No, this is not a deterministic workflow. This depends upon your query, right? So how can it be deterministic, first of all?
+
+538
+00:59:37.710 --> 00:59:40.800
+Jitendra K: So if you're query deterministic, then why you required bots?
+
+539
+00:59:41.500 --> 00:59:43.689
+Jitendra K: We can use frequently asked questions, right?
+
+540
+00:59:43.950 --> 00:59:46.910
+Jitendra K: This is not a deterministic workflow. It depends upon your intent.
+
+541
+00:59:48.250 --> 00:59:51.960
+Jitendra K: This is a routing workflow, dynamic workflow, conditional routing workflow.
+
+542
+00:59:53.170 --> 00:59:54.530
+Jitendra K: Alright, so…
+
+543
+00:59:55.890 --> 01:00:03.429
+Jitendra K: So basically, if you're using the cyclic and re-evaluation criteria, that means one agent will go into indefinite wait state.
+
+544
+01:00:03.740 --> 01:00:12.619
+Jitendra K: And then another agent will work and operate on that particular information gathering, and then generate some answer, which can be passed on to the previous agent.
+
+545
+01:00:12.890 --> 01:00:15.879
+Jitendra K: To generate a, inside on the top of it.
+
+546
+01:00:16.370 --> 01:00:25.459
+Jitendra K: Similarly, you can, maybe, work collaboratively to support that task.
+
+547
+01:00:25.750 --> 01:00:35.909
+Jitendra K: So let's take an example here. So let's say I'm creating a customer support escalation agent with a team of specialized agent, like, frequently asked technical agent or human head-off.
+
+548
+01:00:36.300 --> 01:00:40.730
+Jitendra K: So based upon my query parameter, let's say a user is asking, I would like to…
+
+549
+01:00:41.630 --> 01:00:50.860
+Jitendra K: initiate a cross-border transaction from this country to this country. Can you please guide me on how to enable and add this account to my net banking?
+
+550
+01:00:51.440 --> 01:00:57.289
+Jitendra K: Now, I didn't understand that he's talking about too many things. Cross-border, country A, country B.
+
+551
+01:00:57.840 --> 01:01:03.629
+Jitendra K: He's asking me to go through the night banking facility and add it, right?
+
+552
+01:01:03.750 --> 01:01:09.719
+Jitendra K: So basically, this agent will definitely going to split this query into multiple tasks.
+
+553
+01:01:10.910 --> 01:01:15.749
+Jitendra K: So it will say that this is a multi-hop query that I'm going to use. So instead of
+
+554
+01:01:15.830 --> 01:01:31.230
+Jitendra K: answering this at one go, let's try to split this task to multiple agents, and each agent will work on a particular query and then later resolution. And as a supervisory agent, I will be able to collate the answers from each agent, and then finally retrieve
+
+555
+01:01:31.630 --> 01:01:40.020
+Jitendra K: the, the… the final answer to the consumer, right? So this is where You're going to use…
+
+556
+01:01:40.190 --> 01:01:47.030
+Jitendra K: cyclic reevaluation, or ZOLT pattern, by which you can be able to collaborate multiple agents to perform this task.
+
+557
+01:01:47.740 --> 01:01:55.829
+Jitendra K: But everything is depending upon your query parameter. So, query is dynamic, right? So, customer will not write a simple query.
+
+558
+01:01:56.480 --> 01:02:05.189
+Jitendra K: Customer will always… customer will know that he's dealing with some intelligent system. He will like to become more proactive in asking, for sure.
+
+559
+01:02:05.540 --> 01:02:14.250
+Jitendra K: But sometimes you will see that it depends upon user to user as well. Some users may use long abbreviations, some are very good in short, short.
+
+560
+01:02:14.680 --> 01:02:18.000
+Jitendra K: So that means your agent has to adapt to a certain way of
+
+561
+01:02:18.360 --> 01:02:21.869
+Jitendra K: Writing that particular query, and then generate an answer.
+
+562
+01:02:24.020 --> 01:02:27.229
+Jitendra K: Intent classification will be done by orchestration agent.
+
+563
+01:02:28.520 --> 01:02:33.819
+Jitendra K: It's not orchestration, it's a router agent, the routing logic we are talking about.
+
+564
+01:02:34.560 --> 01:02:42.609
+Jitendra K: So, routing… first, and then it will delegate the task for ITJ.
+
+565
+01:02:45.670 --> 01:02:53.420
+Jitendra K: Orchestration is a full lifecycle management of all agents. Orchestration means we are talking about all Manage agents.
+
+566
+01:02:55.540 --> 01:03:01.470
+Jitendra K: Okay, let's go on to the third use case, multiple source search and report generation.
+
+567
+01:03:03.370 --> 01:03:08.110
+Jitendra K: Now, I think this is one of the important criteria which every organization is trying to create.
+
+568
+01:03:08.460 --> 01:03:15.839
+Jitendra K: Every organization will have, different tools, like HR, boards, where the employee can ask policies about it.
+
+569
+01:03:16.030 --> 01:03:18.700
+Jitendra K: a particular country. Let's say you're working in Bangalore.
+
+570
+01:03:18.810 --> 01:03:25.069
+Jitendra K: And you would like to know the workflow policy of your organization. So, whom you are going to interact with? HR, right? Or your manager?
+
+571
+01:03:25.330 --> 01:03:37.049
+Jitendra K: If you're a new joine, right? So, let's say you're working in UK, and you would like to know the, work from policy over there. So, there are different policies as a part of different countries and randoms.
+
+572
+01:03:37.280 --> 01:03:43.220
+Jitendra K: That means, it depends upon the user, and you will have access to multiple
+
+573
+01:03:43.690 --> 01:03:47.140
+Jitendra K: Assets in the bank, or in any organization.
+
+574
+01:03:47.430 --> 01:03:54.060
+Jitendra K: So you will have access to web search, you will have access to internal databases, PDF corpus, API sources.
+
+575
+01:03:54.700 --> 01:03:58.029
+Jitendra K: And then, your query will be…
+
+576
+01:03:58.150 --> 01:04:01.800
+Jitendra K: Country-wise, or very specific to a group.
+
+577
+01:04:03.330 --> 01:04:09.590
+Jitendra K: And then, your router or planner agent, We'll able to generate
+
+578
+01:04:09.800 --> 01:04:16.240
+Jitendra K: Then site, by calling the right tool, and then synthesize the output to generate a final response.
+
+579
+01:04:16.740 --> 01:04:25.959
+Jitendra K: So I… again, coming back to the same point, report generation, let's say report generation, may be the legacy application.
+
+580
+01:04:26.250 --> 01:04:31.630
+Jitendra K: So my research… Report will take… Two days to analyze.
+
+581
+01:04:32.060 --> 01:04:34.039
+Jitendra K: And we generated in 15 minutes.
+
+582
+01:04:34.460 --> 01:04:38.560
+Jitendra K: The sources are cited or not. Conflicts are flagged or not.
+
+583
+01:04:39.110 --> 01:04:46.339
+Jitendra K: Do I have enough confidence to generate this report? So all these things matter, right, when you're talking about AIOps.
+
+584
+01:04:47.120 --> 01:04:58.550
+Jitendra K: So basically, just to give you a simple answer on this, it's again the human in the loop that you require to operate to produce the quality and tangible outcome all the time that you're using.
+
+585
+01:04:58.790 --> 01:05:02.389
+Jitendra K: this bot for. And there are multiple ways that you can be able to do it.
+
+586
+01:05:02.640 --> 01:05:09.260
+Jitendra K: We'll talk about those ways, how to evaluate your agentic output. There are different sort of factors
+
+587
+01:05:09.550 --> 01:05:11.250
+Jitendra K: Like, ground truth.
+
+588
+01:05:14.140 --> 01:05:19.139
+Jitendra K: fact checks, completion scores.
+
+589
+01:05:21.560 --> 01:05:23.360
+Jitendra K: Hallucination indexes.
+
+590
+01:05:25.870 --> 01:05:30.070
+Jitendra K: Etc. So we will use this to generalize the outcome.
+
+591
+01:05:30.300 --> 01:05:33.259
+Jitendra K: All those things is very important for that purpose.
+
+592
+01:05:39.200 --> 01:05:43.799
+Jitendra K: Let's talk about the fourth use case, which is geopolitical trading intelligence pipelines.
+
+593
+01:05:43.960 --> 01:05:47.829
+Jitendra K: So let's say you're using Langraph to automate a hash fund.
+
+594
+01:05:48.120 --> 01:05:51.029
+Jitendra K: In the hedge fund, the monitoring process.
+
+595
+01:05:51.310 --> 01:05:59.950
+Jitendra K: You are keeping an eye on geopolitical event, assess marketing impact in terms of volatility index, and generate an actionable trading signal in real time.
+
+596
+01:06:00.730 --> 01:06:08.700
+Jitendra K: So… First and foremost thing, to deal with this complex scenario, you have to first understand
+
+597
+01:06:09.450 --> 01:06:15.570
+Jitendra K: How… what are the factors which have been considered to take a decision by the human?
+
+598
+01:06:16.320 --> 01:06:22.129
+Jitendra K: So we'd like to understand how these systems are integrated. That means you have got
+
+599
+01:06:22.860 --> 01:06:31.400
+Jitendra K: Several ways to analyze the sentiment, several ways to understand historical correlation, trade signals, Risk assessment and portfolio management.
+
+600
+01:06:31.590 --> 01:06:36.059
+Jitendra K: So this is your end objective, that you would like to create something like this.
+
+601
+01:06:36.680 --> 01:06:40.319
+Jitendra K: But first and foremost thing, what you're going to do is you're going to break down your problem.
+
+602
+01:06:41.090 --> 01:06:47.339
+Jitendra K: Break down your problem into chunks. Break down your problem into macroeconomic variable level.
+
+603
+01:06:47.850 --> 01:06:50.470
+Jitendra K: So you will say that, okay, I have,
+
+604
+01:06:50.990 --> 01:06:59.170
+Jitendra K: I have a list of these economic factors, Uncertainties, market impact, Sectorial impact, etc.
+
+605
+01:06:59.410 --> 01:07:04.309
+Jitendra K: And I would like to perform a deep drive on each factor using,
+
+606
+01:07:05.610 --> 01:07:11.970
+Jitendra K: Using my source systems, right? Which is there in my organization. So, first and the foremost thing, you have to ensure
+
+607
+01:07:12.190 --> 01:07:20.879
+Jitendra K: that you have a clear visibility of your existing architecture. That is very important, because you are trying to replace that product.
+
+608
+01:07:21.460 --> 01:07:25.169
+Jitendra K: Right? So if you don't understand, What are the existing…
+
+609
+01:07:26.150 --> 01:07:29.580
+Jitendra K: tools, what are existing APIs, what are the existing
+
+610
+01:07:29.930 --> 01:07:35.480
+Jitendra K: Databases that you're having, and how the humans are Taking these decisions.
+
+611
+01:07:35.650 --> 01:07:47.540
+Jitendra K: you will not be able to replace them. So it is very important that you should look from the first principle point of view, and then only you start your project. If you directly jump on that project and say, okay, I have
+
+612
+01:07:47.920 --> 01:07:53.590
+Jitendra K: I have done 10 projects in Agent TKI, and I can solve this as well. So I think,
+
+613
+01:07:53.910 --> 01:07:56.869
+Jitendra K: You will… you're not committing, right?
+
+614
+01:07:57.880 --> 01:08:03.539
+Jitendra K: statement at that point of time. First and foremost thing, you have to become a domain expert, and then try
+
+615
+01:08:04.310 --> 01:08:05.370
+Jitendra K: Things out.
+
+616
+01:08:13.350 --> 01:08:21.579
+Jitendra K: Alright, so let's try to… Summarize the discussion for Langraph with a key strength and limitation.
+
+617
+01:08:22.229 --> 01:08:32.269
+Jitendra K: So we understand the strength, we understand that you are going to create a maximum, sorry, you are going to create a quality product with Langraph, with maximum control, explicitly
+
+618
+01:08:32.899 --> 01:08:36.480
+Jitendra K: Leveraging state control and state machine control.
+
+619
+01:08:37.300 --> 01:08:39.109
+Jitendra K: Nothing going to behave.
+
+620
+01:08:39.990 --> 01:08:46.289
+Jitendra K: any, I mean, hindrances to evaluate agents.
+
+621
+01:08:46.680 --> 01:08:53.099
+Jitendra K: You will have cyclic, betteracyclic workflows, you can do iterative refinement loops as a first-class
+
+622
+01:08:53.220 --> 01:08:55.529
+Jitendra K: Strategicians, that means this is a phrase.
+
+623
+01:08:55.840 --> 01:08:58.839
+Jitendra K: You can able to use it, pretty seamlessly.
+
+624
+01:08:59.240 --> 01:09:02.730
+Jitendra K: You can go with production-grade persistent, that means,
+
+625
+01:09:03.149 --> 01:09:07.100
+Jitendra K: Anybody can check what agents are doing, how they're deciding.
+
+626
+01:09:07.569 --> 01:09:13.110
+Jitendra K: Because you're saving logs, you're saving conversation, you are making a persistent memory.
+
+627
+01:09:13.700 --> 01:09:15.560
+Jitendra K: For every conversation.
+
+628
+01:09:16.510 --> 01:09:23.789
+Jitendra K: You're also using a deep observability pipeline, to make sure that you can able to keep a very
+
+629
+01:09:24.140 --> 01:09:29.890
+Jitendra K: specific parameter Very high quality parameters on your agent.
+
+630
+01:09:30.210 --> 01:09:37.729
+Jitendra K: by continuously monitoring them. And that's one way that you can able to enhance your application and enhance the skills of agents.
+
+631
+01:09:38.770 --> 01:09:45.260
+Jitendra K: Similarly, you are using streamlined support, real-time token, and state streaming for responsible UIs.
+
+632
+01:09:45.490 --> 01:09:53.520
+Jitendra K: That means, you are keeping a very good tab on the upper budgets and lower budgets that you're going to use in your project.
+
+633
+01:09:53.910 --> 01:10:00.449
+Jitendra K: Subgraph composition, that means your code is more modular, reusable, and pretty well comprehensively
+
+634
+01:10:02.320 --> 01:10:07.589
+Jitendra K: Return, and then you can reuse, this particular code for any weather tasks.
+
+635
+01:10:08.030 --> 01:10:14.120
+Jitendra K: Some of the serious limitations, not… I would say not serious, but yes, some of the limitations of Langraph include
+
+636
+01:10:14.550 --> 01:10:17.309
+Jitendra K: Steep learning curve, that means graph think
+
+637
+01:10:18.550 --> 01:10:21.830
+Jitendra K: Unfair, unfamiliar to many developers, right?
+
+638
+01:10:22.040 --> 01:10:30.000
+Jitendra K: That means everybody is not very comfortable in using graphs, topological graph, creating state memory management, and all these concepts.
+
+639
+01:10:30.350 --> 01:10:34.050
+Jitendra K: Which may be one of the biggest drawbacks of line graph.
+
+640
+01:10:35.690 --> 01:10:45.610
+Jitendra K: Setting it up, maybe you require more memory, more manageable instance, more server-side capabilities before you start with Langraph products.
+
+641
+01:10:46.520 --> 01:10:57.300
+Jitendra K: It is tightly coupled to Langchain ecosystem, that means, again, there's a vendor locking. I would not say vendor locking, it's an open source. You can also contribute if you find any bug.
+
+642
+01:10:57.820 --> 01:11:09.890
+Jitendra K: But yes, if you're not con… if you're not able to contribute, if you're not capable, or you do not have time to contribute, then of course you have to wait for the bug fixes, right? And you have to wait for a stable version.
+
+643
+01:11:10.170 --> 01:11:14.870
+Jitendra K: And that will be tightly coupled to Langchain ecosystem commercials.
+
+644
+01:11:15.060 --> 01:11:19.030
+Jitendra K: Although it's free, of course, but yes, Some bug may fix…
+
+645
+01:11:19.310 --> 01:11:28.740
+Jitendra K: on a regular basis, and since this is one of the key attractions for many, organizations, so I don't… I have seen that there's,
+
+646
+01:11:29.280 --> 01:11:34.419
+Jitendra K: Not a huge waiting time when you're getting the release on previous version.
+
+647
+01:11:35.090 --> 01:11:41.019
+Jitendra K: Rebugging complexity land graph can be hard to reason about. That means you have to literally
+
+648
+01:11:41.490 --> 01:11:44.690
+Jitendra K: debug, without thinking…
+
+649
+01:11:46.050 --> 01:11:56.029
+Jitendra K: Of, graph traversals, and you should understand how the… how the graph operates at a node level, and what are the different transitions that it can take.
+
+650
+01:11:56.850 --> 01:12:00.099
+Jitendra K: Over-engineering risk, that is one more important.
+
+651
+01:12:00.750 --> 01:12:03.989
+Jitendra K: thing that I would like to talk about. Over-engineering is always
+
+652
+01:12:04.730 --> 01:12:11.269
+Jitendra K: fatal for several projects. So, you will be tempted to build complex graphs for simple problem, and that's not the right solution.
+
+653
+01:12:11.680 --> 01:12:14.380
+Jitendra K: Let's say if I'm saying that I would like to translate
+
+654
+01:12:14.810 --> 01:12:21.930
+Jitendra K: one language to another language over a call. Why should I require agents to do this? I have a proper LLM,
+
+655
+01:12:22.050 --> 01:12:28.389
+Jitendra K: Where I can simply use single agent to do this task. Why should I create a multiple agent for language translation?
+
+656
+01:12:28.690 --> 01:12:32.380
+Jitendra K: Right? I really do not require multiple agents for language translation.
+
+657
+01:12:33.670 --> 01:12:47.440
+Jitendra K: I can simply use a single agent, which can consume some API, and do this task for me, right? Instead of creating an army of agent, unnecessary making things complicated, which is not good for the project.
+
+658
+01:12:47.810 --> 01:12:54.080
+Jitendra K: So, over-engineering risk will always there when you're dealing with land graph-based agent. That means some
+
+659
+01:12:54.540 --> 01:12:57.710
+Jitendra K: Developer will have a tendency to…
+
+660
+01:12:57.900 --> 01:13:04.399
+Jitendra K: do this stuff, right? So that is one of the drawbacks of… Or limitation of Langraph.
+
+661
+01:13:06.830 --> 01:13:16.959
+Jitendra K: All right, so I think we are in mid of the session, so any question on Langraph, and we have completed Langraph, we will revisit Langraph for sure when we are dealing with RAC.
+
+662
+01:13:17.450 --> 01:13:26.919
+Jitendra K: Don't worry too much about it, that this is not an end of Langraph. Langraph will always be there until the last class, so don't worry too much about it if you do not understand.
+
+663
+01:13:27.060 --> 01:13:35.239
+Jitendra K: But Langraph is the heart of Agent AKI. That is what I would like to talk about, with… even with all the drawbacks that we have seen.
+
+664
+01:13:35.720 --> 01:13:41.640
+Jitendra K: But I can ignore those drawbacks and make it More, comprehensive and proactive.
+
+665
+01:13:42.290 --> 01:13:51.530
+Jitendra K: Langsmith is also based on subscription… no, it's not. Langsmith is not a subscription model. If you're using Enterprise Multiple Project, it will give you 3 projects for free.
+
+666
+01:13:52.040 --> 01:13:55.599
+Jitendra K: So, after that, you have to pay for enterprise grade.
+
+667
+01:13:56.350 --> 01:14:00.269
+Jitendra K: So, the best tool, if you would like to use free, is LangFuse.
+
+668
+01:14:00.620 --> 01:14:05.539
+Jitendra K: And there's one more observability pipeline, which we are going to talk about in the upcoming tutorials.
+
+669
+01:14:06.140 --> 01:14:12.250
+Jitendra K: Subgraph, can I call subagent? Yes, you can. So, subgraph can be a sub-agent as well.
+
+670
+01:14:19.380 --> 01:14:23.950
+Jitendra K: Alright guys, so I think we can take a 20-minute break, and then once we come back.
+
+671
+01:14:24.280 --> 01:14:30.630
+Jitendra K: We'll start with Crew AI as a fresh. So, Crew AI is something which we are going to spend most of our time,
+
+672
+01:14:30.920 --> 01:14:32.889
+Jitendra K: On the remaining part of the lecture.
+
+673
+01:14:33.040 --> 01:14:36.739
+Jitendra K: And we will try to make it slightly, hands-on.
+
+674
+01:14:37.170 --> 01:14:42.820
+Jitendra K: Because I believe, crew AI is, required more hands-on, and,
+
+675
+01:14:42.950 --> 01:14:49.649
+Jitendra K: we have to understand the Crew AI from both perspectives, like, how to use Crew AI as a Canvas tool, or as a…
+
+676
+01:14:50.130 --> 01:14:54.550
+Jitendra K: a Python-based interpreter. We'll take both examples.
+
+677
+01:14:54.760 --> 01:14:57.860
+Jitendra K: So let's take a 20-minute break, and then we can start the session. Thank you.
+
+678
+01:42:24.020 --> 01:42:28.520
+Jitendra K: Hi guys, I hope, you're back. Can we have a quick confirmation?
+
+679
+01:42:41.700 --> 01:42:43.400
+Jitendra K: Okay, thanks,
+
+680
+01:42:44.020 --> 01:42:51.989
+Jitendra K: So now what we are going to do is, we are going to start with Crew AI, and first and foremost thing, we will understand the architecture of Crew AI.
+
+681
+01:42:52.240 --> 01:42:57.539
+Jitendra K: And then, how True AI will help us to create, agentic
+
+682
+01:42:58.610 --> 01:43:04.879
+Jitendra K: Workflows, which we are going to use for domain-specific task resolutions, right?
+
+683
+01:43:05.010 --> 01:43:10.499
+Jitendra K: So, first and foremost thing, let's try to understand what is there inside the architecture, and then we'll move on to the…
+
+684
+01:43:11.220 --> 01:43:18.029
+Jitendra K: the essential components of True AI, including their framework, what sort of classes we need to use.
+
+685
+01:43:18.210 --> 01:43:22.519
+Jitendra K: And how about, dealing with… Stuff, including…
+
+686
+01:43:23.380 --> 01:43:31.489
+Jitendra K: solving the problem with the help of a crew.ai, similar to Langraph, right? So if you have to replace Langraph with Crew AI, then what are the pros and cons associated with that?
+
+687
+01:43:31.800 --> 01:43:35.510
+Jitendra K: So with that same lens, let's try to acquire the skills of True AI.
+
+688
+01:43:35.880 --> 01:43:42.460
+Jitendra K: Now, this is the architecture of a crew AI. You can see on my screen, so here I'm just trying to depict the core
+
+689
+01:43:42.840 --> 01:43:48.639
+Jitendra K: framework, which include the Advanced Task Management with the help of a true AI,
+
+690
+01:43:48.760 --> 01:43:50.729
+Jitendra K: And what are the important,
+
+691
+01:43:51.610 --> 01:43:57.599
+Jitendra K: I would say, what are the important functionalities applicable to implement Crew AI?
+
+692
+01:43:57.810 --> 01:44:00.619
+Jitendra K: We'll try to look for that particular aspect.
+
+693
+01:44:00.810 --> 01:44:05.749
+Jitendra K: Now, true AI architecture comprises of several
+
+694
+01:44:06.070 --> 01:44:09.100
+Jitendra K: component. One is the task management.
+
+695
+01:44:09.570 --> 01:44:13.360
+Jitendra K: That means you can able to automate Class validation.
+
+696
+01:44:13.670 --> 01:44:17.459
+Jitendra K: You can make it more descriptive in terms of prioritization.
+
+697
+01:44:17.730 --> 01:44:26.579
+Jitendra K: You can define a task prioritization, which is a process where the system evaluates a task based upon their complexity, dependency, and urgency before executing them.
+
+698
+01:44:27.350 --> 01:44:30.009
+Jitendra K: So the idea is, it will help you to ensure
+
+699
+01:44:31.100 --> 01:44:34.999
+Jitendra K: That the most critical and all the time-sensitive tasks are executed first.
+
+700
+01:44:35.270 --> 01:44:38.560
+Jitendra K: Improving the system overall efficiency and responsiveness.
+
+701
+01:44:39.010 --> 01:44:46.990
+Jitendra K: And the task prioritization node will take input from task definition, Which is here.
+
+702
+01:44:47.200 --> 01:44:50.540
+Jitendra K: And from task definition, you can move on to
+
+703
+01:44:50.910 --> 01:44:54.860
+Jitendra K: The flow engine that will pass the prioritized task list.
+
+704
+01:44:55.020 --> 01:45:04.629
+Jitendra K: which determine the sequence in which a task will be executed. So let's say, for example, in this whole architecture, what I'm trying to show is… I'm just showing you very simple
+
+705
+01:45:05.220 --> 01:45:08.480
+Jitendra K: workflow, so let it be…
+
+706
+01:45:10.040 --> 01:45:16.270
+Jitendra K: Yes, it is specific to Crew AI, so that means we are talking about the components now. Component of a Crew AI.
+
+707
+01:45:17.030 --> 01:45:26.700
+Jitendra K: So, basically, you have to start with your crew registration. So, it can be any number of crew that you're going to have, and each crew is nothing but an agent, right?
+
+708
+01:45:26.830 --> 01:45:34.710
+Jitendra K: So you're going to write the agentic logic, which include your task, responsibility, including what sorts of data you're going to consume.
+
+709
+01:45:34.990 --> 01:45:41.319
+Jitendra K: How much, memory you're going to manage, whether it's going to be system, long-term, short-term, etc.
+
+710
+01:45:41.780 --> 01:45:57.029
+Jitendra K: Then you are going to… similarly, you are going to evaluate the tools to accomplish this task, similar to tech curators that we have used in line graph. Here, we are going to use tool automation, which will manage your knowledge base, tool extraction, and
+
+711
+01:45:57.150 --> 01:45:59.530
+Jitendra K: Data induction and data transformation as well.
+
+712
+01:45:59.850 --> 01:46:03.840
+Jitendra K: So as a user, what you need to do is, you need to just manage these
+
+713
+01:46:04.160 --> 01:46:08.149
+Jitendra K: modules, and I will come into that part. What are these modules is all about.
+
+714
+01:46:08.450 --> 01:46:13.019
+Jitendra K: So the part of the user, you just need to worry about this part.
+
+715
+01:46:16.110 --> 01:46:20.429
+Jitendra K: Last other things… will be done by Crew AI automatically for you.
+
+716
+01:46:21.530 --> 01:46:24.999
+Jitendra K: And that is the best part of Crew AI. So basically.
+
+717
+01:46:25.130 --> 01:46:31.620
+Jitendra K: Once the tasks are validated and completed, you… it'll automatically create a log.
+
+718
+01:46:31.760 --> 01:46:38.500
+Jitendra K: That will maintain a record of the system action. So this will ensure that traceability in the workflow helps in debugging compliance.
+
+719
+01:46:38.630 --> 01:46:41.269
+Jitendra K: And verifying all the steps will be followed.
+
+720
+01:46:41.970 --> 01:46:44.249
+Jitendra K: So, how it is fitting into the architecture?
+
+721
+01:46:44.690 --> 01:46:52.760
+Jitendra K: Now, when you talk about, this particular architecture of Crew AI, That means…
+
+722
+01:46:53.080 --> 01:47:00.780
+Jitendra K: The system logs will result into audit log, and this logs serve as a historical record for the workflow, which can be checked for issues or errors.
+
+723
+01:47:00.880 --> 01:47:02.820
+Jitendra K: That may raise during execution.
+
+724
+01:47:03.130 --> 01:47:13.069
+Jitendra K: Similarly, there's a component called LLM model integration, so that will define the LLM serving, or the core intelligent layer that serve or drive the advanced reasoning
+
+725
+01:47:13.230 --> 01:47:17.109
+Jitendra K: Contextual-specific insights and refinement during the task execution.
+
+726
+01:47:17.300 --> 01:47:26.680
+Jitendra K: So it is important because it will provide the LLMs, sorry, it will provide a system capability for understanding and processing complex natural inputs.
+
+727
+01:47:26.960 --> 01:47:34.820
+Jitendra K: And you can refine tasks based upon national language input, interacting with the agent, and ensuring that outputs are accurate and meet the domain-specific requirement.
+
+728
+01:47:35.520 --> 01:47:42.060
+Jitendra K: So, this tool support Collaboration, that means you can define a specialized group.
+
+729
+01:47:42.890 --> 01:47:45.310
+Jitendra K: Which can work together, like this.
+
+730
+01:47:47.860 --> 01:47:56.220
+Jitendra K: Or, you can create a single crew, one agent as well, within this. So, a specialized group that work with a data analysis agent.
+
+731
+01:47:56.510 --> 01:48:15.089
+Jitendra K: Or maybe some agent will work like a report inside generation agent, and then they can work together for content creation. So you will have enriched agent, which can be domain agnostic, which can be tool agnostic, which can be hyper-personalized, etc, and it will work like an army or swarmsoft agent.
+
+732
+01:48:15.590 --> 01:48:24.140
+Jitendra K: Similarly, you can be able to adapt to a domain-specific knowledge. This is a specialized knowledge, which has been tailored to a particular context or task within the system.
+
+733
+01:48:24.250 --> 01:48:30.970
+Jitendra K: And domain-specific knowledge allows the system to operate efficiently and effectively in specific industrial problem domain.
+
+734
+01:48:31.400 --> 01:48:34.990
+Jitendra K: So that means, you will have a specific
+
+735
+01:48:35.240 --> 01:48:38.330
+Jitendra K: Ways to manage the domain agnostic
+
+736
+01:48:38.510 --> 01:48:43.940
+Jitendra K: Documents and the hierarchical workflows, and that will help you to create
+
+737
+01:48:44.210 --> 01:48:47.419
+Jitendra K: A simple sequential or parallel agentic execution.
+
+738
+01:48:47.650 --> 01:48:53.459
+Jitendra K: Which will, fit to your purpose, right? Depending upon the problem, the kind of…
+
+739
+01:48:53.870 --> 01:48:57.950
+Jitendra K: Complexity that you're dealing with your problems. And vice versa.
+
+740
+01:48:59.090 --> 01:49:02.200
+Jitendra K: So, if I have to just explain to you very simple,
+
+741
+01:49:02.340 --> 01:49:09.970
+Jitendra K: This tool, True AI, will help you to create agents, which can… interact.
+
+742
+01:49:10.270 --> 01:49:13.550
+Jitendra K: Or it can work independently.
+
+743
+01:49:13.660 --> 01:49:19.769
+Jitendra K: or as a team, all three flavors it can enable you to utilize. That means, all you need to do is, you just need to…
+
+744
+01:49:20.260 --> 01:49:25.940
+Jitendra K: have a clear understanding of a few components. The first component is the agents, which are autonomous units.
+
+745
+01:49:26.190 --> 01:49:32.829
+Jitendra K: And it's a unit of a crew AI. Agents are a unit of a crew AI's tools. So, agents are autonomous units within a system.
+
+746
+01:49:33.060 --> 01:49:47.739
+Jitendra K: which has been designed to perform a specific task. And these agents will make decisions and interact dynamically with other agents, and they independently analyze their environment, respond to the input, and various tools, ranging from simple search function to integration with APIs.
+
+747
+01:49:47.910 --> 01:49:49.790
+Jitendra K: Or even blockchain networks.
+
+748
+01:49:50.240 --> 01:49:59.019
+Jitendra K: the tasks that you're allocating are specific duties assigned to the agent. That means it can vary from data analysis to controlling external system.
+
+749
+01:49:59.400 --> 01:50:05.190
+Jitendra K: And each task can be either synchronous, asynchronous, or can be break down into subtasks.
+
+750
+01:50:05.380 --> 01:50:08.459
+Jitendra K: Which may require specialized tools or resources.
+
+751
+01:50:09.140 --> 01:50:15.650
+Jitendra K: or task management, where you need to perform delegations, within the responsibility framework.
+
+752
+01:50:16.390 --> 01:50:25.620
+Jitendra K: So the concept of crew is to create a coordinated group of agents organized to achieve a common goal. So crew formation involves electing agents.
+
+753
+01:50:25.780 --> 01:50:28.639
+Jitendra K: Based upon their roles, skills, tasks.
+
+754
+01:50:28.840 --> 01:50:36.560
+Jitendra K: Management dependency to ensure that tasks are executed in a correct order, and this organization will help us to calibrate
+
+755
+01:50:36.700 --> 01:50:41.859
+Jitendra K: Or allow a crew to tackle complex challenges. And leveraging each agent's strength and
+
+756
+01:50:42.120 --> 01:50:47.149
+Jitendra K: It may energe performance and synchronization execution of these, common
+
+757
+01:50:47.590 --> 01:50:52.410
+Jitendra K: I would say common goals that each agent is trying to pursue.
+
+758
+01:50:52.770 --> 01:50:53.780
+Jitendra K: tools…
+
+759
+01:50:55.860 --> 01:51:01.059
+Jitendra K: That means tools refer to the skills or a function that agent can use to carry out various actions.
+
+760
+01:51:01.290 --> 01:51:07.010
+Jitendra K: And this includes resources from Crew AI Toolkit itself, or you can create some other interface.
+
+761
+01:51:07.320 --> 01:51:12.819
+Jitendra K: Using line-chain tools, or you can facilitate everything from the basic search to integrate
+
+762
+01:51:12.980 --> 01:51:17.269
+Jitendra K: Interaction with prompting effectiveness, teamwork, as well.
+
+763
+01:51:17.560 --> 01:51:23.630
+Jitendra K: So you can able to think of tools as external, internal, within the Crew AI ecosystem as well.
+
+764
+01:51:24.230 --> 01:51:35.450
+Jitendra K: Similarly, you will have a process. So, process are responsible for orchestration, and this is the important part. So, orchestration, that means you are using some framework or some design principles to orchestrate.
+
+765
+01:51:35.620 --> 01:51:52.470
+Jitendra K: So, crew also support React and Review, both types of design patterns. So, processes are simply responsible for orchestration, how a task are executed by the agent, similar to project manager in human teams. And these processes ensure that tasks are allocated and completed efficiently.
+
+766
+01:51:52.590 --> 01:51:57.920
+Jitendra K: In accordance with the predefined strategies. That means the objective that it is going to serve.
+
+767
+01:52:00.230 --> 01:52:10.450
+Jitendra K: Okay, now I can see some question. What is the role base here? Role base, we have to define, what is a role that we are assigning to a crew, or a single agent. We will write up
+
+768
+01:52:10.810 --> 01:52:12.850
+Jitendra K: Very detailed template for that.
+
+769
+01:52:15.270 --> 01:52:22.979
+Jitendra K: So there is no vendor lock-in. The vendor locking will happen when you're facing some issue here, right? You have to wait for the version updates.
+
+770
+01:52:25.400 --> 01:52:30.770
+Jitendra K: So let's say this, crew, whatever version you're going to use, It is…
+
+771
+01:52:31.670 --> 01:52:34.970
+Jitendra K: Having some exception. And you cannot be able to fix it.
+
+772
+01:52:35.240 --> 01:52:39.730
+Jitendra K: So it is end up into a vendor locking, right? Because you have to wait for the new version to be released.
+
+773
+01:52:40.490 --> 01:52:43.530
+Jitendra K: And this problem may be very specific to your dataset.
+
+774
+01:52:43.780 --> 01:52:47.860
+Jitendra K: Maybe you're using some other file formats, and that leads to that issue.
+
+775
+01:52:49.600 --> 01:52:50.550
+Jitendra K: Alright.
+
+776
+01:52:50.780 --> 01:52:58.180
+Jitendra K: So, what we are going to do next is, I would like to create… A demo, very simple demo.
+
+777
+01:52:58.300 --> 01:53:01.240
+Jitendra K: And the focus will be on experimenting with component.
+
+778
+01:53:02.570 --> 01:53:09.540
+Jitendra K: I'm confused with the process. I thought it will create an agent instead of the writing agent for a special camera.
+
+779
+01:53:10.100 --> 01:53:13.999
+Jitendra K: The process is an integral part of Crew AI. The process means…
+
+780
+01:53:14.290 --> 01:53:17.200
+Jitendra K: Orchestration, how tasks are executed by the agent.
+
+781
+01:53:17.780 --> 01:53:19.959
+Jitendra K: Right? So you have to write the process here.
+
+782
+01:53:20.570 --> 01:53:22.060
+Jitendra K: Of course, you have to code it.
+
+783
+01:53:22.370 --> 01:53:23.529
+Jitendra K: From the scratch.
+
+784
+01:53:25.640 --> 01:53:31.619
+Jitendra K: But… With a simple template, not as code-agnostic as Langraph.
+
+785
+01:53:34.150 --> 01:53:40.110
+Jitendra K: Alright, so we will start experimenting with the Crew AI now, so I will show you the first demo of Crew AI.
+
+786
+01:53:40.720 --> 01:53:41.760
+Jitendra K: Where?
+
+787
+01:53:41.880 --> 01:53:48.060
+Jitendra K: I'm going to create an, some experimentation with the components and developing two solutions.
+
+788
+01:53:48.400 --> 01:53:54.579
+Jitendra K: One is a web search tool, the second is a recommendation system by utilizing a Crew AI framework.
+
+789
+01:53:54.890 --> 01:53:57.439
+Jitendra K: So let me quickly go back to my collab.
+
+790
+01:54:04.280 --> 01:54:08.170
+Jitendra K: Task is a specific duty that you're assigning to the agent.
+
+791
+01:54:08.980 --> 01:54:14.770
+Jitendra K: So, that means you're saying that you need to collect the data from internet. That's a task.
+
+792
+01:54:15.400 --> 01:54:20.410
+Jitendra K: You may be saying that you need to look for… a particular…
+
+793
+01:54:22.010 --> 01:54:26.239
+Jitendra K: columns in some files, some databases, right? That's also a task.
+
+794
+01:54:26.900 --> 01:54:36.909
+Jitendra K: So task is just like a controlling system that you're trying to onboard within the agentic manifestos. So you're assigning responsibility, right?
+
+795
+01:54:37.110 --> 01:54:43.640
+Jitendra K: So what tools are needed, what process involved? How will you ensure that absent workflows and accurate result has been obtained?
+
+796
+01:54:44.090 --> 01:54:51.499
+Jitendra K: The first and foremost thing, you have to be very clear with the task. That's the most and the more important idea of true AI agents.
+
+797
+01:54:51.820 --> 01:54:54.679
+Jitendra K: Because if you're making your task ambiguous.
+
+798
+01:54:55.510 --> 01:54:59.390
+Jitendra K: And yourself are not clear as a developer that what task should I allocate?
+
+799
+01:54:59.640 --> 01:55:06.450
+Jitendra K: to this agent, then, of course, it will work in a haphazard manner. Just like your manager, if it does not know how to utilize a resource.
+
+800
+01:55:07.060 --> 01:55:10.419
+Jitendra K: So how will the resource… do you think that resource will work,
+
+801
+01:55:10.540 --> 01:55:17.209
+Jitendra K: Honestly, in the team, no, right? The same way, the task delegation is… need to be performed by manager.
+
+802
+01:55:26.560 --> 01:55:32.440
+Jitendra K: Okay, so what we are going to do is, first and foremost thing, we need to install Crew AI, so they are a set of
+
+803
+01:55:33.260 --> 01:55:37.709
+Jitendra K: tools that we need to install when we are dealing with crew AI.
+
+804
+01:55:42.630 --> 01:55:47.670
+Jitendra K: And these are the two important, tools, which is Crew AI,
+
+805
+01:55:47.820 --> 01:55:51.739
+Jitendra K: hyphen tools and crew AI class that I'm going to.
+
+806
+01:55:51.940 --> 01:55:54.009
+Jitendra K: Installed in my local system.
+
+807
+01:56:00.270 --> 01:56:04.209
+Jitendra K: And you can see that, by default, it is Taken care of.
+
+808
+01:56:04.980 --> 01:56:08.209
+Jitendra K: A lot of, telemetry-based
+
+809
+01:56:09.160 --> 01:56:15.730
+Jitendra K: Yeah, this is what I would like to talk about. You can see it is taking care of scalability using Kubernetes.
+
+810
+01:56:16.430 --> 01:56:18.980
+Jitendra K: YouTube Transcript, which is, again, a tool.
+
+811
+01:56:19.830 --> 01:56:30.219
+Jitendra K: And then PDF Miner, PDFlumber, OpenTelemetry, which is a great tool for crew AI evaluation. We'll talk about OpenTelemetry.
+
+812
+01:56:30.430 --> 01:56:36.809
+Jitendra K: In the upcoming tutorials. So, OpenTelemetry is a very good tool. I found it to be highly appreciated.
+
+813
+01:56:37.230 --> 01:56:44.770
+Jitendra K: So… I just want to show you the developer page for OpenTelemetry, and the
+
+814
+01:56:45.710 --> 01:56:48.699
+Jitendra K: This is how it looks like.
+
+815
+01:57:19.490 --> 01:57:25.560
+Jitendra K: Yeah, it is a generic tool, just like Datadog, right? So OpenTelemetry is the same tool, like Datadog.
+
+816
+01:57:25.720 --> 01:57:26.830
+Jitendra K: Watchdog.
+
+817
+01:57:27.280 --> 01:57:34.569
+Jitendra K: So this tool offer, some bit of, integration with Agentic.
+
+818
+01:57:34.900 --> 01:57:36.650
+Jitendra K: Cost evaluation as well.
+
+819
+01:57:37.100 --> 01:57:41.830
+Jitendra K: So that is something you can create by your own, or you can use existing capabilities of it.
+
+820
+01:57:42.070 --> 01:57:44.120
+Jitendra K: Similarly, you can see that,
+
+821
+01:57:45.030 --> 01:57:50.589
+Jitendra K: This is also creating a Pyntic dependency, and that's the reason Crew AI is a great tool for…
+
+822
+01:57:52.600 --> 01:57:54.340
+Jitendra K: readability purpose.
+
+823
+01:57:54.470 --> 01:57:58.999
+Jitendra K: You will appreciate this very soon, because it will give you a very clear
+
+824
+01:57:59.620 --> 01:58:03.400
+Jitendra K: write-ups when you're getting the response from the LLMs.
+
+825
+01:58:04.940 --> 01:58:08.800
+Jitendra K: Okay, now I would like to set up my environment.
+
+826
+01:58:09.660 --> 01:58:15.079
+Jitendra K: And for that, I record OpenAI API key, so I will say OpenAI API key.
+
+827
+01:58:15.920 --> 01:58:20.480
+Jitendra K: Let me quickly use my… 20A API key…
+
+828
+01:59:12.890 --> 01:59:14.599
+Jitendra K: Okay, this has been served.
+
+829
+01:59:15.150 --> 01:59:23.190
+Jitendra K: Now, I would like to build a web scrapping tool. So in this example, we're creating a web scrapping tool, or web search tool, using Crew AI.
+
+830
+01:59:23.590 --> 01:59:30.830
+Jitendra K: And, the three crew AI tools will be used. One is called Scrape Website Tool, to scrape content from the website.
+
+831
+01:59:31.370 --> 01:59:40.309
+Jitendra K: The second tool will be File Writer Tool. File Writer tool to save the content to the file. It could be a TXT, it could be HTML, whatever format.
+
+832
+01:59:40.610 --> 01:59:44.790
+Jitendra K: I can change the format, but I will prefer TXT for simplicity purpose.
+
+833
+01:59:45.080 --> 01:59:47.799
+Jitendra K: And then, I will also create…
+
+834
+01:59:48.100 --> 01:59:50.860
+Jitendra K: The text search tool to search the content.
+
+835
+01:59:51.160 --> 01:59:53.159
+Jitendra K: from the file, for rack.
+
+836
+01:59:53.590 --> 01:59:56.770
+Jitendra K: Right? So I will ask some queries, and then it will retry.
+
+837
+01:59:57.360 --> 01:59:59.179
+Jitendra K: the answer for it.
+
+838
+02:00:20.860 --> 02:00:24.120
+Jitendra K: Now, I would like to initialize the scrape website tool.
+
+839
+02:00:24.610 --> 02:00:29.149
+Jitendra K: And I will… I will pass on some Wikipedia article to it.
+
+840
+02:00:29.550 --> 02:00:35.110
+Jitendra K: Let's say I'm creating a Wikipedia… I'm passing the Wikipedia article as artificial intelligence.
+
+841
+02:00:35.650 --> 02:00:36.860
+Jitendra K: description.
+
+842
+02:00:38.380 --> 02:00:42.360
+Jitendra K: Yeah, I need to make the environmental file, but I'm just hard-coding it here.
+
+843
+02:00:43.040 --> 02:00:46.300
+Jitendra K: This is a Wikipedia article, on AI.
+
+844
+02:00:47.410 --> 02:00:49.299
+Jitendra K: This is a simple article.
+
+845
+02:00:49.480 --> 02:00:51.420
+Jitendra K: You can click on this and read.
+
+846
+02:00:52.360 --> 02:00:54.820
+Jitendra K: So this is the article that I have downloaded.
+
+847
+02:00:59.390 --> 02:01:02.279
+Jitendra K: on AI, without any images.
+
+848
+02:01:02.500 --> 02:01:03.880
+Jitendra K: It's a plain text.
+
+849
+02:01:10.630 --> 02:01:18.989
+Jitendra K: Now, I've initialized the scrape website tool, and the tool will use to extract the content from the website, and I just configured one topic.
+
+850
+02:01:19.440 --> 02:01:23.769
+Jitendra K: Now, I will use the FileWriter tool to write the content to a file.
+
+851
+02:01:24.390 --> 02:01:27.109
+Jitendra K: I will say, let's go with…
+
+852
+02:01:27.900 --> 02:01:30.929
+Jitendra K: Just gonna store it in my local…
+
+853
+02:01:36.020 --> 02:01:37.790
+Jitendra K: And I will store it.
+
+854
+02:01:43.340 --> 02:01:45.359
+Jitendra K: So it is inside my content file.
+
+855
+02:01:45.960 --> 02:01:54.330
+Jitendra K: Now, I will set up the text search tool. So I'm setting up the text search tool, and I would like to search the content from this file, which is AI.txt.
+
+856
+02:01:54.850 --> 02:01:57.099
+Jitendra K: So first, I will read this file.
+
+857
+02:02:11.610 --> 02:02:13.870
+Jitendra K: One second, where's the issue?
+
+858
+02:02:55.590 --> 02:02:57.740
+Jitendra K: One second, let me debug this error.
+
+859
+02:03:10.930 --> 02:03:14.630
+Jitendra K: I believe this is a module error, but let me fix it quickly.
+
+860
+02:03:45.520 --> 02:03:47.500
+Jitendra K: No, I think, it is…
+
+861
+02:03:48.280 --> 02:03:50.869
+Jitendra K: This issue with Linux site command.
+
+862
+02:03:54.710 --> 02:03:56.270
+Jitendra K: If it's set correctly.
+
+863
+02:04:30.280 --> 02:04:33.959
+Jitendra K: Okay, this has been resolved. I would like to create an agent for the task.
+
+864
+02:04:34.350 --> 02:04:37.750
+Jitendra K: So I'm calling this agent as a data analyst agent.
+
+865
+02:04:38.740 --> 02:04:44.219
+Jitendra K: And I'm going to assign a role. Now, somebody's asking what is a role, what is the,
+
+866
+02:04:45.560 --> 02:04:51.580
+Jitendra K: what do you call it, the task that I'm going to allocate. So this is one way that you're going to do.
+
+867
+02:04:51.900 --> 02:04:55.479
+Jitendra K: So I'm going to create an agent for the task, a data analyst agent.
+
+868
+02:04:55.730 --> 02:04:58.140
+Jitendra K: And I would like to create a role of an educator.
+
+869
+02:04:58.510 --> 02:05:03.589
+Jitendra K: So the agent task is to answer the question based upon the natural language processing.
+
+870
+02:05:04.020 --> 02:05:13.470
+Jitendra K: So maybe I will write some question, and then the agent will analyze, and then generate. Now, look carefully at the syntax of how I'm using Crew AI to write this.
+
+871
+02:05:13.810 --> 02:05:17.290
+Jitendra K: Now, here I'm saying that I would like to create a tool
+
+872
+02:05:17.420 --> 02:05:21.569
+Jitendra K: Which will take this query and execute my workflow.
+
+873
+02:05:22.200 --> 02:05:27.259
+Jitendra K: Now, here, I'm calling a data analyst Agent, which is my crew.ai function.
+
+874
+02:05:27.540 --> 02:05:30.349
+Jitendra K: From a… sorry, it's a crew.ai class, not a function.
+
+875
+02:05:30.580 --> 02:05:37.730
+Jitendra K: And this class will take several parameters, including role, Goal, and the backstory.
+
+876
+02:05:38.880 --> 02:05:45.870
+Jitendra K: And that list of tools which it can able to utilize to answer the…
+
+877
+02:05:46.360 --> 02:05:50.789
+Jitendra K: Output in a relevant manner, or generate an answer in a relevant manner.
+
+878
+02:05:51.260 --> 02:05:53.499
+Jitendra K: The role that I'm assigning is educator.
+
+879
+02:05:54.050 --> 02:05:57.479
+Jitendra K: Goal is, based upon the context, you need to answer
+
+880
+02:05:57.810 --> 02:06:00.300
+Jitendra K: This query, what is natural language processing?
+
+881
+02:06:00.990 --> 02:06:03.389
+Jitendra K: Assuming that you're a data expert.
+
+882
+02:06:04.010 --> 02:06:10.110
+Jitendra K: Keeping the log to be true, parsing to be true, keeping the verbos to be true, and you have access to some tools.
+
+883
+02:06:12.580 --> 02:06:16.340
+Jitendra K: Now, once I declare that, I will create a task.
+
+884
+02:06:18.310 --> 02:06:25.550
+Jitendra K: So the task allocated to this agent is understand your topic and give the correct response, Using these tools.
+
+885
+02:06:25.980 --> 02:06:31.350
+Jitendra K: Your responsibility as a data analyst, give the correct response, this is expected. Very simple.
+
+886
+02:06:31.760 --> 02:06:44.830
+Jitendra K: Nothing… any fancy thing that I'm using, but very simple tool, very simple delegation. But I would like your focus to be on this part. So, you can able to create a simple
+
+887
+02:06:46.750 --> 02:06:50.720
+Jitendra K: Crew, or agent, with few lines of code, right?
+
+888
+02:06:50.900 --> 02:06:58.630
+Jitendra K: So if I look carefully in this cell, I'm just importing the tools, which is available in Crew AI, so I need not to create any tool.
+
+889
+02:07:00.450 --> 02:07:02.090
+Jitendra K: Did I create any tool? No.
+
+890
+02:07:03.240 --> 02:07:05.390
+Jitendra K: This is a part of a crew AI ecosystem.
+
+891
+02:07:05.510 --> 02:07:08.560
+Jitendra K: But in Langraph, you have to create so many tools.
+
+892
+02:07:09.280 --> 02:07:17.470
+Jitendra K: I'm calling a class called agent, Task and Crew, which will work like a… automated function.
+
+893
+02:07:17.880 --> 02:07:23.860
+Jitendra K: with minimal changes that I can able to utilize to perform this task delegation.
+
+894
+02:07:24.940 --> 02:07:25.750
+Jitendra K: Right?
+
+895
+02:07:26.000 --> 02:07:33.169
+Jitendra K: Similarly, I can be able to use a role, specific personas, to perform this whole agentic task.
+
+896
+02:07:33.740 --> 02:07:35.350
+Jitendra K: And once I click on this.
+
+897
+02:07:36.750 --> 02:07:39.810
+Jitendra K: You can see that, how nicely it is generating the output.
+
+898
+02:07:43.220 --> 02:07:49.219
+Jitendra K: And this is generating exactly what I have required from that document in the form of a prompt, right?
+
+899
+02:07:49.470 --> 02:07:54.779
+Jitendra K: So I'm saying that… This is an introduction of my agent, which is Educator Agent.
+
+900
+02:07:55.260 --> 02:08:04.829
+Jitendra K: It is getting the final answer based upon this query. So the query is, what is natural language processing from that document that I have used from Wikipedia Corpus?
+
+901
+02:08:05.450 --> 02:08:12.020
+Jitendra K: So it is creating a phrase which explains natural language processing from that Wikipedia document only.
+
+902
+02:08:12.550 --> 02:08:17.820
+Jitendra K: And this tool will help me to generate the insight on the top of my data points.
+
+903
+02:08:20.180 --> 02:08:22.230
+Jitendra K: Let me see if there's any question…
+
+904
+02:08:24.040 --> 02:08:33.390
+Jitendra K: tool definition is missing, okay, this is either… is the template going to be the same to… yes, of course, that's the whole idea of ProAI, so the template will remain the same.
+
+905
+02:08:33.520 --> 02:08:36.609
+Jitendra K: The agent class, it is nothing but prompt writing engineering engineering.
+
+906
+02:08:36.910 --> 02:08:46.340
+Jitendra K: Yes, agent class have, several parameters. So, if you look carefully, the agent class, it explains the role, the goal, which is your system prompt.
+
+907
+02:08:46.580 --> 02:08:53.219
+Jitendra K: And the backstory that you're allocating, with a set of parameters. And these parameters will be used in every agent going forward.
+
+908
+02:08:54.220 --> 02:08:57.139
+Jitendra K: Each agent tasks one crew, right? Yes.
+
+909
+02:08:58.540 --> 02:09:07.529
+Jitendra K: Can we create conditions? Yeah, we'll talk about that. Please share the collab link, I will share. How can we parameterize it?
+
+910
+02:09:07.750 --> 02:09:11.530
+Jitendra K: No, it's not required any out of the box. You can use Python way of…
+
+911
+02:09:11.970 --> 02:09:15.620
+Jitendra K: Managing the UI, similar to what we have done in earlier classes.
+
+912
+02:09:16.120 --> 02:09:18.880
+Jitendra K: How do I ask questions from the goal?
+
+913
+02:09:20.500 --> 02:09:23.560
+Jitendra K: You can create chat interface, that is what we have to do.
+
+914
+02:09:24.200 --> 02:09:27.169
+Jitendra K: Can we create supervisory agent architecture?
+
+915
+02:09:28.100 --> 02:09:35.320
+Jitendra K: In crew AI. Yes, of course, you can do it. So, right now it is one agent, so I have to cover supervisory agents and all.
+
+916
+02:09:36.250 --> 02:09:40.309
+Jitendra K: Yes, this is a simple search that we have performed with a semantic
+
+917
+02:09:40.930 --> 02:09:44.700
+Jitendra K: Understanding on the text, without storing this as a vector database.
+
+918
+02:09:46.460 --> 02:09:50.879
+Jitendra K: Now, I will create another crew, so this is one crew that we have created.
+
+919
+02:09:51.640 --> 02:09:57.729
+Jitendra K: Now, I'm going to create another agent. Imagine that you're running an education counseling.
+
+920
+02:09:58.880 --> 02:10:02.100
+Jitendra K: You're working for an education counseling company.
+
+921
+02:10:02.430 --> 02:10:09.449
+Jitendra K: And the aim of that company is to suggest the best sports for a student, based upon their degree, academic goals, hobbies, and computer skills.
+
+922
+02:10:10.060 --> 02:10:14.209
+Jitendra K: The challenge lies in deciding what fish course to recommend to each instrument.
+
+923
+02:10:15.110 --> 02:10:24.200
+Jitendra K: So this is the example of recommendation, right? So recommendation engine will create using Crew.ai, to select the course that are best suited for a student.
+
+924
+02:10:24.670 --> 02:10:31.309
+Jitendra K: So I would like to create such a program where I'm going to consume several set of
+
+925
+02:10:31.770 --> 02:10:37.890
+Jitendra K: directives, and then performing multiple task delegations, and then I will run this app.
+
+926
+02:10:39.140 --> 02:10:40.620
+Jitendra K: Let me go back.
+
+927
+02:10:49.800 --> 02:10:51.959
+Jitendra K: Okay, there are some questions.
+
+928
+02:10:54.430 --> 02:10:59.130
+Jitendra K: how do we define which LLM the crew we'll be using? I have already defined ChatGPT 4.0.
+
+929
+02:10:59.840 --> 02:11:03.740
+Jitendra K: Email generated classify.
+
+930
+02:11:04.020 --> 02:11:09.040
+Jitendra K: User case, email agent, read, cluster email send and regulatory email.
+
+931
+02:11:10.590 --> 02:11:15.720
+Jitendra K: You mean to say, performing some automation on operating system?
+
+932
+02:11:16.070 --> 02:11:20.170
+Jitendra K: That is possible, I will show you the canvas where you can do this.
+
+933
+02:11:20.700 --> 02:11:28.610
+Jitendra K: Okay, so… Canvas is another way that you can be able to operate, but let it be…
+
+934
+02:11:29.550 --> 02:11:38.840
+Jitendra K: First, let me quickly… talk about a recommendation model. So in the recommendation model, I'm going to use…
+
+935
+02:11:39.940 --> 02:11:41.390
+Jitendra K: Let me delete this.
+
+936
+02:11:43.910 --> 02:11:45.750
+Jitendra K: So, in the recommendation model.
+
+937
+02:11:46.650 --> 02:11:51.779
+Jitendra K: So, we are going to use a crew AI to suggest the course that best suited the students.
+
+938
+02:11:52.170 --> 02:11:58.299
+Jitendra K: So, first and foremost thing is I would like to instantiate the modules
+
+939
+02:11:58.690 --> 02:12:03.540
+Jitendra K: Then I would like to instantiate the LLM models with OpenAPI.
+
+940
+02:12:06.240 --> 02:12:08.190
+Jitendra K: I will say this.
+
+941
+02:12:08.860 --> 02:12:16.420
+Jitendra K: Then I would like to prepare the dataset. So, I will create a CSV file that contains student profile along with a list of courses to be recommended.
+
+942
+02:12:16.960 --> 02:12:22.170
+Jitendra K: And, I will try to… go with… Slightly descriptive.
+
+943
+02:12:22.790 --> 02:12:23.900
+Jitendra K: forces.
+
+944
+02:12:24.550 --> 02:12:27.520
+Jitendra K: So assume that this is a CSV, which talks about
+
+945
+02:12:28.320 --> 02:12:32.530
+Jitendra K: Academic goals, major subject that he's going to prefer, hobbies.
+
+946
+02:12:32.720 --> 02:12:36.489
+Jitendra K: Computer skills, interest in language, GPA, right?
+
+947
+02:12:36.750 --> 02:12:39.440
+Jitendra K: And then I would like to convert this into a…
+
+948
+02:12:39.550 --> 02:12:45.590
+Jitendra K: CSV file, and I will save it inside my… data frames.
+
+949
+02:12:45.810 --> 02:12:53.849
+Jitendra K: Now, I would like to create and define the various AI agents for the first crew. In each agent will require a role, a goal, and a backstory.
+
+950
+02:12:54.170 --> 02:12:59.160
+Jitendra K: The second crew will be used to generate a recommendation text from the course registered to restaurant.
+
+951
+02:12:59.540 --> 02:13:02.270
+Jitendra K: So, here I'm going to use two crews.
+
+952
+02:13:02.540 --> 02:13:04.970
+Jitendra K: The first crew will be Student Profiler.
+
+953
+02:13:05.400 --> 02:13:11.220
+Jitendra K: Second crew will be the campaigner. That means it will be able to generate a campaign for a specific user task.
+
+954
+02:13:11.750 --> 02:13:16.210
+Jitendra K: So here, the first crew says, you are working as a student profiler.
+
+955
+02:13:16.430 --> 02:13:21.260
+Jitendra K: The goal is to limit the data, your logical data conclusion about the student.
+
+956
+02:13:21.830 --> 02:13:29.380
+Jitendra K: So, I'm assigning a responsibility, a backstory based, where I'm saying that you should work like a psychologist with a decades of experience.
+
+957
+02:13:31.290 --> 02:13:37.190
+Jitendra K: This is a profile for student, so here I'm having a subnodes now, sub-cruise.
+
+958
+02:13:37.570 --> 02:13:42.749
+Jitendra K: The second subgroup talks about course specialists. Third is chief recommended director.
+
+959
+02:13:43.330 --> 02:13:47.590
+Jitendra K: Now, this is one agent, this whole… is one agent.
+
+960
+02:13:48.950 --> 02:13:50.980
+Jitendra K: With a task delegation internally.
+
+961
+02:13:51.140 --> 02:13:53.479
+Jitendra K: And then I've got another state.
+
+962
+02:13:54.050 --> 02:13:58.120
+Jitendra K: Which is a second crew agent, which will only operate on campaigns.
+
+963
+02:13:58.370 --> 02:14:04.379
+Jitendra K: So to develop a compelling and innovative content for ad campaign with a focus on customer specificness.
+
+964
+02:14:05.080 --> 02:14:09.860
+Jitendra K: requirement. So it will create… it'll work like a creative content director.
+
+965
+02:14:10.330 --> 02:14:17.539
+Jitendra K: For a top-level digital marketing agency, and then it will help me to craft advertisement, and some course to action.
+
+966
+02:14:18.120 --> 02:14:21.800
+Jitendra K: I'll compile this… Again, I have got an error.
+
+967
+02:14:23.650 --> 02:14:25.090
+Jitendra K: Pardon, Ting.
+
+968
+02:14:25.330 --> 02:14:27.030
+Jitendra K: Compatibility as well.
+
+969
+02:14:33.360 --> 02:14:36.130
+Jitendra K: Sorry, what is? I didn't get your question, what is?
+
+970
+02:14:52.550 --> 02:14:54.789
+Jitendra K: Which line you're seeing? I cannot see that.
+
+971
+02:15:06.090 --> 02:15:08.069
+Jitendra K: Oh, this line you have me to say.
+
+972
+02:15:08.710 --> 02:15:13.469
+Jitendra K: So this is… okay, this I'm using as a backstory. This is a tax wrapper module.
+
+973
+02:15:13.680 --> 02:15:21.109
+Jitendra K: So, Dendant is a Python text wrap module. So, the purpose of this is to remove the common
+
+974
+02:15:21.390 --> 02:15:24.690
+Jitendra K: White space for multi-line string, that simple text wrapper.
+
+975
+02:15:25.870 --> 02:15:28.009
+Jitendra K: Just for readability purpose, I'm using it.
+
+976
+02:15:31.350 --> 02:15:34.809
+Jitendra K: Okay, but there's a syntax error, let me quickly check.
+
+977
+02:16:03.710 --> 02:16:09.440
+Jitendra K: Let me switch to GPT-40… Till…
+
+978
+02:17:50.080 --> 02:17:52.870
+Jitendra K: Let me split this, and then try.
+
+979
+02:17:53.990 --> 02:17:56.659
+Jitendra K: Let me repeat that…
+
+980
+02:19:30.750 --> 02:19:32.659
+Jitendra K: Okay, this is working now.
+
+981
+02:19:34.299 --> 02:19:36.999
+Jitendra K: Oh, okay, so you can see that how…
+
+982
+02:19:37.120 --> 02:19:46.970
+Jitendra K: how nicely it is started working with the individual assessment of each instrument. So it is analyzing the instrument data and creating a detailed psychological
+
+983
+02:19:47.120 --> 02:19:50.460
+Jitendra K: And academic profile descriptions on the top of it.
+
+984
+02:19:50.800 --> 02:19:54.470
+Jitendra K: So, it is following the instruction with the ID,
+
+985
+02:19:57.240 --> 02:20:02.839
+Jitendra K: And you can see here that it is also giving some additional recommendation.
+
+986
+02:20:03.030 --> 02:20:08.910
+Jitendra K: on the course material that he needs to pursue, the story needs to be pursued. So this is what we are doing here.
+
+987
+02:20:09.950 --> 02:20:22.179
+Jitendra K: So, this is a simple but good example on Crew AI, which will help you to understand, multiple tasking that can be done with the help of Crew Agent. And you can see that CrewAgent is started with an ID.
+
+988
+02:20:22.560 --> 02:20:25.590
+Jitendra K: So this is your thread ID at an operating system level.
+
+989
+02:20:25.890 --> 02:20:28.620
+Jitendra K: The same idea has been used to allocate, to approve.
+
+990
+02:20:31.760 --> 02:20:37.349
+Jitendra K: So I will share this code, yeah, I will delete my API, so please use your own.
+
+991
+02:20:51.180 --> 02:20:54.280
+Jitendra K: So let me share this notebook with everyone.
+
+992
+02:20:59.820 --> 02:21:06.750
+Jitendra K: So just spend… Yes, Create is free to use, apart from Canvas.
+
+993
+02:21:06.970 --> 02:21:12.429
+Jitendra K: I will show Canvas in a while, so Canvas… These are drag and drop.
+
+994
+02:21:12.600 --> 02:21:17.070
+Jitendra K: tool for True AI, so you can use it. Let me share this first.
+
+995
+02:21:17.340 --> 02:21:19.289
+Jitendra K: Then we'll move on to the canvas.
+
+996
+02:21:24.040 --> 02:21:27.300
+Jitendra K: So, just go through the code, spent…
+
+997
+02:21:28.310 --> 02:21:36.299
+Jitendra K: Web scrap can read web sub pages too, given all the homepages given. Yeah, yeah, it can use nested, scrapping. You're correct.
+
+998
+02:21:36.540 --> 02:21:41.920
+Jitendra K: We can do a link scrapping as well. Let's say a Wikipedia page will have multiple links.
+
+999
+02:21:42.240 --> 02:21:46.670
+Jitendra K: So there's a way that we can be able to do that. So, instead of clicking the links.
+
+1000
+02:21:47.010 --> 02:21:52.289
+Jitendra K: What it will do is it will parse all the data using hierarchy.
+
+1001
+02:21:56.080 --> 02:21:58.089
+Jitendra K: Yeah, sure, I will share this.
+
+1002
+02:22:02.860 --> 02:22:07.390
+Jitendra K: Yeah, recursive crawling, yeah, that's the right phrase. Recursive crawling we can do.
+
+1003
+02:22:15.800 --> 02:22:22.280
+Jitendra K: So there's a… I mean, if you are familiar with, there's a Java tool I follow, or Selenium WebDrivers.
+
+1004
+02:22:22.540 --> 02:22:27.640
+Jitendra K: That will definitely help you to do recursive app crawling. I've downloaded so many tools earlier.
+
+1005
+02:22:28.300 --> 02:22:32.070
+Jitendra K: I can show you some more demos in the next class, maybe.
+
+1006
+02:22:32.970 --> 02:22:37.845
+Jitendra K: But that is possible. And even, there's a…
+
+1007
+02:22:39.160 --> 02:22:41.640
+Jitendra K: other web scrapping tool in Python.
+
+1008
+02:22:42.120 --> 02:22:45.029
+Jitendra K: Forgot the name, what was the name of that, too?
+
+1009
+02:22:48.350 --> 02:22:50.400
+Jitendra K: A playwright is also good, yes.
+
+1010
+02:23:02.640 --> 02:23:07.989
+Jitendra K: A beautiful soup, you can use, beautiful soup for that purpose. Beautiful soup with a great library.
+
+1011
+02:23:08.410 --> 02:23:13.439
+Jitendra K: And Beautiful Soup, or there's something called LXML, LXML.
+
+1012
+02:23:13.840 --> 02:23:16.650
+Jitendra K: Which will also parse HTML and XMLs.
+
+1013
+02:23:16.860 --> 02:23:19.220
+Jitendra K: to XPath and CSS selector.
+
+1014
+02:23:20.110 --> 02:23:26.219
+Jitendra K: But, I believe, if you would like to go with rendering website like JavaScript, please prefer
+
+1015
+02:23:26.840 --> 02:23:29.520
+Jitendra K: the Selenium tool.
+
+1016
+02:23:38.760 --> 02:23:40.920
+Jitendra K: Why did you launch the polls early?
+
+1017
+02:23:44.390 --> 02:23:47.010
+Jitendra K: I think TA is in a hurry to complete this.
+
+1018
+02:23:57.570 --> 02:23:59.730
+Jitendra K: Okay, distracting this one, please,
+
+1019
+02:24:00.030 --> 02:24:01.759
+Jitendra K: Can you please shut down the poll?
+
+1020
+02:24:05.380 --> 02:24:06.960
+Webinar Specialist: Yeah, sure, you didn't.
+
+1021
+02:24:20.380 --> 02:24:24.399
+Jitendra K: Okay, so we'll move on to… The slides again.
+
+1022
+02:24:24.890 --> 02:24:30.229
+Jitendra K: So, as I mentioned, sorry, we will not go cover autogen today, we'll cover autorin tomorrow.
+
+1023
+02:24:34.270 --> 02:24:40.850
+Jitendra K: Okay, so the Crew AI is a great tool, right? So, one thing I think you might have observed by this time.
+
+1024
+02:24:41.340 --> 02:24:43.700
+Jitendra K: That we are focusing only on few things.
+
+1025
+02:24:46.080 --> 02:24:52.080
+Jitendra K: We are focusing on creating a backstory, we are focusing on writing the system prompts, And…
+
+1026
+02:24:52.190 --> 02:24:53.919
+Jitendra K: Task delegation, that's it.
+
+1027
+02:24:55.390 --> 02:25:01.230
+Jitendra K: It's a very damn simple tool, right? So that's the reason I told you earlier that TrueA is a very simple tool.
+
+1028
+02:25:01.480 --> 02:25:07.020
+Jitendra K: You need not to worry too much about… Creating tools from the scratch.
+
+1029
+02:25:07.290 --> 02:25:10.200
+Jitendra K: Making a memory management seamlessly.
+
+1030
+02:25:10.720 --> 02:25:21.860
+Jitendra K: There's no concept of asynchronous tool execution, nothing, right? It's a plain, simple Python script that we are using to control task delegations and processes.
+
+1031
+02:25:23.260 --> 02:25:31.620
+Jitendra K: And, we can make this… I can share you some advanced code as well, which I feel Crew AIs are doing much more better than Langraphs.
+
+1032
+02:25:36.490 --> 02:25:37.290
+Jitendra K: Pardon?
+
+1033
+02:25:37.460 --> 02:25:41.620
+Jitendra K: Now, the question is, You have to answer this question, by the way.
+
+1034
+02:25:42.190 --> 02:25:44.920
+Jitendra K: Where do you think that Cruia is more preferable?
+
+1035
+02:25:49.730 --> 02:25:53.589
+Jitendra K: How much are we going to use in real time? That is what the question that I'm asking.
+
+1036
+02:25:55.260 --> 02:26:01.519
+Jitendra K: Yeah, Langra versus True AI. So, in which situation, we will use True AI, in which situation, we will use Langraph.
+
+1037
+02:26:02.660 --> 02:26:05.589
+Jitendra K: What do you think? Then I will answer my experience.
+
+1038
+02:26:10.000 --> 02:26:19.310
+Jitendra K: Single… no, no, but single agent, we have seen that we can implement multiple agents with Crew AI. True AI itself is a multi-agent framework, that's right, it's called Crew.
+
+1039
+02:26:21.110 --> 02:26:23.660
+Jitendra K: A team of, agents.
+
+1040
+02:26:26.370 --> 02:26:29.910
+Jitendra K: Langra for more custom framework requirement, okay.
+
+1041
+02:26:31.770 --> 02:26:40.889
+Jitendra K: Lightweight, yeah, I can see some good response. Lightweight, what was that? Lightweight identity cap that required broader set of context, but not too deep, okay?
+
+1042
+02:26:41.680 --> 02:26:48.950
+Jitendra K: For enterprise… yeah, that's the right answer. For enterprise level, what is the answer? For enterprise level application, we need line graph, yes.
+
+1043
+02:26:49.960 --> 02:26:56.679
+Jitendra K: So, for POC papers, you can go with Crew AI. I will use Crew AI when pipeline is more linear, Langraph will intend
+
+1044
+02:26:56.950 --> 02:27:02.259
+Jitendra K: Yeah, that is also right. And so, basically, that means, the bit of,
+
+1045
+02:27:03.650 --> 02:27:08.270
+Jitendra K: conditional routing involved, and in those scenarios, I will not use Crewier.
+
+1046
+02:27:08.560 --> 02:27:13.580
+Jitendra K: But I will defer in this opinion as well, because Crew AI is also improving.
+
+1047
+02:27:14.510 --> 02:27:18.539
+Jitendra K: And there are pools of tons of developers who's working on Crew AI.
+
+1048
+02:27:18.840 --> 02:27:21.310
+Jitendra K: To improve this holistic tool.
+
+1049
+02:27:23.110 --> 02:27:28.160
+Jitendra K: So, Crew AI is also improving. That means, it's not…
+
+1050
+02:27:28.750 --> 02:27:37.150
+Jitendra K: that far from Langraf. But yes, When you talk about enterprise-ready, frameworks.
+
+1051
+02:27:37.560 --> 02:27:44.499
+Jitendra K: When you talk about, model review cycles, when you talk about your ethical consideration of AI,
+
+1052
+02:27:44.870 --> 02:27:48.530
+Jitendra K: then Crew AI will not have… that capabilities.
+
+1053
+02:27:48.860 --> 02:27:51.210
+Jitendra K: Right? So it will definitely gonna be have…
+
+1054
+02:27:52.260 --> 02:27:57.190
+Jitendra K: Some blockers when you need to integrate this into a production-grade solution.
+
+1055
+02:27:58.230 --> 02:28:01.939
+Jitendra K: Some organizations are using Cruvier in production as well, I'm not denying.
+
+1056
+02:28:02.560 --> 02:28:05.619
+Jitendra K: But 90% of the organization will not prefer.
+
+1057
+02:28:22.540 --> 02:28:26.749
+Jitendra K: through AI can, as well, do decision-making.
+
+1058
+02:28:27.830 --> 02:28:35.170
+Jitendra K: Yeah, I mean, it's up to the problem that you're trying to solve with Crew AI, so… Crew AI is…
+
+1059
+02:28:35.510 --> 02:28:40.069
+Jitendra K: touch base with… A lot of, vertical, including…
+
+1060
+02:28:40.250 --> 02:28:44.560
+Jitendra K: healthcare. I've seen a lot of products in healthcare is running in True AI.
+
+1061
+02:28:44.860 --> 02:28:50.969
+Jitendra K: A lot of, billing, procurement, and, supply chain agents are running in Crew AI.
+
+1062
+02:28:52.210 --> 02:28:55.280
+Jitendra K: a lot of, I've seen a lot of,
+
+1063
+02:28:55.810 --> 02:29:02.389
+Jitendra K: Yeah, our CSA process, regulatory controls are running in Crew.ai. I can show you an example, I think this is a slide that I prepared.
+
+1064
+02:29:02.780 --> 02:29:04.610
+Jitendra K: So the core idea is,
+
+1065
+02:29:05.350 --> 02:29:07.170
+Jitendra K: True AI can be able to…
+
+1066
+02:29:07.500 --> 02:29:11.040
+Jitendra K: automate a lot of stuff. Let's say, let's take an example of this.
+
+1067
+02:29:11.410 --> 02:29:15.759
+Jitendra K: I can automate market research and quantitative intelligence from the crew AI.
+
+1068
+02:29:16.240 --> 02:29:22.829
+Jitendra K: I can create crews like Market Scout, data analysts, strategists, and editors, which can work together
+
+1069
+02:29:22.980 --> 02:29:24.889
+Jitendra K: To create a strategy for me.
+
+1070
+02:29:25.100 --> 02:29:26.970
+Jitendra K: So, I will give you an example.
+
+1071
+02:29:27.880 --> 02:29:35.330
+Jitendra K: There's something called, I hope you have heard about this term called dynamic pricing. Not in airfares, but also in e-commerce.
+
+1072
+02:29:36.870 --> 02:29:45.480
+Jitendra K: Right? So, have you heard about price volatility, or price dynamic pricing? Right? So, basically, your e-commerce prices will change.
+
+1073
+02:29:45.910 --> 02:29:48.200
+Jitendra K: Based upon your own perceptions.
+
+1074
+02:29:48.670 --> 02:29:50.259
+Jitendra K: Based upon your own…
+
+1075
+02:29:50.830 --> 02:29:57.119
+Jitendra K: consoles. Nobody else can be able to see the price that the e-commerce website is showing to you.
+
+1076
+02:29:57.650 --> 02:30:00.760
+Jitendra K: And that is called dynamic pricing. So that means…
+
+1077
+02:30:01.180 --> 02:30:04.840
+Jitendra K: There is some intelligence behind the scenes which is working.
+
+1078
+02:30:04.980 --> 02:30:09.219
+Jitendra K: Seamlessly, to understand your cookie sessions data.
+
+1079
+02:30:09.660 --> 02:30:12.940
+Jitendra K: So, somebody is getting your cookie session.
+
+1080
+02:30:13.150 --> 02:30:18.140
+Jitendra K: And do a competitive analysis on the product that he would like to purchase.
+
+1081
+02:30:18.360 --> 02:30:20.670
+Jitendra K: The likelihood of purchase is very high.
+
+1082
+02:30:20.820 --> 02:30:29.250
+Jitendra K: And you're just waiting for a proper discount, or maybe some bit of coupons that you can apply to lower down the price, and you can purchase it.
+
+1083
+02:30:32.620 --> 02:30:33.430
+Jitendra K: Right?
+
+1084
+02:30:33.790 --> 02:30:34.640
+Jitendra K: Yeah.
+
+1085
+02:30:34.900 --> 02:30:44.330
+Jitendra K: So, that kind of personas can be possible with the help of e-commerce tools. An e-commerce tool, believe me, like Amazon, Walmart.
+
+1086
+02:30:44.860 --> 02:30:51.180
+Jitendra K: Flipkart, they're all intelligent tools. They are using crawlers, they're using cookie session, they're doing hyper-personalization.
+
+1087
+02:30:51.670 --> 02:30:59.149
+Jitendra K: Everything is there. So what if I have to replace that traditional way of doing things, business, with the help of a crew AI?
+
+1088
+02:31:00.330 --> 02:31:06.950
+Jitendra K: So I've created one code, I can share that with you as well, if you want. There's a grid repo I can share with you.
+
+1089
+02:31:08.050 --> 02:31:13.679
+Jitendra K: Maybe, not to go to every part of it, but I will give you the crux, what I'm trying to do.
+
+1090
+02:31:15.890 --> 02:31:22.659
+Jitendra K: So, the multi-reinforcement learning dynamic pricing bot that I created, and this bot will help you to perform.
+
+1091
+02:31:22.840 --> 02:31:26.900
+Jitendra K: The analysis on the price fairs and…
+
+1092
+02:31:27.070 --> 02:31:32.519
+Jitendra K: You can able to do custom setting to set up what sort of margin that I need to work upon.
+
+1093
+02:31:32.710 --> 02:31:40.120
+Jitendra K: So this is one of the products that I have developed as an open source, and this particular product will help you to
+
+1094
+02:31:40.440 --> 02:31:42.580
+Jitendra K: Dynamically yield the pricing.
+
+1095
+02:31:42.710 --> 02:31:48.060
+Jitendra K: Using agent API. So that means, let's say, As… as a e-commerce…
+
+1096
+02:31:48.430 --> 02:31:53.590
+Jitendra K: website, I know what are the competitors in my market… in the market. Let's say Amazon.
+
+1097
+02:31:54.190 --> 02:32:02.380
+Jitendra K: Always know their competitors, and he would like to compete and make sure that he succeeds them, right?
+
+1098
+02:32:02.510 --> 02:32:07.049
+Jitendra K: So they are creating a lot of strategies. So, every e-commerce ventures are creating strategies.
+
+1099
+02:32:07.410 --> 02:32:12.719
+Jitendra K: And they are creating competitive strategies, they are creating price dynamic strategies, they are creating…
+
+1100
+02:32:13.110 --> 02:32:28.339
+Jitendra K: event view strategies, they are creating personas for our campaigns that whom should I go and talk to? What is the mode of communication that I should have with my client? Should I give them a coupon or not? So this is purely a data science challenges.
+
+1101
+02:32:28.620 --> 02:32:31.599
+Jitendra K: And believe me, this is a million-dollar industry, right?
+
+1102
+02:32:32.160 --> 02:32:37.689
+Jitendra K: I have solved marketing mix models. I have created ad campaigns earlier, so ad campaigns for…
+
+1103
+02:32:38.380 --> 02:32:43.560
+Jitendra K: distributed, clients. Let's say I have a few options, including
+
+1104
+02:32:44.250 --> 02:32:48.560
+Jitendra K: As an ad manager, I'm holding some budget from the top.
+
+1105
+02:32:49.060 --> 02:32:53.080
+Jitendra K: And the budget I would like to spend on those channels which are profitable.
+
+1106
+02:32:53.500 --> 02:32:56.699
+Jitendra K: Now, in ad campaign, there's a term called
+
+1107
+02:32:59.830 --> 02:33:09.539
+Jitendra K: sorry, this is the term called tail revenue. That means your revenue will be decided by the impression that you are going to serve across customer base.
+
+1108
+02:33:09.840 --> 02:33:13.220
+Jitendra K: So, for every thousand served on an ad.
+
+1109
+02:33:13.520 --> 02:33:15.469
+Jitendra K: What is the revenue that I'm getting?
+
+1110
+02:33:15.600 --> 02:33:18.799
+Jitendra K: And that is what marketing mix modeling is trying to solve.
+
+1111
+02:33:19.550 --> 02:33:35.099
+Jitendra K: So the idea is, I'm just trying to say that e-commerce… we'll talk about these cases eventually in futuristic class, and we'll try to solve with real-world data, near real-world data, I would say. Some dummy data, of course, just to profit in nature, I cannot share that.
+
+1112
+02:33:35.410 --> 02:33:39.700
+Jitendra K: So we have to go with dummy data, and I will create some dummy data and show it to you.
+
+1113
+02:33:39.920 --> 02:33:47.349
+Jitendra K: But the idea is, here is very simple, that, you're going to use agents' reasoning capability
+
+1114
+02:33:47.650 --> 02:33:49.270
+Jitendra K: To perform a campaign.
+
+1115
+02:33:50.910 --> 02:33:53.850
+Jitendra K: And that is happening in real world, right?
+
+1116
+02:33:54.060 --> 02:33:55.800
+Jitendra K: And that is happening in the real world.
+
+1117
+02:33:55.980 --> 02:34:02.429
+Jitendra K: So, it's not a… theoretical concept anymore. People, I mean, organizations are using it.
+
+1118
+02:34:02.610 --> 02:34:03.879
+Jitendra K: Very diligently.
+
+1119
+02:34:04.360 --> 02:34:08.459
+Jitendra K: So what I'm trying to say here is a very simple thing, that,
+
+1120
+02:34:08.700 --> 02:34:12.219
+Jitendra K: When you talk about ideation, when you talk about POC,
+
+1121
+02:34:12.480 --> 02:34:13.909
+Jitendra K: Crew AI is a great tool.
+
+1122
+02:34:14.750 --> 02:34:20.390
+Jitendra K: But when it comes to… Productionization, enterprise-ready great products.
+
+1123
+02:34:20.500 --> 02:34:22.670
+Jitendra K: Then you cannot replace line graphs.
+
+1124
+02:34:27.630 --> 02:34:37.339
+Jitendra K: Yeah, I will… I will take some example on reinforcement learning, but reinforcement learning, we are going to use in rack optimization, not in agentic reasoning.
+
+1125
+02:34:37.730 --> 02:34:42.819
+Jitendra K: We'll call something called DSPY. So DSPY is a great tool.
+
+1126
+02:34:43.290 --> 02:34:51.839
+Jitendra K: Which will help us to optimize, sorry, optimize the RAC pipeline with the help of reinforcement learning. That is something which we are going to discuss. DSPY will discuss.
+
+1127
+02:34:51.960 --> 02:34:57.519
+Jitendra K: We'll discuss about AutoRag. AutoRag is also using reinforcement Running Policy, GRPOs, and…
+
+1128
+02:34:57.620 --> 02:35:01.720
+Jitendra K: MIPROV2, which is very useful for that purpose.
+
+1129
+02:35:07.270 --> 02:35:14.590
+Jitendra K: Yeah, we'll talk about this paper, Create an Illusion of Reasoning, I think, we will talk about that paper as well. So…
+
+1130
+02:35:15.630 --> 02:35:22.440
+Jitendra K: So, there's a debate around, whether the LLMs are really thinking machine, or they are just mimicking
+
+1131
+02:35:22.550 --> 02:35:25.479
+Jitendra K: the next word. But, to answer your question.
+
+1132
+02:35:25.650 --> 02:35:28.470
+Jitendra K: They're just an expert prediction model, nothing else.
+
+1133
+02:35:29.140 --> 02:35:37.359
+Jitendra K: And, yeah, using the extensive power of these models to mimic. So, one thing that we are going to discuss tomorrow
+
+1134
+02:35:38.120 --> 02:35:43.730
+Jitendra K: Is, we're going to debunk, the transformer attention models.
+
+1135
+02:35:44.220 --> 02:35:46.889
+Jitendra K: And that will help you to understand,
+
+1136
+02:35:47.050 --> 02:35:50.359
+Jitendra K: Where this reasoning capability comes from.
+
+1137
+02:35:54.290 --> 02:35:59.910
+Jitendra K: And in the interim, we will talk about PAF, LoRAS, Q LoRAS, adapters, Dude.
+
+1138
+02:36:00.660 --> 02:36:03.570
+Jitendra K: train the model… LLM model from the scratch.
+
+1139
+02:36:03.840 --> 02:36:07.210
+Jitendra K: So let's say if I give you a task, can you start
+
+1140
+02:36:07.770 --> 02:36:14.430
+Jitendra K: creating your own LLM, so the answer is… You have to adopt Kafka and Loras.
+
+1141
+02:36:18.160 --> 02:36:22.640
+Jitendra K: Yeah, we'll go to fine-tuning later, but let's try to cover first transformers.
+
+1142
+02:36:23.470 --> 02:36:28.620
+Jitendra K: the path technique, and then we will talk about low-rank adapters in tomorrow's tutorial.
+
+1143
+02:36:29.900 --> 02:36:41.010
+Jitendra K: But anything that you would like to ask from Crew AI perspective, can you please go to the code guys and let me know your pain points? If you feel anything that is not clear, please do ask.
+
+1144
+02:36:41.280 --> 02:36:55.329
+Jitendra K: And this is just the start of Crew AI. We have a lot of cover… a lot of things to be covered eventually. We will talk about some more advanced, complex problems that we can solve with the help of Crew AI. So this particular code snippet will act like a…
+
+1145
+02:36:56.490 --> 02:37:01.159
+Jitendra K: simple, you know, menu card for Crew AI, which will help you to accustom
+
+1146
+02:37:01.550 --> 02:37:03.919
+Jitendra K: the classes and the functions in Crew AI.
+
+1147
+02:37:05.490 --> 02:37:11.440
+Jitendra K: Can you please, look into this notebook and let me know if there's any questions?
+
+1148
+02:37:23.860 --> 02:37:28.469
+Jitendra K: I tend to show you below, but it is all over my head.
+
+1149
+02:37:31.960 --> 02:37:40.189
+Jitendra K: Yeah, these are all frameworks, VLLM, NVIDIA framework, and everything is depending upon the inference…
+
+1150
+02:37:40.290 --> 02:37:43.479
+Jitendra K: clusters, right? Yeah, GPU clusters.
+
+1151
+02:37:43.850 --> 02:37:51.559
+Jitendra K: So inference is, because if you're training the model from the scratch, You need, not just…
+
+1152
+02:37:55.470 --> 02:37:59.380
+Jitendra K: So… But in France is the most costly affair, right?
+
+1153
+02:38:00.390 --> 02:38:04.989
+Jitendra K: So, Vela LLM, and Megatron are nothing but…
+
+1154
+02:38:05.140 --> 02:38:08.589
+Jitendra K: The frameworks that will help you to accelerate the training.
+
+1155
+02:38:31.230 --> 02:38:32.770
+Jitendra K: Okay, thanks.
+
+1156
+02:38:39.160 --> 02:38:44.509
+Jitendra K: Okay, sure, yeah, you can share your idea, that should be fine, I can open to discuss.
+
+1157
+02:38:53.140 --> 02:38:59.379
+Jitendra K: Okay, now I would like to talk to you about the Canvas tool. So, let's move on to this part.
+
+1158
+02:39:02.630 --> 02:39:07.390
+Jitendra K: So, you need to go to this website, crew.ai. Let me share this link with everyone.
+
+1159
+02:39:10.410 --> 02:39:12.409
+Jitendra K: So if we log into this website.
+
+1160
+02:39:14.630 --> 02:39:16.910
+Jitendra K: You just need to create your account, sign in.
+
+1161
+02:39:24.460 --> 02:39:27.689
+Jitendra K: But this is where you will feel that…
+
+1162
+02:39:28.450 --> 02:39:34.129
+Jitendra K: You do not even require coding to write… brewer agents.
+
+1163
+02:39:34.780 --> 02:39:40.020
+Jitendra K: That means you can do something Why? Just drag and drop.
+
+1164
+02:39:41.120 --> 02:39:42.749
+Jitendra K: Or by writing a prompt.
+
+1165
+02:39:43.420 --> 02:39:45.339
+Jitendra K: Nothing more, nothing less than that.
+
+1166
+02:39:46.600 --> 02:39:54.349
+Jitendra K: Now, let me show you some ready-made, project, which is there in my directory. It will be there in your directory as well.
+
+1167
+02:39:54.620 --> 02:39:56.729
+Jitendra K: So there's something called Pro Studio.
+
+1168
+02:39:57.660 --> 02:40:00.729
+Jitendra K: So you can see that it is asking me
+
+1169
+02:40:00.950 --> 02:40:03.310
+Jitendra K: to describe what I need to automate.
+
+1170
+02:40:04.000 --> 02:40:09.429
+Jitendra K: It will give me the access to multiple products and projects, which has been there.
+
+1171
+02:40:09.990 --> 02:40:16.239
+Jitendra K: It will give me access to multiple RLM connections and environmental variables, including tool integrations.
+
+1172
+02:40:16.400 --> 02:40:20.410
+Jitendra K: tools like somebody have asked, can I automate my Gmail,
+
+1173
+02:40:20.970 --> 02:40:30.290
+Jitendra K: what do you… what was the query? Gmail, contents, and filter a kind of a newsletter every day. This is possible. You can integrate with Google
+
+1174
+02:40:31.110 --> 02:40:35.819
+Jitendra K: Gmail account, and you can get emails configured here.
+
+1175
+02:40:36.250 --> 02:40:45.190
+Jitendra K: You can create your own internet tools, and then generate the answer. You can do some integration with the tools like Slack, Communication Channel, Salesforce CRM.
+
+1176
+02:40:45.800 --> 02:40:49.420
+Jitendra K: Zapier, etc. So, you can do much more than that.
+
+1177
+02:40:49.810 --> 02:41:00.429
+Jitendra K: But why I'm not encouraging you guys to use this tool, because you will skip Python in that case, if you get familiar with that. And believe me, there's a restriction on this tool. You have to pay for it.
+
+1178
+02:41:01.630 --> 02:41:10.390
+Jitendra K: So, I don't think so your organization will… going to adapt this tool, for sure. How many of your organization is ready to pay for Crew AI Enterprise version? I think…
+
+1179
+02:41:10.650 --> 02:41:12.139
+Jitendra K: Less than 1%.
+
+1180
+02:41:14.660 --> 02:41:17.760
+Jitendra K: Because they already know it's a free, then why they are going to pay?
+
+1181
+02:41:20.020 --> 02:41:20.810
+Jitendra K: Right?
+
+1182
+02:41:25.490 --> 02:41:27.070
+Jitendra K: So that is the whole…
+
+1183
+02:41:28.950 --> 02:41:35.379
+Jitendra K: Yes. Organization will use whatever is free. They are going to use open source. They're not going to, again.
+
+1184
+02:41:36.200 --> 02:41:37.950
+Jitendra K: End up into vendor locking.
+
+1185
+02:41:41.660 --> 02:41:46.200
+Jitendra K: It depends upon the cost, I mean, users' cost that you're going to have. For Canvas.
+
+1186
+02:41:46.660 --> 02:41:51.629
+Jitendra K: Tool will give you some… Maybe, depending upon your
+
+1187
+02:41:51.880 --> 02:41:55.939
+Jitendra K: Enterprise license, and how many members that you are going to accommodate.
+
+1188
+02:41:56.060 --> 02:41:58.519
+Jitendra K: It can go up to 1,000, not more than that.
+
+1189
+02:41:59.600 --> 02:42:01.150
+Jitendra K: thousand US dollar.
+
+1190
+02:42:05.620 --> 02:42:06.450
+Jitendra K: Yeah.
+
+1191
+02:42:07.480 --> 02:42:17.539
+Jitendra K: Data protection will also be compromised with these tools. But let's try to look into what we can do with the help of this canvas. So let's say I'm going to automate a social media posting.
+
+1192
+02:42:17.900 --> 02:42:21.549
+Jitendra K: So I will just click on try it now, and I will show you the demo.
+
+1193
+02:42:22.230 --> 02:42:25.180
+Jitendra K: how it is going to build. Now, I'm just writing a prompt.
+
+1194
+02:42:25.680 --> 02:42:34.779
+Jitendra K: Which says that create a crew that schedules and publish social media contents across multiple platforms. Analyze the engagement metrics, which is one of the metrics that I'm going to.
+
+1195
+02:42:35.160 --> 02:42:37.420
+Jitendra K: Understand from consumer perspective.
+
+1196
+02:42:37.730 --> 02:42:45.060
+Jitendra K: Suggest optimal posting times and generate contents, ideas based upon the trending topic in the industry… in your industry.
+
+1197
+02:42:45.750 --> 02:42:54.100
+Jitendra K: Now, once I create this… There's a two editions. One is the canvas, Second is the prompt.
+
+1198
+02:42:54.660 --> 02:42:57.950
+Jitendra K: Which is, going into deep thinking mode.
+
+1199
+02:42:58.340 --> 02:43:03.900
+Jitendra K: Of course, I'm using, GPT-40 Mini for doing this analysis.
+
+1200
+02:43:04.180 --> 02:43:07.390
+Jitendra K: And then it will try to create
+
+1201
+02:43:07.570 --> 02:43:10.610
+Jitendra K: the tools for me. So you can see it's creating a node.
+
+1202
+02:43:11.100 --> 02:43:12.490
+Jitendra K: Which is a crew node.
+
+1203
+02:43:13.190 --> 02:43:21.519
+Jitendra K: And, it will give me the very detailed roles of each and everything. So these are the attributes that we are using inside the code as well, right?
+
+1204
+02:43:22.020 --> 02:43:25.260
+Jitendra K: So, you can see the goal, you can see the…
+
+1205
+02:43:25.810 --> 02:43:28.739
+Jitendra K: Backstory, you can see the model, you can see the tools.
+
+1206
+02:43:29.230 --> 02:43:36.110
+Jitendra K: But it is doing in a more, lenient fashion, automated fashion. So here, you need not even write a single line of a code.
+
+1207
+02:43:36.310 --> 02:43:38.780
+Jitendra K: But it's automatically doing everything for you.
+
+1208
+02:43:39.100 --> 02:43:41.350
+Jitendra K: Yeah, similar to NA10, but less…
+
+1209
+02:43:41.990 --> 02:43:49.370
+Jitendra K: slightly less limited to N10, which I feel NA10 is a great tool, even when it comes to UI.
+
+1210
+02:43:52.790 --> 02:43:55.700
+Jitendra K: Yeah, it will give you the Python code behind it as well.
+
+1211
+02:43:59.330 --> 02:44:03.799
+Jitendra K: So you can see that it is creating the social media analysis.
+
+1212
+02:44:04.530 --> 02:44:12.420
+Jitendra K: We'll give you all the tools to integrate the daily reports, like your Excels, your Word files, your SERP API,
+
+1213
+02:44:13.110 --> 02:44:15.129
+Jitendra K: Social media schedulers.
+
+1214
+02:44:15.720 --> 02:44:24.200
+Jitendra K: and the DAF post that you're going to utilize. It will also give you the track about your errors, like, I don't have permission for Google Sheet.
+
+1215
+02:44:24.330 --> 02:44:26.889
+Jitendra K: Google Document, so I have to fix this.
+
+1216
+02:44:27.040 --> 02:44:30.019
+Jitendra K: I can just click on it, and then maybe fix it.
+
+1217
+02:44:30.240 --> 02:44:32.570
+Jitendra K: with a credential that I can supply.
+
+1218
+02:44:32.850 --> 02:44:38.180
+Jitendra K: Now, once I have done this, I can simply click on Run Automation, if everything is ready.
+
+1219
+02:44:38.670 --> 02:44:43.990
+Jitendra K: to check, and I can create this trigger on a particular event. I can schedule this job.
+
+1220
+02:44:44.530 --> 02:44:50.500
+Jitendra K: as a batch, and this will run like a seamless, automated job, which I can able to use.
+
+1221
+02:44:50.680 --> 02:44:53.060
+Jitendra K: The one thing, I can download this code.
+
+1222
+02:44:53.430 --> 02:44:56.739
+Jitendra K: which will give me all the Python
+
+1223
+02:44:58.150 --> 02:45:01.900
+Jitendra K: Recipes that are required to operate to deploy this model.
+
+1224
+02:45:02.560 --> 02:45:05.260
+Jitendra K: You can see how nicely it is generating the code.
+
+1225
+02:45:05.860 --> 02:45:13.230
+Jitendra K: And I can use this… For the purpose of… deployment.
+
+1226
+02:45:13.420 --> 02:45:19.490
+Jitendra K: So I have two options now. I can deploy Python code, or I can deploy this trigger from the canvas.
+
+1227
+02:45:20.340 --> 02:45:26.249
+Jitendra K: So this is one thing that I feel Cruel is good at. Langraph does not have any UI.
+
+1228
+02:45:26.720 --> 02:45:36.690
+Jitendra K: So at least you can able to visualize what are you trying to do. But Langraph required mermaid-based workflows, which are static.
+
+1229
+02:45:38.950 --> 02:45:42.680
+Jitendra K: Yeah, this is slightly faster, but you have to acquire a license for that.
+
+1230
+02:45:42.940 --> 02:45:45.360
+Jitendra K: It will give you some free buys.
+
+1231
+02:45:45.710 --> 02:45:51.059
+Jitendra K: And it'll create a hook that, you should try and test this, and you will become used to it.
+
+1232
+02:45:51.440 --> 02:45:53.280
+Jitendra K: That is what they want, right?
+
+1233
+02:45:53.880 --> 02:45:55.740
+Jitendra K: Once you're used to it, you will…
+
+1234
+02:45:56.470 --> 02:46:01.259
+Jitendra K: Never go back to Visual Studios or Python-based interpreter to write a code.
+
+1235
+02:46:02.420 --> 02:46:05.080
+Jitendra K: But here, how will you debug? That's my question.
+
+1236
+02:46:05.640 --> 02:46:06.930
+Jitendra K: You cannot debug it.
+
+1237
+02:46:07.780 --> 02:46:16.780
+Jitendra K: Debugging and all will come from the code point of view. So once you download a code, yes, then you can do much more than that. So initially, you can write something.
+
+1238
+02:46:17.120 --> 02:46:24.890
+Jitendra K: You can download the code, and you can modify the code thereafter. That is possible, I think. Everybody is doing it, so there's no harm in doing this as well.
+
+1239
+02:46:28.030 --> 02:46:46.270
+Jitendra K: So you can see that how nicely the Crew AI is, based upon the capability. Similar capability will be explored by… we are going to leverage with the help of AutoGen, AutoGen tool from, Microsoft. AutoGen also provides you some UIs that you can be able to use for the purpose of…
+
+1240
+02:46:46.880 --> 02:46:49.310
+Jitendra K: Creating a great agent of tools.
+
+1241
+02:46:51.190 --> 02:47:01.619
+Jitendra K: But believe me, this whole analysis that we're conducting, including Crew AI, Python wrappers, this is all happening behind the scene, it is using LangchainN.
+
+1242
+02:47:02.120 --> 02:47:03.260
+Jitendra K: land graphs.
+
+1243
+02:47:04.360 --> 02:47:11.469
+Jitendra K: So even if you're writing crew, there's some code which is running behind the scene which is calling your line graph to operate.
+
+1244
+02:47:13.060 --> 02:47:15.550
+Jitendra K: At a metrics, or event level.
+
+1245
+02:47:15.760 --> 02:47:21.060
+Jitendra K: Right, so that is where I would say, these are the wrappers that we are using, again.
+
+1246
+02:47:21.610 --> 02:47:28.650
+Jitendra K: Without giving too much overwhelming, response to the user by saying, okay, I'm using this complex
+
+1247
+02:47:28.960 --> 02:47:34.789
+Jitendra K: ports to write agents, but yes, I feel it like a template that I'm using to write an agent now.
+
+1248
+02:47:47.730 --> 02:47:55.070
+Jitendra K: Alright, so I've shared the code, I've shared the, tutorial HTML as well, so please go through it.
+
+1249
+02:47:55.180 --> 02:48:04.780
+Jitendra K: And tomorrow, we are going to talk about PEFT and LoRa, so I want everybody to go through some basics of Paft and LoRa from Stanford University.
+
+1250
+02:48:05.220 --> 02:48:10.090
+Jitendra K: And these are some great tutorials. I would encourage you to go and read this.
+
+1251
+02:48:10.820 --> 02:48:17.319
+Jitendra K: I know, this is some hard concept, but at least you will get some opinion, so please go through this
+
+1252
+02:48:18.120 --> 02:48:21.819
+Jitendra K: Papers, research paper, this will definitely going to help you.
+
+1253
+02:48:27.040 --> 02:48:31.990
+Jitendra K: To understand a bit more on the techniques that we can use for fine-tuning.
+
+1254
+02:48:32.580 --> 02:48:34.659
+Jitendra K: the LLMs, from the scratch.
+
+1255
+02:48:39.770 --> 02:48:45.630
+Jitendra K: And you can see that I'm using parameter fine-tuning on BERT model, which is, you can download and fine-tune.
+
+1256
+02:48:46.610 --> 02:48:49.269
+Jitendra K: BERT is available, so we'll do this…
+
+1257
+02:48:49.990 --> 02:48:52.800
+Jitendra K: parameter optimization on BERT model tomorrow.
+
+1258
+02:48:53.410 --> 02:49:00.659
+Jitendra K: Because GPT, if I'm going to use LoRa on GPT-2, then it will become a massive, cost for me.
+
+1259
+02:49:01.110 --> 02:49:06.200
+Jitendra K: Because my run pod will throw a bill after that class.
+
+1260
+02:49:08.050 --> 02:49:13.470
+Jitendra K: So we'll go with, shallow models, which is BERT.
+
+1261
+02:49:13.630 --> 02:49:15.219
+Jitendra K: We'll try to fine-tune it.
+
+1262
+02:49:26.880 --> 02:49:33.510
+Jitendra K: All right, guys, any further question, anything that you would like to ask before we have, I think, 5 more minutes?
+
+1263
+02:49:34.150 --> 02:49:38.089
+Jitendra K: Can we use, Myronport refuatorial equipping?
+
+1264
+02:49:38.700 --> 02:49:43.979
+Jitendra K: Yeah, definitely, I mean, we can… we can try. If you have credential, that would be great.
+
+1265
+02:49:45.610 --> 02:49:49.360
+Jitendra K: If you have Runport, that is great. You can try that.
+
+1266
+02:49:55.480 --> 02:50:03.920
+Jitendra K: But I want everybody to at least go through the transformer architecture, try to understand what transformer architecture does from the first principle point of view.
+
+1267
+02:50:04.320 --> 02:50:10.229
+Jitendra K: Just try to understand the basics of encoder-decoder, and what are the layers that Transformer have.
+
+1268
+02:50:11.000 --> 02:50:18.889
+Jitendra K: And, anyway, we are going to talk about attention. I just want you to be familiar with basic terms like encoder, decoders, and
+
+1269
+02:50:19.410 --> 02:50:29.690
+Jitendra K: the, feed-forward neural networks, and specifically on the lines of Back propagations and, maybe…
+
+1270
+02:50:30.010 --> 02:50:34.980
+Jitendra K: What are the different ways to calculate the gradients errors in
+
+1271
+02:50:35.870 --> 02:50:43.260
+Jitendra K: During that time, right? So how the feedfall neural network has improved, the error proportions and…
+
+1272
+02:50:43.790 --> 02:50:51.439
+Jitendra K: how it is, making those arrangements to improve the model outcome. So these things, if you can please go through it.
+
+1273
+02:50:51.630 --> 02:50:55.779
+Jitendra K: That will help me to focus on the core part, which is attention layer.
+
+1274
+02:50:56.110 --> 02:51:02.270
+Jitendra K: Because I will assume that you have some understanding on the… Encoder-decoder part already.
+
+1275
+02:51:04.620 --> 02:51:11.880
+Jitendra K: So we'll take this one class, and again, we will switch back to Agent AI from the next class onwards.
+
+1276
+02:51:12.360 --> 02:51:17.299
+Jitendra K: We'll continue with Crew and Autogen, and this particular class is just for…
+
+1277
+02:51:17.980 --> 02:51:25.680
+Jitendra K: Making sure that we have… covered the LLM Fine-tuning from the scratch.
+
+1278
+02:51:32.380 --> 02:51:38.090
+Jitendra K: Yeah, I mean, if there's a current topic related, you know…
+
+1279
+02:51:39.250 --> 02:51:44.329
+Jitendra K: Yeah, I mean, you can discuss during the class, or you can write an email to me, that should be fine.
+
+1280
+02:51:44.820 --> 02:51:50.160
+Jitendra K: And, I will definitely look into your output.
+
+1281
+02:51:50.720 --> 02:51:53.499
+Jitendra K: And, your blockers, if you're facing any.
+
+1282
+02:51:55.080 --> 02:51:56.600
+Jitendra K: You can use this.
+
+1283
+02:52:05.500 --> 02:52:09.600
+Jitendra K: Yeah, AWS, if you're using Batrocks, Bedrock.
+
+1284
+02:52:10.570 --> 02:52:14.260
+Jitendra K: then AWS Bedrock is a great tool for
+
+1285
+02:52:14.490 --> 02:52:17.889
+Jitendra K: Promoterize, to commercialize your solution.
+
+1286
+02:52:18.480 --> 02:52:23.039
+Jitendra K: And Bedrock is a great tool. I have a Bedrock account, so…
+
+1287
+02:52:24.030 --> 02:52:30.720
+Jitendra K: With Amazon Backrock, you can do a lot of managed services integration with Agent KI.
+
+1288
+02:52:35.760 --> 02:52:43.349
+Jitendra K: Yeah, so I can share you some material if you want, for Bedrock integration on Agent TKI, and there are some
+
+1289
+02:52:44.540 --> 02:52:53.339
+Jitendra K: Best practices that you should follow for writing Foured in Bedrock, and… If you're familiar with SageMaker.
+
+1290
+02:52:54.130 --> 02:53:00.439
+Jitendra K: Which is a machine learning cap- machine learning tool in AWS. Bedrock is more towards
+
+1291
+02:53:01.020 --> 02:53:06.070
+Jitendra K: Agentic Core, so you can implement Agentic Core with help of ByteDraw, and then…
+
+1292
+02:53:06.510 --> 02:53:12.140
+Jitendra K: similar to Databricks, you can manage your pipelines, you can manage your instances, you can manage your…
+
+1293
+02:53:12.340 --> 02:53:21.460
+Jitendra K: API, you can manage your… App deployment, latencies, improve the model, calibrate the auto rag.
+
+1294
+02:53:21.850 --> 02:53:25.250
+Jitendra K: perform experimentation, so you can do much more in Bedrock.
+
+1295
+02:53:25.700 --> 02:53:31.310
+Jitendra K: But all with a managed instance. That means you have an SLA that your agent will deploy.
+
+1296
+02:53:31.950 --> 02:53:36.060
+Jitendra K: will automatically add K add servers, etc, and then…
+
+1297
+02:53:36.600 --> 02:53:41.080
+Jitendra K: Eventually, your scalability will not be an issue. We just focus on development.
+
+1298
+02:53:43.740 --> 02:53:45.859
+Jitendra K: Yeah, I will share tomorrow, yeah.
+
+1299
+02:53:49.970 --> 02:53:58.169
+Jitendra K: So when you're not looking for scalability, data engineering part of it, just focus on Agentic part, go for Agentic Bedro, AWS Bedrock.
+
+1300
+02:54:00.430 --> 02:54:05.340
+Jitendra K: But if you're interested in solving engineering challenges as well, and along with
+
+1301
+02:54:06.030 --> 02:54:13.290
+Jitendra K: agentic solution, then go for a hybrid. So that's two things that you can… Nice.
+
+1302
+02:54:13.680 --> 02:54:16.619
+Jitendra K: If you're using on-prem, then, of course, it's cheaper.
+
+1303
+02:54:17.460 --> 02:54:20.689
+Jitendra K: But yes, if you're using a cloud solution.
+
+1304
+02:54:21.230 --> 02:54:24.619
+Jitendra K: It is manageable according to your SLA, pay as you go.
+
+1305
+02:54:25.200 --> 02:54:30.330
+Jitendra K: You have to manage, and you have to be very sure that how much
+
+1306
+02:54:31.650 --> 02:54:36.690
+Jitendra K: Factor that you're considering to scale up your architecture? How many users are going to consume?
+
+1307
+02:54:37.030 --> 02:54:43.619
+Jitendra K: What is their purpose, what is their uses, and everything has to be estimated before you deploy your solution in the cloud.
+
+1308
+02:54:51.240 --> 02:54:56.430
+Jitendra K: Yeah, that means you have to deploy the agents in Bedrock, right? But the core remains the same.
+
+1309
+02:55:03.420 --> 02:55:04.250
+Jitendra K: Yep.
+
+1310
+02:55:06.720 --> 02:55:11.150
+Jitendra K: Alright, so I think now, I think if TA is listening, can you please launch the poll now?
+
+1311
+02:55:19.920 --> 02:55:23.139
+Jitendra K: I think it's already launched, so you can share.
+
+1312
+02:55:30.440 --> 02:55:37.150
+Jitendra K: Yeah, AGI, we are going to talk in the last part of… Pictoria, so…
+
+1313
+02:55:38.230 --> 02:55:44.509
+Jitendra K: We'll talk about, I mean, there's a lot of things to cover, first in Agent together, then we'll move on to AGI.
+
+1314
+02:55:44.810 --> 02:55:50.220
+Jitendra K: Because AGI is a vast topic, it is getting more momentum and more attraction.
+
+1315
+02:55:50.510 --> 02:55:55.690
+Jitendra K: For researcher, and it's… once it becomes more mature, then we will see
+
+1316
+02:55:55.950 --> 02:56:03.519
+Jitendra K: Can we be able to use some playground to use AGI? There's a lot of playground around… AGI playground, I hope you might have heard.
+
+1317
+02:56:11.390 --> 02:56:12.970
+Jitendra K: Sorry, AGI.
+
+1318
+02:56:27.940 --> 02:56:31.039
+Jitendra K: So first, we'll learn reinforcement learning.
+
+1319
+02:56:31.370 --> 02:56:36.900
+Jitendra K: And then maybe we can go for AGI, one or two problems, not more than that.
+
+1320
+02:56:47.840 --> 02:56:53.550
+Jitendra K: Yeah, I'm still preparing that PPT. I will share, maybe… Very soon.
+
+1321
+02:56:59.280 --> 02:57:03.130
+Jitendra K: Okay, no worries. Please watch the recording after the class.
+
+1322
+02:57:03.390 --> 02:57:07.710
+Jitendra K: Are the PPT, yeah, can you teach us how to make datasets for fine-tuning?
+
+1323
+02:57:08.570 --> 02:57:17.740
+Jitendra K: Dataset for fine-tuning is, something, which we should consider in… this module, which is DSPY.
+
+1324
+02:57:18.610 --> 02:57:21.949
+Jitendra K: Sorry, the DSPY module we have to consider.
+
+1325
+02:57:36.610 --> 02:57:38.870
+Jitendra K: This module will help you to understand.
+
+1326
+02:58:08.670 --> 02:58:16.170
+Jitendra K: Alright guys, I think this is pretty much what we have for today. So tomorrow, we are going to focus heavily on LLM fine-tuning.
+
+1327
+02:58:16.590 --> 02:58:20.600
+Jitendra K: And we are going to talk about two important… three important methods, the family of Paft.
+
+1328
+02:58:21.090 --> 02:58:27.229
+Jitendra K: Which include LORAS and Q LORAS, and then we'll see what our quantization technique, how to quantize a model.
+
+1329
+02:58:27.590 --> 02:58:30.440
+Jitendra K: What are different schemes on which you can…
+
+1330
+02:58:30.560 --> 02:58:33.790
+Jitendra K: efficiently tune the parameters of the LLMs.
+
+1331
+02:58:34.290 --> 02:58:39.020
+Jitendra K: So with that, thank you guys for attending this session. It was a pleasure to have an interaction.
+
+1332
+02:58:39.160 --> 02:58:41.889
+Jitendra K: And we meet tomorrow for the new topic. Thank you.
+

@@ -1,0 +1,4 @@
+{"agent": "cursor", "at": "2026-07-06T12:00:08.072636+00:00", "canonical_action_id": "discovery::research", "mission_id": "01KWVM5CJ0HM2JEYTGRGM7BBK4", "phase": "started", "reason": null, "wp_id": null}
+{"agent": "claude", "at": "2026-07-06T13:00:41.996757+00:00", "canonical_action_id": "plan::plan", "mission_id": "01KWVM5CJ0HM2JEYTGRGM7BBK4", "phase": "started", "reason": null, "wp_id": null}
+{"agent": "claude", "at": "2026-07-06T13:02:10.044423+00:00", "canonical_action_id": "plan::plan", "mission_id": "01KWVM5CJ0HM2JEYTGRGM7BBK4", "phase": "completed", "reason": null, "wp_id": null}
+{"agent": "claude", "at": "2026-07-06T13:02:16.055053+00:00", "canonical_action_id": "tasks::tasks", "mission_id": "01KWVM5CJ0HM2JEYTGRGM7BBK4", "phase": "started", "reason": null, "wp_id": null}

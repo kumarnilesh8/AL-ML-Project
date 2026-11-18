@@ -1,0 +1,14 @@
+{
+  "created_at": "2026-05-21T11:57:08.254044+00:00",
+  "friendly_name": "Pack Dashboard — Domain Tags and Built-in Doctrine",
+  "mission_id": "01KS56B1RXDA4JCMAZ6T4NHJ20",
+  "mission_number": 2,
+  "mission_slug": "pack-dashboard-domain-tags-builtin-01KS56B1",
+  "mission_type": "software-dev",
+  "purpose_context": "This mission advances Pack Dashboard — Domain Tags and Built-in Doctrine on overhaul/migrate_to_kitty so stakeholders can track the work from mission creation onward.",
+  "purpose_tldr": "Add functional domain tagging for artifacts and surface spec-kitty built-in doctrine in the pack governance dashboard",
+  "slug": "pack-dashboard-domain-tags-builtin-01KS56B1",
+  "target_branch": "overhaul/migrate_to_kitty",
+  "vcs": "git",
+  "vcs_locked_at": "2026-05-21T12:40:42.646450+00:00"
+}

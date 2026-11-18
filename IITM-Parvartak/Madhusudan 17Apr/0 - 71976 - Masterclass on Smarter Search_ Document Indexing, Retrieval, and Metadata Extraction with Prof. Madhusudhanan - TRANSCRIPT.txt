@@ -1,0 +1,3806 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:00.640
+Prof. Madhusudhanan: Whoops.
+
+2
+00:00:02.700 --> 00:00:04.380
+Prof. Madhusudhanan: Can you share the screen?
+
+3
+00:00:38.210 --> 00:00:39.109
+Prof. Madhusudhanan: Okay, cool, mud.
+
+4
+00:00:40.180 --> 00:00:41.650
+Prof. Madhusudhanan: Sure, sure, gotcha.
+
+5
+00:00:43.760 --> 00:00:45.810
+Prof. Madhusudhanan: Everyone has joined.
+
+6
+00:00:46.030 --> 00:00:47.259
+Prof. Madhusudhanan: Good evening, all.
+
+7
+00:00:51.660 --> 00:00:52.759
+Prof. Madhusudhanan: is me.
+
+8
+00:00:53.220 --> 00:00:55.380
+Prof. Madhusudhanan: No, voice loud and clear.
+
+9
+00:00:56.530 --> 00:00:59.090
+Prof. Madhusudhanan: Somebody can give me a… good evening, great.
+
+10
+00:01:00.070 --> 00:01:08.440
+Prof. Madhusudhanan: Okay, so… Good evening, all. Okay. So today, today we'll start…
+
+11
+00:01:09.350 --> 00:01:15.520
+Prof. Madhusudhanan: Looking from the perspective of… You know, indexing.
+
+12
+00:01:15.950 --> 00:01:17.340
+Prof. Madhusudhanan: Retrival.
+
+13
+00:01:17.720 --> 00:01:37.009
+Prof. Madhusudhanan: metadata extraction. So, let us look what actually happens inside, because that becomes very important. What is actually happening inside the system, and how you can identify, because at the end of the day, I keep repeating the same thing. Garbage in, garbage out.
+
+14
+00:01:37.300 --> 00:01:38.870
+Prof. Madhusudhanan: You build a rack system.
+
+15
+00:01:39.320 --> 00:01:44.020
+Prof. Madhusudhanan: The data is garbage, you're going to get data. No, you're going to get garbage output.
+
+16
+00:01:44.710 --> 00:01:52.630
+Prof. Madhusudhanan: So, let us try to understand, and let us also look at it practically today. Maybe you'll have a lengthy demonstration on how
+
+17
+00:01:53.470 --> 00:01:57.789
+Prof. Madhusudhanan: Things work, and how does the output look like, and from there, we'll take it forward.
+
+18
+00:01:58.750 --> 00:01:59.420
+Prof. Madhusudhanan: Excellent.
+
+19
+00:02:00.670 --> 00:02:01.550
+Prof. Madhusudhanan: Great.
+
+20
+00:02:01.650 --> 00:02:07.479
+Prof. Madhusudhanan: So… We'll start off with the concept of chunking.
+
+21
+00:02:09.810 --> 00:02:19.189
+Prof. Madhusudhanan: Now, why do I want chunking? Today, we talk of large language models, today where people plot, say, my context length is 1 million.
+
+22
+00:02:19.800 --> 00:02:23.679
+Prof. Madhusudhanan: words, whatever it is. It talks of very large.
+
+23
+00:02:23.830 --> 00:02:29.589
+Prof. Madhusudhanan: amount of data that the system can understand. When I say context length.
+
+24
+00:02:29.760 --> 00:02:32.850
+Prof. Madhusudhanan: What I'm trying to say is, The…
+
+25
+00:02:33.090 --> 00:02:41.370
+Prof. Madhusudhanan: length of the data that the system can understand, right? So you might be making joke of your friends.
+
+26
+00:02:41.540 --> 00:02:47.399
+Prof. Madhusudhanan: He can remember only one thing, right? Your mom tells you, Go buy sugar, then buy…
+
+27
+00:02:47.870 --> 00:02:50.229
+Prof. Madhusudhanan: No, buy coffee, buy something.
+
+28
+00:02:51.660 --> 00:02:52.420
+Prof. Madhusudhanan: Right?
+
+29
+00:02:52.720 --> 00:02:59.439
+Prof. Madhusudhanan: Now, what happens? You go to the shop, you're asked to buy sugar, coffee, bread, milk.
+
+30
+00:03:00.690 --> 00:03:11.480
+Prof. Madhusudhanan: It is 4 items, right? Sugar you remember immediately, you buy sugar, maybe you buy coffee, then somewhere you forget the other component, the other 2 items, right?
+
+31
+00:03:12.290 --> 00:03:13.140
+Prof. Madhusudhanan: So…
+
+32
+00:03:13.570 --> 00:03:27.850
+Prof. Madhusudhanan: That means your brain's context at that point of time, you're remembering. Whatever you're able to remember and process is very less. Then you keep thinking, oh, there was 4 items. Maybe, you know, somewhere your brain has recorded it is 4 items. Then it becomes slightly easier.
+
+33
+00:03:28.240 --> 00:03:32.610
+Prof. Madhusudhanan: But if your brain has not recorded, that's 4 items also.
+
+34
+00:03:33.460 --> 00:03:40.940
+Prof. Madhusudhanan: then you might buy only 3 items. You might ignore the bread and still buy, you know, come home confidently thinking that.
+
+35
+00:03:41.730 --> 00:03:43.239
+Prof. Madhusudhanan: Everything is good.
+
+36
+00:03:43.660 --> 00:03:45.170
+Prof. Madhusudhanan: The biggest challenge.
+
+37
+00:03:45.700 --> 00:03:46.380
+Prof. Madhusudhanan: Great.
+
+38
+00:03:46.930 --> 00:03:49.500
+Prof. Madhusudhanan: Practical example. The same here.
+
+39
+00:03:49.840 --> 00:03:50.960
+Prof. Madhusudhanan: The same here.
+
+40
+00:03:51.670 --> 00:04:00.089
+Prof. Madhusudhanan: You have scenarios where The machine, the data given to the machine is so large.
+
+41
+00:04:00.930 --> 00:04:04.820
+Prof. Madhusudhanan: That it may not be able to get into the nuances of it.
+
+42
+00:04:05.630 --> 00:04:06.980
+Prof. Madhusudhanan: You're reading a book.
+
+43
+00:04:08.200 --> 00:04:24.069
+Prof. Madhusudhanan: You're reading a book, right? So, the book beautifully starts with introduction. It says, Balaji is XYZ, Madhu is A, B, C, whatever it is. Then the character Balaji does not come, Madhu does not come, it comes after the 75th page.
+
+44
+00:04:24.540 --> 00:04:30.880
+Prof. Madhusudhanan: What do you do now? You go back to the first few pages to understand the context, and then try taking it forward.
+
+45
+00:04:31.520 --> 00:04:32.339
+Prof. Madhusudhanan: Got it?
+
+46
+00:04:32.730 --> 00:04:35.320
+Prof. Madhusudhanan: So… so, what…
+
+47
+00:04:35.550 --> 00:04:44.810
+Prof. Madhusudhanan: we mean by chunking is breaking down the component, breaking down the text into component where I have the depth.
+
+48
+00:04:45.640 --> 00:04:47.109
+Prof. Madhusudhanan: where I have that depth.
+
+49
+00:04:47.810 --> 00:04:52.329
+Prof. Madhusudhanan: And… At the same time, where it has context.
+
+50
+00:04:52.940 --> 00:05:01.830
+Prof. Madhusudhanan: Right? Depth and context. If I make my chunks, if I'm… if I may, if I may, no, if I try to break a sentence chunk into large values.
+
+51
+00:05:01.980 --> 00:05:07.909
+Prof. Madhusudhanan: larger, you know, number of words, if I try to chunk at, say, 5,000 words.
+
+52
+00:05:08.170 --> 00:05:14.670
+Prof. Madhusudhanan: then context might be lost somewhere. 5,000 words, imagine 350 words make a page.
+
+53
+00:05:15.240 --> 00:05:17.789
+Prof. Madhusudhanan: 5,000 pages, about 15 pages.
+
+54
+00:05:19.110 --> 00:05:32.469
+Prof. Madhusudhanan: And, no? Today, if I ask you to do something and read something in 15 pages, maybe you go back, right? So, you may not be able to understand, whereas if it's a single page, you are able to understand the context better, you understand the nuances better.
+
+55
+00:05:32.970 --> 00:05:49.649
+Prof. Madhusudhanan: You understand the nuances better. The same thing applies here, right? Maybe I'm not talking of the Cloud or the ChatGPT. Yes, they… they are generalized model. They are frontier model. I'm talking of models where I'm trying to make it smaller so that I can save on cost.
+
+56
+00:05:50.130 --> 00:05:52.869
+Prof. Madhusudhanan: The model can be within my system.
+
+57
+00:05:53.400 --> 00:05:59.710
+Prof. Madhusudhanan: Last class we discussed, last session we discussed about it, right? People are going to increasingly talk about
+
+58
+00:06:00.690 --> 00:06:11.979
+Prof. Madhusudhanan: Year-gapped system. Your own private network, right? Your own private network, and that is where the concept of chunking comes into picture. Chunking is nothing but breaking down
+
+59
+00:06:12.350 --> 00:06:17.489
+Prof. Madhusudhanan: Large volumes of unstructured data into manageable form.
+
+60
+00:06:17.960 --> 00:06:20.490
+Prof. Madhusudhanan: Which the model can understand.
+
+61
+00:06:21.230 --> 00:06:36.539
+Prof. Madhusudhanan: Right? So, it has a big challenge. Very large amount, you know, chunking size is very large. I have a challenge, very small, I have challenge, which we'll try to understand. Right? So, entire document today, yes, Claude can understand entire documents.
+
+62
+00:06:37.530 --> 00:06:40.290
+Prof. Madhusudhanan: Right? Maybe you can take a textbook.
+
+63
+00:06:40.910 --> 00:06:46.459
+Prof. Madhusudhanan: You can take up a textbook, feed it to Claude, It'll be able to answer.
+
+64
+00:06:47.360 --> 00:06:50.279
+Prof. Madhusudhanan: Right? But if you want to get into the nuances.
+
+65
+00:06:50.960 --> 00:06:53.219
+Prof. Madhusudhanan: It is possible to beat Claude.
+
+66
+00:06:53.730 --> 00:07:02.629
+Prof. Madhusudhanan: Right? It can… we can… it is possible to make Claude in, you know, slightly inefficient. If I… instead of giving the entire document, I try to…
+
+67
+00:07:03.010 --> 00:07:16.509
+Prof. Madhusudhanan: Build it into smaller documents and feed, and chunking is exactly about it. When you're building a, you know, rack system, everybody built, right? I think most, at least 75% of these people in this group would have built rack systems.
+
+68
+00:07:16.880 --> 00:07:20.410
+Prof. Madhusudhanan: It is not about It is not about…
+
+69
+00:07:21.660 --> 00:07:27.080
+Prof. Madhusudhanan: giving something that is there in Langchain, or any of the specialized tools that you're giving.
+
+70
+00:07:27.230 --> 00:07:36.499
+Prof. Madhusudhanan: or a decision that is being taken by an agent in a workflow, maybe Google gives you an entire end-to-end workflow, and there is an agent, agent says.
+
+71
+00:07:36.970 --> 00:07:41.509
+Prof. Madhusudhanan: do this, do this, or no, it automatically does it. You just click next, next, next, next.
+
+72
+00:07:42.140 --> 00:07:46.619
+Prof. Madhusudhanan: And get the output, right? That is something which… to click this next, I don't require you.
+
+73
+00:07:46.820 --> 00:07:57.570
+Prof. Madhusudhanan: I can automate that. I can have a agent which will help me in clicking this next, next, next. Or, no, I can build the software to have… do not have this next screen at all. That means you're giving the input, you're getting the output.
+
+74
+00:07:58.350 --> 00:08:03.900
+Prof. Madhusudhanan: So, what is your valuation? And that is where, you know, we need to understand chunks and try taking it forward.
+
+75
+00:08:05.360 --> 00:08:11.180
+Prof. Madhusudhanan: So, what do you mean, no? A document is represented by births.
+
+76
+00:08:11.950 --> 00:08:15.449
+Prof. Madhusudhanan: A document is… Represented by words.
+
+77
+00:08:15.700 --> 00:08:19.310
+Prof. Madhusudhanan: So, it could be 35,000 pages of document.
+
+78
+00:08:20.030 --> 00:08:25.850
+Prof. Madhusudhanan: Right? Maybe it is… sorry, it is 35,000 documents, words.
+
+79
+00:08:26.330 --> 00:08:30.909
+Prof. Madhusudhanan: Which could be about 1000 documents, assuming each document is a page.
+
+80
+00:08:31.620 --> 00:08:36.550
+Prof. Madhusudhanan: Right? So, it could be a 1,000-page document with about 35,000 words.
+
+81
+00:08:37.669 --> 00:08:42.440
+Prof. Madhusudhanan: 25,000 words, whatever it is. I'm representing each of this word.
+
+82
+00:08:43.020 --> 00:08:51.040
+Prof. Madhusudhanan: Okay, that is my whole universe of the data. Why am I putting max? I keep repeating again. Max is extremely easy.
+
+83
+00:08:52.130 --> 00:08:59.789
+Prof. Madhusudhanan: want you to understand that it is not oral, right? D equals W1, W2, W3, brackets, then no flower brackets, I know it is.
+
+84
+00:09:00.730 --> 00:09:07.250
+Prof. Madhusudhanan: the content of the document D is represented as W1, W2, W3, individual birds.
+
+85
+00:09:07.860 --> 00:09:13.750
+Prof. Madhusudhanan: And we already saw that each of this word can be represented as a… Vector.
+
+86
+00:09:14.200 --> 00:09:22.690
+Prof. Madhusudhanan: We saw the challenges of having a vector which is only 384, 768, 1024, 1536, and so on and so forth.
+
+87
+00:09:23.000 --> 00:09:34.290
+Prof. Madhusudhanan: And these vectors are generated, again, by some specialized models, like BERT, or some model which can… neural network which can convert my input into a numerical value.
+
+88
+00:09:34.860 --> 00:09:43.400
+Prof. Madhusudhanan: Right? It could be a… encoder-decoder model with a bottleneck. The bottleneck will become my Will become my vector.
+
+89
+00:09:44.400 --> 00:09:47.640
+Prof. Madhusudhanan: Right? So… What am I trying to do?
+
+90
+00:09:47.920 --> 00:09:52.089
+Prof. Madhusudhanan: I am trying to take this document and build it into smaller
+
+91
+00:09:53.030 --> 00:10:01.750
+Prof. Madhusudhanan: paragraphs or pages. It's like taking an entire notebook for your examination. 10, 10 pages, you take it up, maybe you decide to read 10 pages
+
+92
+00:10:01.880 --> 00:10:03.030
+Prof. Madhusudhanan: Every day?
+
+93
+00:10:03.420 --> 00:10:11.470
+Prof. Madhusudhanan: Every 10-page can become a chunk. So, dividing the document into smaller subsets is a chunk. We all know that we all done that.
+
+94
+00:10:11.730 --> 00:10:15.999
+Prof. Madhusudhanan: But no, what is important is… What is important is…
+
+95
+00:10:17.080 --> 00:10:33.360
+Prof. Madhusudhanan: having a solution for it, no? Understanding the solution, what should I use in which scenario? Then I have the union statement, right? I have the union statement. U. Looks very overwhelming. It is U of i equals 1 to K. That means
+
+96
+00:10:33.670 --> 00:10:40.769
+Prof. Madhusudhanan: The number of chunk is K. If I say k equals 100, I'm building, I'm splitting my document into 100 pieces.
+
+97
+00:10:41.700 --> 00:10:46.429
+Prof. Madhusudhanan: Union, club all that together, right? Union, intersection.
+
+98
+00:10:46.880 --> 00:10:50.779
+Prof. Madhusudhanan: Union will give me back my original document. That is what it tells me in max.
+
+99
+00:10:51.760 --> 00:10:52.569
+Prof. Madhusudhanan: Got it?
+
+100
+00:10:53.560 --> 00:10:55.490
+Prof. Madhusudhanan: Simple, go to the next book.
+
+101
+00:10:56.760 --> 00:11:13.769
+Prof. Madhusudhanan: A document is divided into multiple smaller segments, that is what chunking. Each segment contains related information. The beautiful beauty of chunking is this entire sentence is converted into one vector.
+
+102
+00:11:15.630 --> 00:11:16.360
+Prof. Madhusudhanan: Right?
+
+103
+00:11:18.240 --> 00:11:24.169
+Prof. Madhusudhanan: The entire vector… the entire thing can be represented as one vector.
+
+104
+00:11:24.530 --> 00:11:36.469
+Prof. Madhusudhanan: That means, in tokenization, what did I do? In tokenization, I represented a single word. I'll use the word… I'll use single word, right? It could be… a token can be…
+
+105
+00:11:36.920 --> 00:11:39.229
+Prof. Madhusudhanan: Made up of subword also.
+
+106
+00:11:39.420 --> 00:11:46.549
+Prof. Madhusudhanan: Right? So, I'm taking a single word or a sub-word, and I'm assigning it a vector value.
+
+107
+00:11:47.050 --> 00:11:57.660
+Prof. Madhusudhanan: Which is 768 vectors, 1024 vectors, vectors, numerical value, right? 23, comma, 45 comma, 72, comma, 768 values, that becomes a vector.
+
+108
+00:11:58.140 --> 00:11:59.729
+Prof. Madhusudhanan: Vector has direction.
+
+109
+00:11:59.850 --> 00:12:02.359
+Prof. Madhusudhanan: Scalar does not have direction, that's all.
+
+110
+00:12:02.650 --> 00:12:03.420
+Prof. Madhusudhanan: Right?
+
+111
+00:12:04.530 --> 00:12:06.140
+Prof. Madhusudhanan: I have this vector.
+
+112
+00:12:07.090 --> 00:12:16.270
+Prof. Madhusudhanan: It is for a single token, subword. But, no, what I can do is, I can have techniques. I can have techniques where I take this
+
+113
+00:12:16.560 --> 00:12:25.180
+Prof. Madhusudhanan: where I take these vectors, And then, convert that into… Convert that into… Nope.
+
+114
+00:12:25.650 --> 00:12:32.560
+Prof. Madhusudhanan: or I can combine them, aggregate them to make it into a single vector. That means my chunk has 100 vectors.
+
+115
+00:12:33.020 --> 00:12:34.949
+Prof. Madhusudhanan: My chunk has 100 vectors.
+
+116
+00:12:35.130 --> 00:12:40.800
+Prof. Madhusudhanan: And… I convert this 100 vectors Right?
+
+117
+00:12:41.490 --> 00:12:43.739
+Prof. Madhusudhanan: Sorry, my chunk has 100 words.
+
+118
+00:12:44.010 --> 00:12:52.560
+Prof. Madhusudhanan: Which translates to 100 vectors. That means, no, my matrix will look like 100 by 768 matrix.
+
+119
+00:12:52.980 --> 00:13:02.239
+Prof. Madhusudhanan: If I have some aggregation method so that all these are combined to become a single vector, that means my chunk is becoming a single vector.
+
+120
+00:13:03.330 --> 00:13:08.890
+Prof. Madhusudhanan: My chunk is now becoming a single vector, right? So, initially, my token was a single vector.
+
+121
+00:13:09.390 --> 00:13:20.330
+Prof. Madhusudhanan: Of 768, of dimension 768, 1024, whatever it is. Now, I'm using some aggregation method to make the chunk into a single vector.
+
+122
+00:13:21.790 --> 00:13:24.290
+Prof. Madhusudhanan: Right? I'm just using some aggregation technique.
+
+123
+00:13:24.720 --> 00:13:31.789
+Prof. Madhusudhanan: Right? So, that means now my word, my chunk, my name is Mother Suzanan, I am from Chennai.
+
+124
+00:13:32.290 --> 00:13:38.570
+Prof. Madhusudhanan: I'm a consultant in IATM Pravartak Technology Foundation, Becomes a single chunk.
+
+125
+00:13:38.850 --> 00:13:43.049
+Prof. Madhusudhanan: And I has a token. I can be a token.
+
+126
+00:13:43.350 --> 00:13:46.749
+Prof. Madhusudhanan: which has a vector. M is a token with a vector.
+
+127
+00:13:47.110 --> 00:13:55.479
+Prof. Madhusudhanan: value, right? Madhu Sudanan. Maybe it is split into MAD, MAD becomes a token, HUES, becomes a token.
+
+128
+00:13:57.280 --> 00:14:02.609
+Prof. Madhusudhanan: Right I split into multiple subwords to make it as tokens.
+
+129
+00:14:02.850 --> 00:14:05.979
+Prof. Madhusudhanan: Right? And then, I maybe aggregate it.
+
+130
+00:14:06.240 --> 00:14:11.780
+Prof. Madhusudhanan: All these words I take and average it out, then I have a single, no single vector.
+
+131
+00:14:12.120 --> 00:14:20.400
+Prof. Madhusudhanan: This vector will represent… my name is Mother Susan, and I am from Chennai, and I'm a consultant in IITM Pravartak Technologies Foundation.
+
+132
+00:14:22.490 --> 00:14:25.550
+Prof. Madhusudhanan: Got it? So, now this is what is available.
+
+133
+00:14:25.740 --> 00:14:29.290
+Prof. Madhusudhanan: Now, when Balaji says, I am Balaji.
+
+134
+00:14:29.970 --> 00:14:30.750
+Prof. Madhusudhanan: Right?
+
+135
+00:14:31.440 --> 00:14:35.200
+Prof. Madhusudhanan: I am also from Chennai, because he's introducing after my meme.
+
+136
+00:14:35.570 --> 00:14:46.460
+Prof. Madhusudhanan: I'm also from Chennai, and I also work in Pravarta Technologies. Now, I say I'm a consultant in Pravarta Technologies. He says he's a… he works in Pravarta Technologies. I say.
+
+137
+00:14:46.600 --> 00:14:50.009
+Prof. Madhusudhanan: I am from Chennai. He says, I am also from Chennai.
+
+138
+00:14:50.300 --> 00:14:59.849
+Prof. Madhusudhanan: So, his vector is going to… and his name is Balaji, not Madhasuzanan. Balaji could be BAL, can be one sub-token, JI can be another sub-token.
+
+139
+00:15:00.490 --> 00:15:04.410
+Prof. Madhusudhanan: And… For a 4-imole, say, a vector is created.
+
+140
+00:15:04.620 --> 00:15:10.289
+Prof. Madhusudhanan: I will not get into the other things, like positional and all, I'm just looking at the vectors, you will aggregated.
+
+141
+00:15:10.930 --> 00:15:18.270
+Prof. Madhusudhanan: Right? I can… simplest aggregation is taking the average of it, right? Simple… simplest method, Alan, is the average of it.
+
+142
+00:15:18.710 --> 00:15:19.770
+Prof. Madhusudhanan: So.
+
+143
+00:15:20.290 --> 00:15:30.950
+Prof. Madhusudhanan: Once this is done, I can use a cosine similarity, I can use a Euclidean distance to find similarity, and the system now is able to understand.
+
+144
+00:15:32.380 --> 00:15:33.130
+Prof. Madhusudhanan: Right?
+
+145
+00:15:34.470 --> 00:15:40.400
+Prof. Madhusudhanan: So, chunks can be defined on size, that is what we'll learn today, Guru Vinayak, right?
+
+146
+00:15:40.660 --> 00:15:44.099
+Prof. Madhusudhanan: Token is a single sub-word.
+
+147
+00:15:44.340 --> 00:15:45.800
+Prof. Madhusudhanan: Chunk, you say?
+
+148
+00:15:46.060 --> 00:15:48.979
+Prof. Madhusudhanan: Group of tokens, Vinod, is it clear?
+
+149
+00:15:50.970 --> 00:15:54.209
+Prof. Madhusudhanan: Right? Alan, is it okay? Right, any questions?
+
+150
+00:15:59.750 --> 00:16:00.630
+Prof. Madhusudhanan: Great.
+
+151
+00:16:01.480 --> 00:16:08.829
+Prof. Madhusudhanan: So, a document is divided into smaller segments. How to divide it is also, we'll talk about.
+
+152
+00:16:10.880 --> 00:16:13.059
+Prof. Madhusudhanan: So, entire chat context.
+
+153
+00:16:13.330 --> 00:16:21.009
+Prof. Madhusudhanan: Is that also treated? The chat context is the input, am I right? The chat context is the input.
+
+154
+00:16:22.670 --> 00:16:24.830
+Prof. Madhusudhanan: Right? I can treat it as a…
+
+155
+00:16:25.310 --> 00:16:34.370
+Prof. Madhusudhanan: I can treat it as a document, absolutely. Anything and everything can be treated as the document. Entire chart history can be document. Perfect.
+
+156
+00:16:34.500 --> 00:16:35.380
+Prof. Madhusudhanan: Alright?
+
+157
+00:16:37.930 --> 00:16:43.800
+Prof. Madhusudhanan: Okay, we'll talk about what could be the optimal chunk size, we'll get into that very shortly.
+
+158
+00:16:46.280 --> 00:16:47.060
+Prof. Madhusudhanan: Agreed.
+
+159
+00:16:48.530 --> 00:16:51.739
+Prof. Madhusudhanan: Okay, so, now I have the chunk.
+
+160
+00:16:52.170 --> 00:16:57.159
+Prof. Madhusudhanan: I've divide… no, I have the document, I've divided into multiple smaller segment chunks.
+
+161
+00:16:57.640 --> 00:17:00.209
+Prof. Madhusudhanan: Right? And I'm going to take it forward.
+
+162
+00:17:01.310 --> 00:17:03.169
+Prof. Madhusudhanan: Right? I'm going to address it.
+
+163
+00:17:03.940 --> 00:17:14.639
+Prof. Madhusudhanan: Now, because of positional encoding, I'm able to meet… I'm able to have the order of the text. I'm going to have the order of the text.
+
+164
+00:17:15.609 --> 00:17:16.410
+Prof. Madhusudhanan: Right?
+
+165
+00:17:18.010 --> 00:17:23.490
+Prof. Madhusudhanan: And how do I create? I have two vectors now. The size of the chunk.
+
+166
+00:17:24.310 --> 00:17:32.239
+Prof. Madhusudhanan: Versus the dimension of the vector of the chunk. So, this is something which we'll try to understand. Should I say only fixed at size?
+
+167
+00:17:32.370 --> 00:17:40.259
+Prof. Madhusudhanan: Should I say it should be paragraph-based? Should I say it should be based on context? Because your paragraph can have two different contexts.
+
+168
+00:17:40.800 --> 00:17:46.359
+Prof. Madhusudhanan: My name is Madhu Susanan, which is a different context. I want water to drink is a different context.
+
+169
+00:17:46.460 --> 00:17:49.860
+Prof. Madhusudhanan: How do I take it forward is something which we'll try to understand.
+
+170
+00:17:50.500 --> 00:17:57.040
+Prof. Madhusudhanan: Right? Okay. So… Chunking, again, no, whatever I've told you.
+
+171
+00:17:57.810 --> 00:18:00.619
+Prof. Madhusudhanan: So that I can process my data easily.
+
+172
+00:18:00.870 --> 00:18:07.739
+Prof. Madhusudhanan: And when I say I have 10,000 tokens, and, you know, chunk size is 100,
+
+173
+00:18:08.150 --> 00:18:18.839
+Prof. Madhusudhanan: Then k equals n by yum, which is 10,000 by 100, wherein I have 100 chunks. Now, what is the challenge here? I can do this straightforward. What could be the challenge here?
+
+174
+00:18:25.220 --> 00:18:26.930
+Prof. Madhusudhanan: How will you address the challenge?
+
+175
+00:18:29.640 --> 00:18:30.320
+Prof. Madhusudhanan: Perfect.
+
+176
+00:18:30.600 --> 00:18:31.389
+Prof. Madhusudhanan: 10 goods.
+
+177
+00:18:33.530 --> 00:18:36.120
+Prof. Madhusudhanan: Okay, how do you… how will you address this challenge?
+
+178
+00:18:38.630 --> 00:18:42.409
+Prof. Madhusudhanan: Chunk size. Losing context between two chunks.
+
+179
+00:18:43.310 --> 00:18:44.260
+Prof. Madhusudhanan: Okay.
+
+180
+00:18:44.390 --> 00:18:48.009
+Prof. Madhusudhanan: Miss the context. Yeah, I might miss the context, very good.
+
+181
+00:18:48.540 --> 00:18:49.380
+Prof. Madhusudhanan: Right?
+
+182
+00:18:49.690 --> 00:18:54.439
+Prof. Madhusudhanan: Building a relationship, that also is possible. I can use a knowledge graph.
+
+183
+00:18:55.070 --> 00:19:02.270
+Prof. Madhusudhanan: I can use a knowledge graph, use some techniques similar to knowledge graph, not exactly this thing, right?
+
+184
+00:19:03.290 --> 00:19:07.840
+Prof. Madhusudhanan: So… Linking the split document, all that can be done.
+
+185
+00:19:08.010 --> 00:19:14.140
+Prof. Madhusudhanan: But what… What we try, you know, generally one of the most typical methods is the
+
+186
+00:19:14.600 --> 00:19:18.470
+Prof. Madhusudhanan: Right? Overlapping. I can overlap, and somehow the…
+
+187
+00:19:18.680 --> 00:19:24.730
+Prof. Madhusudhanan: Not some more. There are methods to the madness. Mathematically, it can be proven. I can. I can.
+
+188
+00:19:25.290 --> 00:19:26.090
+Prof. Madhusudhanan: Right?
+
+189
+00:19:26.190 --> 00:19:29.260
+Prof. Madhusudhanan: Overlap the content, maybe 20%.
+
+190
+00:19:30.350 --> 00:19:38.470
+Prof. Madhusudhanan: I have 100 words, I'll overlap it by 20 words. No, I'll overlap by 20 words. That means I keep overlapping, overlapping, overlapping, and…
+
+191
+00:19:38.810 --> 00:19:42.509
+Prof. Madhusudhanan: my… Context can be.
+
+192
+00:19:44.040 --> 00:19:44.920
+Prof. Madhusudhanan: Alright?
+
+193
+00:19:45.680 --> 00:19:49.150
+Prof. Madhusudhanan: Right? My name is Madhu Susan, and I want water to drink.
+
+194
+00:19:49.350 --> 00:19:52.580
+Prof. Madhusudhanan: Then water to drink, as I am very thirsty.
+
+195
+00:19:52.970 --> 00:19:54.450
+Prof. Madhusudhanan: I'm overlapping.
+
+196
+00:19:55.020 --> 00:20:07.750
+Prof. Madhusudhanan: Right? The system works. You might find it slightly out of context, but definitely the system works. Right? So, we will… we'll understand the challenges of that as we go. Right? So… so…
+
+197
+00:20:09.360 --> 00:20:11.250
+Prof. Madhusudhanan: The practical challenges.
+
+198
+00:20:13.680 --> 00:20:16.910
+Prof. Madhusudhanan: 20% is a standard formula aquapal.
+
+199
+00:20:17.170 --> 00:20:29.890
+Prof. Madhusudhanan: Right? 20% is a standard formula, but, you know, that is where I generally don't use 20%. I might use slightly lower. If I use 30%, then I'll have more number of chunks.
+
+200
+00:20:30.150 --> 00:20:42.710
+Prof. Madhusudhanan: Right? So, if I, if I… no, if I use less percentage, then no, my number of chunks, overall chunks will be less, and here I'm talking of hundreds of thousands of documents.
+
+201
+00:20:43.380 --> 00:20:45.189
+Prof. Madhusudhanan: Where it becomes critical.
+
+202
+00:20:45.610 --> 00:20:47.040
+Prof. Madhusudhanan: Where it becomes critical.
+
+203
+00:20:49.010 --> 00:20:54.830
+Prof. Madhusudhanan: Got it? And now, every time, now you might say, oh, let me have a larger chunk, what is the problem?
+
+204
+00:20:55.560 --> 00:21:00.500
+Prof. Madhusudhanan: Or I might say, let me have a larger chunk with larger overlapping. Compute.
+
+205
+00:21:00.860 --> 00:21:07.019
+Prof. Madhusudhanan: Right? Memory usage becomes high, and when memory usage becomes high, the cost becomes higher.
+
+206
+00:21:07.160 --> 00:21:10.269
+Prof. Madhusudhanan: See, at the end of the day, it's all about the…
+
+207
+00:21:10.540 --> 00:21:12.940
+Prof. Madhusudhanan: rupee and Pisa that you tried to…
+
+208
+00:21:14.700 --> 00:21:17.980
+Prof. Madhusudhanan: no use. No right, try to save.
+
+209
+00:21:18.130 --> 00:21:21.919
+Prof. Madhusudhanan: And I want to summarize based on 4 chunks.
+
+210
+00:21:22.400 --> 00:21:28.810
+Prof. Madhusudhanan: Now, if I use a 10% chunking, it is 4 chunks. If I use 20% chunking, it could have become 5 chunks.
+
+211
+00:21:29.550 --> 00:21:44.100
+Prof. Madhusudhanan: Now, these 5 chunks, my model has a context window. It says my context window is 8K. 8K is very more than sufficient. That means my total input plus output cannot be greater than 8K tokens.
+
+212
+00:21:46.550 --> 00:21:52.550
+Prof. Madhusudhanan: Cannot be greater than 8K tokens. Now, I have a challenge. I am asking, no, 10…
+
+213
+00:22:25.140 --> 00:22:29.219
+Prof. Madhusudhanan: Okay, let me just check. Is the audio improved? Yeah. Am I audible?
+
+214
+00:22:29.710 --> 00:22:30.610
+Prof. Madhusudhanan: Okay.
+
+215
+00:22:31.280 --> 00:22:32.260
+Prof. Madhusudhanan: Okay.
+
+216
+00:22:33.230 --> 00:22:37.870
+Prof. Madhusudhanan: Got it. So, so, I was talking about the context window.
+
+217
+00:22:38.300 --> 00:22:40.530
+Prof. Madhusudhanan: I was talking about the context window.
+
+218
+00:22:41.240 --> 00:22:49.260
+Prof. Madhusudhanan: If I have a large context window, I'll require more memory, more computational… No more computation.
+
+219
+00:22:49.390 --> 00:22:52.640
+Prof. Madhusudhanan: Then, if I have a large context window.
+
+220
+00:22:52.960 --> 00:22:58.489
+Prof. Madhusudhanan: I should have a la- no? If I set a large context window to accommodate a larger chunk.
+
+221
+00:22:58.660 --> 00:23:03.299
+Prof. Madhusudhanan: Let us say I use 8K context window, instead of 8K, I use 12K context window.
+
+222
+00:23:04.060 --> 00:23:09.369
+Prof. Madhusudhanan: Right? For 8K context window, for every concurrent user.
+
+223
+00:23:09.650 --> 00:23:14.020
+Prof. Madhusudhanan: I require X memory. Let us say I require 1GB of memory.
+
+224
+00:23:15.240 --> 00:23:23.080
+Prof. Madhusudhanan: Right? For… 8K context window. Maybe for 16K context window, I require 2GB of memory.
+
+225
+00:23:23.320 --> 00:23:28.630
+Prof. Madhusudhanan: With 1GB of memory, maybe I'm having 50 concurrent users. Now, with
+
+226
+00:23:28.820 --> 00:23:33.920
+Prof. Madhusudhanan: With a larger context window, because of larger chunk, Might?
+
+227
+00:23:34.510 --> 00:23:37.809
+Prof. Madhusudhanan: User… number of users who can connect to the
+
+228
+00:23:37.960 --> 00:23:43.550
+Prof. Madhusudhanan: GPU has reduced by 50%. I'm just giving you numbers for you to think.
+
+229
+00:23:43.910 --> 00:23:44.700
+Prof. Madhusudhanan: Right?
+
+230
+00:23:45.920 --> 00:23:54.129
+Prof. Madhusudhanan: So this is going to be very expensive for me. If my one GPU per month, if I'm paying 40,000 rupees.
+
+231
+00:23:54.460 --> 00:23:55.220
+Prof. Madhusudhanan: Right?
+
+232
+00:23:55.970 --> 00:24:01.389
+Prof. Madhusudhanan: Because of this context length, because of a larger chunk size, and just…
+
+233
+00:24:02.920 --> 00:24:15.310
+Prof. Madhusudhanan: thinking, not talking aloud. It could be larger contact size, or the number of chunks selected is small. I can do either way, right? I can say retrieve the top 20 chunks, instead of saying the top 10 chunks.
+
+234
+00:24:16.010 --> 00:24:17.170
+Prof. Madhusudhanan: I lost that.
+
+235
+00:24:17.640 --> 00:24:21.180
+Prof. Madhusudhanan: My machine is going to be more and more expensive.
+
+236
+00:24:21.670 --> 00:24:30.070
+Prof. Madhusudhanan: My cost of operation is going to be more expensive. How will you solve this problem? I think many of you have done drag. How will you… how are you going to solve this problem?
+
+237
+00:24:36.540 --> 00:24:38.859
+Prof. Madhusudhanan: Right? It's a Goldilocks principle.
+
+238
+00:24:42.070 --> 00:24:48.259
+Prof. Madhusudhanan: I can do parallel processing, but my cost… I require another machine for that. My cost is going up.
+
+239
+00:24:49.690 --> 00:24:50.370
+Prof. Madhusudhanan: Correct.
+
+240
+00:24:51.270 --> 00:24:53.280
+Prof. Madhusudhanan: Typical.
+
+241
+00:24:55.870 --> 00:24:59.000
+Prof. Madhusudhanan: 4 GPU setup will cost me somewhere about 2 crores.
+
+242
+00:25:02.300 --> 00:25:11.170
+Prof. Madhusudhanan: VectorDB stores my data, stores my vector. It is not least bothered, right? I can search from it, but… but…
+
+243
+00:25:12.520 --> 00:25:26.649
+Prof. Madhusudhanan: We only search the, not the relevant layer, we only search the relevant document. How is that happening? It is happening by cosine similarity or some technique, by search technique. The number of documents which are ranked together.
+
+244
+00:25:29.180 --> 00:25:34.150
+Prof. Madhusudhanan: also makes it important. I said, my name is Madhu, Right?
+
+245
+00:25:34.860 --> 00:25:37.650
+Prof. Madhusudhanan: I am thirsty and want water to drink.
+
+246
+00:25:38.080 --> 00:25:41.720
+Prof. Madhusudhanan: My name is Madhu. Next is, my name is Madhu.
+
+247
+00:25:41.840 --> 00:25:53.710
+Prof. Madhusudhanan: I love to watch cricket. Take these two sentences, convert them into chunks, convert them into embeddings, and then compare. You'll be surprised that the similarity will be the same.
+
+248
+00:25:54.410 --> 00:25:55.300
+Prof. Madhusudhanan: So…
+
+249
+00:25:55.600 --> 00:26:04.109
+Prof. Madhusudhanan: VectorDB, if I retrieval, that becomes my retrieval problem. I retrieval less number of chunks, I have a challenge.
+
+250
+00:26:05.210 --> 00:26:10.540
+Prof. Madhusudhanan: The context, the semantic meaning of the entire query might be lost.
+
+251
+00:26:11.270 --> 00:26:16.489
+Prof. Madhusudhanan: I select More, Then, you know, the system might also talk about
+
+252
+00:26:17.200 --> 00:26:19.470
+Prof. Madhusudhanan: Cricket when I'm talking of water.
+
+253
+00:26:19.850 --> 00:26:25.910
+Prof. Madhusudhanan: Because there are two sentences. My name is Madhu, I want water to drink. My name is Madhu, I love cricket.
+
+254
+00:26:26.590 --> 00:26:32.209
+Prof. Madhusudhanan: Or I want to play cricket. Much more dangerous. My name is Madhu, I want…
+
+255
+00:26:32.320 --> 00:26:37.570
+Prof. Madhusudhanan: to drink water, now it becomes play cricket. Two different sentences, two different meanings.
+
+256
+00:26:38.200 --> 00:26:39.550
+Prof. Madhusudhanan: Don't tell me that.
+
+257
+00:26:39.760 --> 00:26:42.889
+Prof. Madhusudhanan: Cosine similarity will show both of them are similar.
+
+258
+00:26:45.530 --> 00:26:46.250
+Prof. Madhusudhanan: Right?
+
+259
+00:26:46.420 --> 00:26:48.650
+Prof. Madhusudhanan: So, somewhere we are talking of…
+
+260
+00:26:49.530 --> 00:26:53.850
+Prof. Madhusudhanan: these challenges. Have you ever thought of this? If you're building an entire
+
+261
+00:26:54.260 --> 00:26:59.500
+Prof. Madhusudhanan: rack system. Top K can be, right? What will be your K value, Mugopal Mohan?
+
+262
+00:27:01.710 --> 00:27:04.230
+Prof. Madhusudhanan: Alright? Top K can be high.
+
+263
+00:27:04.930 --> 00:27:09.120
+Prof. Madhusudhanan: But, you know, I give you a very simple example. My name is Madhu.
+
+264
+00:27:09.760 --> 00:27:16.080
+Prof. Madhusudhanan: I want to drink water, my name is Madhu, I want to… Play cricket.
+
+265
+00:27:16.230 --> 00:27:17.410
+Prof. Madhusudhanan: Two words.
+
+266
+00:27:18.360 --> 00:27:27.199
+Prof. Madhusudhanan: Alright? Again, in this top K, if I keep it high, I want to play cricket also will come in. Somewhere maybe in the 20th place, 21st place.
+
+267
+00:27:27.600 --> 00:27:32.579
+Prof. Madhusudhanan: How do I handle that, right? So, if you ask me, is there a universal solution? No.
+
+268
+00:27:33.310 --> 00:27:36.080
+Prof. Madhusudhanan: Right? Is there a sweet spot, like Mirandal said?
+
+269
+00:27:37.580 --> 00:27:41.320
+Prof. Madhusudhanan: Yes, comes from the project. Comes from the project.
+
+270
+00:27:41.510 --> 00:27:44.219
+Prof. Madhusudhanan: Whatever project. Every project is unique.
+
+271
+00:27:45.210 --> 00:27:49.220
+Prof. Madhusudhanan: If I'm handling 10 projects, They all might look similar.
+
+272
+00:27:50.100 --> 00:27:56.770
+Prof. Madhusudhanan: But all the applications are different. In one, I might be using a 24B model, in the other, I might be using a 13B model.
+
+273
+00:27:57.030 --> 00:28:02.280
+Prof. Madhusudhanan: In one… the parameters are different, I cannot say one size fits all.
+
+274
+00:28:05.630 --> 00:28:06.400
+Prof. Madhusudhanan: Buddit?
+
+275
+00:28:08.480 --> 00:28:09.280
+Prof. Madhusudhanan: Soap.
+
+276
+00:28:09.420 --> 00:28:11.880
+Prof. Madhusudhanan: But whatever you all said is right.
+
+277
+00:28:12.020 --> 00:28:17.759
+Prof. Madhusudhanan: Right? Instead of processing an entire document, I can improve the relevance, reduce noise.
+
+278
+00:28:17.880 --> 00:28:21.880
+Prof. Madhusudhanan: Scale efficiency to large document collections. All these three are…
+
+279
+00:28:22.790 --> 00:28:28.379
+Prof. Madhusudhanan: perfectly right? Fine. Now, this tuning, this understanding is what this
+
+280
+00:28:29.190 --> 00:28:38.639
+Prof. Madhusudhanan: No, session is all about. Just set you thinking, because when I ask questions, everybody says, hierarchical chunking is the best method. No, not necessarily.
+
+281
+00:28:39.110 --> 00:28:40.789
+Prof. Madhusudhanan: Right? Not necessarily.
+
+282
+00:28:40.970 --> 00:28:47.849
+Prof. Madhusudhanan: Semantic chunking is the best method, not necessarily. You need to understand the problem, you need to look at this chunk, and then take a call.
+
+283
+00:28:48.670 --> 00:28:49.370
+Prof. Madhusudhanan: Pardoned.
+
+284
+00:28:50.900 --> 00:28:54.219
+Prof. Madhusudhanan: Okay, so mathematical representation of it.
+
+285
+00:28:54.780 --> 00:29:05.140
+Prof. Madhusudhanan: Right? So, the vector VI, I'm giving an arrow to show that it's a vector, right? V, V is a vector for…
+
+286
+00:29:05.530 --> 00:29:06.690
+Prof. Madhusudhanan: Chang Kai.
+
+287
+00:29:06.960 --> 00:29:14.940
+Prof. Madhusudhanan: There is an arrow in the up to show that it has direction, so that is why I call it as a vector, equals F of CI, function of CI.
+
+288
+00:29:15.170 --> 00:29:20.049
+Prof. Madhusudhanan: Right? So, what is this function? This function could be your BERT model.
+
+289
+00:29:20.620 --> 00:29:26.870
+Prof. Madhusudhanan: Which is converting your, you know, text into… numerical values.
+
+290
+00:29:27.810 --> 00:29:38.330
+Prof. Madhusudhanan: Right? So that is the… that is what we call as the embedding function. There are enough embedding functions that are available in the market. Certain things that you need to look at is the licensing.
+
+291
+00:29:39.060 --> 00:29:43.900
+Prof. Madhusudhanan: Please look at it. If you are trying to build everything from open source, ground up.
+
+292
+00:29:44.250 --> 00:29:54.500
+Prof. Madhusudhanan: look at it, whether it is Apache license, MIT license, easiest way to understand, but read the license, understand the use case, and then take it forward. Apache and MIT are generally
+
+293
+00:29:54.690 --> 00:29:57.470
+Prof. Madhusudhanan: Fairly good to take forward.
+
+294
+00:29:57.900 --> 00:30:03.929
+Prof. Madhusudhanan: Right? There is nothing called as best, Mahati, right? What you need to do is experiment.
+
+295
+00:30:04.790 --> 00:30:12.990
+Prof. Madhusudhanan: what you need to do is look at… I'll not even say experiment. Look at the validation output, look at the output.
+
+296
+00:30:13.480 --> 00:30:15.720
+Prof. Madhusudhanan: And try to understand why.
+
+297
+00:30:16.900 --> 00:30:25.219
+Prof. Madhusudhanan: Right? See, typically, what we try to do is, the moment one model does not work, you try to go for the next, bigger model.
+
+298
+00:30:26.590 --> 00:30:34.819
+Prof. Madhusudhanan: We try to use a next bigger model. We don't try to use a smaller model. We don't try to unders… no, solve this problem. Or we use, of course, ChatGPT.
+
+299
+00:30:35.130 --> 00:30:37.960
+Prof. Madhusudhanan: But no, believe me, every problem is unique.
+
+300
+00:30:38.320 --> 00:30:43.259
+Prof. Madhusudhanan: It is stochastic, it is non-deterministic. So, moment this happens.
+
+301
+00:30:43.520 --> 00:30:46.630
+Prof. Madhusudhanan: The moment this happens, I have a challenge.
+
+302
+00:30:47.260 --> 00:30:49.950
+Prof. Madhusudhanan: ChatGPT cannot help me. Cloud cannot help me.
+
+303
+00:30:51.940 --> 00:30:52.670
+Prof. Madhusudhanan: Click?
+
+304
+00:30:52.780 --> 00:30:54.099
+Prof. Madhusudhanan: Claude cannot help me.
+
+305
+00:30:55.110 --> 00:31:01.680
+Prof. Madhusudhanan: I was just now speaking to the doctors. I know too. Some doctor friends were in office, they're talking about
+
+306
+00:31:02.110 --> 00:31:06.689
+Prof. Madhusudhanan: certain things. Certain… I know how to use ChatGPT and others.
+
+307
+00:31:06.800 --> 00:31:11.610
+Prof. Madhusudhanan: I used Claude, I asked them to ask a very simple question.
+
+308
+00:31:13.080 --> 00:31:17.370
+Prof. Madhusudhanan: And I asked the Claude system to restrict it to 3 sentences.
+
+309
+00:31:19.360 --> 00:31:20.240
+Prof. Madhusudhanan: Right?
+
+310
+00:31:20.550 --> 00:31:26.000
+Prof. Madhusudhanan: And I showed them why these three sentences is not the ground truth.
+
+311
+00:31:28.800 --> 00:31:36.190
+Prof. Madhusudhanan: Why these three sentences is not the ground truth. I took each sentence and said, this can be interpreted in different ways.
+
+312
+00:31:37.770 --> 00:31:40.670
+Prof. Madhusudhanan: Unless you are an expert, you'll not be able to understand that.
+
+313
+00:31:40.790 --> 00:31:52.430
+Prof. Madhusudhanan: And they agree to it, right? So, those are the challenges that we need to understand. Try to get into the context, try to get into the semantics. No golden answer.
+
+314
+00:31:53.180 --> 00:31:58.849
+Prof. Madhusudhanan: thing has a problem. But at least now you're able to understand. 768…
+
+315
+00:31:59.460 --> 00:32:04.400
+Prof. Madhusudhanan: Vector size of 768. The context is much better, you know, it's good.
+
+316
+00:32:04.670 --> 00:32:07.279
+Prof. Madhusudhanan: 2024, it is much better.
+
+317
+00:32:07.520 --> 00:32:09.319
+Prof. Madhusudhanan: Maybe you know the context.
+
+318
+00:32:09.780 --> 00:32:17.690
+Prof. Madhusudhanan: Right? I sat on the table, I sat on the table, and had… my… lunch.
+
+319
+00:32:18.970 --> 00:32:19.750
+Prof. Madhusudhanan: Right?
+
+320
+00:32:20.820 --> 00:32:25.359
+Prof. Madhusudhanan: I put across the table, in the presentation.
+
+321
+00:32:26.640 --> 00:32:29.680
+Prof. Madhusudhanan: The same word table, two different contexts.
+
+322
+00:32:30.480 --> 00:32:33.579
+Prof. Madhusudhanan: Vector size makes a impact on it.
+
+323
+00:32:34.300 --> 00:32:38.420
+Prof. Madhusudhanan: 384, lesser context, 768, higher context.
+
+324
+00:32:38.640 --> 00:32:47.340
+Prof. Madhusudhanan: 2024, still better context, and today we all want to Shoot a fly with a… revolver.
+
+325
+00:32:48.140 --> 00:32:49.910
+Prof. Madhusudhanan: We are all trying to do that.
+
+326
+00:32:51.180 --> 00:32:51.970
+Prof. Madhusudhanan: Got it?
+
+327
+00:32:52.080 --> 00:32:54.739
+Prof. Madhusudhanan: So, and when you're trying to optimize it.
+
+328
+00:32:54.990 --> 00:33:00.100
+Prof. Madhusudhanan: Between 768 and 1536. You'll say, I'll use the largest and take it forward. No.
+
+329
+00:33:02.260 --> 00:33:03.630
+Prof. Madhusudhanan: Use the largest.
+
+330
+00:33:03.800 --> 00:33:07.430
+Prof. Madhusudhanan: Cost is going to go high, where it might be not viable.
+
+331
+00:33:07.740 --> 00:33:14.800
+Prof. Madhusudhanan: Because, no, in the future, it's all about projects which are successful, but no, they get into the optimization stage.
+
+332
+00:33:15.510 --> 00:33:18.949
+Prof. Madhusudhanan: Most of my project in Phase 3 is the optimization stage.
+
+333
+00:33:20.470 --> 00:33:22.749
+Prof. Madhusudhanan: Higher vector definitely can mean
+
+334
+00:33:23.400 --> 00:33:39.669
+Prof. Madhusudhanan: Better context, very rightly put, it's a law of diminishing result… returns. After a certain stage, it hits a plateau. And that is where your task comes in, because, you know, any phase of my project, phase one, phase two, phase three, phase three is always the optimization phase.
+
+335
+00:33:40.010 --> 00:33:43.990
+Prof. Madhusudhanan: Because phase one, if customer is excited, you want to give the outputs.
+
+336
+00:33:44.250 --> 00:33:47.030
+Prof. Madhusudhanan: you compromise on the GPU.
+
+337
+00:33:47.220 --> 00:33:52.070
+Prof. Madhusudhanan: You compromise on compute, you compromise on memory, and take it forward.
+
+338
+00:33:56.340 --> 00:33:57.140
+Prof. Madhusudhanan: Audit.
+
+339
+00:33:57.640 --> 00:34:03.900
+Prof. Madhusudhanan: So that is going to be important. Chunk size next. That is going to be important. Everywhere we need to…
+
+340
+00:34:04.020 --> 00:34:06.639
+Prof. Madhusudhanan: go and take it forward. So, just a vector 2.
+
+341
+00:34:06.910 --> 00:34:11.309
+Prof. Madhusudhanan: take it for. So, no, your… how do I use the vector? Maybe I can use BERT.
+
+342
+00:34:11.580 --> 00:34:18.870
+Prof. Madhusudhanan: I can use APIs. Now, if you look at it, some of these APIs May be driven by…
+
+343
+00:34:20.360 --> 00:34:24.710
+Prof. Madhusudhanan: Models which are not residing in your system.
+
+344
+00:34:25.230 --> 00:34:29.589
+Prof. Madhusudhanan: OpenAPI might give you a great API for embedding.
+
+345
+00:34:30.560 --> 00:34:31.239
+Prof. Madhusudhanan: Right?
+
+346
+00:34:32.920 --> 00:34:35.439
+Prof. Madhusudhanan: But it's a year-gapped environment.
+
+347
+00:34:36.239 --> 00:34:43.340
+Prof. Madhusudhanan: So the customer very clearly says, my data should not go outside the system, you cannot connect outside the world.
+
+348
+00:34:44.750 --> 00:34:49.410
+Prof. Madhusudhanan: Then you have a problem. My second problem, today API might be free of cost.
+
+349
+00:34:50.840 --> 00:34:53.079
+Prof. Madhusudhanan: Today, the API might be free of cost.
+
+350
+00:34:53.260 --> 00:34:54.639
+Prof. Madhusudhanan: Tomorrow
+
+351
+00:34:55.810 --> 00:35:04.199
+Prof. Madhusudhanan: OpenAPI decides your project is up and running, then OpenAP… whoever it is, no, I'm just giving an example. Somebody wants to monetize it.
+
+352
+00:35:05.170 --> 00:35:08.070
+Prof. Madhusudhanan: And they put a… Bill on it.
+
+353
+00:35:08.220 --> 00:35:10.810
+Prof. Madhusudhanan: Or they might say the first 1 million
+
+354
+00:35:11.100 --> 00:35:14.449
+Prof. Madhusudhanan: Tokens generation, embedding is free of cost.
+
+355
+00:35:16.440 --> 00:35:19.180
+Prof. Madhusudhanan: Right? And then it becomes a challenge.
+
+356
+00:35:22.500 --> 00:35:24.409
+Prof. Madhusudhanan: So, what is the model that you want to do?
+
+357
+00:35:26.600 --> 00:35:36.200
+Prof. Madhusudhanan: Right? So… But… Maybe somebody says, oh, OpenAPI, OpenAI's embedding is great, BERT is poor.
+
+358
+00:35:38.910 --> 00:35:41.079
+Prof. Madhusudhanan: Right? Now, how do I handle that?
+
+359
+00:35:41.330 --> 00:35:43.469
+Prof. Madhusudhanan: That OpenAI, maybe, you know, has…
+
+360
+00:35:46.470 --> 00:35:49.429
+Prof. Madhusudhanan: Gopal said, I'll use Volama embedding, great.
+
+361
+00:35:50.070 --> 00:35:53.720
+Prof. Madhusudhanan: Right? But… My bird is not giving me the…
+
+362
+00:35:54.160 --> 00:35:57.710
+Prof. Madhusudhanan: accuracy that I want. That means now I'm going back to the
+
+363
+00:35:58.230 --> 00:36:00.880
+Prof. Madhusudhanan: Vector to say that my accuracy is poor.
+
+364
+00:36:04.090 --> 00:36:04.820
+Prof. Madhusudhanan: Correct.
+
+365
+00:36:05.660 --> 00:36:10.229
+Prof. Madhusudhanan: And if that is not happening, is it possible to fine-tune
+
+366
+00:36:10.390 --> 00:36:14.290
+Prof. Madhusudhanan: BERT with your domain knowledge, so that the…
+
+367
+00:36:14.590 --> 00:36:20.999
+Prof. Madhusudhanan: So that the generation of the vectors is improved based on your data.
+
+368
+00:36:21.840 --> 00:36:23.389
+Prof. Madhusudhanan: Right? I can do that, right?
+
+369
+00:36:24.080 --> 00:36:29.980
+Prof. Madhusudhanan: I can use BERT, I can tune BERT so that my embedding is better.
+
+370
+00:36:31.300 --> 00:36:37.550
+Prof. Madhusudhanan: You can Google this, you can, no, you can claud this, or chat GPT this, and it's a great way of doing it.
+
+371
+00:36:38.330 --> 00:36:41.990
+Prof. Madhusudhanan: Right? And yes, Nagendra, monetization is going to happen.
+
+372
+00:36:42.530 --> 00:36:46.060
+Prof. Madhusudhanan: monetization is going down. So somewhere, you need to be very, very careful.
+
+373
+00:36:46.450 --> 00:36:47.290
+Prof. Madhusudhanan: Right?
+
+374
+00:36:47.670 --> 00:36:50.480
+Prof. Madhusudhanan: Free lunches definitely is not going to happen.
+
+375
+00:36:50.700 --> 00:36:59.120
+Prof. Madhusudhanan: somewhere monetization is going to happen. Monetization in terms of your data, Monetization in terms of
+
+376
+00:36:59.350 --> 00:37:14.379
+Prof. Madhusudhanan: You know, where you get addicted, or you… your product is up and running, steady, it's… the freeze… the free is for a couple of… maybe for 1 million chunks, beyond where that, it is cost. It is going to be cost-based.
+
+377
+00:37:14.790 --> 00:37:16.270
+Prof. Madhusudhanan: No, you have a big challenge.
+
+378
+00:37:18.850 --> 00:37:24.350
+Prof. Madhusudhanan: Right? So, finding some solution. See, I'm not saying that what I'm saying is perfect.
+
+379
+00:37:24.580 --> 00:37:28.939
+Prof. Madhusudhanan: Or, no, what it is my… I'll not say… what I'm saying is perfect, there is no doubt there.
+
+380
+00:37:29.160 --> 00:37:31.510
+Prof. Madhusudhanan: What I'm trying to say is this is my opinion.
+
+381
+00:37:31.850 --> 00:37:34.630
+Prof. Madhusudhanan: That is where the future is going to be, right?
+
+382
+00:37:34.760 --> 00:37:39.369
+Prof. Madhusudhanan: We cannot keep on relying on larger and larger model.
+
+383
+00:37:42.080 --> 00:37:47.789
+Prof. Madhusudhanan: RAC can help me to a certain extent, George. See, it is a cascading effect.
+
+384
+00:37:48.310 --> 00:37:51.139
+Prof. Madhusudhanan: Ultimately, your accuracy is 85%.
+
+385
+00:37:51.510 --> 00:37:54.990
+Prof. Madhusudhanan: 2% improvement might happen because of the context length.
+
+386
+00:37:56.190 --> 00:37:59.970
+Prof. Madhusudhanan: 2% improvement might happen because of the vector size.
+
+387
+00:38:00.470 --> 00:38:02.329
+Prof. Madhusudhanan: I can keep on adding this.
+
+388
+00:38:04.300 --> 00:38:12.140
+Prof. Madhusudhanan: Right? I can keep on adding this, and I can reach that ideal threshold I reached that ideal balance.
+
+389
+00:38:14.010 --> 00:38:16.640
+Prof. Madhusudhanan: Got it? I reached that ideal balance.
+
+390
+00:38:17.260 --> 00:38:19.230
+Prof. Madhusudhanan: And say, what is it I want to buy?
+
+391
+00:38:21.030 --> 00:38:22.969
+Prof. Madhusudhanan: Right? What is it I want to use?
+
+392
+00:38:24.610 --> 00:38:25.970
+Prof. Madhusudhanan: You're buying a car.
+
+393
+00:38:26.290 --> 00:38:31.929
+Prof. Madhusudhanan: Right? There's a budget. Budget is a cap. Then you take a decision, so many parameters.
+
+394
+00:38:32.210 --> 00:38:39.170
+Prof. Madhusudhanan: The same thing happens here. RAG helps, definitely. But, you know, if my embedding is poor, RAG might help if the
+
+395
+00:38:39.300 --> 00:38:46.169
+Prof. Madhusudhanan: Chunking is way better, the… no, the retrieval technique is very good, so on and so forth. It might happen.
+
+396
+00:38:46.600 --> 00:38:51.259
+Prof. Madhusudhanan: My talk, buddy But… You need to look at it holistically.
+
+397
+00:38:52.320 --> 00:38:53.120
+Prof. Madhusudhanan: Got it.
+
+398
+00:38:55.760 --> 00:39:08.350
+Prof. Madhusudhanan: So, chunking helps in local context preservation. Entire book, I told you, you have the hero's name, heroine's name, heroine's friend's name, hero's friend's name. After reaching 100 pages, you go back and try to understand.
+
+399
+00:39:09.400 --> 00:39:10.110
+Prof. Madhusudhanan: Right?
+
+400
+00:39:10.270 --> 00:39:14.260
+Prof. Madhusudhanan: So, semantic drift. I lose the context.
+
+401
+00:39:15.120 --> 00:39:16.859
+Prof. Madhusudhanan: I lose the context.
+
+402
+00:39:17.590 --> 00:39:18.330
+Prof. Madhusudhanan: Right?
+
+403
+00:39:19.670 --> 00:39:22.879
+Prof. Madhusudhanan: So, it could be two people in the novel.
+
+404
+00:39:23.020 --> 00:39:27.830
+Prof. Madhusudhanan: One is Ramesh, The other one, you know, the other one is Ramesh Kumar.
+
+405
+00:39:28.270 --> 00:39:30.400
+Prof. Madhusudhanan: But both of them are called Ramesh.
+
+406
+00:39:30.570 --> 00:39:42.269
+Prof. Madhusudhanan: Initially, the contact, you know, Ramesh Kumar is used. Then you are able to… Ramesh Kumar, the carpenter, and Ramesh the plumber, you understand very well, right? Because they say Ramesh Kumar went to
+
+407
+00:39:42.670 --> 00:39:45.160
+Prof. Madhusudhanan: No? Open the door, no.
+
+408
+00:39:45.360 --> 00:39:47.659
+Prof. Madhusudhanan: Stripped the door, or whatever it is.
+
+409
+00:39:48.410 --> 00:39:51.210
+Prof. Madhusudhanan: But as you go forward, based on the job.
+
+410
+00:39:51.930 --> 00:40:00.210
+Prof. Madhusudhanan: Right? The plumbing was leaky, and Ramesh helped me out. Then you immediately know it is the plumber Ramesh, not Ramesh Kumar, who is the carpenter.
+
+411
+00:40:01.720 --> 00:40:02.470
+Prof. Madhusudhanan: Right?
+
+412
+00:40:03.610 --> 00:40:09.499
+Prof. Madhusudhanan: This is your semantic drift. Extraction precision is way higher.
+
+413
+00:40:09.770 --> 00:40:18.529
+Prof. Madhusudhanan: Right? So, chunking helps, but it's a Goldilocks principle. Whether it's a small chunk, larger chunk, you need to do and take it forward.
+
+414
+00:40:21.780 --> 00:40:29.449
+Prof. Madhusudhanan: So, based on the max alone, does a smaller embedding vector size or a larger embedding vector size maps better to the continuous vector size.
+
+415
+00:40:29.640 --> 00:40:32.190
+Prof. Madhusudhanan: Yeah, Max can help me, because…
+
+416
+00:40:32.320 --> 00:40:40.100
+Prof. Madhusudhanan: No, not even more than the Macs. Yeah, Macs can help, we work on Macs, but, you know, I always say common sense.
+
+417
+00:40:40.780 --> 00:40:46.499
+Prof. Madhusudhanan: Go back to the common sense and try to understand. 784, you need to have a rugged testing mechanism.
+
+418
+00:40:47.940 --> 00:40:51.140
+Prof. Madhusudhanan: I have a huge testing team, which does only this.
+
+419
+00:40:51.840 --> 00:40:57.870
+Prof. Madhusudhanan: Right? We keep… we keep… we keep…
+
+420
+00:40:57.990 --> 00:41:14.010
+Prof. Madhusudhanan: No? Testing with different combinations. We have the golden questions, I have 5 different parameters, I run this during my… I have a, no, script which will run all these golden questions, different combinations, and I have the answers.
+
+421
+00:41:14.060 --> 00:41:25.449
+Prof. Madhusudhanan: Then I have an agent, this is what we do, right? So it'll be run it in the night, and the models are… when the servers are free, GPU servers are free. Then the next thing that we try to do is…
+
+422
+00:41:25.640 --> 00:41:39.500
+Prof. Madhusudhanan: The next thing that we try to do is have some agent which will try to understand and classify, bucketize it, and give it to us. Then a human enters into it, a domain expert enters into it, we try to understand, and from that take it forward, right?
+
+423
+00:41:39.680 --> 00:41:47.360
+Prof. Madhusudhanan: So, at every stage, that is what I'm trying to say, we just ignore the vectorization, embedding, we just ignore the chunking.
+
+424
+00:41:49.550 --> 00:41:53.260
+Prof. Madhusudhanan: Right? So, large text is hard to process directly.
+
+425
+00:41:55.290 --> 00:41:56.050
+Prof. Madhusudhanan: Right?
+
+426
+00:41:57.470 --> 00:41:59.140
+Prof. Madhusudhanan: This is what we have been talking.
+
+427
+00:41:59.740 --> 00:42:02.050
+Prof. Madhusudhanan: Then there is a time complexity.
+
+428
+00:42:02.750 --> 00:42:10.570
+Prof. Madhusudhanan: Which is order of n squared, not order of n. If it is order of n, then my scaling is going to be linear. Here, it is absolutely nonlinear.
+
+429
+00:42:11.830 --> 00:42:13.920
+Prof. Madhusudhanan: But it is absolutely nonlinear.
+
+430
+00:42:14.610 --> 00:42:21.790
+Prof. Madhusudhanan: And large text… when I say large text is hard to process directly, please do not compare with Claude.
+
+431
+00:42:22.090 --> 00:42:32.970
+Prof. Madhusudhanan: compare it with your model. It could be a 70 billion parameter model, 100 billion parameter model, right? No worries. Yeah, 100 billion parameter model is way easier to…
+
+432
+00:42:33.110 --> 00:42:35.159
+Prof. Madhusudhanan: Handle, then, a clot.
+
+433
+00:42:35.620 --> 00:42:39.490
+Prof. Madhusudhanan: Your 100 billion parameters model is easier to put it into your…
+
+434
+00:42:39.790 --> 00:42:42.700
+Prof. Madhusudhanan: server, maybe, you know, if I have about 32 GPUs.
+
+435
+00:42:43.170 --> 00:42:46.610
+Prof. Madhusudhanan: I can easily use a 100 billion parameter model in that.
+
+436
+00:42:47.030 --> 00:42:48.589
+Prof. Madhusudhanan: And take it forward.
+
+437
+00:42:49.040 --> 00:42:56.929
+Prof. Madhusudhanan: Right? So, chunking can be tested independent of the whole workflow? That's a very good question, Panorvasu.
+
+438
+00:42:57.200 --> 00:42:59.470
+Prof. Madhusudhanan: You need the domain expert.
+
+439
+00:43:00.190 --> 00:43:02.159
+Prof. Madhusudhanan: You need the domain expert.
+
+440
+00:43:02.460 --> 00:43:06.400
+Prof. Madhusudhanan: Right? So, what is this million or billion, Alan? I lost it.
+
+441
+00:43:09.180 --> 00:43:10.680
+Prof. Madhusudhanan: Something which I said.
+
+442
+00:43:18.670 --> 00:43:25.500
+Prof. Madhusudhanan: Yeah, yeah, 100 million parameters require… yes, yes, very good, Alan Abhishek.
+
+443
+00:43:25.730 --> 00:43:30.380
+Prof. Madhusudhanan: Please look at number of concurrent users, please look at
+
+444
+00:43:31.350 --> 00:43:43.230
+Prof. Madhusudhanan: That is what we are taught. That is what we are taught. 100 million parameter model, right? So, I can, even if it is FP16, I'll require 200 million
+
+445
+00:43:43.670 --> 00:43:45.170
+Prof. Madhusudhanan: Bytes of data.
+
+446
+00:43:46.450 --> 00:43:47.400
+Prof. Madhusudhanan: Right?
+
+447
+00:43:48.060 --> 00:43:49.619
+Prof. Madhusudhanan: Look at the context length.
+
+448
+00:43:49.890 --> 00:43:53.600
+Prof. Madhusudhanan: look at… Not as a single user.
+
+449
+00:43:53.820 --> 00:43:55.979
+Prof. Madhusudhanan: Right? Then you'll say, oh.
+
+450
+00:43:56.150 --> 00:44:03.720
+Prof. Madhusudhanan: The requirement is so small, right? Somebody will say 1 billion parameter model. I'll take your example, 1 billion parameter model.
+
+451
+00:44:04.290 --> 00:44:11.149
+Prof. Madhusudhanan: 1 billion parameter model might require 2GB, assuming it is FP16, 2GB of memory.
+
+452
+00:44:13.230 --> 00:44:13.990
+Prof. Madhusudhanan: Right?
+
+453
+00:44:15.460 --> 00:44:16.640
+Prof. Madhusudhanan: Do the max.
+
+454
+00:44:16.750 --> 00:44:20.699
+Prof. Madhusudhanan: With respect to the context length, look at the KV cache.
+
+455
+00:44:21.380 --> 00:44:25.400
+Prof. Madhusudhanan: And you do the max, then you'll suddenly see that you require a larger
+
+456
+00:44:25.910 --> 00:44:35.520
+Prof. Madhusudhanan: no larger GPU. Please understand, GPU, you have lesser GPU. If you work in a constrained environment, the error is higher.
+
+457
+00:44:35.640 --> 00:44:39.290
+Prof. Madhusudhanan: than in a system with a larger GPU.
+
+458
+00:44:39.890 --> 00:44:44.999
+Prof. Madhusudhanan: I'll not talk about that, but, you know, you can take it as a golden rule.
+
+459
+00:44:47.110 --> 00:44:55.530
+Prof. Madhusudhanan: Tables, images can be chunked. If you're building a… if you're building a non-multimodal system, I can chunk.
+
+460
+00:44:56.530 --> 00:45:00.790
+Prof. Madhusudhanan: I can, no, I can remove the table. That means I'm talking of
+
+461
+00:45:00.790 --> 00:45:17.010
+Prof. Madhusudhanan: a document handling. I need to understand the document layout. I'm assuming there is no OCR, but I need to see whether I'll have to remove the header, I'll have to remove the footer, whether I'll have to remove signatures, right? No? Irrelevant content, like images.
+
+462
+00:45:17.690 --> 00:45:33.929
+Prof. Madhusudhanan: If it is tables, how do I handle my table? Tables cannot be handled, you know, chunked straight away. Maybe I'll have to convert that into some sort of XML format in my chunking so that my RAC system can understand the context and do mathematics on it.
+
+463
+00:45:34.210 --> 00:45:39.660
+Prof. Madhusudhanan: I have a table. It has numerical values, I want to do max of it. It is very important for me to
+
+464
+00:45:39.900 --> 00:45:46.230
+Prof. Madhusudhanan: Capture it correctly, right? So, image for multimodal systems, definitely, yes, possible.
+
+465
+00:45:47.240 --> 00:45:53.620
+Prof. Madhusudhanan: Right? We'll talk about that in the last webinar. If you're talking with respect to tables, very challenging.
+
+466
+00:45:53.910 --> 00:46:05.880
+Prof. Madhusudhanan: Right? And that is where, you know, you also have to look at mechanism to validate it. So you'll have to build some validator software where I can see the input, where I can see the output.
+
+467
+00:46:06.680 --> 00:46:09.660
+Prof. Madhusudhanan: Right? So, how the context?
+
+468
+00:46:10.010 --> 00:46:20.219
+Prof. Madhusudhanan: happens for large tables, you put it into some sort of XML format, and look at how you want to solve that number. That is very important. What is it you're trying to solve?
+
+469
+00:46:21.000 --> 00:46:28.729
+Prof. Madhusudhanan: And from there, it is very easy to take it out. You're looking at basic statistics, you're trying to do a trend analysis, whatever it is.
+
+470
+00:46:30.000 --> 00:46:31.790
+Prof. Madhusudhanan: Sizing is very key.
+
+471
+00:46:31.930 --> 00:46:35.520
+Prof. Madhusudhanan: Sizing is key, right? For production grade.
+
+472
+00:46:35.740 --> 00:46:45.030
+Prof. Madhusudhanan: a 100 million parameter model, where I can use it for some sort of… Fine-tuning, not fine-tuning, post-training.
+
+473
+00:46:45.280 --> 00:46:54.200
+Prof. Madhusudhanan: some sort of post-training, then I'll require about 32 GPUs, or else, no, it becomes very tight. I don't want to talk about 100 users, and that is what we require.
+
+474
+00:46:54.560 --> 00:47:02.090
+Prof. Madhusudhanan: Right? So images and PDF can be done. You have to build an entire pipeline. See, a simple thing like a two-column
+
+475
+00:47:03.040 --> 00:47:13.569
+Prof. Madhusudhanan: document is challenging. You should know how to solve that. Without just trust the model to do the chunking, you are lost out. You should see the chunk, and from there, take it forward.
+
+476
+00:47:17.340 --> 00:47:18.149
+Prof. Madhusudhanan: Got it?
+
+477
+00:47:20.490 --> 00:47:21.310
+Prof. Madhusudhanan: Okay.
+
+478
+00:47:28.320 --> 00:47:33.780
+Prof. Madhusudhanan: C… Chunking and token limit for one of the chunks.
+
+479
+00:47:34.050 --> 00:47:38.329
+Prof. Madhusudhanan: So, we'll come to that, we'll come to that and see how to solve it.
+
+480
+00:47:38.770 --> 00:47:39.430
+Prof. Madhusudhanan: Great.
+
+481
+00:47:40.200 --> 00:47:45.250
+Prof. Madhusudhanan: Right? So we'll come to the techniques, and we'll try to see how to solve it.
+
+482
+00:47:45.360 --> 00:47:59.439
+Prof. Madhusudhanan: Right? So we're talking of token exceeding, exceeding the token. Well, very straight, there are multiple ways to do it. If I'm looking only at a fixed site chunking, this is something what you say is very interesting, but now we can go beyond that.
+
+483
+00:48:00.560 --> 00:48:01.290
+Prof. Madhusudhanan: Right?
+
+484
+00:48:04.760 --> 00:48:05.680
+Prof. Madhusudhanan: Okay.
+
+485
+00:48:05.980 --> 00:48:10.730
+Prof. Madhusudhanan: That's a very good tidbit, Harun Pandey. Thank you.
+
+486
+00:48:10.970 --> 00:48:12.570
+Prof. Madhusudhanan: Yes, solo?
+
+487
+00:48:12.800 --> 00:48:17.289
+Prof. Madhusudhanan: where we use it. But again, no, no, when you look at it.
+
+488
+00:48:20.080 --> 00:48:27.159
+Prof. Madhusudhanan: If you talk about the initial dimensions, right, The others… Do I ignore it?
+
+489
+00:48:27.400 --> 00:48:29.179
+Prof. Madhusudhanan: Right? In that case.
+
+490
+00:48:29.380 --> 00:48:47.589
+Prof. Madhusudhanan: Should I convert that? Should I do some sort of multi-head attention technique, right? I can… I can play with my document, with my vector, if it is 1536. That is what is happening in multi-head attention, right? I look at it from different lenses. So that is what, no, when you look at the transformer architecture, you'll be able to understand and take it forward.
+
+491
+00:48:49.350 --> 00:48:50.420
+Prof. Madhusudhanan: Great.
+
+492
+00:48:54.470 --> 00:48:59.570
+Prof. Madhusudhanan: Perfect. Very good, very good, this thing, Alana Bishir.
+
+493
+00:49:00.940 --> 00:49:13.810
+Prof. Madhusudhanan: A little bit of tribal knowledge. I know that is where even LLMs cannot do it. LLM gives you the best practice, right? ChatGPT Cloud can give you the best practice, but they may not give you the best method to take it forward.
+
+494
+00:49:18.650 --> 00:49:27.989
+Prof. Madhusudhanan: By chunking is important, reduced computational cost, we already spoke about it, order of n squared. It is quadratic, that is something which we understood.
+
+495
+00:49:28.180 --> 00:49:30.280
+Prof. Madhusudhanan: Right? Next.
+
+496
+00:49:32.620 --> 00:49:35.780
+Prof. Madhusudhanan: So… Challenges in large text.
+
+497
+00:49:35.980 --> 00:49:37.920
+Prof. Madhusudhanan: High computation cost.
+
+498
+00:49:38.440 --> 00:49:41.390
+Prof. Madhusudhanan: Right? Reduce token size per operation.
+
+499
+00:49:42.140 --> 00:49:59.820
+Prof. Madhusudhanan: easier, one… one… one method, if my compute is going to be higher. If I'm… if I lose semantic context, semantic, that is, semantic is the meaning, paragraph 1 might be talking about something, paragraph 2 might be the continuation of paragraph 1,
+
+500
+00:50:00.510 --> 00:50:10.550
+Prof. Madhusudhanan: And both are different chunks, and in your retrieval, if paragraph 2 is not retrial, but only paragraph 1 is retried in my top K,
+
+501
+00:50:11.340 --> 00:50:14.349
+Prof. Madhusudhanan: Then, I lose my semantic context.
+
+502
+00:50:15.590 --> 00:50:19.030
+Prof. Madhusudhanan: Retrival, right? Inefficient retrieval.
+
+503
+00:50:20.440 --> 00:50:30.059
+Prof. Madhusudhanan: Right? Large text. When I say large text, read it as large chunk also. Especially for small models, large chunk. Right? So…
+
+504
+00:50:30.340 --> 00:50:32.430
+Prof. Madhusudhanan: I can… I have challenges in…
+
+505
+00:50:32.780 --> 00:50:39.529
+Prof. Madhusudhanan: Inefficient retrieval. We already spoke about it. Somebody said smaller chunks, better retrieval. Yes.
+
+506
+00:50:39.930 --> 00:50:45.170
+Prof. Madhusudhanan: Difficult summarization, because it has to understand the context.
+
+507
+00:50:46.030 --> 00:50:53.679
+Prof. Madhusudhanan: picked as… as we… No, make the chunk larger and larger. The semantic meaning…
+
+508
+00:50:54.340 --> 00:50:56.879
+Prof. Madhusudhanan: The smaller semantic meaning is lost.
+
+509
+00:50:58.080 --> 00:50:58.819
+Prof. Madhusudhanan: Got it.
+
+510
+00:51:00.710 --> 00:51:04.310
+Prof. Madhusudhanan: Okay, so types of chunking, right? So this is what we…
+
+511
+00:51:05.120 --> 00:51:07.960
+Prof. Madhusudhanan: Spoke about. Fixert size chunk in.
+
+512
+00:51:09.660 --> 00:51:18.510
+Prof. Madhusudhanan: Fix-set-sized chunking. Now, I'll go back to the question that you all asked. What happens if the chunking size… if the number of tokens is more?
+
+513
+00:51:19.730 --> 00:51:21.699
+Prof. Madhusudhanan: I can restrict this.
+
+514
+00:51:22.380 --> 00:51:26.470
+Prof. Madhusudhanan: Right? We know the formula for word to token, right?
+
+515
+00:51:27.080 --> 00:51:37.579
+Prof. Madhusudhanan: We, as a thumb rule, you can say, if you have 100 words, or no, if you have 70 words, you require 100 tokens. You use that formula and intelligently try to understand the
+
+516
+00:51:38.260 --> 00:51:42.679
+Prof. Madhusudhanan: chunk size, right? Fixed chunking is generally not used.
+
+517
+00:51:43.280 --> 00:51:45.359
+Prof. Madhusudhanan: But it is the easiest to do.
+
+518
+00:51:45.780 --> 00:51:47.009
+Prof. Madhusudhanan: Easiest to do.
+
+519
+00:51:47.220 --> 00:51:56.569
+Prof. Madhusudhanan: Because, let us say, no, again, from an air gap system, I don't require any specialized tools. I just require a small program, which will keep chunking every 200 parts.
+
+520
+00:51:59.740 --> 00:52:00.570
+Prof. Madhusudhanan: Right?
+
+521
+00:52:02.370 --> 00:52:04.080
+Prof. Madhusudhanan: This is the first page that I can do.
+
+522
+00:52:04.960 --> 00:52:12.969
+Prof. Madhusudhanan: The second method is sentence-based chunking. I might say I'll take 5 sentences, 1 sentence, 5 sentences, 20 sentences.
+
+523
+00:52:13.990 --> 00:52:21.000
+Prof. Madhusudhanan: But I look for a full stop, and convert this chinking, and then put… pray God that the context is understood.
+
+524
+00:52:22.430 --> 00:52:26.029
+Prof. Madhusudhanan: The context is understood. At the end of the day, that is the most important thing.
+
+525
+00:52:27.410 --> 00:52:30.419
+Prof. Madhusudhanan: The third mechanism is the semantic chunking.
+
+526
+00:52:32.620 --> 00:52:44.230
+Prof. Madhusudhanan: Where I try to understand the meaning. That means, no, see, there is going to be a time, there is going to be a compute cost for chunking also. If I do a fixer-based size chunking, I don't require GPUs.
+
+527
+00:52:44.890 --> 00:52:49.760
+Prof. Madhusudhanan: I can write a program, and then keep chunking it, and I get this.
+
+528
+00:52:50.650 --> 00:52:55.430
+Prof. Madhusudhanan: Sentence-based chunking also not a problem. My GPU requirement is very less.
+
+529
+00:52:57.010 --> 00:52:59.999
+Prof. Madhusudhanan: The third is where I understand the semantic.
+
+530
+00:53:00.570 --> 00:53:01.970
+Prof. Madhusudhanan: The meaning of it.
+
+531
+00:53:03.290 --> 00:53:05.880
+Prof. Madhusudhanan: The moment I get the meaning of it.
+
+532
+00:53:07.150 --> 00:53:16.459
+Prof. Madhusudhanan: Right? The moment I get the meaning of it, that means I require to understand the context. And the moment I have to understand the context, it is going to be more.
+
+533
+00:53:17.270 --> 00:53:18.100
+Prof. Madhusudhanan: Right?
+
+534
+00:53:19.170 --> 00:53:23.640
+Prof. Madhusudhanan: It is going to be more of Compute.
+
+535
+00:53:24.730 --> 00:53:29.060
+Prof. Madhusudhanan: Right. The semantic chunk creates more chunks with different size.
+
+536
+00:53:29.530 --> 00:53:35.390
+Prof. Madhusudhanan: It will create more chunks of different size, perfectly right, but the embedding is going to be single.
+
+537
+00:53:36.110 --> 00:53:39.489
+Prof. Madhusudhanan: The embedding is always going to be a single value.
+
+538
+00:53:39.610 --> 00:53:48.150
+Prof. Madhusudhanan: Which is agreed upon, 768, 1024, right? 1536. It need not be semantic chunking. Even your
+
+539
+00:53:48.730 --> 00:53:51.989
+Prof. Madhusudhanan: Sentence-based chunking might have different sizes.
+
+540
+00:53:56.810 --> 00:53:57.640
+Prof. Madhusudhanan: Right?
+
+541
+00:53:59.430 --> 00:54:06.040
+Prof. Madhusudhanan: Is there a way to optimize the retrieval if the chunks are distributed across the cloud storage? Definitely possible.
+
+542
+00:54:06.590 --> 00:54:09.190
+Prof. Madhusudhanan: There is definitely, no,
+
+543
+00:54:09.330 --> 00:54:20.889
+Prof. Madhusudhanan: Possible. We use different techniques. You can try to read parameter server model, PSM, parameter server model power supply.
+
+544
+00:54:22.390 --> 00:54:24.129
+Prof. Madhusudhanan: Power supply guy.
+
+545
+00:54:25.390 --> 00:54:34.440
+Prof. Madhusudhanan: Right? I can have something called as a parameter server model that gives… that lays the foundation for all the techniques, whether you're using a GPU, whether you're using a…
+
+546
+00:54:34.890 --> 00:54:44.200
+Prof. Madhusudhanan: No, whether you're using a GPU, whether you're using a distributed system, whether you're using clusters, whether you're using, you know, HPCs.
+
+547
+00:54:44.670 --> 00:54:57.470
+Prof. Madhusudhanan: Alright? Anything of that sort is definitely possible. Retrival is possible. You just understand the foundation, the basic principle, the first principle for that is, you know, Samir,
+
+548
+00:54:58.140 --> 00:55:00.859
+Prof. Madhusudhanan: Use the parameter server model.
+
+549
+00:55:00.980 --> 00:55:11.650
+Prof. Madhusudhanan: Though chunk is not a parameter, right? Because generally, we are chunking and embedding together, and, you know, I can treat embedding as a parameter. Beyond the scope of this.
+
+550
+00:55:11.760 --> 00:55:15.200
+Prof. Madhusudhanan: Session, but, you know, definitely possible to take it forward.
+
+551
+00:55:17.650 --> 00:55:18.770
+Prof. Madhusudhanan: Great.
+
+552
+00:55:19.030 --> 00:55:21.649
+Prof. Madhusudhanan: Fixed size, fixed size chunking?
+
+553
+00:55:22.590 --> 00:55:28.369
+Prof. Madhusudhanan: docko example, a document is split into chunks of 100 words each, regardless of this.
+
+554
+00:55:30.400 --> 00:55:34.120
+Prof. Madhusudhanan: or paragraph boundaries. I just blindly do it.
+
+555
+00:55:34.370 --> 00:55:37.199
+Prof. Madhusudhanan: Alright? Best used when? Speed.
+
+556
+00:55:37.580 --> 00:55:40.440
+Prof. Madhusudhanan: And simplicity are priorities.
+
+557
+00:55:41.390 --> 00:55:57.049
+Prof. Madhusudhanan: Where speed is priority. I'm not looking at the context at all. I might have applications where speed is priority. Somebody, you know, was telling, I work in networking, network optimization networks. The amount of data that you see in real time is very, very large.
+
+558
+00:55:57.510 --> 00:56:01.899
+Prof. Madhusudhanan: Right? So, fixed sites chunking is one easy way to take it forward.
+
+559
+00:56:02.010 --> 00:56:09.400
+Prof. Madhusudhanan: Sentence-based chunking, what I told you, example again. Every sentence, sentences are grouped together to form one chunk.
+
+560
+00:56:10.650 --> 00:56:14.379
+Prof. Madhusudhanan: Right? So, we are talking of different scenarios.
+
+561
+00:56:16.060 --> 00:56:23.550
+Prof. Madhusudhanan: talking of different scenarios. I am trying to ensure the linguistic structure. I have a sequential set of chunks.
+
+562
+00:56:24.320 --> 00:56:26.060
+Prof. Madhusudhanan: Sequentially, I build it.
+
+563
+00:56:26.360 --> 00:56:33.090
+Prof. Madhusudhanan: Right? And I try to use this where entire sentences are… Compulsory.
+
+564
+00:56:33.480 --> 00:56:46.759
+Prof. Madhusudhanan: I try to use this… again, this is very easy to do, right? I try to use this in scenarios where I know that the approximate length of the sentences… or not approximate number of sentences.
+
+565
+00:56:48.230 --> 00:56:54.040
+Prof. Madhusudhanan: to take it forward. No, sentence-based chunking will not require an LLM. I can write a program for that.
+
+566
+00:56:54.810 --> 00:57:01.040
+Prof. Madhusudhanan: Right? That is where we say we are saving GPUs in fixer. Right? In fixer chunking, the sentence might…
+
+567
+00:57:01.160 --> 00:57:02.410
+Prof. Madhusudhanan: be hanging.
+
+568
+00:57:04.030 --> 00:57:06.130
+Prof. Madhusudhanan: Where else in sentence-based chunking?
+
+569
+00:57:06.750 --> 00:57:08.420
+Prof. Madhusudhanan: In sentence-based chunking.
+
+570
+00:57:08.580 --> 00:57:14.290
+Prof. Madhusudhanan: We don't require a LLM, I can write a regex equa, no, regex, I can use regex to…
+
+571
+00:57:14.510 --> 00:57:16.039
+Prof. Madhusudhanan: Break it down.
+
+572
+00:57:17.660 --> 00:57:24.079
+Prof. Madhusudhanan: Generally, Sentence-based chunking and fixer chunking are not used.
+
+573
+00:57:25.400 --> 00:57:27.770
+Prof. Madhusudhanan: Right? Generally, they are not used.
+
+574
+00:57:28.680 --> 00:57:32.800
+Prof. Madhusudhanan: I'll talk about what generally is used in no?
+
+575
+00:57:34.900 --> 00:57:36.150
+Prof. Madhusudhanan: real world.
+
+576
+00:57:38.510 --> 00:57:42.199
+Prof. Madhusudhanan: So, you're right, Senjil Nadan. Okay, let me take it up.
+
+577
+00:57:43.720 --> 00:57:49.250
+Prof. Madhusudhanan: Chunking, yes, chunking method to be best. I think I'll talk about some chunking methods, which we typically use.
+
+578
+00:57:49.860 --> 00:57:52.620
+Prof. Madhusudhanan: Semantic meaning is lost in…
+
+579
+00:57:52.880 --> 00:58:02.099
+Prof. Madhusudhanan: fixer chunking and sentence-based chunking. I can use semantic chunking to solve this problem, right? So, sentence-based chunking will not be used.
+
+580
+00:58:03.410 --> 00:58:04.550
+Prof. Madhusudhanan: Cementing…
+
+581
+00:58:05.150 --> 00:58:14.389
+Prof. Madhusudhanan: Yeah, semantic chunking will have its advantage, Central Northern. When I do the chunking, I lose a lot of compute, but my retrieval might be way better.
+
+582
+00:58:14.570 --> 00:58:15.500
+Prof. Madhusudhanan: You're right.
+
+583
+00:58:16.140 --> 00:58:19.829
+Prof. Madhusudhanan: So what you want to retrieve, what is the context, becomes important.
+
+584
+00:58:20.190 --> 00:58:22.550
+Prof. Madhusudhanan: So, Vermalti, I'll talk about that.
+
+585
+00:58:24.320 --> 00:58:26.160
+Prof. Madhusudhanan: Context is defined
+
+586
+00:58:27.170 --> 00:58:32.879
+Prof. Madhusudhanan: Context is nothing but no. When we say about the context window, it is start to end.
+
+587
+00:58:33.010 --> 00:58:37.620
+Prof. Madhusudhanan: the novel. In a novel, you have a… I do have the…
+
+588
+00:58:38.320 --> 00:58:42.220
+Prof. Madhusudhanan: Pay, no? You have the title, Followed by a forward.
+
+589
+00:58:43.120 --> 00:58:50.830
+Prof. Madhusudhanan: Followed by an acknowledgement, then you have the story, right? And in the story, it is split into chapters.
+
+590
+00:58:52.300 --> 00:58:53.050
+Prof. Madhusudhanan: Right?
+
+591
+00:58:53.300 --> 00:58:57.160
+Prof. Madhusudhanan: So, the context is defined within a chapter.
+
+592
+00:58:57.210 --> 00:59:16.100
+Prof. Madhusudhanan: The entire chapter, the entire book can be a context, the entire chapter can be a context, a paragraph can be a context. As long as I'm able to understand and make meaning out of it, I can say it is context. When I talk about context window, it is a totally end-to-end conversation between the man and the machine.
+
+593
+00:59:18.110 --> 00:59:26.520
+Prof. Madhusudhanan: Yeah, for semantic LLM, We require… for semantic chunking, we require, we need LLMs. You're perfectly right.
+
+594
+00:59:28.980 --> 00:59:29.680
+Prof. Madhusudhanan: Right.
+
+595
+00:59:29.840 --> 00:59:36.170
+Prof. Madhusudhanan: So… so… I try to understand the context.
+
+596
+00:59:38.080 --> 00:59:56.620
+Prof. Madhusudhanan: Right? Now, I've given a very good example. A document discussing multiple topics is split so that each term contains content related to a single topic. What is this single topic? In a newspaper, in a news, digital news article, it could be sports, politics, international news, war.
+
+597
+00:59:57.870 --> 00:59:58.650
+Prof. Madhusudhanan: Right?
+
+598
+00:59:58.960 --> 01:00:04.010
+Prof. Madhusudhanan: They all become… They all become specific topics.
+
+599
+01:00:04.730 --> 01:00:20.090
+Prof. Madhusudhanan: If I'm able to do that, if my context window is very large, if my chunking size is very large, if I try to put all the var into one chunk, all my sports into one chunk, then, you know, I have semantic chunking.
+
+600
+01:00:21.230 --> 01:00:22.310
+Prof. Madhusudhanan: Maybe, no?
+
+601
+01:00:22.540 --> 01:00:25.260
+Prof. Madhusudhanan: In real life, I may not look at the entire chunk.
+
+602
+01:00:25.450 --> 01:00:31.720
+Prof. Madhusudhanan: the entire content, right? Once I talk about Semantic chunking?
+
+603
+01:00:31.960 --> 01:00:34.270
+Prof. Madhusudhanan: I'll immediately start talking about.
+
+604
+01:00:35.060 --> 01:00:44.760
+Prof. Madhusudhanan: chunk, you know, within the semantic space, how do I chunk it further, right? So, in real-world problems, I'll talk about it, yeah, as we just go finish the next slide.
+
+605
+01:00:49.170 --> 01:00:50.990
+Prof. Madhusudhanan: Very much possible, Abhishek.
+
+606
+01:00:52.460 --> 01:00:54.810
+Prof. Madhusudhanan: Right? You can…
+
+607
+01:00:55.070 --> 01:01:01.579
+Prof. Madhusudhanan: use any of the techniques, right? The basic, most basic techniques to look at orthogonal vectors is…
+
+608
+01:01:02.340 --> 01:01:08.229
+Prof. Madhusudhanan: Right? Is, in fact, now your cosine similarity is giving you an orthogonal vector.
+
+609
+01:01:08.850 --> 01:01:14.869
+Prof. Madhusudhanan: At different angles, right? But you can use different techniques, you can understand the concepts of
+
+610
+01:01:15.180 --> 01:01:24.329
+Prof. Madhusudhanan: Component analysis, principal component, no, eigenvalues, eigenvectors, and from there, take it forward. You can use any technique if you want to do dimensionality reduction.
+
+611
+01:01:26.570 --> 01:01:28.400
+Prof. Madhusudhanan: Right? So…
+
+612
+01:01:28.920 --> 01:01:45.549
+Prof. Madhusudhanan: So, again, you have techniques which is sliding window approach, where I can have a overlap. I'm not talking about overlaps. I can have a sliding window, I can keep sliding the window and chunk it. I can have a paragraph-level chunking.
+
+613
+01:01:45.610 --> 01:02:03.159
+Prof. Madhusudhanan: works. Now, let us say you… it depends on the document. You'll have to have a look at the document, and then take a call whether you want to do paragraph-level chunking. So, if my paragraph is very clearly… has the context, has the semantics, then I can think of using
+
+614
+01:02:03.340 --> 01:02:11.949
+Prof. Madhusudhanan: paragraph-based chunking, right? But many a times, let us say we are looking at a, let us say we are looking at a policy.
+
+615
+01:02:12.370 --> 01:02:17.389
+Prof. Madhusudhanan: a rules document, right? Let us say you're looking at your HR document.
+
+616
+01:02:17.720 --> 01:02:24.179
+Prof. Madhusudhanan: Your HR document, what does it do? It has sections, it has paragraphs, it has sentences.
+
+617
+01:02:24.690 --> 01:02:32.390
+Prof. Madhusudhanan: Right? So I can now split this accordingly, so that I understand the context.
+
+618
+01:02:33.280 --> 01:02:37.549
+Prof. Madhusudhanan: Right? I understand the context, and from there, I can take it forward.
+
+619
+01:02:37.860 --> 01:02:41.690
+Prof. Madhusudhanan: Right? Hierarchical chunking is very popular. Now, coming to
+
+620
+01:02:42.090 --> 01:02:47.460
+Prof. Madhusudhanan: coming to, you know, Malati's question, Coming to Malati's question.
+
+621
+01:02:47.720 --> 01:02:51.329
+Prof. Madhusudhanan: Yea, multiple chunking approaches are used.
+
+622
+01:02:52.350 --> 01:02:57.830
+Prof. Madhusudhanan: Multiple chunking approaches. That means I'm talking of more than one method being used.
+
+623
+01:02:59.500 --> 01:03:03.030
+Prof. Madhusudhanan: Right? More than one method being used for chunking.
+
+624
+01:03:04.240 --> 01:03:08.209
+Prof. Madhusudhanan: I might use chunking method EA, followed by chunking method B.
+
+625
+01:03:09.120 --> 01:03:24.539
+Prof. Madhusudhanan: That's a great way of taking it forward, right? So, hybrid chunk, you know, strategies which involves multiple chunking techniques is the go-to method for complex data. I'm not saying complex projects, I'm saying complex data.
+
+626
+01:03:25.020 --> 01:03:41.449
+Prof. Madhusudhanan: Right? So, hierarchical works great if you're talking of books, you know, rule books and other things. Semantic works great if you're looking from the, you know, documents related to medicine, let us say I have a discharge summary, then, you know, they become great to take it forward.
+
+627
+01:03:41.870 --> 01:03:49.970
+Prof. Madhusudhanan: Right? Semantic, because my discharge summary has to understand the semantics. It may talk about the X-ray report, then suddenly it might go and talk about the
+
+628
+01:03:50.520 --> 01:03:57.549
+Prof. Madhusudhanan: Medications to be given. Semantics really helps me to differentiate the X-ray findings and this.
+
+629
+01:03:59.750 --> 01:04:00.440
+Prof. Madhusudhanan: About it?
+
+630
+01:04:01.400 --> 01:04:19.849
+Prof. Madhusudhanan: So, sections, paragraphs, sentences, right? That can help. I have semantic, I gave you an example. Hierarchical, I gave an example. But, you know, I can also do a hierarchical chunking, and then followed by a semantic chunking. Definitely works. Got it? So, good. Next.
+
+631
+01:04:23.330 --> 01:04:26.370
+Prof. Madhusudhanan: So we're talking about the sliding window approach.
+
+632
+01:04:26.670 --> 01:04:39.250
+Prof. Madhusudhanan: Right? So, that is where we talk about the overlapping, right? So, what is the advantage? At the edge, I maintain. Even if you are doing your convolutional null, even if you're talking of your convolutional neural network.
+
+633
+01:04:40.400 --> 01:04:42.010
+Prof. Madhusudhanan: What, what happens?
+
+634
+01:04:42.190 --> 01:04:53.529
+Prof. Madhusudhanan: We are using a sliding mechanism to capture the data, right? Your filters are slided. The same method here, right? 20%, which we already discussed.
+
+635
+01:04:56.750 --> 01:05:00.800
+Prof. Madhusudhanan: paragraph-level chunking, I already spoke. I take a paint and go back.
+
+636
+01:05:01.130 --> 01:05:06.620
+Prof. Madhusudhanan: paragraph-level chunking, I take up paragraphs, and then from there, take it from it.
+
+637
+01:05:06.890 --> 01:05:17.050
+Prof. Madhusudhanan: Right? Each paragraph becomes an independent chart. This can be very useful if I'm using, right? Like, if you're talking of discharge summary in medical domain.
+
+638
+01:05:19.060 --> 01:05:21.479
+Prof. Madhusudhanan: We are talking with respect to…
+
+639
+01:05:22.520 --> 01:05:27.130
+Prof. Madhusudhanan: We are talking with respect to…
+
+640
+01:05:27.260 --> 01:05:38.420
+Prof. Madhusudhanan: following a standard. One of the most important standards followed in India is the NABH standard, to write a discharge summary, or no, when you go to the hospital, you get a discharge summary when you come out.
+
+641
+01:05:39.030 --> 01:05:41.440
+Prof. Madhusudhanan: Right? And this is where we use…
+
+642
+01:05:42.010 --> 01:05:44.640
+Prof. Madhusudhanan: Where… this is where we use, no?
+
+643
+01:05:44.900 --> 01:05:51.120
+Prof. Madhusudhanan: semantics, because I know I can understand the semantics, or here I can build a customized
+
+644
+01:05:51.530 --> 01:05:58.360
+Prof. Madhusudhanan: chunking method, because NABH says NABH discharge summaries are 3 pages, they follow a pattern.
+
+645
+01:05:58.980 --> 01:06:07.670
+Prof. Madhusudhanan: If I can understand this pattern, that is where domain expert is important, I can use a combination of hierarchical and semantic chunking.
+
+646
+01:06:08.630 --> 01:06:12.070
+Prof. Madhusudhanan: So that… The embedding is better.
+
+647
+01:06:12.770 --> 01:06:26.640
+Prof. Madhusudhanan: Right? Paragraph-based chunking. I might have a paragraph with 3 sentences, 10 sentences, 20 sentences, and 20 sentence paragraph might have a broader context understanding, rather than a narrower
+
+648
+01:06:26.760 --> 01:06:28.270
+Prof. Madhusudhanan: context understanding.
+
+649
+01:06:28.840 --> 01:06:29.920
+Prof. Madhusudhanan: Right?
+
+650
+01:06:31.510 --> 01:06:32.260
+Prof. Madhusudhanan: Great.
+
+651
+01:06:37.030 --> 01:06:43.340
+Prof. Madhusudhanan: See, Guruvinaik, the question is, are you going to build a multimodal system? If you're going to build a multimodal system.
+
+652
+01:06:43.790 --> 01:06:45.910
+Prof. Madhusudhanan: Hybrid chunking will definitely help.
+
+653
+01:06:46.120 --> 01:06:57.009
+Prof. Madhusudhanan: Right? Document with images. What are you going to… what are you going to do with the image is a million dollar question. Of course, as long as you say, hey, it's a multimodal system, then I don't have a problem.
+
+654
+01:06:59.500 --> 01:07:18.290
+Prof. Madhusudhanan: Healthcare domain is stuck to LLMs? Not necessarily. Not necessarily, right? Healthcare. Today, if you get, I don't know, if anybody gets admitted in hospital, they discharge, they'll say, oh, doctor will come and say you can get discharged, but it takes 4 to 8 hours for you to physically come out of the hospital.
+
+655
+01:07:19.090 --> 01:07:23.459
+Prof. Madhusudhanan: Everything is available, but the discharge summary has to be prepared.
+
+656
+01:07:23.890 --> 01:07:26.020
+Prof. Madhusudhanan: And that becomes a very big challenge.
+
+657
+01:07:27.480 --> 01:07:28.210
+Prof. Madhusudhanan: Got it?
+
+658
+01:07:28.780 --> 01:07:29.690
+Prof. Madhusudhanan: Next slide.
+
+659
+01:07:34.450 --> 01:07:39.280
+Prof. Madhusudhanan: Hierarchical chunking, as I told you, I can build it into sections, paragraphs, sentences.
+
+660
+01:07:40.560 --> 01:07:45.310
+Prof. Madhusudhanan: So, this is very useful, especially when there is a structure to the document.
+
+661
+01:07:45.830 --> 01:07:55.000
+Prof. Madhusudhanan: Especially when… see, for a novel, hierarchical chunking may not really work. But for a rulebook or HR policy, hierarchical chunking will work beautifully.
+
+662
+01:07:55.440 --> 01:07:58.259
+Prof. Madhusudhanan: Got it? We spoke about that. Next slide.
+
+663
+01:08:04.130 --> 01:08:05.599
+Prof. Madhusudhanan: Next slide. Done.
+
+664
+01:08:07.130 --> 01:08:07.860
+Prof. Madhusudhanan: Yeah.
+
+665
+01:08:09.040 --> 01:08:23.310
+Prof. Madhusudhanan: So, right, we are talking about the pros and cons of sliding window, overlapping tokens, but today, even in paragraph-level chunking, I can still use overlapping. There is no… there is no rule which says that
+
+666
+01:08:23.510 --> 01:08:25.350
+Prof. Madhusudhanan: Overlapping cannot be used.
+
+667
+01:08:25.609 --> 01:08:27.060
+Prof. Madhusudhanan: Hierarchical chunkling?
+
+668
+01:08:27.220 --> 01:08:40.570
+Prof. Madhusudhanan: Slightly complex to implement. You might say, why is this complex to implement? LangChain gives me the entire library, all I need to do is do it. Validation is a painful… validation requires domain knowledge. Validation is difficult.
+
+669
+01:08:41.430 --> 01:08:43.349
+Prof. Madhusudhanan: Validation is very difficult.
+
+670
+01:08:45.370 --> 01:08:50.819
+Prof. Madhusudhanan: It is not about validating one document, especially in heterogeneous documents. Documents…
+
+671
+01:08:52.020 --> 01:08:55.159
+Prof. Madhusudhanan: Documents which are not of uniform type.
+
+672
+01:08:55.490 --> 01:09:04.109
+Prof. Madhusudhanan: Right? I'm looking at a discharge summary following NABH standards. I know, even if I get it from 10,000 different hospitals, the format is the same.
+
+673
+01:09:04.649 --> 01:09:06.970
+Prof. Madhusudhanan: But in many scenarios, the formats
+
+674
+01:09:07.130 --> 01:09:13.200
+Prof. Madhusudhanan: The structure, the document layout will be different. In that case, it is extremely complex to implement.
+
+675
+01:09:14.899 --> 01:09:16.629
+Prof. Madhusudhanan: Right? Next, next slide.
+
+676
+01:09:18.770 --> 01:09:23.230
+Prof. Madhusudhanan: Sing… We'll stop here, or… So, going from…
+
+677
+01:09:23.340 --> 01:09:26.450
+Prof. Madhusudhanan: Tokenization, also, we are having tokenization. Okay.
+
+678
+01:09:27.460 --> 01:09:40.099
+Prof. Madhusudhanan: Okay, so tokenization, we have already discussed, it is nothing but a chunk. Every single subword. I told you Madhu will be… Madhu Sudan could be MAD can be one token, HUES can be…
+
+679
+01:09:40.310 --> 01:09:48.730
+Prof. Madhusudhanan: another token, UDHE can be another token, and UDHA, or UDHA, and whatever it is, can be another token, and so on and so forth.
+
+680
+01:09:49.350 --> 01:09:55.600
+Prof. Madhusudhanan: Right? So… So, when we talk about the tokens.
+
+681
+01:09:56.630 --> 01:09:59.280
+Prof. Madhusudhanan: It is mapped to the embedding model.
+
+682
+01:09:59.560 --> 01:10:04.039
+Prof. Madhusudhanan: Very important, because sometimes you might get a data set from the internet.
+
+683
+01:10:05.030 --> 01:10:10.869
+Prof. Madhusudhanan: You might get a data from the internet. You might get a tokenized data from the internet.
+
+684
+01:10:11.480 --> 01:10:12.869
+Prof. Madhusudhanan: You cannot use it.
+
+685
+01:10:13.260 --> 01:10:17.400
+Prof. Madhusudhanan: directly. You need to understand what embedding model
+
+686
+01:10:18.410 --> 01:10:21.039
+Prof. Madhusudhanan: It's also being used to calculate the data.
+
+687
+01:10:23.300 --> 01:10:30.320
+Prof. Madhusudhanan: Extremely important, or else, no, you're going to get wrong answers. Please understand, the embedding model
+
+688
+01:10:30.510 --> 01:10:33.659
+Prof. Madhusudhanan: Whatever embedding model was used for.
+
+689
+01:10:34.100 --> 01:10:44.109
+Prof. Madhusudhanan: the, you know, for the RAG system to… and, you know, whatever model was used to create the embeddings for the chunk, the same model has to be used for…
+
+690
+01:10:44.970 --> 01:10:48.480
+Prof. Madhusudhanan: Retrival also. That means when somebody types a query.
+
+691
+01:10:48.910 --> 01:10:51.529
+Prof. Madhusudhanan: The query first has to retrieve.
+
+692
+01:10:52.590 --> 01:10:58.439
+Prof. Madhusudhanan: The query first has to retrieve. And what is happening for retrieval? The query is converted into…
+
+693
+01:10:59.190 --> 01:11:15.720
+Prof. Madhusudhanan: a chunk, and this chunk is… no, embeddings are created for the chunk. If it is the same model, I'm comparing apples with apples. If it is not the same model, then my embedding values, that the vector values are different, and
+
+694
+01:11:15.840 --> 01:11:19.700
+Prof. Madhusudhanan: And… I'm comparing apples with oranges.
+
+695
+01:11:21.950 --> 01:11:22.630
+Prof. Madhusudhanan: Bright?
+
+696
+01:11:24.580 --> 01:11:35.800
+Prof. Madhusudhanan: Okay, that is also a very good use case, Nagandra. Conversational bots require smaller chunks, because, you know, you might ask a couple of questions, and the answer may not be very long.
+
+697
+01:11:36.520 --> 01:11:46.360
+Prof. Madhusudhanan: Especially if it could be a tech support bot, the answer need not be. Answers could be of fixed size, it is not going to talk for 5 minutes on how to solve a problem.
+
+698
+01:11:48.240 --> 01:11:51.750
+Prof. Madhusudhanan: Right? Healthcare use case, not necessarily larger chunks.
+
+699
+01:11:51.880 --> 01:11:56.969
+Prof. Madhusudhanan: Right? Semantic chunking might be better. You need to understand the problem, and from there, take it forward.
+
+700
+01:11:57.980 --> 01:12:08.879
+Prof. Madhusudhanan: So, this we already decided, discussed. I have a chunk. The chunk is converted into tokens. Tokens are individual words. The individual words are again split into subwords.
+
+701
+01:12:09.310 --> 01:12:25.140
+Prof. Madhusudhanan: And each of it has a token ID, right? And this is where the maximum token length comes into picture. Somebody spoke about it, right? That is where I said, you know, use the 70 words becomes 100 token rule in the initial stage itself, and half the battle is…
+
+702
+01:12:27.710 --> 01:12:28.440
+Prof. Madhusudhanan: Right?
+
+703
+01:12:30.330 --> 01:12:36.600
+Prof. Madhusudhanan: Great. So, I can have special tokens, I can have domain-specific tokens to take it forward.
+
+704
+01:12:37.230 --> 01:12:40.839
+Prof. Madhusudhanan: So, why tokenization is important?
+
+705
+01:12:41.490 --> 01:12:49.079
+Prof. Madhusudhanan: You need to understand, whenever I use the system, Whenever I use a chatbot.
+
+706
+01:12:49.250 --> 01:12:56.960
+Prof. Madhusudhanan: every… Content that you type is mapped to the vocabulary of the model.
+
+707
+01:12:57.860 --> 01:13:00.310
+Prof. Madhusudhanan: Map to the vocabulary of the model.
+
+708
+01:13:00.520 --> 01:13:03.620
+Prof. Madhusudhanan: That means, when I do the tokenization.
+
+709
+01:13:04.560 --> 01:13:07.340
+Prof. Madhusudhanan: It should be converted into a value.
+
+710
+01:13:07.810 --> 01:13:11.200
+Prof. Madhusudhanan: That is understood by the vocabulary of the model.
+
+711
+01:13:12.030 --> 01:13:17.429
+Prof. Madhusudhanan: And of course, token limit, if the token limit increases, The data gets truncated.
+
+712
+01:13:19.240 --> 01:13:19.990
+Prof. Madhusudhanan: So…
+
+713
+01:13:21.490 --> 01:13:39.179
+Prof. Madhusudhanan: This is where the challenge comes in. This is where the challenge comes in, right? And please remember, character-based chunking is not equal to total-based… token-based reality. You need to do a little bit of engineering, do samples, and from there, load samples for different scenarios to
+
+714
+01:13:39.300 --> 01:13:41.479
+Prof. Madhusudhanan: Understand and take it forward.
+
+715
+01:13:41.820 --> 01:13:42.580
+Prof. Madhusudhanan: Got it?
+
+716
+01:13:42.740 --> 01:13:43.620
+Prof. Madhusudhanan: Next slide.
+
+717
+01:13:46.620 --> 01:13:54.819
+Prof. Madhusudhanan: Text. Text is converted in tokenizers. Again, I remember, no? Tokenizer can be a word also, I am, but if…
+
+718
+01:13:55.180 --> 01:14:08.580
+Prof. Madhusudhanan: But Madhu can become a two tokens, so it is converted into tokenizer will convert into tokens, and the embedding layer converts that into a numerical value.
+
+719
+01:14:09.880 --> 01:14:18.689
+Prof. Madhusudhanan: So, D is the dimension of the embedding layer, which is 768,024,536, right? So, tokenization helps you to control that.
+
+720
+01:14:18.960 --> 01:14:20.000
+Prof. Madhusudhanan: lockdown space.
+
+721
+01:14:23.640 --> 01:14:32.660
+Prof. Madhusudhanan: Right? So each token ID can be mapped to a numerical ID using the model's vocabulary. That is exactly what I spoke about. And, you know,
+
+722
+01:14:32.760 --> 01:14:36.770
+Prof. Madhusudhanan: The token IDs are used to create the indexed
+
+723
+01:14:37.180 --> 01:14:40.000
+Prof. Madhusudhanan: Of the embedding model for the transfer.
+
+724
+01:14:40.590 --> 01:14:48.820
+Prof. Madhusudhanan: Pretty simple, right? Token, my machine does not understand it. The moment I say, embedding, my system starts understanding it.
+
+725
+01:14:51.500 --> 01:14:52.310
+Prof. Madhusudhanan: Right?
+
+726
+01:14:53.600 --> 01:14:57.620
+Prof. Madhusudhanan: So, which techniques are used? So, who is going to use it?
+
+727
+01:14:57.910 --> 01:14:58.670
+Prof. Madhusudhanan: Oh.
+
+728
+01:14:59.060 --> 01:15:11.410
+Prof. Madhusudhanan: Would a table of content be important for hierarchical chunking? It depends on the context, right? If tables are important, it contains numerical values and it is extremely important, then you better have that, or else you have a challenge.
+
+729
+01:15:12.110 --> 01:15:16.800
+Prof. Madhusudhanan: Or else you have a challenge, right? That is very important for you to understand.
+
+730
+01:15:16.870 --> 01:15:24.280
+Prof. Madhusudhanan: Right? And non-structured data, our tokenization, no embedding is for non-structured data only.
+
+731
+01:15:24.330 --> 01:15:37.240
+Prof. Madhusudhanan: like a random blog, right? I can, no, I can use some sort of… I can take random blocks from one area, and then try to not even understand the semantics. I can use some sort of…
+
+732
+01:15:37.520 --> 01:15:49.690
+Prof. Madhusudhanan: No, some sort of… there's going to be no hierarchical, so I might use some sort of sliding window method, or I can try to use some sort of sentence-based chunking to take it forward. Got it, Abhishek?
+
+733
+01:15:54.090 --> 01:15:55.830
+Prof. Madhusudhanan: Right, so…
+
+734
+01:15:55.970 --> 01:16:05.929
+Prof. Madhusudhanan: No, token, I purposely came from the reverse. Instead of speaking of token and then coming to chunking, I spoke about chunks, because that is what you see immediately, and then we're going to the…
+
+735
+01:16:06.680 --> 01:16:07.520
+Prof. Madhusudhanan: token.
+
+736
+01:16:07.680 --> 01:16:14.910
+Prof. Madhusudhanan: Right? So, token will control how language, right? How do you handle Hindi.
+
+737
+01:16:16.240 --> 01:16:29.500
+Prof. Madhusudhanan: When I, you know, you ask a query in ChatGPT to generate something in Hindi, it'll generate. How is it projected, right? That becomes very important. Or if you're talking of images, since this already came up, how do I take it forward?
+
+738
+01:16:31.530 --> 01:16:34.159
+Prof. Madhusudhanan: Right? And each token has a vector.
+
+739
+01:16:34.510 --> 01:16:38.199
+Prof. Madhusudhanan: aggregate this. That is what we're talking about there.
+
+740
+01:16:38.790 --> 01:16:50.839
+Prof. Madhusudhanan: The geometry of the… that means the direction of the token embeddings give me… gives me the relationship. Man, woman, man, boy, right? Woman, lady, woman, princess.
+
+741
+01:16:51.340 --> 01:16:56.550
+Prof. Madhusudhanan: This is where the… geometry, because, no, it's in n vector space.
+
+742
+01:16:57.690 --> 01:17:00.290
+Prof. Madhusudhanan: And I cannot just change the tokenizer.
+
+743
+01:17:00.490 --> 01:17:03.140
+Prof. Madhusudhanan: Maybe if I want to really take it forward.
+
+744
+01:17:03.290 --> 01:17:09.580
+Prof. Madhusudhanan: I need to look at it from the perspective of tuning the tokenizer, tuning the embedding model for my
+
+745
+01:17:10.440 --> 01:17:26.020
+Prof. Madhusudhanan: solution, and here, again, I repeat, positional encoding ensures that the token value, the embedding value is modified, so that the cat sat on the mat, or the mat sat on the cat.
+
+746
+01:17:26.260 --> 01:17:28.789
+Prof. Madhusudhanan: The word cat has two different meanings.
+
+747
+01:17:29.210 --> 01:17:32.589
+Prof. Madhusudhanan: Right? Because of the two different vector values.
+
+748
+01:17:33.740 --> 01:17:42.299
+Prof. Madhusudhanan: And this is where, you know, ultimately your transformers are used to spew out The next token.
+
+749
+01:17:43.540 --> 01:17:44.300
+Prof. Madhusudhanan: Got it?
+
+750
+01:17:45.160 --> 01:17:45.950
+Prof. Madhusudhanan: Great.
+
+751
+01:17:46.790 --> 01:17:56.580
+Prof. Madhusudhanan: Okay. So, no, we'll quickly talk about the splitting models. There is a recursive… because, no, see, what is happening? You have extracted all the data.
+
+752
+01:17:57.410 --> 01:18:02.120
+Prof. Madhusudhanan: You have extracted all the data, and no, I want to split this data.
+
+753
+01:18:03.400 --> 01:18:11.490
+Prof. Madhusudhanan: I want to split this data, right? A recursive text splitter is something which is available in most of your tools, including LanChain.
+
+754
+01:18:11.710 --> 01:18:20.920
+Prof. Madhusudhanan: Right? So what does it do? It tries to split the data recursively, first create, you know, let us say I have 10 chapters textbook.
+
+755
+01:18:21.070 --> 01:18:22.739
+Prof. Madhusudhanan: In the first round, it'll…
+
+756
+01:18:23.000 --> 01:18:30.429
+Prof. Madhusudhanan: split chapter-wise. In the second round, it'll split section-wise. In the third round, it might split paragraph-wise, and
+
+757
+01:18:30.570 --> 01:18:32.000
+Prof. Madhusudhanan: So on and so forth.
+
+758
+01:18:32.310 --> 01:18:33.060
+Prof. Madhusudhanan: Right?
+
+759
+01:18:33.210 --> 01:18:41.239
+Prof. Madhusudhanan: So, that is what happens. It can go up to the token level, which is not required in most of the cases.
+
+760
+01:18:43.990 --> 01:18:53.310
+Prof. Madhusudhanan: Got it. So, recursive splitter supports you overlapping. If, by default, if it is 20%, and you feel that you need to
+
+761
+01:18:53.820 --> 01:18:57.609
+Prof. Madhusudhanan: Reduce the compute cost, changing that to 10% might help.
+
+762
+01:18:57.950 --> 01:19:04.909
+Prof. Madhusudhanan: Right? So, this is something… and you also give the recursive termination criteria. I can say, no.
+
+763
+01:19:05.430 --> 01:19:11.089
+Prof. Madhusudhanan: I can say, no, my termination criteria could be based on the number of
+
+764
+01:19:11.510 --> 01:19:17.640
+Prof. Madhusudhanan: tokens in each chunk. That could be my termination criteria, and so on and so forth.
+
+765
+01:19:23.440 --> 01:19:37.920
+Prof. Madhusudhanan: Classic example here, I have a section 450 tokens. How it is getting split. I want to split into 200 tokens, I can do this. I have a overlap, and from there, I'm able to take it forward.
+
+766
+01:19:38.960 --> 01:19:55.260
+Prof. Madhusudhanan: Right? So, what is my overlap doing? My… it ensures that there is continuity between the chunks that are generated, and this becomes very important when I'm using the retrieval. You might say, why so 20%? Because if I want to retrieve two continuous
+
+767
+01:19:55.800 --> 01:19:56.700
+Prof. Madhusudhanan: Chunks.
+
+768
+01:19:57.710 --> 01:19:58.960
+Prof. Madhusudhanan: To come over there.
+
+769
+01:19:59.100 --> 01:20:06.830
+Prof. Madhusudhanan: meaningful outcome. Then, you know, the percentage overlap really helps me in finding out how close they are with each other.
+
+770
+01:20:07.490 --> 01:20:08.469
+Prof. Madhusudhanan: Got it?
+
+771
+01:20:09.550 --> 01:20:10.840
+Prof. Madhusudhanan: Got it, Abhishek?
+
+772
+01:20:11.050 --> 01:20:25.470
+Prof. Madhusudhanan: Right? See, look at it. One is overlap is continuity to understand the sequence, but more importantly, what is happening is when I overlap, if I'm overlapping by 20%, that means my… my similarity index also, no?
+
+773
+01:20:25.750 --> 01:20:33.959
+Prof. Madhusudhanan: becomes… the closer to each other, the cosine similarity becomes closer to each other. Got it, Abhishek?
+
+774
+01:20:35.250 --> 01:20:37.780
+Prof. Madhusudhanan: Yes, recursive calls by itself.
+
+775
+01:20:41.630 --> 01:20:57.980
+Prof. Madhusudhanan: Right? It calls with, yeah, with iteratively. Generally, you know, we tell you this is available in the, model. I always say, you will have to prepare the pipeline. This will help you in doing it, but you don't have control like this. After a certain amount of parameter tuning, you don't have any control in it.
+
+776
+01:21:00.440 --> 01:21:01.310
+Prof. Madhusudhanan: Bye.
+
+777
+01:21:04.180 --> 01:21:08.489
+Prof. Madhusudhanan: So, no, just giving an example, I think we have
+
+778
+01:21:08.990 --> 01:21:14.159
+Prof. Madhusudhanan: We have code for the… do we have code for this? So, no, I'm giving a… yeah…
+
+779
+01:21:15.210 --> 01:21:29.670
+Prof. Madhusudhanan: Giving an example, we'll take actual example for 1,200 words, and then, you know, I can try to show you how each of these components work. So now, I'll take a break here, so we'll focus a little bit on the
+
+780
+01:21:29.740 --> 01:21:44.070
+Prof. Madhusudhanan: practical part of it, and from that, take it forward. Now, I think Abhi and Balaji will run through the code, he'll explain it briefly, but more importantly, more importantly, no, he will also share you the code so that you can
+
+781
+01:21:44.180 --> 01:21:45.670
+Prof. Madhusudhanan: experiences it.
+
+782
+01:21:47.810 --> 01:21:57.309
+Prof. Madhusudhanan: Okay? In recursive splitting the hierarchy, retrieval priority is given to which hierarchy. If I'm talking of a textbook, it'll start with the chapter.
+
+783
+01:21:57.520 --> 01:22:15.370
+Prof. Madhusudhanan: Right? From chapter, it'll keep on recursively coming down to the level you want. Now, this is where you need to do the tuning. You cannot just believe the model to do it. That is where you're… no, the small parameter tuning, it might, no, the recursive text splitter might have parameters on which it works.
+
+784
+01:22:15.720 --> 01:22:16.530
+Prof. Madhusudhanan: Got it.
+
+785
+01:22:21.500 --> 01:22:25.110
+Prof. Madhusudhanan: Table of content is definitely important for hierarchical chunking.
+
+786
+01:22:26.850 --> 01:22:29.129
+Prof. Madhusudhanan: Recursive chunking is not…
+
+787
+01:22:29.300 --> 01:22:36.210
+Prof. Madhusudhanan: purely semantic chunking, but if I use a hybrid method of recursive and semantic, then it becomes really very powerful.
+
+788
+01:22:37.890 --> 01:22:38.730
+Prof. Madhusudhanan: Great.
+
+789
+01:22:39.100 --> 01:22:49.250
+Prof. Madhusudhanan: Thanks. If you don't have any questions, I'll hand over to Balaji. If I've missed out any question, please type it out so that I can connect it. But right now, I'm handing over to Balaji, who will run through the demos quickly.
+
+790
+01:22:55.430 --> 01:22:59.069
+Prof. Madhusudhanan: You can keep putting your doubts in the chat window.
+
+791
+01:22:59.270 --> 01:23:02.330
+Prof. Madhusudhanan: So that… No, so that we can…
+
+792
+01:23:04.060 --> 01:23:07.020
+Prof. Madhusudhanan: I can answer it after the demonstration.
+
+793
+01:23:10.750 --> 01:23:12.810
+Prof. Madhusudhanan: Definitely, we'll share it.
+
+794
+01:23:33.630 --> 01:23:36.540
+Prof. Madhusudhanan: Yeah, hi. I'm audible right to everyone?
+
+795
+01:23:40.360 --> 01:23:41.370
+Prof. Madhusudhanan: Okay, okay.
+
+796
+01:23:42.540 --> 01:23:49.319
+Prof. Madhusudhanan: Are you sure that, tranking strategy score with everyone in the chat.
+
+797
+01:23:49.620 --> 01:23:50.420
+Prof. Madhusudhanan: Okay?
+
+798
+01:24:01.930 --> 01:24:04.640
+Prof. Madhusudhanan: Just try to open this notebook, okay?
+
+799
+01:24:05.710 --> 01:24:08.020
+Prof. Madhusudhanan: Also, I will share my screen.
+
+800
+01:24:14.630 --> 01:24:17.769
+Prof. Madhusudhanan: So, everyone can able to see my screen, right?
+
+801
+01:24:17.940 --> 01:24:19.550
+Prof. Madhusudhanan: Collapse screen.
+
+802
+01:24:22.480 --> 01:24:25.449
+Prof. Madhusudhanan: Yeah, I shared the collab link, okay?
+
+803
+01:24:26.520 --> 01:24:28.350
+Prof. Madhusudhanan: Okay, it is showing…
+
+804
+01:24:29.240 --> 01:24:38.640
+Prof. Madhusudhanan: Okay, I think panelists should post the link in the chat, okay? I shared it to them. I'm not having option to share it with everyone, okay?
+
+805
+01:24:38.860 --> 01:24:41.290
+Prof. Madhusudhanan: So, panelists, please, look into this.
+
+806
+01:24:41.960 --> 01:24:45.770
+Prof. Madhusudhanan: Again, I am sharing it, just to share it with them.
+
+807
+01:24:46.520 --> 01:24:47.660
+Prof. Madhusudhanan: Okay, yeah.
+
+808
+01:24:50.110 --> 01:24:54.059
+Prof. Madhusudhanan: So, everyone can be able to see this, Collab notebook, right?
+
+809
+01:24:58.740 --> 01:25:00.240
+Prof. Madhusudhanan: Okay, okay.
+
+810
+01:25:07.170 --> 01:25:07.980
+Prof. Madhusudhanan: Okay.
+
+811
+01:25:08.070 --> 01:25:25.259
+Prof. Madhusudhanan: So, here, first, what we are doing is, like, we are trying to set up the, environment, okay? Like, we are, upgrading the core installer tools, like, PEEP, okay, and setup tools, and these are all things, like, we'll be using here for installing the required libraries. And then, like.
+
+812
+01:25:25.260 --> 01:25:36.520
+Prof. Madhusudhanan: Next, like, we'll be, installing, spaCy, NLTK, Gradio, and, okay, these are, like, libraries we'll be using for, doing this, chunking, okay?
+
+813
+01:25:36.600 --> 01:25:48.610
+Prof. Madhusudhanan: So, also, like, we'll be, using the… some specific models, okay? That's what here we are doing it, okay? In the… the third set of course in this cell.
+
+814
+01:25:49.560 --> 01:25:58.379
+Prof. Madhusudhanan: Okay? And then, we are also updating, NLTK library, and we are importing it, okay? And we are using some,
+
+815
+01:25:58.570 --> 01:26:03.700
+Prof. Madhusudhanan: like, datasets from NLTK, okay? I'm just running it.
+
+816
+01:26:09.010 --> 01:26:10.600
+Prof. Madhusudhanan: It'll take some time.
+
+817
+01:26:15.840 --> 01:26:17.749
+Prof. Madhusudhanan: Yeah, it's connected to T4.
+
+818
+01:26:17.890 --> 01:26:23.199
+Prof. Madhusudhanan: It'll take some time. Meantime, I'm moving to the, Next thing…
+
+819
+01:26:23.440 --> 01:26:29.859
+Prof. Madhusudhanan: Next is, like, we are also installing, FIS, okay? Fias, like, is a…
+
+820
+01:26:30.530 --> 01:26:41.769
+Prof. Madhusudhanan: like, it stands for Facebook AI Similarity Search, and it is like a library, okay, used for fast similarity search, and, like, it will be clustering the dense vectors.
+
+821
+01:26:41.810 --> 01:26:47.980
+Prof. Madhusudhanan: Okay, like, we'll be, like, converting text, or images, or, like, like.
+
+822
+01:26:47.980 --> 01:27:05.719
+Prof. Madhusudhanan: okay, the text into, numerical vectors, okay? So these files will be, like, helping us to, like, quickly find what are all, like, similar things are there in the, wherever, like, we are storing it. Like, we'll be calling it as, like, database or, okay? Like, it'll be, like, having, like, larger of, larger number of datas.
+
+823
+01:27:05.720 --> 01:27:12.289
+Prof. Madhusudhanan: And, these fires will be, like, helping to find what is, like, similar, okay? What is, like, similar?
+
+824
+01:27:13.070 --> 01:27:16.139
+Prof. Madhusudhanan: So that's what, here it is happening.
+
+825
+01:27:17.330 --> 01:27:18.090
+Prof. Madhusudhanan: Okay?
+
+826
+01:27:19.620 --> 01:27:26.769
+Prof. Madhusudhanan: So, that's what here it's happening. And… next thing is… okay, it's still… Just a minute.
+
+827
+01:27:29.690 --> 01:27:31.239
+Prof. Madhusudhanan: Okay, it's still running.
+
+828
+01:27:34.200 --> 01:27:43.450
+Prof. Madhusudhanan: And we are importing spaCy and NLTK, okay? That's what, like, we already, seen. Then, we are coming to the, very important,
+
+829
+01:27:43.490 --> 01:27:56.800
+Prof. Madhusudhanan: part, like, where we'll be using, like, what are all things that, Profsa mentioned, okay? Here we are… we'll be, like, defining each and everything, okay? So that's what, this demo is, like, all about.
+
+830
+01:27:57.030 --> 01:28:01.419
+Prof. Madhusudhanan: So, mainly, like, here what you'll be doing is,
+
+831
+01:28:02.100 --> 01:28:18.299
+Prof. Madhusudhanan: Here, we are, like, going to create one interactive NLP application, okay, using Gradio, okay, with different chunking techniques, whatever, like, that you have seen, okay? Like, first we'll be here importing the required libraries, like Gradio, okay, and other things.
+
+832
+01:28:18.320 --> 01:28:23.480
+Prof. Madhusudhanan: And we're also, like, going to create our own UI to see, like, how these shrinking techniques,
+
+833
+01:28:24.190 --> 01:28:28.159
+Prof. Madhusudhanan: Like, will… looks like, and how it is, like, differ, okay, from others.
+
+834
+01:28:28.650 --> 01:28:41.670
+Prof. Madhusudhanan: Okay? So, here we are, we'll be, like, defining a class, okay? Just, here we'll be, defining a class, okay? Like, called chunk results. Okay, so…
+
+835
+01:28:41.740 --> 01:28:59.550
+Prof. Madhusudhanan: we are able to see that. Like, it will be, like, storing the outputs, okay? Like, what is the chunked text, and what is its, like, metadata, and the tokenization examples. Okay, so it'll be, like, having all kind of data. After we are defining this, chunk result, we'll be, like, defining a text chunk, okay? Text chunker class.
+
+836
+01:28:59.580 --> 01:29:14.910
+Prof. Madhusudhanan: So, this is, like, the core of the system. What it'll be doing is, like, here we'll be implementing, like, multiple shenking strategies. Okay, we'll be here implementing fixed size shenking, sentence-based shenking, sliding window. Okay, these are all things that we'll be, implementing here.
+
+837
+01:29:14.910 --> 01:29:28.649
+Prof. Madhusudhanan: So, you can able to see fixed-size chunking, we have defined a function for that, and sentence-based chunking. And then, sliding window, okay, we just defined our own function here. And then paragraph, paragraph-level chunking.
+
+838
+01:29:28.760 --> 01:29:37.240
+Prof. Madhusudhanan: Then, hierarchical checking, okay? Recursive splitter, like what Profsa Madhu mentioned, in his, like, deck, okay? At last, like.
+
+839
+01:29:37.520 --> 01:29:44.510
+Prof. Madhusudhanan: He touched upon that. Okay, and then, character, like, character text splitter.
+
+840
+01:29:44.600 --> 01:29:48.949
+Prof. Madhusudhanan: Then we are also having a token text splitter, okay?
+
+841
+01:29:48.950 --> 01:30:05.180
+Prof. Madhusudhanan: So, these are all things, like, here we have, defined, okay? Based on, like, whatever, like, constraints that here we have, mentioned, or, like, we have, specified, based on this, like, this chunking operation will be, like, happening, okay?
+
+842
+01:30:05.390 --> 01:30:09.279
+Prof. Madhusudhanan: I think… I'm having some problem in executing it.
+
+843
+01:30:09.400 --> 01:30:11.260
+Prof. Madhusudhanan: Everyone got your,
+
+844
+01:30:14.990 --> 01:30:17.059
+Prof. Madhusudhanan: You don't got your notebook?
+
+845
+01:30:19.170 --> 01:30:21.150
+Prof. Madhusudhanan: Please post it in chat window.
+
+846
+01:30:25.950 --> 01:30:26.730
+Prof. Madhusudhanan: Okay.
+
+847
+01:30:27.400 --> 01:30:34.659
+Prof. Madhusudhanan: So I'm gonna try to, run this, okay, along with me. It will take some time for, initial setup, okay?
+
+848
+01:30:50.340 --> 01:31:04.830
+Prof. Madhusudhanan: So, in the UI part, like, what we'll be doing is, like, here, user can give the input text, okay? It can be, like, some sample text you can copy-paste somewhere, and we can, like, choose the… what shenking method that we are going to use.
+
+849
+01:31:04.830 --> 01:31:12.749
+Prof. Madhusudhanan: And then also, like, we can able to, adjust the parameter, like, chunk size and overlap, okay? So… just a minute…
+
+850
+01:31:12.790 --> 01:31:16.189
+Prof. Madhusudhanan: Okay, I'm just restarting it. Now I think it will work.
+
+851
+01:31:20.740 --> 01:31:35.890
+Prof. Madhusudhanan: Okay? Like, we'll be also having some, adjustable parameters, so that we can see how we can, like, control the, like, what is, like, overlap, like, how many chunks, like, we need, okay? These are all things that we can able to control it, okay?
+
+852
+01:31:35.890 --> 01:31:47.369
+Prof. Madhusudhanan: So, for those things, like, we want to create one UI, okay? And also, like, output, like, will be, like, shown, okay? Like, what are all things that it, we want to see is, like.
+
+853
+01:31:47.370 --> 01:31:58.980
+Prof. Madhusudhanan: Chunk the text, okay, based on whatever the chunking techniques that we have chosen. And then, tokenization detail, okay? Then, like, some statistics also we have defined here, okay? We'll be looking at it.
+
+854
+01:32:01.110 --> 01:32:03.670
+Prof. Madhusudhanan: So, Irvine can be able to run your notebook, right?
+
+855
+01:32:06.820 --> 01:32:30.470
+Prof. Madhusudhanan: So, overall here, like, what we are going to, like, execute is, like, we are going to see, like, how different chunking strategies, okay, will be, implemented. And, like, for example, for, like, a retrieval or kind of thing, like, what we are going to see in our upcoming, webinars, okay, for that thing, this chunking strategy is going to be, like, a foundation for that. So, like, we'll be, like.
+
+856
+01:32:30.650 --> 01:32:40.070
+Prof. Madhusudhanan: spending some time in this, to understanding it. Okay, this notebook is, like, all about, like, how you are going to understand, okay, by changing the parameters.
+
+857
+01:32:40.450 --> 01:32:44.310
+Prof. Madhusudhanan: Okay, I'm, you weren't unable to run this, right?
+
+858
+01:32:49.440 --> 01:32:56.160
+Prof. Madhusudhanan: Someone please post it in chat. Everyone can be able to run this and able to get the Gradio interface?
+
+859
+01:33:06.060 --> 01:33:08.059
+Prof. Madhusudhanan: Everyone getting this gradient interface?
+
+860
+01:33:14.310 --> 01:33:15.150
+Prof. Madhusudhanan: Okay.
+
+861
+01:33:15.440 --> 01:33:32.509
+Prof. Madhusudhanan: It will run, you should, like, scroll down, okay? Scroll down, and at the end of the code, you can able to see the, running on, like, public URL. Just click on this gradio link, okay? It'll be, like, giving the UI, like, whatever here we have defined, okay? Later on, you can modify, like, however you want.
+
+862
+01:33:32.510 --> 01:33:37.080
+Prof. Madhusudhanan: Okay, just for this demo purpose, like, yeah, just use this, okay?
+
+863
+01:33:41.450 --> 01:33:45.170
+Prof. Madhusudhanan: Yeah, it will take some time, initially, like, while you are running it for first time.
+
+864
+01:33:48.640 --> 01:33:59.450
+Prof. Madhusudhanan: Okay, Jordan got it, right? So, here, like, we have loaded, already loaded some input text, okay, in our code. We have already loaded some input text for,
+
+865
+01:33:59.600 --> 01:34:18.259
+Prof. Madhusudhanan: just for example purpose, okay, you can able to see what are all things, here we are having, like, input text in some different domains, okay? Some AI in healthcare and news articles, okay, we have, we have just already defined it, so whatever that we want, like, we can, use that.
+
+866
+01:34:18.300 --> 01:34:30.990
+Prof. Madhusudhanan: Okay? So, for now, like, I'm sticking onto this first text example, okay? So, you can also switch around, and if you want to change something, or if you want to add something, you can, straight away, like, you can edit it here, okay?
+
+867
+01:34:30.990 --> 01:34:39.709
+Prof. Madhusudhanan: So, that will also support. Then, here, like, we're having, like, chunking methods, okay? I want, like, you all to, explore these chunking methods.
+
+868
+01:34:39.710 --> 01:34:59.639
+Prof. Madhusudhanan: See, like, we are having fixed size, okay? We are having fixed size, sentence-based, okay, sliding window, paragraph law checking, okay? And so forth, like, we are having, like, many, chunking techniques here. Okay, you just choose, like, any one of it, and try to see, analyze and chunk, okay? Click on this, okay?
+
+869
+01:34:59.640 --> 01:35:04.620
+Prof. Madhusudhanan: Then it will take some… Sometime, and it'll be, wait.
+
+870
+01:35:09.690 --> 01:35:10.450
+Prof. Madhusudhanan: Yeah.
+
+871
+01:35:11.280 --> 01:35:14.089
+Prof. Madhusudhanan: Just setting the fixed size 10.
+
+872
+01:35:17.010 --> 01:35:25.520
+Prof. Madhusudhanan: Okay, I think it is processing, okay. Anyone can be able to get output? Like, whatever,
+
+873
+01:35:25.820 --> 01:35:30.909
+Prof. Madhusudhanan: how to get the URL for this code. Yeah, it's already shared in chat window, someone please…
+
+874
+01:35:31.220 --> 01:35:33.789
+Prof. Madhusudhanan: share it. I… it's already posted by…
+
+875
+01:35:35.830 --> 01:35:40.610
+Prof. Madhusudhanan: Okay, you got the output, okay. Like, you can also able to see the tokenization there?
+
+876
+01:35:43.640 --> 01:35:54.709
+Prof. Madhusudhanan: And then here you can also, like, play with the, sum of parameters, okay? Like, what is the, chunk size that you want? Like, wall life size, okay? Initially, like, by default, it is, like, 20.
+
+877
+01:35:54.710 --> 01:36:06.829
+Prof. Madhusudhanan: And for, sentence for cheng, okay, like, how many sentences need to be in the chunk, these also, like, you can control it, but for not… this… all three are, like, not applicable for all of these chunking techniques.
+
+878
+01:36:06.830 --> 01:36:18.199
+Prof. Madhusudhanan: Okay, so you are… you are, like, you should, like, experiment it, like, what are all things you'll be, like, working for, this, whatever the parameters that here we are controlling, okay? You should make note of it.
+
+879
+01:36:18.260 --> 01:36:22.290
+Prof. Madhusudhanan: Based on that, like, you should start exploring it, okay?
+
+880
+01:36:22.500 --> 01:36:24.840
+Prof. Madhusudhanan: I think I'm facing some issue.
+
+881
+01:36:25.930 --> 01:36:27.260
+Prof. Madhusudhanan: Okay, let me…
+
+882
+01:36:32.670 --> 01:36:35.959
+Prof. Madhusudhanan: Okay, what I will do, I will just stop it.
+
+883
+01:36:42.630 --> 01:36:43.330
+Prof. Madhusudhanan: Okay.
+
+884
+01:36:45.220 --> 01:36:47.480
+Prof. Madhusudhanan: Others, you all getting,
+
+885
+01:36:51.370 --> 01:36:52.949
+Prof. Madhusudhanan: You are getting output, right?
+
+886
+01:36:56.810 --> 01:37:05.339
+Prof. Madhusudhanan: Yes, yes, yes. And then next to that, like, here we are also having one more option called, like, tokenization. Okay, you just click on the tokenization.
+
+887
+01:37:13.860 --> 01:37:15.630
+Prof. Madhusudhanan: Okay.
+
+888
+01:37:17.290 --> 01:37:20.060
+Prof. Madhusudhanan: I'm facing some error, just a minute.
+
+889
+01:37:21.010 --> 01:37:27.129
+Prof. Madhusudhanan: I will… because my runtime, it's, like, Problem from the beginning.
+
+890
+01:37:27.280 --> 01:37:32.659
+Prof. Madhusudhanan: So, if, like, others, like, getting outputs, okay, you can,
+
+891
+01:37:32.770 --> 01:37:40.840
+Prof. Madhusudhanan: Start, like, focusing on seeing, like, how, like, you can get the, like, different output by controlling the advanced parameters.
+
+892
+01:37:40.960 --> 01:38:03.399
+Prof. Madhusudhanan: Okay? Like, whatever outputs that you are getting, right, you just post it in chat window, and also, like, you just explore, there is, like, one more option called tokenization in your UI. Okay, whatever that is, like, being chunked, whatever the sample text that you have chosen, like, for that, you will be also getting the, tokenizer, okay? Like, how the tokenization is happening for that specific,
+
+893
+01:38:03.400 --> 01:38:04.850
+Prof. Madhusudhanan: Chung, okay.
+
+894
+01:38:10.440 --> 01:38:12.419
+Prof. Madhusudhanan: Hierarchical, okay, good.
+
+895
+01:38:12.790 --> 01:38:15.470
+Prof. Madhusudhanan: Venkatesh Pharaoh. Like, what about others?
+
+896
+01:38:15.640 --> 01:38:22.310
+Prof. Madhusudhanan: Others also can able to… Get outputs right by selecting different, chunking techniques.
+
+897
+01:38:22.650 --> 01:38:23.510
+Prof. Madhusudhanan: Okay?
+
+898
+01:38:37.030 --> 01:38:49.200
+Prof. Madhusudhanan: Mine is still stuck in execution. Maybe, like, you should, like, scroll down and see, like, you will be having one link, okay? For, or actually, in the same collab page itself, you can also run it.
+
+899
+01:38:56.520 --> 01:39:01.900
+Prof. Madhusudhanan: Chunk 3. Also, Fazil, like, you try to, see,
+
+900
+01:39:04.060 --> 01:39:10.289
+Prof. Madhusudhanan: get the tokenization, okay? Like, how, for, like, any of a given,
+
+901
+01:39:10.520 --> 01:39:19.840
+Prof. Madhusudhanan: chunk white, it will be, like, converted into the, tokenizers, okay? Like, you can also be able to see that, how that chunk is, like, being converted into.
+
+902
+01:39:20.100 --> 01:39:21.110
+Prof. Madhusudhanan: Tokenizer.
+
+903
+01:39:22.320 --> 01:39:29.870
+Prof. Madhusudhanan: Because that will be passed into, like, your model by, again, like, it will be assigning some token ID for that.
+
+904
+01:39:32.110 --> 01:39:46.449
+Prof. Madhusudhanan: So that's why I told this is, like, going to be the foundation, like, you should have, like, more hands-on in this by exploring it. You just try to control other parameters also, in this, by, by choosing different chunking strategies, okay?
+
+905
+01:39:52.240 --> 01:40:02.679
+Prof. Madhusudhanan: Actually, like, everyone using Collab, okay, like, same code, like, you are also executing, like, some, sometime, like, it'll have some runtime-related problem, okay?
+
+906
+01:40:04.910 --> 01:40:11.489
+Prof. Madhusudhanan: So, in such scenarios, you just click on runtime, and disconnect and delete runtime, and you can continue with that.
+
+907
+01:40:18.080 --> 01:40:24.540
+Prof. Madhusudhanan: Still, I'm getting… Not obtain resources… Okay, name be…
+
+908
+01:40:34.960 --> 01:40:37.019
+Prof. Madhusudhanan: So, everyone getting your outputs right?
+
+909
+01:40:43.200 --> 01:40:55.969
+Prof. Madhusudhanan: Okay, I can able to see, like, many are, like, sharing your outputs in chat. Okay, also, try to explore different techniques, okay? Like, we have defined many things in the function.
+
+910
+01:40:57.080 --> 01:40:59.920
+Prof. Madhusudhanan: Just a minute, I'm restarting this podcast.
+
+911
+01:41:05.260 --> 01:41:16.530
+Prof. Madhusudhanan: So, initially, like, we are started with the fixed size chunking, and also, like, we defined for sentence-based chunking. I hope, like, everyone exploring whatever the function that here we have defined, right?
+
+912
+01:41:16.670 --> 01:41:18.600
+Prof. Madhusudhanan: All working fine, okay?
+
+913
+01:41:18.730 --> 01:41:20.509
+Prof. Madhusudhanan: What about others? Like…
+
+914
+01:41:21.650 --> 01:41:41.400
+Prof. Madhusudhanan: you try to control the, like, parameters, like, see, like, how many, like, chunks you want, and within the chunk, like, how many sentence, like, like, you want it to, be, like, chunked, okay, whatever the chunking technique that you are using, okay? And, you please take a note of it, like,
+
+915
+01:41:41.650 --> 01:41:49.719
+Prof. Madhusudhanan: Like, how much, like, you can able to control the parameter, and, like, what are all is, like, applicable for which kind of, techniques?
+
+916
+01:41:50.880 --> 01:42:06.100
+Prof. Madhusudhanan: So, everyone, like, take this as, like, assignment and try to explore more, because, like, in our upcoming, masterclass session, like, like, we'll be, feeding this data into our model, okay, for doing the, RAG.
+
+917
+01:42:06.310 --> 01:42:08.669
+Prof. Madhusudhanan: It will, like, do summarization for that.
+
+918
+01:42:09.120 --> 01:42:15.409
+Prof. Madhusudhanan: So before that, like, we need to know where it is, like, switching, the metadata and other things, will be available there.
+
+919
+01:42:16.580 --> 01:42:19.690
+Prof. Madhusudhanan: Which chunk it is, like, extracting.
+
+920
+01:42:24.780 --> 01:42:37.599
+Prof. Madhusudhanan: Yeah, you can alter the code and see. Yes, of course, you can alter the code and see. Before that, you try to understand, like, what are all things that we have defined there. Then, based on, like, how you want to modify it, you can do it.
+
+921
+01:42:51.540 --> 01:42:54.670
+Prof. Madhusudhanan: Overallup size chunk, chunk size parameter chunk.
+
+922
+01:42:54.830 --> 01:42:57.119
+Prof. Madhusudhanan: Can code for different chunking.
+
+923
+01:42:57.260 --> 01:43:09.300
+Prof. Madhusudhanan: Try it with all three sample… okay, you tried with all three sample text, also try with, like, you set, like, one sample text, okay, and try to explore other techniques, like, what are… you can able to see.
+
+924
+01:43:14.490 --> 01:43:15.699
+Prof. Madhusudhanan: Thank you.
+
+925
+01:43:19.190 --> 01:43:31.310
+Prof. Madhusudhanan: Yes, you can able to see, like, 6, like, 141 total characters, and Changshai's words as, like, 1059, and you said, like,
+
+926
+01:43:32.330 --> 01:43:41.509
+Prof. Madhusudhanan: Overlap words as 20, okay, recursive level as, like, dynamic. Okay. So, someone posted, Anandaram. Okay.
+
+927
+01:43:45.980 --> 01:43:50.789
+Prof. Madhusudhanan: Yeah, you can, you can also execute it in our VS Code, okay?
+
+928
+01:44:01.850 --> 01:44:03.939
+Prof. Madhusudhanan: Yes, you can also try it in your local.
+
+929
+01:44:28.070 --> 01:44:28.910
+Prof. Madhusudhanan: Okay.
+
+930
+01:44:44.690 --> 01:44:49.359
+Prof. Madhusudhanan: Yes, you should select T4GPU, as I mentioned earlier, like,
+
+931
+01:44:51.180 --> 01:44:56.490
+Prof. Madhusudhanan: Like, automatically, whenever you are running this notebook, like, it will start through this T4 only, okay?
+
+932
+01:44:57.650 --> 01:45:02.610
+Prof. Madhusudhanan: Or else, if you want to change it for someone, if it is starting in CPU, click on,
+
+933
+01:45:02.860 --> 01:45:05.530
+Prof. Madhusudhanan: Change runtime and select this T4 GPU.
+
+934
+01:45:05.770 --> 01:45:07.949
+Prof. Madhusudhanan: Then you'll be able to execute.
+
+935
+01:45:38.850 --> 01:45:40.270
+Prof. Madhusudhanan: Great, good.
+
+936
+01:45:40.660 --> 01:45:41.869
+Prof. Madhusudhanan: Can you please mute?
+
+937
+01:45:42.400 --> 01:45:45.449
+Prof. Madhusudhanan: Yeah, so, you saw how…
+
+938
+01:45:47.300 --> 01:45:56.739
+Prof. Madhusudhanan: how this system works, what the entire focus is not about the code. Code is very easy, byepcoding.
+
+939
+01:45:57.080 --> 01:46:01.440
+Prof. Madhusudhanan: ChatGPT can generate your code. What you need to understand is the underlying
+
+940
+01:46:01.900 --> 01:46:05.300
+Prof. Madhusudhanan: Principles which will really help you to take this forward.
+
+941
+01:46:05.830 --> 01:46:08.960
+Prof. Madhusudhanan: Right? So… Hmm.
+
+942
+01:46:09.440 --> 01:46:18.259
+Prof. Madhusudhanan: Bharat, it could be… the baseline model that… the infra that is being used by you got a different…
+
+943
+01:46:18.780 --> 01:46:21.600
+Prof. Madhusudhanan: Timings, right?
+
+944
+01:46:21.730 --> 01:46:22.490
+Prof. Madhusudhanan: Great.
+
+945
+01:46:22.770 --> 01:46:25.649
+Prof. Madhusudhanan: So, any queries, questions?
+
+946
+01:46:26.040 --> 01:46:27.900
+Prof. Madhusudhanan: Before we close…
+
+947
+01:46:37.990 --> 01:46:41.069
+Prof. Madhusudhanan: Great, if you don't have any questions, I'll hand over to…
+
+948
+01:46:41.640 --> 01:46:48.029
+Prof. Madhusudhanan: Emeritus team, so that they can take it forward. This is just… no, see, this is an ocean of data.
+
+949
+01:46:48.150 --> 01:46:52.439
+Prof. Madhusudhanan: It's something that, no, where you can say, I'll become an expert in a…
+
+950
+01:46:53.730 --> 01:47:07.949
+Prof. Madhusudhanan: day or two. I'm just showing you the direction. I'm just showing you the direction from the ticket for it, right? Definitely, right? Thank you, thanks, thanks everyone, thank you, right? Emrita's team should be hand over to the Emrita's team.
+
+951
+01:47:08.120 --> 01:47:14.580
+Prof. Madhusudhanan: Yeah. Yeah. Thanks, Emritil's team, you can take over. Thank you all. Have a great day, bye-bye. Thank you.
+

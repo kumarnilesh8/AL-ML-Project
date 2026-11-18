@@ -1,0 +1,139 @@
+# Professional Services Departmental Agent Doctrine — org charter policy
+# Pre-fills charter interview answers and marks org-mandated directives.
+schema_version: "1"
+org_name: ps-agent-enabled-factory
+
+# Layering: this is the Professional Services DEPARTMENTAL layer. It extends the
+# Regnology All-Company doctrine and charter pack (upstream), adding PS-specific
+# directives and defaults on top of the all-company baseline without relaxing,
+# weakening, or bypassing it.
+# The upstream pack provides both the available doctrine and the enforced charter
+# baseline that this layer inherits cumulatively.
+#   Upstream pack:   regnology-all-company
+#   Upstream source: https://bitbucket.regnology.net/projects/RAF/repos/doctrine-org/browse
+#   (corrected 2026-07-06: was pointed at RFG/skills, which has no pack/agent_profiles/
+#   at all despite sharing this same org-charter.yaml text — see .kittify/config.yaml
+#   and docs/decisions/DDR-019-action-scoped-activation-stopgap.md for the investigation
+#   record. RAF/doctrine-org is the actively-populated All-Company pack.)
+# The pinned spec-kitty resolves this `extends:` chain at charter load time and
+# cumulatively unions every `required_<kind>` list (directives, toolguides, etc.)
+# from the parent into this layer — overlays add, never weaken the baseline
+# (spec-kitty issue #1397, landed). Verified: parent's 7 directives + 2 here = 9
+# effective; parent's 2 toolguides + 2 here = 4 effective.
+# CAVEAT: the standalone `spec-kitty doctrine pack assemble` path (used by
+# `make validate-layered`) still unions only `required_directives`; the runtime
+# `extends:` resolution is the governing path for installed consumers.
+extends: regnology-all-company
+
+interview_defaults:
+  model_tier: mid
+  branding: ps-agent-enabled-factory
+
+# PS-specific additions to the inherited All-Company baseline.
+required_directives:
+  - ACTION_ITEM_ATTRIBUTION
+  - MINUTES_STAND_ALONE
+
+# PS-specific toolguides (All-Company toolguides like agentic-model-leaderboard
+# and regnology-mcp are inherited from the parent layer).
+required_toolguides:
+  - juno-mcp
+  - sqlx-mcp
+
+# Profile override policy:
+# SK built-in profiles (frontend-freddy, java-jenny) are used as-is.
+# Regnology-specific constraints are injected via the All-Company layer's
+# required_directives (REGNOLOGY_BRANDING, APPSEC_COMPLIANCE, CORPORATE_TOOLING)
+# and via DRG edges from the built-in profile IDs to pack artifacts that carry the
+# Regnology delta. Override profiles are only warranted when the SK built-in
+# must be structurally replaced, not merely augmented with additional directives.
+
+governance_policies:
+  - field: model_tier
+    value: mid
+    enforcement: advisory
+
+# Action-scoped activation registry (OrgCharterPolicy.activations, FR-008/WP06).
+# Declares which PS directives/tactics are relevant to specific mission actions, so
+# `spec-kitty charter context --action <x>` can surface action-appropriate doctrine
+# instead of only the unscoped `all_directives` list (MIGRATION-2505 AC#2 / MIGRATION-2898).
+#
+# CAVEAT (verified against installed spec-kitty-cli 3.2.4 source, 2026-07-04): this field is
+# schema-validated and folded across the extends: chain, but the merged result is NOT currently
+# wired into `GovernanceConfig.activations` / runtime `charter context` resolution — only
+# activations hand-authored in a CONSUMING repo's own charter.md take effect today (via
+# charter/extractor.py's fenced-YAML scan). Filed upstream:
+# https://github.com/Priivacy-ai/spec-kitty/issues/2365
+# This block is a forward-compatible no-op until that wiring lands — once it does, these
+# entries should start taking effect without further changes here. Until then, engagement repos
+# that need action-scoped surfacing today must paste an equivalent `activations:` block into
+# their own charter.md (see docs/installation/HOW_TO_USE.md).
+activations:
+  - activation_context: { mission_type: software-dev, action: specify }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: CONTEXT_AWARE_DESIGN
+    artifact_kind: directives
+  - activation_context: { mission_type: software-dev, action: plan }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: CONTEXT_AWARE_DESIGN
+    artifact_kind: directives
+  - activation_context: { mission_type: software-dev, action: implement }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: CONTEXT_AWARE_DESIGN
+    artifact_kind: directives
+  - activation_context: { mission_type: software-dev, action: review }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: CONTEXT_AWARE_DESIGN
+    artifact_kind: directives
+  - activation_context: { mission_type: software-dev, action: specify }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: cloud-native-design-review
+    artifact_kind: tactics
+  - activation_context: { mission_type: software-dev, action: review }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: cloud-native-design-review
+    artifact_kind: tactics
+  - activation_context: { mission_type: any, action: specify }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: ps-intake-interview
+    artifact_kind: tactics
+  - activation_context: { mission_type: software-dev, action: specify }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: sqlx-pseudo-code-to-spec
+    artifact_kind: tactics
+  - activation_context: { mission_type: software-dev, action: implement }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: sqlx-generation
+    artifact_kind: tactics
+  - activation_context: { mission_type: software-dev, action: implement }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: sqlx-testing
+    artifact_kind: tactics
+  - activation_context: { mission_type: software-dev, action: implement }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: sqlx-optimization
+    artifact_kind: tactics
+  - activation_context: { mission_type: software-dev, action: review }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: sqlx-validation
+    artifact_kind: tactics
+  - activation_context: { mission_type: software-dev, action: review }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: sqlx-explanation
+    artifact_kind: tactics
+  - activation_context: { mission_type: software-dev, action: implement }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: powershell-module-scaffold
+    artifact_kind: tactics
+  - activation_context: { mission_type: software-dev, action: review }
+    doctrine_pack_id: ps-agent-enabled-factory
+    artifact_id: powershell-script-quality-gate
+    artifact_kind: tactics
+
+# pack_authoring_constraints (forward-declared, pending CLI schema support):
+# - id: agent-profile-alliteration
+#   All agent profiles in this pack must be alliterations: the profile-id slug and
+#   display name pair a role-or-domain descriptor with a persona proper name sharing
+#   the same initial consonant sound (e.g. backend-benny / "Backend Benny"). The
+#   `name` field must include that proper name; generic role-only titles do not satisfy
+#   this constraint. enforcement: required

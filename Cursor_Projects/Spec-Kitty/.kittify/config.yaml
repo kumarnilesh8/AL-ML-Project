@@ -1,0 +1,17 @@
+project:
+  uuid: c121d328-a10d-40d3-ade2-7eeebb5a5db0
+  slug: spec-kitty
+  node_id: 075c86df1647
+  build_id: e2c232fc-4b5a-5571-8403-42c350e4a027
+vcs:
+  type: git
+agents:
+  available:
+  - cursor
+  auto_commit: true
+  lint_on_edit: false
+doctrine:
+  org:
+    packs:
+    - name: regnology-default
+      local_path: ~/.regnology/doctrine-org/pack

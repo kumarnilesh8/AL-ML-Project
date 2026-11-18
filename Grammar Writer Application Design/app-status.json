@@ -1,0 +1,208 @@
+{
+    "id":  "4cbe87b1-d9c5-4a94-8e4f-eaf2867b2575",
+    "applicationReference":  "rco-grammer-writer-605bcea7",
+    "name":  "RCO-Grammer-Writer",
+    "displayName":  null,
+    "description":  "Turns plain-language requirements into valid Regnology regulatory expressions using the grammar of the detected sub-topic.",
+    "descriptionOverride":  null,
+    "bazaarHidden":  false,
+    "submittedDescription":  "Turns plain-language requirements into valid Regnology regulatory expressions using the grammar of the detected sub-topic.",
+    "status":  "DEPLOYING",
+    "sourceMode":  "ZIP_UPLOAD",
+    "sourceArchiveName":  "app.zip",
+    "sourceArchiveUploadedAt":  "2026-09-09T07:31:01.583148Z",
+    "giteaCloneUrl":  "https://git.vvv.regnology.ai/rco-grammer-writer-605bc/rco-grammer-writer-605bcea7.git",
+    "entrypointHint":  null,
+    "healthPath":  "/health",
+    "ownerType":  "USER",
+    "ownerDisplayName":  "Nilesh Kumar",
+    "costCenterId":  "401000",
+    "costCenterName":  "Professional Services - Non Recurring",
+    "requiresDatabase":  false,
+    "recordStoreKind":  "NONE",
+    "securityTier":  "UNRESTRICTED",
+    "aiAccessKind":  "AI",
+    "requiresBucket":  true,
+    "firestoreGrowthExceededAt":  null,
+    "createdAt":  "2026-09-09T07:31:00.768164Z",
+    "updatedAt":  "2026-09-09T07:31:01.601353Z",
+    "environments":  [
+                         {
+                             "id":  "0842c31c-3dc8-46b3-aa45-03d56dd67733",
+                             "environment":  "dev",
+                             "displayName":  "dev",
+                             "ordinal":  0,
+                             "generation":  1,
+                             "decommissionable":  false,
+                             "deletionUnavailableReason":  "Cannot delete the last active Environment. Delete the Application instead.",
+                             "status":  "CREATING",
+                             "baseUrl":  null,
+                             "imageDigest":  null,
+                             "promotable":  false,
+                             "logsUrl":  "https://console.cloud.google.com/logs/query;query=resource.type%3D%22cloud_run_revision%22%0Aresource.labels.service_name%3D%22rco-grammer-writer-dev%22;duration=P1D?project=veni-vibi-vici-01",
+                             "bucketName":  null,
+                             "bucketConsoleUrl":  null,
+                             "cloudSqlIdleSuspendMinutes":  180,
+                             "cloudSqlResumeSchedule":  null,
+                             "cloudSqlAutoMachineScaling":  true,
+                             "cloudRunMinInstances":  0,
+                             "cloudRunMaxInstances":  2,
+                             "cloudRunMemoryMb":  512,
+                             "cloudRunMinInstancesLimit":  1,
+                             "cloudRunMaxInstancesLimit":  3,
+                             "production":  false,
+                             "acceptsPromotion":  true,
+                             "trackedBranch":  "main",
+                             "appAccessOpen":  true
+                         }
+                     ],
+    "owners":  [
+                   {
+                       "assignmentId":  "0322e595-3d95-4fa9-be3e-d1ff0a683328",
+                       "ownerType":  "USER",
+                       "ownerDisplayName":  "Nilesh Kumar",
+                       "avatar":  null,
+                       "role":  "OWNER",
+                       "scope":  "ALL_ENVIRONMENTS",
+                       "roleChangedAt":  "2026-09-09T07:31:00.768164Z",
+                       "removable":  false,
+                       "accountable":  false,
+                       "capabilities":  [
+                                            {
+                                                "capability":  "LIFECYCLE",
+                                                "held":  true,
+                                                "level":  "FULL",
+                                                "fromRole":  true,
+                                                "switchable":  false,
+                                                "grantedBy":  null,
+                                                "grantedAt":  null,
+                                                "ineligibleReasons":  [
+
+                                                                      ],
+                                                "projection":  {
+                                                                   "landed":  false,
+                                                                   "confirmedAt":  null,
+                                                                   "failing":  false,
+                                                                   "lastError":  null,
+                                                                   "perMember":  false
+                                                               }
+                                            },
+                                            {
+                                                "capability":  "DATA",
+                                                "held":  true,
+                                                "level":  "FULL",
+                                                "fromRole":  true,
+                                                "switchable":  false,
+                                                "grantedBy":  null,
+                                                "grantedAt":  null,
+                                                "ineligibleReasons":  [
+
+                                                                      ],
+                                                "projection":  null
+                                            },
+                                            {
+                                                "capability":  "STORAGE",
+                                                "held":  true,
+                                                "level":  "FULL",
+                                                "fromRole":  true,
+                                                "switchable":  false,
+                                                "grantedBy":  null,
+                                                "grantedAt":  null,
+                                                "ineligibleReasons":  [
+
+                                                                      ],
+                                                "projection":  {
+                                                                   "landed":  false,
+                                                                   "confirmedAt":  null,
+                                                                   "failing":  false,
+                                                                   "lastError":  null,
+                                                                   "perMember":  false
+                                                               }
+                                            },
+                                            {
+                                                "capability":  "GIT",
+                                                "held":  true,
+                                                "level":  "FULL",
+                                                "fromRole":  true,
+                                                "switchable":  false,
+                                                "grantedBy":  null,
+                                                "grantedAt":  null,
+                                                "ineligibleReasons":  [
+
+                                                                      ],
+                                                "projection":  null
+                                            }
+                                        ]
+                   }
+               ],
+    "pendingAccess":  [
+
+                      ],
+    "companyAppAccess":  {
+                             "grantId":  "c6e86964-42e2-4ceb-9c49-7f98ac3dbd99",
+                             "scope":  "ALL_ENVIRONMENTS",
+                             "createdAt":  "2026-09-09T07:31:00.768164Z"
+                         },
+    "deployments":  [
+                        {
+                            "id":  "41f8d9a2-461e-4d0f-a923-3553cfe97ffc",
+                            "action":  "DEPLOY",
+                            "targetEnvironment":  "dev",
+                            "status":  "RUNNING",
+                            "stage":  "BUILDING",
+                            "initiatedBy":  "nilesh.kumar@regnology.net",
+                            "requestedAt":  "2026-09-09T07:31:01.601353Z",
+                            "startedAt":  "2026-09-09T07:31:01.601353Z",
+                            "completedAt":  null,
+                            "imageReference":  "europe-west1-docker.pkg.dev/veni-vibi-vici-01/app-rco-grammer-writer-605bcea7/rco-grammer-writer-605bcea7:1.0.0-41f8d9a2",
+                            "deploymentVersion":  "1.0.0",
+                            "resolvedImageDigest":  null,
+                            "cloudRunRevisionName":  null,
+                            "artifactOriginDeploymentId":  null,
+                            "serviceUrl":  null,
+                            "failureReason":  null,
+                            "failureLog":  null,
+                            "cloudBuildRequestId":  "fc34cea4-8255-4851-84f9-46641b45dce5",
+                            "notes":  "Release 1.0.0 for vvv: Cloud Run contract, AI gateway proxy, strip client Gemini key.",
+                            "sourceSha256":  "ca56b0e896065f6f9b533542746edfe5e5e95bfd0829fafb88263f4e294e71cb",
+                            "sourceAvailable":  true,
+                            "giteaCommitSha":  "c027bc7f3505fc6ecef9d39510049f9669800a1d",
+                            "sourceProvenance":  "SKILL",
+                            "consecutiveFailureCount":  0,
+                            "lastFailureMessage":  null,
+                            "lastFailureAt":  null,
+                            "lastFailureTransient":  null,
+                            "retryMessage":  null,
+                            "logsSource":  "BUILD",
+                            "logsUrl":  "https://console.cloud.google.com/logs/query;query=resource.type%3D%22build%22%0Aresource.labels.build_id%3D%22784d4242-3e5a-4b58-bfa1-973e8700177e%22;timeRange=2026-09-09T07%3A29%3A01.601Z%2F2026-09-09T07%3A48%3A43.500Z?project=veni-vibi-vici-01"
+                        }
+                    ],
+    "cloudBuildRequests":  [
+                               {
+                                   "id":  "fc34cea4-8255-4851-84f9-46641b45dce5",
+                                   "triggerType":  "PORTAL_REQUEST",
+                                   "purpose":  "DEPLOYMENT",
+                                   "targetEnvironment":  "dev",
+                                   "status":  "SUBMITTED",
+                                   "providerBuildId":  "784d4242-3e5a-4b58-bfa1-973e8700177e",
+                                   "providerBuildName":  "projects/144060326440/locations/europe-west1/builds/784d4242-3e5a-4b58-bfa1-973e8700177e",
+                                   "requestedBy":  "nilesh.kumar@regnology.net",
+                                   "requestedAt":  "2026-09-09T07:31:05.179559Z",
+                                   "completedAt":  "2026-09-09T07:31:05.179559Z",
+                                   "requestPayloadJson":  "{\"payload\": {\"healthPath\": \"/health\", \"imageReference\": \"europe-west1-docker.pkg.dev/veni-vibi-vici-01/app-rco-grammer-writer-605bcea7/rco-grammer-writer-605bcea7:1.0.0-41f8d9a2\", \"requiresDatabase\": false, \"targetEnvironment\": \"dev\", \"stagedArchiveBucket\": \"veni-vibi-vici-app-sources\", \"stagedArchiveObject\": \"vvv/vault/rco-grammer-writer-605bcea7/20260909T073104Z-41f8d9a2.zip\", \"applicationReference\": \"rco-grammer-writer-605bcea7\"}, \"purpose\": \"DEPLOYMENT\", \"requestedBy\": \"nilesh.kumar@regnology.net\", \"applicationId\": \"4cbe87b1-d9c5-4a94-8e4f-eaf2867b2575\", \"targetEnvironment\": \"dev\"}",
+                                   "resultPayloadJson":  "{\"status\": \"QUEUED\", \"buildId\": \"784d4242-3e5a-4b58-bfa1-973e8700177e\", \"operationName\": \"operations/build/veni-vibi-vici-01/Nzg0ZDQyNDItM2U1YS00YjU4LWJmYTEtOTczZTg3MDAxNzdl\"}"
+                               }
+                           ],
+    "databases":  [
+
+                  ],
+    "access":  "OWNER",
+    "canPushCode":  true,
+    "gitAccessLevel":  "FULL",
+    "canLeaseDatabase":  true,
+    "firestoreModel":  null,
+    "firestoreModelFindings":  [
+
+                               ],
+    "orphaned":  false
+}

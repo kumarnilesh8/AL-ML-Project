@@ -1,0 +1,4250 @@
+WEBVTT
+
+1
+00:00:22.780 --> 00:00:26.130
+Jitendra K: Hello guys, good evening, and warm welcome to another module.
+
+2
+00:00:26.640 --> 00:00:32.670
+Jitendra K: So before we start, can we have a quick audio check if my voice is audible to everyone, and my screen is visible as well?
+
+3
+00:00:39.870 --> 00:00:41.010
+Jitendra K: Okay, great.
+
+4
+00:00:43.730 --> 00:00:51.769
+Jitendra K: So today, we are going to start with the prompt optimization technique, as we discussed in the last tutorial, that we are going to focus on prompt optimization.
+
+5
+00:00:52.530 --> 00:01:01.529
+Jitendra K: So just a quick recap what we have learned so far. So we have started with several prompt technique. We have covered some 3 or 4 types of prompt technique.
+
+6
+00:01:02.100 --> 00:01:05.310
+Jitendra K: And, rest of the techniques I'm going to cover today.
+
+7
+00:01:05.710 --> 00:01:12.219
+Jitendra K: So, we understand that when you're writing any, skill prompts, or when you're writing any system prompts.
+
+8
+00:01:12.680 --> 00:01:19.080
+Jitendra K: You need to define several parameters. One is what input-output variables that you need to declare.
+
+9
+00:01:19.250 --> 00:01:27.799
+Jitendra K: What sort of declarative style that you need to follow as a part of design patterns, so that your agent or whoever is going to use this particular prompt
+
+10
+00:01:30.510 --> 00:01:35.520
+Jitendra K: We'll be able to utilize, the best approach, too.
+
+11
+00:01:35.840 --> 00:01:40.850
+Jitendra K: Phrase your queries, and identify the intent, and break down the problems into sub-problems.
+
+12
+00:01:41.340 --> 00:01:43.609
+Jitendra K: Into that, that aspect.
+
+13
+00:01:44.100 --> 00:01:47.500
+Jitendra K: So basically, what are we trying to solve here, with the help of a prompt?
+
+14
+00:01:47.820 --> 00:01:56.500
+Jitendra K: With the help of a prompt, we are trying to perform a retrieval strategy. When you're writing any rack pipeline, retrieval is one of the important aspects, right?
+
+15
+00:01:56.840 --> 00:02:02.380
+Jitendra K: So when you retrieve the right set of data, right set of chunk, right set of,
+
+16
+00:02:02.870 --> 00:02:05.909
+Jitendra K: paragraphs, right, sort of vector database.
+
+17
+00:02:06.770 --> 00:02:08.870
+Jitendra K: You will automatically get the right answer.
+
+18
+00:02:09.590 --> 00:02:14.940
+Jitendra K: But we understand that The context window and the… the…
+
+19
+00:02:15.840 --> 00:02:20.300
+Jitendra K: The kind of, inbuilt… contextual…
+
+20
+00:02:21.000 --> 00:02:30.049
+Jitendra K: capability of the model is limited, right? So, at the best you can do is you can provide the better enrichment in terms of label, and then you can fine-tune it.
+
+21
+00:02:30.540 --> 00:02:34.379
+Jitendra K: So, we have talked about chain of thought, tree of thought,
+
+22
+00:02:34.770 --> 00:02:38.520
+Jitendra K: We have talked about several design patterns to write the prompts.
+
+23
+00:02:38.890 --> 00:02:45.989
+Jitendra K: We think of each of the design patterns, including zero-shot chain of thought, few short chain of thought, self-consistency.
+
+24
+00:02:46.180 --> 00:02:55.209
+Jitendra K: We sample multiple reasoning path and take a majority vote on the answers. And then we explore multiple reasoning branches with backtracking and evaluation at each note.
+
+25
+00:02:55.580 --> 00:03:02.080
+Jitendra K: So today, what we are going to do is, we are going to talk about a phase two of this approach, which is called knowledge and retrieval patterns.
+
+26
+00:03:02.660 --> 00:03:05.899
+Jitendra K: So, knowledge and retrieval pattern, including,
+
+27
+00:03:06.630 --> 00:03:13.310
+Jitendra K: Control patterns, role personas, schema guidelines, output templating, that is very, very important for…
+
+28
+00:03:13.630 --> 00:03:17.370
+Jitendra K: each and every aspect of the rack pipeline.
+
+29
+00:03:17.680 --> 00:03:21.719
+Jitendra K: So here we are going to talk about how to utilize RAC to an extent.
+
+30
+00:03:22.010 --> 00:03:24.819
+Jitendra K: By automatic hyperparameter tuning.
+
+31
+00:03:26.360 --> 00:03:28.530
+Jitendra K: So, when you're designing a rack system.
+
+32
+00:03:28.640 --> 00:03:33.370
+Jitendra K: Let's assume that what are you designing when you're designing a rack system? What exactly you're trying to do?
+
+33
+00:03:33.690 --> 00:03:37.619
+Jitendra K: So when you're designing a rack system, you have certain knowledge base.
+
+34
+00:03:41.870 --> 00:03:44.710
+Jitendra K: It could be a PDF, it could be your…
+
+35
+00:03:47.720 --> 00:04:00.350
+Jitendra K: Word files… HTML pages… images… any… CSV files…
+
+36
+00:04:00.920 --> 00:04:02.839
+Jitendra K: It could be a hive metadata.
+
+37
+00:04:05.650 --> 00:04:09.850
+Jitendra K: It could be your SQL servers, SQL data queries.
+
+38
+00:04:10.480 --> 00:04:15.879
+Jitendra K: Right? So there are different types of data that you are going to handle. And then, depending upon that, you're going to call tests.
+
+39
+00:04:16.269 --> 00:04:19.490
+Jitendra K: knowledge base. So this knowledge base, we are going to enrich
+
+40
+00:04:20.220 --> 00:04:23.270
+Jitendra K: And then convert this into a vector store.
+
+41
+00:04:24.060 --> 00:04:27.270
+Jitendra K: And from vector store, you are going to generate an answer.
+
+42
+00:04:28.260 --> 00:04:36.659
+Jitendra K: So, based upon the query parameter, you're going to generate an answer, right? That is what we have seen in the RAC pipeline. Any traditional RAC pipeline, graph rag, or…
+
+43
+00:04:37.030 --> 00:04:39.810
+Jitendra K: Nave rag, or vanilla rag.
+
+44
+00:04:40.330 --> 00:04:46.539
+Jitendra K: everything is common between the rack pipelines. So, it depends upon your chunks, right? So, how well you retrieve.
+
+45
+00:04:47.460 --> 00:04:52.459
+Jitendra K: How will you perform a semantic correlation between your query and the targeted vectors?
+
+46
+00:04:52.930 --> 00:04:58.800
+Jitendra K: So, there are different techniques that we have talked about, BM25, which is purely a keyword search algorithm.
+
+47
+00:04:59.100 --> 00:05:00.520
+Jitendra K: Let's cosign.
+
+48
+00:05:02.240 --> 00:05:03.870
+Jitendra K: plus HNSW.
+
+49
+00:05:05.850 --> 00:05:08.719
+Jitendra K: Which will be able to give you the contextual enrichment.
+
+50
+00:05:09.090 --> 00:05:15.460
+Jitendra K: with, more precise ranks. So here we are doing a re-ranking.
+
+51
+00:05:16.080 --> 00:05:20.360
+Jitendra K: At an encoder layer, and that function is called reciprocal rank fusion, right?
+
+52
+00:05:20.510 --> 00:05:25.930
+Jitendra K: So we are doing the ranking at a retrieval layer to generate the chunks that we're required to operate upon.
+
+53
+00:05:26.390 --> 00:05:31.990
+Jitendra K: Now, once you generate the output, how will you validate that whether the output is correct or incorrect?
+
+54
+00:05:32.360 --> 00:05:42.680
+Jitendra K: You cannot go with each and every output and then ask users, can you validate? Users will get frustrated, and they will say, I don't want your chatbots. It's better to shut down your chatbot.
+
+55
+00:05:43.510 --> 00:05:44.360
+Jitendra K: Right?
+
+56
+00:05:44.930 --> 00:05:47.459
+Jitendra K: So, the whole thing is…
+
+57
+00:05:48.110 --> 00:05:54.979
+Jitendra K: You need to provide some sort of labels to produce a ground truth, similar to machine learning.
+
+58
+00:05:55.230 --> 00:05:58.130
+Jitendra K: So, in machine learning, you have something called training data.
+
+59
+00:05:58.590 --> 00:06:03.109
+Jitendra K: And test data. So once you test your model, then only you roll out, right?
+
+60
+00:06:03.630 --> 00:06:08.170
+Jitendra K: So, we are not doing any kind of modeling here, but we are testing
+
+61
+00:06:08.360 --> 00:06:12.400
+Jitendra K: with a set of algorithms. So we'll use the sample algorithms
+
+62
+00:06:12.820 --> 00:06:16.949
+Jitendra K: Some of the algorithms which will help us to rewrite the prompts
+
+63
+00:06:17.580 --> 00:06:19.699
+Jitendra K: And if we are rewriting the prompt.
+
+64
+00:06:22.150 --> 00:06:28.430
+Jitendra K: To get the right answer every time, then we'll qualify that particular algorithm for productionization.
+
+65
+00:06:28.960 --> 00:06:34.649
+Jitendra K: So we'll say that if I'm going to rewrite the prompt with some algorithm, Rather than human rightness.
+
+66
+00:06:35.380 --> 00:06:37.739
+Jitendra K: prompt. I will accept the user prompt.
+
+67
+00:06:38.320 --> 00:06:42.059
+Jitendra K: And then, I will refine it such a manner that it will give the right answer.
+
+68
+00:06:42.700 --> 00:06:46.909
+Jitendra K: So that means I can be able to solve the issue that I'm facing with
+
+69
+00:06:47.120 --> 00:06:49.359
+Jitendra K: Rewriting the prompt every time.
+
+70
+00:06:51.020 --> 00:06:56.429
+Jitendra K: So when I'm rewriting the prompt every time, I should use some algorithmic approach.
+
+71
+00:06:57.060 --> 00:06:59.759
+Jitendra K: So, we'll talk about two techniques called AutoRags.
+
+72
+00:07:01.040 --> 00:07:04.500
+Jitendra K: Where you're going to feed the retrieval parameters?
+
+73
+00:07:05.580 --> 00:07:07.480
+Jitendra K: and DSPY.
+
+74
+00:07:08.280 --> 00:07:10.579
+Jitendra K: Which is a most important package.
+
+75
+00:07:11.190 --> 00:07:16.840
+Jitendra K: in… Auto-fine-tuning or declarative style of writing the prompt.
+
+76
+00:07:17.130 --> 00:07:23.009
+Jitendra K: And we will combine these two to perform the Fine-tuning on the model aspects.
+
+77
+00:07:23.290 --> 00:07:29.280
+Jitendra K: So what is DSPY? DSPY… I will just show you it in a while.
+
+78
+00:07:32.840 --> 00:07:35.770
+Jitendra K: Let me open my… One note…
+
+79
+00:07:42.640 --> 00:07:44.390
+Jitendra K: So what is DSPY?
+
+80
+00:07:44.720 --> 00:07:49.019
+Jitendra K: DSPY is a declarative style of Writing the prompts.
+
+81
+00:08:04.430 --> 00:08:09.239
+Jitendra K: So, DSPY stands for Declarative Self-Improving Language Programs.
+
+82
+00:08:09.770 --> 00:08:11.389
+Jitendra K: Which is a framework.
+
+83
+00:08:12.020 --> 00:08:17.750
+Jitendra K: for developing which has been developed by Stanford, University.
+
+84
+00:08:18.460 --> 00:08:20.210
+Jitendra K: The Stanford Lab.
+
+85
+00:08:20.660 --> 00:08:28.290
+Jitendra K: And, what it does is fundamentally change how we build LLM-based applications. So instead of manually crafting and tweaking prompt.
+
+86
+00:08:28.610 --> 00:08:32.280
+Jitendra K: That we have seen in the last tutorial, that we are doing, literally,
+
+87
+00:08:32.659 --> 00:08:34.759
+Jitendra K: Manual way of writing the prompt, right?
+
+88
+00:08:34.929 --> 00:08:40.789
+Jitendra K: So DSPY will allow you to declare what you want, input-output, rather than how you prompt for it.
+
+89
+00:08:41.020 --> 00:08:47.170
+Jitendra K: So it will automatically optimize the prompt using something called stochastic Techniques.
+
+90
+00:08:47.440 --> 00:08:53.790
+Jitendra K: and compose the complex pipeline with multiple LLM calls, and systematically improve your LLM program data.
+
+91
+00:08:54.330 --> 00:08:57.850
+Jitendra K: So… Why DSPY?
+
+92
+00:08:58.160 --> 00:09:03.830
+Jitendra K: The answer is, we can… able to overcome the problems associated with manual prompt engineering.
+
+93
+00:09:04.030 --> 00:09:05.850
+Jitendra K: Which is time-consuming.
+
+94
+00:09:06.040 --> 00:09:07.550
+Jitendra K: Trial and error based.
+
+95
+00:09:07.980 --> 00:09:14.579
+Jitendra K: Prom can break between switch… when you're switching the models. It is very hard to maintain complex multi-step pipelines.
+
+96
+00:09:14.750 --> 00:09:19.979
+Jitendra K: And difficult to systematically improve the performance. So there's no clear separation between logic and prompts.
+
+97
+00:09:20.140 --> 00:09:24.829
+Jitendra K: So DSPY will help us to automatically perform the prompt optimization.
+
+98
+00:09:25.030 --> 00:09:28.879
+Jitendra K: From the ground truth labels, it is quite model agnostic.
+
+99
+00:09:29.350 --> 00:09:35.050
+Jitendra K: I work with different LLM providers, quite composable modules for complex workflow.
+
+100
+00:09:35.200 --> 00:09:43.910
+Jitendra K: And it's data-driven experimentation with Optimizer. So you can get the results, you can prove the results, and then you can deploy your model.
+
+101
+00:09:44.400 --> 00:09:47.499
+Jitendra K: So, DSPY has 3 main components.
+
+102
+00:09:48.890 --> 00:09:54.629
+Jitendra K: The first component is called signatures. That means you need to define what input and output
+
+103
+00:09:55.250 --> 00:09:57.109
+Jitendra K: You would like to use.
+
+104
+00:09:57.490 --> 00:10:01.340
+Jitendra K: The modules define how the processing will utilize
+
+105
+00:10:01.620 --> 00:10:10.050
+Jitendra K: And the optimizers, which is, we are going to talk about teleprompters, the optimizers, which will work on these modules to optimize the outcome.
+
+106
+00:10:10.660 --> 00:10:14.510
+Jitendra K: So, we will… I will show you something in a while.
+
+107
+00:10:14.700 --> 00:10:16.980
+Jitendra K: But let's try to first…
+
+108
+00:10:21.740 --> 00:10:24.969
+Jitendra K: understand the underlying principle of DSPY.
+
+109
+00:10:25.300 --> 00:10:29.520
+Jitendra K: So, in a nutshell, what I'm saying, DSPY, declarative style.
+
+110
+00:10:29.710 --> 00:10:32.190
+Jitendra K: Or declarative way of writing the prompts.
+
+111
+00:10:32.580 --> 00:10:34.330
+Jitendra K: So we are moving from…
+
+112
+00:10:37.350 --> 00:10:40.589
+Jitendra K: the traditional rack to automated rack.
+
+113
+00:10:41.240 --> 00:10:45.210
+Jitendra K: Right? So when we say… The motivation behind the problem is…
+
+114
+00:10:45.840 --> 00:10:47.479
+Jitendra K: That we are trying to solve.
+
+115
+00:10:48.140 --> 00:10:52.110
+Jitendra K: It's a native retrieval augment generation pipeline, which looks impulse.
+
+116
+00:10:52.210 --> 00:10:56.070
+Jitendra K: Chang the document, embed them, retrieve the top K for each query.
+
+117
+00:10:56.540 --> 00:11:01.850
+Jitendra K: And put that into a prompt, generate an answer, but each of those stages
+
+118
+00:11:02.230 --> 00:11:05.950
+Jitendra K: Hides multiple hyperparameters that interact nonlinearly.
+
+119
+00:11:06.490 --> 00:11:12.050
+Jitendra K: So at the injection layer stage, you choose between token-based, recursive, semantic, or late chunking.
+
+120
+00:11:12.320 --> 00:11:14.550
+Jitendra K: And with each step, you set up
+
+121
+00:11:14.910 --> 00:11:18.630
+Jitendra K: Window size, overlapping criteria between your retriever chunks.
+
+122
+00:11:18.780 --> 00:11:23.609
+Jitendra K: And your index… And then you pick a dozen of embedding models.
+
+123
+00:11:23.860 --> 00:11:26.650
+Jitendra K: Each with our different geometric properties.
+
+124
+00:11:26.950 --> 00:11:31.650
+Jitendra K: And at retrieval, you choose between the algorithm. Let's say BM25, which is a keyword, plus
+
+125
+00:11:32.080 --> 00:11:36.319
+Jitendra K: Cosine, a dense vector, or hybrid fusion.
+
+126
+00:11:36.500 --> 00:11:40.449
+Jitendra K: And then you set up the top topic that you would like to generate.
+
+127
+00:11:40.670 --> 00:11:42.800
+Jitendra K: And then you re-rank those topics.
+
+128
+00:11:43.030 --> 00:11:45.790
+Jitendra K: Based upon the keyword and the similarity search.
+
+129
+00:11:45.990 --> 00:11:50.889
+Jitendra K: And then you put those chunks to a LLM to generate an answer.
+
+130
+00:11:51.010 --> 00:11:56.609
+Jitendra K: So at re-ranking, you decide whether to spend the extra latencies on cross-encoders.
+
+131
+00:11:57.280 --> 00:12:03.270
+Jitendra K: At a prompt, you choose different template, few short count, you give good examples.
+
+132
+00:12:03.430 --> 00:12:09.600
+Jitendra K: And then at a generation, you choose a model, a decoding temperature, and whether to use self-consistency or not.
+
+133
+00:12:09.990 --> 00:12:13.950
+Jitendra K: Right? And then you multiply these configuration Around…
+
+134
+00:12:14.340 --> 00:12:18.440
+Jitendra K: Several execution, and then this combination.
+
+135
+00:12:18.780 --> 00:12:24.230
+Jitendra K: is gonna be very extensive, right? If you're not choosing the right strategies.
+
+136
+00:12:24.550 --> 00:12:26.770
+Jitendra K: If any of these strategies has been lacked.
+
+137
+00:12:27.240 --> 00:12:31.039
+Jitendra K: So in those scenarios, your rack will fail, and that's the reason
+
+138
+00:12:31.960 --> 00:12:36.340
+Jitendra K: 99% of the rack… 95% of the racks are failing in production.
+
+139
+00:12:36.830 --> 00:12:41.500
+Jitendra K: Right? Everybody is able to deliver RAG. What is… what is the harm in using that?
+
+140
+00:12:42.030 --> 00:12:45.269
+Jitendra K: plot code to write a code for RAC, right?
+
+141
+00:12:45.650 --> 00:12:51.869
+Jitendra K: Anybody can write that. There's no doubt about it. But how will you optimize that rag in production? That is the most…
+
+142
+00:12:52.430 --> 00:12:53.860
+Jitendra K: Important question.
+
+143
+00:12:54.230 --> 00:12:56.900
+Jitendra K: Right? So that your system should not be used and throw.
+
+144
+00:12:57.190 --> 00:13:05.599
+Jitendra K: You develop it, you use it, you please your users, showing some fancy application, they clap, and then they say, okay, I don't want your application.
+
+145
+00:13:06.240 --> 00:13:09.289
+Jitendra K: Right? So that is what we need to think of, production rag.
+
+146
+00:13:09.750 --> 00:13:13.880
+Jitendra K: The production rag is much, much… Hard as compared to…
+
+147
+00:13:14.460 --> 00:13:19.279
+Jitendra K: you're surfacing it out simply a rag, or an idea of rag, right?
+
+148
+00:13:19.670 --> 00:13:25.200
+Jitendra K: So, AutoRag is a core idea, and it is a part of an AutoML for retrieval pipelines.
+
+149
+00:13:26.030 --> 00:13:28.290
+Jitendra K: So AutoRag is equal to AutoML.
+
+150
+00:13:28.490 --> 00:13:33.589
+Jitendra K: We might have… some of you might have worked on machine learning algorithms. You might have heard about AutoML.
+
+151
+00:13:33.940 --> 00:13:45.230
+Jitendra K: You might have worked on hyperparameter fine-tuning, you might have worked on evaluationary algorithms, right? How many of you have worked on Bayesian algorithms to fine-tune the model?
+
+152
+00:13:46.730 --> 00:13:52.090
+Jitendra K: Is anybody in the class have used a Bayesian algorithm to fine-tune the model for machine learning tasks?
+
+153
+00:13:53.400 --> 00:13:57.530
+Jitendra K: using HyperOpt or… MLOps pipeline.
+
+154
+00:13:58.740 --> 00:14:00.429
+Jitendra K: Not yet used.
+
+155
+00:14:00.980 --> 00:14:03.750
+Jitendra K: Nobody in the class has worked on machine learning.
+
+156
+00:14:06.100 --> 00:14:07.960
+Jitendra K: That's strange, very strange.
+
+157
+00:14:10.040 --> 00:14:10.930
+Jitendra K: Okay.
+
+158
+00:14:15.030 --> 00:14:18.799
+Jitendra K: Only one, very few students, I can see only 2 or 3 students.
+
+159
+00:14:19.330 --> 00:14:20.210
+Jitendra K: Okay.
+
+160
+00:14:21.300 --> 00:14:28.219
+Jitendra K: So let me give you the context. When we are choosing any machine learning algorithm, there are plenty of machine learning algorithms, right?
+
+161
+00:14:28.680 --> 00:14:34.750
+Jitendra K: There's something called, I can list down 12 to 15 algorithms in supervise only.
+
+162
+00:14:35.280 --> 00:14:39.069
+Jitendra K: And if you talk include neural network, it will become more complex.
+
+163
+00:14:39.540 --> 00:14:42.299
+Jitendra K: So when you're working on selecting the right algorithm.
+
+164
+00:14:42.730 --> 00:14:45.929
+Jitendra K: For your data, for your problem that you're trying to solve.
+
+165
+00:14:46.590 --> 00:14:55.540
+Jitendra K: So it's like, it should be adaptive to your data. The algorithm, you cannot… so basically, you cannot change the algorithm. You cannot change the code of algorithm.
+
+166
+00:14:56.030 --> 00:15:00.079
+Jitendra K: When you're using machine learning problems, right? Your problem is your data.
+
+167
+00:15:00.400 --> 00:15:01.790
+Jitendra K: So you have a data?
+
+168
+00:15:04.290 --> 00:15:07.539
+Jitendra K: You're fitting the algorithm from some package, like scikit-learn.
+
+169
+00:15:13.030 --> 00:15:15.620
+Jitendra K: And you test on unseen data, and…
+
+170
+00:15:15.950 --> 00:15:20.749
+Jitendra K: Then you will say, I will, match the accuracy of this algorithm.
+
+171
+00:15:22.250 --> 00:15:24.560
+Jitendra K: match the FN score of this algorithm.
+
+172
+00:15:25.120 --> 00:15:29.240
+Jitendra K: Match the precision of this algorithm, recall of this algorithm.
+
+173
+00:15:29.620 --> 00:15:33.770
+Jitendra K: And then decide what is the overall ROC that I'm getting.
+
+174
+00:15:35.570 --> 00:15:38.769
+Jitendra K: Vision operating characteristics, or receiver operating characteristics.
+
+175
+00:15:39.310 --> 00:15:47.640
+Jitendra K: But, let's say your model is showing 90% or 89% accuracy, and your business say that, I want 95 minimum.
+
+176
+00:15:48.160 --> 00:15:49.929
+Jitendra K: How will you improve the algorithm?
+
+177
+00:15:50.520 --> 00:15:52.320
+Jitendra K: You cannot change this algorithm.
+
+178
+00:15:52.530 --> 00:15:54.099
+Jitendra K: You cannot change the data.
+
+179
+00:15:55.920 --> 00:16:01.239
+Jitendra K: So, the best way that you can improve the accuracy further is to look for hyperparameters.
+
+180
+00:16:01.620 --> 00:16:05.099
+Jitendra K: Which is a part of your algorithmic search… space search.
+
+181
+00:16:06.840 --> 00:16:08.540
+Jitendra K: Right? So if you search.
+
+182
+00:16:08.770 --> 00:16:17.300
+Jitendra K: the optimal parameter is like your guitar, right? If you tune your guitar strings with a proper tension and proper
+
+183
+00:16:17.690 --> 00:16:24.310
+Jitendra K: length of the string, you will be able to get a good music out of it, right? So similarly, algorithms need to fine-tune.
+
+184
+00:16:24.930 --> 00:16:28.360
+Jitendra K: With the help of hyperparameter. But every time when you're running this.
+
+185
+00:16:28.650 --> 00:16:31.459
+Jitendra K: With a new set of data, your algorithm needs fine-tuning.
+
+186
+00:16:32.000 --> 00:16:35.570
+Jitendra K: But what if, if I use something called HyperOpt or AutoML,
+
+187
+00:16:35.850 --> 00:16:38.469
+Jitendra K: Which will do this job for me automatically.
+
+188
+00:16:39.820 --> 00:16:45.439
+Jitendra K: So instead of me writing the code, me doing this every time, I need something…
+
+189
+00:16:45.590 --> 00:16:47.530
+Jitendra K: Automated way of doing this.
+
+190
+00:16:47.670 --> 00:16:54.440
+Jitendra K: For me, as a user, as a developer, and then I will simply consume the parameters
+
+191
+00:16:55.030 --> 00:16:59.539
+Jitendra K: After business validation, I will plug into the… Search space, and then…
+
+192
+00:17:00.210 --> 00:17:04.770
+Jitendra K: I will run the execution again. The same idea has been applied for AutoRag.
+
+193
+00:17:06.210 --> 00:17:12.119
+Jitendra K: You cannot control so many parameters by… it's yourself. You need to find some package, some way.
+
+194
+00:17:12.290 --> 00:17:20.900
+Jitendra K: to deliver the things for you, right? And, specifically, we are living in the world of agent, so needless to say that automation is the fundamental and the primary
+
+195
+00:17:21.619 --> 00:17:24.129
+Jitendra K: Thing that you should, do, right?
+
+196
+00:17:24.270 --> 00:17:27.099
+Jitendra K: So, when you're doing this fundamental…
+
+197
+00:17:27.470 --> 00:17:30.740
+Jitendra K: integration with your Autrac pipeline.
+
+198
+00:17:30.980 --> 00:17:34.670
+Jitendra K: You're going to have several decomposition of pipeline.
+
+199
+00:17:35.470 --> 00:17:39.579
+Jitendra K: One is your query expansion. That means when you're writing the query.
+
+200
+00:17:40.220 --> 00:17:47.150
+Jitendra K: When your user is writing the query in any RAC pipeline, This query need to expand.
+
+201
+00:17:48.920 --> 00:17:52.340
+Jitendra K: into multiple… Ops…
+
+202
+00:17:56.470 --> 00:18:00.479
+Jitendra K: What is multiple hops, by the way? Have you heard about this term, multiple hops?
+
+203
+00:18:08.290 --> 00:18:10.169
+Jitendra K: What is multiple hop, guys?
+
+204
+00:18:23.980 --> 00:18:26.920
+Jitendra K: Have you heard about multiple facet query?
+
+205
+00:18:31.480 --> 00:18:37.049
+Jitendra K: Multifacet query, multi-intent query, So these are multiple hops.
+
+206
+00:18:37.280 --> 00:18:38.960
+Jitendra K: That means your query half.
+
+207
+00:18:39.440 --> 00:18:42.979
+Jitendra K: more than one query inside it. It's not a single query.
+
+208
+00:18:43.540 --> 00:18:45.619
+Jitendra K: It is a set of queries.
+
+209
+00:18:48.090 --> 00:18:51.350
+Jitendra K: Right? One query depend upon the previous result.
+
+210
+00:18:51.710 --> 00:18:55.250
+Jitendra K: Second query depend upon the previous to previous result.
+
+211
+00:18:56.250 --> 00:18:57.770
+Jitendra K: Yeah, kind of that.
+
+212
+00:18:58.680 --> 00:19:02.599
+Jitendra K: So basically, this is what multiple hop queries need to expand.
+
+213
+00:19:03.170 --> 00:19:07.789
+Jitendra K: So, AutoRag will help us to do this. So, we are going to use something called
+
+214
+00:19:09.280 --> 00:19:12.170
+Jitendra K: Multi-quality decomposition packages.
+
+215
+00:19:12.930 --> 00:19:21.180
+Jitendra K: We also need to perform our retrieval strategies, whether it should be sparse, dense, or hybrid. So our retrieval strategy should be optimal.
+
+216
+00:19:21.330 --> 00:19:28.670
+Jitendra K: The re-ranking strategies of, chunks should be optimal. We should have a proper Strategies to do this.
+
+217
+00:19:29.200 --> 00:19:36.210
+Jitendra K: So all these things will be… Coming under this equation, where I'm going to perform
+
+218
+00:19:36.550 --> 00:19:43.769
+Jitendra K: the maximization on my query at a latency. Maximization… maximization of this problem.
+
+219
+00:19:44.020 --> 00:19:48.369
+Jitendra K: With the help of, this formula, right? I will cover this part.
+
+220
+00:19:48.840 --> 00:19:54.939
+Jitendra K: later, but… there's… Put this part that this is something which we are going to do.
+
+221
+00:19:57.050 --> 00:20:02.659
+Jitendra K: Now, as I mentioned, during… When you're performing a chunking.
+
+222
+00:20:03.300 --> 00:20:12.459
+Jitendra K: Right? So chunk is the atomic unit of a recall. So once you've chosen a chunk strategy, you have committed to a geometry of what your retrieval can possibly return.
+
+223
+00:20:13.380 --> 00:20:17.200
+Jitendra K: The token-based chunking applied a fixed window with a stride.
+
+224
+00:20:17.480 --> 00:20:22.660
+Jitendra K: Giving kind of a predictable, dense recall, but breaking sentences midway.
+
+225
+00:20:23.440 --> 00:20:29.890
+Jitendra K: That means chunking is something which we are doing at a Word level, right?
+
+226
+00:20:30.010 --> 00:20:34.669
+Jitendra K: So imagine when you are creating any RAT pipeline.
+
+227
+00:20:35.230 --> 00:20:37.209
+Jitendra K: And you have too many documents.
+
+228
+00:20:38.320 --> 00:20:42.009
+Jitendra K: that you have feed as a chunks, vector chunks, I'm saying.
+
+229
+00:20:42.530 --> 00:20:44.140
+Jitendra K: And when you're writing a query.
+
+230
+00:20:47.120 --> 00:20:51.530
+Jitendra K: It will find a similarity between your query, And the chunks?
+
+231
+00:20:52.770 --> 00:20:55.060
+Jitendra K: Using hybrid indexes.
+
+232
+00:20:57.530 --> 00:21:02.110
+Jitendra K: So it will say that… let me take an example. Let's say I have a financial document here.
+
+233
+00:21:03.000 --> 00:21:05.200
+Jitendra K: All financial document of my bank.
+
+234
+00:21:06.580 --> 00:21:10.849
+Jitendra K: And, this document is having all sort of data.
+
+235
+00:21:10.950 --> 00:21:17.770
+Jitendra K: Credit card data, debit card data, mortgage data, loan data, HR data, policy-related data.
+
+236
+00:21:18.230 --> 00:21:25.410
+Jitendra K: trading literature data, country-wise addendums, right? Everything is inside this database.
+
+237
+00:21:25.950 --> 00:21:33.560
+Jitendra K: Now, assume that I'm… I'm a… I'm working for some… new policymaking.
+
+238
+00:21:34.550 --> 00:21:37.170
+Jitendra K: And I would like to take a reference for some policy.
+
+239
+00:21:37.550 --> 00:21:43.140
+Jitendra K: So my question is, can you give me the estimated policy for this particular country?
+
+240
+00:21:43.760 --> 00:21:49.879
+Jitendra K: based upon XYZ samples, right? So I'm referring to a policy, specific type of policy.
+
+241
+00:21:50.240 --> 00:21:55.019
+Jitendra K: So this is becoming my keyword. So once I know that this is the keyword of the query.
+
+242
+00:21:55.870 --> 00:22:00.209
+Jitendra K: I'm not going to bound to search the whole document.
+
+243
+00:22:00.760 --> 00:22:05.600
+Jitendra K: I will say that let's go look for a cluster, Which talks about that policy.
+
+244
+00:22:06.000 --> 00:22:09.690
+Jitendra K: In a document. I can do it manually as well. I will feed the document.
+
+245
+00:22:10.120 --> 00:22:16.210
+Jitendra K: Manually, because I know that this is the policy, and I can feed it, but that's not a… that's not an enterprise ride.
+
+246
+00:22:16.980 --> 00:22:21.069
+Jitendra K: Right? So, Enterprise Ag means I have a full vector store.
+
+247
+00:22:21.350 --> 00:22:26.030
+Jitendra K: And from that policy I'm searching, Based upon the keyword.
+
+248
+00:22:26.300 --> 00:22:30.910
+Jitendra K: And that index will make me navigate to that paragraph.
+
+249
+00:22:31.490 --> 00:22:34.479
+Jitendra K: Where we are talking about that particular country's.
+
+250
+00:22:34.840 --> 00:22:35.970
+Jitendra K: of operation.
+
+251
+00:22:36.600 --> 00:22:41.250
+Jitendra K: And then it will return me the top K, Of such paragraphs.
+
+252
+00:22:42.090 --> 00:22:48.080
+Jitendra K: TopK means it will try to find a similarity search, maximum up to top 5 or top 10 topics.
+
+253
+00:22:48.510 --> 00:22:51.899
+Jitendra K: From the entire corpus. And it will return me that paragraph.
+
+254
+00:22:52.250 --> 00:22:53.720
+Jitendra K: In the form of chunks.
+
+255
+00:22:54.100 --> 00:22:55.600
+Jitendra K: Now, these chunks…
+
+256
+00:22:55.760 --> 00:23:02.250
+Jitendra K: If your retrieval strategy is good, re-ranking strategy is good, I re-rank them at a cross-encoder layer.
+
+257
+00:23:02.530 --> 00:23:08.380
+Jitendra K: And then say that, okay, I have got 5 paragraphs that has been written from this particular query.
+
+258
+00:23:10.210 --> 00:23:12.030
+Jitendra K: And all are ranked properly.
+
+259
+00:23:13.190 --> 00:23:18.229
+Jitendra K: based upon a semantic search between the query and the chunks that I've retrieved.
+
+260
+00:23:18.650 --> 00:23:21.790
+Jitendra K: Now, if I'm getting the right… re-ranking.
+
+261
+00:23:22.510 --> 00:23:23.980
+Jitendra K: Topki topics.
+
+262
+00:23:24.280 --> 00:23:31.559
+Jitendra K: That means I will have a higher probability that I will be able to get the answer from the top one itself, the first paragraph itself.
+
+263
+00:23:33.600 --> 00:23:35.480
+Jitendra K: Did you agree with me or not?
+
+264
+00:23:35.840 --> 00:23:37.220
+Jitendra K: Just say yes and no.
+
+265
+00:23:37.760 --> 00:23:40.020
+Jitendra K: Are you falling so far, what I'm trying to say?
+
+266
+00:23:43.010 --> 00:23:48.700
+Jitendra K: So, if my chunking strategy is good, I will be able to get higher probability of getting the answer.
+
+267
+00:23:49.130 --> 00:23:52.339
+Jitendra K: For my question, on the very first paragraph itself, right?
+
+268
+00:23:52.690 --> 00:23:57.749
+Jitendra K: But we are feeding multiple paragraph to the model, LLM model.
+
+269
+00:23:58.130 --> 00:24:00.560
+Jitendra K: And that's the whole scope of hallucination.
+
+270
+00:24:01.400 --> 00:24:07.360
+Jitendra K: That means you're providing some additional information to the model, which may or may not be useful to generate an answer.
+
+271
+00:24:08.920 --> 00:24:09.750
+Jitendra K: Right?
+
+272
+00:24:09.890 --> 00:24:16.170
+Jitendra K: And then, depending upon that, you're generating something, Which is factually correct.
+
+273
+00:24:20.560 --> 00:24:23.679
+Jitendra K: And then it will generate a score of 0 to 1.
+
+274
+00:24:24.500 --> 00:24:27.000
+Jitendra K: So this is called Ground Ness 4.
+
+275
+00:24:27.200 --> 00:24:30.419
+Jitendra K: So you will say that I have a ground nest 4.
+
+276
+00:24:30.760 --> 00:24:32.390
+Jitendra K: Generated by the model.
+
+277
+00:24:32.730 --> 00:24:38.960
+Jitendra K: And then, the critic will evaluate the factual consistency of the output, on a scale of 0 to 1.
+
+278
+00:24:39.450 --> 00:24:45.559
+Jitendra K: And depending upon that, I will be able to say that my output of the query has been fulfilled
+
+279
+00:24:46.070 --> 00:24:47.410
+Jitendra K: or not.
+
+280
+00:24:50.370 --> 00:24:51.180
+Jitendra K: Right?
+
+281
+00:24:51.360 --> 00:24:55.819
+Jitendra K: So it depends upon your chunks, it depends upon your retriever strategy, it depends upon your…
+
+282
+00:24:56.100 --> 00:25:02.639
+Jitendra K: adjacent C sentences, which insert a boundary, wherever the cosine similarity drop below a threshold.
+
+283
+00:25:03.050 --> 00:25:05.869
+Jitendra K: So that means you are going to lost that data.
+
+284
+00:25:07.310 --> 00:25:09.609
+Jitendra K: Are you falling so far, guys?
+
+285
+00:25:13.440 --> 00:25:16.970
+Jitendra K: So, basically, your chunking strategy will last
+
+286
+00:25:17.730 --> 00:25:19.580
+Jitendra K: The data's somewhere in the middle.
+
+287
+00:25:24.870 --> 00:25:25.930
+Jitendra K: this part.
+
+288
+00:25:27.410 --> 00:25:30.929
+Jitendra K: Right? So basically, what you need to do is, you need to go with…
+
+289
+00:25:33.250 --> 00:25:37.159
+Jitendra K: Some hybrid retrieval strategies to overcome this limitation.
+
+290
+00:25:38.020 --> 00:25:39.779
+Jitendra K: So we'll talk about that part.
+
+291
+00:25:40.530 --> 00:25:50.929
+Jitendra K: So basically, hybrid retrieval strategy, which is a part of your cross-encoder layer of a transformer architecture, because everything that we are doing at a LLM level is a transformer architecture.
+
+292
+00:25:51.260 --> 00:25:54.429
+Jitendra K: So I'm going to talk about specific layer, which is a cross encoder.
+
+293
+00:25:56.480 --> 00:26:00.789
+Jitendra K: So, basically, When you're trying to productionize.
+
+294
+00:26:01.880 --> 00:26:05.509
+Jitendra K: any rack pipeline, you have to think of…
+
+295
+00:26:05.630 --> 00:26:08.279
+Jitendra K: the test cases. As simple as that.
+
+296
+00:26:08.970 --> 00:26:14.150
+Jitendra K: Right? If you just simply say that I have created a line graph line chain.
+
+297
+00:26:15.790 --> 00:26:23.030
+Jitendra K: VV8 and all, these, based rags, nobody's going to… You know…
+
+298
+00:26:23.260 --> 00:26:25.399
+Jitendra K: Give you any kind of,
+
+299
+00:26:25.520 --> 00:26:29.459
+Jitendra K: attention. Unless, until your rag is fit for business.
+
+300
+00:26:30.100 --> 00:26:34.390
+Jitendra K: Ultimately, you're not… playing with… technique… techniques.
+
+301
+00:26:35.110 --> 00:26:40.430
+Jitendra K: Your job is to deploy the best of the best retrieval strategy in production.
+
+302
+00:26:42.030 --> 00:26:42.810
+Jitendra K: Right?
+
+303
+00:26:43.110 --> 00:26:46.100
+Jitendra K: So, how will you ensure that your rag is…
+
+304
+00:26:46.390 --> 00:26:50.089
+Jitendra K: Making a optimal conclusion every time.
+
+305
+00:26:51.550 --> 00:26:55.340
+Jitendra K: So that means… We have to focus on cross-encoder layer.
+
+306
+00:26:56.190 --> 00:26:59.160
+Jitendra K: So, this is where you're going to use a mass
+
+307
+00:27:00.810 --> 00:27:05.449
+Jitendra K: and a function called reciprocal rank fusion. So each document get a score.
+
+308
+00:27:06.160 --> 00:27:11.329
+Jitendra K: Equal to the sum of… Ranker, Or one over the other.
+
+309
+00:27:13.340 --> 00:27:18.810
+Jitendra K: So, if I have to define reciprocal rank fusion, Given a document.
+
+310
+00:27:23.280 --> 00:27:24.730
+Jitendra K: Let me explain.
+
+311
+00:27:30.020 --> 00:27:30.940
+Jitendra K: Okay.
+
+312
+00:27:31.140 --> 00:27:33.530
+Jitendra K: So if I say reciprocal rank fusion.
+
+313
+00:27:33.750 --> 00:27:36.750
+Jitendra K: It's a very simple, but very elegant technique.
+
+314
+00:27:37.230 --> 00:27:40.260
+Jitendra K: So, reciprocal rank fusion, what it says is…
+
+315
+00:27:41.230 --> 00:27:47.139
+Jitendra K: I'm going to combine the multiple ranked list of search results into a single unified ranking.
+
+316
+00:27:47.910 --> 00:27:48.860
+Jitendra K: function.
+
+317
+00:27:49.740 --> 00:27:53.570
+Jitendra K: And this function… Will help me to…
+
+318
+00:27:53.690 --> 00:27:57.109
+Jitendra K: Generate a score for a document.
+
+319
+00:27:58.180 --> 00:28:04.080
+Jitendra K: B, By calculating the… summation of…
+
+320
+00:28:04.420 --> 00:28:07.000
+Jitendra K: It's a reciprocal rank across the search result.
+
+321
+00:28:08.220 --> 00:28:13.549
+Jitendra K: So, basically, You might have used Google in 1998, right?
+
+322
+00:28:14.160 --> 00:28:16.849
+Jitendra K: So, they are using a PageRank algorithm.
+
+323
+00:28:16.990 --> 00:28:18.719
+Jitendra K: For showing the results.
+
+324
+00:28:19.300 --> 00:28:24.169
+Jitendra K: Whenever you type in a Google, They have an HTML pages.
+
+325
+00:28:26.820 --> 00:28:33.169
+Jitendra K: Based upon your search, what you're searching, it will go to a HTML pages and show the list of
+
+326
+00:28:33.720 --> 00:28:37.389
+Jitendra K: top… 10 websites in the homepage.
+
+327
+00:28:37.830 --> 00:28:42.399
+Jitendra K: And depending upon your click, you will go to that homepage and then access the HTML content.
+
+328
+00:28:42.530 --> 00:28:49.820
+Jitendra K: Right? So basically, they are also using something called BM25, and that's how they have developed this BM25 algorithm in 1998.
+
+329
+00:28:50.180 --> 00:28:52.840
+Jitendra K: So this BM25 algorithm is a keyword search.
+
+330
+00:28:54.320 --> 00:28:55.880
+Jitendra K: Do you write something?
+
+331
+00:28:56.430 --> 00:29:00.179
+Jitendra K: You elaborate next time you're feeding
+
+332
+00:29:00.450 --> 00:29:05.980
+Jitendra K: some more additional context, and then you'll get a better result in HTML browsing pattern.
+
+333
+00:29:06.310 --> 00:29:10.710
+Jitendra K: That is called PageRank, because every page has been ranked by likes, dislikes.
+
+334
+00:29:10.940 --> 00:29:20.539
+Jitendra K: white pages, black pages, based upon user personas, etc. At that point of time in 1998, there are very simple metrics, including
+
+335
+00:29:21.080 --> 00:29:23.740
+Jitendra K: How many people has browsed this website?
+
+336
+00:29:24.860 --> 00:29:30.770
+Jitendra K: how many people has spent a time on this website, etc. So that is called PageRank in Google.
+
+337
+00:29:31.450 --> 00:29:33.100
+Jitendra K: So then they create an ad.
+
+338
+00:29:33.360 --> 00:29:37.009
+Jitendra K: Campaigns and stuff where they become more formal.
+
+339
+00:29:37.470 --> 00:29:45.510
+Jitendra K: Alright, so before ad campaigns, this is a mechanism which Google used to promote a particular HTML, based upon the clicks, based upon the browse, based upon the time.
+
+340
+00:29:46.030 --> 00:29:48.679
+Jitendra K: Based upon the content, based upon the…
+
+341
+00:29:49.100 --> 00:29:54.109
+Jitendra K: hyperlinks inside the pages. So they are using some formulas for doing this.
+
+342
+00:29:54.350 --> 00:30:00.520
+Jitendra K: So we are using a similar formula here, reciprocal rank fusion. So, assume that I have a rack pipeline.
+
+343
+00:30:01.260 --> 00:30:05.950
+Jitendra K: And this rack pipeline, I'm already feeding my vector stores.
+
+344
+00:30:07.050 --> 00:30:12.550
+Jitendra K: a query, and then I generate an answer. So the query will be fetching the documents.
+
+345
+00:30:13.340 --> 00:30:16.499
+Jitendra K: Right, so here I'm saying that I would like to rank the document.
+
+346
+00:30:17.050 --> 00:30:21.470
+Jitendra K: Search by summing its reciprocal rank across the search results.
+
+347
+00:30:21.940 --> 00:30:23.900
+Jitendra K: So, rank of D…
+
+348
+00:30:25.500 --> 00:30:30.679
+Jitendra K: It's nothing but… is a portion of a document in the result, whether it is first, second, or third.
+
+349
+00:30:31.160 --> 00:30:34.529
+Jitendra K: K is a smoothing constant, usually 60.
+
+350
+00:30:35.040 --> 00:30:40.900
+Jitendra K: That dampen the influence of top-ranked results, preventing a single system from dominating the outcome.
+
+351
+00:30:41.290 --> 00:30:43.819
+Jitendra K: And the final step that I'm going to get is…
+
+352
+00:30:44.120 --> 00:30:48.890
+Jitendra K: Re-sorted based on its reciprocal length fusion in a descending order.
+
+353
+00:30:49.410 --> 00:30:55.099
+Jitendra K: So, this is how the reciprocal rank algorithm works behind the scene. So, reciprocal rank algorithm
+
+354
+00:30:55.400 --> 00:31:03.040
+Jitendra K: We'll give you, say, let's say, top 100 candidate across Encoder will use for… the search.
+
+355
+00:31:03.210 --> 00:31:13.840
+Jitendra K: And you're returning all the top 5, so… That means… These top 5 topics will be useful
+
+356
+00:31:13.980 --> 00:31:17.359
+Jitendra K: With a bioencoder embedding, with a query pair.
+
+357
+00:31:17.940 --> 00:31:26.160
+Jitendra K: And then… then AutoRack will enumerate embedding model, hybrid weights, and re-ranking variant as a search space.
+
+358
+00:31:26.670 --> 00:31:30.190
+Jitendra K: to generate an answer, right? At LLM layer.
+
+359
+00:31:30.850 --> 00:31:33.900
+Jitendra K: So this is how the cross-encoder re-ranking.
+
+360
+00:31:34.170 --> 00:31:37.120
+Jitendra K: Will be generated with a query and a document pair.
+
+361
+00:31:37.950 --> 00:31:40.679
+Jitendra K: Where the idea is, I would like to give…
+
+362
+00:31:41.560 --> 00:31:45.970
+Jitendra K: A proper sorting criteria on document by a search space.
+
+363
+00:31:49.400 --> 00:31:52.759
+Jitendra K: And that is what we are doing at our cross-encoder layer.
+
+364
+00:31:53.040 --> 00:31:54.730
+Jitendra K: of a rack pipeline.
+
+365
+00:31:56.700 --> 00:31:59.509
+Jitendra K: Alright, so once we've done all these things.
+
+366
+00:31:59.630 --> 00:32:06.020
+Jitendra K: Then we move on to the… Prompts, which are parameters, right?
+
+367
+00:32:06.440 --> 00:32:08.960
+Jitendra K: The prompts are a parameter to your search.
+
+368
+00:32:09.380 --> 00:32:12.669
+Jitendra K: What are you writing prompts? Have you ever think, why are you writing prompts?
+
+369
+00:32:14.040 --> 00:32:16.810
+Jitendra K: The prompt is nothing but… it's a search criteria.
+
+370
+00:32:17.700 --> 00:32:20.429
+Jitendra K: Right? If you're searching for something, you have to write a prompt.
+
+371
+00:32:21.530 --> 00:32:28.019
+Jitendra K: It could be a very simple search. You would like to find out the… Temperature of a city.
+
+372
+00:32:28.230 --> 00:32:33.649
+Jitendra K: It could be a complex search. You would like to identify the impact of temperature on the share prices.
+
+373
+00:32:37.670 --> 00:32:39.970
+Jitendra K: Right? So it depends upon your criteria.
+
+374
+00:32:40.390 --> 00:32:42.250
+Jitendra K: The prompts are the parameters.
+
+375
+00:32:43.000 --> 00:32:49.170
+Jitendra K: So the key… Idea is, when you're writing a prompt, You're using some template.
+
+376
+00:32:49.720 --> 00:32:57.329
+Jitendra K: which itself is a part of a search space. You provide a list of candidate templates, a list of candidate LLM, a list of decoding temperatures.
+
+377
+00:32:57.620 --> 00:33:01.909
+Jitendra K: And the framework picked up Cartesian products Against your metrics.
+
+378
+00:33:03.650 --> 00:33:09.199
+Jitendra K: That means… They are your decision or micro-decision boundaries.
+
+379
+00:33:10.850 --> 00:33:16.990
+Jitendra K: So, when you're writing a prompt, In AutoRack Pipeline.
+
+380
+00:33:17.510 --> 00:33:19.149
+Jitendra K: This will be treated as a…
+
+381
+00:33:19.420 --> 00:33:22.290
+Jitendra K: Two process, prompt maker and Prompt Generator.
+
+382
+00:33:23.380 --> 00:33:29.019
+Jitendra K: We'll talk about this part when we are doing the… Coding on this.
+
+383
+00:33:29.600 --> 00:33:31.810
+Jitendra K: Now, what does matter mean formally?
+
+384
+00:33:32.040 --> 00:33:38.319
+Jitendra K: So, AutoRag evaluate two surfaces. That means they're working in retrieval and the generation aspect, both.
+
+385
+00:33:39.070 --> 00:33:47.040
+Jitendra K: RAG, right? Augment, art, It is not operating, but AutoDag operates on retrieval and generation part, which composable metrics.
+
+386
+00:33:47.880 --> 00:33:52.230
+Jitendra K: So basically, these are the different criteria, so I will go one by one.
+
+387
+00:33:53.120 --> 00:34:05.719
+Jitendra K: So let's try to first expand what is recall at the rate K, and precision at the rate K. So how many of you have heard about recall formula in machine learning? Can you give me an example why we are using recall as a…
+
+388
+00:34:06.010 --> 00:34:07.220
+Jitendra K: Estimator.
+
+389
+00:34:07.370 --> 00:34:09.050
+Jitendra K: Have you worked on recall?
+
+390
+00:34:10.730 --> 00:34:13.230
+Jitendra K: In machine learning, anybody?
+
+391
+00:34:15.219 --> 00:34:17.539
+Jitendra K: So what is recall? Why we're using recall?
+
+392
+00:34:20.760 --> 00:34:23.050
+Jitendra K: No, classification is fine, but why?
+
+393
+00:34:23.920 --> 00:34:26.199
+Jitendra K: I can use precision as well, right?
+
+394
+00:34:27.870 --> 00:34:30.479
+Jitendra K: Accuracy as well. Why recall?
+
+395
+00:34:34.880 --> 00:34:37.720
+Jitendra K: Plus imbalance problem, okay.
+
+396
+00:34:42.219 --> 00:34:45.640
+Jitendra K: But still, the question is, why we call for class imbalance?
+
+397
+00:35:03.760 --> 00:35:06.379
+Jitendra K: Okay, so recall is one of the…
+
+398
+00:35:06.770 --> 00:35:15.309
+Jitendra K: formula that we are using to generate a understanding the proportion of relevant items, found in the top K recommendation or search result.
+
+399
+00:35:15.590 --> 00:35:18.059
+Jitendra K: Out of all the available relevant items.
+
+400
+00:35:18.470 --> 00:35:21.479
+Jitendra K: So, in a nutshell, when we are performing a recall.
+
+401
+00:35:22.280 --> 00:35:25.119
+Jitendra K: We will be able to reduce the biasness towards a class.
+
+402
+00:35:25.790 --> 00:35:27.659
+Jitendra K: Right, so when you say recall.
+
+403
+00:35:28.270 --> 00:35:35.800
+Jitendra K: we are removing the biceness of a model towards a particular class, because if I'm going to say that I have got majority of the class as one.
+
+404
+00:35:36.350 --> 00:35:40.339
+Jitendra K: 98% of the time, and 2% of the time.
+
+405
+00:35:40.580 --> 00:35:45.759
+Jitendra K: I'm getting the zero class. So automatically, class is buys towards majority as one.
+
+406
+00:35:46.350 --> 00:35:51.720
+Jitendra K: So my true positive, false positive definition will automatically be impacted by this number.
+
+407
+00:35:52.390 --> 00:35:59.090
+Jitendra K: So, recall will give us a better estimator when I'm trying to measure the proportion of relevant items found in the top K.
+
+408
+00:35:59.200 --> 00:36:03.269
+Jitendra K: Recommendation of the search result out of all the available relevant items.
+
+409
+00:36:03.650 --> 00:36:09.139
+Jitendra K: So it is going to access an information retrieval system, or creating a kind of a capacity
+
+410
+00:36:09.410 --> 00:36:14.749
+Jitendra K: To identify the… identify the relevant content with a specific subset of total result.
+
+411
+00:36:15.410 --> 00:36:23.569
+Jitendra K: So basically, recall, if you look into this formula, the formula for recall is all the relevant item in the top K results.
+
+412
+00:36:24.520 --> 00:36:30.419
+Jitendra K: divide by a total relevant item in the dataset. So, let's say you're using a keyword to search
+
+413
+00:36:31.840 --> 00:36:33.440
+Jitendra K: In your rack pipeline.
+
+414
+00:36:33.910 --> 00:36:37.460
+Jitendra K: So when you're returning a top gate, let's say top 5 results.
+
+415
+00:36:37.610 --> 00:36:39.909
+Jitendra K: Which is based upon your similarity search.
+
+416
+00:36:40.430 --> 00:36:42.229
+Jitendra K: and keyword identification.
+
+417
+00:36:42.490 --> 00:36:47.390
+Jitendra K: But let's say there are 20 topics which have been matched, so it will be 5 by 20.
+
+418
+00:36:48.130 --> 00:36:49.679
+Jitendra K: Which is 1x4.
+
+419
+00:36:50.070 --> 00:36:51.729
+Jitendra K: Or I would say 25%.
+
+420
+00:36:55.670 --> 00:36:59.860
+Jitendra K: Alright, so this is how the recall will be calculated in this pipeline.
+
+421
+00:37:00.310 --> 00:37:04.109
+Jitendra K: Similarly, I'm going to use something called precision at the rate K.
+
+422
+00:37:04.600 --> 00:37:09.440
+Jitendra K: So, precision, as the name suggests, that means I'm going to look for
+
+423
+00:37:10.140 --> 00:37:13.640
+Jitendra K: number of relevant items at top, divided by the K itself.
+
+424
+00:37:14.970 --> 00:37:23.600
+Jitendra K: Precision at the rate K is number of relevant items in the top K divided by the K itself. So, is this an evaluation matrix?
+
+425
+00:37:24.680 --> 00:37:28.909
+Jitendra K: Use for search system that calculates a proportion of
+
+426
+00:37:29.340 --> 00:37:31.580
+Jitendra K: relevant item with a top K.
+
+427
+00:37:33.610 --> 00:37:38.679
+Jitendra K: Recommended results. Sort out the top K items shown, how many are actually relevant?
+
+428
+00:37:38.900 --> 00:37:43.129
+Jitendra K: It is commonly used when only the first few results matter to the user.
+
+429
+00:37:43.420 --> 00:37:48.950
+Jitendra K: Maybe a chatbot, or… web search, right? So, first few results does matter for users.
+
+430
+00:37:49.120 --> 00:37:51.480
+Jitendra K: So that means your precision should be high.
+
+431
+00:37:51.890 --> 00:37:54.300
+Jitendra K: When you're writing a… creating a chatbot.
+
+432
+00:37:54.820 --> 00:37:57.890
+Jitendra K: Because ultimately, you are serving as a search engine for him.
+
+433
+00:37:58.910 --> 00:38:04.310
+Jitendra K: Right, so these two combined together will be a relevant metrics.
+
+434
+00:38:05.000 --> 00:38:06.940
+Jitendra K: The primary element matrix.
+
+435
+00:38:07.390 --> 00:38:13.430
+Jitendra K: Now, we'll talk about mean reciprocal ranking, so MRR, or mean reciprocal ranking metrics.
+
+436
+00:38:13.560 --> 00:38:18.740
+Jitendra K: So, mean reciprocal ranking matrix is a very standard information retrieval matrix.
+
+437
+00:38:19.700 --> 00:38:22.039
+Jitendra K: What it does is, it will evaluate
+
+438
+00:38:22.950 --> 00:38:26.550
+Jitendra K: A system by looking at the rank of the first relevant document.
+
+439
+00:38:27.780 --> 00:38:30.429
+Jitendra K: By calculating the reciprocal ranks.
+
+440
+00:38:30.670 --> 00:38:32.419
+Jitendra K: Across a set of queries.
+
+441
+00:38:33.710 --> 00:38:35.680
+Jitendra K: So basically, what it does is…
+
+442
+00:38:38.270 --> 00:38:41.709
+Jitendra K: Let me show you with some example.
+
+443
+00:39:08.380 --> 00:39:10.589
+Jitendra K: So, let's say this is my query output.
+
+444
+00:39:12.200 --> 00:39:16.490
+Jitendra K: Right? So what I'm doing is, first, let me explain what are we trying to do.
+
+445
+00:39:16.710 --> 00:39:23.560
+Jitendra K: So, we're using a mean reciprocal ranking. So, MRR, right? Typically, abbreviated as MRR.
+
+446
+00:39:24.030 --> 00:39:26.959
+Jitendra K: So, MRR, or mean reciprocal ranking.
+
+447
+00:39:32.420 --> 00:39:37.799
+Jitendra K: is a matrix that I'm going to use to evaluate the effectiveness of information retrieval system.
+
+448
+00:39:38.590 --> 00:39:44.930
+Jitendra K: So, MRR formula, as we have seen in the previous slide, is equals to…
+
+449
+00:39:45.160 --> 00:39:47.390
+Jitendra K: It's a reciprocal formula of a rank.
+
+450
+00:39:47.760 --> 00:39:50.259
+Jitendra K: So I will say 1 over Q, which is my queries.
+
+451
+00:39:51.380 --> 00:39:53.439
+Jitendra K: Summation of total queries.
+
+452
+00:39:57.230 --> 00:39:58.890
+Jitendra K: Divided by its rank.
+
+453
+00:40:00.900 --> 00:40:04.139
+Jitendra K: Which I already obtained from the similarity.
+
+454
+00:40:04.250 --> 00:40:11.209
+Jitendra K: So, Q is a set of queries. R of i, rank of i, is a portion of the first relevant result for the
+
+455
+00:40:11.450 --> 00:40:12.620
+Jitendra K: IAT query.
+
+456
+00:40:12.820 --> 00:40:16.799
+Jitendra K: So let's say, consider this scenario. I have a query, I have run 3 queries.
+
+457
+00:40:17.320 --> 00:40:23.209
+Jitendra K: with their respective ranking. So I've achieved 50%, 100%, 25%.
+
+458
+00:40:23.760 --> 00:40:25.909
+Jitendra K: So, mean reciprocal ranking will be…
+
+459
+00:40:26.350 --> 00:40:30.949
+Jitendra K: Sum of all 3 results divided by 3, total queries, which is 0.58.
+
+460
+00:40:31.340 --> 00:40:38.350
+Jitendra K: The first relevant result for each query appeared at a different portion in the list of results. So, query one…
+
+461
+00:40:38.550 --> 00:40:40.160
+Jitendra K: Relevant result is in?
+
+462
+00:40:41.180 --> 00:40:42.530
+Jitendra K: Second position.
+
+463
+00:40:43.640 --> 00:40:46.489
+Jitendra K: Query two relevant result is in first position.
+
+464
+00:40:46.970 --> 00:40:49.730
+Jitendra K: Query 3 resident result is in 4th position.
+
+465
+00:40:50.190 --> 00:40:53.440
+Jitendra K: To calculate the MRR, I'm using a reciprocal ranking.
+
+466
+00:40:53.680 --> 00:40:56.229
+Jitendra K: So that means I'm saying, what is the rank
+
+467
+00:40:57.540 --> 00:41:00.190
+Jitendra K: Based upon this index. So, 1 by 2.
+
+468
+00:41:01.050 --> 00:41:02.419
+Jitendra K: One by one?
+
+469
+00:41:02.540 --> 00:41:03.810
+Jitendra K: 1x4.
+
+470
+00:41:04.310 --> 00:41:09.010
+Jitendra K: Right? So in this example, the MRR value is approximately 0.58.
+
+471
+00:41:09.210 --> 00:41:13.140
+Jitendra K: Indicate that, on an average, the first relevant result appears
+
+472
+00:41:13.730 --> 00:41:17.930
+Jitendra K: Relatively high in ranking, though not always at the very top.
+
+473
+00:41:19.340 --> 00:41:21.580
+Jitendra K: Right? So if you're generating, let's say.
+
+474
+00:41:21.730 --> 00:41:27.089
+Jitendra K: again, going back to Google example, you're returning Top 5 website.
+
+475
+00:41:31.210 --> 00:41:32.080
+Jitendra K: Right?
+
+476
+00:41:32.900 --> 00:41:35.100
+Jitendra K: And the user click on the second one.
+
+477
+00:41:36.470 --> 00:41:39.840
+Jitendra K: That means MRR will become… low.
+
+478
+00:41:41.740 --> 00:41:46.330
+Jitendra K: If I use a click on the first search itself, MRR will be high.
+
+479
+00:41:46.560 --> 00:41:55.300
+Jitendra K: And the Google will improve this search, always. That was his job until… ChatGPT arrives.
+
+480
+00:41:55.430 --> 00:41:56.210
+Jitendra K: Right?
+
+481
+00:41:56.670 --> 00:42:02.710
+Jitendra K: So, that is what Google was doing in terms of page rank, using mean reciprocal ranking.
+
+482
+00:42:03.060 --> 00:42:05.089
+Jitendra K: So it is very significant.
+
+483
+00:42:05.500 --> 00:42:08.760
+Jitendra K: That relevancy is a measure of user experience.
+
+484
+00:42:08.920 --> 00:42:10.959
+Jitendra K: And also efficiency and performance.
+
+485
+00:42:11.200 --> 00:42:16.940
+Jitendra K: you need to benchmark with the help of these numbers, right? So that is what these… models.
+
+486
+00:42:17.300 --> 00:42:19.760
+Jitendra K: Or these functions are useful.
+
+487
+00:42:20.340 --> 00:42:22.740
+Jitendra K: Now, there's something called NDGC.
+
+488
+00:42:25.280 --> 00:42:33.089
+Jitendra K: NDGC stands for Normalized Discounted Cumulative Game. Have you heard about NDGC earlier in NLP or any other
+
+489
+00:42:34.240 --> 00:42:36.250
+Jitendra K: Portfolios or problem.
+
+490
+00:42:49.090 --> 00:42:52.819
+Jitendra K: Okay, so let's try to understand, first, what is cumulative gain.
+
+491
+00:42:53.210 --> 00:42:59.989
+Jitendra K: So when you talk about cumulative gain, right, in… I have to take some example for that, maybe.
+
+492
+00:43:00.640 --> 00:43:04.409
+Jitendra K: Otherwise, it'll be… Too more difficult.
+
+493
+00:43:13.070 --> 00:43:18.720
+Jitendra K: Okay, so NDGC is a measurement of quality, ranking quality.
+
+494
+00:43:19.360 --> 00:43:23.650
+Jitendra K: So, when you're designing any… system using…
+
+495
+00:43:23.760 --> 00:43:32.510
+Jitendra K: NLP, Natural Language Processing task, let's say you're doing topic modeling, right?
+
+496
+00:43:33.070 --> 00:43:40.889
+Jitendra K: So this particular factor is very important, because when you're claiming that this particular document should tag to this doc… this topic.
+
+497
+00:43:41.140 --> 00:43:43.809
+Jitendra K: How we are claiming that, that this topic is?
+
+498
+00:43:44.250 --> 00:43:46.989
+Jitendra K: Should be the primary, and this topic should be a secondary.
+
+499
+00:43:47.440 --> 00:43:51.760
+Jitendra K: That will be given by NDGC. So basically, the value of NDGC will determine
+
+500
+00:43:51.990 --> 00:43:58.409
+Jitendra K: But comparing the relevance of the item written by the search engine to the relevance of the item, that hypothetical
+
+501
+00:43:58.550 --> 00:44:00.169
+Jitendra K: Search engine will return.
+
+502
+00:44:00.610 --> 00:44:03.299
+Jitendra K: So, for example, let's say if you're searching
+
+503
+00:44:04.180 --> 00:44:07.669
+Jitendra K: A phrase, let's say, hero, on a popular music streaming app.
+
+504
+00:44:08.160 --> 00:44:14.729
+Jitendra K: You might be getting 10… Tons of results, with the word hero in either the song, artist, or album.
+
+505
+00:44:15.330 --> 00:44:19.820
+Jitendra K: So the relevance of each song or artist is represented by a score, which is known as grade.
+
+506
+00:44:20.590 --> 00:44:22.879
+Jitendra K: And this has been assigned to a search query.
+
+507
+00:44:23.650 --> 00:44:28.710
+Jitendra K: Right? So the score of the recommendation are then Going to be discounted.
+
+508
+00:44:28.970 --> 00:44:31.339
+Jitendra K: Based upon their position in the search result.
+
+509
+00:44:31.590 --> 00:44:34.000
+Jitendra K: Did they get recommendation first or last?
+
+510
+00:44:34.320 --> 00:44:41.609
+Jitendra K: So, discounted scores are then Accumulate it, and divide it by a maximum possible discount score.
+
+511
+00:44:42.720 --> 00:44:44.310
+Jitendra K: So, that is what…
+
+512
+00:44:44.750 --> 00:44:53.140
+Jitendra K: we are going to utilize in… also in recommendation modeling. When you're doing recommendation models, when you're creating a recommendation model.
+
+513
+00:44:53.380 --> 00:44:57.569
+Jitendra K: Let's say I'm searching for a particular item in Amazon.
+
+514
+00:44:58.230 --> 00:45:03.539
+Jitendra K: And it generates a lot of results which are useful, which are not useful, right?
+
+515
+00:45:04.270 --> 00:45:06.299
+Jitendra K: So, I would like to identify
+
+516
+00:45:06.730 --> 00:45:11.569
+Jitendra K: Based upon the user clicks that which item is
+
+517
+00:45:13.610 --> 00:45:20.760
+Jitendra K: primary, which item is secondary? So, I would like to perform the search optimization, using Amazon.
+
+518
+00:45:24.530 --> 00:45:28.839
+Jitendra K: carousel, and then based upon that, it should return me the rank of the item.
+
+519
+00:45:29.740 --> 00:45:34.040
+Jitendra K: With the help of… This sorting criteria.
+
+520
+00:45:34.280 --> 00:45:39.589
+Jitendra K: So basically, when you're using such sort of sorting criteria, there's something called cumulative gain.
+
+521
+00:45:39.900 --> 00:45:47.649
+Jitendra K: So when I say cumulative gain, Cumulative gain is nothing but… It's a sum of…
+
+522
+00:45:53.380 --> 00:45:54.700
+Jitendra K: all gains.
+
+523
+00:45:54.840 --> 00:45:56.440
+Jitendra K: That's why it is cumulative.
+
+524
+00:45:56.990 --> 00:46:04.470
+Jitendra K: And it starts from… One, the first query, to all the ranks of the query.
+
+525
+00:46:05.100 --> 00:46:11.789
+Jitendra K: So basically, a cumulative gain for this data set would be, if I have to just compare the cumulative gain.
+
+526
+00:46:12.650 --> 00:46:18.680
+Jitendra K: The cumulative gain for this would be, if I have to just say, what is the cumulative gain for X?
+
+527
+00:46:19.660 --> 00:46:21.040
+Jitendra K: Search item X.
+
+528
+00:46:22.210 --> 00:46:28.450
+Jitendra K: It will be equal to 0 plus 0 plus 1 plus 1 plus 1, which is 3.
+
+529
+00:46:29.640 --> 00:46:32.000
+Jitendra K: And cumulative gain for Y.
+
+530
+00:46:32.880 --> 00:46:35.649
+Jitendra K: 1 plus 1 plus 1, which is again 3.
+
+531
+00:46:37.470 --> 00:46:44.640
+Jitendra K: So, both the group have the same cumulative gains, so we are not able to tell which group are better, in terms of
+
+532
+00:46:47.340 --> 00:46:49.479
+Jitendra K: In terms of recommended item.
+
+533
+00:46:50.070 --> 00:46:53.780
+Jitendra K: So, in order to do that, we need to take a consideration of the rank in the formula.
+
+534
+00:46:55.100 --> 00:47:00.540
+Jitendra K: Which brings us to the next part, which is called discounted cumulative gain. So, cumulative gain is…
+
+535
+00:47:01.250 --> 00:47:05.569
+Jitendra K: Based upon the arithmetic summation of gains.
+
+536
+00:47:06.530 --> 00:47:13.060
+Jitendra K: Discounted cumulative gain is depending upon the ranks, which is a page that we have discussed again, right?
+
+537
+00:47:13.230 --> 00:47:27.510
+Jitendra K: So, discounted cumulative gain, We'll modify this formula by taking a summation of Ranks, rather than… gain.
+
+538
+00:47:31.790 --> 00:47:33.420
+Jitendra K: I will say gains.
+
+539
+00:47:34.730 --> 00:47:37.680
+Jitendra K: Divided by… index.
+
+540
+00:47:39.910 --> 00:47:43.450
+Jitendra K: An index can be extensive, so I'm just taking a log.
+
+541
+00:47:44.470 --> 00:47:48.960
+Jitendra K: And to avoid zero… Divisible error, I'm adding 1.
+
+542
+00:47:49.990 --> 00:47:58.539
+Jitendra K: So if I'm going to add discounted cumulative gain, On X… The previous search query.
+
+543
+00:47:59.010 --> 00:48:06.419
+Jitendra K: I will get something as 0 divided by log of… base 2, 1 plus 1.
+
+544
+00:48:07.970 --> 00:48:08.910
+Jitendra K: plus…
+
+545
+00:48:10.080 --> 00:48:22.239
+Jitendra K: 1, 2 divided by… which is, again, is 0, so again, 0 divided by log of 2 plus 1, log is 1 plus… 1 divided by log of 2, 3 plus 1, so on and so forth.
+
+546
+00:48:22.490 --> 00:48:28.459
+Jitendra K: So I will get something at the end as 1.31, if I solve this.
+
+547
+00:48:29.780 --> 00:48:37.179
+Jitendra K: And similarly, if I got DCG for Y, a second item, I will get some number as 1.88.
+
+548
+00:48:38.030 --> 00:48:41.300
+Jitendra K: Now we can see that DGC of Y
+
+549
+00:48:44.340 --> 00:48:46.350
+Jitendra K: is greater than DGC off.
+
+550
+00:48:48.170 --> 00:48:51.410
+Jitendra K: X… So I will say that Y item.
+
+551
+00:48:51.860 --> 00:48:56.160
+Jitendra K: will make more sense and highly relevant as compared to X.
+
+552
+00:48:57.490 --> 00:48:58.330
+Jitendra K: Right?
+
+553
+00:48:58.690 --> 00:49:03.159
+Jitendra K: So then, I will use this idea to perform the search.
+
+554
+00:49:04.590 --> 00:49:13.250
+Jitendra K: Now, DGC of Y is better than DGC of C. It is also making sense that the group Y has better DGC because the items in the higher rank are more relevant.
+
+555
+00:49:13.600 --> 00:49:17.769
+Jitendra K: to the search group. So why do we still need NDGC?
+
+556
+00:49:18.490 --> 00:49:21.429
+Jitendra K: So, to answer this question, that includes another search group.
+
+557
+00:49:21.780 --> 00:49:23.450
+Jitendra K: To count the example.
+
+558
+00:49:25.300 --> 00:49:30.430
+Jitendra K: So let's say I have got another group, the third group, apart from X and Y. I have the
+
+559
+00:49:30.770 --> 00:49:32.420
+Jitendra K: Third row, which is now Zed.
+
+560
+00:49:36.950 --> 00:49:46.869
+Jitendra K: So again, if I have to find out the DGC for Z, It will say… TCG foresight would be…
+
+561
+00:49:47.930 --> 00:49:54.510
+Jitendra K: 1 divided by log of… 2, 1 plus 1, which is log of 2.
+
+562
+00:49:54.980 --> 00:49:58.440
+Jitendra K: Plus 0 divided by… logo.
+
+563
+00:49:59.620 --> 00:50:04.950
+Jitendra K: 2 plus 1… Plus 0 divided by log of…
+
+564
+00:50:05.740 --> 00:50:07.620
+Jitendra K: 3 plus 1, which is 4.
+
+565
+00:50:08.870 --> 00:50:12.130
+Jitendra K: Plus 0 divided by log of 5.
+
+566
+00:50:12.950 --> 00:50:16.530
+Jitendra K: plus 0 divided… Vialog of 6.
+
+567
+00:50:17.380 --> 00:50:19.900
+Jitendra K: This will be equal to 1 only.
+
+568
+00:50:20.500 --> 00:50:28.760
+Jitendra K: Because log of 2 is, again, I'm going to use as 1, right? Log of 2 to base 2 to 2 is 1. So 1 by 1 is 1.
+
+569
+00:50:29.290 --> 00:50:30.979
+Jitendra K: So I'll get an answer as one.
+
+570
+00:50:32.420 --> 00:50:37.309
+Jitendra K: So, DGC of Z is 1, but it has most relevant item at the first rank.
+
+571
+00:50:40.870 --> 00:50:45.249
+Jitendra K: So we compare data, it should be the, at least better than the group X.
+
+572
+00:50:45.410 --> 00:50:46.659
+Jitendra K: the previous run.
+
+573
+00:50:49.710 --> 00:50:52.910
+Jitendra K: Right? The problem is group access through the limit item.
+
+574
+00:50:59.830 --> 00:51:01.520
+Jitendra K: But Zad have only one.
+
+575
+00:51:04.600 --> 00:51:08.040
+Jitendra K: Now, this is where you required a normal discounted cumulative gain.
+
+576
+00:51:08.800 --> 00:51:16.540
+Jitendra K: So, the idea of normally discounted cumulative gain is you need to use The ratio of…
+
+577
+00:51:20.670 --> 00:51:30.330
+Jitendra K: BCG divided by… Inverse document cumulative gain, and that is called normal discounted cumulative gain.
+
+578
+00:51:30.780 --> 00:51:32.000
+Jitendra K: and DGC.
+
+579
+00:51:32.680 --> 00:51:34.859
+Jitendra K: So this is what we are going to use in.
+
+580
+00:51:36.690 --> 00:51:38.470
+Jitendra K: Generating the response.
+
+581
+00:51:38.690 --> 00:51:41.009
+Jitendra K: From the bot as well.
+
+582
+00:51:41.390 --> 00:51:43.360
+Jitendra K: Those are ranking metrics, right?
+
+583
+00:51:43.810 --> 00:51:50.680
+Jitendra K: So we have seen that there are different types of metrics. So, this is another ranking metric that we are going to use for performing the
+
+584
+00:51:50.890 --> 00:51:51.750
+Jitendra K: Search.
+
+585
+00:51:57.040 --> 00:51:59.250
+Jitendra K: Is it clear until this point?
+
+586
+00:52:14.060 --> 00:52:16.060
+Jitendra K: Are you, falling so far?
+
+587
+00:52:26.910 --> 00:52:33.249
+Jitendra K: Okay, now we'll move on to the most important metrics for NLP, which is called BLEU.
+
+588
+00:52:33.790 --> 00:52:35.210
+Jitendra K: And, Rogue.
+
+589
+00:52:35.610 --> 00:52:37.470
+Jitendra K: Which is lexical Sports.
+
+590
+00:52:37.850 --> 00:52:43.350
+Jitendra K: Now, there's terminology that we are going to use, something called lexical search and, semantic search.
+
+591
+00:52:44.030 --> 00:52:48.070
+Jitendra K: So if I have to just give you a very simple answer to lexical search, it's a keyword search.
+
+592
+00:52:49.000 --> 00:52:50.630
+Jitendra K: Lexical means keyword.
+
+593
+00:52:52.440 --> 00:52:57.909
+Jitendra K: So, let's try to understand the rogue matrix which is applicable for lexical search.
+
+594
+00:52:59.810 --> 00:53:05.129
+Jitendra K: Right, so what is BLEU? BLU stands for Bilingual Evaluation Under Study.
+
+595
+00:53:05.340 --> 00:53:09.589
+Jitendra K: I'm repeating… Bilingual Evaluation Understudy.
+
+596
+00:53:09.920 --> 00:53:12.760
+Jitendra K: If a score ranges from 0 to 1.
+
+597
+00:53:14.800 --> 00:53:17.449
+Jitendra K: Or it can range from 0 to 100 as well.
+
+598
+00:53:17.680 --> 00:53:20.500
+Jitendra K: So what it does is, it will measure the similarity between
+
+599
+00:53:20.860 --> 00:53:24.140
+Jitendra K: Machine-generated text and a human-reference translation.
+
+600
+00:53:25.530 --> 00:53:28.100
+Jitendra K: So it is used for translation tasks earlier.
+
+601
+00:53:28.450 --> 00:53:32.390
+Jitendra K: And it evaluated the quality based on number of…
+
+602
+00:53:32.920 --> 00:53:42.280
+Jitendra K: words, a number of tokens, precisely, you are getting in the answer, as compared to what humans expect format.
+
+603
+00:53:43.720 --> 00:53:48.950
+Jitendra K: So, if I have to just give you… A simple example of BLU.
+
+604
+00:53:51.020 --> 00:53:53.030
+Jitendra K: So, let's take an example.
+
+605
+00:53:54.450 --> 00:53:58.100
+Jitendra K: Let's consider that there are two reference translations.
+
+606
+00:53:59.870 --> 00:54:04.410
+Jitendra K: I've got… R1 and R2?
+
+607
+00:54:07.910 --> 00:54:10.680
+Jitendra K: Both produced by human experts.
+
+608
+00:54:12.140 --> 00:54:16.019
+Jitendra K: And they are saying the cat… this sentence is correct, the cat…
+
+609
+00:54:19.210 --> 00:54:23.510
+Jitendra K: is… on the Mac.
+
+610
+00:54:26.480 --> 00:54:28.789
+Jitendra K: The second sentence, R2.
+
+611
+00:54:30.660 --> 00:54:34.130
+Jitendra K: there is… a cat.
+
+612
+00:54:36.070 --> 00:54:37.840
+Jitendra K: on the Mac.
+
+613
+00:54:42.010 --> 00:54:47.380
+Jitendra K: So these are to reference R1R2, which is by Human Expert, and the candidate translation.
+
+614
+00:54:49.120 --> 00:55:01.720
+Jitendra K: So let's say the C1 candidate translation says, the… God… And… the dog…
+
+615
+00:55:04.410 --> 00:55:11.299
+Jitendra K: So, to express the quality of our translation with the metrics, we may count how many words in the candidate C1,
+
+616
+00:55:11.940 --> 00:55:13.799
+Jitendra K: Are present in the reference.
+
+617
+00:55:13.960 --> 00:55:15.309
+Jitendra K: R1 and R2.
+
+618
+00:55:15.830 --> 00:55:21.839
+Jitendra K: And then divide the result of the number of words in C1 to get a percentage, to get a perfect score.
+
+619
+00:55:23.180 --> 00:55:38.530
+Jitendra K: So, let's say, in C1, I've got 3 words, the cat, And… the cat… And again, I'm getting… the…
+
+620
+00:55:38.690 --> 00:55:42.639
+Jitendra K: Which is the third phrase, which is matching. So there are three sentences which are matching.
+
+621
+00:55:42.800 --> 00:55:47.809
+Jitendra K: Out of 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, out of 5 sentences.
+
+622
+00:55:49.190 --> 00:55:54.519
+Jitendra K: This is our output generated. I'm just deliberately making it some arbitrary sample.
+
+623
+00:55:54.680 --> 00:55:57.010
+Jitendra K: So our BLU will be 3 bar.
+
+624
+00:55:59.520 --> 00:56:00.400
+Jitendra K: 5.
+
+625
+00:56:00.820 --> 00:56:02.560
+Jitendra K: Which is 60%.
+
+626
+00:56:06.700 --> 00:56:08.210
+Jitendra K: Or 0.6.
+
+627
+00:56:09.040 --> 00:56:13.300
+Jitendra K: So the candidate translation is perfect. Sorry, it's far from perfect.
+
+628
+00:56:13.670 --> 00:56:16.490
+Jitendra K: Indeed, it received a score of 0.6.
+
+629
+00:56:17.550 --> 00:56:20.660
+Jitendra K: So let's compute a BLU for C2.
+
+630
+00:56:21.740 --> 00:56:24.860
+Jitendra K: So let's say, in the second translation.
+
+631
+00:56:26.410 --> 00:56:30.370
+Jitendra K: I'm getting the same sentence, but C2 is generating this answer.
+
+632
+00:56:33.750 --> 00:56:38.310
+Jitendra K: the… the… Duh, duh.
+
+633
+00:56:40.220 --> 00:56:42.149
+Jitendra K: Having some issue with translation.
+
+634
+00:56:42.750 --> 00:56:46.399
+Jitendra K: So if I'm going to compute… BLE score for this.
+
+635
+00:56:47.070 --> 00:56:54.080
+Jitendra K: It will say C2… Every word in C2 is presenting.
+
+636
+00:56:54.890 --> 00:56:57.800
+Jitendra K: at least one between R1 and R2.
+
+637
+00:56:58.220 --> 00:57:00.930
+Jitendra K: So the BLU score will become 100%.
+
+638
+00:57:01.670 --> 00:57:07.390
+Jitendra K: But if you look into the translation quality, It is the worst.
+
+639
+00:57:12.740 --> 00:57:17.290
+Jitendra K: So we need to achieve a perfect score with a non… Pence translation.
+
+640
+00:57:18.710 --> 00:57:25.659
+Jitendra K: So the word, the, five times in the numerator as it appears most twice as a French translation.
+
+641
+00:57:26.290 --> 00:57:30.599
+Jitendra K: So, BLU of… This score is high.
+
+642
+00:57:37.300 --> 00:57:38.180
+Jitendra K: Right?
+
+643
+00:57:38.790 --> 00:57:42.490
+Jitendra K: So basically, to avoid this kind of… Scenarios.
+
+644
+00:57:47.340 --> 00:57:50.179
+Jitendra K: We need to use some different schemes.
+
+645
+00:57:51.010 --> 00:57:58.570
+Jitendra K: And try to compare the combined score of two bigrams, or two unigrams, rather than going with a single word.
+
+646
+00:57:59.580 --> 00:58:13.500
+Jitendra K: Right? So basically, if I have to use… let's say… Again, the third candidate, translation, which says… They're…
+
+647
+00:58:15.580 --> 00:58:17.370
+Jitendra K: is a cat.
+
+648
+00:58:19.220 --> 00:58:20.540
+Jitendra K: on the mat.
+
+649
+00:58:22.980 --> 00:58:25.700
+Jitendra K: Now, this VLU score for C3
+
+650
+00:58:25.960 --> 00:58:29.450
+Jitendra K: Will be 1, 2, 3, 4, 5, 6, 7.
+
+651
+00:58:30.300 --> 00:58:38.120
+Jitendra K: So this will be there, I'm getting it here, is a cat on the mat. This is 100% match, so 7 out of 7.
+
+652
+00:58:38.730 --> 00:58:48.370
+Jitendra K: Similarly, if I'm writing C4, Matt… the cat…
+
+653
+00:58:50.050 --> 00:59:03.689
+Jitendra K: is on, there. This is also an incorrect sentence, but it will match 100% to this. So again, the BLU for this is 100%. Now, both the candidate translation contain the words that are present in reference.
+
+654
+00:59:04.490 --> 00:59:09.970
+Jitendra K: Therefore, they achieved the maximum score. However, C4 is not a well-formed English sentence.
+
+655
+00:59:14.460 --> 00:59:15.320
+Jitendra K: Right?
+
+656
+00:59:15.560 --> 00:59:23.059
+Jitendra K: So what I'm going to do is, I would like to convert this whole calculation into mean of BLU.
+
+657
+00:59:24.210 --> 00:59:28.390
+Jitendra K: So I will say that I will not go with Single word.
+
+658
+00:59:28.580 --> 00:59:31.210
+Jitendra K: I will go with the combination and the sequence.
+
+659
+00:59:31.810 --> 00:59:36.039
+Jitendra K: And then combine the exact pairs, which are matching.
+
+660
+00:59:36.350 --> 00:59:39.649
+Jitendra K: From the candidate and the retrieved labels.
+
+661
+00:59:40.370 --> 00:59:42.789
+Jitendra K: So that my BLU score should be high.
+
+662
+00:59:43.400 --> 00:59:49.970
+Jitendra K: So what BLU score will do is… Instead of… using…
+
+663
+00:59:50.370 --> 00:59:55.510
+Jitendra K: Unigrams, it will use engrams to perform this translation.
+
+664
+00:59:59.390 --> 01:00:03.939
+Jitendra K: And then… It formulates the answer.
+
+665
+01:00:04.420 --> 01:00:11.500
+Jitendra K: To match the maximum and grams, and then generate an output on the top of it.
+
+666
+01:00:13.900 --> 01:00:23.939
+Jitendra K: So, are you guys clear with, so far, on this topic? What is BLU? Because this is important, if I just use as it is in the code, then it will be…
+
+667
+01:00:24.500 --> 01:00:25.900
+Jitendra K: Hard to understand.
+
+668
+01:00:26.260 --> 01:00:27.950
+Jitendra K: What are you following so far?
+
+669
+01:00:32.760 --> 01:00:37.239
+Jitendra K: What is the purpose of BLU, and… The other metrics?
+
+670
+01:00:40.000 --> 01:00:43.110
+Jitendra K: Okay, now we'll move on to something called Rogue.
+
+671
+01:00:44.230 --> 01:00:49.910
+Jitendra K: So, rogue score… Is another evaluation criteria.
+
+672
+01:00:50.440 --> 01:00:55.350
+Jitendra K: So, ROGE stands for Recall Oriented Understudy of Guesting Evaluation.
+
+673
+01:00:56.300 --> 01:01:00.630
+Jitendra K: Recall-oriented under study for guesting evaluation.
+
+674
+01:01:01.330 --> 01:01:06.359
+Jitendra K: So it's typically ranged from 0 to 1, higher the value indicate greater similarity to a reference.
+
+675
+01:01:08.050 --> 01:01:12.570
+Jitendra K: So, Rogue N… Or L, tattoo technique.
+
+676
+01:01:13.300 --> 01:01:15.259
+Jitendra K: Rogue N and Rogue L.
+
+677
+01:01:15.870 --> 01:01:19.170
+Jitendra K: So, Rogue N will measure the overlap of n-grams.
+
+678
+01:01:21.040 --> 01:01:25.589
+Jitendra K: And Rogue L will measure the longest common subsequence, LCM.
+
+679
+01:01:25.960 --> 01:01:28.349
+Jitendra K: Between the generated and the reference text.
+
+680
+01:01:31.090 --> 01:01:35.319
+Jitendra K: Right? So if I have to just give you some example.
+
+681
+01:02:12.830 --> 01:02:14.810
+Jitendra K: Let me quickly do that.
+
+682
+01:02:15.440 --> 01:02:19.070
+Jitendra K: So, what we are going to do is, I will show you some examples.
+
+683
+01:02:20.860 --> 01:02:22.759
+Jitendra K: For calculating these numbers.
+
+684
+01:02:26.820 --> 01:02:29.340
+Jitendra K: So first, let me go to my Google Collab.
+
+685
+01:03:35.420 --> 01:03:40.349
+Jitendra K: So I will install, first, the two libraries, which are required to operate.
+
+686
+01:03:40.670 --> 01:03:44.409
+Jitendra K: The first library is the… Rogue package itself.
+
+687
+01:03:45.290 --> 01:03:50.119
+Jitendra K: and some torch… classes, and LTK packages.
+
+688
+01:03:50.350 --> 01:03:52.819
+Jitendra K: And I'll take a stand for Natural Language Toolkit.
+
+689
+01:03:53.110 --> 01:03:57.070
+Jitendra K: This is one of the important libraries for NLP pipelines.
+
+690
+01:03:59.100 --> 01:04:02.110
+Jitendra K: So I'm going to run through some examples.
+
+691
+01:04:02.490 --> 01:04:04.110
+Jitendra K: First, let me import…
+
+692
+01:04:09.710 --> 01:04:11.040
+Jitendra K: the modules…
+
+693
+01:04:18.570 --> 01:04:21.240
+Jitendra K: Now I will download one model from Hugging Face.
+
+694
+01:04:21.500 --> 01:04:23.010
+Jitendra K: Plan T5.
+
+695
+01:04:51.130 --> 01:04:53.380
+Jitendra K: It will take a while to download this.
+
+696
+01:04:57.900 --> 01:05:03.020
+Jitendra K: So I'm taking the Flan T5-based model for sequence-to-sequence text generation.
+
+697
+01:05:03.450 --> 01:05:10.130
+Jitendra K: And first and foremost thing, I'm using a tokenizer, which will convert a text into a model-ready token, and then model…
+
+698
+01:05:10.390 --> 01:05:12.639
+Jitendra K: We'll load its pre-trained weights.
+
+699
+01:05:12.770 --> 01:05:14.580
+Jitendra K: from this library.
+
+700
+01:05:14.970 --> 01:05:17.099
+Jitendra K: To generate output for evaluation.
+
+701
+01:05:19.350 --> 01:05:25.149
+Jitendra K: So there are 3 steps that I'm going to perform. Tokenizer, convert a prompt into a tensor suitable for model.
+
+702
+01:05:25.540 --> 01:05:29.279
+Jitendra K: Torch… Which will disable the gradient computation.
+
+703
+01:05:29.900 --> 01:05:39.129
+Jitendra K: And generate, which is produced the output token. And the decode, which is convert the generated token back to a readable text, because this is numerical format that it's going to return.
+
+704
+01:05:39.870 --> 01:05:42.980
+Jitendra K: So I'm asking a prompt, explain what is machine learning.
+
+705
+01:05:43.100 --> 01:05:44.749
+Jitendra K: from this FLEN model.
+
+706
+01:05:44.980 --> 01:05:46.460
+Jitendra K: Very simple model.
+
+707
+01:05:47.880 --> 01:05:52.400
+Jitendra K: So I'm limiting my output to 80, which is what it is generating.
+
+708
+01:05:53.400 --> 01:05:57.710
+Jitendra K: Now, generated text says machine learning is a technique for detecting patterns in data.
+
+709
+01:05:58.690 --> 01:06:01.279
+Jitendra K: Now, I would like to prepare a reference text.
+
+710
+01:06:01.430 --> 01:06:07.089
+Jitendra K: Let's say somebody from my team has given me a reference tag, that this should be the output.
+
+711
+01:06:07.590 --> 01:06:14.479
+Jitendra K: But if you're matching 90% or 80% accurate, based upon the overlap criteria, this is also acceptable.
+
+712
+01:06:15.030 --> 01:06:17.389
+Jitendra K: So I would like to see what is the…
+
+713
+01:06:17.560 --> 01:06:21.280
+Jitendra K: rogue score for this, so I will compute the BLU score.
+
+714
+01:06:23.060 --> 01:06:26.939
+Jitendra K: So, say, I would like to compute a BLU score for this generated output.
+
+715
+01:06:27.860 --> 01:06:32.840
+Jitendra K: And it is showing me the output as 0.12. And then I will compute a rogue score.
+
+716
+01:06:42.820 --> 01:06:44.460
+Jitendra K: Right? So you can see that.
+
+717
+01:06:46.160 --> 01:06:54.860
+Jitendra K: when I'm getting the output, Rogue 1 will measure the unigram overlap, Rogue 2 will measure the bigram overlap.
+
+718
+01:06:55.340 --> 01:07:00.599
+Jitendra K: And rogue L will measure the longest common subsequent similarity.
+
+719
+01:07:05.370 --> 01:07:09.939
+Jitendra K: And this will give me some confidence, or stating that.
+
+720
+01:07:10.130 --> 01:07:12.609
+Jitendra K: I can rely on the ROGL score.
+
+721
+01:07:12.770 --> 01:07:15.659
+Jitendra K: Which is 60% precise.
+
+722
+01:07:16.400 --> 01:07:18.290
+Jitendra K: With a F1 score of 42.
+
+723
+01:07:19.740 --> 01:07:22.850
+Jitendra K: Right? So that means, if I can read this sentence…
+
+724
+01:07:23.410 --> 01:07:28.690
+Jitendra K: The generated output from the prompt is, machine learning is a technique for detecting pattern in data.
+
+725
+01:07:29.030 --> 01:07:35.760
+Jitendra K: Now, here it is saying machine learning is a method where computers learn patterns from data, so they are data common.
+
+726
+01:07:36.020 --> 01:07:39.020
+Jitendra K: And make prediction without being explicitly programmed.
+
+727
+01:07:40.170 --> 01:07:47.970
+Jitendra K: So that means this output is 60% precisely accurate, as compared to the human-provided generated response.
+
+728
+01:07:48.090 --> 01:07:51.260
+Jitendra K: And that I can able to compute with the help of Rogue.
+
+729
+01:07:51.710 --> 01:07:58.410
+Jitendra K: So instead of… Using Unigram, bigram, I combine the least common multiples, or LCM.
+
+730
+01:08:01.360 --> 01:08:03.730
+Jitendra K: So, least common multiple will be this.
+
+731
+01:08:04.850 --> 01:08:08.720
+Jitendra K: Which I'm getting in this part. The best of the best sport.
+
+732
+01:08:09.990 --> 01:08:12.260
+Jitendra K: Alright, so what is the limitation on this?
+
+733
+01:08:12.430 --> 01:08:16.859
+Jitendra K: So I would say BLU and Rogues are widely used for automation tasks.
+
+734
+01:08:17.160 --> 01:08:18.510
+Jitendra K: an evaluation.
+
+735
+01:08:19.330 --> 01:08:24.639
+Jitendra K: So I would say both metrics are relying on surface-level world and phase matching.
+
+736
+01:08:25.410 --> 01:08:27.400
+Jitendra K: That means that they are lacking…
+
+737
+01:08:28.010 --> 01:08:31.879
+Jitendra K: To capture fluency, coherence, and semantic meaning.
+
+738
+01:08:33.210 --> 01:08:39.189
+Jitendra K: And BLU measure precision on matched phrases, but may fail to recognize correct translations.
+
+739
+01:08:39.439 --> 01:08:41.880
+Jitendra K: That use different wording, paraphrasing.
+
+740
+01:08:42.859 --> 01:08:45.290
+Jitendra K: Right? So that's a limitation of this model.
+
+741
+01:08:46.430 --> 01:08:47.749
+Jitendra K: Both the models.
+
+742
+01:08:48.729 --> 01:08:54.500
+Jitendra K: So, if I have to say, the main focus of this is to interpret the outcome at the last.
+
+743
+01:08:54.740 --> 01:08:56.159
+Jitendra K: then I can use it.
+
+744
+01:08:59.460 --> 01:09:03.659
+Jitendra K: Now, let's talk about a similarity search, semantic similarity.
+
+745
+01:09:04.340 --> 01:09:12.159
+Jitendra K: So, as you might have known that, when we talk about similarity search, we are performing a cosine multiplication, dot product.
+
+746
+01:09:13.140 --> 01:09:17.370
+Jitendra K: The similarity search… in vector space.
+
+747
+01:09:18.210 --> 01:09:22.929
+Jitendra K: is nothing but… We are performing a dot product.
+
+748
+01:09:24.270 --> 01:09:27.279
+Jitendra K: Using the… two vectors.
+
+749
+01:09:28.529 --> 01:09:33.029
+Jitendra K: So when you say dot product of a two-vector, we need to project them
+
+750
+01:09:36.210 --> 01:09:37.809
+Jitendra K: And find the angle.
+
+751
+01:09:39.970 --> 01:09:43.399
+Jitendra K: And this angle will determine the similarity between the two.
+
+752
+01:09:45.439 --> 01:09:48.639
+Jitendra K: Right? So if the words are similar, you will get an overlap.
+
+753
+01:09:50.380 --> 01:09:54.490
+Jitendra K: So you will measure the… Magnitude and direction, both.
+
+754
+01:09:55.140 --> 01:09:58.680
+Jitendra K: If the words are dissimilar, it will be greater than zero.
+
+755
+01:09:58.860 --> 01:10:01.030
+Jitendra K: It will rotate around this axis.
+
+756
+01:10:03.010 --> 01:10:05.029
+Jitendra K: Right? So you will get a different…
+
+757
+01:10:05.680 --> 01:10:08.500
+Jitendra K: Length each time when you're rotating this vector.
+
+758
+01:10:09.330 --> 01:10:11.909
+Jitendra K: So, higher the similarity, higher the overlap.
+
+759
+01:10:14.060 --> 01:10:19.359
+Jitendra K: Right, so you will measure this overlap with the help of theta, and then taking a dot product between the two vectors.
+
+760
+01:10:19.710 --> 01:10:21.040
+Jitendra K: to generator.
+
+761
+01:10:21.230 --> 01:10:22.280
+Jitendra K: output.
+
+762
+01:10:23.400 --> 01:10:25.170
+Jitendra K: Of similarity, search.
+
+763
+01:10:27.120 --> 01:10:33.600
+Jitendra K: Now, faithfulness is a Raga's matrix. Ragas is… RAG evaluation package.
+
+764
+01:10:34.010 --> 01:10:35.670
+Jitendra K: So what is faithfulness?
+
+765
+01:10:39.850 --> 01:10:44.880
+Jitendra K: So, faithfulness… is a benchmark.
+
+766
+01:10:46.240 --> 01:10:51.029
+Jitendra K: Basically, faithfulness, that means you're going to look for retrieval context.
+
+767
+01:10:51.760 --> 01:10:58.020
+Jitendra K: So, faithfulness will measure that every claim in the response is grounded in the relevant document, or retrieved document.
+
+768
+01:10:59.390 --> 01:11:07.360
+Jitendra K: That means this information is present in your document, and your model is not artifacting or generating any synthetic answers.
+
+769
+01:11:08.700 --> 01:11:14.160
+Jitendra K: Right? Assume that you're loading some document, in your rack pipeline.
+
+770
+01:11:14.780 --> 01:11:17.620
+Jitendra K: And, you asked some question.
+
+771
+01:11:18.190 --> 01:11:24.289
+Jitendra K: The tone, response… The word selection all looks good.
+
+772
+01:11:25.220 --> 01:11:27.340
+Jitendra K: But the fact is incorrect.
+
+773
+01:11:28.690 --> 01:11:33.970
+Jitendra K: It talks about something… arbitrary numbers. You're asking for…
+
+774
+01:11:34.600 --> 01:11:38.830
+Jitendra K: Some specific numbers in your document, and it is giving you some arbitrary response.
+
+775
+01:11:39.810 --> 01:11:41.220
+Jitendra K: Everything is good.
+
+776
+01:11:42.000 --> 01:11:49.450
+Jitendra K: But your facts are not matching. It is saying that the capital of… Francis…
+
+777
+01:11:55.120 --> 01:11:58.319
+Jitendra K: New Delhi, right? Which is factually inconsistent.
+
+778
+01:11:59.000 --> 01:12:02.980
+Jitendra K: Faithfulness in Ragas will measure every part of the generated answer.
+
+779
+01:12:03.250 --> 01:12:06.500
+Jitendra K: Which has been supported by the retrieval context document.
+
+780
+01:12:06.920 --> 01:12:13.310
+Jitendra K: So that means you need to understand how faithful the answer is, how correct the answer is.
+
+781
+01:12:13.710 --> 01:12:15.740
+Jitendra K: And there's a package called Deep Eval.
+
+782
+01:12:16.210 --> 01:12:19.589
+Jitendra K: or RAGAS, which we are going to talk very soon.
+
+783
+01:12:20.530 --> 01:12:23.440
+Jitendra K: Which will help you to generalize this fact.
+
+784
+01:12:23.790 --> 01:12:27.499
+Jitendra K: We'll talk about RAGAS and DP valves in the upcoming tutorials.
+
+785
+01:12:28.530 --> 01:12:35.710
+Jitendra K: Try to understand that this… OST evaluation will remain the same. The matrix will remain the same.
+
+786
+01:12:35.930 --> 01:12:37.340
+Jitendra K: In both packages.
+
+787
+01:12:50.360 --> 01:12:57.190
+Jitendra K: Let me delete this… Okay So, any question until this point? Any doubt? Any question?
+
+788
+01:13:19.700 --> 01:13:22.169
+Jitendra K: Are you clear so far? What are we discussing?
+
+789
+01:13:25.360 --> 01:13:26.500
+Jitendra K: Any doubt?
+
+790
+01:13:37.420 --> 01:13:41.909
+Jitendra K: Alright, so we'll move on to AutoRack configuration.
+
+791
+01:13:42.740 --> 01:13:48.509
+Jitendra K: So basically, when you're trying to run AutoRag, so AutoRag as a package, was let me introduce to this package.
+
+792
+01:13:48.630 --> 01:13:51.309
+Jitendra K: So that you should be clear, what are we discussing here.
+
+793
+01:13:51.720 --> 01:13:54.119
+Jitendra K: So, AutoRag is a package.
+
+794
+01:14:03.520 --> 01:14:06.049
+Jitendra K: So I'm talking about this package, Autoreg.
+
+795
+01:14:07.550 --> 01:14:12.169
+Jitendra K: Right? So, you can download this package, you can go through the code.
+
+796
+01:14:12.550 --> 01:14:14.600
+Jitendra K: You can customize this as well.
+
+797
+01:14:15.020 --> 01:14:16.850
+Jitendra K: Depending upon your requirement.
+
+798
+01:14:17.360 --> 01:14:19.510
+Jitendra K: So, we'll take some demos.
+
+799
+01:14:19.700 --> 01:14:25.390
+Jitendra K: On this package. So, maybe we'll take a break, and then we'll come back and then take a demo.
+
+800
+01:14:25.730 --> 01:14:27.320
+Jitendra K: So this is the AutoRack.
+
+801
+01:14:27.930 --> 01:14:32.470
+Jitendra K: package. And it is a part of open source Python commercial.
+
+802
+01:14:33.090 --> 01:14:36.710
+Jitendra K: And you can see the latest version has released in the last month.
+
+803
+01:14:37.080 --> 01:14:45.670
+Jitendra K: The latest version, and the first version has been released in… alerts… I assume it's 2023.
+
+804
+01:14:46.120 --> 01:14:48.450
+Jitendra K: 24. Okay.
+
+805
+01:14:49.750 --> 01:14:52.430
+Jitendra K: 24, the first version has been released.
+
+806
+01:14:52.990 --> 01:14:57.460
+Jitendra K: And then you will see that release notification is there.
+
+807
+01:14:58.280 --> 01:15:05.230
+Jitendra K: So the core idea of AutoDag is, this package will help you to build the pipelines.
+
+808
+01:15:05.870 --> 01:15:08.559
+Jitendra K: to use the function that I have listed here.
+
+809
+01:15:11.660 --> 01:15:15.990
+Jitendra K: Right? So what we can do is, we will use some examples to understand all this thing.
+
+810
+01:15:16.440 --> 01:15:19.719
+Jitendra K: So, how to use this package? What are the different,
+
+811
+01:15:20.080 --> 01:15:25.619
+Jitendra K: classes and commercials of this package. So in today's tutorial, we'll focus only on AutoRag.
+
+812
+01:15:25.990 --> 01:15:28.970
+Jitendra K: In the tomorrow's tutorial, we'll talk about ESPY.
+
+813
+01:15:29.450 --> 01:15:33.589
+Jitendra K: So, let's try to first cover Autoreg, and then we'll move on to DSPY.
+
+814
+01:15:34.190 --> 01:15:36.819
+Jitendra K: Yeah, I will share this slide, don't worry.
+
+815
+01:15:43.860 --> 01:15:49.469
+Jitendra K: So let's take a quick, 20 minutes break, and once we come back, then we'll talk about AutoRag.
+
+816
+01:15:50.110 --> 01:15:53.670
+Jitendra K: How to use it, how to use this package for an extent.
+
+817
+01:15:54.100 --> 01:15:55.889
+Jitendra K: And what is the purpose of…
+
+818
+01:15:56.600 --> 01:15:59.710
+Jitendra K: This package, and how we can able to
+
+819
+01:16:00.410 --> 01:16:04.199
+Jitendra K: do the analysis with the help of this package. Let me share this file as well.
+
+820
+01:16:08.080 --> 01:16:11.679
+Jitendra K: So make sure that you understand the evaluation matrix.
+
+821
+01:16:11.970 --> 01:16:16.589
+Jitendra K: Then we'll talk about… The purpose of automation.
+
+822
+01:16:26.640 --> 01:16:30.340
+Jitendra K: So, before we move on to the break, any question, anything that you would like to ask?
+
+823
+01:16:46.100 --> 01:16:52.769
+Jitendra K: All right, if there's no question, let's take a quick break of 20 minutes, and then we can come back, and then we can start a session on time.
+
+824
+01:16:53.410 --> 01:16:55.059
+Jitendra K: I will introduce a timer.
+
+825
+01:37:31.570 --> 01:37:36.109
+Jitendra K: Hi guys, I hope you're back. Can we have a quick confirmation?
+
+826
+01:37:49.730 --> 01:37:55.410
+Jitendra K: Okay, so before we take a break, we have discussed mathematical frameworks for different
+
+827
+01:37:55.860 --> 01:38:02.929
+Jitendra K: metrics of evaluation. We'll continue to discuss more, just a bunch of evaluation metrics.
+
+828
+01:38:03.570 --> 01:38:05.000
+Jitendra K: And,
+
+829
+01:38:05.950 --> 01:38:15.660
+Jitendra K: The scope of using these metrics, I hope you're getting a very clear answer why we are using so many metrics. Why not one metric, or two metrics?
+
+830
+01:38:15.840 --> 01:38:21.569
+Jitendra K: Because every metric will provide different coverage and different perspective to the quality of retrieval.
+
+831
+01:38:22.120 --> 01:38:26.499
+Jitendra K: So the idea is, when you're evaluating your rack pipeline or your agent.
+
+832
+01:38:27.340 --> 01:38:30.730
+Jitendra K: These metrics will be useful, right? One over the other.
+
+833
+01:38:31.730 --> 01:38:35.070
+Jitendra K: So, what we need to do now is,
+
+834
+01:38:36.390 --> 01:38:40.140
+Jitendra K: We are going to use a package now, AutoRack package.
+
+835
+01:38:40.960 --> 01:38:45.620
+Jitendra K: I would rather go with the same package and try to see
+
+836
+01:38:45.980 --> 01:38:51.700
+Jitendra K: How we can develop a pipeline that will use the existing package and then do the…
+
+837
+01:38:55.160 --> 01:39:01.929
+Jitendra K: do the analysis for us, right? So, first and foremost thing, I have to install some bunch of libraries.
+
+838
+01:39:46.300 --> 01:39:50.470
+Jitendra K: I will also use the open key API key reference.
+
+839
+01:41:24.120 --> 01:41:28.540
+Jitendra K: I think it has been installed successfully, now let me export.
+
+840
+01:41:36.320 --> 01:41:41.119
+Jitendra K: And then run the curl command, to download the…
+
+841
+01:41:42.140 --> 01:41:45.190
+Jitendra K: Document, so it should be in my file.
+
+842
+01:41:46.190 --> 01:41:47.520
+Jitendra K: This is here.
+
+843
+01:41:49.130 --> 01:41:50.340
+Jitendra K: No…
+
+844
+01:41:56.050 --> 01:41:57.400
+Jitendra K: I will run…
+
+845
+01:42:23.170 --> 01:42:25.260
+Jitendra K: First, let me create this module.
+
+846
+01:45:03.650 --> 01:45:09.209
+Jitendra K: Let me rerun this, I think there's some issue with the code, let me do it and…
+
+847
+01:45:09.520 --> 01:45:10.869
+Jitendra K: piecemeal manner.
+
+848
+01:46:19.320 --> 01:46:21.599
+Jitendra K: Okay, this is looking…
+
+849
+01:46:42.090 --> 01:46:44.269
+Jitendra K: This document has been downloaded.
+
+850
+01:46:45.480 --> 01:46:47.809
+Jitendra K: I will start parsing the data.
+
+851
+01:46:50.060 --> 01:46:52.900
+Jitendra K: Convert this into a vector store.
+
+852
+01:46:53.580 --> 01:46:56.699
+Jitendra K: And then I will create a chunks and parsing.
+
+853
+01:47:06.000 --> 01:47:11.249
+Jitendra K: Now I will normalize the metadata. I will explain the code in a while, but let me first run this.
+
+854
+01:47:11.880 --> 01:47:14.589
+Jitendra K: And then convert this into a Parquet format.
+
+855
+01:47:18.720 --> 01:47:20.620
+Jitendra K: Then I will build an index.
+
+856
+01:47:20.940 --> 01:47:22.519
+Jitendra K: On the top of it.
+
+857
+01:47:32.000 --> 01:47:35.470
+Jitendra K: And then synthesize the data for some evaluation.
+
+858
+01:50:47.550 --> 01:50:51.450
+Jitendra K: I think I have to rerun this process by killing the previous one.
+
+859
+01:53:26.540 --> 01:53:31.640
+Jitendra K: Okay, so this has been created, now I will… Import the configs…
+
+860
+01:53:38.480 --> 01:53:41.019
+Jitendra K: And then run the authorized retrievers.
+
+861
+01:58:03.750 --> 01:58:07.629
+Jitendra K: Fixing, I think there's some… again, there's some issue with compatibility.
+
+862
+01:58:08.460 --> 01:58:10.040
+Jitendra K: So I'm just…
+
+863
+02:01:01.890 --> 02:01:05.430
+Jitendra K: Okay, this has been successfully run.
+
+864
+02:01:05.890 --> 02:01:07.529
+Jitendra K: Let me check…
+
+865
+02:02:43.000 --> 02:02:46.889
+Jitendra K: Summary file, still I'm not able to see, but let me try…
+
+866
+02:02:47.050 --> 02:02:50.890
+Jitendra K: Because it should be in project file, which is not being generated yet.
+
+867
+02:03:10.720 --> 02:03:15.669
+Jitendra K: But let me quickly try with, the previous version of AutoRag.
+
+868
+02:03:15.980 --> 02:03:19.710
+Jitendra K: That means I have to… Downgrade installation.
+
+869
+02:06:00.560 --> 02:06:03.909
+Jitendra K: No, it will not be a SQL-like, query you can run.
+
+870
+02:06:04.810 --> 02:06:09.559
+Jitendra K: Because this will be a numerical representation of the words, embedding, it will store embedding.
+
+871
+02:06:09.780 --> 02:06:14.409
+Jitendra K: So you need just… you cannot see the numerical representation of the embedding.
+
+872
+02:06:14.640 --> 02:06:19.219
+Jitendra K: You can project it, in a form of a cluster and some…
+
+873
+02:06:19.890 --> 02:06:22.940
+Jitendra K: A pictorial representation, but not more than that.
+
+874
+02:10:17.940 --> 02:10:21.280
+Jitendra K: So, write this report in it, and then I'll send the code.
+
+875
+02:10:58.310 --> 02:11:00.350
+Jitendra K: Okay, so I will talk about this part.
+
+876
+02:11:00.480 --> 02:11:04.530
+Jitendra K: So, this is getting a mean reciprocal ranking of 0.88, which is good.
+
+877
+02:11:05.050 --> 02:11:08.610
+Jitendra K: And then rest of the things are there, and we have seen…
+
+878
+02:11:10.330 --> 02:11:13.029
+Jitendra K: The retrieval hit is 90% accurate.
+
+879
+02:11:13.220 --> 02:11:18.779
+Jitendra K: End-to-end accuracy is also good. Retrieval mean reciprocal ranking is 66%.
+
+880
+02:11:19.460 --> 02:11:24.480
+Jitendra K: Slightly a concern, but the generation accuracy is more than 90%, which is a good accuracy.
+
+881
+02:11:24.660 --> 02:11:33.579
+Jitendra K: Now, let me explain this code. So, basically, this is a QA that you're doing on your LLM, right? So this is the QA steps. So you're trying to…
+
+882
+02:11:33.720 --> 02:11:34.840
+Jitendra K: perform.
+
+883
+02:11:35.370 --> 02:11:40.669
+Jitendra K: Some fine-tuning on your model, Parameters before you rolled out in production.
+
+884
+02:11:40.950 --> 02:11:44.419
+Jitendra K: So, first and foremost thing, We are going to start with…
+
+885
+02:11:45.770 --> 02:11:50.089
+Jitendra K: the data and the APIs, so this is very straightforward.
+
+886
+02:11:50.370 --> 02:11:57.829
+Jitendra K: that we are just using a secret key in this manner from Google Colab, and then source the secret key into this panel.
+
+887
+02:11:58.150 --> 02:12:05.959
+Jitendra K: And then I've created a directory data, which will store this PDF. I think this is the PDF that you all are familiar with.
+
+888
+02:12:06.510 --> 02:12:08.749
+Jitendra K: Which is, attention is all you need paper.
+
+889
+02:12:10.750 --> 02:12:12.690
+Jitendra K: So this is a 15-page paper.
+
+890
+02:12:13.230 --> 02:12:15.680
+Jitendra K: Which will have multi…
+
+891
+02:12:18.940 --> 02:12:30.610
+Jitendra K: multiple… multimodal documents, right? So you can see that I have got… images… Some more images… some formulas…
+
+892
+02:12:30.780 --> 02:12:36.360
+Jitendra K: some table, which is very, very important. So these tables… Are in different layout.
+
+893
+02:12:36.550 --> 02:12:45.070
+Jitendra K: Right? And then, I'm using… Some more tables, and finally, some references, citation references.
+
+894
+02:12:45.360 --> 02:12:46.940
+Jitendra K: Followed by another image.
+
+895
+02:12:47.170 --> 02:12:52.309
+Jitendra K: So this is a multimodal document, perfect multimodal document. So, what I did is, I just…
+
+896
+02:12:52.470 --> 02:12:59.480
+Jitendra K: Download this data, put it into the data folder, performing the…
+
+897
+02:12:59.680 --> 02:13:05.589
+Jitendra K: chunking using PyPDFloader, which will load a PDF and extract text page by page.
+
+898
+02:13:05.940 --> 02:13:12.899
+Jitendra K: Recursive character text splitter, which is an intelligent text chunking that respects paragraph boundaries.
+
+899
+02:13:13.470 --> 02:13:15.379
+Jitendra K: So I'm loading the data.
+
+900
+02:13:15.970 --> 02:13:18.659
+Jitendra K: Count, loading each and every pages.
+
+901
+02:13:19.010 --> 02:13:21.769
+Jitendra K: Then, I will open the PDF file.
+
+902
+02:13:22.020 --> 02:13:25.439
+Jitendra K: Extract a text from each page using PI to PDF.
+
+903
+02:13:25.860 --> 02:13:26.880
+Jitendra K: Package.
+
+904
+02:13:27.320 --> 02:13:29.080
+Jitendra K: And then perform dust.
+
+905
+02:13:29.190 --> 02:13:34.090
+Jitendra K: Splitting on the chunks. So, target size in each character is 800.
+
+906
+02:13:34.710 --> 02:13:39.360
+Jitendra K: Chunk overlap, I'm keeping per paragraph to be 10 hundred.
+
+907
+02:13:39.900 --> 02:13:43.269
+Jitendra K: And then, I'm also using some separators.
+
+908
+02:13:43.490 --> 02:13:47.059
+Jitendra K: Which will separate a paragraph by using these fillers.
+
+909
+02:13:47.210 --> 02:13:49.320
+Jitendra K: New line and tab.
+
+910
+02:13:51.160 --> 02:13:56.170
+Jitendra K: Now, what I'm doing is I'm creating… the embedding indexes.
+
+911
+02:13:56.620 --> 02:13:59.950
+Jitendra K: So, for that, I need to call our OpenAI Embedding models.
+
+912
+02:14:00.140 --> 02:14:04.970
+Jitendra K: And the ChromaDB, which will use the text emitting 3 small dimensions to store.
+
+913
+02:14:05.290 --> 02:14:10.750
+Jitendra K: So this is our 15,000… 1536-dimensional vector, cheaper and faster than
+
+914
+02:14:11.030 --> 02:14:13.120
+Jitendra K: Than most of the model.
+
+915
+02:14:13.660 --> 02:14:17.380
+Jitendra K: And, I would like to enumerate to these vectors
+
+916
+02:14:17.930 --> 02:14:20.529
+Jitendra K: Yeah, it's a small… it's a small embedding.
+
+917
+02:14:21.570 --> 02:14:23.070
+Jitendra K: 1536.
+
+918
+02:14:23.290 --> 02:14:26.870
+Jitendra K: So, now I'm going to enumerate through each embedding vector.
+
+919
+02:14:27.600 --> 02:14:28.830
+Jitendra K: Using a loop.
+
+920
+02:14:29.330 --> 02:14:30.980
+Jitendra K: Enumate to the chunks.
+
+921
+02:14:31.590 --> 02:14:37.300
+Jitendra K: and add a unique ID to each chunk metadata. So this is crucial for evaluation. We need to keep a track.
+
+922
+02:14:37.480 --> 02:14:39.929
+Jitendra K: Which chunk contain the answer to each question?
+
+923
+02:14:40.440 --> 02:14:51.130
+Jitendra K: Right? Then the vector store will take each document, pass it to an embedding model, and store the resulting 15,000… 1536 dimension vector
+
+924
+02:14:51.270 --> 02:14:53.670
+Jitendra K: using HNSW.
+
+925
+02:14:53.950 --> 02:14:57.390
+Jitendra K: This is important that I'm using HNSW algorithm to store.
+
+926
+02:14:59.850 --> 02:15:04.819
+Jitendra K: And then, I will create an index on the top of this, documents.
+
+927
+02:15:05.260 --> 02:15:07.879
+Jitendra K: Now I will test the index with a sample query.
+
+928
+02:15:08.980 --> 02:15:10.820
+Jitendra K: Which will generate some answer.
+
+929
+02:15:11.290 --> 02:15:12.950
+Jitendra K: Build a rack pipeline.
+
+930
+02:15:14.060 --> 02:15:20.950
+Jitendra K: Which will… Create all the formulation on the… Retriever part.
+
+931
+02:15:21.240 --> 02:15:25.839
+Jitendra K: First and foremost thing, I will use Chat OpenAI wrapper for OpenAI chat model.
+
+932
+02:15:26.060 --> 02:15:32.460
+Jitendra K: Chat prompt template, which will manage the prompt template with variables. Runnable pass-through function that will pass through
+
+933
+02:15:33.240 --> 02:15:39.100
+Jitendra K: the questions and the output will be converted LM response into a plain string.
+
+934
+02:15:39.400 --> 02:15:45.479
+Jitendra K: Then I've got a retriever, vector stores, that will put… convert vector store into a retrieval interface.
+
+935
+02:15:46.370 --> 02:15:53.089
+Jitendra K: And here you can see that I'm returning 3 topics. Case 3. That means I will retrieve 3 topics per document.
+
+936
+02:15:53.710 --> 02:16:00.139
+Jitendra K: So that will always fetch the top 3 chunks, and the retriever take a query string and return the top key documents.
+
+937
+02:16:00.650 --> 02:16:08.500
+Jitendra K: Now, I'm creating a system prompt where I will instruct the model to use provided passages.
+
+938
+02:16:08.870 --> 02:16:11.809
+Jitendra K: Ground responses in retrieval context.
+
+939
+02:16:12.720 --> 02:16:19.179
+Jitendra K: Prevent hallucination. The context and question should be a placeholder at runtime.
+
+940
+02:16:19.750 --> 02:16:28.810
+Jitendra K: Then I'm using RLM GPT… sorry, ChatGPT OpenAI model, which is GPT4O Mini, with a temperature to be 0. This is important.
+
+941
+02:16:29.170 --> 02:16:38.619
+Jitendra K: So during a retriever, I'm keeping the temperature to be zero. That means the model will strictly use only the document corpus that have passed from this PDF.
+
+942
+02:16:40.700 --> 02:16:44.359
+Jitendra K: Now, I will… format a document.
+
+943
+02:16:46.090 --> 02:16:50.690
+Jitendra K: And then take a list of… those documents using LCL.
+
+944
+02:16:52.219 --> 02:17:02.469
+Jitendra K: Now, I will generate a synthetic QA evaluation. So this is important because I'm creating a ground truth data for evaluation without manual labeling. Let's say if I have a user or business team.
+
+945
+02:17:02.600 --> 02:17:08.559
+Jitendra K: who can provide me this data, you can go and then check with the business team as well.
+
+946
+02:17:08.750 --> 02:17:12.150
+Jitendra K: Now, I have a question which says…
+
+947
+02:17:13.340 --> 02:17:18.780
+Jitendra K: this particular paragraph as a prompt template, and then I will run this. It will generate some output.
+
+948
+02:17:19.610 --> 02:17:20.520
+Jitendra K: Nope.
+
+949
+02:17:20.840 --> 02:17:29.050
+Jitendra K: After retrieval layer or retrieval evaluation, I will try to generalize the metrics which we have used
+
+950
+02:17:29.410 --> 02:17:34.309
+Jitendra K: And then each matrix, we are getting reciprocal ranking. We'll normalize this.
+
+951
+02:17:34.600 --> 02:17:38.330
+Jitendra K: And then generate the overall accuracy of this model, and that is what we are doing.
+
+952
+02:17:38.670 --> 02:17:43.990
+Jitendra K: So the overall accuracy of this model is 90, which is fair enough, good enough to generalize.
+
+953
+02:17:44.240 --> 02:17:48.430
+Jitendra K: And, with this example, we have seen that there are several
+
+954
+02:17:48.740 --> 02:17:53.229
+Jitendra K: Retrieval strategies that we have followed, some sort of dimension we are using.
+
+955
+02:17:53.700 --> 02:17:59.929
+Jitendra K: And, we are also using technique of chunking, which is optimal for that purpose.
+
+956
+02:18:00.340 --> 02:18:07.580
+Jitendra K: So that means, if our accuracy is less, then we have to change the strategy. And that is called hyperparameter fine-tuning.
+
+957
+02:18:07.760 --> 02:18:09.569
+Jitendra K: with AutoRag Pipeline.
+
+958
+02:18:09.969 --> 02:18:11.960
+Jitendra K: So, any question on this part?
+
+959
+02:18:12.760 --> 02:18:17.719
+Jitendra K: I want, you guys to run this and let me know if there's any question.
+
+960
+02:18:24.240 --> 02:18:26.059
+Jitendra K: Let me quickly share this file.
+
+961
+02:18:34.020 --> 02:18:39.590
+Jitendra K: The chunking matter should be same as using RAG. Yeah, that's correct. We are using in RAG only.
+
+962
+02:18:52.379 --> 02:18:58.150
+Jitendra K: So this notebook, will work like a… QA…
+
+963
+02:18:58.750 --> 02:19:01.749
+Jitendra K: Right? QA code for your rack pipeline.
+
+964
+02:19:02.020 --> 02:19:07.600
+Jitendra K: And that way, you can able to determine whether your response is accurate, inaccurate.
+
+965
+02:19:07.950 --> 02:19:12.590
+Jitendra K: Matching the aspiration of the user or not, depending upon these factors.
+
+966
+02:19:13.139 --> 02:19:15.349
+Jitendra K: So please let me know if there's any questions.
+
+967
+02:19:16.959 --> 02:19:18.600
+Jitendra K: That I can able to answer.
+
+968
+02:19:22.750 --> 02:19:26.240
+Jitendra K: Right now, it is random, but it can be coming from business as well.
+
+969
+02:19:26.850 --> 02:19:31.000
+Jitendra K: But it should come from business, not from… developers.
+
+970
+02:19:32.620 --> 02:19:36.260
+Jitendra K: That means they should give you some set of questions and right answers.
+
+971
+02:19:40.160 --> 02:19:41.519
+Jitendra K: Yeah, that's correct.
+
+972
+02:19:49.990 --> 02:19:54.450
+Jitendra K: This PyPube PDF loader is enough for…
+
+973
+02:19:54.800 --> 02:19:58.599
+Jitendra K: tables, to reader tables, and PDF file.
+
+974
+02:19:59.340 --> 02:20:02.339
+Jitendra K: The answer is no, it is not.
+
+975
+02:20:03.190 --> 02:20:07.330
+Jitendra K: There are many advanced packages, which is all… also there.
+
+976
+02:20:07.650 --> 02:20:13.899
+Jitendra K: which will able to do, more better parsing as compared to by PDF load.
+
+977
+02:20:14.040 --> 02:20:17.430
+Jitendra K: The PI PDF load is not good for tables.
+
+978
+02:20:18.100 --> 02:20:24.950
+Jitendra K: So… If you would like to use… Or replace this…
+
+979
+02:20:25.460 --> 02:20:28.189
+Jitendra K: You have to go with PDF plumber.
+
+980
+02:20:28.650 --> 02:20:33.560
+Jitendra K: Or some vision transformers, or intellect processing from.
+
+981
+02:20:34.310 --> 02:20:38.290
+Jitendra K: cloud vendors, or you can go with Llama Parse API.
+
+982
+02:20:47.990 --> 02:20:52.880
+Jitendra K: 90 and above, I would say 90 and above is a good score for production ready, because
+
+983
+02:20:53.500 --> 02:20:59.759
+Jitendra K: With 10%, or let's say, if you're getting 5% or 10% of errors.
+
+984
+02:21:00.030 --> 02:21:04.999
+Jitendra K: That is still permissible, I would say for Phase 1, at least. You can go with Phases, right?
+
+985
+02:21:05.290 --> 02:21:09.509
+Jitendra K: So phase one, you will say, I will go with 90%, and then phase two, I will improve it.
+
+986
+02:21:09.780 --> 02:21:17.219
+Jitendra K: Maybe up to an extent of 95, and then so on and so forth. So, that means Phase 1, I think 90% is acceptable.
+
+987
+02:21:18.300 --> 02:21:26.860
+Jitendra K: How do we design, integrate, and manage this as an enterprise? For example, we create a RAG solution for customer support that need to be keep updated.
+
+988
+02:21:28.110 --> 02:21:37.889
+Jitendra K: So, you need to work on labeling with your users. So, you have to ask this question to your users.
+
+989
+02:21:38.070 --> 02:21:43.579
+Jitendra K: who's going to consume this app? They are business users, right? Their job is to provide you the right direction.
+
+990
+02:21:44.270 --> 02:21:53.160
+Jitendra K: So, you have to artifact that direction, and then we'll see how to use DSPY signatures in tomorrow's tutorial.
+
+991
+02:21:53.370 --> 02:22:01.919
+Jitendra K: There, you will see the format in which you should ask your user to give you a recommendation, right? They should know what is right and what is wrong, based upon their own.
+
+992
+02:22:02.430 --> 02:22:06.329
+Jitendra K: Factors that they consider to be generalized.
+
+993
+02:22:07.020 --> 02:22:11.530
+Jitendra K: So, you have to create templates with your users, get a requirement.
+
+994
+02:22:12.590 --> 02:22:22.600
+Jitendra K: And ask… give them some good amount of questions, and ask them to fill that form, so that when you're testing your model, you will get
+
+995
+02:22:23.210 --> 02:22:24.450
+Jitendra K: better results.
+
+996
+02:22:28.030 --> 02:22:34.740
+Jitendra K: This is unknown data, so 90% accuracy on any question. How can I generalize this? This is only for this document, right?
+
+997
+02:22:36.840 --> 02:22:40.690
+Jitendra K: This strategy is only for this document and this particular pair.
+
+998
+02:22:40.900 --> 02:22:50.470
+Jitendra K: If you're having a more complex document, more complex query, then it will… may retoriate. For this document, yes, it will give 90% on an average.
+
+999
+02:22:55.870 --> 02:22:58.209
+Jitendra K: The temperature is equal to zero determines thick.
+
+1000
+02:22:58.780 --> 02:23:03.190
+Jitendra K: So, I do not want to change any retrievers, chunks.
+
+1001
+02:23:03.910 --> 02:23:08.980
+Jitendra K: Generated by LLM. So I don't want any synthetic data to be a part of my re-ranking.
+
+1002
+02:23:09.570 --> 02:23:11.469
+Jitendra K: And that's the reason we keep it zero.
+
+1003
+02:23:21.960 --> 02:23:26.769
+Jitendra K: So I've shared the code, guys, so please work on this, and let me know if there's any question.
+
+1004
+02:23:29.570 --> 02:23:32.200
+Jitendra K: I will go on mute, I will wait for your…
+
+1005
+02:23:54.410 --> 02:23:58.570
+Jitendra K: Yeah, you just need to use your own API key, that's the only change.
+
+1006
+02:24:01.060 --> 02:24:05.320
+Jitendra K: Attention is all you need, I think you can download, from open source.
+
+1007
+02:24:05.540 --> 02:24:07.159
+Jitendra K: Collection Provider Tesla.
+
+1008
+02:25:00.390 --> 02:25:06.659
+Jitendra K: Yeah, that's a good question, valid question. We need, typically, quality engineers, QAs, to define
+
+1009
+02:25:07.110 --> 02:25:13.160
+Jitendra K: But, it's not QA exactly, I would say, because this is slightly new, right?
+
+1010
+02:25:13.660 --> 02:25:17.909
+Jitendra K: but yes, I mean, there are AI Ops engineers.
+
+1011
+02:25:18.070 --> 02:25:19.520
+Jitendra K: Who should do this job?
+
+1012
+02:25:19.810 --> 02:25:22.999
+Jitendra K: Not the functional QA, or manual QA.
+
+1013
+02:25:29.760 --> 02:25:35.039
+Jitendra K: So this is our testing framework, DSPY and AutoRide. Similar to machine learning.
+
+1014
+02:25:35.530 --> 02:25:37.830
+Jitendra K: There's no machine learning QA, right?
+
+1015
+02:25:38.130 --> 02:25:44.230
+Jitendra K: Until today. I do not see any opening in any company which says, I'm hiring for a machine learning QA.
+
+1016
+02:25:45.570 --> 02:25:59.420
+Jitendra K: So similarly, there would not be any, agentic AI QA in the future as well. There will be full-stack engineers who is going to develop this use case. And this is important for developers who is developing the application. It's not a QA job anymore.
+
+1017
+02:25:59.770 --> 02:26:03.430
+Jitendra K: It's a full-stack job, right? It's your job to test it.
+
+1018
+02:26:03.670 --> 02:26:04.590
+Jitendra K: as well.
+
+1019
+02:26:11.840 --> 02:26:15.389
+Jitendra K: Yeah, and the remaining commercial test case management solutions and…
+
+1020
+02:26:15.860 --> 02:26:19.769
+Jitendra K: All these things will be a part of your ecosystem, for sure.
+
+1021
+02:26:45.640 --> 02:26:52.320
+Jitendra K: Yeah, that's correct, and considering the fact that Agent can self-create these quotes.
+
+1022
+02:26:53.010 --> 02:26:58.339
+Jitendra K: So… organization, I don't think so they will hire any additional team for doing this work.
+
+1023
+02:27:08.760 --> 02:27:12.450
+Jitendra K: So, considering the fact that these are all automation efforts.
+
+1024
+02:27:12.960 --> 02:27:19.710
+Jitendra K: So once you create a framework, once you define your use cases, once you test your application, once you understand the complexity of application.
+
+1025
+02:27:20.010 --> 02:27:23.989
+Jitendra K: Then this framework can be reused as many as time.
+
+1026
+02:27:30.810 --> 02:27:35.030
+Jitendra K: You need to refresh the API, not a file. File will be same.
+
+1027
+02:28:30.590 --> 02:28:37.819
+Jitendra K: No, AutoRag is a hyperparameter tuning tool. Which you need to run along with your RAG pipeline to fine-tune the parameters.
+
+1028
+02:28:40.410 --> 02:28:43.350
+Jitendra K: So it's not a testing tool, I would say, it's a…
+
+1029
+02:28:43.820 --> 02:28:46.220
+Jitendra K: One way to fine-tune your rack pipeline.
+
+1030
+02:28:47.120 --> 02:28:50.970
+Jitendra K: Yes, and in the interim, you're testing it as well, simultaneously.
+
+1031
+02:32:00.250 --> 02:32:04.850
+Jitendra K: So you guys continue with the previous code, I'm just trying to make some changes.
+
+1032
+02:32:06.390 --> 02:32:07.809
+Jitendra K: In the new code.
+
+1033
+02:32:08.650 --> 02:32:13.010
+Jitendra K: You just continue with the previous one and let me know if there's any difficulty in understanding.
+
+1034
+02:33:25.510 --> 02:33:30.060
+Jitendra K: Rogue 1, Rogue 2, and Rogue 3 is for biogram, Unigram, biagram, and Trigram.
+
+1035
+02:33:31.030 --> 02:33:33.729
+Jitendra K: Combination of one word, two words, and three words.
+
+1036
+02:37:44.270 --> 02:37:47.350
+Jitendra K: So, any question, guys, on the previous notebook that I've shared?
+
+1037
+02:37:48.760 --> 02:37:51.239
+Jitendra K: I'm just managing another notebook.
+
+1038
+02:37:51.750 --> 02:37:54.010
+Jitendra K: But any question on the previous notebook?
+
+1039
+02:38:05.390 --> 02:38:07.500
+Jitendra K: Okay, how about others?
+
+1040
+02:38:08.240 --> 02:38:09.610
+Jitendra K: I'm falling so far?
+
+1041
+02:38:48.410 --> 02:38:53.409
+Jitendra K: Okay, so just to give you a quick recap, what we have learned so far in this tutorial is…
+
+1042
+02:38:53.550 --> 02:38:59.079
+Jitendra K: We have implemented a way to fine-tune the rack pipeline with some automation.
+
+1043
+02:38:59.530 --> 02:39:02.000
+Jitendra K: And the package that we have used is AutoRag.
+
+1044
+02:39:02.370 --> 02:39:05.580
+Jitendra K: So the idea of AutoRag is very simple. When you have
+
+1045
+02:39:06.090 --> 02:39:10.060
+Jitendra K: When you're running any, experimental pipeline, or…
+
+1046
+02:39:10.700 --> 02:39:19.410
+Jitendra K: the pipeline for creating the rack. You need to use, some… Some sort of,
+
+1047
+02:39:20.940 --> 02:39:25.209
+Jitendra K: QA, or I would say testing on your RAC advocacies.
+
+1048
+02:39:25.650 --> 02:39:29.750
+Jitendra K: At this particular pipeline, AutoRag will help us to calibrate that model.
+
+1049
+02:39:30.100 --> 02:39:37.199
+Jitendra K: That means it will work on retrieval and the generator part, both, and then it will give you
+
+1050
+02:39:37.670 --> 02:39:45.010
+Jitendra K: The answer, how to optimize your search space with a money method, this is applicable to your model, right?
+
+1051
+02:39:45.240 --> 02:39:48.169
+Jitendra K: And this method will definitely going to help
+
+1052
+02:39:48.650 --> 02:39:55.469
+Jitendra K: in fine-tuning a lot of other parameters. We'll talk about ESPY in the next tutorial.
+
+1053
+02:39:55.940 --> 02:39:58.950
+Jitendra K: And then, if we know that,
+
+1054
+02:39:59.530 --> 02:40:03.000
+Jitendra K: That, the SPY will help you to rewrite the prompt
+
+1055
+02:40:03.430 --> 02:40:08.790
+Jitendra K: with the best parameters, right? So that will be a quick win for us. Big win for us.
+
+1056
+02:40:09.050 --> 02:40:11.579
+Jitendra K: That means we need not to focus on…
+
+1057
+02:40:13.370 --> 02:40:20.870
+Jitendra K: Emphasizing the user to write a quality… Prompt always, but we'd rather
+
+1058
+02:40:21.230 --> 02:40:28.810
+Jitendra K: Use any sort of prompt from the user, and then rephrase that prompt, To generate the right answer.
+
+1059
+02:40:30.100 --> 02:40:33.690
+Jitendra K: Right? So that is what we are doing with the help of these pipelines.
+
+1060
+02:40:42.120 --> 02:40:47.599
+Jitendra K: So I think this is pretty much what we have for today, guys. So, any question before we wind up? Any final comments?
+
+1061
+02:40:50.030 --> 02:40:51.610
+Jitendra K: Do you like to ask?
+
+1062
+02:41:19.830 --> 02:41:25.489
+Jitendra K: Alright guys, so I think, we can launch a poll now, and then let's complete this topic.
+

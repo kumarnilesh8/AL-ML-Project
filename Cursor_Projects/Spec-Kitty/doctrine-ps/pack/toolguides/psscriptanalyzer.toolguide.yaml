@@ -1,0 +1,47 @@
+schema_version: "1.0"
+id: psscriptanalyzer
+tool: PSScriptAnalyzer
+title: PSScriptAnalyzer — PowerShell static analysis
+guide_path: toolguides/psscriptanalyzer.md
+summary: >
+  Static analysis tool for PowerShell scripts and modules. Checks for common coding
+  issues, style violations, and security anti-patterns using configurable rule sets.
+  Ships as a PowerShell module; runs on PowerShell 7+ (cross-platform). Use before
+  every handoff as part of the script quality gate.
+
+  WHEN TO USE: Lint PowerShell code during development and before code review.
+  Enforce coding standards from powershell-conventions. Detect security issues
+  (Invoke-Expression, plaintext credentials, missing error handling).
+
+  INSTALLATION:
+    Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+    # or via PSResourceGet:
+    Install-PSResource PSScriptAnalyzer -Scope CurrentUser
+
+  KEY COMMANDS:
+    Invoke-ScriptAnalyzer -Path ./Public -Recurse                    # lint a directory
+    Invoke-ScriptAnalyzer -Path ./script.ps1 -Severity Error,Warning # filter severity
+    Invoke-ScriptAnalyzer -Path . -Settings PSGallery                # gallery preset
+    Invoke-ScriptAnalyzer -Path . -ExcludeRule PSAvoidUsingWriteHost # suppress a rule
+    Get-ScriptAnalyzerRule                                           # list all rules
+
+  COMMON PITFALLS:
+    1. Running without -Recurse on directories — only checks top-level .ps1 files.
+    2. Suppressing rules globally instead of per-occurrence with [Diagnostics
+       .CodeAnalysis.SuppressMessageAttribute()].
+    3. Confusing Information-level rules with errors — always resolve Error and
+       Warning severity; Information is advisory.
+    4. Not installing the module before invoking — the command silently does nothing
+       if the module is not loaded.
+
+  KEY RULES:
+    PSAvoidUsingInvokeExpression — flags Invoke-Expression (injection risk)
+    PSAvoidUsingPlainTextForPassword — flags plaintext credential handling
+    PSUseShouldProcessForStateChangingFunctions — enforces -WhatIf / -Confirm
+    PSAvoidUsingCmdletAliases — flags aliases that reduce readability
+    PSUseDeclaredVarsMoreThanAssignments — flags unused variables
+    PSUseApprovedVerbs — enforces Verb-Noun naming with approved verbs
+commands:
+  - Invoke-ScriptAnalyzer
+  - Get-ScriptAnalyzerRule
+last_updated: "2026-06-10"

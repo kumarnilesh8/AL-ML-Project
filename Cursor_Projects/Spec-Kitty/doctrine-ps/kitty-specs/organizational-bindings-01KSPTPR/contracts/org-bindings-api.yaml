@@ -1,0 +1,166 @@
+openapi: "3.1.0"
+info:
+  title: Org Bindings API
+  version: "1.0"
+  description: >
+    CRUD REST API for organisational binding records.
+    All endpoints operate on config/org-bindings.yaml via atomic file writes.
+
+servers:
+  - url: http://localhost:3000/api
+    description: Local dashboard server
+
+paths:
+  /org-bindings:
+    get:
+      operationId: listOrgBindings
+      summary: List all org bindings
+      description: >
+        Returns all bindings from config/org-bindings.yaml.
+        Each binding is augmented with `orphaned: true` when its domain_id
+        is absent from config/domain-config.yaml.
+        Returns an empty array when the file does not exist.
+      responses:
+        "200":
+          description: Array of org bindings (may be empty)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrgBinding"
+
+    post:
+      operationId: createOrgBinding
+      summary: Create a new org binding
+      description: >
+        Creates a new binding. The server generates a UUID v4 `id`.
+        The client must not supply an `id` field.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrgBindingInput"
+      responses:
+        "201":
+          description: Created binding with server-assigned id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgBinding"
+        "400":
+          description: Validation failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+
+  /org-bindings/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: Binding UUID
+
+    put:
+      operationId: updateOrgBinding
+      summary: Replace an existing org binding
+      description: >
+        Full replacement of the binding with the given id.
+        The `id` in the request body (if present) must match the path id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrgBindingInput"
+      responses:
+        "200":
+          description: Updated binding
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgBinding"
+        "400":
+          description: Validation failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+        "404":
+          description: Binding not found
+
+    delete:
+      operationId: deleteOrgBinding
+      summary: Delete a binding
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Binding not found
+
+components:
+  schemas:
+    RaciRole:
+      type: string
+      enum: [R, A, C, I]
+      description: "R=Responsible, A=Accountable, C=Consulted, I=Informed"
+
+    OrgBindingInput:
+      type: object
+      required: [domain_id, department, spoc, accountability]
+      properties:
+        domain_id:
+          type: string
+          description: Must exist in config/domain-config.yaml
+        department:
+          type: string
+          minLength: 1
+          maxLength: 120
+        spoc:
+          type: string
+          minLength: 1
+          description: >
+            Display name, email, or mailing list.
+            If the value contains '@', it must match .*@regnology\.net.
+        accountability:
+          $ref: "#/components/schemas/RaciRole"
+        involvement:
+          type: string
+          maxLength: 500
+          description: Optional free-text rationale
+
+    OrgBinding:
+      allOf:
+        - $ref: "#/components/schemas/OrgBindingInput"
+        - type: object
+          required: [id]
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: Server-assigned; stable; never reused
+            orphaned:
+              type: boolean
+              description: >
+                True when domain_id is absent from domain-config.yaml.
+                Computed at read time; not persisted.
+
+    ValidationError:
+      type: object
+      required: [error, fields]
+      properties:
+        error:
+          type: string
+          example: Validation failed
+        fields:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            spoc: "Must be a valid @regnology.net email address"
+            accountability: "Must be one of R, A, C, I"
